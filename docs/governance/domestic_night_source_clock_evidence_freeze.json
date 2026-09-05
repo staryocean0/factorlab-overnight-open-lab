@@ -1,0 +1,53 @@
+{
+  "schema_id": "overnight_open_domestic_night_clock_evidence_freeze@1.0",
+  "registered_date": "2026-09-06",
+  "status": "frozen_before_crosscheck_price_values",
+  "purpose": "Bind the historical exchange-clock evidence used to assign prior-evening bars to the following exchange trading day for the frozen source-validation samples.",
+  "SHFE": {
+    "trading_day_semantics": {
+      "fact": "A trading day starts with the previous workday's continuous trading and ends with the current day session.",
+      "official_url": "https://edu.shfe.com.cn/TradingAssistant/RulesIntroduction/518.html"
+    },
+    "CU": {
+      "facts": [
+        "SHFE continuous trading for copper/aluminum/lead/zinc launched on 2013-12-20.",
+        "For the frozen 2016-06-15, 2018-06-15 and 2020-06-15 samples, CU continuous trading is 21:00-01:00."
+      ],
+      "official_urls": [
+        "https://www.shfe.com.cn/content/lxjy/main.html",
+        "https://www.shfe.com.cn/publicnotice/notice/201809/t20180906_793549.html"
+      ]
+    },
+    "RB": {
+      "facts": [
+        "RB continuous trading launched on 2014-12-26 at 21:00-01:00.",
+        "SHFE announced on 2016-04-26 that RB/HRC/fuel-oil/bitumen continuous trading was shortened from 21:00-01:00 to 21:00-23:00.",
+        "All three frozen RB sample dates are after that shortening and therefore use 21:00-23:00."
+      ],
+      "official_urls": [
+        "https://www.shfe.com.cn/content/lxjy/mtbd4_en.html",
+        "https://tsite.shfe.com.cn/eng/circularnews/news/911401536.html",
+        "https://www.shfe.com.cn/upload/20211021/1634804081608.pdf"
+      ]
+    }
+  },
+  "DCE": {
+    "I": {
+      "official_url": "https://www.dce.com.cn/dalianshangpin/resource/cms/2019/04/2019042612023697006.pdf",
+      "document": "Dalian Futures Market, 2019 Issue 3, published by Dalian Commodity Exchange",
+      "facts": [
+        "DCE initially operated night trading at 21:00-02:30.",
+        "On 2015-05-08 the night-session end was shortened to 23:30.",
+        "In March 2019 it was shortened again to 23:00.",
+        "Therefore frozen I1609 and I1809 samples use 21:00-23:30; frozen I2009 uses 21:00-23:00."
+      ]
+    }
+  },
+  "holiday_rule": "For SHFE/DCE, an absent night session must remain absent; no prior-night values are forward-filled across national-holiday suspension dates.",
+  "authority": {
+    "predictive_model_execution": false,
+    "fresh_oos": false,
+    "production": false,
+    "registry_mutation": false
+  }
+}
