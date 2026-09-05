@@ -1,5 +1,5 @@
 {
-  "schema_id": "overnight_open_global_spillover_v6_daily_a50_preregistration@1.0",
+  "schema_id": "overnight_open_global_spillover_v6_daily_a50_preregistration@1.1",
   "registered_date": "2026-09-05",
   "status": "result_free_before_daily_SGX_A50_bulk_extraction_and_v6_model_execution",
   "branch": "codex/overnight-next-explained-20260905",
@@ -33,7 +33,11 @@
     "window": ["2015-01-01", "2020-12-31"],
     "post_2020_rows_forbidden": true,
     "raw_archive_policy": "full-market SGX zip archives remain ephemeral; every used archive URL/key/SHA256, detected schema, CN-row count and eligible-trade count must be frozen in compact manifests",
-    "pre_2016_schema_gate": "the existing early-2015 zero-trade anomaly must be resolved and covered by tests before bulk model execution; if old-format trade semantics cannot be established, affected rows remain unavailable and no heuristic reinterpretation may be chosen from model results"
+    "legacy_schema_correction": "docs/governance/global_spillover_v6_sgx_legacy_schema_correction.json",
+    "legacy_trade_code": "Y",
+    "later_trade_code": "T",
+    "field_resolution": "normalized header names, not fixed field positions",
+    "settlement_code_is_trade": false
   },
   "contract_selection": {
     "selection_time": "previous China trading date at or before 15:00:00 Singapore/Beijing time",
@@ -66,7 +70,7 @@
     "previous_endpoint_must_not_exceed_15_00": true,
     "same_contract_endpoints": true,
     "official_archive_sha_required": true,
-    "pre_2016_schema_tests_required": true,
+    "legacy_schema_tests_required": true,
     "post_2020_rows": 0,
     "if_any_hard_gate_fails": "do not execute or adjudicate v6; repair data/schema/clock only without changing feature or model definitions"
   },
@@ -102,13 +106,16 @@
     "missing_row_rule": "exclude from both candidates and report the cause; no imputation, forward-fill, contract switch or sample-specific fallback"
   },
   "primary_adjudication": {
-    "same_sample_R2": "V6A holdout R2 must be greater than comparator holdout R2",
-    "equivalent_SSE_check": "on the same target sample, V6A holdout SSE must be lower than comparator holdout SSE",
-    "IC": "V6A holdout IC must be greater than comparator holdout IC",
-    "sign_hit": "V6A sign hit may not deteriorate by more than 0.01 absolute",
-    "annual_stability": "V6A SSE must not be worse than comparator in either 2019 or 2020; report annual IC and sign hit without post-hoc year exclusion",
-    "quarterly_diagnostic": "report all eight 2019-2020 calendar-quarter SSE differences and IC differences; require positive total SSE improvement, positive median quarterly SSE improvement and at least five of eight quarters with nonnegative SSE improvement",
-    "holiday_preservation": "report the frozen holiday subset separately; because the new ordinary feature is zero there, material holiday deterioration caused by refitting is a warning and may block progression if holiday SSE becomes worse than the common-sample comparator"
+    "same_sample_R2": "V6A holdout R2 > comparator holdout R2",
+    "equivalent_SSE_check": "V6A holdout SSE < comparator holdout SSE",
+    "full_holdout_IC": "V6A holdout IC > comparator holdout IC",
+    "full_holdout_sign_hit": "V6A sign hit >= comparator sign hit - 0.01 absolute",
+    "economic_sign": "standardized coefficient on a50_ordinary_preauction_closure_return must be > 0",
+    "ordinary_subset": "ordinary-session SSE improvement must be > 0 and ordinary-session IC must be >= comparator ordinary-session IC",
+    "annual_stability": "V6A SSE must be <= comparator SSE in both 2019 and 2020; annual IC and sign hit are reported without year exclusion",
+    "quarterly_stability": "for the eight calendar quarters in 2019-2020, median quarterly SSE improvement must be > 0 and at least five of eight quarters must have SSE improvement >= 0",
+    "holiday_preservation": "holiday-subset SSE improvement must be >= -1e-12 versus the common-sample comparator; the new ordinary feature is zero on holiday rows so deterioration is not accepted as the price of ordinary-session fit",
+    "all_conditions_required_for_progression": true
   },
   "R2_aspiration": {
     "range": [0.25, 0.35],
