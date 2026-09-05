@@ -34,21 +34,25 @@ jobs:
         run: python scripts/diagnose_us_feature_clock_mismatches.py | tee us_feature_clock_mismatches.log
       - name: Attribute v1 gain to source-clock mismatch
         run: python scripts/audit_global_spillover_v1_clock_mismatch_attribution.py | tee global_spillover_v1_clock_mismatch_attribution.log
-      - name: Verify holiday cumulative endpoints
+      - name: Verify holiday cumulative endpoints with conservative gate
         run: python scripts/audit_global_spillover_holiday_endpoints.py | tee global_spillover_holiday_endpoint_audit.log
+      - name: Verify holiday cumulative endpoints with corrected mathematical gate
+        run: python scripts/audit_global_spillover_holiday_endpoints_corrected.py | tee global_spillover_holiday_endpoint_audit_corrected.log
       - name: Upload diagnostic receipts
         uses: actions/upload-artifact@v4
         with:
-          name: global-spillover-holiday-endpoint-forensic
+          name: global-spillover-holiday-endpoint-final-forensic
           path: |
             artifacts/research/global_spillover_v1_results.json
             artifacts/research/us_feature_clock_alignment_diagnostic.json
             artifacts/research/us_feature_clock_mismatches.json
             artifacts/research/global_spillover_v1_clock_mismatch_attribution.json
             artifacts/research/global_spillover_holiday_endpoint_audit.json
+            artifacts/research/global_spillover_holiday_endpoint_audit_corrected.json
             global_spillover_v1.log
             us_feature_clock_alignment.log
             us_feature_clock_mismatches.log
             global_spillover_v1_clock_mismatch_attribution.log
             global_spillover_holiday_endpoint_audit.log
+            global_spillover_holiday_endpoint_audit_corrected.log
           if-no-files-found: error
