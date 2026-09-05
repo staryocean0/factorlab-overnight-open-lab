@@ -30,6 +30,8 @@ jobs:
         run: python scripts/research_global_spillover_v1.py | tee global_spillover_v1.log
       - name: Diagnose baseline US feature transforms and calendars
         run: python scripts/diagnose_us_feature_clock_alignment.py | tee us_feature_clock_alignment.log
+      - name: Localize US feature mismatches
+        run: python scripts/diagnose_us_feature_clock_mismatches.py | tee us_feature_clock_mismatches.log
       - name: Upload diagnostic receipts
         uses: actions/upload-artifact@v4
         with:
@@ -37,6 +39,8 @@ jobs:
           path: |
             artifacts/research/global_spillover_v1_results.json
             artifacts/research/us_feature_clock_alignment_diagnostic.json
+            artifacts/research/us_feature_clock_mismatches.json
             global_spillover_v1.log
             us_feature_clock_alignment.log
+            us_feature_clock_mismatches.log
           if-no-files-found: error
