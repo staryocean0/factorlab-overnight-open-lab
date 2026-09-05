@@ -7,52 +7,54 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   research:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       - name: Install research dependencies
         run: python -m pip install --upgrade pip pandas pyarrow numpy scikit-learn pytest
-      - name: Validate bounded package
+      - name: Refresh authoritative FRED NASDAQ and VIX history
+        run: python scripts/refresh_external_us_fred_data.py | tee external_us_fred_refresh.log
+      - name: Validate refreshed bounded package
         run: python scripts/validate_theme_package.py
       - name: Run tests
         run: pytest -q
+      - name: Commit refreshed external data assets if changed
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/external/fred_us_nasdaq_vix_2014_2020.csv \
+                  data/development/us_nasdaq_vix.parquet \
+                  data/manifest.json \
+                  docs/governance/external_us_fred_2014_2020_manifest.json
+          if git diff --cached --quiet; then
+            echo "Authoritative external data already frozen; no commit needed."
+          else
+            git commit -m "data: freeze authoritative FRED US history through 2020"
+            git push origin HEAD:codex/overnight-global-spillover-20260905
+          fi
       - name: Replay frozen baseline
         run: python scripts/replay_baseline.py
-      - name: Replay preregistered spillover v1
-        run: python scripts/research_global_spillover_v1.py | tee global_spillover_v1.log
-      - name: Diagnose baseline US feature transforms and calendars
-        run: python scripts/diagnose_us_feature_clock_alignment.py | tee us_feature_clock_alignment.log
-      - name: Localize US feature mismatches
-        run: python scripts/diagnose_us_feature_clock_mismatches.py | tee us_feature_clock_mismatches.log
-      - name: Attribute v1 gain to source-clock mismatch
-        run: python scripts/audit_global_spillover_v1_clock_mismatch_attribution.py | tee global_spillover_v1_clock_mismatch_attribution.log
-      - name: Verify holiday cumulative endpoints with conservative gate
-        run: python scripts/audit_global_spillover_holiday_endpoints.py | tee global_spillover_holiday_endpoint_audit.log
-      - name: Verify holiday cumulative endpoints with corrected mathematical gate
-        run: python scripts/audit_global_spillover_holiday_endpoints_corrected.py | tee global_spillover_holiday_endpoint_audit_corrected.log
-      - name: Upload diagnostic receipts
+      - name: Run preregistered complete-clock v3
+        run: python scripts/research_global_spillover_v3_complete_clock.py | tee global_spillover_v3_complete_clock.log
+      - name: Upload v3 research receipts
         uses: actions/upload-artifact@v4
         with:
-          name: global-spillover-holiday-endpoint-final-forensic
+          name: global-spillover-v3-complete-clock
           path: |
-            artifacts/research/global_spillover_v1_results.json
-            artifacts/research/us_feature_clock_alignment_diagnostic.json
-            artifacts/research/us_feature_clock_mismatches.json
-            artifacts/research/global_spillover_v1_clock_mismatch_attribution.json
-            artifacts/research/global_spillover_holiday_endpoint_audit.json
-            artifacts/research/global_spillover_holiday_endpoint_audit_corrected.json
-            global_spillover_v1.log
-            us_feature_clock_alignment.log
-            us_feature_clock_mismatches.log
-            global_spillover_v1_clock_mismatch_attribution.log
-            global_spillover_holiday_endpoint_audit.log
-            global_spillover_holiday_endpoint_audit_corrected.log
+            docs/governance/external_us_fred_2014_2020_manifest.json
+            data/external/fred_us_nasdaq_vix_2014_2020.csv
+            artifacts/research/global_spillover_v3_complete_clock_results.json
+            external_us_fred_refresh.log
+            global_spillover_v3_complete_clock.log
           if-no-files-found: error
