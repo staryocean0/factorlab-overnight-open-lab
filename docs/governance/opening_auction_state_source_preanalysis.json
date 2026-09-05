@@ -1,0 +1,85 @@
+{
+  "schema_id": "overnight_open_opening_auction_state_source_preanalysis@1.0",
+  "registered_date": "2026-09-06",
+  "status": "source_and_clock_preanalysis_only_no_target_model",
+  "branch": "codex/overnight-auction-source-20260906",
+  "parent_frozen_candidate": {
+    "id": "V6A_plus_ordinary_A50_preauction_closure",
+    "parent_branch": "codex/overnight-next-explained-20260905",
+    "parent_commit": "02bbb216057f7024b5a82a87c80805383bb02c83",
+    "unseen_2021_2025_identity_must_not_be_mutated": true
+  },
+  "financial_question": "Can target-market opening-call-auction state explain a further part of the CSI1000 next-session opening gap while remaining causal and operationally distinct from simply reading the final opening price?",
+  "source_findings": {
+    "SSE": {
+      "historical_product": "SSE InfoNet historical market-data product",
+      "official_url": "https://www.sseinfo.com/services/assortment/historical/",
+      "finding": "The official historical-data catalogue explicitly lists opening call-auction data for SSE Level-2, alongside snapshots and tick trades. The catalogue does not list opening call-auction history under Level-1.",
+      "access_status": "licensed/application product rather than an anonymous public-download source",
+      "business_application": "https://bsp.sseinfo.com/"
+    },
+    "SZSE": {
+      "official_market_data_overview": "https://investor.szse.cn/English/services/dataServices/index.html",
+      "official_historical_interface_reference": "https://www.szse.cn/www/marketServices/technicalservice/history/P020180328468171229352.pdf",
+      "official_distributor": "Shenzhen Securities Information Co., Ltd. (SSIC)",
+      "distributor_url": "https://www.szsi.cn/cpfw/overseas/reference/overview/",
+      "finding": "Historical SZSE interface specifications already encode opening/closing call-auction reference price, matched quantity and unmatched quantity in the quotation fields. SSIC is the authorized SZSE market-data distributor and exposes Historical Tick Data as a licensed product category.",
+      "access_status": "licensed/application path; no reproducible anonymous historical Level-2 bulk download established in this preanalysis"
+    }
+  },
+  "exchange_rule_semantics": {
+    "SSE_auction_window": "09:15:00-09:25:00",
+    "SSE_cancel_rule": "orders may be cancelled during 09:15-09:20; cancellation requests are not accepted during 09:20-09:25",
+    "official_rule_url": "https://www.sse.com.cn/lawandrules/sselawsrules2025/stocks/exchange/c/c_20260424_10816482.shtml",
+    "published_auction_state_fields": [
+      "virtual_reference_price",
+      "virtual_matched_quantity",
+      "virtual_unmatched_quantity"
+    ]
+  },
+  "causal_clock_preanalysis": {
+    "preferred_first_research_cutoff": "09:19:59",
+    "reason": "This is the latest conceptual point before the non-cancellable 09:20-09:25 phase begins. It measures an early auction consensus/imbalance while leaving an operational distinction from the final opening result.",
+    "secondary_later_cutoffs": "not selectable in the first experiment; 09:20+ or near-09:25 snapshots require a separately preregistered execution-use case because they increasingly approximate the final auction result",
+    "09_25_final_auction_price_as_predictor": false,
+    "reason_09_25_forbidden": "The final call-auction price is economically almost the object being predicted. Using it to raise explanatory R2 would be target reconstruction rather than discovering an independent information factor.",
+    "current_repo_1m_0931_proxy_allowed": false
+  },
+  "candidate_information_families_if_licensed_history_is_obtained": {
+    "note": "These are economic measurement families only, not selectable candidates yet. Exact formulas and multiplicity must be frozen in a separate result-free preregistration after the historical file schema and coverage are audited.",
+    "families": [
+      "CSI1000-weighted virtual-reference-price gap versus previous close",
+      "CSI1000-weighted matched-quantity intensity normalized by lagged liquid capacity",
+      "signed unmatched-quantity imbalance at the frozen cutoff",
+      "breadth of component-level positive/negative virtual gaps",
+      "cross-sectional dispersion of virtual gaps"
+    ],
+    "component_weights": "must use point-in-time CSI1000 constituent/weight information available before the target date; current-day hindsight constituent reconstruction is forbidden"
+  },
+  "hard_data_gates_before_any_model": [
+    "document exact historical Level-2 file schema and historical coverage through 2020",
+    "prove timestamps and auction-state field semantics for both exchanges",
+    "prove point-in-time CSI1000 component weights or freeze a non-hindsight aggregation alternative",
+    "zero rows at or after the preregistered cutoff for the selectable first experiment",
+    "no use of final opening auction price as an explanatory feature",
+    "no 2021+ cloud rows"
+  ],
+  "decision": {
+    "scientific_priority": "high_if_official_history_can_be_licensed_or_otherwise_reproducibly_accessed",
+    "current_blocker": "data_access_contract_not_financial_mechanism",
+    "do_not_substitute": [
+      "09:31 one-minute bar",
+      "final 09:25 auction/open price",
+      "unverified retail screen scrape",
+      "post-open order-book state"
+    ]
+  },
+  "authority": {
+    "predictive_model_execution": false,
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false,
+    "merge_main": false
+  }
+}
