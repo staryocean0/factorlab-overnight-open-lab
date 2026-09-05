@@ -1,0 +1,103 @@
+{
+  "schema_id": "overnight_open_domestic_night_shfe_volume_integrity_receipt@1.0",
+  "sealed_date": "2026-09-06",
+  "scope": "Result-free source-integrity gate for using previous-China-day SHFE 5-minute volume as a causal CU/RB contract-selection input. No CSI1000 target metrics or predictive model were read or executed.",
+  "selection_preregistration": "docs/governance/domestic_night_causal_contract_selection_preregistration.json",
+  "source_validation_receipt": "docs/governance/domestic_night_shfe_source_validation_receipt.json",
+  "formal_execution": {
+    "workflow": "overnight-domestic-night-shfe-volume-gate",
+    "run_id": 33998426743,
+    "job_id": 101392891813,
+    "head_sha": "f131ec77625a2ffe14e744568291ab2bb7f0e453",
+    "conclusion": "success",
+    "tests": "8 passed",
+    "artifact": {
+      "id": 9978751544,
+      "name": "overnight-domestic-night-shfe-volume-integrity",
+      "size_bytes": 7460,
+      "sha256": "39ef0a3a553df4f5c4dbe1936df8c37be6fb4e9a939980ac39361f614bf1cd1b"
+    }
+  },
+  "data_boundary": {
+    "CSI1000_target_rows_read": 0,
+    "predictive_model_execution": false,
+    "post_2020_transport_rows_read": 0
+  },
+  "frozen_measurement": {
+    "transport": "pinned Freddy-Hexas/china-futures-5min-2015-2025 commit 1a402721d639432875504a343e2b9ffe9508cd36",
+    "authoritative_comparator": "exact-contract Shanghai Futures Exchange daily VOLUME",
+    "aggregation": "sum 5-minute volume over the already-validated exchange trading-day clock",
+    "tolerance": 0.0,
+    "repair_after_values": false
+  },
+  "SHFE_CU": {
+    "product_pass": true,
+    "sample_pass_count": 2,
+    "sample_total": 3,
+    "samples": [
+      {
+        "date": "2016-06-15",
+        "contract": "CU1607",
+        "transport_volume": 54330.0,
+        "official_volume": 54330.0,
+        "difference": 0.0,
+        "ratio": 1.0,
+        "exact_match": true
+      },
+      {
+        "date": "2018-06-15",
+        "contract": "CU1807",
+        "transport_volume": 63892.0,
+        "official_volume": 63892.0,
+        "difference": 0.0,
+        "ratio": 1.0,
+        "exact_match": true
+      },
+      {
+        "date": "2020-06-15",
+        "contract": "CU2007",
+        "transport_volume": 178130.0,
+        "official_volume": 184390.0,
+        "difference": -6260.0,
+        "ratio": 0.9660502196431476,
+        "exact_match": false,
+        "caveat": "A single frozen sample undercounts official daily volume by about 3.4%. The result-free gate required at least 2/3 exact samples per product and no unresolved systematic scale or clock pattern, so CU passes but this discrepancy remains a mandatory transport-risk caveat. No scaling correction is permitted."
+      }
+    ],
+    "systematic_scale_pattern": false
+  },
+  "SHFE_RB": {
+    "product_pass": true,
+    "sample_pass_count": 3,
+    "sample_total": 3,
+    "samples": [
+      {"date": "2016-06-15", "contract": "RB1610", "transport_volume": 5505990.0, "official_volume": 5505990.0, "difference": 0.0, "ratio": 1.0, "exact_match": true},
+      {"date": "2018-06-15", "contract": "RB1810", "transport_volume": 3290156.0, "official_volume": 3290156.0, "difference": 0.0, "ratio": 1.0, "exact_match": true},
+      {"date": "2020-06-15", "contract": "RB2010", "transport_volume": 1490916.0, "official_volume": 1490916.0, "difference": 0.0, "ratio": 1.0, "exact_match": true}
+    ],
+    "systematic_scale_pattern": false
+  },
+  "adjudication": {
+    "SHFE_CU_pass": true,
+    "SHFE_RB_pass": true,
+    "volume_integrity_gate_pass": true,
+    "contract_selection_rule_admitted": "previous-China-day 09:00-14:55 volume ranking for CU/RB may enter a separately preregistered predictive experiment",
+    "DCE_I_status": "excluded because authoritative DCE price validation remains authentication-blocked",
+    "scientific_status": "CU_RB_volume_ranking_contract_selection_admitted_waiting_predictive_preregistration"
+  },
+  "forbidden": [
+    "rescale transport volume",
+    "multiply or divide volume to force reconciliation",
+    "drop the 2020 CU discrepancy from the evidence record",
+    "replace DCE iron ore with another product after target results",
+    "use future full-day volume or future open interest for contract selection"
+  ],
+  "authority": {
+    "predictive_model_execution": false,
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false,
+    "merge_main": false
+  }
+}
