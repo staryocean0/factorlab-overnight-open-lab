@@ -54,6 +54,14 @@
       "sha256": "eb1878f89712f23d004ddd588bc5b599a24c87178ff1b3e75c897e5f722b7fe3",
       "min_day": "2015-01-06",
       "max_day": "2020-12-30"
+    },
+    {
+      "path": "data/development/shfe_cu_rb_night_endpoints.parquet",
+      "rows": 1356,
+      "bytes": 156571,
+      "sha256": "c6935ea418b8abe0feedb64d9490245e18e50327f8716d0469c71b2cbef04a1c",
+      "min_day": "2015-01-06",
+      "max_day": "2020-12-31"
     }
   ]
 }
