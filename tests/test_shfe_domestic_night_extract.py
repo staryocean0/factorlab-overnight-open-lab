@@ -1,15 +1,13 @@
 from __future__ import annotations
 
-import importlib.util
+import sys
 from pathlib import Path
 
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
-SPEC = importlib.util.spec_from_file_location("night_extract", ROOT / "scripts/shfe_domestic_night_extract.py")
-mod = importlib.util.module_from_spec(SPEC)
-assert SPEC.loader is not None
-SPEC.loader.exec_module(mod)
+sys.path.insert(0, str(ROOT / "scripts"))
+import shfe_domestic_night_extract as mod  # noqa: E402
 
 
 def make_frame(rows: list[tuple[str, float, float]]) -> pd.DataFrame:
