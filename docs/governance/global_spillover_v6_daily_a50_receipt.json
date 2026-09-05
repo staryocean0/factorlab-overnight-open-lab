@@ -1,0 +1,192 @@
+{
+  "schema_id": "overnight_open_global_spillover_v6_daily_a50_receipt@1.0",
+  "sealed_date": "2026-09-05",
+  "research_scope": "CSI1000 next-session 09:31 opening-gap sign and magnitude; ordinary-session same-contract SGX FTSE China A50 price discovery from previous mainland close to strictly before the next mainland opening call auction",
+  "parent_candidate": "V5A_plus_A50_closure",
+  "preregistration": "docs/governance/global_spillover_v6_daily_a50_preregistration.json",
+  "formal_execution": {
+    "workflow": "overnight-phase6-daily-a50-finalize",
+    "run_id": 33979839061,
+    "job_id": 101342974088,
+    "workflow_head_sha": "2ffec2a2ebfc3490ff0805e9b14680aa076a320e",
+    "conclusion": "success",
+    "tests": "32 passed",
+    "artifact": {
+      "id": 9973420646,
+      "name": "overnight-phase6-daily-a50-final",
+      "size_bytes": 194185,
+      "sha256": "86123e5f20dbeff639cdf59305274727953e061f532ff9287ec3c4d3cec88a48"
+    }
+  },
+  "data_freeze": {
+    "commit": "0ae33649208805937dd41549f6874496319ae911",
+    "manifest": "docs/governance/external_sgx_a50_ordinary_preauction_2015_2020_manifest.json",
+    "ordinary_endpoint_parquet": "data/development/sgx_a50_ordinary_preauction_endpoints.parquet",
+    "ordinary_events_total": 1423,
+    "ordinary_events_usable": 1352,
+    "overall_ordinary_coverage": 0.9501054111033029,
+    "by_year_coverage": {
+      "2015": 0.9493670886075949,
+      "2016": 0.9493670886075949,
+      "2017": 0.9537815126050421,
+      "2018": 0.9449152542372882,
+      "2019": 0.9493670886075949,
+      "2020": 0.9537815126050421
+    },
+    "official_provider": "Singapore Exchange official historical derivatives endpoint",
+    "target_cutoff": "09:14:59 Singapore/Beijing time",
+    "post_2020_rows": 0,
+    "archive_parse_failures_after_corrections": 0,
+    "legacy_blank_price_trade_status_rows_skipped": 152,
+    "legacy_schema_correction": "docs/governance/global_spillover_v6_sgx_legacy_schema_correction.json",
+    "time_guard_incident": "docs/governance/global_spillover_v6_time_guard_incident.json"
+  },
+  "common_sample": {
+    "all_panel_rows": 1462,
+    "common_rows_before_base_feature_complete_case": 1384,
+    "train_common_coverage": 0.9446153846153846,
+    "holdout_common_coverage": 0.9507186858316222,
+    "fitted_n_train": 900,
+    "evaluated_n_holdout": 461,
+    "same_rows_for_comparator_and_candidate": true
+  },
+  "candidates": {
+    "V5A_common_sample_comparator": {
+      "n_train": 900,
+      "n_holdout": 461,
+      "holdout_r2": 0.17155734851500282,
+      "holdout_ic": 0.5107175740312011,
+      "holdout_sign_hit": 0.7180043383947939,
+      "holdout_sse": 0.022103481347638152,
+      "year_diagnostics": {
+        "2019": {"n": 230, "ic": 0.563858275547634, "sign_hit": 0.6956521739130435, "sse": 0.0059602195544296785},
+        "2020": {"n": 231, "ic": 0.49332176992327154, "sign_hit": 0.7402597402597403, "sse": 0.016143261793208474}
+      }
+    },
+    "V6A_plus_ordinary_A50_preauction_closure": {
+      "n_train": 900,
+      "n_holdout": 461,
+      "holdout_r2": 0.38301698298609854,
+      "delta_r2_vs_common_v5a": 0.21145963447109573,
+      "holdout_ic": 0.6537331110508787,
+      "delta_ic_vs_common_v5a": 0.14301553701967762,
+      "holdout_sign_hit": 0.7592190889370932,
+      "sign_hit_delta_vs_common_v5a": 0.041214750542299284,
+      "holdout_sse": 0.01646157713383164,
+      "sse_improvement_vs_common_v5a": 0.005641904213806511,
+      "a50_ordinary_preauction_closure_return_standardized_coefficient": 0.0037718050355083346,
+      "year_diagnostics": {
+        "2019": {"n": 230, "ic": 0.7708426210923135, "sign_hit": 0.7434782608695653, "sse": 0.003668513485550507},
+        "2020": {"n": 231, "ic": 0.5954361581244779, "sign_hit": 0.7748917748917749, "sse": 0.01279306364828113}
+      }
+    }
+  },
+  "mechanism_subsets": {
+    "ordinary": {
+      "n": 450,
+      "comparator_ic": 0.5022139324972367,
+      "candidate_ic": 0.6454773351734809,
+      "delta_ic": 0.14326340267624416,
+      "comparator_sign_hit": 0.7177777777777777,
+      "candidate_sign_hit": 0.76,
+      "comparator_sse": 0.015972574673340526,
+      "candidate_sse": 0.010572891252517868,
+      "sse_improvement": 0.005399683420822658
+    },
+    "holiday": {
+      "n": 11,
+      "comparator_ic": 0.6236704203541387,
+      "candidate_ic": 0.792625233297347,
+      "delta_ic": 0.16895481294320835,
+      "comparator_sign_hit": 0.8181818181818182,
+      "candidate_sign_hit": 0.7272727272727273,
+      "comparator_sse": 0.006130906674297626,
+      "candidate_sse": 0.005888685881313768,
+      "sse_improvement": 0.00024222079298385763,
+      "caveat": "holiday SSE and IC improve under refitting, but sign hit drops on the 11-event consumed subset; this does not violate the frozen v6 gate but must be treated as a material small-sample caveat"
+    }
+  },
+  "quarterly_stability": {
+    "quarter_count": 8,
+    "nonnegative_sse_improvement_quarters": 6,
+    "median_sse_improvement": 0.0002980888516209993,
+    "negative_quarters": ["2019Q4", "2020Q2"]
+  },
+  "preregistered_adjudication": {
+    "r2_improves": true,
+    "sse_improves": true,
+    "ic_improves": true,
+    "sign_within_one_point": true,
+    "economic_sign_positive": true,
+    "ordinary_sse_improves": true,
+    "ordinary_ic_not_worse": true,
+    "both_years_sse_not_worse": true,
+    "median_quarterly_sse_improvement_positive": true,
+    "at_least_five_of_eight_quarters_nonnegative_sse": true,
+    "holiday_sse_preserved": true,
+    "all_conditions_required": true,
+    "progression_rule_pass": true,
+    "selected_progression_candidate": "V6A_plus_ordinary_A50_preauction_closure"
+  },
+  "post_hoc_nonselection_forensics": {
+    "plan": "docs/governance/global_spillover_v6_forensic_diagnostic_plan.json",
+    "run_id": 33980049842,
+    "job_id": 101343552472,
+    "workflow_head_sha": "e21e67b3649c1daf90f55efff7a04bf12eb7649b",
+    "conclusion": "success",
+    "tests": "32 passed",
+    "artifact": {
+      "id": 9973479352,
+      "name": "overnight-phase6-forensics",
+      "sha256": "9902c2f10a35f33714250e07de9a011ab0aa00f95b31715f38eb755ea74c4806"
+    },
+    "causal_clock": {
+      "fixed_ordinary_holdout_endpoint_rows": 450,
+      "start_after_150000_count": 0,
+      "target_at_or_after_091500_count": 0,
+      "target_end_time_min": 91411,
+      "target_end_time_median": 91458,
+      "target_end_time_max": 91459,
+      "target_end_exact_091459_count": 140,
+      "max_absolute_a50_return": 0.0466153222537
+    },
+    "incremental_information": {
+      "same_row_corr_feature_target": 0.6190503796361841,
+      "lead_one_row_corr_feature_t_target_t_plus_1": 0.018545382241320064,
+      "lag_one_row_corr_feature_t_target_t_minus_1": -0.02333175683473157,
+      "corr_feature_comparator_residual": 0.3116631200433781,
+      "direct_feature_target_sign_hit": 0.6688888888888889
+    },
+    "concentration": {
+      "positive_row_count": 253,
+      "negative_row_count": 197,
+      "top1_share_of_positive_gain": 0.14639866652135933,
+      "top5_share_of_positive_gain": 0.3495939918601761,
+      "top10_share_of_positive_gain": 0.4934261452133549,
+      "remaining_total_improvement_after_removing_top1_positive_row": 0.004202345879213842,
+      "remaining_total_improvement_after_removing_top5_positive_rows": 0.0025404906377107625,
+      "remaining_total_improvement_after_removing_top10_positive_rows": 0.0013641436053757972
+    },
+    "redundancy": {
+      "max_absolute_existing_feature_correlation": {"feature": "us_nasdaq", "correlation": 0.49164376947862864},
+      "coefficient_sign_flips": ["hkma_usdcny_closure_return", "overnight_trend_5"],
+      "interpretation": "A50 overlaps materially with existing global proxies but still has substantial correlation with comparator residual; Ridge coefficient redistribution is a material caveat, not an invalidation under the frozen diagnostic plan"
+    }
+  },
+  "R2_interpretation": {
+    "consumed_holdout_R2": 0.38301698298609854,
+    "exceeds_phase6_aspirational_range_upper_bound": true,
+    "aspiration_used_for_selection": false,
+    "fresh_oos_claim": false,
+    "statement": "The 38.30% value is a strong consumed-holdout progression result, not a verified 2021-2025 out-of-sample explanatory power."
+  },
+  "scientific_status": "ordinary_A50_preauction_price_discovery_strong_progression_candidate_waiting_genuinely_unseen_confirmation",
+  "authority": {
+    "baseline_replacement": false,
+    "fresh_oos": false,
+    "production": false,
+    "registry_mutation": false,
+    "runtime_routing": false,
+    "merge_main": false
+  }
+}
