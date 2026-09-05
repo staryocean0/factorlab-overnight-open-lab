@@ -21,6 +21,19 @@ ORDINARY_MANIFEST_PATH = ROOT / "docs/governance/external_sgx_a50_ordinary_preau
 OUT_PATH = ROOT / "artifacts/research/global_spillover_v6_daily_a50_results.json"
 
 
+def _time_values_as_hhmmss_int(values: pd.Series) -> pd.Series:
+    numeric = pd.to_numeric(values, errors="raise")
+    if numeric.isna().any():
+        raise AssertionError("endpoint time contains missing values inside an available subset")
+    arr = numeric.to_numpy(dtype=float)
+    if not np.all(np.isfinite(arr)) or not np.allclose(arr, np.round(arr), atol=0.0, rtol=0.0):
+        raise AssertionError("endpoint time contains non-integer HHMMSS values")
+    ints = pd.Series(np.round(arr).astype(np.int64), index=values.index)
+    if ((ints < 0) | (ints > 235959)).any():
+        raise AssertionError("endpoint time outside HHMMSS numeric range")
+    return ints
+
+
 def compare_predictions(a: pd.DataFrame, b: pd.DataFrame, mask: pd.Series) -> dict:
     x = a.loc[mask].reset_index(drop=True)
     yb = b.loc[mask].reset_index(drop=True)
@@ -70,9 +83,11 @@ def build_frame() -> tuple[pd.DataFrame, dict]:
     holiday = pd.to_numeric(df["holiday_reopen"], errors="coerce").fillna(0).ne(0)
     holiday_available = holiday & df["a50_holiday_closure_return"].notna() & df["a50_holiday_preopen_return"].notna()
     ordinary_available = (~holiday) & df["a50_ordinary_preauction_closure_return"].notna()
-    if df.loc[holiday_available, "a50_holiday_target_end_time"].astype(str).ge("092500").any():
+    holiday_times = _time_values_as_hhmmss_int(df.loc[holiday_available, "a50_holiday_target_end_time"])
+    ordinary_times = _time_values_as_hhmmss_int(df.loc[ordinary_available, "a50_ordinary_target_end_time"])
+    if holiday_times.ge(92500).any():
         raise AssertionError("frozen holiday A50 target endpoint at or after 09:25")
-    if df.loc[ordinary_available, "a50_ordinary_target_end_time"].astype(str).str.zfill(6).ge("091500").any():
+    if ordinary_times.ge(91500).any():
         raise AssertionError("ordinary A50 target endpoint at or after 09:15")
     df.loc[~holiday, "a50_holiday_closure_return"] = 0.0
     df.loc[holiday, "a50_ordinary_preauction_closure_return"] = 0.0
