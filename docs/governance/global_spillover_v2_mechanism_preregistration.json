@@ -1,0 +1,115 @@
+{
+  "schema_id": "overnight_open_global_spillover_mechanism_preregistration@2.0",
+  "frozen_date": "2026-09-05",
+  "branch": "codex/overnight-global-spillover-20260905",
+  "parent_receipt": "docs/governance/global_spillover_v1_receipt.json",
+  "research_question": "Does v1 C1 contain genuinely new foreign information accumulated while China is closed, or is its holdout improvement mostly a Ridge duplicate-feature regularization artifact?",
+  "data_boundary": {
+    "china": "data/development/csi1000_open_pit_panel.parquet through 2020-12-31 only",
+    "us": "data/development/us_nasdaq_vix.parquet through 2020-12-31 only",
+    "train": "2015-01-05_to_2018-12-31",
+    "internal_holdout": "2019-01-01_to_2020-12-31_consumed_not_fresh",
+    "post_2020_rows": "forbidden",
+    "new_external_market_downloads": "forbidden_in_this_round"
+  },
+  "frozen_model": "Pipeline(StandardScaler(), Ridge(alpha=1.0))",
+  "primary_metric": "2019_2020_holdout_IC",
+  "secondary_metrics": [
+    "sign_hit",
+    "R2",
+    "2019_IC",
+    "2020_IC",
+    "subset_SSE_improvement_vs_C0"
+  ],
+  "mechanism_features": {
+    "cum_nasdaq": "NASDAQ level at last US close strictly before target China day / NASDAQ level at last US close strictly before previous China day - 1",
+    "cum_vix": "VIX level at last US close strictly before target China day / VIX level at last US close strictly before previous China day - 1",
+    "extra_nasdaq": "cum_nasdaq - existing panel us_nasdaq; isolates information beyond the final US session already present in baseline",
+    "extra_vix": "cum_vix - existing panel us_vix_chg; isolates information beyond the final US session already present in baseline",
+    "us_session_intervals": "end_US_index - start_US_index; normal one-session transmission is 1; multi-session unabsorbed windows are >=2",
+    "duplicate_placebo": "exact copies of existing us_nasdaq and us_vix_chg; contains zero new information and diagnoses Ridge duplicate-feature shrinkage effects"
+  },
+  "candidate_family": [
+    {
+      "id": "C0_frozen_baseline",
+      "features": "frozen baseline only",
+      "role": "comparator"
+    },
+    {
+      "id": "C1_v1_cumulative_replay",
+      "features": "baseline + cum_nasdaq + cum_vix",
+      "role": "replay parent progression material"
+    },
+    {
+      "id": "C2_exact_duplicate_placebo",
+      "features": "baseline + exact copy(us_nasdaq) + exact copy(us_vix_chg)",
+      "role": "zero-new-information regularization placebo"
+    },
+    {
+      "id": "C3_incremental_information_only",
+      "features": "baseline + extra_nasdaq + extra_vix",
+      "role": "main mechanism test"
+    },
+    {
+      "id": "C4_incremental_nasdaq_only",
+      "features": "baseline + extra_nasdaq",
+      "role": "source attribution"
+    },
+    {
+      "id": "C5_incremental_vix_only",
+      "features": "baseline + extra_vix",
+      "role": "source attribution"
+    },
+    {
+      "id": "C6_incremental_holiday_only",
+      "features": "baseline + extra_nasdaq*holiday_reopen + extra_vix*holiday_reopen",
+      "role": "localize to long-holiday reopening"
+    },
+    {
+      "id": "C7_incremental_nonholiday_multisession_only",
+      "features": "baseline + extra_nasdaq*(holiday_reopen==0 and us_session_intervals>=2) + extra_vix*(holiday_reopen==0 and us_session_intervals>=2)",
+      "role": "test shorter/non-holiday closure accumulation"
+    }
+  ],
+  "multiplicity_attempts": 8,
+  "no_grid_search": true,
+  "frozen_subsets": {
+    "holiday_reopen": "existing holiday_reopen == 1",
+    "nonholiday": "existing holiday_reopen == 0",
+    "single_US_session": "us_session_intervals == 1",
+    "multi_US_session": "us_session_intervals >= 2",
+    "ordinary_gap": "abs(gap) <= 0.003 using the already-frozen 30bp overnight-ledger cut",
+    "tail_gap": "abs(gap) > 0.003 using the already-frozen 30bp overnight-ledger cut"
+  },
+  "diagnostic_decomposition": {
+    "row_contribution": "(y-pred_C0)^2 - (y-pred_candidate)^2",
+    "report_by": [
+      "holiday_reopen vs nonholiday",
+      "single_US_session vs multi_US_session",
+      "ordinary_gap vs tail_gap",
+      "2019 vs 2020"
+    ],
+    "influence": "report top_1/top_5/top_10 positive SSE-improvement share; do not delete observations or retune after inspection"
+  },
+  "decision_rules": {
+    "new_information_mechanism_supported": "C3 holdout IC must exceed C0 by more than numerical replay tolerance; otherwise reject genuine cumulative-information interpretation regardless of C1",
+    "duplicate_regularization_artifact_present": "C2 holdout IC above C0 establishes that duplicate-feature Ridge geometry can create apparent improvement; quantify but do not use a post-result threshold to erase a positive C3",
+    "source_attribution": "C4 and C5 are diagnostics only; they cannot be promoted separately in this round",
+    "closure_localization": "C6/C7 and additive SSE decomposition identify where the C3 gain occurs; no subset-specific runtime routing may be promoted from this consumed holdout",
+    "baseline_replacement": "forbidden in this round regardless of result because 2019-2020 is already consumed internal holdout"
+  },
+  "selection_forbidden": [
+    "PnL",
+    "Sharpe",
+    "total_return",
+    "post_2020_information",
+    "subset_threshold_search",
+    "calendar-specific runtime patching"
+  ],
+  "authority": {
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false
+  }
+}
