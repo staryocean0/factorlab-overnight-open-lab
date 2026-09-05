@@ -26,6 +26,13 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
+def unique_file(indir: Path, name: str) -> Path:
+    matches = [p for p in indir.rglob(name) if p.is_file()]
+    if len(matches) != 1:
+        raise AssertionError(("artifact discovery must resolve exactly one file", name, [str(p.relative_to(indir)) for p in matches]))
+    return matches[0]
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--input-dir", default="artifacts/staging/domestic_night_combined")
@@ -39,13 +46,10 @@ def main() -> None:
     if correction["corrected_event_scope"]["eligible_target_rows"] != "holiday_reopen == 0 only":
         raise AssertionError("v7 ordinary scope drift")
 
-    cu_csv = indir / "shfe_cu_night_endpoints_2015_2020.csv"
-    rb_csv = indir / "shfe_rb_night_endpoints_2015_2020.csv"
-    cu_man_path = indir / "shfe_cu_night_manifest_2015_2020.json"
-    rb_man_path = indir / "shfe_rb_night_manifest_2015_2020.json"
-    for p in [cu_csv, rb_csv, cu_man_path, rb_man_path]:
-        if not p.is_file():
-            raise AssertionError(("missing product artifact", str(p)))
+    cu_csv = unique_file(indir, "shfe_cu_night_endpoints_2015_2020.csv")
+    rb_csv = unique_file(indir, "shfe_rb_night_endpoints_2015_2020.csv")
+    cu_man_path = unique_file(indir, "shfe_cu_night_manifest_2015_2020.json")
+    rb_man_path = unique_file(indir, "shfe_rb_night_manifest_2015_2020.json")
     cu = pd.read_csv(cu_csv)
     rb = pd.read_csv(rb_csv)
     cu["trading_day"] = pd.to_datetime(cu["trading_day"], errors="raise").dt.normalize()
@@ -58,7 +62,7 @@ def main() -> None:
     joint = cu.merge(rb, on="trading_day", how="inner", validate="one_to_one")
     if joint.empty:
         raise AssertionError("no joint CU/RB night rows")
-    if not pd.to_datetime(joint["previous_china_day_cu"]).equals(pd.to_datetime(joint["previous_china_day_rb"])):
+    if not pd.to_datetime(joint["previous_china_day_cu"]).reset_index(drop=True).equals(pd.to_datetime(joint["previous_china_day_rb"]).reset_index(drop=True)):
         raise AssertionError("CU/RB previous China day mismatch")
     joint["previous_china_day"] = pd.to_datetime(joint["previous_china_day_cu"]).dt.normalize()
     joint["domestic_night_cyclical_return"] = 0.5 * pd.to_numeric(joint["cu_cu_night_return"], errors="raise") + 0.5 * pd.to_numeric(joint["rb_rb_night_return"], errors="raise")
@@ -70,6 +74,8 @@ def main() -> None:
     panel["trading_day"] = pd.to_datetime(panel["trading_day"], errors="raise").dt.normalize()
     ordinary = (pd.to_numeric(panel["holiday_reopen"], errors="raise") == 0) & panel["trading_day"].between(pd.Timestamp("2015-01-01"), pd.Timestamp("2020-12-31"))
     eligible = panel.loc[ordinary, ["trading_day"]].drop_duplicates().copy()
+    if joint["trading_day"].isin(set(panel.loc[~ordinary, "trading_day"])).any():
+        raise AssertionError("holiday/nonordinary target leaked into joint domestic-night dataset")
     joint_days = set(joint["trading_day"])
     coverage = {}
     for label, lo, hi in [
