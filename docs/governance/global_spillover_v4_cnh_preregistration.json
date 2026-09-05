@@ -1,0 +1,67 @@
+{
+  "schema_id": "overnight_open_global_spillover_v4_cnh_preregistration@1.0",
+  "preregistered_date": "2026-09-05",
+  "status": "result_free_before_CNH_download_and_v4_execution",
+  "parent": "docs/governance/global_spillover_v3_complete_clock_receipt.json",
+  "research_question": "Does offshore RMB price discovery accumulated while A shares are closed add China-specific information beyond the validated U.S. closure-accrual feature for the next CSI1000 opening gap?",
+  "financial_preanalysis": {
+    "why_CNH": "USD/CNH is an offshore RMB market that can continue repricing China-specific macro, policy and risk information while mainland A shares are closed. Compared with broad U.S. equity risk, it is economically closer to China-specific price discovery.",
+    "expected_sign": "A rise in USD/CNH means offshore RMB depreciation and is expected, all else equal, to be associated with a weaker China reopening gap; sign is diagnostic, not a selection gate.",
+    "why_daily_is_causal": "Only Yahoo Finance daily bars whose bar date is strictly earlier than the target China trading date are used. This conservative date rule excludes the target-date FX daily close, which may occur after the China open.",
+    "why_closure_extra": "As in v3, cumulative return minus the final daily return isolates information accumulated before the last daily bar; it is exactly zero when zero or one new observed daily intervals arrive between China information boundaries."
+  },
+  "external_data_contract": {
+    "provider": "Yahoo Finance public chart endpoint",
+    "symbol": "CNH=X",
+    "instrument": "USD/CNH offshore RMB exchange rate",
+    "window": ["2014-01-01", "2020-12-31"],
+    "raw_asset": "data/external/yahoo_usdcnh_2014_2020.json",
+    "research_parquet": "data/development/usdcnh_yahoo.parquet",
+    "manifest": "docs/governance/external_cnh_yahoo_2014_2020_manifest.json",
+    "post_2020_rows_allowed": false,
+    "adjustment": "use unadjusted chart close; no interpolation or forward fill"
+  },
+  "time_boundary": {
+    "start_level": "latest observed CNH daily close with bar date strictly before previous China trading date",
+    "end_level": "latest observed CNH daily close with bar date strictly before target China trading date",
+    "cumulative_return": "end/start - 1",
+    "last_daily_return": "end close / immediately prior observed CNH daily close - 1",
+    "closure_extra": "cumulative_return - last_daily_return",
+    "zero_or_one_interval_identity": "closure_extra == 0 within 1e-12"
+  },
+  "frozen_model": "Pipeline(StandardScaler(), Ridge(alpha=1.0))",
+  "train": "2015-2018",
+  "internal_holdout": "2019-2020 consumed, not fresh OOS",
+  "attempts": [
+    {
+      "id": "V3_US_closure_comparator",
+      "features": "frozen baseline plus v3 us_nasdaq_closure_extra and us_vix_closure_extra"
+    },
+    {
+      "id": "V4_US_plus_CNH_closure",
+      "features": "V3 comparator plus usdcnh_closure_extra",
+      "selectable": true
+    }
+  ],
+  "primary_adjudication": {
+    "full_holdout": ["IC", "R2", "sign_hit", "SSE versus V3 comparator"],
+    "mechanism_subset": "rows with more than one CNH observed interval between China boundaries",
+    "holiday_subset": "holiday_reopen",
+    "year_diagnostics": ["2019", "2020"],
+    "progression_rule": "V4 may progress only if full-holdout IC exceeds V3 comparator, full-holdout SSE is lower, and SSE improves on the multiple-CNH-interval mechanism subset. No PnL/Sharpe selection."
+  },
+  "forbidden": [
+    "post-2020 rows",
+    "target-date CNH close",
+    "interpolation or forward fill",
+    "parameter search",
+    "post-hoc holiday routing",
+    "baseline replacement from consumed holdout"
+  ],
+  "authority": {
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false
+  }
+}
