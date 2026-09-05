@@ -53,6 +53,11 @@ jobs:
         run: |
           set -o pipefail
           python scripts/research_global_spillover_v3_complete_clock.py | tee global_spillover_v3_complete_clock.log
+      - name: Run preregistered v3 leave-one-event-out diagnostic
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/audit_global_spillover_v3_leave_one_event_out.py | tee global_spillover_v3_loo.log
       - name: Upload v3 research receipts
         uses: actions/upload-artifact@v4
         with:
@@ -61,6 +66,8 @@ jobs:
             docs/governance/external_us_fred_2014_2020_manifest.json
             data/external/fred_us_nasdaq_vix_2014_2020.csv
             artifacts/research/global_spillover_v3_complete_clock_results.json
+            artifacts/research/global_spillover_v3_leave_one_event_out.json
             external_us_fred_refresh.log
             global_spillover_v3_complete_clock.log
+            global_spillover_v3_loo.log
           if-no-files-found: error
