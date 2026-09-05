@@ -231,8 +231,8 @@ def main() -> None:
         "products": products,
         "DCE_I": {
             "status": "official_auth_access_blocked_not_price_rejected",
-            "included_in_this_run": false,
-            "may_enter_future_predictive_candidate": false
+            "included_in_this_run": False,
+            "may_enter_future_predictive_candidate": False
         },
         "summary": {
             "SHFE_product_pass_count": sum(bool(v["product_pass"]) for v in products.values()),
@@ -240,7 +240,7 @@ def main() -> None:
             "SHFE_subset_admission_pass": bool(both_pass),
             "scientific_status": status
         },
-        "authority": {"predictive_model_execution": false, "fresh_oos": false, "baseline_replacement": false, "production": false, "registry_mutation": false, "merge_main": false}
+        "authority": {"predictive_model_execution": False, "fresh_oos": False, "baseline_replacement": False, "production": False, "registry_mutation": False, "merge_main": False}
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(report, indent=2, ensure_ascii=False, sort_keys=True) + "\n")
