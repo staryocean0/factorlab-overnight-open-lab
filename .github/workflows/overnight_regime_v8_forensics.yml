@@ -1,0 +1,55 @@
+name: overnight-regime-v8-forensics
+
+on:
+  push:
+    branches:
+      - codex/overnight-regime-v8-20260906
+    paths:
+      - 'scripts/audit_global_spillover_v8_fixed_forensics.py'
+      - 'docs/governance/global_spillover_v8_forensic_diagnostic_plan.json'
+      - '.github/workflows/overnight_regime_v8_forensics.yml'
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: overnight-regime-v8-forensics-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  forensic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install forensic dependencies
+        run: python -m pip install --upgrade pandas numpy
+      - name: Download immutable formal v8 artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: overnight-regime-v8-final
+          path: artifacts/input/v8_formal
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: 33999937156
+      - name: Run fixed-prediction v8 forensics without refit
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/audit_global_spillover_v8_fixed_forensics.py \
+            --formal-result artifacts/input/v8_formal/artifacts/research/global_spillover_v8_regime_results.json \
+            | tee global_spillover_v8_fixed_forensics.log
+      - name: Upload forensic evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: overnight-regime-v8-forensics
+          path: |
+            artifacts/research/global_spillover_v8_fixed_forensics.json
+            global_spillover_v8_fixed_forensics.log
+            docs/governance/global_spillover_v8_forensic_diagnostic_plan.json
+          if-no-files-found: error
+          retention-days: 90
