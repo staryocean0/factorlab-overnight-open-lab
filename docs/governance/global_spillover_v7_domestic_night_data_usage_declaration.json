@@ -1,0 +1,41 @@
+{
+  "schema_id": "overnight_open_global_spillover_v7_domestic_night_data_usage@1.0",
+  "registered_date": "2026-09-06",
+  "branch": "codex/overnight-domestic-night-v7-20260906",
+  "purpose": "Test one preregistered domestic Chinese commodity night-session information block as an increment to the frozen v6 research candidate without altering v6's unseen-controller identity.",
+  "interval_roles": {
+    "2015-01-01_to_2018-12-31": "development_training_material",
+    "2019-01-01_to_2020-12-31": "consumed_repeat_audit_material_not_fresh",
+    "2021-01-01_and_later": "forbidden_cloud_read"
+  },
+  "target": "CSI1000 next-session 09:31 opening gap",
+  "target_formula": "target China 09:31 open / previous China 15:00 close - 1",
+  "external_data": {
+    "SHFE_CU_RB_transport": {
+      "source": "Freddy-Hexas/china-futures-5min-2015-2025",
+      "pinned_commit": "1a402721d639432875504a343e2b9ffe9508cd36",
+      "role": "validated third-party transport bytes",
+      "authoritative_validation": "docs/governance/domestic_night_shfe_source_validation_receipt.json",
+      "volume_integrity": "docs/governance/domestic_night_shfe_volume_integrity_receipt.json"
+    },
+    "DCE_I": "forbidden in v7 because authoritative validation is authentication-blocked"
+  },
+  "hard_boundaries": {
+    "post_2020_market_values_read": 0,
+    "future_full_day_volume_for_contract_selection": false,
+    "future_open_interest_for_contract_selection": false,
+    "continuous_contract_back_adjustment": false,
+    "holdout_selected_product": false,
+    "holdout_selected_cutoff": false,
+    "holdout_selected_missing_value_rule": false,
+    "PnL_selection": false
+  },
+  "authority": {
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false,
+    "runtime_routing": false,
+    "merge_main": false
+  }
+}
