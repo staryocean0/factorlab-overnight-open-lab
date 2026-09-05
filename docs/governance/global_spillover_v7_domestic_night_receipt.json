@@ -1,7 +1,7 @@
 {
   "schema_id": "overnight_open_global_spillover_v7_domestic_night_receipt@1.0",
   "sealed_date": "2026-09-06",
-  "research_scope": "CSI1000 next-session 09:31 opening-gap sign and magnitude; one preregistered 50:50 SHFE CU/RB domestic-night information block added to the frozen v6 research candidate on ordinary sessions only",
+  "research_scope": "One preregistered 50:50 SHFE CU/RB domestic-night information block added to the frozen v6 CSI1000 next-session 09:31 opening-gap research candidate on ordinary sessions only.",
   "parent_candidate": "V6A_plus_ordinary_A50_preauction_closure",
   "preregistration": "docs/governance/global_spillover_v7_domestic_night_preregistration.json",
   "holiday_scope_correction": "docs/governance/global_spillover_v7_domestic_night_holiday_scope_correction.json",
@@ -9,15 +9,9 @@
   "formal_execution": {
     "workflow": "overnight-domestic-night-v7",
     "run_id": 33999245962,
-    "jobs": {
-      "unit": 101395044315,
-      "extract_RB": 101395074721,
-      "extract_CU": 101395074752,
-      "aggregate_and_research": 101395347036
-    },
+    "job_id": 101395347036,
     "workflow_head_sha": "945fcd5c6c9dfe8348693eea7f13871c40391fcd",
     "conclusion": "success",
-    "all_workflow_stages_success": true,
     "data_freeze_commit_created_inside_run": "c2064fa26305a9eaa06250f086f7789a253df500",
     "artifact": {
       "id": 9979022982,
@@ -28,11 +22,10 @@
   },
   "pre_model_engineering_incident": {
     "run_id": 33999062582,
-    "failure": "product manifest construction used JSON literal false instead of Python False and raised NameError after pinned CU/RB source extraction",
+    "failure": "Python manifest construction used JSON literal false instead of Python False after pinned CU/RB source extraction.",
     "target_model_executed": false,
     "aggregate_model_stage_reached": false,
-    "research_definition_changed_to_fix": false,
-    "fix_class": "mechanical Python manifest syntax only"
+    "research_definition_changed_to_fix": false
   },
   "source_contract": {
     "transport_repository": "Freddy-Hexas/china-futures-5min-2015-2025",
@@ -45,12 +38,12 @@
     "CU_coverage": 0.9543225579761068,
     "RB_events_total": 1423,
     "RB_events_usable": 1356,
-    "RB_coverage": 0.952916373857?,
+    "RB_coverage": 0.9529163738580464,
+    "joint_rows": 1353,
     "joint_external_coverage": {
       "train_2015_2018": {"joint_usable": 940, "events_total": 947, "coverage": 0.9926082365364308},
       "holdout_2019_2020": {"joint_usable": 413, "events_total": 473, "coverage": 0.8731501057082452}
     },
-    "joint_rows": 1353,
     "guards": {
       "holiday_reopen_rows_in_joint_dataset": 0,
       "post_2020_market_fields_parsed": 0,
@@ -78,11 +71,7 @@
       "holdout_r2": 0.5339612433187437,
       "holdout_ic": 0.7733309391994254,
       "holdout_sign_hit": 0.7723785166240409,
-      "holdout_sse": 0.007324699080420092,
-      "year_diagnostics": {
-        "2019": {"n": 217, "ic": 0.77395, "sign_hit": 0.76037, "sse": 0.00313143},
-        "2020": {"n": 174, "ic": 0.77857, "sign_hit": 0.78736, "sse": 0.00419327}
-      }
+      "holdout_sse": 0.007324699080420092
     },
     "V7A_plus_domestic_night_cyclical": {
       "holdout_r2": 0.533743932952309,
@@ -112,13 +101,11 @@
     "quarter_total_sse_improvement_positive": false,
     "median_quarterly_sse_improvement_positive": false,
     "at_least_five_of_eight_quarters_nonnegative_sse": false,
-    "all_conditions_required": true,
     "progression_rule_pass": false,
     "selected_progression_candidate": null
   },
   "post_adjudication_fixed_prediction_forensics": {
     "plan": "docs/governance/global_spillover_v7_forensic_diagnostic_plan.json",
-    "workflow": "overnight-domestic-night-v7-forensics",
     "run_id": 33999501752,
     "workflow_head_sha": "3ef4f0fcb52098e3e8678f11cbcb755b479636b4",
     "conclusion": "success",
@@ -130,37 +117,19 @@
     },
     "fixed_prediction_rows": 391,
     "refit_or_reselection_performed": false,
-    "causal_clock": {
-      "CU_bad_rows": 0,
-      "RB_bad_rows": 0,
-      "clock_checks_pass": true
-    },
-    "time_shift_placebo": {
-      "same_row_corr": 0.325348,
-      "lead_one_row_corr": -0.07796,
-      "lag_one_row_corr": -0.001005
-    },
-    "incremental_information": {
-      "composite_target_corr": 0.325348,
-      "CU_target_corr": 0.294125,
-      "RB_target_corr": 0.323242,
-      "CU_RB_corr": 0.558467,
-      "composite_with_V6_fixed_residual_corr": -0.008733
-    },
-    "concentration": {
-      "positive_improvement_rows": 203,
-      "negative_improvement_rows": 188,
-      "total_fixed_prediction_sse_improvement": -0.000003416590701438557,
-      "top1_share_of_positive_gain": 0.0894,
-      "top5_share_of_positive_gain": 0.2481,
-      "top10_share_of_positive_gain": 0.3610,
-      "remaining_total_after_removing_top1_best": -0.0001439,
-      "remaining_total_after_removing_top5_best": -0.00039375,
-      "remaining_total_after_removing_top10_best": -0.00057074
-    },
-    "redundancy": {
-      "max_absolute_existing_feature_correlation": {"feature": "a50_ordinary_preauction_closure_return", "correlation": 0.3569877107125297},
-      "shared_coefficient_sign_flips": ["us_nasdaq"]
+    "clock_checks_pass": true,
+    "same_row_corr": 0.325348,
+    "lead_one_row_corr": -0.07796,
+    "lag_one_row_corr": -0.001005,
+    "composite_with_V6_fixed_residual_corr": -0.008733,
+    "positive_improvement_rows": 203,
+    "negative_improvement_rows": 188,
+    "top1_share_of_positive_gain": 0.0894,
+    "top5_share_of_positive_gain": 0.2481,
+    "top10_share_of_positive_gain": 0.3610,
+    "max_absolute_existing_feature_correlation": {
+      "feature": "a50_ordinary_preauction_closure_return",
+      "correlation": 0.3569877107125297
     }
   },
   "scientific_interpretation": {
@@ -168,7 +137,7 @@
     "incremental_after_v6": false,
     "clock_misalignment_explanation": false,
     "few_event_concentration_explanation": false,
-    "best_supported_explanation": "CU/RB domestic-night information is real in isolation but largely redundant after the frozen v6 offshore-China/global information set, especially the ordinary pre-auction SGX A50 channel.",
+    "best_supported_explanation": "CU/RB domestic-night information is real in isolation but largely redundant after the frozen v6 offshore-China/global information set, especially ordinary pre-auction SGX A50.",
     "do_not_salvage": ["CU_only", "RB_only", "new_weights", "thresholded_domestic_night", "event_exclusions"]
   },
   "scientific_status": "domestic_night_cyclical_increment_not_supported_redundant_after_v6",
