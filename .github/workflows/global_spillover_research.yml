@@ -6,6 +6,10 @@ on:
       - codex/overnight-global-spillover-20260905
   workflow_dispatch:
 
+concurrency:
+  group: global-spillover-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
@@ -60,7 +64,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "External data already frozen; no commit needed."
           else
-            git commit -m "data: freeze FRED HKMA and SGX A50 histories through 2020"
+            git commit -m "data: freeze FRED HKMA and SGX A50 histories through 2020 [skip ci]"
             git push origin HEAD:codex/overnight-global-spillover-20260905
           fi
       - name: Replay frozen baseline
@@ -80,15 +84,20 @@ jobs:
         run: |
           set -o pipefail
           python scripts/research_global_spillover_v4_cnh.py | tee global_spillover_v4_hkma.log
-      - name: Probe official SGX historical derivatives source
+      - name: Run preregistered v5 SGX A50 layer
         shell: bash
         run: |
           set -o pipefail
-          python scripts/probe_sgx_a50_historical_source.py | tee sgx_a50_source_probe.log
+          python scripts/research_global_spillover_v5_a50.py | tee global_spillover_v5_a50.log
+      - name: Run fixed-prediction v5 leave-one-event-out diagnostic
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/audit_global_spillover_v5_a50_leave_one_event_out.py | tee global_spillover_v5_a50_loo.log
       - name: Upload global spillover research receipts
         uses: actions/upload-artifact@v4
         with:
-          name: global-spillover-v5-a50-data-stage
+          name: global-spillover-v5-a50-final
           path: |
             docs/governance/external_us_fred_2014_2020_manifest.json
             data/external/fred_us_nasdaq_vix_2014_2020.csv
@@ -100,11 +109,14 @@ jobs:
             artifacts/research/global_spillover_v3_complete_clock_results.json
             artifacts/research/global_spillover_v3_leave_one_event_out.json
             artifacts/research/global_spillover_v4_cnh_results.json
+            artifacts/research/global_spillover_v5_a50_results.json
+            artifacts/research/global_spillover_v5_a50_leave_one_event_out.json
             external_us_fred_refresh.log
             external_hkma_usdcny_refresh.log
             external_sgx_a50_refresh.log
             global_spillover_v3_complete_clock.log
             global_spillover_v3_loo.log
             global_spillover_v4_hkma.log
-            sgx_a50_source_probe.log
+            global_spillover_v5_a50.log
+            global_spillover_v5_a50_loo.log
           if-no-files-found: error
