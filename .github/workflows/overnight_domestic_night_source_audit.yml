@@ -7,6 +7,7 @@ on:
     paths:
       - 'scripts/audit_domestic_night_source_crosscheck.py'
       - 'scripts/audit_domestic_night_source_crosscheck_parallel.py'
+      - 'scripts/audit_domestic_night_source_crosscheck_parallel_v2.py'
       - 'tests/test_domestic_night_source_crosscheck.py'
       - 'docs/governance/domestic_night_source_validation_preregistration.json'
       - 'docs/governance/domestic_night_source_crosscheck_sample_freeze.json'
@@ -39,7 +40,7 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          python scripts/audit_domestic_night_source_crosscheck_parallel.py | tee domestic_night_source_crosscheck.log
+          python scripts/audit_domestic_night_source_crosscheck_parallel_v2.py | tee domestic_night_source_crosscheck.log
       - name: Upload source-audit evidence
         uses: actions/upload-artifact@v4
         with:
