@@ -12,7 +12,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "artifacts/research/sgx_legacy_schema_probe.json"
-SGX_URL = "https://links.sgx.com/1.0.0/derivatives-historical/{key}/WEBPXTICK_DT.zip"
+BASE_URL = "https://links.sgx.com/1.0.0/derivatives-historical/{key}/{name}"
 
 CASES = {
     "legacy_2015_02_17": {
@@ -32,15 +32,27 @@ def sha256_bytes(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
-def fetch(key: int) -> bytes:
+def fetch_bytes(key: int, name: str) -> bytes:
     req = urllib.request.Request(
-        SGX_URL.format(key=key),
+        BASE_URL.format(key=key, name=name),
         headers={"User-Agent": "Mozilla/5.0 factorlab-research-schema-probe"},
     )
     with urllib.request.urlopen(req, timeout=90) as r:
         if int(r.status) != 200:
-            raise RuntimeError(("http", key, r.status))
+            raise RuntimeError(("http", key, name, r.status))
         return r.read()
+
+
+def fetch_optional_text(key: int, name: str) -> dict:
+    try:
+        data = fetch_bytes(key, name)
+        return {
+            "available": True,
+            "sha256": sha256_bytes(data),
+            "text": data.decode("utf-8", errors="replace"),
+        }
+    except Exception as exc:
+        return {"available": False, "error": repr(exc)}
 
 
 def probe_archive(data: bytes, expected_date: str) -> dict:
@@ -61,7 +73,7 @@ def probe_archive(data: bytes, expected_date: str) -> dict:
             field_bat_counts: dict[int, Counter[str]] = defaultdict(Counter)
             field_small_value_counts: dict[int, Counter[str]] = defaultdict(Counter)
             first_cn_rows: list[list[str]] = []
-            first_rows_with_trade_symbol: list[list[str]] = []
+            first_rows_with_any_message_symbol: list[list[str]] = []
             date_field_candidates: Counter[int] = Counter()
             time_field_candidates: Counter[int] = Counter()
 
@@ -74,19 +86,20 @@ def probe_archive(data: bytes, expected_date: str) -> dict:
                 if len(first_cn_rows) < 20:
                     first_cn_rows.append(clean)
 
-                has_bat = False
+                has_message_symbol = False
                 for idx, value in enumerate(clean):
                     if value in {"B", "A", "T"}:
                         field_bat_counts[idx][value] += 1
-                        has_bat = True
+                    if value in {"B", "A", "T", "Y", "S"}:
+                        has_message_symbol = True
                     if len(value) <= 3 and value:
                         field_small_value_counts[idx][value] += 1
                     if value == expected_date:
                         date_field_candidates[idx] += 1
                     if len(value) == 6 and value.isdigit() and "000000" <= value <= "235959":
                         time_field_candidates[idx] += 1
-                if has_bat and len(first_rows_with_trade_symbol) < 20:
-                    first_rows_with_trade_symbol.append(clean)
+                if has_message_symbol and len(first_rows_with_any_message_symbol) < 30:
+                    first_rows_with_any_message_symbol.append(clean)
 
     compact_small = {}
     for idx, counts in field_small_value_counts.items():
@@ -108,18 +121,18 @@ def probe_archive(data: bytes, expected_date: str) -> dict:
         "date_field_candidates": {str(k): v for k, v in sorted(date_field_candidates.items())},
         "time_field_candidates": {str(k): v for k, v in sorted(time_field_candidates.items())},
         "first_20_CN_rows": first_cn_rows,
-        "first_20_CN_rows_containing_B_A_or_T": first_rows_with_trade_symbol,
+        "first_30_CN_rows_containing_message_symbols": first_rows_with_any_message_symbol,
     }
 
 
 def main() -> None:
     result = {
-        "schema_id": "sgx_legacy_tick_schema_probe@1.0",
+        "schema_id": "sgx_legacy_tick_schema_probe@1.1",
         "role": "result-neutral data-contract probe; no target labels or model metrics are read",
         "cases": {},
     }
     for name, cfg in CASES.items():
-        data = fetch(int(cfg["key"]))
+        data = fetch_bytes(int(cfg["key"]), "WEBPXTICK_DT.zip")
         digest = sha256_bytes(data)
         if digest != cfg["expected_sha256"]:
             raise AssertionError((name, "archive sha mismatch", digest, cfg["expected_sha256"]))
@@ -127,6 +140,8 @@ def main() -> None:
             "date": cfg["date"],
             "key": cfg["key"],
             "sha256": digest,
+            "official_TickData_structure_dat": fetch_optional_text(int(cfg["key"]), "TickData_structure.dat"),
+            "official_TC_structure_dat": fetch_optional_text(int(cfg["key"]), "TC_structure.dat"),
             **probe_archive(data, cfg["date"]),
         }
 
