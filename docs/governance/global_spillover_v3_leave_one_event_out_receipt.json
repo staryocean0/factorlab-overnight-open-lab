@@ -1,0 +1,51 @@
+{
+  "schema_id": "overnight_open_global_spillover_v3_leave_one_event_out_receipt@1.0",
+  "sealed_date": "2026-09-05",
+  "parent_receipt": "docs/governance/global_spillover_v3_complete_clock_receipt.json",
+  "role": "preregistered fixed-prediction robustness diagnostic; no refit and no candidate reselection",
+  "execution": {
+    "github_actions_run_id": 33970371064,
+    "job_id": 101317683492,
+    "head_sha": "3ef7a564c4a4baaca5b983c63771a7e25eb05f2b",
+    "workflow_conclusion": "success",
+    "tests": "11_passed",
+    "artifact_id": 9970739958,
+    "artifact_zip_sha256": "2b60697c6a63bb932fa0c722b7edfa79fc36294a46c0d983361463d08c7d3644"
+  },
+  "full_multiple_interval_subset": {
+    "n": 12,
+    "c0_ic": 0.41135245392793424,
+    "c1_ic": 0.7772206548575578,
+    "delta_ic": 0.3658682009296235,
+    "c0_sign_hit": 0.75,
+    "c1_sign_hit": 0.9166666666666666,
+    "sse_improvement_c1_vs_c0": 0.0028919811708853936
+  },
+  "leave_one_event_out_summary": {
+    "cases": 12,
+    "delta_ic_positive_cases": 12,
+    "delta_ic_min": 0.2530381815432243,
+    "delta_ic_median": 0.362896121443737,
+    "delta_ic_max": 0.547593013925803,
+    "sse_improvement_positive_cases": 12,
+    "sse_improvement_min": 0.0009478410147162055,
+    "sse_improvement_median": 0.0028885386499510265,
+    "sse_improvement_max": 0.0029880402164297257,
+    "worst_delta_ic_removal": "2019-05-06",
+    "largest_positive_sse_event": "2020-02-03",
+    "largest_positive_sse_event_share_of_positive_sum": 0.6371188603704637,
+    "top_two_positive_sse_event_share_of_positive_sum": 0.8814769748686216
+  },
+  "interpretation": {
+    "single_event_dependence": "rejected by leave-one-event-out: every one-event removal retains positive IC increment and positive SSE improvement",
+    "concentration_risk": "still material: 2020-02-03 contributes about 63.7% of the sum of positive event-level SSE improvements and the top two events about 88.1%; additional China-linked external channels are needed to explain rather than merely fit these extreme reopenings",
+    "scientific_status": "mechanism_survives_leave_one_event_out_but_requires_additional_external_price_discovery_channels_and_unseen_confirmation"
+  },
+  "authority": {
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "holiday_runtime_routing": false,
+    "production": false,
+    "registry_mutation": false
+  }
+}
