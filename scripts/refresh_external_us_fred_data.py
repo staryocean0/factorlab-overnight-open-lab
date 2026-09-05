@@ -44,13 +44,21 @@ def _sha256(path: Path) -> str:
 def main() -> None:
     nas = _load_series("NASDAQCOM", URLS["NASDAQCOM"])
     vix = _load_series("VIXCLS", URLS["VIXCLS"])
-    df = nas.merge(vix, on="date", how="outer", validate="one_to_one").sort_values("date")
-    df = df.loc[(df["date"] >= START) & (df["date"] <= END)].reset_index(drop=True)
+
+    # FRED's downloadable CSV may omit empty observations even though the table view
+    # represents market holidays as missing values. Materialize every Monday-Friday
+    # calendar date, then merge the actual observations without any forward fill.
+    calendar = pd.DataFrame({"date": pd.date_range(START, END, freq="B")})
+    df = calendar.merge(nas, on="date", how="left", validate="one_to_one")
+    df = df.merge(vix, on="date", how="left", validate="one_to_one")
     df["nasdaq_observed"] = df["NASDAQCOM"].notna()
     df["vix_observed"] = df["VIXCLS"].notna()
     df["joint_observed"] = df["nasdaq_observed"] & df["vix_observed"]
+
     if df["date"].min() != START or df["date"].max() != END or bool((df["date"] > END).any()):
-        raise AssertionError("unexpected FRED date boundary")
+        raise AssertionError(("unexpected calendar boundary", df["date"].min(), df["date"].max()))
+    if nas["date"].max() != END or vix["date"].max() != END:
+        raise AssertionError(("FRED source does not reach frozen end", nas["date"].max(), vix["date"].max()))
 
     indexed = df.set_index("date")
     for holiday in ["2014-01-01", "2019-01-01", "2020-01-01", "2020-12-25"]:
@@ -72,7 +80,7 @@ def main() -> None:
     pq.to_parquet(PARQUET_OUT, index=False)
 
     manifest = {
-        "schema_id": "external_us_fred_manifest@1.0",
+        "schema_id": "external_us_fred_manifest@1.1",
         "frozen_retrieval_date": "2026-09-05",
         "window": [str(START.date()), str(END.date())],
         "provider": "Federal Reserve Bank of St. Louis FRED",
@@ -80,13 +88,13 @@ def main() -> None:
             "NASDAQCOM": {"source_url": URLS["NASDAQCOM"], "reported_source": "Nasdaq, Inc.", "frequency": "Daily, Close"},
             "VIXCLS": {"source_url": URLS["VIXCLS"], "reported_source": "Chicago Board Options Exchange", "frequency": "Daily, Close"}
         },
-        "calendar_semantics": "Missing FRED observations are retained as explicit calendar rows; usable U.S. sessions are nonmissing observations only; no forward fill.",
+        "calendar_semantics": "All Monday-Friday dates are materialized. A missing FRED value remains missing and marks a non-observed market date; no forward fill or weekday-as-trading-day assumption is used in returns.",
         "row_counts": {
-            "calendar_rows": int(len(df)),
+            "weekday_calendar_rows": int(len(df)),
             "nasdaq_observed": int(df["nasdaq_observed"].sum()),
             "vix_observed": int(df["vix_observed"].sum()),
             "joint_observed": int(df["joint_observed"].sum()),
-            "joint_missing": int((~df["joint_observed"]).sum())
+            "joint_missing_weekdays": int((~df["joint_observed"]).sum())
         },
         "assets": {
             str(RAW_OUT.relative_to(ROOT)): {"sha256": _sha256(RAW_OUT)},
@@ -100,8 +108,7 @@ def main() -> None:
     matches = [p for p in package["products"] if p["path"] == "data/development/us_nasdaq_vix.parquet"]
     if len(matches) != 1:
         raise AssertionError("US parquet product missing from package manifest")
-    prod = matches[0]
-    prod.update({
+    matches[0].update({
         "rows": int(len(pq)),
         "bytes": int(PARQUET_OUT.stat().st_size),
         "sha256": _sha256(PARQUET_OUT),
