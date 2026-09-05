@@ -46,6 +46,14 @@
       "sha256": "91c4666ce95c4fa19fb2b6d40d34d98a50de1ce66e5185c84a6ae3c1ac71038b",
       "min_day": "2015-09-07",
       "max_day": "2020-10-09"
+    },
+    {
+      "path": "data/development/sgx_a50_ordinary_preauction_endpoints.parquet",
+      "rows": 1352,
+      "bytes": 258934,
+      "sha256": "eb1878f89712f23d004ddd588bc5b599a24c87178ff1b3e75c897e5f722b7fe3",
+      "min_day": "2015-01-06",
+      "max_day": "2020-12-30"
     }
   ]
 }
