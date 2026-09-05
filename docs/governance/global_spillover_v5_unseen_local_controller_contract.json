@@ -1,0 +1,144 @@
+{
+  "schema_id": "overnight_open_global_spillover_v5_unseen_local_controller_contract@1.0",
+  "registered_date": "2026-09-05",
+  "status": "result_free_with_respect_to_2021_2025_unseen_rows",
+  "purpose": "genuinely unseen confirmation of the locked V5A A50 holiday-closure increment without allowing the cloud research branch to read, tune on, or store 2021-2025 labels or market rows",
+  "scientific_question": "Does the same-contract SGX A50 price move accumulated while mainland A shares are closed continue to add economically aligned information about the next CSI1000 reopening gap after the retained U.S.-closure and HKMA China-FX channels?",
+  "locked_candidate": {
+    "id": "V5A_plus_A50_closure",
+    "receipt": "docs/governance/global_spillover_v5_a50_receipt.json",
+    "preregistration": "docs/governance/global_spillover_v5_a50_preregistration.json",
+    "candidate_code_sha": "133406f7ac42ccff0dc4fe7516276234dfd0dd9a",
+    "bounded_external_data_freeze_sha": "76be263c4ef28ce2668fc8b667dc0ea69049638e",
+    "pipeline": "StandardScaler + Ridge(alpha=1.0)",
+    "training_period": "2015-2018 only",
+    "no_refit_using_2021_2025": true,
+    "no_hyperparameter_search": true,
+    "no_feature_search": true,
+    "no_threshold_search": true,
+    "V5B_reselection": false
+  },
+  "unseen_boundary": {
+    "target_window": ["2021-01-01", "2025-12-31"],
+    "data_owner": "local controller",
+    "cloud_read_permission": false,
+    "cloud_upload_permission": false,
+    "repository_commit_permission_for_unseen_market_rows": false,
+    "require_local_pre_evaluation_manifest": true,
+    "manifest_requirements": [
+      "source identifiers and local file hashes",
+      "row counts and date ranges",
+      "post-close/pre-open timestamp conventions",
+      "holiday calendar version",
+      "SGX archive/key/hash provenance for each A50 holiday event",
+      "explicit assertion that no target information at or after 09:25:00 enters A50 features"
+    ]
+  },
+  "target": {
+    "name": "CSI1000 next-session opening gap",
+    "formula": "target China 09:31 open / previous China 15:00 close - 1",
+    "selection_objective": "sign and magnitude quality, not trading PnL"
+  },
+  "feature_semantics": {
+    "implementation_rule": "reproduce the frozen v3/v4/v5 feature code and clocks from candidate_code_sha; do not re-interpret daily dates by convenience",
+    "US": "only U.S. observations already closed and observable before the China target open; preserve the frozen complete-clock closure-extra construction",
+    "HKMA_China_FX": "preserve the frozen v4 clock correction and target-date prohibition; do not substitute an exact CNH label unless separately preregistered",
+    "SGX_A50": {
+      "activation": "holiday_reopen == 1 only",
+      "feature": "a50_holiday_closure_return",
+      "contract_selection": "nearest non-past CN contract month with an actual trade at or before previous China 15:00",
+      "same_contract_required_at_target": true,
+      "start": "last selected-contract trade at or before previous China 15:00:00",
+      "end": "last same-contract trade at or before target China 09:24:59",
+      "formula": "end_price/start_price - 1",
+      "ordinary_nonholiday_rows": 0,
+      "future_volume_or_OI_selection": false,
+      "mid_window_roll": false,
+      "target_ticks_at_or_after_09_25": false
+    },
+    "forbidden_feature": "a50_holiday_preopen_return from V5B is not part of the locked candidate"
+  },
+  "comparators": {
+    "selection_comparator": "V4_US_HKMA using the exact same unseen rows as V5A",
+    "descriptive_benchmarks": [
+      "frozen operational baseline feature set",
+      "NASDAQ single-variable model",
+      "always-low-open sign benchmark"
+    ],
+    "common_sample_required": true,
+    "missing_A50_holiday_event_rule": "exclude the event from both V4 and V5A common-sample adjudication; report it separately; never impute or switch contracts"
+  },
+  "required_reports": {
+    "full_unseen_2021_2025": ["n", "IC", "SSE", "R2", "sign_hit", "delta_IC_V5A_minus_V4", "SSE_improvement_V5A_vs_V4", "sign_hit_delta"],
+    "each_calendar_year": ["n", "IC for V4 and V5A", "SSE for V4 and V5A", "sign_hit for V4 and V5A"],
+    "holiday_subset": ["event_count", "IC", "SSE", "sign_hit", "event-level prediction and squared-error difference"],
+    "coverage": ["holiday events total", "usable", "unavailable with reason", "train-compatible contract-rule coverage"],
+    "robustness": ["fixed-prediction leave-one-holiday-event-out", "ranked event SSE contributions", "top1/top2 positive-gain concentration"],
+    "benchmarks": ["always-low-open hit", "NASDAQ single-variable IC and sign", "frozen operational baseline IC and sign"]
+  },
+  "confirmatory_gates": {
+    "gate_0_causality_and_data_integrity": {
+      "required": true,
+      "conditions": [
+        "zero post-target leakage",
+        "zero A50 ticks at or after 09:25:00",
+        "same-contract A50 endpoints",
+        "no future-volume/open-interest contract selection",
+        "no forward-fill or interpolation that invents market observations",
+        "all candidate/comparator metrics computed on an identical common sample"
+      ]
+    },
+    "gate_1_full_period_increment": {
+      "conditions": [
+        "V5A full-unseen IC > V4 full-unseen IC",
+        "V5A full-unseen SSE < V4 full-unseen SSE",
+        "V5A sign-hit deterioration versus V4 is no worse than 0.01 absolute"
+      ]
+    },
+    "gate_2_mechanism_subset": {
+      "conditions": [
+        "V5A holiday-subset SSE < V4 holiday-subset SSE",
+        "V5A holiday-subset IC is not lower than V4 holiday-subset IC",
+        "V5A holiday-subset sign-hit deterioration versus V4 is no worse than 0.01 absolute"
+      ]
+    },
+    "gate_3_multi_year_stability": {
+      "conditions": [
+        "V5A improves full-year SSE versus V4 in at least 3 of the 5 years 2021-2025",
+        "V5A has nonnegative annual IC delta versus V4 in at least 3 of the 5 years 2021-2025"
+      ],
+      "reason": "prevent one crisis year or one market regime from defining the confirmation result"
+    },
+    "gate_4_fixed_prediction_event_robustness": {
+      "conditions": [
+        "if at least 10 usable unseen holiday events exist, at least 80% of leave-one-event-out cases retain positive holiday-subset SSE improvement versus V4",
+        "median leave-one-event-out IC delta is positive"
+      ],
+      "if_fewer_than_10_events": "report the diagnostic but do not treat this gate as passed; final status remains insufficient_event_count_for_baseline_review"
+    }
+  },
+  "decision_rule": {
+    "all_gates_pass": "eligible_for_separate_baseline_replacement_review_only; does not itself authorize baseline replacement, production, registry mutation or holiday runtime routing",
+    "any_gate_0_failure": "invalidate_unseen_run_and_fix_data_or_clock_only; no model tuning",
+    "other_gate_failure": "do_not_promote_V5A; retain current operational baseline and preserve the failure as scientific evidence",
+    "mixed_or_insufficient_event_count": "retain_as_research_candidate_only and do not tune on 2021-2025 to rescue it"
+  },
+  "forbidden_selection_inputs": [
+    "PnL",
+    "total return",
+    "Sharpe",
+    "execution profitability",
+    "post-hoc feature combinations",
+    "post-hoc year exclusion",
+    "post-hoc holiday-event exclusion except objective data-unavailability under the frozen contract",
+    "using 2021-2025 results to revive V5B or tune V5A"
+  ],
+  "authority": {
+    "cloud_can_view_unseen_market_rows": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false,
+    "holiday_runtime_routing": false,
+    "merge_main": false
+  }
+}
