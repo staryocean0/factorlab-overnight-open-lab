@@ -1,0 +1,51 @@
+name: overnight-domestic-night-shfe-volume-gate
+
+on:
+  push:
+    branches:
+      - codex/overnight-domestic-night-source-20260906
+    paths:
+      - 'scripts/audit_domestic_night_shfe_volume_integrity.py'
+      - 'tests/test_domestic_night_shfe_volume_integrity.py'
+      - 'docs/governance/domestic_night_causal_contract_selection_preregistration.json'
+      - 'docs/governance/domestic_night_shfe_source_validation_receipt.json'
+      - '.github/workflows/overnight_domestic_night_shfe_volume_gate.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: overnight-domestic-night-shfe-volume-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install audit dependencies
+        run: python -m pip install --upgrade pandas numpy requests pytest
+      - name: Run frozen clock and volume-gate tests
+        run: pytest -q tests/test_domestic_night_source_crosscheck.py tests/test_domestic_night_shfe_volume_integrity.py
+      - name: Audit exact-contract SHFE daily volume reconciliation
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/audit_domestic_night_shfe_volume_integrity.py \
+            | tee domestic_night_shfe_volume_integrity.log
+      - name: Upload result-free source audit
+        uses: actions/upload-artifact@v4
+        with:
+          name: overnight-domestic-night-shfe-volume-integrity
+          path: |
+            artifacts/research/domestic_night_shfe_volume_integrity_results.json
+            domestic_night_shfe_volume_integrity.log
+            docs/governance/domestic_night_causal_contract_selection_preregistration.json
+            docs/governance/domestic_night_shfe_source_validation_receipt.json
+          if-no-files-found: error
+          retention-days: 90
