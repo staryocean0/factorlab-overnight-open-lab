@@ -66,6 +66,22 @@ def test_nonblank_legacy_amend_trade_is_conservatively_excluded() -> None:
     assert out["contracts"]["2015-02"]["last_le_091459"]["time"] == "090100"
 
 
+def test_legacy_blank_price_trade_is_counted_and_skipped_without_invalidating_archive() -> None:
+    header = "Comm\tContract Type\tMth Code\tYear\tStrike\tTrade Date\tLog Time\tPrice Ind\tPrice\tMsg Code\tAmend Code\tVolume"
+    rows = [
+        "CN\tF\tG\t2015\t0000000\t20150217\t090000\t\t\tY\t\t00001",
+        "CN\tF\tG\t2015\t0000000\t20150217\t091459\t\t0001079000\tY\t\t00002",
+        "CN\tF\tG\t2015\t0000000\t20150217\t150000\t\t0001081000\tY\t\t00003",
+    ]
+    out = sgx.parse_cn_rows(header, rows, "20150217")
+    assert out["blank_price_trade_rows"] == 1
+    assert out["trade_code_counts"] == {"Y": 3}
+    assert out["eligible_trade_rows"] == 2
+    c = out["contracts"]["2015-02"]
+    assert c["last_le_091459"] == {"time": "091459", "price": 10790.0}
+    assert c["last_le_150000"] == {"time": "150000", "price": 10810.0}
+
+
 def test_choose_contract_is_nearest_nonpast_with_prior_close_trade() -> None:
     summary = {
         "contracts": {
