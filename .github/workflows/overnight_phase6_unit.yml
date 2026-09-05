@@ -1,0 +1,32 @@
+name: overnight-phase6-unit
+
+on:
+  push:
+    branches:
+      - codex/overnight-next-explained-20260905
+    paths:
+      - 'scripts/sgx_cn_tick.py'
+      - 'tests/test_sgx_cn_tick.py'
+      - '.github/workflows/overnight_phase6_unit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: overnight-phase6-unit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install unit dependencies
+        run: python -m pip install --upgrade pandas pytest
+      - name: Run SGX schema-aware parser tests
+        run: pytest -q tests/test_sgx_cn_tick.py
