@@ -103,6 +103,35 @@ def component_diagnostics(df: pd.DataFrame, comparator_predictions: pd.DataFrame
     }
 
 
+def fixed_prediction_rows(df: pd.DataFrame, p0: pd.DataFrame, p1: pd.DataFrame) -> list[dict]:
+    detail = df.loc[df["trading_day"].between(pd.Timestamp("2019-01-01"), pd.Timestamp("2020-12-31")), [
+        "trading_day", "gap", "domestic_night_cyclical_return", "cu_cu_night_return", "rb_rb_night_return"
+    ]].copy()
+    fixed = p0[["trading_day", "pred"]].rename(columns={"pred": "V6_pred"}).merge(
+        p1[["trading_day", "pred"]].rename(columns={"pred": "V7_pred"}), on="trading_day", validate="one_to_one"
+    ).merge(detail, on="trading_day", validate="one_to_one")
+    if fixed.isna().any().any():
+        raise AssertionError("fixed-prediction ledger contains missing values")
+    fixed["V6_sse"] = (fixed["gap"] - fixed["V6_pred"]) ** 2
+    fixed["V7_sse"] = (fixed["gap"] - fixed["V7_pred"]) ** 2
+    fixed["sse_improvement"] = fixed["V6_sse"] - fixed["V7_sse"]
+    rows = []
+    for _, r in fixed.sort_values("trading_day").iterrows():
+        rows.append({
+            "trading_day": str(pd.Timestamp(r["trading_day"]).date()),
+            "y": float(r["gap"]),
+            "V6_pred": float(r["V6_pred"]),
+            "V7_pred": float(r["V7_pred"]),
+            "domestic_night_cyclical_return": float(r["domestic_night_cyclical_return"]),
+            "cu_night_return": float(r["cu_cu_night_return"]),
+            "rb_night_return": float(r["rb_rb_night_return"]),
+            "V6_sse": float(r["V6_sse"]),
+            "V7_sse": float(r["V7_sse"]),
+            "sse_improvement": float(r["sse_improvement"]),
+        })
+    return rows
+
+
 def main() -> None:
     prereg = json.loads(PREREG_PATH.read_text())
     correction = json.loads(SCOPE_CORRECTION_PATH.read_text())
@@ -173,8 +202,9 @@ def main() -> None:
         m["sign_hit_delta_vs_common_v6a"] = float(m["holdout_sign_hit"] - c0["holdout_sign_hit"])
 
     diagnostics = component_diagnostics(df, p0)
+    fixed_rows = fixed_prediction_rows(df, p0, p1)
     report = {
-        "schema_id": "overnight_open_global_spillover_v7_domestic_night_results@1.0",
+        "schema_id": "overnight_open_global_spillover_v7_domestic_night_results@1.1",
         "preregistration": str(PREREG_PATH.relative_to(ROOT)),
         "holiday_scope_correction": str(SCOPE_CORRECTION_PATH.relative_to(ROOT)),
         "external_manifest": str(DOMESTIC_MANIFEST_PATH.relative_to(ROOT)),
@@ -189,6 +219,7 @@ def main() -> None:
             "total_sse_improvement": float(q_improvements.sum()),
             "negative_quarters": [q for q, x in subsets["by_quarter"].items() if x["sse_improvement"] < -1e-12],
         },
+        "fixed_holdout_predictions": fixed_rows,
         "post_adjudication_nonselection_component_diagnostics": diagnostics,
         "adjudication": {
             "progression_conditions": conditions,
@@ -197,6 +228,7 @@ def main() -> None:
             "composite_standardized_coefficient": float(c1["standardized_coefficients"]["domestic_night_cyclical_return"]),
             "coefficient_sign_used_as_gate": False,
             "component_diagnostics_used_for_selection": False,
+            "fixed_prediction_ledger_used_for_primary_selection": False,
             "fresh_oos": False,
             "baseline_replacement": False,
             "scientific_status": "domestic_night_cyclical_progression_material_waiting_separate_fallback_and_unseen_confirmation" if progression else "domestic_night_cyclical_increment_not_supported_under_frozen_v7_gate",
