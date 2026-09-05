@@ -26,13 +26,17 @@ jobs:
         run: pytest -q
       - name: Replay frozen baseline
         run: python scripts/replay_baseline.py
-      - name: Run preregistered spillover candidates
+      - name: Replay preregistered spillover v1
         run: python scripts/research_global_spillover_v1.py | tee global_spillover_v1.log
-      - name: Upload research receipt
+      - name: Run preregistered v2 mechanism diagnostic
+        run: python scripts/research_global_spillover_v2_mechanism.py | tee global_spillover_v2_mechanism.log
+      - name: Upload research receipts
         uses: actions/upload-artifact@v4
         with:
-          name: global-spillover-v1-results
+          name: global-spillover-v2-mechanism-results
           path: |
             artifacts/research/global_spillover_v1_results.json
+            artifacts/research/global_spillover_v2_mechanism_results.json
             global_spillover_v1.log
+            global_spillover_v2_mechanism.log
           if-no-files-found: error
