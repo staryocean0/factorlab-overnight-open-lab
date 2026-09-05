@@ -1,0 +1,54 @@
+name: overnight-domestic-night-source-audit
+
+on:
+  push:
+    branches:
+      - codex/overnight-domestic-night-source-20260906
+    paths:
+      - 'scripts/audit_domestic_night_source_crosscheck.py'
+      - 'tests/test_domestic_night_source_crosscheck.py'
+      - 'docs/governance/domestic_night_source_validation_preregistration.json'
+      - 'docs/governance/domestic_night_source_crosscheck_sample_freeze.json'
+      - 'docs/governance/domestic_night_source_official_endpoint_contract.json'
+      - 'docs/governance/domestic_night_source_clock_evidence_freeze.json'
+      - '.github/workflows/overnight_domestic_night_source_audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: overnight-domestic-night-source-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install audit dependencies
+        run: python -m pip install --upgrade pandas numpy requests lxml pytest
+      - name: Run trading-day clock regression tests
+        run: pytest -q tests/test_domestic_night_source_crosscheck.py
+      - name: Run target-free source crosscheck
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/audit_domestic_night_source_crosscheck.py | tee domestic_night_source_crosscheck.log
+      - name: Upload source-audit evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: overnight-domestic-night-source-audit
+          path: |
+            docs/governance/domestic_night_source_validation_preregistration.json
+            docs/governance/domestic_night_source_crosscheck_sample_freeze.json
+            docs/governance/domestic_night_source_official_endpoint_contract.json
+            docs/governance/domestic_night_source_clock_evidence_freeze.json
+            artifacts/research/domestic_night_source_crosscheck_results.json
+            domestic_night_source_crosscheck.log
+          if-no-files-found: error
+          retention-days: 90
