@@ -38,6 +38,14 @@
       "sha256": "ffa4c802960c2f811116ab378d99fcb0004df943b75580551517705becef0ffd",
       "min_day": "2014-01-02",
       "max_day": "2020-12-31"
+    },
+    {
+      "path": "data/development/sgx_a50_holiday_endpoints.parquet",
+      "rows": 32,
+      "bytes": 20036,
+      "sha256": "91c4666ce95c4fa19fb2b6d40d34d98a50de1ce66e5185c84a6ae3c1ac71038b",
+      "min_day": "2015-09-07",
+      "max_day": "2020-10-09"
     }
   ]
 }
