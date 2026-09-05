@@ -49,7 +49,10 @@ def add_complete_clock_features(panel: pd.DataFrame, us: pd.DataFrame) -> pd.Dat
     start_idx = np.full(len(df), -1, dtype=int)
     valid_prev = df["previous_china_day"].notna().to_numpy()
     start_idx[valid_prev] = np.searchsorted(us_dates, prev[valid_prev], side="left") - 1
-    valid = valid_prev & (start_idx >= 0) & (end_idx > start_idx) & (end_idx >= 1)
+
+    clock_valid = valid_prev & (start_idx >= 0) & (end_idx >= start_idx)
+    positive = clock_valid & (end_idx > start_idx) & (end_idx >= 1)
+    zero = clock_valid & (end_idx == start_idx)
 
     interval_count = np.full(len(df), np.nan, dtype=float)
     nas_cum = np.full(len(df), np.nan, dtype=float)
@@ -58,16 +61,25 @@ def add_complete_clock_features(panel: pd.DataFrame, us: pd.DataFrame) -> pd.Dat
     vix_daily = np.full(len(df), np.nan, dtype=float)
     nas_extra = np.full(len(df), np.nan, dtype=float)
     vix_extra = np.full(len(df), np.nan, dtype=float)
-    interval_count[valid] = end_idx[valid] - start_idx[valid]
-    nas_cum[valid] = nas[end_idx[valid]] / nas[start_idx[valid]] - 1.0
-    vix_cum[valid] = vix[end_idx[valid]] / vix[start_idx[valid]] - 1.0
-    nas_daily[valid] = nas[end_idx[valid]] / nas[end_idx[valid] - 1] - 1.0
-    vix_daily[valid] = vix[end_idx[valid]] / vix[end_idx[valid] - 1] - 1.0
-    nas_extra[valid] = nas_cum[valid] - nas_daily[valid]
-    vix_extra[valid] = vix_cum[valid] - vix_daily[valid]
-    one = valid & (interval_count == 1)
-    if np.any(np.abs(nas_extra[one]) > 1e-12) or np.any(np.abs(vix_extra[one]) > 1e-12):
-        raise AssertionError("closure_extra identity failed for one-US-interval rows")
+
+    interval_count[clock_valid] = end_idx[clock_valid] - start_idx[clock_valid]
+    # If no new U.S. observed close arrived between two China sessions, there is
+    # exactly zero new foreign information by this closure-accrual definition.
+    nas_cum[zero] = 0.0
+    vix_cum[zero] = 0.0
+    nas_extra[zero] = 0.0
+    vix_extra[zero] = 0.0
+
+    nas_cum[positive] = nas[end_idx[positive]] / nas[start_idx[positive]] - 1.0
+    vix_cum[positive] = vix[end_idx[positive]] / vix[start_idx[positive]] - 1.0
+    nas_daily[positive] = nas[end_idx[positive]] / nas[end_idx[positive] - 1] - 1.0
+    vix_daily[positive] = vix[end_idx[positive]] / vix[end_idx[positive] - 1] - 1.0
+    nas_extra[positive] = nas_cum[positive] - nas_daily[positive]
+    vix_extra[positive] = vix_cum[positive] - vix_daily[positive]
+
+    at_most_one = clock_valid & (interval_count <= 1)
+    if np.any(np.abs(nas_extra[at_most_one]) > 1e-12) or np.any(np.abs(vix_extra[at_most_one]) > 1e-12):
+        raise AssertionError("closure_extra identity failed for <=1-US-interval rows")
 
     df["us_interval_count"] = interval_count
     df["us_nasdaq_complete_daily"] = nas_daily
@@ -186,16 +198,19 @@ def main() -> None:
     if not c0p["trading_day"].equals(c1p["trading_day"]) or not c0p["trading_day"].equals(p0p["trading_day"]):
         raise AssertionError("holdout prediction alignment mismatch")
 
+    zero = c0p["us_interval_count"] == 0
     one = c0p["us_interval_count"] == 1
     multi = c0p["us_interval_count"] > 1
     holiday = pd.to_numeric(c0p["holiday_reopen"], errors="coerce").fillna(0) != 0
     subset = {
         "C1": {
+            "zero_us_interval": _subset_compare(c0p, c1p, zero),
             "one_us_interval": _subset_compare(c0p, c1p, one),
             "multiple_us_intervals": _subset_compare(c0p, c1p, multi),
             "holiday_reopen": _subset_compare(c0p, c1p, holiday)
         },
         "P0": {
+            "zero_us_interval": _subset_compare(c0p, p0p, zero),
             "one_us_interval": _subset_compare(c0p, p0p, one),
             "multiple_us_intervals": _subset_compare(c0p, p0p, multi),
             "holiday_reopen": _subset_compare(c0p, p0p, holiday)
@@ -227,14 +242,15 @@ def main() -> None:
     )
 
     report = {
-        "schema_id": "overnight_open_global_spillover_v3_complete_clock_results@1.0",
+        "schema_id": "overnight_open_global_spillover_v3_complete_clock_results@1.1",
         "preregistration": str(PREREG_PATH.relative_to(ROOT)),
         "external_manifest": str(MANIFEST_PATH.relative_to(ROOT)),
         "data_boundary": {"post_2020_rows_read": 0, "holdout": "2019-2020_consumed_internal"},
         "clock_reconstruction": {
             "nasdaq_panel_daily_exact_share": nas_exact,
             "vix_panel_daily_exact_share": vix_exact,
-            "one_interval_identity_n": int(one.sum()),
+            "zero_interval_n": int(zero.sum()),
+            "one_interval_n": int(one.sum()),
             "multiple_interval_n": int(multi.sum()),
             "holiday_reopen_n": int(holiday.sum())
         },
