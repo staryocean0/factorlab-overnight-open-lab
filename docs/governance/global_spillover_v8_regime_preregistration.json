@@ -1,0 +1,92 @@
+{
+  "schema_id": "overnight_open_global_spillover_v8_regime_preregistration@1.0",
+  "registered_date": "2026-09-06",
+  "status": "result_free_before_any_v8_target_model_execution",
+  "branch": "codex/overnight-regime-v8-20260906",
+  "data_usage": "docs/governance/global_spillover_v8_regime_data_usage_declaration.json",
+  "preanalysis": "docs/governance/overnight_explained_variance_v8_regime_preanalysis.md",
+  "parent_candidate": {
+    "id": "V6A_plus_ordinary_A50_preauction_closure",
+    "source_commit": "02bbb216057f7024b5a82a87c80805383bb02c83",
+    "receipt": "docs/governance/global_spillover_v6_daily_a50_receipt.json",
+    "unseen_identity_must_not_change": true
+  },
+  "research_question": "Does the ordinary-session pass-through from pre-auction SGX A50 price discovery into the next CSI1000 opening gap vary continuously with the mainland market's already-known recent realized-volatility state?",
+  "financial_mechanism": "A fixed coefficient assumes that the same offshore China price move maps into the mainland opening gap identically in calm and fragile mainland states. The v8 interaction tests exactly one state-dependent pass-through elasticity while preserving both main effects.",
+  "new_feature": {
+    "name": "a50_ordinary_x_rvol20",
+    "formula": "a50_ordinary_preauction_closure_return * rvol20",
+    "A50_component": "exact frozen v6 ordinary-session A50 feature ending strictly before 09:15",
+    "state_component": "exact frozen baseline rvol20 feature without redefinition",
+    "hierarchy": "both main effects remain in the model",
+    "holiday_semantics": "exactly zero because a50_ordinary_preauction_closure_return is frozen to zero on holiday rows",
+    "centering_or_threshold": false,
+    "quantile_bucket": false,
+    "spline_or_polynomial_expansion": false
+  },
+  "frozen_model": {
+    "train": "2015-2018",
+    "internal_holdout": "2019-2020_consumed_repeat_audit_not_fresh",
+    "pipeline": "StandardScaler + Ridge(alpha=1.0)",
+    "hyperparameter_search": false,
+    "model_family_search": false,
+    "threshold_search": false,
+    "state_count_search": false
+  },
+  "common_sample": {
+    "required": true,
+    "rule": "Use the exact frozen v6 common frame and complete-case rules for both comparator and candidate; the deterministic interaction introduces no additional missingness beyond its two existing main effects.",
+    "expected_parent_train_n": 900,
+    "expected_parent_holdout_n": 461,
+    "comparator_replay": "V6A comparator must replay the sealed v6 same-sample metrics within frozen numerical tolerance before v8 may be adjudicated"
+  },
+  "attempts": [
+    {
+      "id": "V6A_frozen_common_sample_comparator",
+      "features": "exact frozen v6 feature set"
+    },
+    {
+      "id": "V8A_plus_A50_x_rvol20",
+      "features": "exact frozen v6 feature set + a50_ordinary_x_rvol20"
+    }
+  ],
+  "multiplicity": {
+    "new_selectable_candidates": 1,
+    "no_alternative_state_variable": true,
+    "no_interaction_family_search": true,
+    "no_threshold_or_bucket_search": true,
+    "no_Markov_or_HMM_search": true,
+    "no_model_family_search": true
+  },
+  "primary_adjudication": {
+    "same_sample_R2": "V8A holdout R2 > V6A holdout R2",
+    "same_sample_SSE": "V8A holdout SSE < V6A holdout SSE",
+    "IC": "V8A holdout IC > V6A holdout IC",
+    "sign_hit": "V8A sign hit may not deteriorate by more than 0.01 absolute versus V6A",
+    "ordinary_mechanism": "ordinary-session SSE must improve and ordinary-session IC must not be lower than V6A",
+    "annual_stability": "V8A SSE must not be worse than V6A in either 2019 or 2020",
+    "quarterly_stability": "across the eight 2019-2020 calendar quarters, total SSE improvement must be positive, median quarterly SSE improvement must be positive, and at least five of eight quarters must have nonnegative SSE improvement",
+    "holiday_preservation": "holiday-subset SSE must not be worse than V6A because the new interaction is exactly zero on holiday rows and should not damage the separately frozen holiday mechanism through coefficient redistribution",
+    "interaction_coefficient_sign": "diagnostic_only_not_a_hard_gate"
+  },
+  "forbidden": [
+    "change rvol20 definition",
+    "replace rvol20 with another state variable after results",
+    "split rvol20 into high/low buckets after results for candidate selection",
+    "search interaction centering, powers, absolute values, signs or thresholds",
+    "use Markov switching, HMM, tree or neural nonlinearities in this experiment",
+    "exclude bad years, quarters or events",
+    "use PnL, Sharpe, total return or execution profitability for selection",
+    "read post-2020 rows in cloud",
+    "mutate the frozen v6 unseen-controller contract",
+    "baseline replacement, production, registry mutation or runtime routing from consumed holdout"
+  ],
+  "authority": {
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false,
+    "runtime_routing": false,
+    "merge_main": false
+  }
+}
