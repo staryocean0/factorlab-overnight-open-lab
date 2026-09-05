@@ -30,6 +30,14 @@
       "sha256": "caf32c1cf0785d2c615eae97acad42ae58105275fe7ec58ad5d7121df9bf5b1b",
       "min_day": "2014-01-01",
       "max_day": "2020-12-31"
+    },
+    {
+      "path": "data/development/hkma_usdcny_cross.parquet",
+      "rows": 2068,
+      "bytes": 53995,
+      "sha256": "ffa4c802960c2f811116ab378d99fcb0004df943b75580551517705becef0ffd",
+      "min_day": "2014-01-02",
+      "max_day": "2020-12-31"
     }
   ]
 }
