@@ -1,0 +1,152 @@
+{
+  "schema_id": "overnight_open_global_spillover_v7_domestic_night_preregistration@1.0",
+  "registered_date": "2026-09-06",
+  "status": "result_free_before_bulk_CU_RB_extraction_and_any_v7_target_model_execution",
+  "branch": "codex/overnight-domestic-night-v7-20260906",
+  "parent_candidate": {
+    "id": "V6A_plus_ordinary_A50_preauction_closure",
+    "receipt": "docs/governance/global_spillover_v6_daily_a50_receipt.json",
+    "unseen_identity_must_not_change": true
+  },
+  "data_usage": "docs/governance/global_spillover_v7_domestic_night_data_usage_declaration.json",
+  "source_validation": {
+    "SHFE_price_transport": "docs/governance/domestic_night_shfe_source_validation_receipt.json",
+    "SHFE_volume_integrity": "docs/governance/domestic_night_shfe_volume_integrity_receipt.json",
+    "contract_selection": "docs/governance/domestic_night_causal_contract_selection_preregistration.json",
+    "DCE_I_admitted": false
+  },
+  "research_question": "After the frozen U.S., HKMA and SGX A50 information channels, does China domestic industrial/construction futures price discovery generated strictly in the post-A-share-close night session add explanatory information about the next CSI1000 09:31 opening gap?",
+  "financial_rationale": "CU and RB represent two complementary China-sensitive real-economy channels: broad industrial/global-China cyclicality and domestic construction/infrastructure. The experiment tests them as one predefined domestic-night information block rather than mining which commodity happens to forecast the consumed holdout best.",
+  "products": {
+    "SHFE_CU": {
+      "role": "industrial/global-China cyclical information",
+      "night_clock": "21:00:00-01:00:00 throughout 2015-2020",
+      "transition_quarantine": null
+    },
+    "SHFE_RB": {
+      "role": "domestic construction/infrastructure information",
+      "night_clock_before_transition": "21:00:00-01:00:00",
+      "night_clock_after_transition": "21:00:00-23:00:00",
+      "transition_quarantine": ["2016-04-26", "2016-05-03"],
+      "quarantine_semantics": "if previous China trading date falls inside this inclusive interval, RB night return is unavailable; no clock inference is made from target results"
+    }
+  },
+  "causal_contract_selection": {
+    "selection_time": "previous China trading day 15:00:00 Beijing time",
+    "eligible_contract": "delivery month-year not earlier than previous China calendar month and at least one observed bar in 09:00:00-14:55:00 on the previous China trading date",
+    "ranking": "largest sum of 5-minute volume over previous China trading date 09:00:00-14:55:00",
+    "tie_break_1": "nearest delivery month-year",
+    "tie_break_2": "lexicographically smallest exact contract code",
+    "future_full_day_volume": false,
+    "future_open_interest": false,
+    "same_contract_required_in_night": true,
+    "mid_interval_roll": false,
+    "continuous_series": false
+  },
+  "product_feature_semantics": {
+    "start": "selected exact contract 14:55:00 bar close on previous China trading date; the bar ending at the 15:00 mainland close must exist",
+    "night_activity_requirement": "at least one positive-volume 5-minute bar must exist in the selected contract's frozen night-session window beginning on the previous China trading date; otherwise the product return is unavailable",
+    "end": "close of the last positive-volume selected-contract bar inside that frozen night-session window; for CU the window may extend through 01:00 on the target calendar date",
+    "formula": "night_end_price / previous_1455_close - 1",
+    "target_morning_commodity_day_session": "excluded",
+    "no_night_session": "unavailable_not_zero_not_forward_filled",
+    "holiday_eve": "unavailable when no actual positive-volume night observation exists; no synthetic session may be created"
+  },
+  "composite_feature": {
+    "name": "domestic_night_cyclical_return",
+    "formula": "0.5 * cu_night_return + 0.5 * rb_night_return",
+    "weights": {"SHFE_CU": 0.5, "SHFE_RB": 0.5},
+    "weights_selected_from_target_results": false,
+    "availability": "available only when both CU and RB product returns are available under the frozen rules",
+    "missing_component": "exclude the row from both comparator and candidate common-sample adjudication; do not renormalize the surviving component"
+  },
+  "bulk_source_contract": {
+    "transport_repository": "Freddy-Hexas/china-futures-5min-2015-2025",
+    "pinned_commit": "1a402721d639432875504a343e2b9ffe9508cd36",
+    "allowed_products": ["5min/SHFE/CU", "5min/SHFE/RB"],
+    "market_value_end": "2020-12-31 23:59:59",
+    "post_2020_values_forbidden": true,
+    "delivery_files_extending_beyond_2020": "permitted only if the extractor scans datetime first and stops before parsing/using OHLCV values after 2020-12-31",
+    "raw_files_committed": false,
+    "compact_outputs_required": true,
+    "every_consumed_source_path_and_git_blob_sha_required": true
+  },
+  "data_quality_gates_before_model": {
+    "minimum_train_joint_feature_coverage": 0.80,
+    "minimum_holdout_joint_feature_coverage": 0.80,
+    "zero_post_2020_market_rows": true,
+    "zero_future_volume_selection": true,
+    "same_contract_start_and_night_end": true,
+    "exact_1455_start_bar_required": true,
+    "positive_volume_night_activity_required": true,
+    "if_any_hard_gate_fails": "do not execute or adjudicate v7; repair data/schema/clock only without changing feature, product, weight or model definitions"
+  },
+  "common_sample": {
+    "required": true,
+    "rule": "V6 comparator and V7 candidate use identical training and holdout rows where the entire frozen V6 feature set is valid and domestic_night_cyclical_return is available",
+    "no_night_rows": "excluded from both candidates in this mechanism experiment",
+    "future_fallback_experiment": "if v7 passes, full-coverage fallback to V6 on objectively unavailable domestic-night rows requires a separate preregistration and may not be inferred from this experiment"
+  },
+  "frozen_model": {
+    "train": "2015-2018",
+    "internal_holdout": "2019-2020_consumed_repeat_audit_not_fresh",
+    "pipeline": "StandardScaler + Ridge(alpha=1.0)",
+    "hyperparameter_search": false,
+    "model_family_search": false,
+    "threshold_search": false
+  },
+  "attempts": [
+    {
+      "id": "V6A_common_sample_comparator",
+      "features": "exact frozen v6 feature set, refit only on the v7 common training sample"
+    },
+    {
+      "id": "V7A_plus_domestic_night_cyclical",
+      "features": "V6A common-sample comparator + domestic_night_cyclical_return"
+    }
+  ],
+  "multiplicity": {
+    "new_selectable_candidates": 1,
+    "no_CU_vs_RB_selection": true,
+    "no_weight_search": true,
+    "no_product_search": true,
+    "no_clock_search": true,
+    "no_missing_value_search": true
+  },
+  "primary_adjudication": {
+    "same_sample_R2": "V7A holdout R2 > V6A common-sample comparator R2",
+    "same_sample_SSE": "V7A holdout SSE < comparator holdout SSE",
+    "IC": "V7A holdout IC > comparator holdout IC",
+    "sign_hit": "V7A sign hit may not deteriorate by more than 0.01 absolute",
+    "annual_stability": "V7A SSE must not be worse than comparator in either 2019 or 2020",
+    "quarterly_stability": "across the eight 2019-2020 calendar quarters, total SSE improvement must be positive, median quarterly SSE improvement must be positive, and at least five of eight quarters must have nonnegative SSE improvement",
+    "coefficient_sign": "diagnostic_only_not_a_hard_gate because commodity price changes combine demand information, supply shocks and input-cost effects; financial validity comes from the predeclared information channel and causal clock rather than imposing a post-hoc directional story",
+    "component_diagnostics": "report CU and RB raw feature correlations and standardized composite coefficient after formal adjudication, but do not use component diagnostics to reselect products or weights"
+  },
+  "R2_aspiration": {
+    "range": [0.25, 0.35],
+    "role": "historical research aspiration only; v6 consumed-holdout R2 already exceeded it",
+    "used_for_v7_selection": false,
+    "stopping_rule": false
+  },
+  "forbidden": [
+    "read 2021+ market rows in cloud",
+    "replace DCE I with another commodity after seeing v7 results",
+    "pick only CU or only RB after seeing target metrics",
+    "change 50:50 weights after target metrics",
+    "use future full-day volume or open interest for contract choice",
+    "continuous-contract splice or back adjustment",
+    "fill no-night-session rows with zero or forward values",
+    "use target-morning commodity day-session prices",
+    "tune the RB transition quarantine from results",
+    "baseline replacement, production, registry mutation or runtime routing from consumed holdout"
+  ],
+  "authority": {
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false,
+    "runtime_routing": false,
+    "merge_main": false
+  }
+}
