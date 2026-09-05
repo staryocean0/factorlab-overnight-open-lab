@@ -120,7 +120,6 @@ def parse_one(meta: dict, blob_sha: str, raw: bytes) -> dict:
     diffs = dt.diff().dropna().dt.total_seconds().div(60)
     five_minute_diff_share = float(diffs.eq(5).mean()) if len(diffs) else float("nan")
 
-    pos = df.loc[pos_vol].copy()
     pos_dt = dt.loc[pos_vol]
     positive_date_min = str(pos_dt.min()) if len(pos_dt) else None
     positive_date_max = str(pos_dt.max()) if len(pos_dt) else None
@@ -157,7 +156,7 @@ def parse_one(meta: dict, blob_sha: str, raw: bytes) -> dict:
         "zero_volume_flat_carry_rows": int(zero_flat_carry.sum()),
         "zero_volume_flat_carry_zero_money_rows": int(zero_full_fill_signature.sum()),
         "zero_volume_flat_carry_zero_money_share_of_zero_volume": float(zero_full_fill_signature.sum() / zero_vol.sum()) if zero_vol.sum() else float("nan"),
-        "positive_volume_outside_broad_historical_session_union": positive_outside_broad,
+        "positive_volume_outside_broad_historical_session_union": positive_outside,
         "zero_volume_outside_broad_historical_session_union": zero_outside_broad,
         "adjacent_rows_exactly_5_minutes_share": five_minute_diff_share,
         "sample_fill_signature_rows": sample_fill_rows,
@@ -243,17 +242,17 @@ def main() -> None:
         "by_product": summary_by_product,
         "contracts": results,
         "interpretation_rules": {
-            "nonzero_OHLC_with_zero_volume_is_not_treated_as_an_observed_trade": true,
-            "candidate_price_endpoints_must_use_positive_volume_bars_if_this_transport_source_advances": true,
-            "official_daily_price_crosscheck_still_required_before_model_admission": true,
-            "this_audit_cannot_select_a_forecasting_product_or_feature": true,
+            "nonzero_OHLC_with_zero_volume_is_not_treated_as_an_observed_trade": True,
+            "candidate_price_endpoints_must_use_positive_volume_bars_if_this_transport_source_advances": True,
+            "official_daily_price_crosscheck_still_required_before_model_admission": True,
+            "this_audit_cannot_select_a_forecasting_product_or_feature": True,
         },
         "authority": {
-            "target_model_execution": false,
-            "fresh_oos": false,
-            "baseline_replacement": false,
-            "production": false,
-            "registry_mutation": false,
+            "target_model_execution": False,
+            "fresh_oos": False,
+            "baseline_replacement": False,
+            "production": False,
+            "registry_mutation": False,
         },
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
