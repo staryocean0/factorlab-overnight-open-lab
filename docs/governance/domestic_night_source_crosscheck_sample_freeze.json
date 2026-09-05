@@ -1,0 +1,95 @@
+{
+  "schema_id": "overnight_open_domestic_night_source_crosscheck_sample_freeze@1.0",
+  "registered_date": "2026-09-06",
+  "status": "result_free_before_fetching_crosscheck_price_values",
+  "branch": "codex/overnight-domestic-night-source-20260906",
+  "purpose": "Validate whether a pinned third-party 5-minute Chinese futures transport source reproduces authoritative exchange trading-day prices and clocks well enough to be admitted for a later, separately preregistered domestic-night information-channel study. This freeze reads no CSI1000 target metrics.",
+  "target_labels_may_be_read": false,
+  "candidate_transport_source": {
+    "repository": "Freddy-Hexas/china-futures-5min-2015-2025",
+    "pinned_commit": "1a402721d639432875504a343e2b9ffe9508cd36",
+    "license": "CC0-1.0",
+    "authority": "third_party_transport_only_not_exchange_authoritative"
+  },
+  "sample_design": {
+    "dates": ["2016-06-15", "2018-06-15", "2020-06-15"],
+    "date_reason": "Same mid-June calendar anchor across three separated development years, chosen without reading CSI1000 target or factor performance. These dates avoid delivery-month boundary selection and span the DCE iron-ore night-session clock change by 2020.",
+    "products": {
+      "SHFE_CU": {
+        "economic_role": "industrial/global China cyclical demand",
+        "contracts_by_date": {
+          "2016-06-15": {"contract": "CU1607", "path": "5min/SHFE/CU/CU1607.csv", "git_blob_sha": "8aabe9247867694b2bc6e3b8afbfa03dc2cc9dc1"},
+          "2018-06-15": {"contract": "CU1807", "path": "5min/SHFE/CU/CU1807.csv", "git_blob_sha": "a3e03e086489c67f8d26dfd073a4051c75da4023"},
+          "2020-06-15": {"contract": "CU2007", "path": "5min/SHFE/CU/CU2007.csv", "git_blob_sha": "99abc1751a49f2e32bf8bc5d39e9bca35a59dca2"}
+        }
+      },
+      "SHFE_RB": {
+        "economic_role": "domestic construction and infrastructure demand",
+        "contracts_by_date": {
+          "2016-06-15": {"contract": "RB1610", "path": "5min/SHFE/RB/RB1610.csv", "git_blob_sha": "87fe427e813aad5b8af2b00488be65e8405f25c7"},
+          "2018-06-15": {"contract": "RB1810", "path": "5min/SHFE/RB/RB1810.csv", "git_blob_sha": "fbe690d3c075ab8fd434c18141cc8d806f49ca50"},
+          "2020-06-15": {"contract": "RB2010", "path": "5min/SHFE/RB/RB2010.csv", "git_blob_sha": "1adbfe3e7c9a0176be42decec4b04b5e517c93ee"}
+        }
+      },
+      "DCE_I": {
+        "economic_role": "China steel-chain and imported raw-material demand",
+        "contracts_by_date": {
+          "2016-06-15": {"contract": "I1609", "path": "5min/DCE/I/I1609.csv", "git_blob_sha": "6abdb0f388a22ada58ebb1c717464f08dc06ee15"},
+          "2018-06-15": {"contract": "I1809", "path": "5min/DCE/I/I1809.csv", "git_blob_sha": "6ac8363dcd4c83808389fe6aa031c82fae4a7751"},
+          "2020-06-15": {"contract": "I2009", "path": "5min/DCE/I/I2009.csv", "git_blob_sha": "c770059ffca9bdd9b4b86b359c510fd19a1a26fc"}
+        }
+      }
+    },
+    "fallback_rule": "If the exact frozen date has no authoritative exchange daily row or no third-party bars for the exact frozen contract, inspect up to the five immediately preceding exchange weekdays for the same exact contract only. The first date with both sources available may be used. Never switch contract, product or year. If none exists, mark that sample unavailable. This fallback is source-availability only and cannot use CSI1000 data."
+  },
+  "authoritative_clock_contract": {
+    "trading_day_semantics": "Night/continuous trading on the preceding workday belongs to the following exchange trading day; aggregate the exchange trading day from its prior-evening continuous session through current-day 15:00.",
+    "SHFE_CU": {
+      "sample_dates_clock": "21:00-01:00 for all three frozen sample dates",
+      "official_evidence": [
+        "https://www.shfe.com.cn/content/lxjy/main.html",
+        "https://www.shfe.com.cn/publicnotice/notice/201809/t20180906_793549.html",
+        "https://edu.shfe.com.cn/TradingAssistant/RulesIntroduction/518.html"
+      ]
+    },
+    "SHFE_RB": {
+      "sample_dates_clock": "21:00-23:00 for all three frozen sample dates; RB launched continuous trading at 21:00-01:00 in December 2014 and SHFE announced shortening to 21:00-23:00 on 2016-04-26, before the first frozen sample date.",
+      "official_evidence": [
+        "https://www.shfe.com.cn/content/lxjy/mtbd4_en.html",
+        "https://tsite.shfe.com.cn/eng/circularnews/news/911401536.html",
+        "https://www.shfe.com.cn/upload/20211021/1634804081608.pdf"
+      ]
+    },
+    "DCE_I": {
+      "sample_dates_clock": {
+        "2016-06-15": "21:00-23:30",
+        "2018-06-15": "21:00-23:30",
+        "2020-06-15": "21:00-23:00"
+      },
+      "official_evidence_requirement": "The validator/receipt must preserve official DCE evidence that iron-ore night trading launched in December 2014, was shortened to 21:00-23:30 from May 2015, and to 21:00-23:00 from March 2019. If those official references cannot be fetched/reproduced, DCE_I cannot pass the clock gate."
+    },
+    "holiday_eve_rule": "No artificial night session may be created for an exchange business day where the exchange suspended continuous trading before a national holiday. No forward fill across absent sessions."
+  },
+  "crosscheck_fields": {
+    "primary": ["open", "high", "low", "close"],
+    "secondary_if_authoritative_field_available": ["settlement", "volume", "open_interest"],
+    "third_party_aggregation": "Aggregate all bars belonging to the exchange trading day, including the prior-evening night session, using first bar open, maximum high, minimum low, last bar close. Zero-volume synthetic/carry bars may not be interpreted as proof of an actual trade; their presence and effect on endpoints must be reported."
+  },
+  "validity_gates": {
+    "provenance": "Raw file bytes must match the frozen Git blob identity at the pinned commit; no post-2020 rows may be consumed.",
+    "schema": "datetime and OHLC parse; low <= open/close <= high; volume and open_interest nonnegative when present; duplicate contract-datetime rows explicitly counted.",
+    "clock": "Observed night/day bar times used for the frozen trading-day aggregate must fit the frozen product/date clock; prior evening must map to following trading day.",
+    "official_price": "OHLC price scale and values must reproduce authoritative exchange daily values exactly or within a preregistered rounding tolerance of one minimum price tick. Any larger unexplained discrepancy fails that product/date sample.",
+    "sample_pass": "all four primary OHLC fields pass provenance/schema/clock and official-price checks",
+    "product_pass": "at least 2 of the 3 frozen date samples pass, with no unresolved systematic scale, clock or trading-day mismatch",
+    "source_admission": "all three predefined products must pass before the transport source can be admitted as a general domestic-night source. If only a subset passes, only that subset may be considered in a separately preregistered future study; failed products remain failed and may not be silently replaced."
+  },
+  "authority": {
+    "predictive_model_execution": false,
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false,
+    "merge_main": false
+  }
+}
