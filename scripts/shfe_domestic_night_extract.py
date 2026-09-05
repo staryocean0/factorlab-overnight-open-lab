@@ -67,10 +67,11 @@ def enumerate_source_files(tree_payload: dict[str, Any], product: str) -> list[S
             year, month = contract_delivery(contract, product)
         except ValueError:
             continue
-        # A December-2020 selection can legitimately choose a 2021 delivery.
-        # Contracts beyond 2021 cannot be the nearest listed horizon required by
-        # this bounded experiment and are excluded before any market bytes are fetched.
-        if (year, month) < (2015, 1) or (year, month) > (2021, 12):
+        # Do not impose a post-hoc delivery-horizon assumption. Every contract
+        # file with delivery >= 2015 is fetched and bounded by timestamp. A file
+        # whose first relevant row is in 2021+ is stopped before OHLCV parsing.
+        # This keeps the frozen previous-day volume ranking candidate universe closed.
+        if (year, month) < (2015, 1):
             continue
         out.append(SourceFile(product, contract, year, month, path, str(item["sha"]), int(item.get("size", 0))))
     if not out:
@@ -197,7 +198,6 @@ def parse_bounded_contract(raw: bytes, expected_blob_sha: str) -> tuple[pd.DataF
 def daytime_stats(df: pd.DataFrame) -> dict[pd.Timestamp, dict[str, Any]]:
     if df.empty:
         return {}
-    dates = df["datetime"].dt.normalize()
     times = df["datetime"].dt.strftime("%H%M%S")
     mask = (times >= "090000") & (times <= "145500")
     work = df.loc[mask].copy()
