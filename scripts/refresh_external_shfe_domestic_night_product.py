@@ -246,13 +246,13 @@ def main() -> None:
         "source_files_enumerated": int(len(sources)),
         "source_files": dict(sorted(source_meta.items())),
         "guards": {
-            "CSI1000_gap_column_read": false,
+            "CSI1000_gap_column_read": False,
             "post_2020_market_fields_parsed": 0,
-            "future_full_day_volume_selection": false,
-            "future_open_interest_selection": false,
-            "contract_switch_after_missing_start_or_night": false,
-            "zero_or_forward_fill_no_night": false,
-            "raw_source_files_committed": false,
+            "future_full_day_volume_selection": False,
+            "future_open_interest_selection": False,
+            "contract_switch_after_missing_start_or_night": False,
+            "zero_or_forward_fill_no_night": False,
+            "raw_source_files_committed": False,
         },
     }
     manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
