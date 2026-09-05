@@ -1,5 +1,6 @@
 name: overnight-domestic-night-source-audit
 
+# Corrected audit retry: Python report booleans fixed; research/data contract unchanged.
 on:
   push:
     branches:
