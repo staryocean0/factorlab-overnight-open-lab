@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 RAW_OUT = ROOT / "data/external/fred_us_nasdaq_vix_2014_2020.csv"
 PARQUET_OUT = ROOT / "data/development/us_nasdaq_vix.parquet"
 MANIFEST_OUT = ROOT / "docs/governance/external_us_fred_2014_2020_manifest.json"
+PACKAGE_MANIFEST = ROOT / "data/manifest.json"
 START = pd.Timestamp("2014-01-01")
 END = pd.Timestamp("2020-12-31")
 URLS = {
@@ -27,10 +28,8 @@ def _load_series(name: str, url: str) -> pd.DataFrame:
     out["date"] = pd.to_datetime(out.pop("observation_date"), errors="raise").dt.normalize()
     out[name] = pd.to_numeric(out[name], errors="coerce")
     out = out.loc[(out["date"] >= START) & (out["date"] <= END)].copy()
-    if out.empty:
-        raise AssertionError(f"FRED returned no rows for {name}")
-    if out["date"].duplicated().any():
-        raise AssertionError(f"duplicate dates for {name}")
+    if out.empty or out["date"].duplicated().any():
+        raise AssertionError(f"invalid FRED response for {name}")
     return out.sort_values("date").reset_index(drop=True)
 
 
@@ -50,26 +49,18 @@ def main() -> None:
     df["nasdaq_observed"] = df["NASDAQCOM"].notna()
     df["vix_observed"] = df["VIXCLS"].notna()
     df["joint_observed"] = df["nasdaq_observed"] & df["vix_observed"]
+    if df["date"].min() != START or df["date"].max() != END or bool((df["date"] > END).any()):
+        raise AssertionError("unexpected FRED date boundary")
 
-    if df["date"].min() != START:
-        raise AssertionError(("unexpected min date", df["date"].min()))
-    if df["date"].max() != END:
-        raise AssertionError(("unexpected max date", df["date"].max()))
-    if bool((df["date"] > END).any()):
-        raise AssertionError("post-2020 row detected")
-
-    # Calendar sentinels: retain U.S. market holidays as explicit missing observations.
     indexed = df.set_index("date")
     for holiday in ["2014-01-01", "2019-01-01", "2020-01-01", "2020-12-25"]:
         d = pd.Timestamp(holiday)
-        if d not in indexed.index:
-            raise AssertionError(("expected holiday row missing", holiday))
-        if bool(indexed.loc[d, "joint_observed"]):
-            raise AssertionError(("expected holiday unexpectedly observed", holiday))
+        if d not in indexed.index or bool(indexed.loc[d, "joint_observed"]):
+            raise AssertionError(("holiday sentinel failed", holiday))
     for session in ["2018-12-26", "2018-12-28", "2019-01-02", "2020-01-02", "2020-12-31"]:
         d = pd.Timestamp(session)
         if d not in indexed.index or not bool(indexed.loc[d, "joint_observed"]):
-            raise AssertionError(("expected U.S. session missing", session))
+            raise AssertionError(("session sentinel failed", session))
 
     RAW_OUT.parent.mkdir(parents=True, exist_ok=True)
     raw = df.copy()
@@ -86,18 +77,10 @@ def main() -> None:
         "window": [str(START.date()), str(END.date())],
         "provider": "Federal Reserve Bank of St. Louis FRED",
         "series": {
-            "NASDAQCOM": {
-                "source_url": URLS["NASDAQCOM"],
-                "reported_source": "Nasdaq, Inc.",
-                "frequency": "Daily, Close"
-            },
-            "VIXCLS": {
-                "source_url": URLS["VIXCLS"],
-                "reported_source": "Chicago Board Options Exchange",
-                "frequency": "Daily, Close"
-            }
+            "NASDAQCOM": {"source_url": URLS["NASDAQCOM"], "reported_source": "Nasdaq, Inc.", "frequency": "Daily, Close"},
+            "VIXCLS": {"source_url": URLS["VIXCLS"], "reported_source": "Chicago Board Options Exchange", "frequency": "Daily, Close"}
         },
-        "calendar_semantics": "Rows with missing observations are retained in the raw CSV; research trading sessions are nonmissing observations only; no forward fill.",
+        "calendar_semantics": "Missing FRED observations are retained as explicit calendar rows; usable U.S. sessions are nonmissing observations only; no forward fill.",
         "row_counts": {
             "calendar_rows": int(len(df)),
             "nasdaq_observed": int(df["nasdaq_observed"].sum()),
@@ -109,13 +92,23 @@ def main() -> None:
             str(RAW_OUT.relative_to(ROOT)): {"sha256": _sha256(RAW_OUT)},
             str(PARQUET_OUT.relative_to(ROOT)): {"sha256": _sha256(PARQUET_OUT)}
         },
-        "guards": {
-            "post_2020_rows": 0,
-            "holiday_rows_retained": True,
-            "forward_fill": False
-        }
+        "guards": {"post_2020_rows": 0, "holiday_rows_retained": True, "forward_fill": False}
     }
     MANIFEST_OUT.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
+
+    package = json.loads(PACKAGE_MANIFEST.read_text())
+    matches = [p for p in package["products"] if p["path"] == "data/development/us_nasdaq_vix.parquet"]
+    if len(matches) != 1:
+        raise AssertionError("US parquet product missing from package manifest")
+    prod = matches[0]
+    prod.update({
+        "rows": int(len(pq)),
+        "bytes": int(PARQUET_OUT.stat().st_size),
+        "sha256": _sha256(PARQUET_OUT),
+        "min_day": str(pq["date"].min().date()),
+        "max_day": str(pq["date"].max().date())
+    })
+    PACKAGE_MANIFEST.write_text(json.dumps(package, indent=2) + "\n")
     print(json.dumps(manifest, indent=2, sort_keys=True))
 
 
