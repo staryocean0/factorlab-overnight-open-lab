@@ -1,5 +1,5 @@
 {
-  "schema_id": "overnight_open_domestic_night_source_validation@1.1",
+  "schema_id": "overnight_open_domestic_night_source_validation@1.2",
   "registered_date": "2026-09-05",
   "status": "result_free_source_validation_only_no_target_model",
   "branch": "codex/overnight-next-explained-20260905",
@@ -12,7 +12,14 @@
     ],
     "symbol_selection_after_results": false,
     "development_window_max": "2020-12-31",
-    "post_2020_market_rows_forbidden": true
+    "post_2020_market_rows_forbidden": true,
+    "source_audit_sample": {
+      "years": [2015, 2016, 2017, 2018, 2019, 2020],
+      "CU_delivery_months": [1, 5, 9],
+      "RB_delivery_months": [1, 5, 10],
+      "I_delivery_months": [1, 5, 9],
+      "reason": "fixed liquid-cycle contract sample for transport-source auditing only; chosen before any CSI1000 target metric and not used to select a forecasting symbol"
+    }
   },
   "candidate_transport_source": {
     "repository": "Freddy-Hexas/china-futures-5min-2015-2025",
@@ -30,7 +37,7 @@
     ],
     "DCE": [
       {"fact": "DCE 2015 monthly report states the night session for night-traded products changed from 21:00-02:30 to 21:00-23:30 from the 2015-05-11 trading session, and explicitly discusses iron ore as benefiting from night trading", "url": "https://www.dce.com.cn/dalianshangpin/resource/cms/2016/07/%E5%A4%A7%E8%BF%9E%E6%9C%9F%E8%B4%A7%E5%B8%82%E5%9C%BA%E6%9C%88%E6%8A%A5%EF%BC%882015%E5%B9%B45%E6%9C%88%EF%BC%89.pdf"},
-      {"fact": "DCE 2019 monthly report records the night-session close changing from 23:30 to 23:00", "url": "https://www.dce.com.cn/dalianshangpin/resource/cms/2019/04/2019042612023697006.pdf"},
+      {"fact": "DCE 2019 monthly report records the night-session close changing from 23:30 to 23:00 effective from 2019-03-29 21:00", "url": "https://www.dce.com.cn/dalianshangpin/resource/cms/2019/04/2019042612023697006.pdf"},
       {"fact": "current DCE trading-hours material records Session 1 21:00-23:00 and defines a trading day as night plus day sessions", "url": "https://www.dce.com.cn/dceg/file/2025-05-29/1748480876704ff80808197162e7128701971994e0a01313.pdf"},
       {"fact": "official DCE iron-ore manual identifies ticker I and the iron-ore futures contract", "url": "https://www.dce.com.cn/dceg/file/2025-05-25/1748165285051ff8080819701ddb3518019706c554bb21f7.pdf"}
     ]
