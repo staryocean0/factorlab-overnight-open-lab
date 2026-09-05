@@ -36,7 +36,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          # The source run is frozen; this step only waits for its six compact yearly artifacts.
+          # The source run is frozen; repeated boundary archives must match on stable identity.
           for i in $(seq 1 90); do
             names=$(gh api "/repos/${GITHUB_REPOSITORY}/actions/runs/${SOURCE_RUN_ID}/artifacts" --paginate --jq '.artifacts[].name' || true)
             count=$(printf '%s\n' "$names" | grep -E '^a50-ordinary-(2015|2016|2017|2018|2019|2020)$' | sort -u | wc -l)
