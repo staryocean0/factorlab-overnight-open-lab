@@ -1,0 +1,41 @@
+{
+  "schema_id": "overnight_open_global_spillover_holiday_endpoint_audit_plan@1.0",
+  "date": "2026-09-05",
+  "status": "post_hoc_measurement_forensic_not_candidate_selection",
+  "parent_forensic_plan": "docs/governance/global_spillover_v1_forensic_audit_plan.json",
+  "question": "Are both endpoints of the v1 cumulative NASDAQ/VIX return internally supported on every 2019-2020 holiday_reopen row that supplies the observed C1 gain?",
+  "fixed_subset": "existing holiday_reopen == 1 on consumed 2019-2020 holdout; no threshold or row selection search",
+  "endpoint_contract": {
+    "target_endpoint_supported": "the target China row's panel us_nasdaq and us_vix_chg exactly match percentage changes reconstructed from the packaged series on their last available source sessions strictly before the target China day",
+    "start_endpoint_supported": "the immediately previous China row also passes the same exact alignment check, proving no more recent US source session required by the already-materialized panel feature is absent before the previous China boundary",
+    "v1_start_date": "last joint nonmissing packaged US date strictly before previous China day",
+    "v1_end_date": "last joint nonmissing packaged US date strictly before target China day",
+    "date_consistency": "v1 start/end dates must equal the last joint nonmissing packaged US dates at their respective boundaries",
+    "why_intermediate_missing_dates_do_not_break_endpoint_return": "a compounded endpoint return level_end/level_start-1 does not require intermediate levels once the correct causal endpoints are proven"
+  },
+  "report": [
+    "holiday row count",
+    "target endpoint exact count",
+    "previous-China start boundary exact count",
+    "joint-calendar start/end date consistency count",
+    "US interval counts between endpoints",
+    "per-row target day, previous China day, start/end US dates, cumulative NASDAQ/VIX and gap"
+  ],
+  "interpretation_rule": "Only if all holiday rows pass both endpoint and date-consistency checks may the holiday accumulated-return measurement be called internally supported. Passing does not promote a holiday routing rule because the localization was discovered on a consumed holdout and has only 12 observations.",
+  "forbidden": [
+    "model refit",
+    "row deletion",
+    "new threshold search",
+    "candidate promotion",
+    "baseline replacement",
+    "post-2020 reads",
+    "external market downloads"
+  ],
+  "authority": {
+    "fresh_oos": false,
+    "candidate_selection": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false
+  }
+}
