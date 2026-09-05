@@ -1,0 +1,37 @@
+{
+  "schema_id": "overnight_open_global_spillover_v4_source_substitution@1.0",
+  "registered_date": "2026-09-05",
+  "parent_preregistration": "docs/governance/global_spillover_v4_cnh_preregistration.json",
+  "incident": {
+    "github_actions_run_id": 33970645266,
+    "status": "data_download_failed_before_model_execution",
+    "failure": "Yahoo Finance CNH=X chart request returned no timestamp or close observations for the frozen window; v4 model, holdout metrics and SGX probe were not executed in that run."
+  },
+  "substitution_scope": "data source only; preserve the pre-registered economic question, closure-extra transform, frozen model, train/holdout windows and progression gates",
+  "new_data_contract": {
+    "provider": "Hong Kong Monetary Authority public API",
+    "endpoint": "https://api.hkma.gov.hk/public/market-data-and-statistics/monthly-statistical-bulletin/er-ir/er-eeri-daily",
+    "fields": ["end_of_day", "usd", "cny"],
+    "published_units": {
+      "usd": "HKD per unit of USD",
+      "cny": "HKD per unit of CNY"
+    },
+    "derived_cross": "USD/CNY_HK = usd / cny",
+    "window": ["2014-01-01", "2020-12-31"],
+    "raw_asset": "data/external/hkma_er_eeri_daily_2014_2020.json",
+    "research_parquet": "data/development/hkma_usdcny_cross.parquet",
+    "manifest": "docs/governance/external_hkma_usdcny_2014_2020_manifest.json",
+    "no_api_key": true,
+    "no_forward_fill": true,
+    "post_2020_rows_allowed": false
+  },
+  "interpretation_correction": "HKMA publishes a Hong Kong daily RMB reference against HKD. The USD/CNY cross derived from the same HKMA daily table is a Hong-Kong-market China-FX price-discovery proxy. It must not be labeled as an exact executable interbank CNH spot series without separate source proof.",
+  "time_boundary": "unchanged: only observation dates strictly earlier than the target China trading date are eligible; closure_extra is cumulative return between China information boundaries minus the final daily return and must be zero with zero or one new observed interval",
+  "selection_gate": "unchanged from parent preregistration: candidate must improve full-holdout IC and SSE versus v3 and improve SSE on the multiple-external-interval mechanism subset",
+  "authority": {
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false
+  }
+}
