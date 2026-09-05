@@ -1,0 +1,77 @@
+{
+  "schema_id": "overnight_open_domestic_night_official_endpoint_migration_correction@1.0",
+  "registered_date": "2026-09-06",
+  "status": "result_free_before_fetching_any_official_OHLC_from_migrated_endpoints",
+  "reason": "The first frozen official-endpoint contract completed a target-free audit but retrieved zero machine-readable official OHLC values. SHFE legacy daily-data paths returned HTTP 404 and tsite was unavailable; DCE legacy publicweb HTTPS was unreachable and HTTP returned anti-bot 412. Therefore an official same-provider endpoint/access correction is permitted without changing samples, products, clocks, contracts or price tolerances.",
+  "first_audit": {
+    "workflow_run": 33984731343,
+    "job": 101356096731,
+    "artifact": 9974853600,
+    "artifact_sha256": "7c4dcd0a148915a6e0866bf2c23130e8cea6abb4aa7e2540e985e9fa2656f115",
+    "summary": {
+      "product_pass_count": 0,
+      "product_total": 3,
+      "unavailable_sample_count": 9,
+      "failed_price_sample_count": 0,
+      "source_admission_pass": false,
+      "scientific_status": "infrastructure_gap_official_daily_price_retrieval_or_parse_prevents_admission"
+    },
+    "official_OHLC_values_retrieved": 0
+  },
+  "protocol_probe": {
+    "workflow_run": 33984968048,
+    "job": 101356691102,
+    "artifact": 9974924525,
+    "artifact_sha256": "b449f4c0d2acd09c574e9991719f5331d431d65a4aa097bc40b1e5afce0ffc1a",
+    "findings": {
+      "SHFE_legacy_path": "HTTP 404 for 2016-06-15 and 2020-06-15; no JSON and no contract token",
+      "DCE_legacy_http": "HTTP 412 anti-bot response; no contract token",
+      "DCE_legacy_https": "network unreachable from GitHub Actions runner"
+    }
+  },
+  "SHFE_correction": {
+    "provider_unchanged": "Shanghai Futures Exchange",
+    "corrected_official_daily_path": "https://www.shfe.com.cn/data/tradedata/future/dailydata/kx{YYYYMMDD}.dat",
+    "evidence": {
+      "implementation_reference": "akfamily/akshare pinned implementation currently uses this SHFE-owned path for get_shfe_daily after the exchange path migration",
+      "reference_commit": "8e95744b79ae22326308ccd2b4e62650c5b53c55",
+      "reference_file": "akshare/futures/futures_daily_bar.py",
+      "authority_note": "AKShare is used only to identify the migrated URL shape; actual crosscheck bytes must be fetched directly from the official shfe.com.cn endpoint and frozen by SHA256"
+    },
+    "affected_products": ["SHFE_CU", "SHFE_RB"],
+    "frozen_samples_unchanged": true,
+    "minimum_tick_tolerances_unchanged": true,
+    "trading_day_clocks_unchanged": true
+  },
+  "DCE_boundary": {
+    "provider": "Dalian Commodity Exchange",
+    "current_api_path": "http://www.dce.com.cn/dceapi/forward/publicweb/dailystat/dayQuotes",
+    "request_semantics": "JSON POST with QuotesRequest fields such as tradeDate, tradeType and varietyId",
+    "authentication": "current DCE API SDK/documented flow requires API key + secret to acquire a Bearer access token; request headers include Authorization Bearer token and apikey",
+    "credential_available_in_this_research_environment": false,
+    "DCE_I_status": "official_auth_access_blocked_not_price_rejected",
+    "may_enter_next_predictive_candidate": false,
+    "silent_third_party_daily_crosscheck_substitution": false
+  },
+  "subset_rule": {
+    "basis": "The original frozen crosscheck explicitly allows only the subset of predefined products that pass to be considered in a later separately preregistered study; failed or blocked products may not be silently replaced.",
+    "next_action": "Validate SHFE_CU and SHFE_RB against the migrated official SHFE path on the exact frozen samples and tolerances. Keep DCE_I blocked. If both SHFE products pass at least 2/3 samples, only CU/RB may advance to a future predictive preregistration."
+  },
+  "forbidden": [
+    "changing frozen sample dates except the already-frozen five-prior-weekday same-contract availability rule",
+    "changing frozen contracts",
+    "changing minimum tick tolerances",
+    "using third-party daily prices as authoritative crosscheck",
+    "using DCE_I in a predictive experiment without official validation",
+    "reading CSI1000 targets during this source-validation correction",
+    "post-2020 cloud market rows"
+  ],
+  "authority": {
+    "predictive_model_execution": false,
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false,
+    "merge_main": false
+  }
+}
