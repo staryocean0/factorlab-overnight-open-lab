@@ -58,6 +58,8 @@ jobs:
         run: |
           set -o pipefail
           python scripts/audit_global_spillover_v3_leave_one_event_out.py | tee global_spillover_v3_loo.log
+      - name: Probe official SGX historical derivatives source
+        run: python scripts/probe_sgx_a50_historical_source.py | tee sgx_a50_source_probe.log
       - name: Upload v3 research receipts
         uses: actions/upload-artifact@v4
         with:
@@ -70,4 +72,5 @@ jobs:
             external_us_fred_refresh.log
             global_spillover_v3_complete_clock.log
             global_spillover_v3_loo.log
+            sgx_a50_source_probe.log
           if-no-files-found: error
