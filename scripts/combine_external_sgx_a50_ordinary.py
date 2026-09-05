@@ -32,6 +32,31 @@ def merge_unique_dict(dst: dict, src: dict, label: str) -> None:
         dst[k] = v
 
 
+def _stable_archive_record(record: dict) -> dict:
+    return {k: v for k, v in record.items() if k != "headers"}
+
+
+def merge_archive_records(dst: dict, src: dict, source_year: int) -> None:
+    for date, record in src.items():
+        stable = _stable_archive_record(record)
+        observation = {
+            "source_year": int(source_year),
+            "headers": record.get("headers", {}),
+        }
+        if date not in dst:
+            dst[date] = {
+                **stable,
+                "retrieval_observations": [observation],
+            }
+            continue
+        existing_stable = {
+            k: v for k, v in dst[date].items() if k != "retrieval_observations"
+        }
+        if existing_stable != stable:
+            raise AssertionError(("conflicting repeated archive stable identity", date))
+        dst[date]["retrieval_observations"].append(observation)
+
+
 def discover_year_files(indir: Path, prefix: str, suffix: str, years: list[int] | None = None) -> list[Path]:
     expected = YEARS if years is None else years
     found: dict[int, list[Path]] = {year: [] for year in expected}
@@ -99,7 +124,7 @@ def main() -> None:
         total_usable += int(man["events_usable"])
         total_blank_price_trade_rows += int(man.get("blank_price_trade_rows_skipped", 0))
         unavailable.extend(man["unavailable_events"])
-        merge_unique_dict(used_archives, man["used_archives"], "archive")
+        merge_archive_records(used_archives, man["used_archives"], year)
         merge_unique_dict(used_index, nav["used_date_to_key"], "navigation")
         for k, v in man["schema_counts"].items():
             schema_counts[k] = schema_counts.get(k, 0) + int(v)
@@ -133,8 +158,12 @@ def main() -> None:
         "used_date_to_key": dict(sorted(used_index.items())),
     }, indent=2, sort_keys=True) + "\n")
 
+    repeated_archive_retrieval_dates = [
+        date for date, record in used_archives.items()
+        if len(record.get("retrieval_observations", [])) > 1
+    ]
     manifest = {
-        "schema_id": "external_sgx_a50_ordinary_preauction_2015_2020_manifest@1.1",
+        "schema_id": "external_sgx_a50_ordinary_preauction_2015_2020_manifest@1.2",
         "frozen_retrieval_date": "2026-09-05",
         "provider": "Singapore Exchange official historical derivatives endpoint",
         "commodity_code": "CN",
@@ -150,6 +179,8 @@ def main() -> None:
         },
         "schema_archive_counts": schema_counts,
         "blank_price_trade_rows_skipped": int(total_blank_price_trade_rows),
+        "repeated_archive_retrieval_dates": sorted(repeated_archive_retrieval_dates),
+        "repeated_archive_merge_rule": "stable archive identity fields must match exactly; dynamic HTTP retrieval headers are retained as separate retrieval observations",
         "unavailable_events": unavailable,
         "assets": {
             str(CSV_OUT.relative_to(ROOT)): {"sha256": sha256_file(CSV_OUT)},
@@ -191,6 +222,7 @@ def main() -> None:
         "rows": len(out),
         "schema_archive_counts": schema_counts,
         "blank_price_trade_rows_skipped": total_blank_price_trade_rows,
+        "repeated_archive_retrieval_dates": sorted(repeated_archive_retrieval_dates),
         "by_target_year": yearly,
     }, indent=2, sort_keys=True))
 
