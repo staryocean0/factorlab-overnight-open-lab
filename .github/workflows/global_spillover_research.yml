@@ -23,7 +23,10 @@ jobs:
       - name: Install research dependencies
         run: python -m pip install --upgrade pip pandas pyarrow numpy scikit-learn pytest
       - name: Refresh authoritative FRED NASDAQ and VIX history
-        run: python scripts/refresh_external_us_fred_data.py | tee external_us_fred_refresh.log
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/refresh_external_us_fred_data.py | tee external_us_fred_refresh.log
       - name: Validate refreshed bounded package
         run: python scripts/validate_theme_package.py
       - name: Run tests
@@ -46,7 +49,10 @@ jobs:
       - name: Replay frozen baseline
         run: python scripts/replay_baseline.py
       - name: Run preregistered complete-clock v3
-        run: python scripts/research_global_spillover_v3_complete_clock.py | tee global_spillover_v3_complete_clock.log
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/research_global_spillover_v3_complete_clock.py | tee global_spillover_v3_complete_clock.log
       - name: Upload v3 research receipts
         uses: actions/upload-artifact@v4
         with:
