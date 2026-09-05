@@ -1,0 +1,112 @@
+{
+  "schema_id": "overnight_open_global_spillover_v5_a50_preregistration@1.0",
+  "registered_date": "2026-09-05",
+  "status": "result_free_before_bulk_SGX_A50_extraction_and_v5_execution",
+  "research_question": "After the retained v3 U.S.-closure mechanism and small v4 HKMA China-FX increment, does same-contract SGX FTSE China A50 futures price discovery while A shares are closed add causal information about the next CSI1000 reopening gap?",
+  "financial_rationale": "SGX FTSE China A50 futures are a directly China-linked instrument that can trade while mainland A shares are closed. The relevant information is the price move of the same futures contract between the previous A-share close and the target A-share opening auction, not a rolled continuous series and not a generic foreign equity proxy.",
+  "data_contract": {
+    "market_data_provider": "Singapore Exchange official historical derivatives endpoint at links.sgx.com",
+    "official_file": "WEBPXTICK_DT.zip",
+    "commodity_code": "CN",
+    "navigation_index": {
+      "role": "date-to-SGX-file-key navigation only; it supplies no market prices",
+      "repository": "blurridge/sgx-derivative-downloader",
+      "pinned_commit": "303df3f2c6a71b84cab3c5354c9bf936fb6ef082",
+      "path": "db/indexes.json"
+    },
+    "market_rows_used": "only official SGX CN futures tick records",
+    "window_end": "2020-12-31",
+    "post_2020_rows_forbidden": true,
+    "raw_archive_policy": "official zip archives may be ephemeral because of size; each used archive URL/key/SHA256 and extraction counts must be frozen in the manifest, while the compact extracted A50 research endpoints must be committed to this repository"
+  },
+  "event_scope": {
+    "activation": "existing holiday_reopen == 1 in the bounded China panel",
+    "reason": "v2-v3 already localized the closure mechanism to long A-share reopenings; this v5 study tests a preregistered additional causal channel for that mechanism, not a generic everyday A50 factor",
+    "status_caveat": "the 2019-2020 holdout has already been consumed by prior diagnostics, so this layer can create progression material only and cannot authorize a production holiday route or fresh-OOS claim"
+  },
+  "contract_selection": {
+    "selection_time": "previous China trading date at or before 15:00:00 Singapore/Beijing time",
+    "eligible_records": "CN futures records with Msg_Code=T and trade time <=15:00:00",
+    "rule": "among contract month-years with at least one eligible trade, select the chronologically nearest delivery month-year that is not earlier than the previous China calendar month",
+    "future_volume_or_OI_selection": false,
+    "same_contract_required_at_target": true,
+    "mid_window_roll": false,
+    "missing_target_same_contract": "mark event unavailable; do not switch contracts"
+  },
+  "features": {
+    "a50_holiday_closure_return": {
+      "start": "last trade of selected contract at or before previous China date 15:00:00",
+      "end": "last trade of the same contract at or before target China date 09:24:59",
+      "formula": "end_price/start_price - 1",
+      "ordinary_nonholiday_rows": 0
+    },
+    "a50_holiday_preopen_return": {
+      "start": "first trade of the same selected contract at or after target China date 09:00:00 and at or before 09:24:59",
+      "end": "last trade at or before 09:24:59",
+      "formula": "end_price/first_preopen_price - 1",
+      "ordinary_nonholiday_rows": 0,
+      "purpose": "separate same-morning regional price discovery from the whole mainland-closure move"
+    }
+  },
+  "price_normalization": {
+    "reason": "older tab-delimited SGX tick files encode CN price in integer hundredths whereas later CSV files carry ordinary decimal index points",
+    "frozen_rule": "parse CN price numerically; if raw numeric price >100000, divide by 100 exactly once; otherwise keep as reported",
+    "post_normalization_sanity_range": [1000, 50000]
+  },
+  "data_quality_gates_before_model": {
+    "minimum_train_event_coverage": 0.8,
+    "minimum_holdout_event_count": 10,
+    "target_tick_must_precede_09_25": true,
+    "same_contract_endpoints": true,
+    "official_archive_sha_required": true,
+    "if_gate_fails": "do not run or adjudicate v5"
+  },
+  "frozen_model": {
+    "train": "2015-2018",
+    "internal_holdout": "2019-2020_consumed_not_fresh",
+    "pipeline": "StandardScaler + Ridge(alpha=1.0)",
+    "selection_excludes": ["PnL", "total return", "Sharpe", "execution metrics"]
+  },
+  "attempts": [
+    {
+      "id": "V4_US_HKMA_comparator",
+      "features": "v4 retained feature set"
+    },
+    {
+      "id": "V5A_plus_A50_closure",
+      "features": "v4 + a50_holiday_closure_return"
+    },
+    {
+      "id": "V5B_plus_A50_closure_and_preopen",
+      "features": "v4 + a50_holiday_closure_return + a50_holiday_preopen_return"
+    }
+  ],
+  "multiplicity": {
+    "new_selectable_candidates": 2,
+    "no_grid_search": true,
+    "no_threshold_search": true
+  },
+  "adjudication": {
+    "V5A_progression": "must improve full-holdout IC and full-holdout SSE versus v4, and improve SSE on available holiday events; report 2019 and 2020 separately",
+    "V5B_progression_over_V5A": "must further improve full-holdout IC and SSE versus V5A and improve holiday-event SSE; otherwise retain V5A if it passed",
+    "sign_hit": "must be reported and must not deteriorate by more than 1 percentage point versus its comparator",
+    "holiday_leave_one_event_out": "run only on the selected v5 progression candidate after fixed predictions are produced; every leave-one-event-out case must be reported, not used for reselection"
+  },
+  "forbidden": [
+    "continuous-contract roll joins inside an event",
+    "future volume/open-interest contract choice",
+    "A50 ticks at or after 09:25:00 target-day",
+    "A-share target opening or auction result features",
+    "post-2020 market rows",
+    "post-hoc parameter or threshold search",
+    "baseline replacement from consumed holdout",
+    "production or registry authority"
+  ],
+  "authority": {
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "holiday_runtime_routing": false,
+    "production": false,
+    "registry_mutation": false
+  }
+}
