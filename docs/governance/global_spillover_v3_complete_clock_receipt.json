@@ -1,0 +1,123 @@
+{
+  "schema_id": "overnight_open_global_spillover_v3_complete_clock_receipt@1.0",
+  "sealed_date": "2026-09-05",
+  "branch": "codex/overnight-global-spillover-20260905",
+  "preregistration": "docs/governance/global_spillover_v3_complete_us_data_preregistration.json",
+  "external_data": {
+    "provider": "Federal Reserve Bank of St. Louis FRED",
+    "window": ["2014-01-01", "2020-12-31"],
+    "data_commit": "ee183f1",
+    "raw_csv": "data/external/fred_us_nasdaq_vix_2014_2020.csv",
+    "research_parquet": "data/development/us_nasdaq_vix.parquet",
+    "manifest": "docs/governance/external_us_fred_2014_2020_manifest.json",
+    "raw_csv_sha256": "6bdd8b1709661621114d028e39b85aaf67118578e23851c595a17de26c4be53d",
+    "parquet_sha256": "caf32c1cf0785d2c615eae97acad42ae58105275fe7ec58ad5d7121df9bf5b1b",
+    "weekday_calendar_rows": 1827,
+    "joint_observed_sessions": 1763,
+    "joint_missing_weekdays": 64,
+    "forward_fill": false,
+    "post_2020_rows": 0
+  },
+  "final_execution": {
+    "github_actions_run_id": 33970174922,
+    "job_id": 101317161136,
+    "head_sha": "9b5c604a92e6e5fe26948a9b41e0e2785a140a55",
+    "workflow_conclusion": "success",
+    "package_validation": "success",
+    "tests": "11_passed",
+    "baseline_replay_pass": true,
+    "artifact_id": 9970682028,
+    "artifact_zip_sha256": "aa5405863379de35970eed3bd486e74e9d68fc2b998fa941e0169bfefe6f5792"
+  },
+  "data_boundary": {
+    "train": "2015-2018",
+    "internal_holdout": "2019-2020_consumed_not_fresh",
+    "post_2020_rows_read": 0
+  },
+  "clock_partition_holdout": {
+    "zero_us_interval_n": 15,
+    "one_us_interval_n": 458,
+    "multiple_us_intervals_n": 12,
+    "holiday_reopen_n": 12,
+    "multiple_intervals_equal_holiday_reopen_in_this_holdout": true
+  },
+  "materialized_panel_daily_feature_audit": {
+    "nasdaq_fred_daily_exact_share": 0.9632508833922262,
+    "vix_fred_daily_exact_share": 0.963932107496464,
+    "interpretation": "The newly frozen FRED series supplies a complete and auditable external clock for v3, but the pre-existing materialized panel US daily features are not numerically identical to FRED on every row. Therefore v3 treats the FRED closure-extra variables as new external measurements while leaving the frozen baseline panel features untouched; it does not claim to reconstruct their unknown original upstream source on all rows."
+  },
+  "frozen_baseline": {
+    "holdout_n": 485,
+    "ic": 0.45698248147216,
+    "sign_hit": 0.7195876288659794,
+    "r2": 0.16075322424988825,
+    "sse": 0.030651339731237397
+  },
+  "duplicate_feature_placebo": {
+    "id": "P0_exact_duplicate_us_placebo",
+    "selectable": false,
+    "holdout_ic": 0.4570033968166153,
+    "delta_ic_vs_baseline": 0.00002091534445530785,
+    "holdout_sign_hit": 0.7195876288659794,
+    "sse_improvement_vs_baseline": -0.0000022863584035054396,
+    "multiple_interval_sse_improvement_vs_baseline": 0.00000004798030323743818,
+    "verdict": "does_not_explain_C1_gain"
+  },
+  "candidate": {
+    "id": "C1_complete_clock_closure_extra",
+    "definition": "Add FRED NASDAQ/VIX closure_extra, where closure_extra is the cumulative foreign return between the previous and target China information boundaries minus the final U.S. daily return; it is exactly zero when zero or one new U.S. observed intervals occur.",
+    "holdout_n": 485,
+    "holdout_ic": 0.5206571801111871,
+    "delta_ic_vs_baseline": 0.06367469863902714,
+    "holdout_sign_hit": 0.7237113402061855,
+    "holdout_r2": 0.23985849184506391,
+    "holdout_sse": 0.027762222368322282,
+    "sse_improvement_vs_baseline": 0.0028891173629151147,
+    "year_diagnostics": {
+      "2019": {"ic": 0.5377998371477084, "sign_hit": 0.6983471074380165, "sse": 0.006261684574642938},
+      "2020": {"ic": 0.5153467693902184, "sign_hit": 0.7489711934156379, "sse": 0.02150053779367934}
+    },
+    "multiple_us_intervals": {
+      "n": 12,
+      "baseline_ic": 0.41135245392793424,
+      "candidate_ic": 0.7772206548575578,
+      "baseline_sign_hit": 0.75,
+      "candidate_sign_hit": 0.9166666666666666,
+      "sse_improvement_vs_baseline": 0.0028919811708853936
+    },
+    "one_us_interval": {
+      "n": 458,
+      "baseline_ic": 0.5183255567749822,
+      "candidate_ic": 0.5219570111320704,
+      "sign_hit_unchanged": 0.722707423580786,
+      "sse_improvement_vs_baseline": -0.0000014623441904962342
+    },
+    "zero_us_interval": {
+      "n": 15,
+      "baseline_ic": 0.4300874920740258,
+      "candidate_ic": 0.42512100037468803,
+      "sign_hit_unchanged": 0.6,
+      "sse_improvement_vs_baseline": -0.0000014014637797830735
+    }
+  },
+  "adjudication": {
+    "preregistered_progression_rule_pass": true,
+    "mechanism_interpretation": "The incremental performance is localized to the 12 holdout dates with multiple U.S. observed sessions between China information boundaries, which in this holdout exactly coincide with long-holiday reopening dates. Ordinary one-interval and zero-interval dates do not supply the SSE improvement. The exact-duplicate Ridge placebo is negligible, rejecting the regularization-geometry explanation.",
+    "scientific_status": "closure_accumulation_mechanism_progresses_to_additional_external_channels_and_genuinely_unseen_controller_confirmation",
+    "baseline_replacement": false,
+    "holiday_runtime_routing": false,
+    "fresh_oos": false,
+    "reason_no_promotion": "2019-2020 is already consumed internal holdout and the mechanism subset contains only 12 events."
+  },
+  "next_research": {
+    "priority_external_channels": ["FTSE China A50 / SGX China A50", "offshore CNH", "Korea pre-China-open market information"],
+    "method": "acquire reproducible point-in-time historical sources, freeze source manifests before testing, then test whether China-linked external price discovery adds information beyond the validated U.S. closure-accrual mechanism",
+    "forbidden": ["ask user to supply externally obtainable public data", "post-hoc holiday routing", "post-2020 local controller consumption without a frozen preregistration"]
+  },
+  "authority": {
+    "production": false,
+    "registry_mutation": false,
+    "baseline_replacement": false,
+    "holiday_runtime_routing": false
+  }
+}
