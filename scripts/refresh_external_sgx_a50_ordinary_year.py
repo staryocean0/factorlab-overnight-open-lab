@@ -4,7 +4,6 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import os
 import tempfile
 import time
 import urllib.request
@@ -65,6 +64,7 @@ def download_and_parse(date: str, key: int, tmpdir: Path) -> tuple[str, dict, di
                 "cn_futures_rows": int(summary["cn_futures_rows"]),
                 "eligible_trade_rows": int(summary["eligible_trade_rows"]),
                 "nonblank_trade_amend_rows": int(summary["nonblank_trade_amend_rows"]),
+                "blank_price_trade_rows": int(summary.get("blank_price_trade_rows", 0)),
                 "message_counts": summary["message_counts"],
                 "trade_code_counts": summary["trade_code_counts"],
                 "unknown_message_counts": summary["unknown_message_counts"],
@@ -194,10 +194,12 @@ def main() -> None:
         "used_date_to_key": used_index,
     }, indent=2, sort_keys=True) + "\n")
     schema_counts: dict[str, int] = {}
+    blank_price_trade_rows = 0
     for m in archive_meta.values():
         schema_counts[m["schema_id"]] = schema_counts.get(m["schema_id"], 0) + 1
+        blank_price_trade_rows += int(m.get("blank_price_trade_rows", 0))
     manifest = {
-        "schema_id": "external_sgx_a50_ordinary_year_manifest@1.0",
+        "schema_id": "external_sgx_a50_ordinary_year_manifest@1.1",
         "year": year,
         "provider": "Singapore Exchange official historical derivatives endpoint",
         "commodity_code": "CN",
@@ -210,6 +212,7 @@ def main() -> None:
         "archives_parsed": int(len(archive_meta)),
         "archive_failures": failures,
         "schema_counts": schema_counts,
+        "blank_price_trade_rows_skipped": int(blank_price_trade_rows),
         "unavailable_events": unavailable,
         "used_archives": archive_meta,
         "guards": {
@@ -220,11 +223,12 @@ def main() -> None:
             "raw_full_market_archives_committed": False,
             "field_resolution_by_header": True,
             "legacy_Y_trade_code_supported": True,
+            "legacy_blank_price_trade_rows_skipped_not_fatal": True,
             "settlement_S_used_as_trade": False,
         },
     }
     manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
-    print(json.dumps({k: manifest[k] for k in ["year", "events_total", "events_usable", "coverage", "required_archive_dates", "archives_parsed", "schema_counts"]}, indent=2))
+    print(json.dumps({k: manifest[k] for k in ["year", "events_total", "events_usable", "coverage", "required_archive_dates", "archives_parsed", "schema_counts", "blank_price_trade_rows_skipped"]}, indent=2))
 
 
 if __name__ == "__main__":
