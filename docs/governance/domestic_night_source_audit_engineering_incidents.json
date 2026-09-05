@@ -1,0 +1,48 @@
+{
+  "schema_id": "overnight_open_domestic_night_source_audit_engineering_incidents@1.0",
+  "recorded_date": "2026-09-05",
+  "status": "engineering_only_before_any_CSI1000_target_or_model_metric",
+  "incidents": [
+    {
+      "run_id": 33980579892,
+      "job_id": 101344957649,
+      "failure": "NameError caused by JSON-style lowercase `true` in a Python report dictionary",
+      "scientific_effect": "none; fixed 54-file source sample, source criteria and market-data parsing definitions unchanged"
+    },
+    {
+      "run_id": 33980722184,
+      "job_id": 101345331108,
+      "failure": "NameError caused by returning `positive_outside` instead of already-computed `positive_outside_broad`",
+      "scientific_effect": "none; all failures occurred after source bytes were downloaded/parsed but before a persisted source-audit result; no target labels or model metrics were read"
+    }
+  ],
+  "successful_run": {
+    "run_id": 33980844128,
+    "job_id": 101345653330,
+    "head_sha": "ab87f68fcab7805fed794ee88768bc07a8b664c8",
+    "conclusion": "success",
+    "artifact_id": 9973701891,
+    "artifact_sha256": "74404822e21a799da13b0c88fa16d22ff8b21b3dd4ad99c87d8c232646f6278c"
+  },
+  "successful_audit_summary": {
+    "fixed_contract_files": 54,
+    "rows": 1033838,
+    "positive_volume_rows": 862251,
+    "zero_volume_rows": 171587,
+    "zero_volume_share": 0.165971,
+    "fill_signature_rows": 171046,
+    "fill_signature_share_of_zero_volume": 0.996847,
+    "positive_volume_outside_broad_historical_session_union": 0,
+    "contracts_with_ohlc_violation": 0,
+    "contracts_with_duplicate_datetime": 0,
+    "contracts_with_post_2020_rows": 0
+  },
+  "frozen_interpretation": "The transport source contains a material synthetic-looking zero-volume grid. Any later price endpoint from this source must use positive-volume bars only. This audit alone does not authorize model admission; official exchange daily-price cross-validation remains mandatory.",
+  "authority": {
+    "target_model_execution": false,
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false
+  }
+}
