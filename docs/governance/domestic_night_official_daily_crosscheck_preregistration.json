@@ -1,0 +1,98 @@
+{
+  "schema_id": "overnight_open_domestic_night_official_daily_crosscheck@1.0",
+  "registered_date": "2026-09-05",
+  "status": "result_free_before_official_exchange_crosscheck_no_CSI1000_target",
+  "purpose": "Determine whether the pinned third-party 5-minute CU/RB/I transport source reproduces official exchange contract-day OHLC/volume/open-interest closely enough to be admitted to a later causal night-session feature experiment.",
+  "source_under_test": {
+    "repository": "Freddy-Hexas/china-futures-5min-2015-2025",
+    "pinned_commit": "1a402721d639432875504a343e2b9ffe9508cd36",
+    "zero_volume_bars_as_observed_trades": false,
+    "only_positive_volume_bars_may_form_official_daily_aggregates": true
+  },
+  "official_sources": {
+    "SHFE": {
+      "provider": "Shanghai Futures Exchange",
+      "daily_url_pattern": "https://www.shfe.com.cn/data/tradedata/future/dailydata/kxYYYYMMDD.dat",
+      "legacy_reference_pattern": "http://tsite.shfe.com.cn/data/dailydata/kx/kxYYYYMMDD.dat",
+      "parser_reference_only": {
+        "repository": "akfamily/akshare",
+        "pinned_commit": "8e95744b79ae22326308ccd2b4e62650c5b53c55",
+        "path": "akshare/futures/futures_daily_bar.py"
+      },
+      "market_price_bytes_must_be_official": true
+    },
+    "DCE": {
+      "provider": "Dalian Commodity Exchange",
+      "daily_endpoint": "http://www.dce.com.cn/dcereport/publicweb/dailystat/dayQuotes",
+      "request": {
+        "method": "POST JSON",
+        "payload_fields": {
+          "contractId": "",
+          "lang": "zh",
+          "optionSeries": "",
+          "statisticsType": "0",
+          "tradeDate": "YYYYMMDD",
+          "tradeType": "1",
+          "varietyId": "all"
+        }
+      },
+      "parser_reference_only": {
+        "repository": "akfamily/akshare",
+        "pinned_commit": "8e95744b79ae22326308ccd2b4e62650c5b53c55",
+        "path": "akshare/futures/futures_daily_bar.py"
+      },
+      "market_price_bytes_must_be_official": true
+    }
+  },
+  "fixed_crosscheck_sample": {
+    "years": [2015, 2016, 2017, 2018, 2019, 2020],
+    "contracts": {
+      "CU": "May delivery contract for each year: CUYY05",
+      "RB": "May delivery contract for each year: RBYY05",
+      "I": "May delivery contract for each year: IYY05"
+    },
+    "anchor_calendar_dates_per_year": ["03-15", "04-15"],
+    "date_resolution": "For each anchor and exchange, scan the anchor date and next four calendar days in order and choose the first date for which the official exchange daily endpoint returns the specified contract. No date is selected from third-party price agreement or CSI1000 behavior.",
+    "expected_checks": 36,
+    "no_replacement_contract_after_mismatch": true
+  },
+  "third_party_daily_aggregation": {
+    "trading_day_mapping": "For official trading date D, find the immediately preceding official exchange trading date P from official daily responses. Aggregate only positive-volume 5-minute bars for the fixed contract with timestamps strictly after P 15:00:00 and at or before D 15:00:00.",
+    "open": "open of first positive-volume bar in the interval",
+    "high": "maximum high among positive-volume bars",
+    "low": "minimum low among positive-volume bars",
+    "close": "close of last positive-volume bar",
+    "volume": "sum of positive-volume bar volume",
+    "open_interest": "open_interest of last positive-volume bar",
+    "zero_volume_bars": "ignored for OHLC, volume and endpoint construction"
+  },
+  "comparison_tolerances": {
+    "OHLC": "absolute difference <= 1e-8 after numeric parsing",
+    "volume": "exact after numeric parsing",
+    "open_interest": "exact after numeric parsing",
+    "missing_or_zero_official_OHLC": "check is unavailable rather than coerced",
+    "no_post_hoc_tolerance_widening": true
+  },
+  "gates": {
+    "gate_1_official_access": "at least 30 of the 36 fixed checks must resolve to an official contract-day observation; otherwise source contract is insufficient for automated validation",
+    "gate_2_price_match": "at least 95% of available checks must match all four OHLC fields within frozen tolerance",
+    "gate_3_volume_match": "at least 95% of available checks must match official volume exactly",
+    "gate_4_open_interest_match": "at least 95% of available checks must match official open interest exactly",
+    "gate_5_product_floor": "each of CU, RB and I must have at least 8 available checks and at least 90% all-OHLC match rate; a failing product is invalidated individually and cannot enter the later feature model",
+    "gate_6_no_target_model": "this crosscheck reads no CSI1000 targets and computes no IC/R2/sign/model metrics"
+  },
+  "decision_rule": {
+    "product_pass": "eligible for a separately preregistered causal contract-selection/night-return construction; not yet admitted to a target model",
+    "product_fail": "invalidate that product from this transport source and preserve failure; do not substitute another commodity after target results",
+    "all_products_fail": "terminate this third-party transport source and search for a new authoritative/reproducible source before any domestic-night model experiment"
+  },
+  "authority": {
+    "CSI1000_target_read": false,
+    "target_model_execution": false,
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false,
+    "runtime_routing": false
+  }
+}
