@@ -1,5 +1,5 @@
 {
-  "schema_id": "overnight_open_global_spillover_v6_daily_a50_receipt@1.0",
+  "schema_id": "overnight_open_global_spillover_v6_daily_a50_receipt@1.1",
   "sealed_date": "2026-09-05",
   "research_scope": "CSI1000 next-session 09:31 opening-gap sign and magnitude; ordinary-session same-contract SGX FTSE China A50 price discovery from previous mainland close to strictly before the next mainland opening call auction",
   "parent_candidate": "V5A_plus_A50_closure",
@@ -84,26 +84,26 @@
   "mechanism_subsets": {
     "ordinary": {
       "n": 450,
-      "comparator_ic": 0.5022139324972367,
-      "candidate_ic": 0.6454773351734809,
-      "delta_ic": 0.14326340267624416,
-      "comparator_sign_hit": 0.7177777777777777,
+      "comparator_ic": 0.503863547918836,
+      "candidate_ic": 0.6496432220578459,
+      "delta_ic": 0.14577967413900983,
+      "comparator_sign_hit": 0.7133333333333334,
       "candidate_sign_hit": 0.76,
-      "comparator_sse": 0.015972574673340526,
-      "candidate_sse": 0.010572891252517868,
-      "sse_improvement": 0.005399683420822658
+      "comparator_sse": 0.02089975773231862,
+      "candidate_sse": 0.015500074311495957,
+      "sse_improvement": 0.005399683420822664
     },
     "holiday": {
       "n": 11,
-      "comparator_ic": 0.6236704203541387,
-      "candidate_ic": 0.792625233297347,
-      "delta_ic": 0.16895481294320835,
-      "comparator_sign_hit": 0.8181818181818182,
+      "comparator_ic": 0.656433630398834,
+      "candidate_ic": 0.8451630357996053,
+      "delta_ic": 0.18872940540077132,
+      "comparator_sign_hit": 0.9090909090909091,
       "candidate_sign_hit": 0.7272727272727273,
-      "comparator_sse": 0.006130906674297626,
-      "candidate_sse": 0.005888685881313768,
-      "sse_improvement": 0.00024222079298385763,
-      "caveat": "holiday SSE and IC improve under refitting, but sign hit drops on the 11-event consumed subset; this does not violate the frozen v6 gate but must be treated as a material small-sample caveat"
+      "comparator_sse": 0.0012037236153195378,
+      "candidate_sse": 0.0009615028223356814,
+      "sse_improvement": 0.00024222079298385644,
+      "caveat": "Holiday SSE and IC improve under the common-sample refit, but sign hit drops materially from 90.91% to 72.73% on only 11 consumed-holdout events. This did not violate the frozen v6 progression gate, but it is a material small-sample caveat and must not be hidden or optimized away."
     }
   },
   "quarterly_stability": {
@@ -179,6 +179,9 @@
     "aspiration_used_for_selection": false,
     "fresh_oos_claim": false,
     "statement": "The 38.30% value is a strong consumed-holdout progression result, not a verified 2021-2025 out-of-sample explanatory power."
+  },
+  "receipt_correction": {
+    "reason": "The initial @1.0 receipt copied the ordinary/holiday subset metrics from the wrong diagnostic output while the formal full-sample metrics were correct. @1.1 replaces only those transcription values with the exact formal v6 result JSON values; no model, data, candidate, cutoff or adjudication changed."
   },
   "scientific_status": "ordinary_A50_preauction_price_discovery_strong_progression_candidate_waiting_genuinely_unseen_confirmation",
   "authority": {
