@@ -156,7 +156,7 @@ def parse_one(meta: dict, blob_sha: str, raw: bytes) -> dict:
         "zero_volume_flat_carry_rows": int(zero_flat_carry.sum()),
         "zero_volume_flat_carry_zero_money_rows": int(zero_full_fill_signature.sum()),
         "zero_volume_flat_carry_zero_money_share_of_zero_volume": float(zero_full_fill_signature.sum() / zero_vol.sum()) if zero_vol.sum() else float("nan"),
-        "positive_volume_outside_broad_historical_session_union": positive_outside,
+        "positive_volume_outside_broad_historical_session_union": positive_outside_broad,
         "zero_volume_outside_broad_historical_session_union": zero_outside_broad,
         "adjacent_rows_exactly_5_minutes_share": five_minute_diff_share,
         "sample_fill_signature_rows": sample_fill_rows,
