@@ -1,0 +1,101 @@
+{
+  "schema_id": "overnight_open_global_spillover_v6_sgx_legacy_schema_correction@1.0",
+  "sealed_date": "2026-09-05",
+  "status": "data_contract_correction_before_any_v6_target_model_result",
+  "formal_probe": {
+    "workflow": "overnight-phase6-sgx-schema-probe",
+    "run_id": 33977977781,
+    "job_id": 101337943799,
+    "head_sha": "b7996740a47cfe9b892c237ed87bc9c44cfe88a6",
+    "conclusion": "success",
+    "artifact_id": 9972882332,
+    "artifact_sha256": "a89af3188c6f200a8e8d65c29c77ab9eb89e6ad5e69a1b360cce8da813261cf8"
+  },
+  "legacy_case": {
+    "date": "2015-02-17",
+    "sgx_key": 3248,
+    "official_tick_archive_sha256": "991a155c434ece40456f6a65d2800d5eee444d0676872b8feb876faea63df9bb",
+    "header": [
+      "Comm",
+      "Contract Type",
+      "Mth Code",
+      "Year",
+      "Strike",
+      "Trade Date",
+      "Log Time",
+      "Price Ind",
+      "Price",
+      "Msg Code",
+      "Amend Code",
+      "Volume"
+    ],
+    "row_field_count": 12,
+    "official_TickData_structure_sha256": "d30559b941a1385f85bb7526e82829fb86971e791464a301bb38bf30fb594de5",
+    "official_structure_semantics": {
+      "Price Indicator": "field before Price; blank means normal price",
+      "Message Code B": "Bid",
+      "Message Code A": "Ask",
+      "Message Code Y": "Traded",
+      "Message Code S": "Settlement",
+      "Amend Code blank": "Normal Record",
+      "Amend Code D": "Deleted Record",
+      "Amend Code C": "Corrected Record",
+      "Amend Code I": "Inserted Record",
+      "Amend Code A": "ATS"
+    },
+    "observed_CN_message_counts": {
+      "B": 35109,
+      "A": 34923,
+      "Y": 21836,
+      "S": 6
+    }
+  },
+  "known_good_case": {
+    "date": "2016-01-04",
+    "sgx_key": 3479,
+    "official_tick_archive_sha256": "728954b0bb2cd31e25471c52c64c26d09ccafc61dd00d29c963a5823c8884c74",
+    "actual_file_header": [
+      "Comm",
+      "Contract_Type",
+      "Mth_Code",
+      "Year",
+      "Strike",
+      "Trade_Date",
+      "Log_Time",
+      "Price",
+      "Msg_Code",
+      "Volume"
+    ],
+    "row_field_count": 10,
+    "official_TickData_structure_sha256": "36466c197869b624a10882a4854c7ed7a8880ee62953435d499be919dcc3685b",
+    "official_structure_trade_code": "T",
+    "observed_CN_message_counts": {
+      "A": 49215,
+      "B": 49636,
+      "T": 67396
+    }
+  },
+  "root_cause": "The earlier v5 holiday extractor used fixed positional indices compatible with the later 10-field layout: row[7] as Price and row[8] as Msg Code. In the legacy 12-field layout row[7] is Price Indicator, row[8] is Price, and row[9] is Msg Code; legacy trades are coded Y rather than T. This mechanically caused early legacy CN archives to report zero parsed trades.",
+  "frozen_correction_rule_for_v6": {
+    "column_resolution": "resolve fields by normalized header names, not fixed absolute indices",
+    "legacy_trade_code": "Y when the official legacy schema/header identifies the 12-field Price-Ind/Amend layout",
+    "later_trade_code": "T when the later schema/header identifies the traded code T",
+    "settlement_code": "S is not a trade and must never be used as an endpoint",
+    "amendment_policy": "only normal/eligible trade records under the detected schema may form endpoints; deleted/corrected semantics must be handled explicitly rather than silently treated as trades",
+    "price_normalization": "preserve the previously frozen CN rule: parse numeric price; if raw numeric price >100000 divide by 100 exactly once; final sanity range 1000..50000",
+    "model_results_may_not_select_schema": true
+  },
+  "v5_preservation": {
+    "frozen_v5_branch_is_rewritten": false,
+    "frozen_v5_receipt_is_rewritten": false,
+    "frozen_v5_unseen_candidate_is_retrained": false,
+    "successor_v6_ordinary_A50_may_use_corrected_legacy_parser": true,
+    "note": "The frozen v5 candidate remains historical evidence exactly as sealed. Phase 6 uses the corrected official schema for its new ordinary-session A50 dataset; it does not retroactively change the v5 receipt."
+  },
+  "authority": {
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false
+  }
+}
