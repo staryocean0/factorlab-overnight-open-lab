@@ -28,15 +28,15 @@ jobs:
         run: python scripts/replay_baseline.py
       - name: Replay preregistered spillover v1
         run: python scripts/research_global_spillover_v1.py | tee global_spillover_v1.log
-      - name: Run preregistered v2 mechanism diagnostic
-        run: python scripts/research_global_spillover_v2_mechanism.py | tee global_spillover_v2_mechanism.log
-      - name: Upload research receipts
+      - name: Diagnose baseline US feature transforms and calendars
+        run: python scripts/diagnose_us_feature_clock_alignment.py | tee us_feature_clock_alignment.log
+      - name: Upload diagnostic receipts
         uses: actions/upload-artifact@v4
         with:
-          name: global-spillover-v2-mechanism-results
+          name: global-spillover-us-clock-diagnostic
           path: |
             artifacts/research/global_spillover_v1_results.json
-            artifacts/research/global_spillover_v2_mechanism_results.json
+            artifacts/research/us_feature_clock_alignment_diagnostic.json
             global_spillover_v1.log
-            global_spillover_v2_mechanism.log
+            us_feature_clock_alignment.log
           if-no-files-found: error
