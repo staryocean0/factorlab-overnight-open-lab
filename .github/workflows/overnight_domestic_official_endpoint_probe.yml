@@ -1,0 +1,39 @@
+name: overnight-domestic-official-endpoint-probe
+
+on:
+  push:
+    branches:
+      - codex/overnight-domestic-night-source-20260906
+    paths:
+      - 'scripts/probe_domestic_official_daily_endpoints.py'
+      - '.github/workflows/overnight_domestic_official_endpoint_probe.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install probe dependency
+        run: python -m pip install --upgrade requests
+      - name: Probe official endpoint protocols
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/probe_domestic_official_daily_endpoints.py | tee domestic_official_endpoint_probe.log
+      - name: Upload endpoint probe
+        uses: actions/upload-artifact@v4
+        with:
+          name: overnight-domestic-official-endpoint-probe
+          path: |
+            artifacts/research/domestic_official_daily_endpoint_probe.json
+            domestic_official_endpoint_probe.log
+          if-no-files-found: error
+          retention-days: 30
