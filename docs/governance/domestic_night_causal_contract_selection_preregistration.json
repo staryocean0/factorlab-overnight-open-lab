@@ -1,0 +1,62 @@
+{
+  "schema_id": "overnight_open_domestic_night_causal_contract_selection_preregistration@1.0",
+  "registered_date": "2026-09-06",
+  "status": "result_free_with_respect_to_volume_integrity_audit_and_all_CSI1000_target_metrics",
+  "purpose": "Freeze a financially meaningful and causal contract-selection rule for a possible CU/RB domestic-night predictive experiment before the selection variable is bulk-used or any CSI1000 performance is read.",
+  "admitted_transport_receipt": "docs/governance/domestic_night_shfe_source_validation_receipt.json",
+  "products": ["SHFE_CU", "SHFE_RB"],
+  "DCE_I_excluded": "official authentication access remains blocked; it cannot enter this candidate family",
+  "financial_rationale": "The relevant commodity price-discovery channel should use the contract that was demonstrably most actively traded by the end of the preceding mainland day session, rather than a hindsight continuous series or a mechanically nearest contract that may be illiquid near delivery.",
+  "selection_time": "previous China trading day 15:00:00 Beijing time",
+  "eligible_contracts": {
+    "data": "pinned contract-level 5-minute SHFE transport data validated against official SHFE daily OHLC",
+    "required_previous_day_window": "at least one observed bar during 09:00:00-14:55:00 on the previous China trading day",
+    "delivery_constraint": "contract delivery month must not be earlier than the previous China calendar month",
+    "expired_or_no_day_bar": "ineligible",
+    "future_data": false
+  },
+  "ranking_rule": {
+    "primary": "sum the selected contract's 5-minute bar volume only over previous China trading date 09:00:00-14:55:00; choose the largest cumulative volume",
+    "reason": "all included volume is observable by the A-share 15:00 close and represents which contract was the dominant price-discovery venue before the overnight interval begins",
+    "tie_break_1": "chronologically nearest delivery month-year",
+    "tie_break_2": "lexicographically smallest exact contract code",
+    "future_full_trading_day_volume": false,
+    "future_open_interest": false,
+    "continuous_series_or_back_adjustment": false
+  },
+  "same_contract_requirement": {
+    "target_night": true,
+    "mid_interval_roll": false,
+    "if_selected_contract_has_no_valid_target_night_trade": "row unavailable; never switch to another target-night contract"
+  },
+  "required_volume_integrity_gate_before_bulk_selection": {
+    "samples": "the same six frozen SHFE_CU/RB source-validation contract-dates from domestic_night_source_crosscheck_sample_freeze.json",
+    "measurement": "sum the transport source 5-minute volume over the entire correctly assigned exchange trading day and compare with the already-fetched exact-contract SHFE official daily VOLUME",
+    "tolerance": 0.0,
+    "reason": "volume is integer trade quantity and is about to become a causal contract-selection input; exact daily reconciliation is required before using intraday volume ranking",
+    "pass_rule": "at least 2 of 3 frozen samples per product must reconcile exactly and no sample may show an unresolved systematic scaling or trading-day allocation mismatch",
+    "if_fail": "do not use the volume-ranking contract-selection family. A different selection rule would require a new result-free preregistration before any CSI1000 target metric is read."
+  },
+  "future_feature_semantics_if_volume_gate_passes": {
+    "start": "last selected-contract 5-minute bar close at 14:55 on the previous China trading day, representing the bar ending at the 15:00 mainland close",
+    "end": "last selected-contract night-session bar close belonging to the target exchange trading day under the frozen historical SHFE product clock",
+    "formula": "end_price/start_price - 1",
+    "CU_clock": "21:00-01:00 throughout 2015-2020",
+    "RB_clock": "21:00-01:00 before the 2016-04-26 shortening; 21:00-23:00 thereafter",
+    "target_morning_commodity_session": "excluded from this first domestic-night feature family to isolate information generated strictly in the night session",
+    "no_night_session": "missing/unavailable, not zero and not forward-filled"
+  },
+  "data_boundary": {
+    "CSI1000_target_metrics_before_volume_gate": false,
+    "post_2020_market_values": false,
+    "raw_files_that_extend_beyond_2020": "a later bulk extractor may stream chronologically and must stop before decoding any post-2020 OHLCV fields; zero post-2020 market rows may be materialized or used"
+  },
+  "authority": {
+    "predictive_model_execution": false,
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false,
+    "merge_main": false
+  }
+}
