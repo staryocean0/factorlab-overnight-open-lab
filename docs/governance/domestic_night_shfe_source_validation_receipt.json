@@ -1,0 +1,129 @@
+{
+  "schema_id": "overnight_open_domestic_night_shfe_source_validation_receipt@1.0",
+  "sealed_date": "2026-09-06",
+  "scope": "Source-validation only for SHFE copper (CU) and rebar (RB) 5-minute contract data as a transport source for a future domestic-night information-channel experiment. No CSI1000 target metric or predictive model was read or executed in this validation.",
+  "source_preregistration": "docs/governance/domestic_night_source_validation_preregistration.json",
+  "sample_freeze": "docs/governance/domestic_night_source_crosscheck_sample_freeze.json",
+  "endpoint_contract": "docs/governance/domestic_night_source_official_endpoint_contract.json",
+  "clock_evidence": "docs/governance/domestic_night_source_clock_evidence_freeze.json",
+  "endpoint_migration_correction": "docs/governance/domestic_night_official_endpoint_migration_correction.json",
+  "candidate_transport_source": {
+    "repository": "Freddy-Hexas/china-futures-5min-2015-2025",
+    "pinned_commit": "1a402721d639432875504a343e2b9ffe9508cd36",
+    "license": "CC0-1.0",
+    "role": "third-party byte transport only; authoritative price validation comes from direct Shanghai Futures Exchange daily-data bytes"
+  },
+  "initial_official_endpoint_audit": {
+    "run": 33984731343,
+    "job": 101356096731,
+    "artifact": 9974853600,
+    "artifact_sha256": "7c4dcd0a148915a6e0866bf2c23130e8cea6abb4aa7e2540e985e9fa2656f115",
+    "result": "infrastructure_gap_only",
+    "failed_price_sample_count": 0,
+    "official_OHLC_values_retrieved": 0
+  },
+  "migrated_SHFE_formal_audit": {
+    "run": 33985424716,
+    "job": 101357928773,
+    "head_sha": "eb830cf0020341f017c74413de4cf68fa0c60ac5",
+    "conclusion": "success",
+    "clock_regression_tests": "4 passed",
+    "artifact": 9975001198,
+    "artifact_sha256": "6fc5bad4e4d8978663efcb6e4b57054c6457a9a98fce62e303eb0c2d741c80ec",
+    "official_url_template": "https://www.shfe.com.cn/data/tradedata/future/dailydata/kx{YYYYMMDD}.dat"
+  },
+  "data_boundary": {
+    "CSI1000_target_rows_read": 0,
+    "predictive_model_execution": false,
+    "post_2020_transport_rows_read": 0,
+    "fresh_oos": false
+  },
+  "SHFE_CU": {
+    "product_pass": true,
+    "sample_pass_count": 3,
+    "sample_total": 3,
+    "frozen_minimum_tick": 10.0,
+    "samples": [
+      {
+        "date": "2016-06-15",
+        "contract": "CU1607",
+        "transport_git_blob_sha": "8aabe9247867694b2bc6e3b8afbfa03dc2cc9dc1",
+        "official_response_sha256": "bf9857dd7a770844dbe3a9396f5ffa37d8aa1228028a6bc3fcaadb9ffa8110af",
+        "OHLC_absolute_differences": {"open": 0.0, "high": 0.0, "low": 0.0, "close": 0.0},
+        "pass": true
+      },
+      {
+        "date": "2018-06-15",
+        "contract": "CU1807",
+        "transport_git_blob_sha": "a3e03e086489c67f8d26dfd073a4051c75da4023",
+        "official_response_sha256": "8c72f02bf41612b3091d9e14d7e56e8152d25dac5bc8f6f9f61870651f1628b2",
+        "OHLC_absolute_differences": {"open": 0.0, "high": 0.0, "low": 0.0, "close": 0.0},
+        "pass": true
+      },
+      {
+        "date": "2020-06-15",
+        "contract": "CU2007",
+        "transport_git_blob_sha": "99abc1751a49f2e32bf8bc5d39e9bca35a59dca2",
+        "official_response_sha256": "5de213b78bf554334243d149420b15d3c7103049432a8d4392c154b36e836dd8",
+        "OHLC_absolute_differences": {"open": 0.0, "high": 0.0, "low": 0.0, "close": 0.0},
+        "pass": true
+      }
+    ]
+  },
+  "SHFE_RB": {
+    "product_pass": true,
+    "sample_pass_count": 3,
+    "sample_total": 3,
+    "frozen_minimum_tick": 1.0,
+    "samples": [
+      {
+        "date": "2016-06-15",
+        "contract": "RB1610",
+        "transport_git_blob_sha": "87fe427e813aad5b8af2b00488be65e8405f25c7",
+        "official_response_sha256": "bf9857dd7a770844dbe3a9396f5ffa37d8aa1228028a6bc3fcaadb9ffa8110af",
+        "OHLC_absolute_differences": {"open": 0.0, "high": 0.0, "low": 0.0, "close": 0.0},
+        "pass": true
+      },
+      {
+        "date": "2018-06-15",
+        "contract": "RB1810",
+        "transport_git_blob_sha": "fbe690d3c075ab8fd434c18141cc8d806f49ca50",
+        "official_response_sha256": "8c72f02bf41612b3091d9e14d7e56e8152d25dac5bc8f6f9f61870651f1628b2",
+        "OHLC_absolute_differences": {"open": 0.0, "high": 0.0, "low": 1.0, "close": 0.0},
+        "pass": true,
+        "note": "The low differs by exactly one frozen minimum tick and therefore passes the result-free tolerance without any post-value adjustment."
+      },
+      {
+        "date": "2020-06-15",
+        "contract": "RB2010",
+        "transport_git_blob_sha": "1adbfe3e7c9a0176be42decec4b04b5e517c93ee",
+        "official_response_sha256": "5de213b78bf554334243d149420b15d3c7103049432a8d4392c154b36e836dd8",
+        "OHLC_absolute_differences": {"open": 0.0, "high": 0.0, "low": 0.0, "close": 0.0},
+        "pass": true
+      }
+    ]
+  },
+  "DCE_I": {
+    "status": "official_auth_access_blocked_not_price_rejected",
+    "current_api": "/dceapi/forward/publicweb/dailystat/dayQuotes",
+    "current_access_requirement": "API key + secret -> Bearer token, then authenticated JSON POST",
+    "validated": false,
+    "may_enter_future_predictive_candidate": false,
+    "replacement_product_allowed": false
+  },
+  "adjudication": {
+    "SHFE_CU_transport_admitted": true,
+    "SHFE_RB_transport_admitted": true,
+    "DCE_I_transport_admitted": false,
+    "next_scientific_action": "A separately preregistered predictive experiment may use only CU and RB. It must freeze causal contract selection and overnight feature semantics before reading CSI1000 target performance.",
+    "scientific_status": "SHFE_CU_RB_domestic_night_transport_validated_waiting_predictive_preregistration"
+  },
+  "authority": {
+    "predictive_candidate_selection": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false,
+    "runtime_routing": false,
+    "merge_main": false
+  }
+}
