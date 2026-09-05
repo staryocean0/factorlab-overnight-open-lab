@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib, json
 from pathlib import Path
 import pandas as pd
+import pyarrow.parquet as pq
 ROOT = Path(__file__).resolve().parents[1]
 END = "2020-12-31"
 
@@ -13,6 +14,12 @@ def sha256(path: Path) -> str:
             d.update(b)
     return d.hexdigest()
 
+def read_parquet_single_thread(path: Path) -> pd.DataFrame:
+    # Work around an upstream Arrow parquet shutdown-thread SIGABRT seen on Linux CI.
+    # Apache Arrow issue #34314 documents the same post-read crash and recommends
+    # disabling threaded parquet reads as a workaround.
+    return pq.read_table(path, use_threads=False).to_pandas(use_threads=False)
+
 def main() -> int:
     man = json.loads((ROOT / "data/manifest.json").read_text())
     assert man["post_2020_rows_included"] is False
@@ -21,11 +28,11 @@ def main() -> int:
         path = ROOT / item["path"]
         assert path.is_file()
         assert sha256(path) == item["sha256"]
-        frame = pd.read_parquet(path)
+        frame = read_parquet_single_thread(path)
         col = "trading_day" if "trading_day" in frame.columns else "date"
         days = pd.to_datetime(frame[col]).dt.strftime("%Y-%m-%d")
         assert str(days.max()) <= END
-    panel = pd.read_parquet(ROOT / "data/development/csi1000_open_pit_panel.parquet")
+    panel = read_parquet_single_thread(ROOT / "data/development/csi1000_open_pit_panel.parquet")
     assert panel["gap"].notna().mean() > 0.9
     print("ok", len(man["products"]))
     return 0
