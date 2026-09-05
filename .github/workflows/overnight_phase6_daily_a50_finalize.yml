@@ -36,6 +36,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          # The source run is frozen; this step only waits for its six compact yearly artifacts.
           for i in $(seq 1 90); do
             names=$(gh api "/repos/${GITHUB_REPOSITORY}/actions/runs/${SOURCE_RUN_ID}/artifacts" --paginate --jq '.artifacts[].name' || true)
             count=$(printf '%s\n' "$names" | grep -E '^a50-ordinary-(2015|2016|2017|2018|2019|2020)$' | sort -u | wc -l)
@@ -112,7 +113,7 @@ jobs:
             data/external/sgx_a50_ordinary_preauction_endpoints_2015_2020.csv
             data/external/sgx_historical_date_index_used_ordinary_2015_2020.json
             artifacts/research/global_spillover_v6_daily_a50_results.json
-            artifacts/staging/a50_ordinary_combined/a50_ordinary_manifest_*.json
+            artifacts/staging/a50_ordinary_combined/**/a50_ordinary_manifest_*.json
             a50_ordinary_combine.log
             phase6_v3_replay.log
             phase6_v4_replay.log
