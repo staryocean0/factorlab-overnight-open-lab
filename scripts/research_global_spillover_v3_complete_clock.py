@@ -39,14 +39,12 @@ def _load_us() -> pd.DataFrame:
 def add_complete_clock_features(panel: pd.DataFrame, us: pd.DataFrame) -> pd.DataFrame:
     df = panel.copy().sort_values("trading_day").reset_index(drop=True)
     df["previous_china_day"] = df["trading_day"].shift(1)
-
     joint = us.dropna(subset=["NASDAQCOM", "VIXCLS"]).copy().sort_values("date").reset_index(drop=True)
     us_dates = joint["date"].to_numpy(dtype="datetime64[ns]")
     nas = joint["NASDAQCOM"].to_numpy(dtype=float)
     vix = joint["VIXCLS"].to_numpy(dtype=float)
     target = df["trading_day"].to_numpy(dtype="datetime64[ns]")
     prev = df["previous_china_day"].to_numpy(dtype="datetime64[ns]")
-
     end_idx = np.searchsorted(us_dates, target, side="left") - 1
     start_idx = np.full(len(df), -1, dtype=int)
     valid_prev = df["previous_china_day"].notna().to_numpy()
@@ -60,7 +58,6 @@ def add_complete_clock_features(panel: pd.DataFrame, us: pd.DataFrame) -> pd.Dat
     vix_daily = np.full(len(df), np.nan, dtype=float)
     nas_extra = np.full(len(df), np.nan, dtype=float)
     vix_extra = np.full(len(df), np.nan, dtype=float)
-
     interval_count[valid] = end_idx[valid] - start_idx[valid]
     nas_cum[valid] = nas[end_idx[valid]] / nas[start_idx[valid]] - 1.0
     vix_cum[valid] = vix[end_idx[valid]] / vix[start_idx[valid]] - 1.0
@@ -68,7 +65,6 @@ def add_complete_clock_features(panel: pd.DataFrame, us: pd.DataFrame) -> pd.Dat
     vix_daily[valid] = vix[end_idx[valid]] / vix[end_idx[valid] - 1] - 1.0
     nas_extra[valid] = nas_cum[valid] - nas_daily[valid]
     vix_extra[valid] = vix_cum[valid] - vix_daily[valid]
-
     one = valid & (interval_count == 1)
     if np.any(np.abs(nas_extra[one]) > 1e-12) or np.any(np.abs(vix_extra[one]) > 1e-12):
         raise AssertionError("closure_extra identity failed for one-US-interval rows")
@@ -94,7 +90,6 @@ def _fit_predict(df: pd.DataFrame, features: list[str]) -> tuple[dict, pd.DataFr
     y_te = pd.to_numeric(hold["gap"], errors="coerce")
     m_tr = x_tr.notna().all(axis=1) & y_tr.notna()
     m_te = x_te.notna().all(axis=1) & y_te.notna()
-
     pipe = Pipeline([("sc", StandardScaler()), ("m", Ridge(alpha=1.0))])
     pipe.fit(x_tr.loc[m_tr], y_tr.loc[m_tr])
     pred = pipe.predict(x_te.loc[m_te])
@@ -103,7 +98,6 @@ def _fit_predict(df: pd.DataFrame, features: list[str]) -> tuple[dict, pd.DataFr
     rows["y"] = y
     rows["pred"] = pred
     rows["sse"] = (rows["y"] - rows["pred"]) ** 2
-
     model: Ridge = pipe.named_steps["m"]
     metrics = {
         "n_train": int(m_tr.sum()),
@@ -151,14 +145,12 @@ def main() -> None:
     manifest = json.loads(MANIFEST_PATH.read_text())
     if manifest["guards"]["post_2020_rows"] != 0 or manifest["guards"]["forward_fill"]:
         raise AssertionError("external data manifest violates preregistered boundary")
-
     panel = pd.read_parquet(PANEL_PATH).copy()
     panel["trading_day"] = pd.to_datetime(panel["trading_day"], errors="raise").dt.normalize()
     if panel["trading_day"].max() > pd.Timestamp("2020-12-31"):
         raise AssertionError("post-2020 China row detected")
     df = add_complete_clock_features(panel, _load_us())
 
-    # The refreshed complete FRED clock should reconstruct the materialized panel US daily features.
     n = pd.to_numeric(df["us_nasdaq"], errors="coerce")
     v = pd.to_numeric(df["us_vix_chg"], errors="coerce")
     nd = pd.to_numeric(df["us_nasdaq_complete_daily"], errors="coerce")
@@ -210,23 +202,19 @@ def main() -> None:
         }
     }
 
-    events = c0p.loc[multi, ["trading_day", "y", "pred"]].copy()
-    events = events.rename(columns={"pred": "c0_pred"})
+    events = c0p.loc[multi, ["trading_day", "y", "pred"]].copy().rename(columns={"pred": "c0_pred"})
     events["c1_pred"] = c1p.loc[multi, "pred"].to_numpy()
     events["p0_pred"] = p0p.loc[multi, "pred"].to_numpy()
     events["c1_sse_improvement"] = (events["y"] - events["c0_pred"]) ** 2 - (events["y"] - events["c1_pred"]) ** 2
     events["p0_sse_improvement"] = (events["y"] - events["c0_pred"]) ** 2 - (events["y"] - events["p0_pred"]) ** 2
-    event_rows = []
-    for _, r in events.sort_values("trading_day").iterrows():
-        event_rows.append({
-            "trading_day": str(r["trading_day"].date()),
-            "gap": float(r["y"]),
-            "c1_sse_improvement": float(r["c1_sse_improvement"]),
-            "p0_sse_improvement": float(r["p0_sse_improvement"])
-        })
+    event_rows = [{
+        "trading_day": str(r["trading_day"].date()),
+        "gap": float(r["y"]),
+        "c1_sse_improvement": float(r["c1_sse_improvement"]),
+        "p0_sse_improvement": float(r["p0_sse_improvement"])
+    } for _, r in events.sort_values("trading_day").iterrows()]
 
     c1m = metrics["C1_complete_clock_closure_extra"]
-    p0m = metrics["P0_exact_duplicate_us_placebo"]
     for r in metrics.values():
         r["delta_ic_vs_c0"] = float(r["holdout_ic"] - c0["holdout_ic"])
         r["delta_sse_vs_c0_improvement"] = float(c0["holdout_sse"] - r["holdout_sse"])
@@ -255,12 +243,12 @@ def main() -> None:
         "multiple_interval_event_diagnostics": event_rows,
         "adjudication": {
             "C1_progression_rule_pass": bool(progression),
-            "placebo_selectable": false,
-            "baseline_replacement": false,
-            "fresh_oos": false,
+            "placebo_selectable": False,
+            "baseline_replacement": False,
+            "fresh_oos": False,
             "scientific_status": "progress_to_unseen_controller_confirmation" if progression else "do_not_progress_from_consumed_holdout"
         },
-        "authority": {"production": false, "registry_mutation": false, "holiday_runtime_routing": false}
+        "authority": {"production": False, "registry_mutation": False, "holiday_runtime_routing": False}
     }
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUT_PATH.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
