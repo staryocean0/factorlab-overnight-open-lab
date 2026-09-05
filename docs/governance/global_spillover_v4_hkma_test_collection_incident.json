@@ -1,0 +1,37 @@
+{
+  "schema_id": "overnight_open_global_spillover_v4_hkma_test_collection_incident@1.0",
+  "recorded_date": "2026-09-05",
+  "failed_run": {
+    "github_actions_run_id": 33971772495,
+    "job_id": 101321435892,
+    "status": "failed_before_data_commit_or_model_execution",
+    "completed_before_failure": [
+      "authoritative FRED refresh",
+      "authoritative HKMA China-FX refresh",
+      "bounded package validation"
+    ],
+    "hkma_refresh_observations": {
+      "api_records_returned": 2068,
+      "joint_observed": 2068,
+      "min_observed": "2014-01-02",
+      "max_observed": "2020-12-31",
+      "raw_sha256_in_ephemeral_run": "e8c9f85f941687c59e6d3c4820d21931ce350dcb15910ffb52971334642b08e6",
+      "parquet_sha256_in_ephemeral_run": "ffa4c802960c2f811116ab378d99fcb0004df943b75580551517705becef0ffd"
+    },
+    "failure": "pytest collection raised ModuleNotFoundError for sibling v3 research module because the importlib-based v4 test did not add scripts/ to sys.path",
+    "research_results_seen": false,
+    "data_committed_from_failed_run": false
+  },
+  "fix": {
+    "commit": "0dc964b39e599ffab8f8ff973458b039224f7efd",
+    "scope": "test module search path only",
+    "financial_clock_changed": false,
+    "model_changed": false,
+    "selection_gate_changed": false
+  },
+  "authority": {
+    "candidate_selection": false,
+    "baseline_replacement": false,
+    "production": false
+  }
+}
