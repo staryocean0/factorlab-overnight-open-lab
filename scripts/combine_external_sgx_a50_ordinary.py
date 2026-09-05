@@ -14,6 +14,7 @@ PARQUET_OUT = ROOT / "data/development/sgx_a50_ordinary_preauction_endpoints.par
 NAV_OUT = ROOT / "data/external/sgx_historical_date_index_used_ordinary_2015_2020.json"
 MANIFEST_OUT = ROOT / "docs/governance/external_sgx_a50_ordinary_preauction_2015_2020_manifest.json"
 PACKAGE_MANIFEST = ROOT / "data/manifest.json"
+YEARS = [2015, 2016, 2017, 2018, 2019, 2020]
 
 
 def sha256_file(path: Path) -> str:
@@ -31,21 +32,37 @@ def merge_unique_dict(dst: dict, src: dict, label: str) -> None:
         dst[k] = v
 
 
+def discover_year_files(indir: Path, prefix: str, suffix: str, years: list[int] | None = None) -> list[Path]:
+    expected = YEARS if years is None else years
+    found: dict[int, list[Path]] = {year: [] for year in expected}
+    for path in indir.rglob(f"{prefix}*{suffix}"):
+        name = path.name
+        if not name.startswith(prefix) or not name.endswith(suffix):
+            continue
+        middle = name[len(prefix): len(name) - len(suffix)]
+        if not middle.isdigit():
+            continue
+        year = int(middle)
+        if year in found:
+            found[year].append(path)
+    problems = {
+        str(year): [str(p.relative_to(indir)) for p in paths]
+        for year, paths in found.items()
+        if len(paths) != 1
+    }
+    if problems:
+        raise AssertionError(("yearly artifact discovery must resolve exactly one file per year", prefix, suffix, problems))
+    return [found[year][0] for year in expected]
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--input-dir", default="artifacts/staging/a50_ordinary_combined")
     args = ap.parse_args()
     indir = ROOT / args.input_dir
-    endpoint_files = sorted(indir.glob("a50_ordinary_endpoints_*.csv"))
-    manifest_files = sorted(indir.glob("a50_ordinary_manifest_*.json"))
-    nav_files = sorted(indir.glob("a50_ordinary_navigation_*.json"))
-    years = [2015, 2016, 2017, 2018, 2019, 2020]
-    if [int(p.stem.rsplit("_", 1)[1]) for p in endpoint_files] != years:
-        raise AssertionError(("missing yearly endpoint artifacts", [p.name for p in endpoint_files]))
-    if [int(p.stem.rsplit("_", 1)[1]) for p in manifest_files] != years:
-        raise AssertionError("missing yearly manifests")
-    if [int(p.stem.rsplit("_", 1)[1]) for p in nav_files] != years:
-        raise AssertionError("missing yearly navigation files")
+    endpoint_files = discover_year_files(indir, "a50_ordinary_endpoints_", ".csv")
+    manifest_files = discover_year_files(indir, "a50_ordinary_manifest_", ".json")
+    nav_files = discover_year_files(indir, "a50_ordinary_navigation_", ".json")
 
     frames = []
     yearly: dict[str, dict] = {}
@@ -55,6 +72,7 @@ def main() -> None:
     schema_counts: dict[str, int] = {}
     total_events = 0
     total_usable = 0
+    total_blank_price_trade_rows = 0
     for ep, mp, np in zip(endpoint_files, manifest_files, nav_files, strict=True):
         year = int(ep.stem.rsplit("_", 1)[1])
         frame = pd.read_csv(ep)
@@ -75,9 +93,11 @@ def main() -> None:
             "required_archive_dates": int(man["required_archive_dates"]),
             "archives_parsed": int(man["archives_parsed"]),
             "archive_failure_count": len(man["archive_failures"]),
+            "blank_price_trade_rows_skipped": int(man.get("blank_price_trade_rows_skipped", 0)),
         }
         total_events += int(man["events_total"])
         total_usable += int(man["events_usable"])
+        total_blank_price_trade_rows += int(man.get("blank_price_trade_rows_skipped", 0))
         unavailable.extend(man["unavailable_events"])
         merge_unique_dict(used_archives, man["used_archives"], "archive")
         merge_unique_dict(used_index, nav["used_date_to_key"], "navigation")
@@ -114,7 +134,7 @@ def main() -> None:
     }, indent=2, sort_keys=True) + "\n")
 
     manifest = {
-        "schema_id": "external_sgx_a50_ordinary_preauction_2015_2020_manifest@1.0",
+        "schema_id": "external_sgx_a50_ordinary_preauction_2015_2020_manifest@1.1",
         "frozen_retrieval_date": "2026-09-05",
         "provider": "Singapore Exchange official historical derivatives endpoint",
         "commodity_code": "CN",
@@ -129,6 +149,7 @@ def main() -> None:
             "by_target_year": yearly,
         },
         "schema_archive_counts": schema_counts,
+        "blank_price_trade_rows_skipped": int(total_blank_price_trade_rows),
         "unavailable_events": unavailable,
         "assets": {
             str(CSV_OUT.relative_to(ROOT)): {"sha256": sha256_file(CSV_OUT)},
@@ -143,6 +164,7 @@ def main() -> None:
             "raw_full_market_archives_committed": False,
             "field_resolution_by_header": True,
             "legacy_Y_trade_code_supported": True,
+            "legacy_blank_price_trade_rows_skipped_not_fatal": True,
             "settlement_S_used_as_trade": False,
         },
         "used_archives": dict(sorted(used_archives.items())),
@@ -162,7 +184,15 @@ def main() -> None:
     }
     package["products"] = [x for x in package["products"] if x["path"] != rel] + [product]
     PACKAGE_MANIFEST.write_text(json.dumps(package, indent=2) + "\n")
-    print(json.dumps({"events_total": total_events, "events_usable": total_usable, "coverage": total_usable / total_events, "rows": len(out), "schema_archive_counts": schema_counts}, indent=2))
+    print(json.dumps({
+        "events_total": total_events,
+        "events_usable": total_usable,
+        "coverage": total_usable / total_events,
+        "rows": len(out),
+        "schema_archive_counts": schema_counts,
+        "blank_price_trade_rows_skipped": total_blank_price_trade_rows,
+        "by_target_year": yearly,
+    }, indent=2, sort_keys=True))
 
 
 if __name__ == "__main__":
