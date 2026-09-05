@@ -1,0 +1,42 @@
+{
+  "schema_id": "overnight_open_global_spillover_v1_forensic_audit_plan@1.0",
+  "date": "2026-09-05",
+  "status": "post_hoc_forensic_not_candidate_selection",
+  "parent": "docs/governance/global_spillover_v1_receipt.json",
+  "trigger": "source-clock audit found that packaged US level history cannot reproduce panel daily US features on a minority of dates",
+  "purpose": "attribute the already-frozen C1-vs-C0 holdout error difference to rows whose panel US features are or are not exactly reproducible from the packaged US levels; do not fit or select a new policy",
+  "fixed_models": [
+    "C0_frozen_baseline from v1",
+    "C1_unabsorbed_us_closure_accrual from v1"
+  ],
+  "alignment_definition": {
+    "nasdaq_exact": "panel us_nasdaq equals pct change of last packaged nonmissing NASDAQ level strictly before target China day versus the previous packaged NASDAQ level, abs tolerance 1e-10",
+    "vix_exact": "panel us_vix_chg equals pct change of last packaged nonmissing VIX level strictly before target China day versus the previous packaged VIX level, abs tolerance 1e-10",
+    "both_exact": "nasdaq_exact and vix_exact",
+    "mismatch": "not both_exact; indicates packaged raw level history is insufficient to reconstruct at least one panel feature"
+  },
+  "diagnostics": [
+    "holdout row counts exact vs mismatch by 2019 and 2020",
+    "C1 minus C0 summed squared-error improvement on exact vs mismatch rows",
+    "positive SSE-improvement concentration on mismatch rows",
+    "IC and sign-hit of the two already-frozen predictions within exact and mismatch subsets",
+    "holiday_reopen overlap with mismatch rows",
+    "top mismatch rows by absolute C1-vs-C0 squared-error contribution"
+  ],
+  "interpretation_rule": "This is forensic attribution only. A concentration of C1 gain on mismatch rows invalidates the clean unabsorbed-information interpretation; a gain on exact rows may remain descriptive but cannot rescue v1 as validated because the C1 feature itself was constructed from an incomplete source calendar.",
+  "forbidden": [
+    "refitting after deleting mismatch rows",
+    "new threshold search",
+    "candidate promotion",
+    "baseline replacement",
+    "post-2020 reads",
+    "PnL or return optimization"
+  ],
+  "authority": {
+    "fresh_oos": false,
+    "candidate_selection": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false
+  }
+}
