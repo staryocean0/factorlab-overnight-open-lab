@@ -1,0 +1,39 @@
+{
+  "schema_id": "overnight_open_global_spillover_v4_hkma_clock_correction@1.0",
+  "registered_date": "2026-09-05",
+  "status": "result_free_before_HKMA_download_and_v4_execution",
+  "parent_preregistration": "docs/governance/global_spillover_v4_cnh_preregistration.json",
+  "source_substitution": "docs/governance/global_spillover_v4_hkma_source_substitution.json",
+  "reason_for_correction": "The HKMA RMB reference is a Hong Kong end-of-day observation in the same Asian trading day as A shares. Reusing the U.S.-market cumulative-minus-last-daily transform would contaminate the intended unabsorbed closure signal with part of the previous China trading day's already-observable Asian price move.",
+  "financial_clock": {
+    "start_level": "latest observed HKMA USD/CNY_HK cross on or before the previous China trading date; this end-of-day level is treated as the conservative post-China-close boundary",
+    "end_level": "latest observed HKMA USD/CNY_HK cross with observation date strictly before the target China trading date",
+    "closure_return": "end_level / start_level - 1",
+    "zero_rule": "if end observation date is not later than the start observation date, closure_return = 0",
+    "no_last_daily_subtraction": "There is no HKMA daily-return term in the v3 comparator. The entire post-boundary HKMA closure return is new China-FX information; subtracting the final HKMA daily return would discard valid unabsorbed information without a baseline-duplication reason.",
+    "target_date_exclusion": true,
+    "forward_fill": false
+  },
+  "scope": "This correction changes only the source-specific causal measurement. The v4 economic question, frozen Ridge model, 2015-2018 train period, 2019-2020 consumed holdout, no-PnL selection rule and no-production authority remain unchanged.",
+  "adjudication": {
+    "comparator": "v3 complete U.S. closure model",
+    "candidate": "v3 plus HKMA USD/CNY_HK closure_return",
+    "progression_rule": "candidate must improve full-holdout IC, lower full-holdout SSE, and improve SSE on rows where at least one later HKMA end-of-day observation accumulated after the previous China date; holiday-reopen diagnostics must also be reported",
+    "expected_sign": "positive USD/CNY_HK closure return means RMB depreciation; a negative model coefficient is economically expected but is diagnostic rather than a selection gate"
+  },
+  "forbidden": [
+    "target-China-date HKMA observation",
+    "using an HKMA observation after the target China date",
+    "forward fill or interpolation",
+    "parameter search",
+    "post-hoc holiday routing",
+    "baseline replacement from consumed holdout",
+    "labeling the HKMA derived cross as exact executable interbank CNH"
+  ],
+  "authority": {
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false
+  }
+}
