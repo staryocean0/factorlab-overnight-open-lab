@@ -1,0 +1,153 @@
+name: overnight-domestic-night-v7
+
+on:
+  push:
+    branches:
+      - codex/overnight-domestic-night-v7-20260906
+    paths:
+      - 'scripts/shfe_domestic_night_extract.py'
+      - 'scripts/refresh_external_shfe_domestic_night_product.py'
+      - 'scripts/combine_external_shfe_cu_rb_night.py'
+      - 'scripts/research_global_spillover_v7_domestic_night.py'
+      - 'tests/test_shfe_domestic_night_extract.py'
+      - 'docs/governance/global_spillover_v7_domestic_night_data_usage_declaration.json'
+      - 'docs/governance/global_spillover_v7_domestic_night_preregistration.json'
+      - 'docs/governance/global_spillover_v7_domestic_night_holiday_scope_correction.json'
+      - '.github/workflows/overnight_domestic_night_v7.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: overnight-domestic-night-v7-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install unit dependencies
+        run: python -m pip install --upgrade pandas requests pytest
+      - name: Run frozen domestic-night extraction tests
+        run: pytest -q tests/test_shfe_domestic_night_extract.py tests/test_domestic_night_source_crosscheck.py tests/test_domestic_night_shfe_volume_integrity.py
+
+  extract_product:
+    needs: unit
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        product: [CU, RB]
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install extraction dependencies
+        run: python -m pip install --upgrade pandas pyarrow requests
+      - name: Extract frozen ${{ matrix.product }} domestic-night endpoints
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/refresh_external_shfe_domestic_night_product.py \
+            --product ${{ matrix.product }} \
+            --workers 8 \
+            --output-dir artifacts/staging/domestic_night \
+            | tee domestic_night_${{ matrix.product }}.log
+      - name: Upload compact ${{ matrix.product }} evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: domestic-night-${{ matrix.product }}
+          path: |
+            artifacts/staging/domestic_night/shfe_${{ matrix.product == 'CU' && 'cu' || 'rb' }}_night_endpoints_2015_2020.csv
+            artifacts/staging/domestic_night/shfe_${{ matrix.product == 'CU' && 'cu' || 'rb' }}_night_manifest_2015_2020.json
+            domestic_night_${{ matrix.product }}.log
+          if-no-files-found: error
+          retention-days: 90
+
+  aggregate_and_research:
+    needs: extract_product
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install research dependencies
+        run: python -m pip install --upgrade pandas pyarrow numpy scikit-learn requests pytest
+      - name: Download CU/RB product evidence
+        uses: actions/download-artifact@v4
+        with:
+          pattern: domestic-night-*
+          path: artifacts/staging/domestic_night_combined
+          merge-multiple: true
+      - name: Combine CU/RB and enforce frozen joint-coverage gate
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/combine_external_shfe_cu_rb_night.py \
+            --input-dir artifacts/staging/domestic_night_combined \
+            | tee domestic_night_combine.log
+      - name: Validate bounded package
+        run: python scripts/validate_theme_package.py
+      - name: Run full regression tests
+        run: pytest -q
+      - name: Freeze compact CU/RB domestic-night assets
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            data/external/shfe_cu_rb_night_endpoints_2015_2020.csv \
+            data/development/shfe_cu_rb_night_endpoints.parquet \
+            docs/governance/external_shfe_cu_rb_night_2015_2020_manifest.json \
+            data/manifest.json
+          if git diff --cached --quiet; then
+            echo "Domestic-night compact assets already frozen."
+          else
+            git commit -m "data: freeze validated SHFE CU/RB night endpoints through 2020 [skip ci]"
+            git push origin HEAD:codex/overnight-domestic-night-v7-20260906
+          fi
+      - name: Replay frozen baseline
+        run: python scripts/replay_baseline.py
+      - name: Replay complete-clock v3 dependency
+        run: python scripts/research_global_spillover_v3_complete_clock.py > v7_v3_replay.log
+      - name: Replay corrected v4 dependency
+        run: python scripts/research_global_spillover_v4_cnh.py > v7_v4_replay.log
+      - name: Replay frozen v6 dependency
+        run: python scripts/research_global_spillover_v6_daily_a50.py > v7_v6_replay.log
+      - name: Run preregistered v7 domestic-night experiment exactly once
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/research_global_spillover_v7_domestic_night.py \
+            | tee global_spillover_v7_domestic_night.log
+      - name: Upload formal v7 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: overnight-domestic-night-v7-final
+          path: |
+            docs/governance/global_spillover_v7_domestic_night_data_usage_declaration.json
+            docs/governance/global_spillover_v7_domestic_night_preregistration.json
+            docs/governance/global_spillover_v7_domestic_night_holiday_scope_correction.json
+            docs/governance/external_shfe_cu_rb_night_2015_2020_manifest.json
+            data/external/shfe_cu_rb_night_endpoints_2015_2020.csv
+            artifacts/research/global_spillover_v7_domestic_night_results.json
+            domestic_night_combine.log
+            v7_v3_replay.log
+            v7_v4_replay.log
+            v7_v6_replay.log
+            global_spillover_v7_domestic_night.log
+          if-no-files-found: error
+          retention-days: 90
