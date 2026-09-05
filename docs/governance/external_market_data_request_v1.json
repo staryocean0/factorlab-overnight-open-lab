@@ -1,0 +1,87 @@
+{
+  "schema_id": "overnight_open_external_market_data_request@1.0",
+  "created_date": "2026-09-05",
+  "purpose": "future_local_controller_data_admission_for_CSI1000_09_31_open_gap_research",
+  "not_an_authorization_to_download": true,
+  "requested_history": "2015-01-01_to_2020-12-31_only",
+  "post_2020": "forbidden_in_cloud_workspace",
+  "common_clock_rule": "every_feature_value_must_be_observable_before_target_China_09_31_open_and_store_source_timestamp_plus_available_at_timestamp",
+  "priority": [
+    {
+      "rank": 1,
+      "family": "SGX_FTSE_China_A50",
+      "why": "direct_offshore_price_discovery_for_China_equity_risk; literature_reports_material_information_share",
+      "preferred_raw_frequency": "1m_or_5m",
+      "candidate_window": "previous_China_15_00_to_target_09_25_or_last_print_before_09_30",
+      "do_not_use": "prints_at_or_after_09_31"
+    },
+    {
+      "rank": 2,
+      "family": "USDCNH",
+      "why": "offshore_RMB_is_information_transmitter_into_China_financial_markets",
+      "preferred_raw_frequency": "1m_or_5m",
+      "candidate_window": "previous_China_15_00_to_target_09_25_or_last_print_before_09_30",
+      "do_not_use": "future_fixings_or_revised_quotes"
+    },
+    {
+      "rank": 3,
+      "family": "KOSPI_KOSDAQ",
+      "why": "Korea_opens_before_China_and_prior_intraday_work_reports_KOSPI_open_return_spillover_into_China",
+      "preferred_raw_frequency": "1m_or_5m",
+      "candidate_window": "Korea_open_to_China_09_25_or_last_print_before_09_30",
+      "do_not_grid_search_cutoff": true
+    },
+    {
+      "rank": 4,
+      "family": "China_commodity_night_session",
+      "why": "local_night_market_absorbs_global_commodity_information_before_A_share_open",
+      "preferred_raw_frequency": "1m_or_5m",
+      "initial_small_basket": ["copper", "crude_oil", "iron_ore"],
+      "avoid": "large_contract_zoo_without_mechanism"
+    },
+    {
+      "rank": 5,
+      "family": "Nikkei_TOPIX",
+      "why": "same_day_pre_China_open_information_is_available_but_Japan_to_China_return_spillover_has_negative_literature_evidence",
+      "preferred_raw_frequency": "1m_or_5m",
+      "candidate_window": "Japan_open_to_China_09_25_or_last_print_before_09_30",
+      "admission_gate": "must_show_partial_increment_beyond_US_A50_CNH"
+    },
+    {
+      "rank": 6,
+      "family": "Europe_equity_closes",
+      "series": ["STOXX_600_or_EuroStoxx50", "DAX", "FTSE100"],
+      "why": "available_before_China_open_but_likely_partly_subsumed_by_later_US_session",
+      "preferred_raw_frequency": "daily_close_first_then_intraday_only_if_needed",
+      "admission_gate": "incremental_information_after_US_market"
+    },
+    {
+      "rank": 7,
+      "family": "China_opening_call_auction",
+      "why": "closest_price_discovery_surface_to_target_and_directly_aggregates_overnight_information",
+      "preferred_raw_frequency": "orderbook_snapshots_or_event_data",
+      "candidate_fields": [
+        "indicative_price_vs_previous_close",
+        "buy_sell_order_imbalance",
+        "submit_cancel_imbalance",
+        "price_or_order_dispersion"
+      ],
+      "hard_rule": "never_use_09_31_open_or_any_post_open_information_as_predictor"
+    }
+  ],
+  "required_metadata": [
+    "source",
+    "instrument",
+    "exchange_timezone",
+    "event_timestamp",
+    "available_at_timestamp",
+    "raw_or_adjusted_flag",
+    "missingness_reason",
+    "revision_policy"
+  ],
+  "authority": {
+    "data_download": false,
+    "production": false,
+    "registry_mutation": false
+  }
+}

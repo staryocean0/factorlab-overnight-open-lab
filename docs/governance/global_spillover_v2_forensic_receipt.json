@@ -1,0 +1,150 @@
+{
+  "schema_id": "overnight_open_global_spillover_v2_forensic_receipt@1.0",
+  "sealed_date": "2026-09-05",
+  "branch": "codex/overnight-global-spillover-20260905",
+  "parent_receipt": "docs/governance/global_spillover_v1_receipt.json",
+  "research_question": "Whether v1 C1 represents a genuine cumulative foreign-information mechanism, where that gain is located, and whether the packaged US source clock is sufficient to support the claimed financial interpretation.",
+  "governance_chain": {
+    "v2_mechanism_preregistration": "docs/governance/global_spillover_v2_mechanism_preregistration.json",
+    "v2_invalid_economic_run": {
+      "github_actions_run_id": 33968348582,
+      "job_id": 101312340757,
+      "status": "mechanism_adjudication_invalidated_before_promotion",
+      "reason": "single-US-session extra residuals were materially nonzero, proving that cumulative-minus-panel mixed source-clock/measurement mismatch with the intended economic increment"
+    },
+    "clock_correction_preregistration": "docs/governance/global_spillover_v2_clock_correction_preregistration.json",
+    "v1_forensic_audit_plan": "docs/governance/global_spillover_v1_forensic_audit_plan.json",
+    "holiday_endpoint_audit_plan": "docs/governance/global_spillover_holiday_endpoint_audit_plan.json",
+    "holiday_endpoint_correction_plan": "docs/governance/global_spillover_holiday_endpoint_audit_correction_plan.json"
+  },
+  "final_execution": {
+    "github_actions_run_id": 33969064136,
+    "job_id": 101314239588,
+    "head_sha": "c17abd93d893b9a2b69729c2d4ff793b8ce0ac03",
+    "workflow_conclusion": "success",
+    "package_validation": "success",
+    "tests": "8_passed",
+    "baseline_replay_pass": true,
+    "v1_replay_pass": true,
+    "artifact_id": 9970362620,
+    "artifact_zip_sha256": "7c3751aac114786249ec30147aa0d205f9d09a6cbde1ae43569df13a0bdf120e",
+    "artifact_files": 12
+  },
+  "data_boundary": {
+    "china_max_day": "2020-12-31",
+    "us_max_day": "2020-12-31",
+    "post_2020_rows_read": 0,
+    "new_external_market_rows_downloaded": 0,
+    "train": "2015-2018",
+    "internal_holdout": "2019-2020_consumed_not_fresh"
+  },
+  "frozen_reference_performance": {
+    "C0_holdout_ic": 0.45698248147216,
+    "C0_holdout_sign_hit": 0.7195876288659794,
+    "C1_v1_holdout_ic": 0.49135678663435955,
+    "C1_v1_holdout_sign_hit": 0.7216494845360825,
+    "C1_delta_ic_vs_C0": 0.03437430516219958
+  },
+  "source_clock_measurement_audit": {
+    "panel_rows": 1462,
+    "holdout_rows": 485,
+    "nasdaq_reconstructed_pct_exact_share_full_panel": 0.9637482900136799,
+    "vix_reconstructed_pct_exact_share_full_panel": 0.9636986301369863,
+    "holdout_both_exact_n": 468,
+    "holdout_mismatch_n": 17,
+    "holdout_mismatch_share": 0.03505154639175258,
+    "holiday_and_mismatch_n": 0,
+    "interpretation": "the packaged US level history omits some intermediate US observations that the already-materialized panel daily features evidently used; the frozen baseline remains reproducible, but a generic cumulative-US feature built only from the package cannot be called a clean all-row unabsorbed-information measure"
+  },
+  "forensic_attribution_of_fixed_v1_predictions": {
+    "all_holdout": {
+      "n": 485,
+      "C0_ic": 0.45698248147216,
+      "C1_ic": 0.49135678663435955,
+      "C1_minus_C0_sse_improvement": 0.0006376109513654993
+    },
+    "source_clock_exact": {
+      "n": 468,
+      "C0_ic": 0.4571522663546339,
+      "C1_ic": 0.4978586149772425,
+      "C0_sign_hit": 0.7158119658119658,
+      "C1_sign_hit": 0.7329059829059829,
+      "C1_minus_C0_sse_improvement": 0.0010173643472397315
+    },
+    "source_clock_mismatch": {
+      "n": 17,
+      "C0_ic": 0.48349575851970394,
+      "C1_ic": 0.1240109519091409,
+      "C0_sign_hit": 0.8235294117647058,
+      "C1_sign_hit": 0.4117647058823529,
+      "C1_minus_C0_sse_improvement": -0.0003797533958742322,
+      "verdict": "mismatch_rows_hurt_C1_and_do_not_create_the_observed_gain"
+    }
+  },
+  "closure_localization_post_hoc_forensic": {
+    "holiday_reopen": {
+      "n": 12,
+      "C0_ic": 0.41135245392793424,
+      "C1_ic": 0.6906570163330339,
+      "C0_sign_hit": 0.75,
+      "C1_sign_hit": 0.8333333333333334,
+      "C1_minus_C0_sse_improvement": 0.0018816745361135763
+    },
+    "nonholiday": {
+      "n": 473,
+      "C0_ic": 0.518059166652047,
+      "C1_ic": 0.5169084438527136,
+      "C0_sign_hit": 0.718816067653277,
+      "C1_sign_hit": 0.718816067653277,
+      "C1_minus_C0_sse_improvement": -0.0012440635847480767
+    },
+    "exact_nonholiday": {
+      "n": 456,
+      "C0_ic": 0.5189146459397959,
+      "C1_ic": 0.5244717682285915,
+      "C1_minus_C0_sse_improvement": -0.0008643101888738446
+    },
+    "interpretation": "the retrospective v1 gain is overwhelmingly localized to long-holiday reopenings; ordinary/nonholiday rows do not support a generic cumulative-US improvement in squared-error terms",
+    "selection_status": "diagnostic_only_post_hoc_on_consumed_holdout"
+  },
+  "holiday_endpoint_measurement": {
+    "holiday_rows": 12,
+    "conservative_audit": {
+      "target_endpoint_exact_count": 12,
+      "start_boundary_previous_daily_return_exact_count": 10,
+      "date_consistency_count": 12,
+      "endpoint_value_recalc_exact_count": 12
+    },
+    "corrected_endpoint_audit": {
+      "corrected_endpoint_supported_n": 11,
+      "target_daily_alignment_exact_n": 12,
+      "endpoint_recalc_exact_n": 12,
+      "rows_with_intervening_weekday_before_start_boundary": 0,
+      "rows_with_intervening_weekday_before_target_boundary": 1,
+      "unresolved_row": {
+        "target_china_day": "2019-01-02",
+        "end_us_date": "2018-12-31",
+        "intervening_weekday": "2019-01-01",
+        "reason": "the package does not encode an authoritative US exchange holiday calendar, so the internal audit does not prove that the intervening weekday was non-trading"
+      }
+    },
+    "interpretation": "11 of 12 consumed-holdout holiday cumulative endpoints are internally established using only packaged data; the remaining row is conservatively unresolved by package-only calendar evidence rather than treated as a failed return measurement"
+  },
+  "adjudication": {
+    "v1_generic_C1_baseline_replacement": "reject",
+    "v1_generic_unabsorbed_US_label": "withdraw_as_all_row_claim_due_source_clock_measurement_gap",
+    "source_clock_mismatch_as_gain_explanation": "rejected_mismatch_rows_hurt_not_help",
+    "holiday_closure_accumulation": "retain_as_retrospective_mechanism_hypothesis_only",
+    "ordinary_session_cumulative_US": "not_supported_as_progression_by_current_forensic_decomposition",
+    "next_valid_test": "preregister a holiday-closure foreign-information candidate on complete point-in-time external calendars/levels and challenge it on genuinely unseen local-controller data; A50, CNH and KOSPI are higher-priority additional external channels than broad Japan/Europe proxies",
+    "scientific_status": "holiday_closure_accumulation_retrospective_mechanism_hypothesis_waiting_complete_PIT_calendar_and_unseen_local_controller_confirmation"
+  },
+  "authority": {
+    "fresh_oos": false,
+    "candidate_selection_from_forensics": false,
+    "baseline_replacement": false,
+    "holiday_runtime_routing": false,
+    "production": false,
+    "registry_mutation": false
+  }
+}

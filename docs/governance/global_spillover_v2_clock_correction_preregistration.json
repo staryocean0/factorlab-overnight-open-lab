@@ -1,0 +1,121 @@
+{
+  "schema_id": "overnight_open_global_spillover_clock_correction_preregistration@2.1",
+  "frozen_date": "2026-09-05",
+  "branch": "codex/overnight-global-spillover-20260905",
+  "incident": {
+    "invalid_run_id": 33968348582,
+    "invalid_component": "v2 mechanism economic adjudication",
+    "reason": "the implementation built NASDAQ and VIX cumulative windows on an inner-joined calendar that dropped any US date missing either series; the resulting single-session extra residual was materially nonzero, so extra=cumulative-baseline mixed calendar/measurement mismatch with economic accumulation",
+    "retained_from_invalid_run": [
+      "baseline replay",
+      "v1 historical replay",
+      "tests and causal no-post-2020 boundary",
+      "the discovery of the measurement mismatch"
+    ],
+    "not_retained": [
+      "C3 genuine-information verdict",
+      "C4-C7 source/localization economics",
+      "any baseline implication"
+    ]
+  },
+  "research_question": "After constructing NASDAQ and VIX on independent source calendars, does replacing stale/one-day baseline US features with the exact information-window return since the previous China session improve next-session CSI1000 gap prediction?",
+  "data_boundary": {
+    "china": "2015-01-05 through 2020-12-31 only",
+    "us": "existing repository NASDAQ/VIX parquet through 2020-12-31 only",
+    "post_2020_rows": "forbidden",
+    "new_market_downloads": "forbidden",
+    "train": "2015-2018",
+    "internal_holdout": "2019-2020 consumed, not fresh"
+  },
+  "measurement_contract": {
+    "separate_calendars": true,
+    "nasdaq_calendar": "all dates with nonmissing NASDAQ level, independent of VIX missingness",
+    "vix_calendar": "all dates with nonmissing VIX level, independent of NASDAQ missingness",
+    "last_daily_return": "level[last session strictly before target China day] / level[previous available session] - 1",
+    "window_return": "level[last session strictly before target China day] / level[last session strictly before previous China day] - 1",
+    "window_intervals": "end_index - start_index on that series' own nonmissing calendar",
+    "interpretation": {
+      "interval_0": "no new foreign trading observation since previous China session; correct window return is 0",
+      "interval_1": "one new foreign session; window return equals the last daily return",
+      "interval_ge_2": "multiple foreign sessions accumulated while China was closed"
+    },
+    "alignment_audit": "compare reconstructed last_daily_return to panel us_nasdaq/us_vix_chg; report correlation, MAE and max absolute difference before interpreting model results"
+  },
+  "frozen_model": "Pipeline(StandardScaler(), Ridge(alpha=1.0))",
+  "candidate_family": [
+    {
+      "id": "D0_frozen_baseline",
+      "definition": "unchanged frozen baseline",
+      "role": "comparator"
+    },
+    {
+      "id": "D1_clock_corrected_replace_both",
+      "definition": "replace baseline us_nasdaq and us_vix_chg with their separate-calendar window returns",
+      "role": "primary corrected information-clock test"
+    },
+    {
+      "id": "D2_clock_corrected_replace_nasdaq",
+      "definition": "replace only us_nasdaq with NASDAQ window return; keep baseline VIX feature",
+      "role": "source attribution"
+    },
+    {
+      "id": "D3_clock_corrected_replace_vix",
+      "definition": "replace only us_vix_chg with VIX window return; keep baseline NASDAQ feature",
+      "role": "source attribution"
+    },
+    {
+      "id": "D4_multi_session_accrual_replace",
+      "definition": "for each US series use window return only when its own interval count >=2; otherwise retain baseline last-daily feature",
+      "role": "isolate true multi-session closure accumulation"
+    },
+    {
+      "id": "D5_no_new_session_stale_zero",
+      "definition": "for each US series set the baseline feature to zero only when its own interval count ==0; otherwise retain baseline feature",
+      "role": "isolate stale-feature suppression when no new US observation arrived"
+    },
+    {
+      "id": "D6_holiday_only_clock_replace",
+      "definition": "replace both US features by separate-calendar window returns only on existing holiday_reopen==1 days; otherwise retain baseline features",
+      "role": "holiday localization diagnostic only"
+    },
+    {
+      "id": "D7_exact_duplicate_placebo",
+      "definition": "baseline plus exact copies of existing us_nasdaq and us_vix_chg",
+      "role": "Ridge geometry placebo; zero new information"
+    }
+  ],
+  "multiplicity_attempts": 8,
+  "primary_metric": "2019-2020 holdout IC",
+  "secondary_metrics": [
+    "R2",
+    "sign_hit",
+    "2019 IC",
+    "2020 IC",
+    "SSE improvement by interval_0/1/ge2",
+    "SSE improvement by holiday/nonholiday",
+    "SSE improvement by ordinary/tail 30bp frozen ledger cut"
+  ],
+  "decision_rules": {
+    "measurement_fail_closed": "if reconstructed last-daily feature does not closely track the panel feature, report measurement gap and do not interpret D1-D6 economically",
+    "primary_progression": "only D1 above D0 can support corrected information-clock progression; D2-D6 are attribution diagnostics and cannot be promoted separately in this round",
+    "multi_session_mechanism": "D4 above D0 supports multi-session accumulation specifically",
+    "stale_suppression_mechanism": "D5 above D0 supports information-age correction when no new US session occurred",
+    "holiday_routing": "D6 is diagnostic only and cannot create a holiday runtime rule from this consumed holdout",
+    "baseline_replacement": "forbidden regardless of result"
+  },
+  "no_grid_search": true,
+  "selection_forbidden": [
+    "PnL",
+    "Sharpe",
+    "return optimization",
+    "post-result threshold search",
+    "post-2020 reads",
+    "runtime calendar routing promotion"
+  ],
+  "authority": {
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false
+  }
+}

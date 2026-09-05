@@ -1,0 +1,91 @@
+{
+  "schema_id": "overnight_open_global_spillover_receipt@1.0",
+  "sealed_date": "2026-09-05",
+  "preregistration": "docs/governance/global_spillover_v1_preregistration.json",
+  "execution": {
+    "github_actions_run_id": 33965784594,
+    "job_id": 101305553261,
+    "head_sha": "3de5478bcc15648572aeff54d34f2e627fa5f061",
+    "artifact_id": 9969371687,
+    "artifact_zip_sha256": "1c30ae1fad8bff4eed48df1addfadf815e58c1711c6bced0e0126e75d89d0101",
+    "workflow_conclusion": "success",
+    "tests": "5_passed",
+    "baseline_replay_pass": true
+  },
+  "data_boundary": {
+    "china_max_day": "2020-12-31",
+    "us_max_day": "2020-12-31",
+    "post_2020_rows_read": 0,
+    "train": "2015-01-05_to_2018-12-31",
+    "internal_holdout": "2019-01-01_to_2020-12-31_consumed_not_fresh"
+  },
+  "frozen_references": {
+    "ridge_ic": 0.4569824814721589,
+    "ridge_sign_hit": 0.7195876288659794,
+    "us_nasdaq_single_ic_receipt": 0.484159954330252,
+    "us_nasdaq_single_ic_recomputed": 0.4839829379451821,
+    "majority_down_hit": 0.48865979381443303
+  },
+  "candidate_results": {
+    "C0_frozen_baseline": {
+      "ic": 0.45698248147216,
+      "sign_hit": 0.7195876288659794,
+      "r2": 0.16075322424988825,
+      "ic_2019": 0.4716625292902277,
+      "ic_2020": 0.4523604431964813,
+      "sign_2019": 0.6900826446280992,
+      "sign_2020": 0.7489711934156379,
+      "verdict": "frozen_comparator"
+    },
+    "C1_unabsorbed_us_closure_accrual": {
+      "ic": 0.49135678663435955,
+      "sign_hit": 0.7216494845360825,
+      "r2": 0.1782112844785284,
+      "delta_ic_vs_frozen_ridge": 0.034374305162200636,
+      "delta_ic_vs_us_nasdaq_single": 0.007196832304107559,
+      "delta_sign_vs_frozen_ridge": 0.0020618556701030855,
+      "ic_2019": 0.5189938750804348,
+      "ic_2020": 0.48292747499754446,
+      "sign_2019": 0.7066115702479339,
+      "sign_2020": 0.7366255144032922,
+      "verdict": "retain_as_retrospective_progression_material"
+    },
+    "C2_us_asymmetry": {
+      "ic": 0.4451520253511017,
+      "sign_hit": 0.7216494845360825,
+      "delta_ic_vs_frozen_ridge": -0.011830456121057209,
+      "verdict": "reject"
+    },
+    "C3_us_state_dependence": {
+      "ic": 0.43371879448014167,
+      "sign_hit": 0.6927835051546392,
+      "delta_ic_vs_frozen_ridge": -0.023263686992017252,
+      "verdict": "reject"
+    },
+    "C4_bounded_combination": {
+      "ic": 0.44824374961664776,
+      "sign_hit": 0.6865979381443299,
+      "delta_ic_vs_frozen_ridge": -0.008738731855511161,
+      "verdict": "reject"
+    }
+  },
+  "causal_diagnostics": {
+    "us_end_strictly_before_target_china_day": true,
+    "us_start_strictly_before_previous_china_day": true,
+    "nonholiday_corr_panel_us_vs_unabsorbed_cum": 0.9581167672754075
+  },
+  "interpretation": {
+    "primary": "cumulative_foreign_information_since_previous_China_session_is_more_useful_for_gap_magnitude_than_the_last_US_session_alone",
+    "sign_quality": "essentially_flat_overall_and_mixed_by_year",
+    "year_concentration": "IC_improves_in_both_2019_and_2020_not_only_COVID_year",
+    "nonlinear_extensions": "simple_asymmetry_and_state_interactions_not_supported_in_this_family",
+    "caution": "C1_margin_over_NASDAQ_single_is_small_and_2019_2020_is_consumed_internal_holdout"
+  },
+  "scientific_status": "retrospective_progression_material_waiting_mechanism_diagnostic_and_unseen_local_controller_confirmation",
+  "authority": {
+    "fresh_oos": false,
+    "production": false,
+    "registry_mutation": false,
+    "baseline_replacement": false
+  }
+}

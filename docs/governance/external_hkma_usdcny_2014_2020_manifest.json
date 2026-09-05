@@ -1,0 +1,40 @@
+{
+  "assets": {
+    "data/development/hkma_usdcny_cross.parquet": {
+      "sha256": "ffa4c802960c2f811116ab378d99fcb0004df943b75580551517705becef0ffd"
+    },
+    "data/external/hkma_er_eeri_daily_2014_2020.json": {
+      "sha256": "e8c9f85f941687c59e6d3c4820d21931ce350dcb15910ffb52971334642b08e6"
+    }
+  },
+  "date_range": {
+    "max_observed": "2020-12-31",
+    "min_observed": "2014-01-02"
+  },
+  "derived_cross": "usdcny_hk = usd_hkd / cny_hkd (CNY per USD)",
+  "documentation": "https://apidocs.hkma.gov.hk/documentation/market-data-and-statistics/monthly-statistical-bulletin/er-ir/er-eeri-daily/",
+  "endpoint": "https://api.hkma.gov.hk/public/market-data-and-statistics/monthly-statistical-bulletin/er-ir/er-eeri-daily",
+  "frozen_retrieval_date": "2026-09-05",
+  "guards": {
+    "forward_fill": false,
+    "interpolation": false,
+    "post_2020_rows": 0,
+    "target_date_observation_allowed_in_model": false
+  },
+  "interpretation": "Hong-Kong-market China-FX price-discovery proxy; not labeled as an exact executable interbank CNH spot series",
+  "provider": "Hong Kong Monetary Authority public API",
+  "published_fields": {
+    "cny": "HKD per unit of CNY",
+    "usd": "HKD per unit of USD"
+  },
+  "row_counts": {
+    "api_records_returned": 2068,
+    "joint_observed": 2068,
+    "missing_joint_within_returned_dates": 0
+  },
+  "schema_id": "external_hkma_usdcny_manifest@1.0",
+  "window": [
+    "2014-01-01",
+    "2020-12-31"
+  ]
+}

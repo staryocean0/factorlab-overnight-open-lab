@@ -1,0 +1,194 @@
+{
+  "schema_id": "overnight_open_global_spillover_v5_a50_receipt@1.0",
+  "sealed_date": "2026-09-05",
+  "research_scope": "CSI1000 next-session 09:31 opening-gap sign and magnitude; SGX FTSE China A50 futures as an additional causal price-discovery channel during long A-share closures",
+  "preregistration": "docs/governance/global_spillover_v5_a50_preregistration.json",
+  "formal_execution": {
+    "workflow": "global-spillover-research",
+    "run_id": 33972732993,
+    "run_number": 67,
+    "job_id": 101324004506,
+    "workflow_head_sha": "133406f7ac42ccff0dc4fe7516276234dfd0dd9a",
+    "conclusion": "success",
+    "tests": "18 passed",
+    "baseline_replay": {
+      "ic": 0.45698248147216,
+      "receipt_ic": 0.4569824814721589,
+      "exact_replay": true
+    },
+    "data_freeze_commit_created_inside_run": "76be263c4ef28ce2668fc8b667dc0ea69049638e",
+    "artifact": {
+      "id": 9971465881,
+      "name": "global-spillover-v5-a50-final",
+      "size_bytes": 92832,
+      "sha256": "20fe56411a0d4031978fdbdab64744e02d707d4421e3fdb20919825b616ef458",
+      "expires_at": "2026-12-04T14:45:06Z"
+    }
+  },
+  "data_boundary": {
+    "train": "2015-2018",
+    "internal_holdout": "2019-2020_consumed_not_fresh",
+    "post_2020_rows_read": 0,
+    "fresh_oos": false
+  },
+  "sgx_data_contract": {
+    "provider": "Singapore Exchange official historical derivatives endpoint",
+    "commodity_code": "CN",
+    "official_file": "WEBPXTICK_DT.zip",
+    "manifest": "docs/governance/external_sgx_a50_holiday_2015_2020_manifest.json",
+    "frozen_endpoint_csv_sha256": "7c7628c09c23c587cf8b1f4603cc1fd36aed6fe6f3ac5273d9d19af7b045bb58",
+    "frozen_endpoint_parquet_sha256": "91c4666ce95c4fa19fb2b6d40d34d98a50de1ce66e5185c84a6ae3c1ac71038b",
+    "date_navigation_subset_sha256": "2aa55ba87bc8809e0b48bd5a94f4fe9d69194e077c9f9b13b74ba0092ffd2c05",
+    "target_cutoff": "09:24:59 Singapore/Beijing time",
+    "contract_selection": "nearest non-past CN contract month with an actual trade at or before previous China 15:00; same contract required at target",
+    "guards": {
+      "future_volume_contract_selection": false,
+      "mid_window_roll": false,
+      "target_ticks_at_or_after_09_25": 0,
+      "post_2020_rows": 0
+    },
+    "coverage": {
+      "train_holiday_events_total": 26,
+      "train_holiday_events_usable": 21,
+      "train_event_coverage": 0.8076923076923077,
+      "holdout_holiday_events_total": 12,
+      "holdout_holiday_events_usable": 11,
+      "holdout_event_coverage": 0.9166666666666666
+    }
+  },
+  "common_sample": {
+    "reason": "v5 candidates and the v4 comparator are adjudicated only on the same rows after preregistered A50 endpoint availability filtering",
+    "all_panel_rows": 1462,
+    "common_rows": 1456,
+    "n_train": 947,
+    "n_holdout": 484,
+    "holiday_total": 38,
+    "holiday_common": 32,
+    "holiday_excluded_unavailable": 6,
+    "correction_record": "docs/governance/global_spillover_v5_a50_common_sample_correction.json"
+  },
+  "sealed_full_v4_reference": {
+    "note": "context only; v5 selection uses the common-sample v4 comparator below, not this 485-row full reference",
+    "n_holdout": 485,
+    "ic": 0.527052181310477,
+    "sign_hit": 0.7257731958762886,
+    "sse": 0.02747801591136969
+  },
+  "common_sample_candidates": {
+    "V4_US_HKMA_comparator": {
+      "n_train": 947,
+      "n_holdout": 484,
+      "holdout_ic": 0.5203513424062189,
+      "holdout_r2": 0.1988376160425338,
+      "holdout_sign_hit": 0.7252066115702479,
+      "holdout_sse": 0.022675292134366698,
+      "year": {
+        "2019": {"ic": 0.545118961049385, "sign_hit": 0.6983471074380165, "sse": 0.006184991021255243},
+        "2020": {"ic": 0.5132341504629553, "sign_hit": 0.7520661157024794, "sse": 0.016490301113111457}
+      }
+    },
+    "V5A_plus_A50_closure": {
+      "n_train": 947,
+      "n_holdout": 484,
+      "holdout_ic": 0.5268402182365094,
+      "holdout_r2": 0.21007727058708914,
+      "holdout_sign_hit": 0.7272727272727273,
+      "holdout_sse": 0.022357176287454088,
+      "delta_ic_vs_common_v4": 0.0064888758302904526,
+      "sse_improvement_vs_common_v4": 0.00031811584691261025,
+      "sign_hit_delta_vs_common_v4": 0.002066115702479354,
+      "a50_holiday_closure_return_standardized_coefficient": 0.00043015464838640287,
+      "year": {
+        "2019": {
+          "ic": 0.5639938561680574,
+          "delta_ic_vs_v4": 0.018874895118672463,
+          "sign_hit": 0.7024793388429752,
+          "sse": 0.005962067011104456,
+          "sse_improvement_vs_v4": 0.00022292401015078754
+        },
+        "2020": {
+          "ic": 0.5152035722812566,
+          "delta_ic_vs_v4": 0.001969421818301287,
+          "sign_hit": 0.7520661157024794,
+          "sse": 0.016395109276349632,
+          "sse_improvement_vs_v4": 0.00009519183676182444
+        }
+      },
+      "available_holdout_holiday_subset": {
+        "n": 11,
+        "v4_ic": 0.5183248174378278,
+        "candidate_ic": 0.6593272455057998,
+        "delta_ic": 0.14100242806797203,
+        "v4_sign_hit": 0.8181818181818182,
+        "candidate_sign_hit": 0.9090909090909091,
+        "sse_improvement_vs_v4": 0.0003199472297926592
+      }
+    },
+    "V5B_plus_A50_closure_and_preopen": {
+      "n_train": 947,
+      "n_holdout": 484,
+      "holdout_ic": 0.5277388796273046,
+      "holdout_r2": 0.21137735766510768,
+      "holdout_sign_hit": 0.7231404958677686,
+      "holdout_sse": 0.022320379933950113,
+      "delta_ic_vs_common_v4": 0.007387537221085649,
+      "sse_improvement_vs_common_v4": 0.000354912200416585,
+      "increment_vs_v5a": {
+        "delta_ic": 0.0008986613907951963,
+        "sse_improvement": 0.00003679635350397535,
+        "sign_hit_delta": -0.004132231404958664,
+        "holiday_delta_ic": 0.0074555225772385825,
+        "holiday_sse_improvement": -0.0000026149945563337315,
+        "holiday_sign_hit_delta": 0.0,
+        "2020_delta_ic": -0.0006456303506219285,
+        "2020_sse_improvement": -0.00001591898555904428,
+        "2020_sign_hit_delta": -0.004132231404958775
+      }
+    }
+  },
+  "fixed_prediction_leave_one_holiday_out": {
+    "candidate": "V5A_plus_A50_closure",
+    "role": "robustness diagnostic only; no refit and no candidate reselection",
+    "full_holiday_n": 11,
+    "loo_cases": 11,
+    "delta_ic_positive_count": 11,
+    "delta_ic_min": 0.047622663783667196,
+    "delta_ic_median": 0.14191825176964268,
+    "delta_ic_max": 0.19268264748506952,
+    "sse_improvement_positive_count": 11,
+    "sse_improvement_min": 0.00008549998847026181,
+    "sse_improvement_median": 0.0003210120364545708,
+    "sse_improvement_max": 0.00032713304133815584,
+    "concentration_diagnostic": {
+      "top1_share_of_positive_event_sse_improvement": 0.6727061509447575,
+      "top2_share_of_positive_event_sse_improvement": 0.8968287975892871,
+      "interpretation": "leave-one-event-out remains positive in every case, but raw event-level gains are concentrated; this strengthens the need for genuinely unseen multi-year confirmation rather than weakening it"
+    }
+  },
+  "adjudication": {
+    "V5A_progression_rule_pass": true,
+    "V5B_progression_over_V5A_pass": false,
+    "selected_progression_candidate": "V5A_plus_A50_closure",
+    "V5A_reason": "on the preregistered common sample V5A improves full-holdout IC and SSE versus v4, improves available holiday-event SSE, improves or preserves sign quality, and its full-period IC/SSE improvements are positive in both 2019 and 2020",
+    "V5B_rejection_reason": "although V5B slightly improves full-sample IC and SSE over V5A, it fails the preregistered mechanism-specific gate because available holiday-event SSE deteriorates; it also deteriorates 2020 IC, SSE and sign hit. The extra target-morning 09:00-09:24:59 A50 component is therefore not retained",
+    "economic_interpretation": "the supported incremental information is the same-contract A50 price move accumulated while mainland A shares are closed, not an additional generic target-morning pre-open chase factor",
+    "scientific_status": "A50_holiday_closure_progression_material_confirmed_by_fixed_prediction_LOO_waiting_genuinely_unseen_2021_2025_local_controller_confirmation"
+  },
+  "authority": {
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "holiday_runtime_routing": false,
+    "production": false,
+    "registry_mutation": false,
+    "merge_main": false
+  },
+  "next_gate": {
+    "controller": "local unseen-data controller only",
+    "unseen_window": "2021-2025",
+    "cloud_must_not_read_unseen_rows": true,
+    "candidate_locked": "V5A_plus_A50_closure",
+    "candidate_reselection_forbidden": true,
+    "V5B_revival_forbidden_without_new_result-free_preregistration": true,
+    "required_contract": "docs/governance/global_spillover_v5_unseen_local_controller_contract.json"
+  }
+}

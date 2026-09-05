@@ -1,0 +1,122 @@
+name: global-spillover-research
+
+on:
+  push:
+    branches:
+      - codex/overnight-global-spillover-20260905
+  workflow_dispatch:
+
+concurrency:
+  group: global-spillover-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install research dependencies
+        run: python -m pip install --upgrade pip pandas pyarrow numpy scikit-learn pytest
+      - name: Refresh authoritative FRED NASDAQ and VIX history
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/refresh_external_us_fred_data.py | tee external_us_fred_refresh.log
+      - name: Refresh authoritative HKMA China-FX history
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/refresh_external_hkma_usdcny_data.py | tee external_hkma_usdcny_refresh.log
+      - name: Extract official SGX A50 holiday endpoints
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/refresh_external_sgx_a50_holiday_endpoints.py | tee external_sgx_a50_refresh.log
+      - name: Validate refreshed bounded package
+        run: python scripts/validate_theme_package.py
+      - name: Run tests
+        run: pytest -q
+      - name: Commit refreshed external data assets if changed
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/external/fred_us_nasdaq_vix_2014_2020.csv \
+                  data/development/us_nasdaq_vix.parquet \
+                  docs/governance/external_us_fred_2014_2020_manifest.json \
+                  data/external/hkma_er_eeri_daily_2014_2020.json \
+                  data/development/hkma_usdcny_cross.parquet \
+                  docs/governance/external_hkma_usdcny_2014_2020_manifest.json \
+                  data/external/sgx_a50_holiday_endpoints_2015_2020.csv \
+                  data/development/sgx_a50_holiday_endpoints.parquet \
+                  data/external/sgx_historical_date_index_used_2015_2020.json \
+                  docs/governance/external_sgx_a50_holiday_2015_2020_manifest.json \
+                  data/manifest.json
+          if git diff --cached --quiet; then
+            echo "External data already frozen; no commit needed."
+          else
+            git commit -m "data: freeze FRED HKMA and SGX A50 histories through 2020 [skip ci]"
+            git push origin HEAD:codex/overnight-global-spillover-20260905
+          fi
+      - name: Replay frozen baseline
+        run: python scripts/replay_baseline.py
+      - name: Run preregistered complete-clock v3
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/research_global_spillover_v3_complete_clock.py | tee global_spillover_v3_complete_clock.log
+      - name: Run preregistered v3 leave-one-event-out diagnostic
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/audit_global_spillover_v3_leave_one_event_out.py | tee global_spillover_v3_loo.log
+      - name: Run preregistered corrected v4 HKMA China-FX increment
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/research_global_spillover_v4_cnh.py | tee global_spillover_v4_hkma.log
+      - name: Run preregistered v5 SGX A50 layer
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/research_global_spillover_v5_a50.py | tee global_spillover_v5_a50.log
+      - name: Run fixed-prediction v5 leave-one-event-out diagnostic
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/audit_global_spillover_v5_a50_leave_one_event_out.py | tee global_spillover_v5_a50_loo.log
+      - name: Upload global spillover research receipts
+        uses: actions/upload-artifact@v4
+        with:
+          name: global-spillover-v5-a50-final
+          path: |
+            docs/governance/external_us_fred_2014_2020_manifest.json
+            data/external/fred_us_nasdaq_vix_2014_2020.csv
+            docs/governance/external_hkma_usdcny_2014_2020_manifest.json
+            data/external/hkma_er_eeri_daily_2014_2020.json
+            docs/governance/external_sgx_a50_holiday_2015_2020_manifest.json
+            data/external/sgx_a50_holiday_endpoints_2015_2020.csv
+            data/external/sgx_historical_date_index_used_2015_2020.json
+            artifacts/research/global_spillover_v3_complete_clock_results.json
+            artifacts/research/global_spillover_v3_leave_one_event_out.json
+            artifacts/research/global_spillover_v4_cnh_results.json
+            artifacts/research/global_spillover_v5_a50_results.json
+            artifacts/research/global_spillover_v5_a50_leave_one_event_out.json
+            external_us_fred_refresh.log
+            external_hkma_usdcny_refresh.log
+            external_sgx_a50_refresh.log
+            global_spillover_v3_complete_clock.log
+            global_spillover_v3_loo.log
+            global_spillover_v4_hkma.log
+            global_spillover_v5_a50.log
+            global_spillover_v5_a50_loo.log
+          if-no-files-found: error

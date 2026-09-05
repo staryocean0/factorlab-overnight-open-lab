@@ -1,0 +1,96 @@
+{
+  "schema_id": "overnight_open_global_spillover_preregistration@1.0",
+  "created_date": "2026-09-05",
+  "research_branch": "codex/overnight-global-spillover-20260905",
+  "objective": "improve_next_csi1000_overnight_gap_sign_and_magnitude_without_total_return_selection",
+  "evidence_boundary": {
+    "train": "2015-01-05_to_2018-12-31",
+    "internal_holdout": "2019-01-01_to_2020-12-31_consumed_not_fresh",
+    "post_2020": "unread_forbidden",
+    "external_literature": "mechanism_design_only_no_market_rows_imported"
+  },
+  "frozen_comparators": {
+    "baseline_receipt": "docs/governance/baseline_receipt.json",
+    "baseline_ridge_alpha": 1.0,
+    "baseline_features": [
+      "r1", "r20", "abs_r1", "prev_gap", "overnight_trend_5",
+      "prev_daytime", "prev_last_hour", "prev_afternoon", "rvol20",
+      "weekend", "holiday_reopen", "us_nasdaq", "us_vix_chg"
+    ],
+    "required_reference_metrics": [
+      "ridge_ic", "ridge_sign_hit", "majority_down_hit", "us_nasdaq_ic"
+    ]
+  },
+  "primary_metrics": [
+    "holdout_ic",
+    "holdout_sign_hit",
+    "delta_ic_vs_frozen_ridge",
+    "delta_sign_hit_vs_frozen_ridge",
+    "delta_ic_vs_us_nasdaq_single_variable"
+  ],
+  "diagnostics": [
+    "2019_ic", "2020_ic", "2019_sign_hit", "2020_sign_hit",
+    "candidate_complete_case_count", "feature_coefficients_standardized"
+  ],
+  "selection_forbidden": [
+    "total_return", "pnl", "sharpe", "drawdown", "grid_search", "post_2020_data"
+  ],
+  "candidate_family": [
+    {
+      "id": "C0_frozen_baseline",
+      "mechanism": "receipt_replay",
+      "features": "frozen_baseline_features"
+    },
+    {
+      "id": "C1_unabsorbed_us_closure_accrual",
+      "mechanism": "when_China_is_closed_multiple_US_sessions_accrue_before_the_next_China_open",
+      "added_features": ["us_nasdaq_unabsorbed_cum", "us_vix_unabsorbed_cum"]
+    },
+    {
+      "id": "C2_us_asymmetry",
+      "mechanism": "negative_global_shocks_and_positive_global_shocks_need_not_transmit_symmetrically",
+      "added_features": ["us_nasdaq_pos", "us_nasdaq_neg", "us_nasdaq_neg_x_vix_up"]
+    },
+    {
+      "id": "C3_us_state_dependence",
+      "mechanism": "US_to_China_spillover_strength_can_depend_on_domestic_risk_state",
+      "added_features": ["us_nasdaq_x_rvol20", "us_nasdaq_x_prev_day_down"]
+    },
+    {
+      "id": "C4_bounded_combination",
+      "mechanism": "joint_low_DOF_test_of_the_three_preregistered_mechanisms",
+      "added_features": [
+        "us_nasdaq_unabsorbed_cum", "us_vix_unabsorbed_cum",
+        "us_nasdaq_pos", "us_nasdaq_neg", "us_nasdaq_neg_x_vix_up",
+        "us_nasdaq_x_rvol20", "us_nasdaq_x_prev_day_down"
+      ]
+    }
+  ],
+  "multiplicity_attempts": 5,
+  "model_contract": {
+    "estimator": "StandardScaler_then_Ridge",
+    "ridge_alpha": 1.0,
+    "no_hyperparameter_search": true,
+    "fit_only_on_train": true
+  },
+  "causal_clock": {
+    "target": "09:31_open_over_previous_15:00_close_minus_1",
+    "foreign_cutoff": "strictly_before_target_China_trading_day",
+    "unabsorbed_window_start": "last_US_close_strictly_before_previous_China_trading_day",
+    "unabsorbed_window_end": "last_US_close_strictly_before_target_China_trading_day"
+  },
+  "future_data_requests_not_admitted_in_v1": [
+    "KOSPI_same_day_pre_0930_return",
+    "Nikkei_same_day_pre_0930_return",
+    "European_close_returns",
+    "USDCNH_overnight_return",
+    "SGX_FTSE_China_A50_overnight_or_preopen_return",
+    "China_commodity_night_session_returns",
+    "opening_call_auction_order_imbalance"
+  ],
+  "authority": {
+    "fresh_oos": false,
+    "production": false,
+    "registry_mutation": false
+  }
+}

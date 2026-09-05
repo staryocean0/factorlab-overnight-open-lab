@@ -1,0 +1,47 @@
+{
+  "schema_id": "overnight_open_global_spillover_holiday_endpoint_audit_correction_plan@1.0",
+  "date": "2026-09-05",
+  "status": "measurement_gate_correction_after_false_negative_not_candidate_selection",
+  "supersedes_for_endpoint_sufficiency_only": "docs/governance/global_spillover_holiday_endpoint_audit_plan.json",
+  "reason_for_correction": "The first audit required the previous China row's one-day US return to be exactly reconstructable. That is sufficient but not necessary for validating a compounded endpoint return P_end/P_start-1: the return before P_start is mathematically irrelevant once P_start itself is present at the correct causal boundary.",
+  "observed_false_negative_cases_that_triggered_correction": [
+    {
+      "previous_china_day": "2018-12-28",
+      "v1_start_us_date": "2018-12-27",
+      "issue": "a missing pre-start US level prevents reconstruction of the one-day return into 2018-12-27, but the required start level on 2018-12-27 is present"
+    },
+    {
+      "previous_china_day": "2020-01-23",
+      "v1_start_us_date": "2020-01-22",
+      "issue": "a missing pre-start US level prevents reconstruction of the one-day return into 2020-01-22, but the required start level on 2020-01-22 is present"
+    }
+  ],
+  "corrected_endpoint_contract": {
+    "start_level_present": "NASDAQ and VIX levels are nonmissing on v1_start_us_date",
+    "end_level_present": "NASDAQ and VIX levels are nonmissing on v1_end_us_date",
+    "start_date_is_latest_packaged_joint_date": "v1_start_us_date equals the latest joint nonmissing packaged US date strictly before previous China day",
+    "end_date_is_latest_packaged_joint_date": "v1_end_us_date equals the latest joint nonmissing packaged US date strictly before target China day",
+    "no_possible_missing_trading_date_after_start": "between v1_start_us_date and previous China day there is no intervening Monday-Friday calendar date; weekends are non-trading for US cash NASDAQ/VIX source observations",
+    "target_daily_alignment": "target China row's panel us_nasdaq and us_vix_chg exactly match reconstructed daily percentage changes, providing an additional end-boundary cross-check",
+    "endpoint_recalculation": "stored cumulative values equal end_level/start_level-1 to 1e-12",
+    "intermediate_levels": "not required for endpoint compounding once causal start/end levels are established"
+  },
+  "fixed_subset": "the same 12 existing holiday_reopen rows in consumed 2019-2020 holdout; no row or threshold search",
+  "interpretation_rule": "This correction may establish measurement validity of the 12 historical holiday endpoint returns, but it may not promote a holiday rule, refit a model, replace the baseline, or convert consumed holdout evidence into fresh validation.",
+  "forbidden": [
+    "model refit",
+    "candidate ranking",
+    "row deletion",
+    "threshold search",
+    "baseline replacement",
+    "post-2020 reads",
+    "external market downloads"
+  ],
+  "authority": {
+    "fresh_oos": false,
+    "candidate_selection": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false
+  }
+}
