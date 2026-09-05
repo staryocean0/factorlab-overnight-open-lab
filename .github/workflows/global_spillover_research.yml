@@ -12,7 +12,7 @@ permissions:
 jobs:
   research:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
         with:
@@ -32,6 +32,11 @@ jobs:
         run: |
           set -o pipefail
           python scripts/refresh_external_hkma_usdcny_data.py | tee external_hkma_usdcny_refresh.log
+      - name: Extract official SGX A50 holiday endpoints
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/refresh_external_sgx_a50_holiday_endpoints.py | tee external_sgx_a50_refresh.log
       - name: Validate refreshed bounded package
         run: python scripts/validate_theme_package.py
       - name: Run tests
@@ -47,11 +52,15 @@ jobs:
                   data/external/hkma_er_eeri_daily_2014_2020.json \
                   data/development/hkma_usdcny_cross.parquet \
                   docs/governance/external_hkma_usdcny_2014_2020_manifest.json \
+                  data/external/sgx_a50_holiday_endpoints_2015_2020.csv \
+                  data/development/sgx_a50_holiday_endpoints.parquet \
+                  data/external/sgx_historical_date_index_used_2015_2020.json \
+                  docs/governance/external_sgx_a50_holiday_2015_2020_manifest.json \
                   data/manifest.json
           if git diff --cached --quiet; then
             echo "External data already frozen; no commit needed."
           else
-            git commit -m "data: freeze FRED US and HKMA China-FX histories through 2020"
+            git commit -m "data: freeze FRED HKMA and SGX A50 histories through 2020"
             git push origin HEAD:codex/overnight-global-spillover-20260905
           fi
       - name: Replay frozen baseline
@@ -79,17 +88,21 @@ jobs:
       - name: Upload global spillover research receipts
         uses: actions/upload-artifact@v4
         with:
-          name: global-spillover-v4-hkma-and-sgx-probe
+          name: global-spillover-v5-a50-data-stage
           path: |
             docs/governance/external_us_fred_2014_2020_manifest.json
             data/external/fred_us_nasdaq_vix_2014_2020.csv
             docs/governance/external_hkma_usdcny_2014_2020_manifest.json
             data/external/hkma_er_eeri_daily_2014_2020.json
+            docs/governance/external_sgx_a50_holiday_2015_2020_manifest.json
+            data/external/sgx_a50_holiday_endpoints_2015_2020.csv
+            data/external/sgx_historical_date_index_used_2015_2020.json
             artifacts/research/global_spillover_v3_complete_clock_results.json
             artifacts/research/global_spillover_v3_leave_one_event_out.json
             artifacts/research/global_spillover_v4_cnh_results.json
             external_us_fred_refresh.log
             external_hkma_usdcny_refresh.log
+            external_sgx_a50_refresh.log
             global_spillover_v3_complete_clock.log
             global_spillover_v3_loo.log
             global_spillover_v4_hkma.log
