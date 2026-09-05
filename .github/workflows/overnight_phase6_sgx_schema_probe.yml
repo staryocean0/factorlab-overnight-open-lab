@@ -1,0 +1,41 @@
+name: overnight-phase6-sgx-schema-probe
+
+on:
+  push:
+    branches:
+      - codex/overnight-next-explained-20260905
+    paths:
+      - 'scripts/probe_sgx_legacy_tick_schema.py'
+      - '.github/workflows/overnight_phase6_sgx_schema_probe.yml'
+      - 'docs/governance/global_spillover_v6_daily_a50_preregistration.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: overnight-phase6-sgx-schema-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Probe legacy and known-good SGX CN tick schemas
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/probe_sgx_legacy_tick_schema.py | tee sgx_legacy_schema_probe.log
+      - name: Upload schema evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: overnight-phase6-sgx-schema-probe
+          path: |
+            artifacts/research/sgx_legacy_schema_probe.json
+            sgx_legacy_schema_probe.log
+          if-no-files-found: error
