@@ -1,0 +1,73 @@
+{
+  "schema_id": "overnight_open_global_spillover_v3_preregistration@1.0",
+  "preregistered_date": "2026-09-05",
+  "status": "result_free_before_complete_external_data_refresh_and_v3_execution",
+  "research_question": "After replacing the temporary incomplete US level asset with an authoritative complete FRED history, does foreign information accumulated while A shares are closed add predictive information for the next CSI1000 opening gap?",
+  "financial_mechanism": "China cannot absorb price discovery while A shares are closed. U.S. market closes occurring after the previous China close and before the target China open can therefore carry unabsorbed foreign information into the reopening gap.",
+  "external_data_contract": {
+    "provider": "Federal Reserve Bank of St. Louis FRED",
+    "series": {
+      "NASDAQCOM": "Nasdaq Composite daily close; source reported by FRED as Nasdaq, Inc.",
+      "VIXCLS": "CBOE Volatility Index daily close; source reported by FRED as Chicago Board Options Exchange"
+    },
+    "frozen_window": ["2014-01-01", "2020-12-31"],
+    "fred_csv_urls": {
+      "NASDAQCOM": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=NASDAQCOM&cosd=2014-01-01&coed=2020-12-31",
+      "VIXCLS": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=VIXCLS&cosd=2014-01-01&coed=2020-12-31"
+    },
+    "raw_asset": "data/external/fred_us_nasdaq_vix_2014_2020.csv",
+    "research_parquet": "data/development/us_nasdaq_vix.parquet",
+    "manifest": "docs/governance/external_us_fred_2014_2020_manifest.json",
+    "calendar_rule": "A weekday with a FRED row but missing NASDAQCOM/VIXCLS is retained as an explicit non-observation; never forward-fill across it. The usable U.S. market clock is defined by actual nonmissing observations, not weekday arithmetic.",
+    "post_2020_rows_allowed": false
+  },
+  "time_boundary": {
+    "target": "CSI1000 next China session opening gap at the existing panel information boundary",
+    "start_us_level": "latest joint NASDAQ/VIX observed close strictly before the previous China trading date",
+    "end_us_level": "latest joint NASDAQ/VIX observed close strictly before the target China trading date",
+    "cumulative_return": "end_level/start_level - 1",
+    "last_us_daily_return": "return of the end U.S. observed close versus its immediately prior U.S. observed close",
+    "closure_extra": "cumulative_return - last_us_daily_return",
+    "required_identity": "closure_extra must equal zero (within 1e-12) whenever exactly one U.S. observed interval lies between start and end"
+  },
+  "frozen_model": "Pipeline(StandardScaler(), Ridge(alpha=1.0))",
+  "train": "2015-01-01 through 2018-12-31",
+  "internal_holdout": "2019-01-01 through 2020-12-31; already consumed, therefore not fresh OOS",
+  "attempts": [
+    {
+      "id": "C0_frozen_baseline",
+      "features": "exact frozen baseline receipt features"
+    },
+    {
+      "id": "P0_exact_duplicate_us_placebo",
+      "role": "regularization geometry placebo only, never selectable",
+      "features": "baseline plus exact copies of us_nasdaq and us_vix_chg"
+    },
+    {
+      "id": "C1_complete_clock_closure_extra",
+      "role": "only selectable v3 research candidate",
+      "features": "baseline plus us_nasdaq_closure_extra and us_vix_closure_extra"
+    }
+  ],
+  "primary_adjudication": {
+    "full_holdout": ["IC", "R2", "sign_hit", "SSE"],
+    "mechanism_subsets": ["one_us_interval", "multiple_us_intervals", "holiday_reopen"],
+    "robustness": ["2019", "2020", "leave_one_multiple_interval_event_out fixed-prediction diagnostics"],
+    "progression_rule": "C1 may progress only if it improves full-holdout IC versus C0, improves SSE on multiple-US-interval rows, does not derive its gain from one-US-interval rows, and the exact-duplicate placebo is materially weaker than C1 on the multiple-interval mechanism subset.",
+    "no_baseline_promotion": "Because 2019-2020 is consumed internal holdout, even a pass only licenses a frozen hypothesis for later unseen-controller confirmation."
+  },
+  "forbidden": [
+    "post-2020 market rows",
+    "parameter grid search",
+    "PnL or Sharpe selection",
+    "post-hoc holiday routing",
+    "candidate promotion from placebo",
+    "forward filling FRED market holidays"
+  ],
+  "authority": {
+    "fresh_oos": false,
+    "production": false,
+    "registry_mutation": false,
+    "baseline_replacement": false
+  }
+}
