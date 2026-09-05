@@ -15,6 +15,32 @@ assert SPEC.loader is not None
 SPEC.loader.exec_module(v3)
 
 
+def test_zero_us_interval_has_zero_closure_extra() -> None:
+    panel = pd.DataFrame(
+        {
+            "trading_day": pd.to_datetime(["2020-01-20", "2020-01-21"]),
+            "us_nasdaq": [0.0, 0.0],
+            "us_vix_chg": [0.0, 0.0],
+        }
+    )
+    # 2020-01-20 is represented as a missing weekday (MLK Day); therefore
+    # both China boundaries see 2020-01-17 as the latest observed U.S. close.
+    us = pd.DataFrame(
+        {
+            "date": pd.to_datetime(["2020-01-17", "2020-01-20"]),
+            "NASDAQCOM": [100.0, np.nan],
+            "VIXCLS": [20.0, np.nan],
+        }
+    )
+    out = v3.add_complete_clock_features(panel, us)
+    row = out.iloc[1]
+    assert row["us_interval_count"] == 0
+    assert row["us_nasdaq_complete_cum"] == 0
+    assert row["us_vix_complete_cum"] == 0
+    assert row["us_nasdaq_closure_extra"] == 0
+    assert row["us_vix_closure_extra"] == 0
+
+
 def test_one_us_interval_has_zero_closure_extra() -> None:
     panel = pd.DataFrame(
         {
