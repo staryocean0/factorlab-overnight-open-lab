@@ -1,0 +1,58 @@
+{
+  "schema_id": "overnight_open_global_spillover_v8_forensic_diagnostic_plan@1.0",
+  "registered_date": "2026-09-06",
+  "status": "result_free_before_formal_v8_model_execution",
+  "parent_preregistration": "docs/governance/global_spillover_v8_regime_preregistration.json",
+  "purpose": "Non-selection diagnostics for determining whether any v8 interaction increment is distributed, causally aligned and genuinely state-dependent rather than a few-row or coefficient-redistribution artifact.",
+  "prediction_identity": "Use only the exact fixed holdout predictions from the formal v8 run; no refit, reselection, thresholding or state-variable substitution.",
+  "diagnostics": {
+    "fixed_prediction_concentration": [
+      "per-row V8-vs-V6 squared-error improvement",
+      "positive and negative contribution row counts",
+      "top1/top5/top10 shares of positive SSE gain",
+      "remaining total fixed-prediction SSE improvement after removing top1/top5/top10 positive-gain rows without refitting"
+    ],
+    "incremental_information": [
+      "correlation between a50_ordinary_x_rvol20 and formal V6 fixed residual",
+      "correlation between the raw interaction and target",
+      "correlation between raw interaction and its two main effects"
+    ],
+    "time_shift_placebo": [
+      "same-row correlation between interaction_t and gap_t",
+      "lead-one-row correlation between interaction_t and gap_t_plus_1",
+      "lag-one-row correlation between interaction_t and gap_t_minus_1"
+    ],
+    "coefficient_redistribution": [
+      "shared V6 standardized coefficient shifts",
+      "shared coefficient sign flips",
+      "interaction standardized coefficient"
+    ],
+    "mechanism_continuity": [
+      "report ordinary and holiday formal subsets exactly as produced by the formal run",
+      "do not create a high/low rvol20 threshold from holdout outcomes"
+    ]
+  },
+  "interpretation_rules": {
+    "positive_formal_increment_and_positive_interaction_residual_corr": "supports incremental continuous-state pass-through but is still consumed-holdout evidence",
+    "formal_increment_without_residual_relation": "treat as coefficient-geometry caveat; no model edits authorized",
+    "high_concentration": "retain as concentration caveat; do not remove events",
+    "lead_or_lag_comparable_to_same_row": "alignment concern requiring clock/data audit only, not feature tuning",
+    "coefficient_sign": "diagnostic only; no directional sign gate"
+  },
+  "forbidden": [
+    "refit during forensics",
+    "derive a volatility cutoff from results",
+    "replace rvol20 with another state variable",
+    "add second interactions",
+    "exclude events, years or quarters",
+    "change the primary v8 progression verdict from non-gate diagnostics"
+  ],
+  "authority": {
+    "candidate_selection": false,
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false,
+    "merge_main": false
+  }
+}
