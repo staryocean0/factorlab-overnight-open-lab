@@ -1,0 +1,42 @@
+{
+  "assets": {
+    "data/development/us_nasdaq_vix.parquet": {
+      "sha256": "caf32c1cf0785d2c615eae97acad42ae58105275fe7ec58ad5d7121df9bf5b1b"
+    },
+    "data/external/fred_us_nasdaq_vix_2014_2020.csv": {
+      "sha256": "6bdd8b1709661621114d028e39b85aaf67118578e23851c595a17de26c4be53d"
+    }
+  },
+  "calendar_semantics": "All Monday-Friday dates are materialized. A missing FRED value remains missing and marks a non-observed market date; no forward fill or weekday-as-trading-day assumption is used in returns.",
+  "frozen_retrieval_date": "2026-09-05",
+  "guards": {
+    "forward_fill": false,
+    "holiday_rows_retained": true,
+    "post_2020_rows": 0
+  },
+  "provider": "Federal Reserve Bank of St. Louis FRED",
+  "row_counts": {
+    "joint_missing_weekdays": 64,
+    "joint_observed": 1763,
+    "nasdaq_observed": 1764,
+    "vix_observed": 1763,
+    "weekday_calendar_rows": 1827
+  },
+  "schema_id": "external_us_fred_manifest@1.1",
+  "series": {
+    "NASDAQCOM": {
+      "frequency": "Daily, Close",
+      "reported_source": "Nasdaq, Inc.",
+      "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=NASDAQCOM&cosd=2014-01-01&coed=2020-12-31"
+    },
+    "VIXCLS": {
+      "frequency": "Daily, Close",
+      "reported_source": "Chicago Board Options Exchange",
+      "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=VIXCLS&cosd=2014-01-01&coed=2020-12-31"
+    }
+  },
+  "window": [
+    "2014-01-01",
+    "2020-12-31"
+  ]
+}

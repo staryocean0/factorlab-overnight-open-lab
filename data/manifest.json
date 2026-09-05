@@ -25,10 +25,10 @@
     },
     {
       "path": "data/development/us_nasdaq_vix.parquet",
-      "rows": 1701,
-      "bytes": 89808,
-      "sha256": "3948b8c8ff0e7ee539cf08b64219922381dae77a39aeb686e830f5cd53719cda",
-      "min_day": "2014-01-03",
+      "rows": 1827,
+      "bytes": 36709,
+      "sha256": "caf32c1cf0785d2c615eae97acad42ae58105275fe7ec58ad5d7121df9bf5b1b",
+      "min_day": "2014-01-01",
       "max_day": "2020-12-31"
     }
   ]
