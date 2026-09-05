@@ -1,0 +1,147 @@
+{
+  "schema_id": "overnight_open_global_spillover_v6_daily_a50_preregistration@1.0",
+  "registered_date": "2026-09-05",
+  "status": "result_free_before_daily_SGX_A50_bulk_extraction_and_v6_model_execution",
+  "branch": "codex/overnight-next-explained-20260905",
+  "parent_evidence": {
+    "frozen_v5_receipt": "docs/governance/global_spillover_v5_a50_receipt.json",
+    "frozen_parent_commit": "d183c7da81c2f4a46c8d938c7fa959acb939887c",
+    "v5_selected_candidate": "V5A_plus_A50_closure",
+    "v5_unseen_identity_remains_unchanged": true
+  },
+  "research_question": "After preserving the v5 long-holiday A50 closure layer, does ordinary-session same-contract SGX FTSE China A50 price discovery from the previous mainland close to immediately before the next mainland opening call auction add explanatory information about the CSI1000 09:31 opening gap?",
+  "financial_rationale": "Ordinary A-share closures leave a daily interval during which directly China-linked SGX A50 futures can absorb overseas and China-specific information. A daily pre-auction A50 move should be more economically targeted than adding broad Japan or Europe indices and tests an information channel rather than generic technical fit.",
+  "clock_rationale": {
+    "mainland_opening_call_auction": "09:15:00-09:25:00",
+    "primary_target_cutoff": "09:14:59",
+    "reason": "exclude mainland call-auction formation from the primary offshore feature and measure only information available before that target-market price-discovery process begins",
+    "v5_holiday_cutoff_unchanged_historically": "09:24:59",
+    "rewrite_v5_feature": false,
+    "target_day_mainland_auction_features": false
+  },
+  "data_contract": {
+    "provider": "Singapore Exchange official historical derivatives endpoint at links.sgx.com",
+    "official_file": "WEBPXTICK_DT.zip",
+    "commodity_code": "CN",
+    "navigation_index": {
+      "role": "date-to-SGX-file-key navigation only; no market price content",
+      "repository": "blurridge/sgx-derivative-downloader",
+      "pinned_commit": "303df3f2c6a71b84cab3c5354c9bf936fb6ef082",
+      "path": "db/indexes.json"
+    },
+    "market_rows_used": "only official SGX CN futures trade records after schema-specific validation",
+    "window": ["2015-01-01", "2020-12-31"],
+    "post_2020_rows_forbidden": true,
+    "raw_archive_policy": "full-market SGX zip archives remain ephemeral; every used archive URL/key/SHA256, detected schema, CN-row count and eligible-trade count must be frozen in compact manifests",
+    "pre_2016_schema_gate": "the existing early-2015 zero-trade anomaly must be resolved and covered by tests before bulk model execution; if old-format trade semantics cannot be established, affected rows remain unavailable and no heuristic reinterpretation may be chosen from model results"
+  },
+  "contract_selection": {
+    "selection_time": "previous China trading date at or before 15:00:00 Singapore/Beijing time",
+    "eligible_records": "validated CN futures trade records observable by that time",
+    "rule": "among contract month-years with an eligible prior-close trade, choose the chronologically nearest delivery month-year not earlier than the previous China calendar month",
+    "future_volume_or_OI_selection": false,
+    "same_contract_required_at_target": true,
+    "mid_window_roll": false,
+    "missing_target_same_contract": "mark row unavailable; do not switch contract or impute"
+  },
+  "features": {
+    "a50_ordinary_preauction_closure_return": {
+      "activation": "holiday_reopen == 0 only",
+      "start": "last selected-contract trade at or before previous China trading date 15:00:00",
+      "end": "last same-contract trade at or before target China date 09:14:59",
+      "formula": "end_price/start_price - 1",
+      "holiday_rows": 0,
+      "reason_for_zero_on_holidays": "preserve the already-frozen V5A holiday A50 mechanism and test only the missing ordinary-session information channel"
+    },
+    "v5_holiday_feature": {
+      "name": "a50_holiday_closure_return",
+      "definition": "unchanged from frozen v5 receipt and preregistration",
+      "ordinary_rows": 0
+    }
+  },
+  "data_quality_gates_before_model": {
+    "minimum_train_common_row_coverage": 0.9,
+    "minimum_holdout_common_row_coverage": 0.9,
+    "target_endpoint_must_precede_09_15": true,
+    "previous_endpoint_must_not_exceed_15_00": true,
+    "same_contract_endpoints": true,
+    "official_archive_sha_required": true,
+    "pre_2016_schema_tests_required": true,
+    "post_2020_rows": 0,
+    "if_any_hard_gate_fails": "do not execute or adjudicate v6; repair data/schema/clock only without changing feature or model definitions"
+  },
+  "frozen_model": {
+    "train": "2015-2018",
+    "internal_holdout": "2019-2020_consumed_repeat_audit_not_fresh",
+    "pipeline": "StandardScaler + Ridge(alpha=1.0)",
+    "hyperparameter_search": false,
+    "model_family_search": false,
+    "threshold_search": false,
+    "selection_excludes": ["PnL", "total return", "Sharpe", "execution profitability"]
+  },
+  "attempts": [
+    {
+      "id": "V5A_common_sample_comparator",
+      "features": "frozen v4 feature set + frozen V5A holiday A50 closure feature, refit only on the exact v6 common training sample"
+    },
+    {
+      "id": "V6A_plus_ordinary_A50_preauction_closure",
+      "features": "V5A common-sample comparator + a50_ordinary_preauction_closure_return"
+    }
+  ],
+  "multiplicity": {
+    "new_selectable_candidates": 1,
+    "no_cutoff_search": true,
+    "no_grid_search": true,
+    "no_regime_search_in_this_experiment": true,
+    "no_market_index_stack": true
+  },
+  "common_sample": {
+    "required": true,
+    "rule": "comparator and V6A use identical training and holdout rows; a row requiring ordinary A50 is included only when same-contract endpoints exist under the frozen rule; holiday availability follows the frozen V5A data rule",
+    "missing_row_rule": "exclude from both candidates and report the cause; no imputation, forward-fill, contract switch or sample-specific fallback"
+  },
+  "primary_adjudication": {
+    "same_sample_R2": "V6A holdout R2 must be greater than comparator holdout R2",
+    "equivalent_SSE_check": "on the same target sample, V6A holdout SSE must be lower than comparator holdout SSE",
+    "IC": "V6A holdout IC must be greater than comparator holdout IC",
+    "sign_hit": "V6A sign hit may not deteriorate by more than 0.01 absolute",
+    "annual_stability": "V6A SSE must not be worse than comparator in either 2019 or 2020; report annual IC and sign hit without post-hoc year exclusion",
+    "quarterly_diagnostic": "report all eight 2019-2020 calendar-quarter SSE differences and IC differences; require positive total SSE improvement, positive median quarterly SSE improvement and at least five of eight quarters with nonnegative SSE improvement",
+    "holiday_preservation": "report the frozen holiday subset separately; because the new ordinary feature is zero there, material holiday deterioration caused by refitting is a warning and may block progression if holiday SSE becomes worse than the common-sample comparator"
+  },
+  "R2_aspiration": {
+    "range": [0.25, 0.35],
+    "role": "research aspiration only",
+    "candidate_acceptance_threshold": false,
+    "stopping_rule": false,
+    "permission_for_additional_attempts": false
+  },
+  "nonselectable_diagnostics": {
+    "09_24_59_daily_variant": "not selectable and not part of phase-6 model ranking; may be used only in a future separately preregistered timing study because it overlaps mainland opening call auction",
+    "event_and_quarter_concentration": true,
+    "standardized_new_feature_coefficient": true
+  },
+  "forbidden": [
+    "A50 target endpoint at or after 09:15:00 for the selectable ordinary-session feature",
+    "target mainland call-auction price or order-flow variables",
+    "future volume/open-interest contract choice",
+    "mid-window contract roll",
+    "continuous-contract splice inside a feature interval",
+    "post-2020 rows",
+    "holdout-selected cutoff",
+    "feature or model family search after seeing v6 results",
+    "using the 25%-35% aspiration as a search target",
+    "mutating the frozen V5A unseen-controller contract",
+    "baseline replacement from consumed holdout",
+    "production, registry or runtime-routing authority"
+  ],
+  "authority": {
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false,
+    "runtime_routing": false,
+    "merge_main": false
+  }
+}
