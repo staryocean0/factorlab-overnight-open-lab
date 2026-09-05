@@ -104,6 +104,7 @@ def parse_cn_rows(header_line: str, rows: Iterable[str | list[str]], expected_da
     futures_rows = 0
     eligible_trade_rows = 0
     nonblank_trade_amend_rows = 0
+    blank_price_trade_rows = 0
     message_counts: Counter[str] = Counter()
     trade_code_counts: Counter[str] = Counter()
     row_length_counts: Counter[int] = Counter()
@@ -137,6 +138,14 @@ def parse_cn_rows(header_line: str, rows: Iterable[str | list[str]], expected_da
             nonblank_trade_amend_rows += 1
             continue
 
+        raw_price = clean[idx["price"]]
+        if raw_price == "":
+            # Official legacy TickData_structure.dat explicitly permits a space/blank Price field.
+            # Such a trade-status record has no numeric price and therefore cannot define a price endpoint.
+            # Count and skip only this record; do not invalidate other valid trades in the archive.
+            blank_price_trade_rows += 1
+            continue
+
         mcode = clean[idx["month_code"]]
         if mcode not in MONTH:
             continue
@@ -144,7 +153,7 @@ def parse_cn_rows(header_line: str, rows: Iterable[str | list[str]], expected_da
         log_time = clean[idx["log_time"]].zfill(6)
         if not (len(log_time) == 6 and log_time.isdigit() and "000000" <= log_time <= "235959"):
             raise AssertionError(("invalid SGX log time", expected_date, log_time))
-        price = normalize_price(clean[idx["price"]])
+        price = normalize_price(raw_price)
         month = MONTH[mcode]
         cid = f"{year:04d}-{month:02d}"
         c = contracts.setdefault(cid, _new_contract(year, month, mcode))
@@ -170,6 +179,7 @@ def parse_cn_rows(header_line: str, rows: Iterable[str | list[str]], expected_da
         "cn_futures_rows": int(futures_rows),
         "eligible_trade_rows": int(eligible_trade_rows),
         "nonblank_trade_amend_rows": int(nonblank_trade_amend_rows),
+        "blank_price_trade_rows": int(blank_price_trade_rows),
         "message_counts": dict(sorted(message_counts.items())),
         "trade_code_counts": dict(sorted(trade_code_counts.items())),
         "unknown_message_counts": dict(sorted(unknown_message_counts.items())),
