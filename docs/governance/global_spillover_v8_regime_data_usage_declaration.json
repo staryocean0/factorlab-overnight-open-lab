@@ -1,0 +1,42 @@
+{
+  "schema_id": "overnight_open_global_spillover_v8_regime_data_usage@1.0",
+  "registered_date": "2026-09-06",
+  "branch": "codex/overnight-regime-v8-20260906",
+  "purpose": "Test one continuous state-dependent pass-through interaction as an increment to the frozen v6 research candidate without changing the v6 unseen-controller identity.",
+  "parent_candidate": {
+    "id": "V6A_plus_ordinary_A50_preauction_closure",
+    "source_branch": "codex/overnight-next-explained-20260905",
+    "source_commit": "02bbb216057f7024b5a82a87c80805383bb02c83",
+    "receipt": "docs/governance/global_spillover_v6_daily_a50_receipt.json",
+    "unseen_contract": "docs/governance/global_spillover_v6_unseen_local_controller_contract.json",
+    "must_remain_unchanged": true
+  },
+  "interval_roles": {
+    "2015-01-01_to_2018-12-31": "development_training_material",
+    "2019-01-01_to_2020-12-31": "consumed_repeat_audit_material_not_fresh",
+    "2021-01-01_and_later": "forbidden_cloud_read"
+  },
+  "new_external_data": false,
+  "allowed_new_information": "deterministic interaction of two already-frozen pre-open causal features: a50_ordinary_preauction_closure_return and rvol20",
+  "target": "CSI1000 next-session 09:31 opening gap",
+  "target_formula": "target China 09:31 open / previous China 15:00 close - 1",
+  "hard_boundaries": {
+    "post_2020_rows_read": 0,
+    "new_market_source_search": false,
+    "regime_threshold_search": false,
+    "state_count_search": false,
+    "Markov_or_HMM_parameter_search": false,
+    "interaction_family_search": false,
+    "model_family_search": false,
+    "hyperparameter_search": false,
+    "PnL_or_Sharpe_selection": false
+  },
+  "authority": {
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false,
+    "runtime_routing": false,
+    "merge_main": false
+  }
+}
