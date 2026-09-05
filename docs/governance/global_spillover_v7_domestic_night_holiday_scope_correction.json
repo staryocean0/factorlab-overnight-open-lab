@@ -1,0 +1,44 @@
+{
+  "schema_id": "overnight_open_global_spillover_v7_domestic_night_holiday_scope_correction@1.0",
+  "registered_date": "2026-09-06",
+  "status": "result_free_before_bulk_CU_RB_extraction_and_any_v7_target_model_execution",
+  "parent_preregistration": "docs/governance/global_spillover_v7_domestic_night_preregistration.json",
+  "parent_preregistration_commit": "b0b8e871a78c2eea7b6d94c5f2fad15d761a514e",
+  "reason": "The domestic-night factor is intended to measure information generated in the night session immediately bridging the previous A-share close to the next ordinary A-share open. On a long A-share holiday reopening, the night session immediately after the previous China close occurs at the beginning of a multi-day mainland closure and is stale relative to the target reopening. Treating that early-closure commodity night as the target-adjacent domestic-night bridge would mix a different economic mechanism with the already-frozen holiday-specific U.S./A50 closure layers.",
+  "corrected_event_scope": {
+    "eligible_target_rows": "holiday_reopen == 0 only",
+    "holiday_reopen_rows": "domestic_night_cyclical_return is unavailable and the row is excluded from both V6A comparator and V7A candidate common-sample adjudication",
+    "fill_value_on_holidays": null,
+    "zero_fill": false,
+    "forward_fill": false,
+    "fallback_to_v6_in_this_experiment": false
+  },
+  "data_access_for_scope": {
+    "allowed_panel_columns": ["trading_day", "holiday_reopen"],
+    "gap_or_other_target_values_read_for_scope_decision": false,
+    "post_2020_rows": 0
+  },
+  "unchanged": {
+    "products": ["SHFE_CU", "SHFE_RB"],
+    "weights": {"SHFE_CU": 0.5, "SHFE_RB": 0.5},
+    "contract_selection": "previous-China-day 09:00-14:55 volume ranking frozen in domestic_night_causal_contract_selection_preregistration.json",
+    "CU_clock": "21:00-01:00",
+    "RB_clock_and_transition_quarantine": "unchanged from parent preregistration",
+    "same_contract_required": true,
+    "positive_volume_night_activity_required": true,
+    "model": "StandardScaler + Ridge(alpha=1.0)",
+    "train": "2015-2018",
+    "repeat_holdout": "2019-2020_consumed_not_fresh",
+    "primary_adjudication": "unchanged",
+    "candidate_count": 1
+  },
+  "scientific_effect": "This correction narrows v7 to the economically intended ordinary next-session bridge. It does not add a candidate, product, threshold, clock, weight, model, or fallback rule.",
+  "authority": {
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false,
+    "runtime_routing": false,
+    "merge_main": false
+  }
+}
