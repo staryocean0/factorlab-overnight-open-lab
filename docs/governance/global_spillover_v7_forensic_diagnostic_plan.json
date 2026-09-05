@@ -1,0 +1,63 @@
+{
+  "schema_id": "overnight_open_global_spillover_v7_forensic_diagnostic_plan@1.0",
+  "registered_date": "2026-09-06",
+  "status": "result_free_before_formal_v7_model_execution",
+  "parent_preregistration": "docs/governance/global_spillover_v7_domestic_night_preregistration.json",
+  "purpose": "Non-selection diagnostics for determining whether any measured v7 domestic-night increment is causally aligned, distributed, and genuinely incremental to v6 rather than created by a clock shift, a few events, or component/redundancy artifacts.",
+  "prediction_identity": "Use the exact fixed comparator and V7 predictions produced by the formal preregistered v7 run. No refit, reselection, product change, weight change, threshold change, year deletion or event deletion is permitted.",
+  "diagnostics": {
+    "causal_clock": [
+      "every selected CU/RB start must be the exact selected-contract previous-China-day 14:55 bar close",
+      "every selected CU night end must be a positive-volume same-contract bar inside previous-day 21:00 through next-calendar-day 01:00",
+      "every selected RB night end must follow the frozen pre/post-transition clock and transition quarantine",
+      "zero target-morning commodity day-session bars may enter the factor",
+      "zero holiday_reopen rows may enter the v7 common sample"
+    ],
+    "time_shift_placebo": [
+      "same-row correlation between domestic_night_cyclical_return_t and gap_t",
+      "lead-one-row correlation between feature_t and gap_t_plus_1",
+      "lag-one-row correlation between feature_t and gap_t_minus_1"
+    ],
+    "incremental_information": [
+      "correlation between domestic_night_cyclical_return and formal V6 comparator residual",
+      "direct composite sign hit against the target",
+      "CU target correlation",
+      "RB target correlation",
+      "CU-RB correlation"
+    ],
+    "fixed_prediction_concentration": [
+      "per-row V7-vs-V6 squared-error improvement",
+      "positive and negative contribution row counts",
+      "top1/top5/top10 shares of positive SSE gain",
+      "remaining total fixed-prediction SSE improvement after removing top1/top5/top10 positive-contribution rows without refitting"
+    ],
+    "redundancy": [
+      "maximum absolute correlation of the composite with each existing frozen V6 feature on formal holdout rows",
+      "standardized coefficient redistribution between formal V6 comparator refit and V7 candidate",
+      "coefficient sign flips are caveats only and do not authorize model edits"
+    ]
+  },
+  "interpretation_rules": {
+    "same_row_high_lead_lag_near_zero": "supports causal same-target timing but is not fresh validation",
+    "lead_or_lag_comparable_to_same_row": "clock/alignment concern requiring data-clock audit only, not model tuning",
+    "top_gain_concentration_high": "retain as concentration caveat; do not delete events or tune a threshold",
+    "component_asymmetry": "report only; do not reselect CU vs RB or change 50:50 weights",
+    "redundancy_high_but_residual_corr_nonzero": "report overlap and incremental residual relation; do not add orthogonalization unless separately preregistered"
+  },
+  "forbidden": [
+    "refit during forensics",
+    "use forensics to select CU only or RB only",
+    "change the 50:50 composite weights",
+    "remove bad years, quarters or events",
+    "change night clocks or missing-session rules",
+    "change v7 progression verdict from a diagnostic that was not a preregistered primary gate"
+  ],
+  "authority": {
+    "candidate_selection": false,
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false,
+    "merge_main": false
+  }
+}
