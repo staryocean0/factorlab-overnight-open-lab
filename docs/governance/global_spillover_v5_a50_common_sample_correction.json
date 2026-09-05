@@ -1,0 +1,24 @@
+{
+  "schema_id": "overnight_open_global_spillover_v5_a50_common_sample_correction@1.0",
+  "registered_date": "2026-09-05",
+  "status": "result_free_before_reading_bulk_A50_coverage_or_v5_results",
+  "parent_preregistration": "docs/governance/global_spillover_v5_a50_preregistration.json",
+  "problem": "SGX may be closed on a China boundary date or the preregistered same CN contract may lack a target pre-09:25 trade. Comparing a full-sample v4 fit against a v5 fit with fewer training rows would confound feature value with sample selection.",
+  "correction": {
+    "common_model_sample": "all non-holiday rows plus only holiday_reopen rows for which both preregistered A50 closure_return and A50 09:00-09:24:59 preopen_return are available",
+    "applies_to": ["V4_US_HKMA_comparator", "V5A_plus_A50_closure", "V5B_plus_A50_closure_and_preopen"],
+    "training_and_holdout": "the exact same common mask must be applied before fitting every v5 attempt",
+    "full_485_v4_reference": "still report the sealed v4 receipt as context, but do not use an unequal-sample comparison for candidate selection if any A50 holiday rows are unavailable",
+    "ordinary_rows": "A50 features remain exactly zero"
+  },
+  "minimum_gate_unchanged": {
+    "train_event_coverage": 0.8,
+    "holdout_event_count": 10
+  },
+  "selection_gate_unchanged": "IC/SSE/sign rules from v5 preregistration apply on the frozen common sample",
+  "authority": {
+    "candidate_reselection": false,
+    "baseline_replacement": false,
+    "production": false
+  }
+}
