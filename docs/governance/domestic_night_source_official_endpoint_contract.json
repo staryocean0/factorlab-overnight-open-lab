@@ -1,0 +1,66 @@
+{
+  "schema_id": "overnight_open_domestic_night_official_endpoint_contract@1.0",
+  "registered_date": "2026-09-06",
+  "status": "result_free_before_official_daily_price_fetch",
+  "purpose": "Freeze the authoritative daily-price endpoints, tick tolerances and parsing rules used to crosscheck the pinned third-party 5-minute source. No CSI1000 target data may be read.",
+  "minimum_price_ticks": {
+    "SHFE_CU": {
+      "tick": 10.0,
+      "unit": "RMB_per_ton",
+      "official_reference": "https://www.shfe.com.cn/eng/Market/Futures/Metal/cu_f/ProductManual/"
+    },
+    "SHFE_RB": {
+      "tick": 1.0,
+      "unit": "RMB_per_ton",
+      "official_reference": "https://tsite.shfe.com.cn/eng/services/rules/shfe/911404931.html"
+    },
+    "DCE_I": {
+      "tick": 0.5,
+      "unit": "RMB_per_ton",
+      "official_reference_requirement": "DCE iron-ore contract specification; validator must preserve the exact official response/reference when available. The 0.5 tick has applied to the frozen 2016/2018/2020 samples after the April 2015 contract amendment."
+    }
+  },
+  "official_daily_price_endpoints": {
+    "SHFE": {
+      "primary": "https://www.shfe.com.cn/data/dailydata/kx/kx{YYYYMMDD}.dat",
+      "protocol_compatibility_fallback": "https://tsite.shfe.com.cn/data/dailydata/kx/kx{YYYYMMDD}.dat",
+      "fallback_semantics": "same SHFE-owned daily-data path only; fallback is allowed only for HTTP/TLS/host compatibility, not after inspecting prices",
+      "expected_payload": "JSON object containing contract-level daily rows such as o_curinstrument",
+      "match_rule": "normalize PRODUCTID/product id and DELIVERYMONTH/delivery month to exact frozen contract; no main/continuous-series substitution"
+    },
+    "DCE": {
+      "daily_html": "https://www.dce.com.cn/publicweb/quotesdata/dayQuotesCh.html",
+      "daily_export": "https://www.dce.com.cn/publicweb/quotesdata/exportDayQuotesChData.html",
+      "request_fields": {
+        "dayQuotes.variety": "all",
+        "dayQuotes.trade_type": "0",
+        "year": "YYYY",
+        "month": "zero_based_month_integer",
+        "day": "DD"
+      },
+      "fallback_semantics": "daily_html and daily_export are two official representations of the same DCE daily query. The parser may use whichever returns a machine-readable exact contract row; it may not switch to a third-party price source.",
+      "match_rule": "exact frozen iron-ore contract code only; no main/continuous-series substitution"
+    }
+  },
+  "comparison": {
+    "primary_fields": ["open", "high", "low", "close"],
+    "absolute_tolerance": "one frozen minimum price tick per product per field",
+    "relative_tolerance": 0.0,
+    "missing_or_non_numeric_authoritative_field": "sample unavailable for that field; do not infer from settlement or adjacent contract",
+    "systematic_scale_fix_after_values": false,
+    "rounding_fit_after_values": false
+  },
+  "transport_raw_verification": {
+    "git_blob_identity": "compute SHA1 of b'blob '+decimal_byte_length+b'\\0'+raw_bytes and require equality to the frozen Git blob SHA",
+    "raw_source": "https://raw.githubusercontent.com/Freddy-Hexas/china-futures-5min-2015-2025/1a402721d639432875504a343e2b9ffe9508cd36/{path}",
+    "post_2020_rows_forbidden": true
+  },
+  "authority": {
+    "predictive_model_execution": false,
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false,
+    "merge_main": false
+  }
+}
