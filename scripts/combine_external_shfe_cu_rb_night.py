@@ -116,12 +116,12 @@ def main() -> None:
             str(PARQUET_OUT.relative_to(ROOT)): {"sha256": sha256_file(PARQUET_OUT), "bytes": PARQUET_OUT.stat().st_size},
         },
         "guards": {
-            "CSI1000_gap_column_read": false,
+            "CSI1000_gap_column_read": False,
             "post_2020_market_fields_parsed": 0,
-            "joint_missing_component_renormalization": false,
-            "zero_fill_missing_night": false,
+            "joint_missing_component_renormalization": False,
+            "zero_fill_missing_night": False,
             "holiday_rows_in_joint_dataset": 0,
-            "DCE_I_included": false,
+            "DCE_I_included": False,
         },
     }
     MANIFEST_OUT.parent.mkdir(parents=True, exist_ok=True)
