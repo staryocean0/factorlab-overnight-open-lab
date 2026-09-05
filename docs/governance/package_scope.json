@@ -1,0 +1,28 @@
+{
+  "schema_id": "overnight_open_cloud_theme_package_scope@1.0",
+  "package_role": "temporary_private_cloud_research_repository",
+  "objective": "predict_next_csi1000_overnight_open_gap_sign_and_magnitude",
+  "source_project": "FactorLab",
+  "sibling_workspace_do_not_merge": "staryocean0/factorlab-two-wave-strategy-lab",
+  "included": [
+    "handoff_prompt",
+    "overnight_gap_ledger_contracts",
+    "session_clock_and_four_layer_boundary",
+    "strategy_slice_rebuild_skill",
+    "literature_factor_notes",
+    "CSI1000_2015_2020_1m_and_PIT_panel",
+    "US_NASDAQ_VIX_through_2020",
+    "frozen_2019_2020_baseline_receipt"
+  ],
+  "excluded": [
+    "FactorLab_git_history",
+    "credentials",
+    "post_2020_market_rows",
+    "Layer4_execution",
+    "two_wave_theme_code_and_data_mix"
+  ],
+  "authoritative_local_registry_mutation": false,
+  "cloud_result_import_requires_local_controller_review": true,
+  "private_repository_required": true,
+  "production_authority": false
+}

@@ -1,0 +1,14 @@
+{
+  "development_material": {
+    "start": "2015-01-05",
+    "end": "2020-12-31"
+  },
+  "internal_holdout": {
+    "start": "2019-01-01",
+    "end": "2020-12-31",
+    "note": "used only for the frozen baseline receipt; cloud models may use 2015-2020 as development but must report 2019-2020 holdout separately if they train on 2015-2018"
+  },
+  "unread": "2021+",
+  "fresh_oos": false,
+  "production_authority": false
+}
