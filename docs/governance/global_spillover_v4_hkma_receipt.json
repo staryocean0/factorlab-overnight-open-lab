@@ -1,0 +1,108 @@
+{
+  "schema_id": "overnight_open_global_spillover_v4_hkma_receipt@1.0",
+  "sealed_date": "2026-09-05",
+  "branch": "codex/overnight-global-spillover-20260905",
+  "parent_candidate": "v3_complete_US_closure_extra",
+  "governance": {
+    "parent_preregistration": "docs/governance/global_spillover_v4_cnh_preregistration.json",
+    "source_substitution": "docs/governance/global_spillover_v4_hkma_source_substitution.json",
+    "clock_correction": "docs/governance/global_spillover_v4_hkma_clock_correction.json",
+    "test_collection_incident": "docs/governance/global_spillover_v4_hkma_test_collection_incident.json",
+    "yahoo_route_status": "abandoned_after_empty_history_response_before_model_execution",
+    "final_source": "Hong Kong Monetary Authority public API"
+  },
+  "external_data": {
+    "raw_path": "data/external/hkma_er_eeri_daily_2014_2020.json",
+    "parquet_path": "data/development/hkma_usdcny_cross.parquet",
+    "manifest": "docs/governance/external_hkma_usdcny_2014_2020_manifest.json",
+    "window": ["2014-01-01", "2020-12-31"],
+    "joint_observed": 2068,
+    "min_observed": "2014-01-02",
+    "max_observed": "2020-12-31",
+    "raw_sha256": "e8c9f85f941687c59e6d3c4820d21931ce350dcb15910ffb52971334642b08e6",
+    "parquet_sha256": "ffa4c802960c2f811116ab378d99fcb0004df943b75580551517705becef0ffd",
+    "data_commit": "8996da7a8bedbc4c37d1f1420c7140be5dbcaa00",
+    "derived_series": "usdcny_hk = HKD_per_USD / HKD_per_CNY",
+    "interpretation": "Hong-Kong-market China-FX price-discovery proxy; not an exact executable interbank CNH spot series",
+    "post_2020_rows": 0,
+    "forward_fill": false,
+    "interpolation": false
+  },
+  "final_execution": {
+    "github_actions_run_id": 33971920654,
+    "job_id": 101321832242,
+    "tests": "15_passed",
+    "package_validation": "success_4_products",
+    "baseline_replay_pass": true,
+    "v3_replay_pass": true,
+    "v4_execution_pass": true,
+    "artifact_id": 9971181292,
+    "artifact_zip_sha256": "06d42fe6858d3584872d35218dfac3c316a3f6755e8b1ae2fe1494a22ba4b444"
+  },
+  "clock": {
+    "start": "latest HKMA end-of-day observation on or before previous China trading day",
+    "end": "latest HKMA end-of-day observation strictly before target China trading day",
+    "feature": "end / start - 1",
+    "target_day_excluded": true,
+    "holdout_accumulation_rows": 100,
+    "holdout_zero_interval_rows": 385,
+    "holiday_reopen_rows": 12
+  },
+  "performance": {
+    "v3": {
+      "holdout_ic": 0.5206571801111871,
+      "holdout_sign_hit": 0.7237113402061855,
+      "holdout_r2": 0.23985849184506391,
+      "holdout_sse": 0.027762222368322282
+    },
+    "v4_HKMA": {
+      "holdout_ic": 0.527052181310477,
+      "holdout_sign_hit": 0.7257731958762886,
+      "holdout_r2": 0.24764018604623939,
+      "holdout_sse": 0.02747801591136969,
+      "delta_ic_vs_v3": 0.006395001199289929,
+      "sse_improvement_vs_v3": 0.0002842064569525925,
+      "2019_ic": 0.5413468780388447,
+      "2020_ic": 0.5226055505351977,
+      "HKMA_standardized_coefficient": -0.00012875571694330977
+    },
+    "HKMA_accumulation_rows": {
+      "n": 100,
+      "v3_ic": 0.5203367553975407,
+      "v4_ic": 0.5365673074611209,
+      "delta_ic": 0.01623055206358026,
+      "sse_improvement": 0.0002900165913315468,
+      "sign_hit_v3": 0.73,
+      "sign_hit_v4": 0.73
+    },
+    "holiday_reopen": {
+      "n": 12,
+      "v3_ic": 0.7772206548575578,
+      "v4_ic": 0.7835472197880198,
+      "delta_ic": 0.00632656493046202,
+      "sse_improvement": 0.00022831884956964806,
+      "sign_hit_v3": 0.9166666666666666,
+      "sign_hit_v4": 0.9166666666666666
+    },
+    "ordinary_zero_interval_rows": {
+      "n": 385,
+      "delta_ic": -0.0004994305852232817,
+      "sse_improvement": -0.000005810134378954335
+    }
+  },
+  "adjudication": {
+    "preregistered_progression_rule_pass": true,
+    "retain_HKMA_China_FX_increment": true,
+    "role": "small independent China-FX closure-information increment on top of the stronger v3 US-closure mechanism",
+    "economic_sign_consistent": true,
+    "baseline_replacement": false,
+    "fresh_oos": false,
+    "next_layer": "extract and validate SGX FTSE China A50 futures CN tick information from official WEBPXTICK_DT historical files, then test incremental pre-China-open price discovery",
+    "scientific_status": "v4_HKMA_increment_progression_material_waiting_A50_layer_and_unseen_local_controller_confirmation"
+  },
+  "authority": {
+    "holiday_runtime_routing": false,
+    "production": false,
+    "registry_mutation": false
+  }
+}
