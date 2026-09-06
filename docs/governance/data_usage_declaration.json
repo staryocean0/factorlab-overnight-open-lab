@@ -36,7 +36,20 @@
     "research_question": "explain_and_reduce_high_open_false_negatives_without_sacrificing_existing_direction_quality",
     "development_material": "2015-01-05_to_2025-12-31",
     "development_note": "2021-2025 was already consumed in a prior challenge and is reclassified only as development material for this new identity; it is not fresh evidence",
-    "phase_1": "mechanism_diagnosis_only_no_candidate_selection",
+    "phase_1": {
+      "status": "completed_cloud_review_accepted",
+      "local_receipt": "docs/research/cloud_session_20260906_local_high_open_recall_diagnostic_receipt_v1.json",
+      "adjudication": "docs/research/high_open_recall_phase1_adjudication_20260906.md",
+      "admitted_mechanism": "prior_china_weakness_nonlinear_rebound",
+      "2026_used": false
+    },
+    "phase_2": {
+      "status": "family_frozen_waiting_local_development_selection",
+      "family": "docs/governance/cloud_session_20260906_high_open_recall_phase2_family_v1.json",
+      "selector": "scripts/select_high_open_recall_phase2_dev.py",
+      "development_window": "2015-01-05_to_2025-12-31",
+      "2026_used": false
+    },
     "blackbox_repeat_validation": {
       "window": "2026-01-05_to_2026-08-21",
       "status": "sealed_from_new_development",
