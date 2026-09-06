@@ -24,8 +24,16 @@
     "CSI1000_2015_2020_1m_and_PIT_panel",
     "US_NASDAQ_VIX_through_2020",
     "frozen_2019_2020_baseline_receipt",
-    "CSI1000_2015_2025_high_open_development_pack_no_2026"
+    "CSI1000_2015_2025_high_open_development_pack_no_2026",
+    "US_offshore_ETF_2015_2025_yahoo_chart_v8_pack_no_2026"
   ],
+  "offshore_etf_dev_pack": {
+    "2026_included": false,
+    "path": "data/offshore_etf_dev_2015_2025",
+    "replaces_frozen_ohr05_source_identity": false,
+    "sha256": "045cf728977ff72a9fabd236aaf06b7a9df3310ad1f6f487bd594d487cc05ffd",
+    "window": "2015-01-02_to_2025-12-31"
+  },
   "objective": "predict_next_csi1000_overnight_open_gap_sign_and_magnitude",
   "observed_repository_visibility_after_high_open_dev_pack_20260906": "private",
   "observed_repository_visibility_after_local_controller_fix_20260906": "private",

@@ -474,7 +474,16 @@ ASHS 最大同日回撤是 2015-08-24 的 −14.42%（开 43.07 / 收 36.86，�
 3. 源文件与 receipt 均截到 `2025-12-31`；未加载中国目标、annotated panel、CSI1000 gap，也未打开 OHR-03。
 4. `2026_rows_loaded == false`，`2026_blackbox_opened == false`。
 5. 未改固定 ticker 集合，未按 ticker 拼接不同供应商。
-6. raw ETF 行未写入 bounded repo；`production_authority == false`。
+6. 源准入当时 raw ETF 行未入库；用户随后明确要求把同一哈希副本推到云端（见下节）。`production_authority == false`。
+
+### 用户授权：把冻结源推到云端（2026-09-06）
+
+用户原话：`请你推到云端`。这是冻结后的同一 Yahoo 源副本，不是新源身份，也不是 2026 打开。
+
+- 仓库路径：`data/offshore_etf_dev_2015_2025/offshore_etf_daily.parquet`
+- SHA256 与冻结回执相同：`045cf728977ff72a9fabd236aaf06b7a9df3310ad1f6f487bd594d487cc05ffd`
+- 云端探测：`export OVERNIGHT_OFFSHORE_ETF_DAILY=$PWD/data/offshore_etf_dev_2015_2025/offshore_etf_daily.parquet`
+- 日期仍是 `2015-01-02..2025-12-31`；无 2026 行；未加载中国目标。
 
 ### 未决测量问题（供云端源复核，不是预测结论）
 

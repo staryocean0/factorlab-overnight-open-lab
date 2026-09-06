@@ -61,3 +61,4 @@
 59. `tests/test_offshore_china_ohr06_protocol.py`
 60. `docs/governance/cloud_session_20260906_offshore_china_ohr06_execution_freeze_v1.json`
 61. `docs/ops/ohr_06_offshore_china_price_discovery_handoff.md`
+62. `data/offshore_etf_dev_2015_2025/`
