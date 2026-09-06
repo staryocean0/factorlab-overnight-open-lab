@@ -148,7 +148,7 @@
     "production_authority": false
   },
   "gap_fill_prediction_v2": {
-    "status": "phase1_factor_diagnostic_completed_phase2_family_not_yet_frozen",
+    "status": "v2_v1_development_selected_and_parameter_frozen_repeat_not_opened",
     "research_question": "conditional on the observed CSI1000 09:31 opening gap, predict whether the previous close is fully revisited within 15m, 60m or EOD",
     "protocol": "docs/governance/cloud_session_20260906_gap_fill_prediction_v2_protocol_v1.json",
     "development_material": "2015-01-05_to_2025-12-31",
@@ -182,9 +182,39 @@
       "excluded_first_family": ["v1_magnitude_surprise", "broad_china_specific_support", "prior_gap_alignment"]
     },
     "phase2": {
-      "status": "not_frozen_not_executed"
+      "status": "completed_cloud_selected_geometry_only_both_signs",
+      "family": "docs/governance/cloud_session_20260906_gap_fill_v2_phase2_hazard_family_v1.json",
+      "execution_freeze": "docs/governance/cloud_session_20260906_gap_fill_v2_phase2_execution_freeze_v1.json",
+      "runner": "scripts/select_gap_fill_v2_phase2_hazard_family.py",
+      "receipt": "docs/research/cloud_session_20260906_gap_fill_v2_phase2_hazard_selection_receipt_v1.json",
+      "data_usage": "docs/governance/cloud_session_20260906_gap_fill_v2_phase2_hazard_data_usage_v1.json",
+      "adjudication": "docs/research/gap_fill_v2_phase2_hazard_adjudication_20260906.md",
+      "selected": "docs/governance/cloud_session_20260906_gap_fill_v2_phase2_selected_v1.json",
+      "cloud_run_id": 34033989463,
+      "selected_architecture_sha256": "07810dafbab629f196d04ea1204d90ee68177ce764bb765be560bc1b84261c00",
+      "high_selected": "geometry_only",
+      "high_spec_sha256": "068bb732f992d1e2800489b4e3ac2320bd13ec465e3c23f4b4cc800fe9e45a51",
+      "low_selected": "geometry_only",
+      "low_spec_sha256": "f36f53d24b5f223094c6ad936a9de963365b686a1df474bfdfdc6336a9f53082",
+      "2026_used": false
     },
-    "repeat_only_reserved": "2026-01-05_to_2026-08-21",
+    "final_development_fit": {
+      "status": "completed_parameter_identity_frozen",
+      "protocol": "docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_protocol_v1.json",
+      "execution_freeze": "docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_execution_freeze_v1.json",
+      "runner": "scripts/fit_gap_fill_v2_selected_dev.py",
+      "parameter_freeze": "docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_freeze_v1.json",
+      "data_usage": "docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_data_usage_v1.json",
+      "closeout": "docs/research/gap_fill_v2_v1_development_closeout_20260906.md",
+      "cloud_run_id": 34034618914,
+      "parameter_bundle_sha256": "07abe29e31ce09b69bd6250b1ce3ebc5af7688b69ed39909feb80e9db882aaa0",
+      "geometry_complete_rows": 2650,
+      "high_rows": 1067,
+      "low_rows": 1583,
+      "model_selection_performed": false,
+      "2026_used": false
+    },
+    "repeat_only_reserved": "2026-01-05_to_2026-08-21_unopened",
     "true_fresh_reserved": "post_2026-08-21",
     "production_authority": false
   },
@@ -193,7 +223,7 @@
   "high_open_dev_pack_2015_2025": {
     "path": "data/high_open_dev_2015_2025",
     "window": "2015-01-05_to_2025-12-31",
-    "role": "cloud_executable_development_material_for_high_open_recall_successor_v1",
+    "role": "cloud_executable_development_material_for_high_open_recall_successor_v1_and_gap_fill_prediction_v2",
     "2026-01-05_to_2026-08-21": "not_included_sealed_repeat_blackbox",
     "post_2026-08-21": "not_included_unread_true_fresh_reserved",
     "replaces_frozen_2015_2020_pack": false,
