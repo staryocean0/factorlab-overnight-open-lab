@@ -1,0 +1,105 @@
+{
+  "schema_id": "overnight_open_v9_target_integrity_result@1.0",
+  "plan_sha256": "474f4b19da6b5da4983ee477c5aee65cbe755bdb77c25ccb1749e77367871f5f",
+  "source_sha256": {
+    "data/development/1m_official.parquet": "755217afce9dec383e48cd46d591402fa90dc50897abeb3dc7097c9a18a109d4",
+    "data/development/csi1000_open_pit_panel.parquet": "d409fd5c2d75497b31e7e6e4f663298c3e22a7bacdacf4cb562671c6b1bc7631",
+    "scripts/audit_v9_target_integrity.py": "1178f594453969e5cf85a51476a2d2fe03a5fe7fe1271edfb1946d3f1beb17b7"
+  },
+  "raw_minute_rows": 350561,
+  "raw_china_days": 1462,
+  "panel_rows": 1462,
+  "symbol_values": [
+    "000852.SH"
+  ],
+  "missing_0931_or_1500_days": [],
+  "checks": {
+    "open_0931": {
+      "compared_rows": 1462,
+      "unresolved_rows": 0,
+      "mismatch_rows": 0,
+      "max_abs_error": 0.0,
+      "mismatch_dates": []
+    },
+    "close_1500": {
+      "compared_rows": 1462,
+      "unresolved_rows": 0,
+      "mismatch_rows": 0,
+      "max_abs_error": 0.0,
+      "mismatch_dates": []
+    },
+    "prev_close": {
+      "compared_rows": 1461,
+      "unresolved_rows": 1,
+      "mismatch_rows": 0,
+      "max_abs_error": 0.0,
+      "mismatch_dates": []
+    },
+    "gap": {
+      "compared_rows": 1461,
+      "unresolved_rows": 1,
+      "mismatch_rows": 0,
+      "max_abs_error": 0.0,
+      "mismatch_dates": []
+    }
+  },
+  "internal_endpoint_parity_pass": true,
+  "trigger_event_parity": [
+    {
+      "trading_day": "2020-02-04",
+      "open_0931": 4923.19,
+      "close_1500": 5212.1,
+      "prev_close": 5200.16,
+      "gap": -0.05326182271314739,
+      "raw_open_0931": 4923.19,
+      "raw_close_1500": 5212.1,
+      "raw_prev_close": 5200.16,
+      "raw_gap": -0.05326182271314739,
+      "open_0931_abs_error": 0.0,
+      "close_1500_abs_error": 0.0,
+      "prev_close_abs_error": 0.0,
+      "gap_abs_error": 0.0
+    },
+    {
+      "trading_day": "2020-03-13",
+      "open_0931": 5681.59,
+      "close_1500": 5945.46,
+      "prev_close": 5999.64,
+      "gap": -0.05301151402417481,
+      "raw_open_0931": 5681.59,
+      "raw_close_1500": 5945.46,
+      "raw_prev_close": 5999.64,
+      "raw_gap": -0.05301151402417481,
+      "open_0931_abs_error": 0.0,
+      "close_1500_abs_error": 0.0,
+      "prev_close_abs_error": 0.0,
+      "gap_abs_error": 0.0
+    },
+    {
+      "trading_day": "2020-04-20",
+      "open_0931": 6051.57,
+      "close_1500": 5803.4,
+      "prev_close": 5710.05,
+      "gap": 0.05981033441038153,
+      "raw_open_0931": 6051.57,
+      "raw_close_1500": 5803.4,
+      "raw_prev_close": 5710.05,
+      "raw_gap": 0.05981033441038153,
+      "open_0931_abs_error": 0.0,
+      "close_1500_abs_error": 0.0,
+      "prev_close_abs_error": 0.0,
+      "gap_abs_error": 0.0
+    }
+  ],
+  "interpretation": "Internal endpoint identity only; no independent upstream vendor/exchange price validation.",
+  "authority": {
+    "selection": false,
+    "refit": false,
+    "event_exclusion": false,
+    "target_repair": false,
+    "post_2020_read": false,
+    "production": false
+  },
+  "refits": 0,
+  "post_2020_rows_read": 0
+}

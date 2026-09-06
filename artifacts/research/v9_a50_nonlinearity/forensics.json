@@ -1,0 +1,250 @@
+{
+  "coefficient_redistribution": {
+    "a50_holiday_closure_return": {
+      "candidate": 0.0007311696119144481,
+      "change": -9.92818749073035e-05,
+      "comparator": 0.0008304514868217516
+    },
+    "a50_ordinary_preauction_closure_return": {
+      "candidate": 0.001770963102164105,
+      "change": -0.0020008419333442298,
+      "comparator": 0.0037718050355083346
+    },
+    "abs_r1": {
+      "candidate": -0.00037238167841357567,
+      "change": -8.158448867598683e-05,
+      "comparator": -0.00029079718973758884
+    },
+    "hkma_usdcny_closure_return": {
+      "candidate": 4.637306667947809e-05,
+      "change": -8.89275497105937e-05,
+      "comparator": 0.0001353006163900718
+    },
+    "holiday_reopen": {
+      "candidate": -3.191805605472815e-05,
+      "change": -1.6905485001053812e-05,
+      "comparator": -1.5012571053674336e-05
+    },
+    "overnight_trend_5": {
+      "candidate": 0.00037186629533092496,
+      "change": 8.238550127682813e-05,
+      "comparator": 0.00028948079405409684
+    },
+    "prev_afternoon": {
+      "candidate": -0.00032578362215803636,
+      "change": 6.403810960684767e-06,
+      "comparator": -0.00033218743311872113
+    },
+    "prev_daytime": {
+      "candidate": -0.0024583303506681793,
+      "change": 0.0006955958753188294,
+      "comparator": -0.0031539262259870087
+    },
+    "prev_gap": {
+      "candidate": -0.002240011793792578,
+      "change": 0.0004191102483111866,
+      "comparator": -0.002659122042103765
+    },
+    "prev_last_hour": {
+      "candidate": 0.0005187343469196693,
+      "change": 7.418375075464315e-06,
+      "comparator": 0.000511315971844205
+    },
+    "r1": {
+      "candidate": 0.005365194613253444,
+      "change": -0.0007557034480424199,
+      "comparator": 0.006120898061295864
+    },
+    "r20": {
+      "candidate": 0.0004711862132582941,
+      "change": 3.629426411605707e-05,
+      "comparator": 0.00043489194914223705
+    },
+    "rvol20": {
+      "candidate": -0.0012166146888489167,
+      "change": 6.628427879395819e-05,
+      "comparator": -0.0012828989676428749
+    },
+    "us_nasdaq": {
+      "candidate": 0.0010081491115524809,
+      "change": 0.0003002716693919768,
+      "comparator": 0.000707877442160504
+    },
+    "us_nasdaq_closure_extra": {
+      "candidate": 0.0006592132065681972,
+      "change": 6.23742001566145e-05,
+      "comparator": 0.0005968390064115827
+    },
+    "us_vix_chg": {
+      "candidate": -0.0012290210853887304,
+      "change": -0.00013990015029787472,
+      "comparator": -0.0010891209350908557
+    },
+    "us_vix_closure_extra": {
+      "candidate": -0.0006015083286404502,
+      "change": -5.3157624793946146e-05,
+      "comparator": -0.000548350703846504
+    },
+    "weekend": {
+      "candidate": 0.0003338100651945686,
+      "change": -0.00011183917802459683,
+      "comparator": 0.0004456492432191654
+    }
+  },
+  "concentration": {
+    "full": {
+      "better_rows": 269,
+      "equal_rows": 0,
+      "n": 461,
+      "negative_sse_improvement": -0.0015435531056405918,
+      "positive_sse_improvement": 0.0017094732689541534,
+      "remove_best_rows_without_refit": {
+        "1": {
+          "remaining_sse_improvement": -0.00016075059102834975,
+          "rows_removed": 1,
+          "share_of_positive_gain_removed": 0.19109439163197134
+        },
+        "10": {
+          "remaining_sse_improvement": -0.0006243977654565425,
+          "rows_removed": 10,
+          "share_of_positive_gain_removed": 0.46231663467520395
+        },
+        "5": {
+          "remaining_sse_improvement": -0.0004679568600343,
+          "rows_removed": 5,
+          "share_of_positive_gain_removed": 0.3708025359973392
+        }
+      },
+      "total_sse_improvement": 0.0001659201633135615,
+      "worse_rows": 192
+    },
+    "ordinary": {
+      "better_rows": 261,
+      "equal_rows": 0,
+      "n": 450,
+      "negative_sse_improvement": -0.0014652074195753433,
+      "positive_sse_improvement": 0.0016342129145433715,
+      "remove_best_rows_without_refit": {
+        "1": {
+          "remaining_sse_improvement": -0.00015766525937388297,
+          "rows_removed": 1,
+          "share_of_positive_gain_removed": 0.1998948554590201
+        },
+        "10": {
+          "remaining_sse_improvement": -0.0006111566925597158,
+          "rows_removed": 10,
+          "share_of_positive_gain_removed": 0.4773932335161697
+        },
+        "5": {
+          "remaining_sse_improvement": -0.00046487152837983327,
+          "rows_removed": 5,
+          "share_of_positive_gain_removed": 0.3878790931749418
+        }
+      },
+      "total_sse_improvement": 0.00016900549496802827,
+      "worse_rows": 189
+    }
+  },
+  "ordinary_correlations": {
+    "n": 450,
+    "next_row_q_with_current_target": 0.008097289465660377,
+    "placebo_pair_count": 449,
+    "previous_row_q_with_current_target": -0.06913803656573456,
+    "q_with_linear_A50": 0.8249248278221398,
+    "q_with_target": 0.5905201523109941,
+    "q_with_v6_fixed_residual": 0.03718176523587017,
+    "row_definition": "chronological fixed ordinary holdout sample, not necessarily adjacent calendar sessions"
+  },
+  "refit": false,
+  "selection_authority": false,
+  "shock_direction": {
+    "negative": {
+      "better_rows": 124,
+      "equal_rows": 0,
+      "n": 177,
+      "negative_sse_improvement": -0.0007774572237087937,
+      "positive_sse_improvement": 0.0009730206367939445,
+      "remove_best_rows_without_refit": {
+        "1": {
+          "remaining_sse_improvement": 8.262678008110077e-05,
+          "rows_removed": 1,
+          "share_of_positive_gain_removed": 0.11606807577706754
+        },
+        "10": {
+          "remaining_sse_improvement": -0.00027793677400616564,
+          "rows_removed": 10,
+          "share_of_positive_gain_removed": 0.4866291311677381
+        },
+        "5": {
+          "remaining_sse_improvement": -0.0001500459969223342,
+          "rows_removed": 5,
+          "share_of_positive_gain_removed": 0.35519227130295117
+        }
+      },
+      "total_sse_improvement": 0.00019556341308515083,
+      "worse_rows": 53
+    },
+    "positive": {
+      "better_rows": 135,
+      "equal_rows": 0,
+      "n": 270,
+      "negative_sse_improvement": -0.0006867519630344425,
+      "positive_sse_improvement": 0.0006539527251005565,
+      "remove_best_rows_without_refit": {
+        "1": {
+          "remaining_sse_improvement": -0.0003594699922757972,
+          "rows_removed": 1,
+          "share_of_positive_gain_removed": 0.4995326753805942
+        },
+        "10": {
+          "remaining_sse_improvement": -0.0004651175246149262,
+          "rows_removed": 10,
+          "share_of_positive_gain_removed": 0.6610849226365161
+        },
+        "5": {
+          "remaining_sse_improvement": -0.00042034122523402486,
+          "rows_removed": 5,
+          "share_of_positive_gain_removed": 0.5926146836387105
+        }
+      },
+      "total_sse_improvement": -3.279923793388597e-05,
+      "worse_rows": 135
+    },
+    "zero": {
+      "better_rows": 2,
+      "equal_rows": 0,
+      "n": 3,
+      "negative_sse_improvement": -9.982328321069673e-07,
+      "positive_sse_improvement": 7.239552648870441e-06,
+      "remove_best_rows_without_refit": {
+        "1": {
+          "remaining_sse_improvement": -1.5946870695719604e-07,
+          "rows_removed": 1,
+          "share_of_positive_gain_removed": 0.8841414427339457
+        },
+        "10": {
+          "remaining_sse_improvement": -9.982328321069673e-07,
+          "rows_removed": 2,
+          "share_of_positive_gain_removed": 1.0
+        },
+        "5": {
+          "remaining_sse_improvement": -9.982328321069673e-07,
+          "rows_removed": 2,
+          "share_of_positive_gain_removed": 1.0
+        }
+      },
+      "total_sse_improvement": 6.241319816763474e-06,
+      "worse_rows": 1
+    }
+  },
+  "training_ordinary_marginal_slope": {
+    "max": 1.927934828121242,
+    "median": 0.32754726904616305,
+    "min": 0.26367930346886054,
+    "n": 879,
+    "nonpositive_count": 0,
+    "observed_abs_x_max": 0.0694536606945,
+    "observed_abs_x_min": 0.0,
+    "strictly_positive_everywhere_observed": true
+  }
+}

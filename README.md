@@ -1,5 +1,11 @@
 # FactorLab Overnight Open Lab
 
+Latest research continuation on this branch: [2026-09-06 handoff](docs/user/overnight_research_handoff_20260906.md)
+and [v9 conclusion](docs/research/global_spillover_v9_conclusion_20260906.md).
+V9 is complete and is not promoted; V6A remains the candidate awaiting its
+independent local unseen confirmation. The initial package description below
+is historical scope, not a statement that later branch research is missing.
+
 Private, bounded cloud workspace for one task: predict the next CSI1000 overnight
 open (high open vs low open, and gap size). It is not the two-wave Layer 3 theme
 and must not be merged into `factorlab-two-wave-strategy-lab`.

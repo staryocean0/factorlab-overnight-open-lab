@@ -1,0 +1,377 @@
+{
+  "adjudication": {
+    "additional_nonselectable_reference_fits": 2,
+    "all_preregistered_gates_pass": false,
+    "economic_incoherence_rejection": false,
+    "gates": {
+      "annual_sse": false,
+      "economic_coherence_gate": true,
+      "holdout_ic": true,
+      "holdout_r2": true,
+      "holdout_sse": true,
+      "holiday_subset_sse": false,
+      "ordinary_subset_ic": true,
+      "ordinary_subset_sse": true,
+      "quarterly_median_sse_improvement": false,
+      "quarterly_nonnegative_count": false,
+      "quarterly_total_sse_improvement": true,
+      "sign_hit": true
+    },
+    "hard_valid_increment_retained": true,
+    "new_selectable_candidates_executed": 1,
+    "scientific_status": "no_incremental_successor_beyond_V6",
+    "selected_candidate": null
+  },
+  "annual": {
+    "2019": {
+      "candidate_ic": 0.7577261620269882,
+      "candidate_sign_hit": 0.7695652173913043,
+      "candidate_sse": 0.0037865629671426605,
+      "comparator_ic": 0.7708426210923135,
+      "comparator_sign_hit": 0.7434782608695653,
+      "comparator_sse": 0.003668513485550507,
+      "delta_ic": -0.013116459065325325,
+      "n": 230,
+      "sse_improvement": -0.00011804948159215359
+    },
+    "2020": {
+      "candidate_ic": 0.6241878695312988,
+      "candidate_sign_hit": 0.7662337662337663,
+      "candidate_sse": 0.012509094003375416,
+      "comparator_ic": 0.5954361581244779,
+      "comparator_sign_hit": 0.7748917748917749,
+      "comparator_sse": 0.01279306364828113,
+      "delta_ic": 0.028751711406820868,
+      "n": 231,
+      "sse_improvement": 0.00028396964490571414
+    }
+  },
+  "artifacts": {
+    "artifacts/research/v9_a50_nonlinearity/V6A_frozen_common_sample_comparator_snapshot.json": "df3abfcd05d57ed4adf9e800b0247a59b0d61a7a032557620cfddc624ff1c42a",
+    "artifacts/research/v9_a50_nonlinearity/V9A_plus_A50_signed_square_snapshot.json": "201d20b00ce221f54d7608c1adf99015c5d978285d2d27ee1aa7064ee8030014",
+    "artifacts/research/v9_a50_nonlinearity/fixed_holdout_predictions.csv": "508e52c4af4c426581c481c95b6d4c85e1159095e49530713aa357fc9a550b90",
+    "artifacts/research/v9_a50_nonlinearity/forensics.json": "62ad6327764da1fa9d035d3dc086d92452f6f5c047525771d6c803cbb6da32e2",
+    "artifacts/research/v9_a50_nonlinearity/training_marginal_slopes.csv": "71107f298b672786f854f14bc398c31677d270a08dc256eccec922270680ce26"
+  },
+  "authority": {
+    "baseline_replacement": false,
+    "fresh_oos": false,
+    "merge_main": false,
+    "production": false,
+    "registry_mutation": false,
+    "runtime_routing": false
+  },
+  "candidates": {
+    "V6A_frozen_common_sample_comparator": {
+      "holdout_ic": 0.6537331110508787,
+      "holdout_r2": 0.38301698298609854,
+      "holdout_sign_hit": 0.7592190889370932,
+      "holdout_sse": 0.01646157713383164,
+      "n_holdout": 461,
+      "n_train": 900,
+      "standardized_coefficients": {
+        "a50_holiday_closure_return": 0.0008304514868217516,
+        "a50_ordinary_preauction_closure_return": 0.0037718050355083346,
+        "abs_r1": -0.00029079718973758884,
+        "hkma_usdcny_closure_return": 0.0001353006163900718,
+        "holiday_reopen": -1.5012571053674336e-05,
+        "overnight_trend_5": 0.00028948079405409684,
+        "prev_afternoon": -0.00033218743311872113,
+        "prev_daytime": -0.0031539262259870087,
+        "prev_gap": -0.002659122042103765,
+        "prev_last_hour": 0.000511315971844205,
+        "r1": 0.006120898061295864,
+        "r20": 0.00043489194914223705,
+        "rvol20": -0.0012828989676428749,
+        "us_nasdaq": 0.000707877442160504,
+        "us_nasdaq_closure_extra": 0.0005968390064115827,
+        "us_vix_chg": -0.0010891209350908557,
+        "us_vix_closure_extra": -0.000548350703846504,
+        "weekend": 0.0004456492432191654
+      }
+    },
+    "V9A_plus_A50_signed_square": {
+      "holdout_ic": 0.6649604026168543,
+      "holdout_r2": 0.3892357020135878,
+      "holdout_sign_hit": 0.7678958785249458,
+      "holdout_sse": 0.016295656970518078,
+      "n_holdout": 461,
+      "n_train": 900,
+      "standardized_coefficients": {
+        "a50_holiday_closure_return": 0.0007311696119144481,
+        "a50_ordinary_preauction_closure_return": 0.001770963102164105,
+        "a50_ordinary_signed_square": 0.002413148114067445,
+        "abs_r1": -0.00037238167841357567,
+        "hkma_usdcny_closure_return": 4.637306667947809e-05,
+        "holiday_reopen": -3.191805605472815e-05,
+        "overnight_trend_5": 0.00037186629533092496,
+        "prev_afternoon": -0.00032578362215803636,
+        "prev_daytime": -0.0024583303506681793,
+        "prev_gap": -0.002240011793792578,
+        "prev_last_hour": 0.0005187343469196693,
+        "r1": 0.005365194613253444,
+        "r20": 0.0004711862132582941,
+        "rvol20": -0.0012166146888489167,
+        "us_nasdaq": 0.0010081491115524809,
+        "us_nasdaq_closure_extra": 0.0006592132065681972,
+        "us_vix_chg": -0.0012290210853887304,
+        "us_vix_closure_extra": -0.0006015083286404502,
+        "weekend": 0.0003338100651945686
+      }
+    }
+  },
+  "common_sample": {
+    "all_rows": 1462,
+    "common_rows": 1384,
+    "holdout_common_coverage": 0.9507186858316222,
+    "holdout_rows_common": 463,
+    "holdout_rows_total": 487,
+    "holiday_rows_common": 32,
+    "holiday_rows_total": 38,
+    "ordinary_rows_common": 1352,
+    "ordinary_rows_total": 1424,
+    "train_common_coverage": 0.9446153846153846,
+    "train_rows_common": 921,
+    "train_rows_total": 975
+  },
+  "data_boundary": [
+    {
+      "interval": "2014-01-01/2014-12-31",
+      "role": "development_material",
+      "use": "frozen external source clock warmup only; no target model rows"
+    },
+    {
+      "interval": "2015-01-01/2018-12-31",
+      "role": "development_material",
+      "use": "frozen training and training-only scaler/coherence gate"
+    },
+    {
+      "interval": "2019-01-01/2020-12-31",
+      "role": "repeat_audit",
+      "use": "consumed holdout; single frozen candidate and fixed-prediction forensics"
+    },
+    {
+      "cloud_read": false,
+      "interval": "2021-01-01/2025-12-31",
+      "local_controller_only": true,
+      "role": "fresh_challenge"
+    }
+  ],
+  "diagnostic_benchmarks": {
+    "C0_original_features_common_sample": {
+      "holdout_ic": 0.4752504081078397,
+      "holdout_r2": 0.12243920686811394,
+      "holdout_sign_hit": 0.7136659436008677,
+      "holdout_sse": 0.023413990802669895,
+      "n_holdout": 461,
+      "n_train": 900,
+      "standardized_coefficients": {
+        "abs_r1": -0.00022535945729298861,
+        "holiday_reopen": 0.0002954020604123651,
+        "overnight_trend_5": -0.00023654526386101386,
+        "prev_afternoon": -0.0012928528484529732,
+        "prev_daytime": -0.0032392140979159117,
+        "prev_gap": -0.0030548722072053203,
+        "prev_last_hour": 0.001003898419721339,
+        "r1": 0.00641077710618211,
+        "r20": 0.000695318621598026,
+        "rvol20": -0.0009277198081152617,
+        "us_nasdaq": 0.00228882864170931,
+        "us_vix_chg": -0.0014506946357775792,
+        "weekend": 0.0005133759151611339
+      }
+    },
+    "NASDAQ_only_common_sample": {
+      "holdout_ic": 0.513873819061406,
+      "holdout_r2": 0.16280230074034985,
+      "holdout_sign_hit": 0.6876355748373102,
+      "holdout_sse": 0.02233707269501487,
+      "n_holdout": 461,
+      "n_train": 900,
+      "standardized_coefficients": {
+        "us_nasdaq": 0.0036696689789576507
+      }
+    },
+    "always_low_open": {
+      "n_holdout": 461,
+      "sign_hit": 0.4837310195227766
+    }
+  },
+  "economic_coherence": {
+    "max": 1.927934828121242,
+    "median": 0.32754726904616305,
+    "min": 0.26367930346886054,
+    "n": 879,
+    "nonpositive_count": 0,
+    "observed_abs_x_max": 0.0694536606945,
+    "observed_abs_x_min": 0.0,
+    "strictly_positive_everywhere_observed": true
+  },
+  "execution_commit": "d2793cdd03f2f58ea9f182acd66af7ae8ca48c76",
+  "implementation_sha256": {
+    "docs/governance/global_spillover_v9_execution_declaration.json": "b24e10f2c56746c91a18c280f0f06b3fc21554c9b7085c5d8fdaf68e9ee1a5e6",
+    "scripts/research_global_spillover_v9_a50_nonlinearity.py": "7a5456e65bba9d0b3870bda6e7657ac0206e8401c98f1eca36c15818b3b4174f"
+  },
+  "parent_commit": "02bbb216057f7024b5a82a87c80805383bb02c83",
+  "parent_replay_pass": true,
+  "post_2020_rows_read": 0,
+  "preregistration_commit": "9554809cec804545e0713be1be788b42d7803bd5",
+  "quarterly": {
+    "2019Q1": {
+      "candidate_ic": 0.6502382407129486,
+      "candidate_sign_hit": 0.7818181818181819,
+      "candidate_sse": 0.0011052704876882164,
+      "comparator_ic": 0.6695536748380849,
+      "comparator_sign_hit": 0.7818181818181819,
+      "comparator_sse": 0.001085225373869397,
+      "delta_ic": -0.019315434125136366,
+      "n": 55,
+      "sse_improvement": -2.004511381881939e-05
+    },
+    "2019Q2": {
+      "candidate_ic": 0.760195894364973,
+      "candidate_sign_hit": 0.7818181818181819,
+      "candidate_sse": 0.0016294567244118643,
+      "comparator_ic": 0.781485043962613,
+      "comparator_sign_hit": 0.7636363636363637,
+      "comparator_sse": 0.0015097136889651878,
+      "delta_ic": -0.021289149597639945,
+      "n": 55,
+      "sse_improvement": -0.00011974303544667647
+    },
+    "2019Q3": {
+      "candidate_ic": 0.8796074302244323,
+      "candidate_sign_hit": 0.7419354838709677,
+      "candidate_sse": 0.0007203369522173063,
+      "comparator_ic": 0.892100513879513,
+      "comparator_sign_hit": 0.6935483870967742,
+      "comparator_sse": 0.0006768693887173071,
+      "delta_ic": -0.012493083655080617,
+      "n": 62,
+      "sse_improvement": -4.346756349999921e-05
+    },
+    "2019Q4": {
+      "candidate_ic": 0.5991593380039375,
+      "candidate_sign_hit": 0.7758620689655172,
+      "candidate_sse": 0.0003314988028252731,
+      "comparator_ic": 0.5901135915348453,
+      "comparator_sign_hit": 0.7413793103448276,
+      "comparator_sse": 0.0003967050339986149,
+      "delta_ic": 0.009045746469092175,
+      "n": 58,
+      "sse_improvement": 6.520623117334181e-05
+    },
+    "2020Q1": {
+      "candidate_ic": 0.6671190979827121,
+      "candidate_sign_hit": 0.8,
+      "candidate_sse": 0.006785345275849002,
+      "comparator_ic": 0.6237071610358768,
+      "comparator_sign_hit": 0.7636363636363637,
+      "comparator_sse": 0.006900649822101536,
+      "delta_ic": 0.04341193694683532,
+      "n": 55,
+      "sse_improvement": 0.00011530454625253376
+    },
+    "2020Q2": {
+      "candidate_ic": 0.4624431873508086,
+      "candidate_sign_hit": 0.8392857142857143,
+      "candidate_sse": 0.004201255853470691,
+      "comparator_ic": 0.44496308418659875,
+      "comparator_sign_hit": 0.875,
+      "comparator_sse": 0.0044013966862568804,
+      "delta_ic": 0.017480103164209837,
+      "n": 56,
+      "sse_improvement": 0.00020014083278618953
+    },
+    "2020Q3": {
+      "candidate_ic": 0.6743722300558505,
+      "candidate_sign_hit": 0.7142857142857143,
+      "candidate_sse": 0.001023459426021455,
+      "comparator_ic": 0.7061446581247741,
+      "comparator_sign_hit": 0.7301587301587301,
+      "comparator_sse": 0.0009754785707334907,
+      "delta_ic": -0.031772428068923664,
+      "n": 63,
+      "sse_improvement": -4.798085528796435e-05
+    },
+    "2020Q4": {
+      "candidate_ic": 0.7137982811129834,
+      "candidate_sign_hit": 0.7192982456140351,
+      "candidate_sse": 0.0004990334480342677,
+      "comparator_ic": 0.7090463416287899,
+      "comparator_sign_hit": 0.7368421052631579,
+      "comparator_sse": 0.0005155385691892251,
+      "delta_ic": 0.004751939484193501,
+      "n": 57,
+      "sse_improvement": 1.650512115495737e-05
+    }
+  },
+  "quarterly_summary": {
+    "median_sse_improvement": -1.7699963319310098e-06,
+    "nonnegative_count": 4,
+    "total_sse_improvement": 0.00016592016331356304
+  },
+  "runtime": {
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "python": "3.12.13",
+    "sklearn": "1.8.0"
+  },
+  "sample_identity": {
+    "holdout": "5f03d6bb0341eed63428ce9ebe13924d257e080747e2c7252f33f189286af255",
+    "train": "6b42393e0c19993a067f063bfc6a427d50bb11324dd784040975623e57334bb3"
+  },
+  "schema_id": "overnight_open_global_spillover_v9_results@1.0",
+  "source_sha256": {
+    "data/development/1m_official.parquet": "755217afce9dec383e48cd46d591402fa90dc50897abeb3dc7097c9a18a109d4",
+    "data/development/csi1000_open_pit_panel.parquet": "d409fd5c2d75497b31e7e6e4f663298c3e22a7bacdacf4cb562671c6b1bc7631",
+    "data/development/hkma_usdcny_cross.parquet": "ffa4c802960c2f811116ab378d99fcb0004df943b75580551517705becef0ffd",
+    "data/development/sgx_a50_holiday_endpoints.parquet": "91c4666ce95c4fa19fb2b6d40d34d98a50de1ce66e5185c84a6ae3c1ac71038b",
+    "data/development/sgx_a50_ordinary_preauction_endpoints.parquet": "eb1878f89712f23d004ddd588bc5b599a24c87178ff1b3e75c897e5f722b7fe3",
+    "data/development/us_nasdaq_vix.parquet": "caf32c1cf0785d2c615eae97acad42ae58105275fe7ec58ad5d7121df9bf5b1b",
+    "data/manifest.json": "422cdd04e43db478795fb036d92f2e3e08bd3bb9df12f9d454c71fc957352e92",
+    "docs/governance/baseline_receipt.json": "a6397e2b9d57aa238b490c642a80b21ce4fa13f5d0ab8342ad801b4d91b015a2",
+    "docs/governance/external_sgx_a50_ordinary_preauction_2015_2020_manifest.json": "635959a441d241508b26c775d6c98b61e84840c01b28bce4b589c08d3563be18",
+    "docs/governance/global_spillover_v9_a50_nonlinearity_preanalysis.json": "72f012464f4348013ac6ae23db8b0f3c9afd55c338e5517e8218e0296f965d3a",
+    "docs/governance/global_spillover_v9_a50_nonlinearity_preregistration.json": "83210b1de9bef18f6e18b15598e189e133de0fda5c85a20d2789bf106b0a6f16",
+    "scripts/research_global_spillover_v3_complete_clock.py": "cc6437fd126b983c41db9cb5e1173947068bc5d112c01a51a52e265f159fc325",
+    "scripts/research_global_spillover_v4_cnh.py": "c1dcf4ebd0bc2b238089e93bdd8ba6ebdedaee1694ba83eb9c52ca65f71702db",
+    "scripts/research_global_spillover_v6_daily_a50.py": "bcb580252d6776da5bae02199a313f19248bb62b180a456d713333349f2062d8"
+  },
+  "subsets": {
+    "holiday": {
+      "candidate_ic": 0.8146406858651438,
+      "candidate_sign_hit": 0.8181818181818182,
+      "candidate_sse": 0.0009645881539901483,
+      "comparator_ic": 0.8451630357996053,
+      "comparator_sign_hit": 0.7272727272727273,
+      "comparator_sse": 0.0009615028223356814,
+      "delta_ic": -0.030522349934461457,
+      "n": 11,
+      "sse_improvement": -3.0853316544669123e-06
+    },
+    "ordinary": {
+      "candidate_ic": 0.6625729346647186,
+      "candidate_sign_hit": 0.7666666666666667,
+      "candidate_sse": 0.015331068816527928,
+      "comparator_ic": 0.6496432220578459,
+      "comparator_sign_hit": 0.76,
+      "comparator_sse": 0.015500074311495957,
+      "delta_ic": 0.0129297126068727,
+      "n": 450,
+      "sse_improvement": 0.00016900549496802822
+    }
+  },
+  "v9_vs_diagnostic_benchmarks": {
+    "C0_original_features_common_sample": {
+      "v9_delta_ic": 0.1897099945090146,
+      "v9_delta_sign_hit": 0.05422993492407813,
+      "v9_sse_improvement": 0.007118333832151817
+    },
+    "NASDAQ_only_common_sample": {
+      "v9_delta_ic": 0.15108658355544835,
+      "v9_delta_sign_hit": 0.08026030368763559,
+      "v9_sse_improvement": 0.006041415724496794
+    }
+  }
+}
