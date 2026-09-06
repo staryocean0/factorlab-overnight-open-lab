@@ -28,3 +28,7 @@
 26. `docs/governance/cloud_session_20260906_research_architecture_acceptance_v1.json`
 27. `docs/governance/cloud_session_20260906_production_readiness_review_v1.json`
 28. `docs/research/cloud_session_20260906_research_closeout_v1.md`
+29. `docs/governance/cloud_session_20260906_high_open_recall_research_protocol_v1.json`
+30. `docs/research/high_open_recall_preanalysis_20260906.md`
+31. `scripts/diagnose_high_open_false_negatives_dev.py`
+32. `docs/ops/cloud_local_communication.md`
