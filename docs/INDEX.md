@@ -32,3 +32,5 @@
 30. `docs/research/high_open_recall_preanalysis_20260906.md`
 31. `scripts/diagnose_high_open_false_negatives_dev.py`
 32. `docs/ops/cloud_local_communication.md`
+33. `docs/research/cloud_session_20260906_local_high_open_recall_diagnostic_receipt_v1.json`
+34. `docs/governance/local_session_20260906_high_open_recall_data_usage.json`
