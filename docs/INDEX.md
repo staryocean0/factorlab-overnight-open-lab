@@ -126,3 +126,11 @@
 124. `docs/governance/cloud_session_20260906_gap_fill_v2_true_fresh_execution_freeze_v1.json`
 125. `docs/governance/gap_fill_v2_true_fresh_state_v1.json`
 126. `.github/workflows/gap-fill-v2-true-fresh-prereg-check.yml`
+127. `docs/research/gap_fill_v2_historical_extension_preanalysis_20260906.md`
+128. `docs/governance/cloud_session_20260906_gap_fill_v2_historical_extension_protocol_v1.json`
+129. `docs/ops/gap_fill_v2_historical_source_inventory_template_v1.json`
+130. `docs/ops/gap_fill_v2_historical_source_inventory_handoff.md`
+131. `tests/test_gap_fill_v2_historical_extension_protocol.py`
+132. `docs/governance/gap_fill_v2_generation_policy_v1.json`
+133. `docs/governance/cloud_session_20260906_gap_fill_v2_historical_extension_execution_freeze_v1.json`
+134. `.github/workflows/gap-fill-v2-historical-extension-prereg-check.yml`
