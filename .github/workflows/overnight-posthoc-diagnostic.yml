@@ -1,0 +1,26 @@
+name: overnight-posthoc-diagnostic
+
+on:
+  push:
+    paths:
+      - 'scripts/diagnose_clock_holdout_posthoc.py'
+      - '.github/workflows/overnight-posthoc-diagnostic.yml'
+      - 'docs/governance/cloud_session_20260906_posthoc_diagnostic_scope_v1.json'
+      - 'docs/governance/cloud_session_20260906_holdout_repeat_audit_receipt_v1.json'
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install research dependencies
+        run: python -m pip install --upgrade pip pandas pyarrow numpy scikit-learn pytest
+      - name: Validate bounded package
+        run: python scripts/validate_theme_package.py
+      - name: Run regression tests
+        run: pytest -q
+      - name: Run fixed-slice post-hoc diagnostic
+        run: python scripts/diagnose_clock_holdout_posthoc.py
