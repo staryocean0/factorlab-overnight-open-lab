@@ -51,7 +51,7 @@ Do not commit the raw file.
 
 ### Price convention
 
-Use one consistent OHLC convention for all symbols and record it in the provider identity / feedback. Same-session `close/open - 1` must represent the US regular-session return. Do not mix adjusted open with raw close or vice versa.
+Use one consistent OHLC convention for all symbols and freeze it explicitly. Same-session `close/open - 1` must represent the US regular-session return. Do not mix adjusted open with raw close or vice versa.
 
 The source-only probe intentionally does not calculate cross-session close-to-close returns, so splits between different US sessions do not create a synthetic return. If the chosen provider supplies adjusted OHLC, state the adjustment convention; if it supplies raw OHLC, state that explicitly.
 
@@ -63,6 +63,7 @@ Set:
 export OVERNIGHT_OFFSHORE_ETF_DAILY=/absolute/path/to/development_only_source.parquet
 export OVERNIGHT_OFFSHORE_ETF_PROVIDER='provider-name-and-interface'
 export OVERNIGHT_OFFSHORE_ETF_PROVIDER_ID='optional export/cache/version identity'
+export OVERNIGHT_OFFSHORE_ETF_PRICE_CONVENTION='raw regular-session OHLC'  # example; use the actual convention
 ```
 
 Only `OVERNIGHT_OFFSHORE_ETF_PROVIDER_ID` is optional.
@@ -104,7 +105,7 @@ Append to `docs/ops/cloud_local_communication.md` or return to the cloud control
 
 - execution commit SHA;
 - provider and provider/export identity;
-- whether OHLC is raw or adjusted;
+- exact `price_convention` string used;
 - local source SHA256;
 - three command exit codes and pytest count;
 - per-symbol total coverage vs SPY, missing count, invalid-price/volume count, zero-volume and zero-return counts;
