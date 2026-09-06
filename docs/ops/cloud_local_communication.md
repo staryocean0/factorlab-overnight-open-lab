@@ -403,3 +403,92 @@ Disagreement morphology：
 现已新增 `data/high_open_dev_2015_2025/`。原 `data/development/` 2015-2020 冻结包未改。本地若仍有 FactorLab/DataHub 绝对路径，则继续用原文件以保持既有 receipt source hash；云端缺这些路径时自动回退到该 pack。
 
 用 pack 对 2015-2020 frozen panel 的 reconstruction max-abs 为 0。不打开 OHR-03，不授予 production / fresh-OOS。
+
+---
+
+## OHR-05 — Offshore-China ETF 源准入（只做源/日历质量，不打开中国目标诊断，不打开 2026）
+
+**状态：本地已反馈，等待云端复核。预测诊断未授权。**
+
+### 目标
+
+在加载任何 CSI1000 / 中国目标诊断之前，冻结一个开发期-only 日线源身份，并证明 ASHS / ASHR / FXI / MCHI / SPY 的美国 regular-session 日历与价格可被审计。本任务不检验这些 ticker 是否预测 CSI1000 gap。
+
+### 本地源检索（先 DataHub/cache，后单一外部源）
+
+本地已有 cache / DataHub **不能**同时提供这五个 ticker 的 2015–2025 美国 regular-session 日线 `date, symbol, open, close, volume`：
+
+- DataHub 产品目录与 `repository_assets.v1.json` 无美股/US-listed ETF 产品；`/api/v1` 本机 8400/8000 为 502，不能作为本任务取数面。
+- overnight 开发包只有 FRED NASDAQ/VIX（及 FactorLab tmp 中的 FRED SP500 收盘），不是五 ticker OHLCV。
+- FactorLab / overnight / `~/.cache` 无 ASHS/ASHR/FXI/MCHI/SPY 行情落盘。
+
+因此从**同一个**外部供应商拉取全部五个 ticker。未按预测结果选源。尝试过但未能作为完整单源使用的接口：
+
+- Yahoo Finance v8 chart：本机 IP 429。
+- Stooq `.us` 日线 CSV：返回 JS 校验页，不是 CSV。
+- 东方财富美股 K 线：ASHS/ASHR/FXI/MCHI 有 secid，SPY 探测被断开，不能五 ticker 齐套。
+- Nasdaq historical API：2015 窗口 `totalRecords=0`。
+
+唯一一次五 ticker 齐套成功的单源是新浪美股日线 `https://finance.sina.com.cn/staticdata/us/{symbol}`，经 `akshare.stock_us_daily(..., adjust="")` 读取。冻结该供应商，不再混源。
+
+### 冻结身份
+
+- 执行时代码 SHA：`50c8b47be3d0702c713f286f181407a0d8f937d8`（其后 `48e81fa` 只改 `package_scope` 可见性；protocol / runner blob 未变）
+- provider：`Sina Finance US daily staticdata via akshare.stock_us_daily`
+- provider_id：`finance.sina.com.cn/staticdata/us/{symbol}; akshare==1.18.64; adjust=''; development export 2015-01-01..2025-12-31`
+- price_convention：`raw unadjusted regular-session OHLC from Sina US daily; close/open-1 is same-session return; qfq unused`
+- 本地源（不入库）：`/home/starryocean/桌面/量化/.local_overnight_data/ohr05_offshore_etf_daily_2015_2025.parquet`
+- local source SHA256：`a0cddb61230510d6e5e2a2eef44b5ecfceb18adeed26b9f2c86a8e7d09472f15`
+- 源文件最大日期 `2025-12-31`；远端原始文件含 2026 行，导出时已截断。未上传原始行。
+
+### 命令与退出码
+
+| 命令 | 退出码 |
+|---|---|
+| `python3 scripts/validate_theme_package.py` | 0 |
+| `python3 -m pytest -q` | 0（18 passed） |
+| `python3 scripts/probe_offshore_china_source_quality.py` | 0 |
+
+输出文件：
+
+- `docs/research/cloud_session_20260906_local_offshore_china_source_freeze_v1.json` sha256 `45bfa20bdd3b0401e346349ce3c738adea0077218e0abb4b510a44b5f5695eb6`
+- `docs/governance/local_session_20260906_offshore_china_source_data_usage.json` sha256 `66adb2b9685b745bfb831c114eb2d98ef14d94e3f56f2120be49fe839b971aef`
+
+receipt 字段：`predictive_target_loaded=false`，`candidate_selection_performed=false`，`2026_rows_loaded=false`，`2026_blackbox_opened=false`。
+
+### 相对 SPY 的覆盖（SPY 锚点 2765 个 regular session）
+
+| symbol | first | last | present / SPY | missing | coverage | invalid price/vol | zero volume | zero return | session ret min / max |
+|---|---|---|---|---|---|---|---|---|---|
+| SPY | 2015-01-02 | 2025-12-31 | 2765 / 2765 | 0 | 1.000 | 0 / 0 | 0 | 12 | −5.66% / +11.18% |
+| FXI | 2015-01-02 | 2025-12-31 | 2765 / 2765 | 0 | 1.000 | 0 / 0 | 0 | 50 | −5.67% / +8.53% |
+| ASHR | 2015-03-31 | 2025-12-31 | 2703 / 2765 | 62 | 0.978 | 0 / 0 | 0 | 86 | −5.21% / +5.11% |
+| ASHS | 2015-03-31 | 2025-12-31 | 2690 / 2765 | 75 | 0.973 | 0 / 0 | 0 | 98 | −14.37% / +6.10% |
+| MCHI | 2016-02-02 | 2025-12-31 | 2494 / 2765 | 271 | 0.902 | 0 / 0 | 0 | 23 | −5.63% / +7.47% |
+
+`abs_session_return_gt_20pct_rows` 全部为 0。ASHS 最大同日回撤是 2015-08-24 的 −14.37%（开 43.07 / 收 36.88），属价格极端诊断，不是拆分跳空。2015–2025 未见拆分不连续；`adjust=""` 的开收盘作为同一口径使用。
+
+### 显著年度缺口
+
+这些缺口是新浪历史截断/漏行，不是上市日约束（ASHS 2014-05、ASHR 2013-11、MCHI 2011-03 均早于 2015）。
+
+- ASHR：全部 62 个缺失都在 2015-01-02..2015-03-30；2016–2025 对 SPY 覆盖 1.0。
+- ASHS：2015 同样缺 62 天（2015-01-02..2015-03-30）；另有 2016-12-08；2023-10-27 / 11-15 / 11-24 / 11-27；2024-04-05 / 04-25 / 05-01 / 05-08 / 05-13 / 05-23 / 06-10；2025-03-28。
+- MCHI：2015 全年 251/251 缺失（coverage 0）；2016-01-04..2016-02-01 再缺 20 天；2016-02-02 起至 2025-12-31 对 SPY 覆盖 1.0。
+- FXI / SPY：2015–2025 无相对缺口。
+
+### 本地对照 OHR-05 验收
+
+1. 执行代码 SHA 为交接前提交 `50c8b47`；protocol / runner / tests 未在看到源质量后修改。
+2. validator / pytest / source probe 三条命令均退出 0。
+3. 源文件与 receipt 均截到 `2025-12-31`；未加载中国目标、annotated panel、CSI1000 gap，也未打开 OHR-03。
+4. `2026_rows_loaded == false`，`2026_blackbox_opened == false`。
+5. 未改固定 ticker 集合，未按 ticker 拼接不同供应商。
+6. raw ETF 行未写入 bounded repo；`production_authority == false`。
+
+### 未决测量问题（供云端源复核，不是预测结论）
+
+- 新浪是本机唯一能五 ticker 齐套的单源，但 **MCHI 缺整个 2015 和 2016-01**，ASHR/ASHS 缺 2015Q1。这是供应商历史截断。MCHI 上市远早于 2015，不能解释为 inception。
+- ASHS 在 2016/2023/2024/2025 另有 13 个零星相对 SPY 缺失；协议要求 SPY 有会话而源行缺失时不得 silently 当 0。
+- Yahoo / Stooq / 东方财富未能在本机作为完整单源使用。若云端认为日历完整性未解决，状态应为 `infrastructure_or_measurement_gap`，另立新源身份后再取；本地不在看到质量后换 ticker 或混源。
+- 未打开 2026-01-05..2026-08-21 黑箱，未读取 post-2026-08-21 目标，未做候选 / 参数 / 阈值 / 收益搜索。

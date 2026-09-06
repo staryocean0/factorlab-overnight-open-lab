@@ -53,3 +53,5 @@
 51. `docs/ops/ohr_05_offshore_china_source_admission_handoff.md`
 52. `docs/governance/cloud_session_20260906_offshore_china_source_execution_freeze_v1.json`
 53. `data/high_open_dev_2015_2025/`
+54. `docs/research/cloud_session_20260906_local_offshore_china_source_freeze_v1.json`
+55. `docs/governance/local_session_20260906_offshore_china_source_data_usage.json`
