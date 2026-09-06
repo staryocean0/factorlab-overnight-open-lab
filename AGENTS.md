@@ -4,22 +4,36 @@ Codex/cloud research workspace. One private task. Do not mix with the two-wave
 Layer 3 theme.
 
 Follow `.codex/skills/strategy-slice-rebuild/SKILL.md` for any model change.
-Raw 2021+ market rows still do not exist in this repository. The prior two-head
-magnitude candidate was confirmed on 2021-2025 and the prior Median direction
-successor was robustly confirmed on 2026-01-05 through 2026-08-21. Those
-receipts remain immutable.
+Raw 2021+ China market rows still do not exist in this repository. The prior
+two-head magnitude candidate was confirmed on 2021-2025 and the prior Median
+direction successor was robustly confirmed on 2026-01-05 through 2026-08-21.
+Those receipts remain immutable.
 
-A new research identity, `high_open_recall_successor_v1`, is now open under
-`docs/governance/cloud_session_20260906_high_open_recall_research_protocol_v1.json`.
-For this new identity only, 2015-2025 may be used as development material;
-2021-2025 is already-consumed evidence and must never be called fresh again.
-The exact 2026-01-05 through 2026-08-21 window is sealed from diagnosis,
-feature engineering, candidate-family design, ranking, loss/threshold choice,
-and any other development. It may be opened only after a successor identity is
-frozen, and then only as a repeat black-box reproduction/rejection check because
-that window was already opened in the prior cycle. Post-2026-08-21 remains the
-true unread fresh challenge for any integrated successor. Production authority
-is false. Do not mutate any FactorLab live registry.
+The bounded `high_open_recall_successor_v1` branch has finished its domestic
+mechanism work without an incremental successor. OHR-02 and OHR-04 both retain
+`median_quantile_sign`; OHR-03 was never opened. Do not continue by slicing the
+same domestic weakness variables, tuning thresholds, or reusing those failed
+runtime routes.
+
+A new research identity, `offshore_china_price_discovery_successor_v1`, is open
+under
+`docs/governance/cloud_session_20260906_offshore_china_price_discovery_protocol_v1.json`.
+Its first task is source admission only: freeze one provider/cache for ASHS,
+ASHR, FXI, MCHI and SPY regular-session daily OHLCV through 2025, audit its
+calendar and price quality, and record the source hash **before** any China
+target relationship is inspected. `scripts/probe_offshore_china_source_quality.py`
+must not load the CSI1000 target. Raw external rows stay local.
+
+For this new identity only, 2015-2025 may later be used as development material
+after source admission; 2021-2025 is already-consumed evidence and must never be
+called fresh again. The exact 2026-01-05 through 2026-08-21 window remains
+sealed from source choice, diagnosis, feature engineering, candidate-family
+design, ranking, loss/threshold choice, and all other development. It can only
+be considered under a separately frozen repeat-blackbox protocol after a future
+successor identity exists, and it can never become scientifically fresh again.
+Post-2026-08-21 remains the true unread fresh challenge. Same-morning China
+information remains forbidden. Production authority is false. Do not mutate any
+FactorLab live registry.
 
 ## 云端—本地交接协议（默认不生效）
 
