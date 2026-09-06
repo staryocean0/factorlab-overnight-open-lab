@@ -1,5 +1,5 @@
 {
-  "schema_id": "overnight_open_csi1000_pit_membership_source_audit_preregistration@1.1",
+  "schema_id": "overnight_open_csi1000_pit_membership_source_audit_preregistration@1.2",
   "registered_date": "2026-09-06",
   "status": "result_free_before_public_DoltHub_membership_query",
   "parent_research": "docs/governance/opening_auction_state_source_preanalysis.json",
@@ -21,8 +21,8 @@
     "CSI1000_target_or_gap_read": false
   },
   "queries_and_outputs": {
-    "first_stage": "query distinct trade_date snapshots and row counts/weight sums for 000852.SH in the bounded window",
-    "second_stage": "download each distinct bounded snapshot with stock_code and weight",
+    "first_stage": "query bounded trade_date snapshots with constituent count, weight sum and membership signature",
+    "second_stage": "download constituents only for detected membership-signature change dates and materialize non-overlapping membership intervals",
     "compact_outputs": [
       "data/external/csi1000_pit_membership_2015_2020.csv",
       "docs/governance/opening_auction_csi1000_pit_membership_manifest.json"
@@ -37,6 +37,7 @@
     "no_duplicate_stock_within_snapshot": true,
     "all_stock_codes_parseable": true,
     "no_post_2020_rows": true,
+    "membership_signature_must_be_observed_on_official_effective_date": true,
     "official_event_crosscheck_required": true
   },
   "official_crosschecks_frozen_before_query": [
@@ -44,21 +45,28 @@
       "event": "2020-12 regular adjustment / first batch of STAR Market securities entering CSI1000",
       "effective_date": "2020-12-14",
       "required_new_member_examples": ["688001.SH", "688005.SH", "688006.SH", "688007.SH", "688016.SH", "688018.SH", "688019.SH", "688020.SH", "688030.SH", "688033.SH", "688066.SH", "688098.SH", "688108.SH", "688116.SH", "688122.SH", "688139.SH", "688188.SH", "688366.SH", "688388.SH"],
-      "evidence_note": "Officially sourced 2020-11-27 adjustment disclosure states these 19 STAR Market securities entered CSI1000 effective 2020-12-14. The list is frozen only for source-identity crosschecking, not for constructing the full membership."
+      "required_observation_rule": "A source snapshot dated exactly 2020-12-14 must exist and contain all 19 securities. A later month-end observation does not establish point-in-time membership for 2020-12-14 through that later date.",
+      "evidence_note": "Officially sourced 2020-11-27 adjustment disclosure states these 19 STAR Market securities entered CSI1000 effective 2020-12-14. The list is frozen only for source-identity and timing crosschecking, not for constructing the full membership."
     }
   ],
   "adjudication": {
-    "if_all_gates_pass": "retain as a public PIT membership transport candidate for non-hindsight breadth/dispersion features, subject to explicit provenance caveat; weights may additionally be retained only if weight-sum and official event checks pass",
+    "if_all_gates_pass": "retain as a public PIT membership transport candidate for non-hindsight breadth/dispersion features, subject to explicit provenance caveat",
+    "weights_policy": "Weight sums are audited as source-health evidence. The compact membership-interval output does not by itself authorize daily historical index weights; weighted auction features require a separate daily-weight transport audit.",
     "if_early_2015_missing_but_from_2015_05_onward_passes": "retain from first valid snapshot only; never backfill January-April 2015. Any later predictive experiment must use a common-sample comparator and preregister the resulting train coverage gate.",
-    "if_event_crosscheck_fails": "reject source candidate",
-    "if_counts_or_weights_show systematic corruption": "reject; no ratio repair or manual constituent patching"
+    "if_effective_date_snapshot_missing_or_event_crosscheck_fails": "reject as exact PIT transport even if month-end membership looks correct",
+    "if_counts_or_weights_show_systematic_corruption": "reject; no ratio repair or manual constituent patching"
   },
-  "result_free_correction": {
-    "from_schema": "overnight_open_csi1000_pit_membership_source_audit_preregistration@1.0",
-    "reason": "Before any DoltHub membership query was issued, several STAR Market security codes had been transcribed from memory incorrectly. Version 1.1 corrects only code-to-name identities for the already frozen 19-name 2020 event crosscheck.",
-    "source_query_executed_before_correction": false,
-    "target_rows_read": 0
-  },
+  "result_free_corrections": [
+    {
+      "from_schema": "@1.0",
+      "reason": "corrected code-to-name identities for the frozen 19-name 2020 event before any source query"
+    },
+    {
+      "from_schema": "@1.1",
+      "reason": "added exact effective-date observation as a hard PIT timing gate before any source query; month-end-only confirmation is insufficient"
+    }
+  ],
+  "source_query_executed_before_latest_correction": false,
   "authority": {
     "target_rows_read": 0,
     "predictive_model_execution": false,
