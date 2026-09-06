@@ -1,0 +1,132 @@
+{
+  "schema_id": "overnight_open_gap_fill_v2_final_fit_protocol@1.0",
+  "session_date": "2026-09-06",
+  "research_identity": "gap_fill_prediction_v2",
+  "stage": "deterministic_final_development_refit_after_phase2_selection",
+  "selected_architecture": {
+    "path": "docs/governance/cloud_session_20260906_gap_fill_v2_phase2_selected_v1.json",
+    "git_blob_sha": "17599d3f77861febf373b2ea05cd16131ceac5e8",
+    "selected_architecture_sha256": "07810dafbab629f196d04ea1204d90ee68177ce764bb765be560bc1b84261c00"
+  },
+  "purpose": "freeze_the_exact_parameters_of_the_already_selected_V2_v1_predictor_before_any_repeat_or_fresh_validation",
+  "no_model_selection": true,
+  "development_window": "2015-01-05_to_2025-12-31",
+  "training_inventory": {
+    "base": "all_target_valid_nonzero_gap_days_with_positive_finite_rvol20_and_complete_geometry_features",
+    "split": "separate_high_gap_and_low_gap_heads",
+    "material_gap_threshold": "none_for_training",
+    "2021_to_2025_role": "consumed_development_not_fresh"
+  },
+  "features": {
+    "high": ["abs_gap", "abs_gap_over_rvol20"],
+    "low": ["abs_gap", "abs_gap_over_rvol20"]
+  },
+  "feature_definitions": {
+    "abs_gap": "abs(09:31_open / previous_China_trading_day_15:00_close - 1)",
+    "abs_gap_over_rvol20": "abs_gap / rvol20",
+    "rvol20": "standard_deviation_of_prior_close_to_close_daily_returns_over_20_sessions_using_only_information_available_before_current_09:31"
+  },
+  "hazard_stages": {
+    "15m": {
+      "risk_set": "all_rows_for_the_sign",
+      "target": "fill_15m"
+    },
+    "60m": {
+      "risk_set": "rows_not_filled_by_15m",
+      "target": "fill_60m"
+    },
+    "eod": {
+      "risk_set": "rows_not_filled_by_60m",
+      "target": "fill_eod"
+    }
+  },
+  "fixed_estimator": {
+    "pipeline": "StandardScaler + LogisticRegression",
+    "StandardScaler": {
+      "with_mean": true,
+      "with_std": true
+    },
+    "LogisticRegression": {
+      "penalty": "l2",
+      "C": 1.0,
+      "solver": "lbfgs",
+      "class_weight": null,
+      "max_iter": 1000,
+      "fit_intercept": true
+    },
+    "probability_calibration": "none",
+    "binary_threshold": null
+  },
+  "cumulative_probability_contract": {
+    "p15": "h15",
+    "p60": "1-(1-h15)*(1-h60)",
+    "pEOD": "1-(1-h15)*(1-h60)*(1-hEOD)",
+    "required_invariant": "0<=p15<=p60<=pEOD<=1"
+  },
+  "required_parameter_artifact": {
+    "per_sign_per_stage": [
+      "training_min_day",
+      "training_max_day",
+      "n_train_risk",
+      "event_count",
+      "event_rate",
+      "feature_names",
+      "scaler_mean",
+      "scaler_scale",
+      "scaler_var",
+      "logistic_coef",
+      "logistic_intercept",
+      "logistic_classes",
+      "logistic_n_iter"
+    ],
+    "global": [
+      "source_hashes",
+      "selected_architecture_sha256",
+      "parameter_bundle_sha256",
+      "python_version",
+      "numpy_version",
+      "pandas_version",
+      "scipy_version",
+      "sklearn_version",
+      "pyarrow_version"
+    ]
+  },
+  "execution_environment": {
+    "python": "3.11",
+    "numpy": "2.4.6",
+    "pandas": "3.0.5",
+    "scipy": "1.17.1",
+    "scikit_learn": "1.9.0",
+    "pyarrow": "25.0.1"
+  },
+  "source_contract": {
+    "annotated_panel": {
+      "path": "data/high_open_dev_2015_2025/annotated_panel.parquet",
+      "sha256": "f2587a528a517052016b646b58c734569b64a87766ff096575f353587e46aed1"
+    },
+    "one_minute_official": {
+      "path": "data/high_open_dev_2015_2025/1m_official.parquet",
+      "sha256": "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce"
+    }
+  },
+  "forbidden": [
+    "compare_geometry_against_any_other_model",
+    "add_or_remove_features",
+    "search_C_penalty_solver_class_weight_or_model_class",
+    "fit_probability_calibration",
+    "select_a_binary_threshold",
+    "choose_a_gap_size_threshold",
+    "use_trading_return",
+    "load_any_2026_row",
+    "use_post_09:31_China_information"
+  ],
+  "outputs": {
+    "parameter_freeze": "docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_freeze_v1.json",
+    "data_usage": "docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_data_usage_v1.json"
+  },
+  "evidence_boundary": {
+    "2026-01-05_to_2026-08-21": "must_remain_unopened_repeat_only_reserved",
+    "post_2026-08-21": "must_remain_unread_true_fresh"
+  },
+  "production_authority": false
+}
