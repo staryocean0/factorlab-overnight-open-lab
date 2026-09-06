@@ -43,3 +43,4 @@
 41. `docs/research/high_open_recall_phase2_cloud_review_20260906.md`
 42. `docs/governance/cloud_session_20260906_high_open_rebound_conditioning_protocol_v1.json`
 43. `scripts/diagnose_last_hour_rebound_conditioning_dev.py`
+44. `docs/ops/ohr_04_last_hour_rebound_conditioning_handoff.md`
