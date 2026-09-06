@@ -1,0 +1,36 @@
+{
+  "schema_id": "overnight_open_pit_effective_date_followup_receipt@1.0",
+  "date": "2026-09-06",
+  "supersedes_without_rewriting": "The uncertainty in opening_auction_csi1000_pit_membership_candidate_verdict.json; prior freeze remains immutable.",
+  "runner_recovery": {
+    "run_id": 34006970392,
+    "attempt": 2,
+    "job_id": 101421008018,
+    "head_sha": "f5511793970da3fd8cb5d619b3160f82c270dd9e",
+    "checkout_and_dependency_steps": "success",
+    "new_failure": "DoltHub six-year summary query read timeout after 45 seconds",
+    "scientific_source_verdict_from_timeout": "none",
+    "artifact_id": 9981833358,
+    "artifact_sha256": "71225bd8886a23208aa974d0f63b0377753dad5a60492e0ce918b9a94c321af2"
+  },
+  "bounded_followup": {
+    "purpose": "Test the already-frozen necessary exact-effective-date condition without repeating the expensive six-year aggregation.",
+    "transport": "same public DoltHub API, same source table and index; urllib GET with timeout 20 seconds",
+    "exact_date_query_status": "Success",
+    "exact_date": "2020-12-14",
+    "exact_date_member_rows": 0,
+    "december_query_status": "Success",
+    "december_snapshot_dates": ["2020-12-31"],
+    "december_31_constituents": 1000,
+    "december_31_weight_sum": 100.002,
+    "raw_responses_frozen": true,
+    "upstream_master_is_mutable": true,
+    "remaining_full_audit_checks_not_run": true
+  },
+  "verdict": "rejected_as_exact_PIT_transport_at_frozen_effective_date",
+  "why": "The successful exact-date query is empty, while the successful month summary contains a later 1000-member snapshot. Using that later snapshot on December 14 would backdate knowledge and violates the frozen gate.",
+  "allowed_use": "reference snapshot anchor only",
+  "next": "Build an independently verified base snapshot plus official CSI regular and temporary adjustment events, checking every effective boundary; do not create auction breadth until membership and auction data clocks pass.",
+  "replay": "python scripts/audit_csi1000_pit_effective_date.py",
+  "authority": {"target_rows_read": 0, "post_2020_rows_read": 0, "predictive_model_execution": false, "baseline_replacement": false, "production": false, "registry_mutation": false, "merge_main": false}
+}

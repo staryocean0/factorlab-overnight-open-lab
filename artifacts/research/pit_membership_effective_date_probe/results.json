@@ -1,0 +1,31 @@
+{
+  "backdating_month_end_snapshot_allowed": false,
+  "exact_effective_date": "2020-12-14",
+  "exact_effective_date_snapshot_exists": false,
+  "exact_snapshot_rows": 0,
+  "frozen_exact_date_necessary_gate_pass": false,
+  "full_PIT_source_approved": false,
+  "month_snapshot_dates": [
+    "2020-12-31"
+  ],
+  "month_summary": [
+    {
+      "n": "1000",
+      "trade_date": "2020-12-31",
+      "weight_sum": "100.002"
+    }
+  ],
+  "new_model_executions": 0,
+  "other_full_source_health_gates": "not_evaluated_by_this_bounded_probe",
+  "post_2020_rows_read": 0,
+  "schema_id": "overnight_csi1000_pit_effective_date_probe@1.0",
+  "selection_authority": false,
+  "source_queries_successful": true,
+  "source_response_sha256": {
+    "data/external/csi1000_pit_december_2020_response.json": "4b1a3176595289f2e6e382c5aef72558d1923c3b64525bdc3e9d252898e8533c",
+    "data/external/csi1000_pit_exact_20201214_response.json": "d68570a8d68f8e955225525c906496f56b41566a84833cece19a79db8d484dbc"
+  },
+  "status": "rejected_as_exact_PIT_transport_at_frozen_event",
+  "target_rows_read": 0,
+  "upstream_ref": "master (mutable); raw successful responses are frozen by SHA256"
+}

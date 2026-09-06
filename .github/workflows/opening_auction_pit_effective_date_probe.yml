@@ -1,0 +1,31 @@
+name: opening-auction-pit-effective-date-probe
+on:
+  workflow_dispatch:
+  push:
+    branches: [codex/overnight-auction-source-20260906]
+    paths:
+      - scripts/audit_csi1000_pit_effective_date.py
+      - tests/test_csi1000_effective_date_probe.py
+      - data/external/csi1000_pit_exact_20201214_response.json
+      - data/external/csi1000_pit_december_2020_response.json
+      - .github/workflows/opening_auction_pit_effective_date_probe.yml
+permissions:
+  contents: read
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify source-failure and date-scope handling
+        run: python -m unittest discover -s tests -p test_csi1000_effective_date_probe.py
+      - name: Replay frozen successful source responses
+        run: python scripts/audit_csi1000_pit_effective_date.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: csi1000-pit-effective-date-probe
+          path: artifacts/research/pit_membership_effective_date_probe/results.json
+          if-no-files-found: error
