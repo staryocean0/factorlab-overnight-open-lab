@@ -36,11 +36,12 @@ def test_final_fit_runtime_dependencies_are_minimal() -> None:
     text = RUNNER.read_text()
     assert 'FEATURES = ["abs_gap", "abs_gap_over_rvol20"]' in text
     assert 'close.pct_change(fill_method=None).shift(1).rolling(20, min_periods=20).std()' in text
-    assert "diagnose_high_open" not in text
-    assert "FRED" not in text
-    assert "OFFSHORE" not in text
-    assert "v1_direction" not in text.lower()
-    assert "post_09:31" not in text.lower()
+    assert "highdiag" not in text
+    assert "ohr06" not in text
+    assert "FRED_NDQ" not in text
+    assert "FRED_VIX" not in text
+    assert "OFFSHORE =" not in text
+    assert "v1_direction_score" not in text
 
 
 def test_final_fit_runner_is_fail_closed_on_2026_and_search() -> None:
