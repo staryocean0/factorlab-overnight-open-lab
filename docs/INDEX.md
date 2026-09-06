@@ -55,3 +55,9 @@
 53. `data/high_open_dev_2015_2025/`
 54. `docs/research/cloud_session_20260906_local_offshore_china_source_freeze_v1.json`
 55. `docs/governance/local_session_20260906_offshore_china_source_data_usage.json`
+56. `docs/research/offshore_china_ohr05_cloud_source_review_20260906.md`
+57. `docs/governance/cloud_session_20260906_offshore_china_ohr06_diagnostic_protocol_v1.json`
+58. `scripts/diagnose_offshore_china_price_discovery_dev.py`
+59. `tests/test_offshore_china_ohr06_protocol.py`
+60. `docs/governance/cloud_session_20260906_offshore_china_ohr06_execution_freeze_v1.json`
+61. `docs/ops/ohr_06_offshore_china_price_discovery_handoff.md`
