@@ -1,0 +1,39 @@
+{
+  "schema_id": "overnight_open_production_readiness_review@1.0",
+  "session_date": "2026-09-06",
+  "research_architecture": "docs/governance/cloud_session_20260906_research_architecture_acceptance_v1.json",
+  "research_architecture_status": "component_confirmed_incumbent_research_architecture",
+  "review_decision": "blocked_before_strategy_account_audit_missing_financial_decision_use_contract",
+  "predictive_model_failure": false,
+  "reason": [
+    "The research target is the CSI1000 index open gap, not a directly executable fill.",
+    "The index level 000852.SH is not itself a tradable instrument price.",
+    "A prediction of the opening gap does not by itself define a realizable PnL path; an order filled at the open cannot retroactively capture the already-realized previous-close-to-open gap.",
+    "The US overnight features are causally available before the China open, but the financial action that consumes the prediction still needs an explicit tradable instrument, decision time, order/fill rule and post-signal economic objective.",
+    "Account or return optimization before those semantics are frozen would answer a different financial question and could feed trading outcomes back into the already-accepted prediction model."
+  ],
+  "required_contract_before_strategy_science_acceptance": {
+    "tradable_instrument": "required",
+    "signal_availability_timestamp": "required",
+    "decision_timestamp": "required",
+    "order_submission_window": "required",
+    "fill_price_convention": "required",
+    "position_entry_and_exit_semantics": "required",
+    "economic_target_after_signal": "required",
+    "transaction_cost_and_slippage_model": "required",
+    "benchmark_or_no_action_comparator": "required",
+    "risk_and_exposure_constraints": "required",
+    "mapping_from_direction_and_magnitude_outputs_to_decision": "required"
+  },
+  "hard_constraints": [
+    "Do not use index level as a fictitious tradable fill.",
+    "Do not optimize total trading return to retune the frozen direction or magnitude heads.",
+    "Do not reuse 2021-2025 or 2026-01-05_to_2026-08-21 as fresh model evidence.",
+    "Do not open post-2026-08-21 for an integrated challenge before its protocol is frozen.",
+    "Do not grant production authority from component prediction validation alone."
+  ],
+  "strategy_science_acceptance_status": "not_opened",
+  "post_training_account_audit_status": "not_opened",
+  "production_authority": false,
+  "next_action": "financial_owner_freezes_decision_use_contract_then_run_outcome_neutral_strategy_science_acceptance"
+}
