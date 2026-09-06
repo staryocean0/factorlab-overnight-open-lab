@@ -1,5 +1,18 @@
 # Local Controller Handoff — Fresh 2021-2025 Two-Head Validation
 
+## Execution status
+
+This window was opened once on 2026-09-06.
+
+- fit freeze: `docs/research/cloud_session_20260906_local_2021_2025_fit_freeze_v1.json`
+- receipt: `docs/research/cloud_session_20260906_local_2021_2025_two_head_receipt_v1.json`
+- decision: `research_candidate_local_2021_2025_confirmed`
+- `fresh_oos=true` for that receipt only
+- `production_authority=false`
+
+Do not retune features, alphas, thresholds, calendar exceptions or the magnitude
+head on 2021-2025. A later run may only reproduce the frozen receipt.
+
 ## Mission
 
 Run exactly one fresh local confirmation of the frozen two-head CSI1000 overnight-open candidate on 2021-2025 data.

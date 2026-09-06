@@ -216,13 +216,29 @@ See `docs/governance/cloud_session_20260906_local_2021_2025_protocol_v1.json`.
 
 ## 9. Repository governance gap
 
-`docs/governance/package_scope.json` requires a private repository, but GitHub currently reports this repository as public. This session recorded the mismatch rather than bypassing it. The repository should be changed back to private before treating the package as satisfying its own confidentiality/governance contract.
+`docs/governance/package_scope.json` requires a private repository. The cloud
+session observed `visibility=public` and recorded it as a governance gap. The
+local controller restored `visibility=private` on 2026-09-06 before writing the
+2021-2025 receipt. That closes the live mismatch; it does not rewrite the
+historical cloud-session observation.
+
+## 10. Local 2021-2025 confirmation
+
+The frozen two-head candidate was refit on 2015-2020 and then opened once on
+2021-2025. It **passed** the preregistered local confirmation gate.
+
+Receipt: `docs/research/cloud_session_20260906_local_2021_2025_two_head_receipt_v1.json`
+
+Primary pooled result: direction hit identical at 0.693069; magnitude
+correlation 0.319940 -> 0.521871; MAE 0.002417 -> 0.002400; RMSE 0.005410 ->
+0.005094. Correlation is positive in every year 2021-2025, and both error
+metrics beat baseline in 3 of 5 years. Production authority remains false.
 
 ## Current research decision
 
 1. **Retain the original frozen signed-gap baseline as the baseline.**
 2. **Do not promote the global clock-aware signed-gap replacement.**
 3. **Reject the simple clock-state full-model gate.**
-4. **Freeze the two-head candidate for fresh local 2021-2025 confirmation:** baseline direction + `abs(clock_prediction)` magnitude.
-5. **No further 2019-2020 tuning or promotion evidence is valid for this architecture.**
-6. **Production authority remains false.**
+4. **The two-head candidate is locally confirmed on 2021-2025:** baseline direction + `abs(clock_prediction)` magnitude.
+5. **2019-2020 and 2021-2025 are both consumed for this identity; do not retune it on either window.**
+6. **Production authority remains false pending a separate production review.**

@@ -24,5 +24,6 @@
   "authoritative_local_registry_mutation": false,
   "cloud_result_import_requires_local_controller_review": true,
   "private_repository_required": true,
+  "observed_repository_visibility_after_local_controller_fix_20260906": "private",
   "production_authority": false
 }

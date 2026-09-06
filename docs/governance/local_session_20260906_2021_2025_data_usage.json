@@ -1,0 +1,11 @@
+{
+  "2015-01-05_to_2020-12-31": "fit_only_repeat_of_consumed_development_material",
+  "2019-01-01_to_2020-12-31": "consumed_holdout_not_reused_to_select_or_retune",
+  "2021-01-01_to_2025-12-31": "fresh_challenge_opened_once_after_fit_freeze",
+  "fresh_oos": true,
+  "post_2025-12-31": "unread",
+  "production_authority": false,
+  "raw_validation_rows_persisted_in_bounded_repo": false,
+  "schema_id": "overnight_open_local_2021_2025_data_usage@1.0",
+  "session_date": "2026-09-06"
+}

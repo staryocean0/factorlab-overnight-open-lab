@@ -8,7 +8,13 @@
     "end": "2020-12-31",
     "note": "used only for the frozen baseline receipt; cloud models may use 2015-2020 as development but must report 2019-2020 holdout separately if they train on 2015-2018"
   },
-  "unread": "2021+",
-  "fresh_oos": false,
+  "unread_in_this_repository": "2021+",
+  "local_fresh_challenge": {
+    "window": "2021-01-01_to_2025-12-31",
+    "role": "opened_once_outside_bounded_repo_after_2015_2020_fit_freeze",
+    "receipt": "docs/research/cloud_session_20260906_local_2021_2025_two_head_receipt_v1.json",
+    "raw_rows_in_this_repository": false
+  },
+  "fresh_oos": true,
   "production_authority": false
 }

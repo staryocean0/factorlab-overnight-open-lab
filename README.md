@@ -19,5 +19,5 @@ pytest -q
 
 Then follow [`docs/user/cloud_execution_prompt.md`](docs/user/cloud_execution_prompt.md).
 
-Scientific status: `research_candidate_waiting_local_2021_2025_controller_confirm`.
-Production authority is false.
+Scientific status: `research_candidate_local_2021_2025_confirmed`.
+Production authority is false. A separate production review is still required.

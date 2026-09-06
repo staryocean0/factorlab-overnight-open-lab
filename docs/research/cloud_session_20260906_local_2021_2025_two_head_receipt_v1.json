@@ -1,0 +1,196 @@
+{
+  "candidate": "docs/governance/cloud_session_20260906_two_head_selected_v1.json",
+  "candidate_sha256": "76ff94f401eb3a9a9edc1cc462a3d818b49bfc732b93ee0bfc1a7070f92ccb8f",
+  "decision": "research_candidate_local_2021_2025_confirmed",
+  "fit_freeze": "docs/research/cloud_session_20260906_local_2021_2025_fit_freeze_v1.json",
+  "fit_window": {
+    "end": "2020-12-31",
+    "start": "2015-01-05"
+  },
+  "fresh_oos": true,
+  "instrument": "000852.SH",
+  "local_source_paths": {
+    "annotated_panel": "/home/starryocean/\u684c\u9762/\u91cf\u5316/baylum terminal 0.4.1/factor_lab/artifacts/market_state/timing_layer2_overnight_gap_ledger_v1_2/annotated_panel.parquet",
+    "datahub_1m_export": "/home/starryocean/\u684c\u9762/\u91cf\u5316/unified_datahub/.runtime/live/exports/factorlab_unified_index_kline_v3_20260824/1m_official.parquet",
+    "fred_nasdaq": "/home/starryocean/\u684c\u9762/\u91cf\u5316/baylum terminal 0.4.1/factor_lab/tmp/csi1000_overnight_gap_model_v2/fred_nasdaq.csv",
+    "fred_vix": "/home/starryocean/\u684c\u9762/\u91cf\u5316/baylum terminal 0.4.1/factor_lab/tmp/csi1000_overnight_gap_model_v2/fred_vix.csv"
+  },
+  "missing_clock_rows": 0,
+  "n_fit_direction": 1437,
+  "n_fit_magnitude": 1437,
+  "n_fit_rows": 1462,
+  "n_validation_complete": 1212,
+  "n_validation_dropped_missing": 0,
+  "n_validation_rows": 1212,
+  "parameter_search_after_open": false,
+  "pass_gate": {
+    "beat_both_mae_rmse_in_at_least_3_of_5_years": true,
+    "corr_abs_gap_positive_every_full_year": true,
+    "direction_hit_equals_baseline": true,
+    "pooled_corr_abs_gap_higher": true,
+    "pooled_mae_abs_gap_lower": true,
+    "pooled_rmse_abs_gap_lower": true,
+    "year_both_beats": 3
+  },
+  "passed": true,
+  "per_year_primary_metrics": {
+    "2021": {
+      "baseline": {
+        "corr_abs_gap": 0.43386916867451647,
+        "direction_hit": 0.691358024691358,
+        "mae_abs_gap": 0.0019970508079219834,
+        "n": 243,
+        "rmse_abs_gap": 0.002943080513365479
+      },
+      "beat_both": false,
+      "beat_mae": false,
+      "beat_rmse": false,
+      "candidate": {
+        "corr_abs_gap": 0.46411872957325967,
+        "direction_hit": 0.691358024691358,
+        "mae_abs_gap": 0.002045700028256223,
+        "n": 243,
+        "rmse_abs_gap": 0.0033041357111142085
+      }
+    },
+    "2022": {
+      "baseline": {
+        "corr_abs_gap": 0.43105775172065214,
+        "direction_hit": 0.7024793388429752,
+        "mae_abs_gap": 0.0028048138756609086,
+        "n": 242,
+        "rmse_abs_gap": 0.004017514889882763
+      },
+      "beat_both": true,
+      "beat_mae": true,
+      "beat_rmse": true,
+      "candidate": {
+        "corr_abs_gap": 0.48380034871259453,
+        "direction_hit": 0.7024793388429752,
+        "mae_abs_gap": 0.002707407939582768,
+        "n": 242,
+        "rmse_abs_gap": 0.003925132762739548
+      }
+    },
+    "2023": {
+      "baseline": {
+        "corr_abs_gap": 0.11676254886918533,
+        "direction_hit": 0.7148760330578512,
+        "mae_abs_gap": 0.001787279661406243,
+        "n": 242,
+        "rmse_abs_gap": 0.00407378795175016
+      },
+      "beat_both": true,
+      "beat_mae": true,
+      "beat_rmse": true,
+      "candidate": {
+        "corr_abs_gap": 0.17766409839932382,
+        "direction_hit": 0.7148760330578512,
+        "mae_abs_gap": 0.001780057083305433,
+        "n": 242,
+        "rmse_abs_gap": 0.004050970705541204
+      }
+    },
+    "2024": {
+      "baseline": {
+        "corr_abs_gap": 0.12765339882523372,
+        "direction_hit": 0.6735537190082644,
+        "mae_abs_gap": 0.0031802157762603708,
+        "n": 242,
+        "rmse_abs_gap": 0.009365296555304537
+      },
+      "beat_both": true,
+      "beat_mae": true,
+      "beat_rmse": true,
+      "candidate": {
+        "corr_abs_gap": 0.5356929143202206,
+        "direction_hit": 0.6735537190082644,
+        "mae_abs_gap": 0.003124850410218066,
+        "n": 242,
+        "rmse_abs_gap": 0.007880763546087657
+      }
+    },
+    "2025": {
+      "baseline": {
+        "corr_abs_gap": 0.648442402407335,
+        "direction_hit": 0.6831275720164609,
+        "mae_abs_gap": 0.0023193795626071695,
+        "n": 243,
+        "rmse_abs_gap": 0.004164832003559025
+      },
+      "beat_both": false,
+      "beat_mae": false,
+      "beat_rmse": false,
+      "candidate": {
+        "corr_abs_gap": 0.8047687567289283,
+        "direction_hit": 0.6831275720164609,
+        "mae_abs_gap": 0.0023425854400518113,
+        "n": 243,
+        "rmse_abs_gap": 0.004994760427357383
+      }
+    }
+  },
+  "primary_metrics": {
+    "baseline": {
+      "corr_abs_gap": 0.31993962019059613,
+      "direction_hit": 0.693069306930693,
+      "mae_abs_gap": 0.0024173196649041623,
+      "n": 1212,
+      "rmse_abs_gap": 0.0054095863674059365
+    },
+    "candidate": {
+      "corr_abs_gap": 0.521871007354903,
+      "direction_hit": 0.693069306930693,
+      "mae_abs_gap": 0.0023997802835070705,
+      "n": 1212,
+      "rmse_abs_gap": 0.005093568392686683
+    }
+  },
+  "production_authority": false,
+  "protocol": "docs/governance/cloud_session_20260906_local_2021_2025_protocol_v1.json",
+  "raw_2021_2025_rows_written_to_bounded_repo": false,
+  "repository_visibility_at_receipt": "private",
+  "schema_id": "overnight_open_two_head_local_fresh_receipt@1.0",
+  "secondary_metrics": {
+    "baseline": {
+      "direction_hit": 0.693069306930693,
+      "n": 374,
+      "signed_gap_ic": 0.37885776547453826,
+      "signed_gap_mae": 0.0030857042212275375,
+      "signed_gap_rmse": 0.006131833097161591,
+      "tail_abs_gap_gt_30bp_direction_hit": 0.8181818181818182,
+      "tail_abs_gap_gt_30bp_magnitude_mae": 0.004140906496591988,
+      "tail_abs_gap_gt_30bp_magnitude_rmse": 0.009098591129411672
+    },
+    "candidate": {
+      "direction_hit": 0.693069306930693,
+      "n": 374,
+      "signed_gap_ic": 0.3469394594255289,
+      "signed_gap_mae": 0.0031032635301776893,
+      "signed_gap_rmse": 0.006859401696771796,
+      "tail_abs_gap_gt_30bp_direction_hit": 0.8181818181818182,
+      "tail_abs_gap_gt_30bp_magnitude_mae": 0.004113076317602368,
+      "tail_abs_gap_gt_30bp_magnitude_rmse": 0.008436005750551175
+    }
+  },
+  "session_date": "2026-09-06",
+  "source_hashes": {
+    "annotated_panel": "4f093c51add311ade37634a1548a0c22b5f26b3390008d398a36b006c2f8ce69",
+    "candidate_spec": "cbcb2c7119ce81f9af9828ddfca02315103864a9be4008f12e7ac0df3467cb9a",
+    "datahub_1m_export": "aeacff04b268c166faac333ec7ab9d840abcd347d82cb3bcee0218d058fc7423",
+    "fred_nasdaq": "fad2f5f848d0acd4a9c86eebb75bc0d4f8fe18c1c6852bae3bb5c3a3c1a7bf5e",
+    "fred_vix": "37f565c00b758ebae9ef2144dc102b3a8560b0ce5941baf7bac21210aa9815d6",
+    "package_1m": "755217afce9dec383e48cd46d591402fa90dc50897abeb3dc7097c9a18a109d4",
+    "package_panel": "d409fd5c2d75497b31e7e6e4f663298c3e22a7bacdacf4cb562671c6b1bc7631",
+    "package_us": "3948b8c8ff0e7ee539cf08b64219922381dae77a39aeb686e830f5cd53719cda",
+    "protocol": "556f1665ce5724706ccb5dabaedf88243feef9487c160cfd034d409b3c605b05",
+    "runner": "2d54d48795adfd52065177315ad17b5612f1e6b8933e0e002b364002ee99f48c"
+  },
+  "trading_return_used_in_gate": false,
+  "validation_max_day": "2025-12-31",
+  "validation_min_day": "2021-01-04",
+  "validation_window": {
+    "end": "2025-12-31",
+    "start": "2021-01-01"
+  }
+}
