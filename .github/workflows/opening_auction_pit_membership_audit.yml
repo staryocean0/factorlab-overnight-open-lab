@@ -1,0 +1,65 @@
+name: opening-auction-pit-membership-audit
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - codex/overnight-auction-source-20260906
+    paths:
+      - 'scripts/audit_csi1000_pit_membership_source.py'
+      - 'docs/governance/opening_auction_csi1000_pit_membership_audit_preregistration.json'
+      - '.github/workflows/opening_auction_pit_membership_audit.yml'
+
+concurrency:
+  group: opening-auction-pit-membership-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install bounded audit dependencies
+        run: python -m pip install --upgrade requests
+      - name: Query public DoltHub CSI1000 PIT membership and enforce frozen gates
+        id: audit
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/audit_csi1000_pit_membership_source.py 2>&1 | tee opening_auction_csi1000_pit_membership_audit.log
+      - name: Freeze validated compact PIT membership assets
+        if: success()
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            data/external/csi1000_pit_membership_2015_2020.csv \
+            docs/governance/opening_auction_csi1000_pit_membership_manifest.json
+          if git diff --cached --quiet; then
+            echo "PIT membership assets already frozen."
+          else
+            git commit -m "data: freeze validated CSI1000 PIT membership through 2020 [skip ci]"
+            git push origin HEAD:codex/overnight-auction-source-20260906
+          fi
+      - name: Upload PIT membership audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: opening-auction-csi1000-pit-membership-audit
+          path: |
+            docs/governance/opening_auction_csi1000_pit_membership_audit_preregistration.json
+            docs/governance/opening_auction_csi1000_pit_membership_manifest.json
+            data/external/csi1000_pit_membership_2015_2020.csv
+            opening_auction_csi1000_pit_membership_audit.log
+          if-no-files-found: warn
+          retention-days: 90
