@@ -28,3 +28,41 @@ def test_high_open_diagnostic_runner_is_development_only() -> None:
     assert '"threshold_search_performed": False' in text
     assert '"2026_rows_loaded": False' in text
     assert '"2026_blackbox_opened": False' in text
+
+
+def test_high_open_phase2_family_is_bounded_piecewise_weakness_only() -> None:
+    family = json.loads(
+        (ROOT / "docs/governance/cloud_session_20260906_high_open_recall_phase2_family_v1.json").read_text()
+    )
+    assert family["multiplicity"] == 4
+    assert family["fixed_estimator"]["quantile"] == 0.5
+    assert family["fixed_estimator"]["alpha"] == 0.0
+    assert family["fixed_estimator"]["threshold"] == 0.0
+    assert family["evidence_boundary"]["sealed_repeat_blackbox"] == "2026-01-05_to_2026-08-21"
+    assert family["evidence_boundary"]["true_fresh_reserved"] == "post_2026-08-21"
+    allowed = {
+        "prev_daytime_weakness",
+        "prev_afternoon_weakness",
+        "prev_last_hour_weakness",
+    }
+    assert set(family["derived_feature_definitions"]) == allowed
+    assert len(family["candidates"]) == 4
+    for candidate in family["candidates"]:
+        assert set(candidate["extra_features"]).issubset(allowed)
+    forbidden = set(family["forbidden"])
+    assert "threshold search" in forbidden
+    assert "quantile search" in forbidden
+    assert "positive-US interaction features" in forbidden
+    assert family["production_authority"] is False
+
+
+def test_high_open_phase2_selector_does_not_open_2026() -> None:
+    text = (ROOT / "scripts/select_high_open_recall_phase2_dev.py").read_text()
+    assert 'DEV_END = "2025-12-31"' in text
+    assert 'OOF_YEARS = list(range(2016, 2026))' in text
+    assert '"candidate_selection_performed": True' in text
+    assert '"parameter_search_performed": False' in text
+    assert '"threshold_search_performed": False' in text
+    assert '"quantile_search_performed": False' in text
+    assert '"2026_rows_loaded": False' in text
+    assert '"2026_blackbox_opened": False' in text
