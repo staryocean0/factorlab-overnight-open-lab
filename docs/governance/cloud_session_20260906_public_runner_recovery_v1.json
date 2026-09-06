@@ -1,0 +1,17 @@
+{
+  "schema_id": "overnight_open_public_runner_recovery@1.0",
+  "session_date": "2026-09-06",
+  "package_contract": "docs/governance/package_scope.json",
+  "contract_requires_private_repository": true,
+  "observed_visibility_before_successful_attempt": "public",
+  "reason": "private-repository GitHub Actions quota/runner access was exhausted; two prior direction workflow attempts failed before any job step. After the user made the repository public, the identical frozen workflow entered a public runner and completed successfully.",
+  "successful_workflow_run_id": 34012509781,
+  "successful_run_attempt": 3,
+  "successful_job_id": 101433996262,
+  "research_family_changed_for_recovery": false,
+  "model_parameters_changed_for_recovery": false,
+  "data_boundary_changed_for_recovery": false,
+  "governance_status": "repository_visibility_currently_conflicts_with_private_repository_required_contract",
+  "recommended_closeout": "after cloud/public-runner-only checks are complete, restore repository visibility to private before treating the package as fully compliant with its own confidentiality contract",
+  "production_authority": false
+}
