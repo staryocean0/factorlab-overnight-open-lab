@@ -1,5 +1,5 @@
 {
-  "schema_id": "overnight_open_opening_auction_state_source_receipt@1.0",
+  "schema_id": "overnight_open_opening_auction_state_source_receipt@1.1",
   "sealed_date": "2026-09-06",
   "scope": "Result-free source and causal-clock audit for pre-final target-market opening-call-auction state. No CSI1000 target model was executed.",
   "preanalysis": "docs/governance/opening_auction_state_source_preanalysis.json",
@@ -10,22 +10,23 @@
   },
   "official_source_findings": {
     "SSE": {
-      "provider": "SSE InfoNet / Shanghai Stock Exchange historical Level-2 market-data product",
+      "provider": "SSE InfoNet / Shanghai Stock Exchange historical market-data products",
       "catalogue": "https://www.sseinfo.com/services/assortment/historical/",
       "interface_manual": "https://www.sseinfo.com/services/assortment/market/hqywwd/wdzsjk/c/10764822/files/4f38cae1022a4cfa8410bbc2702e2b95.pdf",
-      "historical_schema": {
+      "level1_sufficiency": "Official Level-1 call-auction quotation semantics carry virtual opening/reference price, virtual matched quantity and virtual unmatched quantity/direction; historical Level-1 Snapshot.csv includes call-auction state.",
+      "level2_historical_schema": {
         "before_2018_12_24": "sh2\\yyyymmdd\\Auction.csv",
-        "after_2018_12_24": "opening-auction state is published through sh2\\yyyymmdd\\Snapshot.csv",
+        "from_2018_12_24": "opening-auction state is published through sh2\\yyyymmdd\\Snapshot.csv",
         "auction_fields": ["SecurityID", "DateTime", "Price", "VirtualAuctionQty", "LeaveQty", "Side"]
       },
-      "access_status": "licensed/application product; no anonymous reproducible 2015-2020 bulk-download contract established"
+      "access_status": "official historical products are licensed/application products; no anonymous reproducible full-coverage 2015-2020 early-auction transport established"
     },
     "SZSE": {
       "provider": "Shenzhen Securities Information Co., Ltd. / authorized SZSE market-data distributor",
       "historical_interface": "https://www.szse.cn/www/marketServices/technicalservice/history/P020180328468171229352.pdf",
       "licensed_product_overview": "https://www.szsi.cn/cpfw/overseas/reference/overview/",
-      "auction_state_semantics": "during call auction, the quotation fields encode reference price, virtual matched quantity and virtual unmatched quantity",
-      "access_status": "Historical Tick Data is distributed through licensed/application channels; no anonymous reproducible 2015-2020 bulk-download contract established"
+      "level1_sufficiency": "Official quotation fields during call auction encode reference price, virtual matched quantity and virtual unmatched quantity, so Level-1 is sufficient for the desired early-state measurement.",
+      "access_status": "historical tick/snapshot data are distributed through licensed/application channels; no anonymous reproducible full-coverage 2015-2020 early-auction transport established"
     }
   },
   "frozen_causal_clock": {
@@ -35,36 +36,41 @@
     "09_31_bar_proxy_allowed": false,
     "post_open_order_book_allowed": false
   },
-  "alternatives_audited_and_rejected": {
-    "Tushare_stk_auction_o": {
-      "url": "https://tushare.pro/document/2?doc_id=353",
-      "reason": "separately permissioned and represents opening-auction transaction/result-level data rather than the frozen early 09:19:59 virtual auction state; using final auction output would approach target reconstruction"
-    },
-    "historical_transaction_protocols": {
-      "example": "easy_tdx get_history_transaction_data",
-      "reason": "can identify auction transactions but does not reproduce the required early virtual reference-price/matched/unmatched state and server historical retention is not a frozen 2015-2020 source contract"
-    },
-    "unverified_retail_or_resold_Level2": {
-      "reason": "may offer paid tick/auction files but lacks the required official provenance, exact historical schema closure and reproducible source contract for this research branch"
-    },
-    "current_repo_1m_official": {
-      "reason": "starts from the regular-session target bar surface and contains no pre-09:20 auction-state history; using 09:31 would leak/reconstruct the target"
-    }
+  "alternatives_audited": {
+    "JoinQuant": "auth-required; exact full 2015-2020 pre-09:20 snapshot coverage/source contract not proven",
+    "Tushare_stk_auction_o": "final/result-level auction aggregate rather than the frozen early state; rejected",
+    "AKShare_Eastmoney": "recent-day pre-open minute surface only; rejected for historical bulk",
+    "TongdaXin_eltdx": "current-day support but no proven frozen 2015-2020 early-auction history",
+    "KLineAPI": "historical surface is final-auction oriented; rejected",
+    "Caifushuju": "paid reseller candidate; provenance and full historical schema closure not sufficient for this branch",
+    "HuggingFace_Wind_L2_mirror": "starts 2017 and downloadable mirror is partial/gated; cannot be sole 2015-2020 source",
+    "current_repo_1m_official": "post-auction/post-open surface; forbidden as proxy"
   },
   "required_data_if_unblocked": {
+    "accepted_history_can_be_Level1_or_Level2": true,
     "SSE_and_SZSE_early_auction_snapshots": true,
+    "window_start": "2015-01-01",
     "window_end": "2020-12-31",
     "zero_2021_plus_cloud_rows": true,
     "point_in_time_CSI1000_constituents_or_non_hindsight_aggregation": true,
-    "exact_file_hashes_and_licensed_source_identifiers": true,
+    "exact_file_hashes_and_source_identifiers": true,
     "zero_selectable_rows_at_or_after_09_20_00": true
   },
   "decision": {
     "financial_mechanism_status": "high_priority_valid_measurement_family",
-    "source_status": "blocked_by_licensed_historical_Level2_access_contract",
+    "field_semantics_status": "proven_sufficient_on_official_Level1_and_Level2_interfaces",
+    "source_status": "blocked_by_full_2015_2020_reproducible_historical_transport_and_access_contract",
+    "Level2_required": false,
     "predictive_experiment_authorized": false,
     "do_not_substitute": ["09:25 final auction/open price", "09:31 one-minute bar", "retail screen scrape", "post-open state"],
-    "scientific_status": "opening_auction_early_state_high_value_but_data_contract_blocked"
+    "scientific_status": "opening_auction_early_state_high_value_but_full_history_transport_blocked"
+  },
+  "receipt_correction": {
+    "from_schema": "overnight_open_opening_auction_state_source_receipt@1.0",
+    "reason": "The first receipt overstated Level-2 access as the blocker. Official Level-1 semantics are sufficient; the actual blocker is reproducible full-coverage 2015-2020 historical early-auction transport/access.",
+    "cutoff_changed": false,
+    "model_or_feature_selection_changed": false,
+    "target_rows_read": 0
   },
   "authority": {
     "target_rows_read": 0,
