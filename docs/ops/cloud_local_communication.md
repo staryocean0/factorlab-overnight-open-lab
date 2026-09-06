@@ -67,7 +67,7 @@ OHR-01 到此关闭。2026 黑箱仍未打开。
 
 ## OHR-02 — 高开漏判 Phase-2 分段弱势候选选择（开发阶段，不打开 2026）
 
-**状态：本地已反馈，待云端复核。**
+**状态：云端已复核通过，任务关闭。无增量 successor。OHR-03 未打开。**
 
 ### 目标
 
@@ -267,3 +267,121 @@ Incumbent OOF（与 OHR-01 完全相同）：`direction_hit=0.7176422093981863`�
   - `docs/governance/local_session_20260906_high_open_recall_phase2_data_usage.json` sha256 `5712a64c18bd9bd5e6ddc60b19280bc21721e0e665c01b45e577ab506b4df56d`
 - 独立重算 4 组 eligibility gates，与 receipt 完全一致；无人 eligible，因此必须保留 `median_quantile_sign`，不得打开 2026。
 - 本附记只确认上一轮本地反馈可复现，不新增候选、不改门禁、不授予 production / fresh-OOS authority。
+
+---
+
+## OHR-04 — last-hour rebound conditioning 诊断（开发阶段，不打开 2026，不选 successor）
+
+**状态：本地已反馈，待云端复核。**
+
+### 目标
+
+解释被拒绝的 progression candidate `weakness_last_hour_piecewise` 为何能救回一部分实际高开，同时又制造过多新的高开误报。此任务只做诊断，不选择新模型、不冻结候选族、不打开 OHR-03 / 2026。
+
+### 冻结输入
+
+- Cloud OHR-02 复核：`docs/research/high_open_recall_phase2_cloud_review_20260906.md`
+- 诊断协议：`docs/governance/cloud_session_20260906_high_open_rebound_conditioning_protocol_v1.json`
+- 诊断器：`scripts/diagnose_last_hour_rebound_conditioning_dev.py`
+- Incumbent：`median_quantile_sign`，spec SHA256 `9b0255fbbf6f0c4059e8779e61cb3d5d4eabeab1ce60aed09377d782f755e465`
+- 诊断用 progression candidate：`weakness_last_hour_piecewise`，spec SHA256 `1a37a46c4c66026f6abe33b84a9d7704ab7c7513312ef15b25607dcfa694392d`（仍为 rejected successor）
+
+### 本地执行反馈（2026-09-06）
+
+- 执行身份：本地 Codex controller；工作目录 `/home/starryocean/桌面/量化/factorlab-overnight-open-lab`。
+- 执行时代码 SHA：`0a1aee02ac082a97e8ce2d310618f52f7600cc9f`（`Index OHR-04 rebound-conditioning handoff [skip ci]`）。
+- 未设置路径覆盖环境变量；沿用既有本地默认源。
+- 未读取 2026-01-05..2026-08-21 黑箱结果；post-2026-08-21 仍 unread；未打开 OHR-03。
+
+| 命令 | 退出码 |
+|---|---|
+| `python3 scripts/validate_theme_package.py` | 0 |
+| `python3 -m pytest -q` | 0（13 passed） |
+| `python3 scripts/diagnose_last_hour_rebound_conditioning_dev.py` | 0 |
+
+输出文件：
+
+- `docs/research/cloud_session_20260906_local_last_hour_rebound_conditioning_receipt_v1.json` sha256 `ad5c5cb280f4c8da3de61aeccffbe16d0f7dc6229d25f0c5497514044cdc5008`
+- `docs/governance/local_session_20260906_last_hour_rebound_conditioning_data_usage.json` sha256 `6956db15c8a9ae083d75f2139fa09b48aea1a8ff8d4e27b878908b0fe1ac8d0e`
+
+终端摘要：`LAST_HOUR_REBOUND_CONDITIONING_RESULT` → `n_oof=2426`，`added_up_total=38`，`added_up_precision=0.42105263157894735`，`2026_blackbox_opened=false`，`candidate_selection_performed=false`。
+
+本地对照 OHR-04 验收：
+
+1. 执行代码 SHA 为 OHR-04 交接提交 `0a1aee02`；protocol / runner / tests 未在看到结果后修改。
+2. validator / pytest / diagnostic 三条命令均退出 0。
+3. `development_window.end == 2025-12-31`；`oof_years == [2016..2025]`；`n_oof == 2426`，与 OHR-02 库存一致。
+4. incumbent / last-hour spec SHA 与冻结身份一致；runner 先 replay OHR-02 指标后才做 conditioning，退出码 0 表示 replay 通过。
+5. disagreement 四类计数与 OHR-02 last-hour paired disagreements 完全对上：rescue+repaired=22，new-false-high+lost-high=30，total=52。
+6. `2026_rows_loaded == false`，`2026_blackbox_opened == false`，`ohr_03_opened == false`。
+7. `candidate_selection_performed == false`，`parameter_search_performed == false`，`threshold_search_performed == false`，`quantile_search_performed == false`，`trading_return_used == false`。
+8. 2015–2020 reconstruction 全部字段 max-abs 为 `0.0`。
+9. 预注册 12 个 continuous probes 与 3 个 binary probes 均有 pooled / annual / quartile 或 state 聚合；receipt 不含 `trading_day` 或逐日 OOF prediction。
+10. `source_hashes` 完整（8 项）；其中 annotated_panel / datahub_1m_export / fred_nasdaq / fred_vix / family / phase2_receipt 与 OHR-02 一致；raw rows 未写入 bounded repo；`production_authority == false`。
+
+source hashes：
+
+- `annotated_panel`: `4f093c51add311ade37634a1548a0c22b5f26b3390008d398a36b006c2f8ce69`
+- `datahub_1m_export`: `aeacff04b268c166faac333ec7ab9d840abcd347d82cb3bcee0218d058fc7423`
+- `fred_nasdaq`: `fad2f5f848d0acd4a9c86eebb75bc0d4f8fe18c1c6852bae3bb5c3a3c1a7bf5e`
+- `fred_vix`: `37f565c00b758ebae9ef2144dc102b3a8560b0ce5941baf7bac21210aa9815d6`
+- `family`: `f06c43009de9e0b6844a45392caf740144b74fd9fca08bae904001c44ef2168c`
+- `phase2_receipt`: `6a65180eaef2b1ef38ed5da52504f3f11018b802cc0aee2d7b83328938c113f5`
+- `protocol`: `22f00dea7b9daa7d49399e6012954c68fe6de31ec02184bdef1357ffafeb0a44`
+- `runner`: `8296eb8f79e430848943475189027c4bc49cff053cbd305354dd6e56083c43a7`
+
+Disagreement morphology：
+
+| 类型 | 计数 |
+|---|---|
+| incumbent down → candidate up, actual up（rescue） | 16 |
+| incumbent down → candidate up, actual down（new false high） | 22 |
+| incumbent up → candidate down, actual up（lost high） | 8 |
+| incumbent up → candidate down, actual down（repaired false high） | 6 |
+| added-up total / precision | 38 / 0.42105 |
+| removed-up total | 14 |
+| total disagreements | 52 |
+
+年度 rescue vs new-false-high：rescue>FP 仅 3/10 年（2019、2020、2024），FP>rescue 5/10 年（2016、2017、2018、2021、2025），平 2/10 年（2022、2023）。
+
+连续探针（rescue mean − false-high mean，标准化；年度差分为正/负年数）：
+
+| probe | std diff | posY | negY |
+|---|---|---|---|
+| `prev_last_hour_weakness` | +0.502 | 4 | 1 |
+| `prev_daytime_weakness` | +0.297 | 2 | 2 |
+| `rvol20` | +0.285 | 3 | 2 |
+| `r20` | +0.228 | 3 | 2 |
+| `prev_afternoon_weakness` | +0.215 | 2 | 3 |
+| `abs_r1` | +0.131 | 2 | 3 |
+| `prev_gap_negative` | +0.090 | 2 | 2 |
+| `prev_gap_positive` | −0.024 | 3 | 2 |
+| `prev_gap` | −0.086 | 3 | 2 |
+| `last_hour_minus_afternoon_weakness` | −0.090 | 4 | 1 |
+| `r1` | −0.203 | 1 | 4 |
+| `last_hour_minus_daytime_weakness` | −0.242 | 3 | 2 |
+
+`prev_last_hour_weakness` 分位：Q1/Q2 added-up precision 均为 0.25（probe mean≈0，16 次翻转里 12 次新误报）；Q3=0.55（20 次，11 rescue / 9 FP）；Q4 n=2。也就是说，hinge 在 last-hour weakness 接近 0 时仍大量改判，而这些改判以新误报为主。
+
+二元状态：
+
+| state | n_added_up | precision | rescue | new FP | state1 better years |
+|---|---|---|---|---|---|
+| `tail_only_weakness=1` | 15 | 0.600 | 9 | 6 | 3/10 |
+| `tail_only_weakness=0` | 23 | 0.304 | 7 | 16 | — |
+| `tail_with_broad_afternoon_weakness=1` | 11 | 0.636 | 7 | 4 | 3/10 |
+| `tail_with_broad_day_weakness=1` | 2 | 1.000 | 2 | 0 | 1/10（样本过少） |
+
+诊断观察（不是候选选择，也不是机制录取）：
+
+- 无条件 last-hour hinge 的 added-up precision 只有 0.42，净效果是多制造误报。
+- 预注册探针里，最能分开 rescue 与 new FP 的是 `prev_last_hour_weakness` 本身（std +0.50，4/10 年同向），且低分位（weakness≈0）误报密集。
+- `tail_only_weakness` / `tail_with_broad_afternoon_weakness` 的 pooled precision 更高，但年度支持弱（各仅 3 年更好），不能单独构成录取。
+- 没有探针达到“稳定多年、干净分开 rescue 与 new false high”的机制录取门槛。本地不冻结任何新 family。
+
+未验证 / 未做事项：
+
+- 未打开 2026-01-05..2026-08-21 黑箱，也未读取其逐日明细。
+- 未做候选 ranking、参数 / 分位 / 阈值搜索、新的 US 交互搜索或收益优化。
+- 未打开 OHR-03，不授予 production / fresh-OOS authority。
+- 未上传 2015+ 原始行情或逐日 OOF prediction。

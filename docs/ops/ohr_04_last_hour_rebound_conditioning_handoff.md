@@ -1,6 +1,6 @@
 # OHR-04 — Last-hour rebound conditioning diagnostic
 
-Status: **waiting for local development-only execution**.
+Status: **local development execution recorded; waiting for cloud review**.
 
 OHR-03 remains unopened and reserved for a future frozen successor repeat-blackbox run. This task is numbered OHR-04 deliberately.
 
