@@ -1,0 +1,64 @@
+{
+  "schema_id": "overnight_open_csi1000_pit_membership_source_audit_preregistration@1.0",
+  "registered_date": "2026-09-06",
+  "status": "result_free_before_public_DoltHub_membership_query",
+  "parent_research": "docs/governance/opening_auction_state_source_preanalysis.json",
+  "financial_need": "Opening-auction breadth and cross-sectional dispersion require the actual CSI1000 member set that was in force on each target date. Current constituents applied backwards would create survivorship/look-ahead bias.",
+  "source_candidate": {
+    "transport": "public DoltHub repository chenditc/investment_data",
+    "api_root": "https://www.dolthub.com/api/v1alpha1/chenditc/investment_data/master",
+    "table": "ts_index_weight",
+    "index_code": "000852.SH",
+    "upstream_claim": "Tushare index_weight, exported and maintained by chenditc/investment_data",
+    "upstream_code_evidence": "https://github.com/chenditc/investment_data/blob/main/tushare/dump_index_weight.py",
+    "qlib_export_evidence": "https://github.com/chenditc/investment_data/blob/main/qlib/dump_index_weight.py",
+    "known_public_issue": "https://github.com/chenditc/investment_data/issues/55"
+  },
+  "bounded_window": {
+    "start": "2015-01-01",
+    "end": "2020-12-31",
+    "post_2020_rows_allowed": false,
+    "CSI1000_target_or_gap_read": false
+  },
+  "queries_and_outputs": {
+    "first_stage": "query distinct trade_date snapshots and row counts/weight sums for 000852.SH in the bounded window",
+    "second_stage": "download each distinct bounded snapshot with stock_code and weight",
+    "compact_outputs": [
+      "data/external/csi1000_pit_membership_2015_2020.csv",
+      "docs/governance/opening_auction_csi1000_pit_membership_manifest.json"
+    ]
+  },
+  "hard_gates": {
+    "earliest_snapshot_no_later_than": "2015-05-31",
+    "snapshot_constituent_count_min": 950,
+    "snapshot_constituent_count_max": 1050,
+    "weight_sum_percent_min": 99.0,
+    "weight_sum_percent_max": 101.0,
+    "no_duplicate_stock_within_snapshot": true,
+    "all_stock_codes_parseable": true,
+    "no_post_2020_rows": true,
+    "official_event_crosscheck_required": true
+  },
+  "official_crosschecks_frozen_before_query": [
+    {
+      "event": "2020-12 regular adjustment / first batch of STAR Market securities entering CSI1000",
+      "effective_date": "2020-12-14",
+      "required_new_member_examples": ["688001.SH", "688005.SH", "688006.SH", "688007.SH", "688008.SH", "688012.SH", "688016.SH", "688018.SH", "688019.SH", "688020.SH", "688023.SH", "688025.SH", "688029.SH", "688036.SH", "688099.SH", "688111.SH", "688116.SH", "688122.SH", "688388.SH"],
+      "evidence_note": "Official/officially sourced 2020-11-27 adjustment disclosure states 19 STAR Market securities entered CSI1000 on 2020-12-14. Exact examples are frozen only for crosschecking source identity, not for constructing the full membership."
+    }
+  ],
+  "adjudication": {
+    "if_all_gates_pass": "retain as a public PIT membership transport candidate for non-hindsight breadth/dispersion features, subject to explicit provenance caveat; weights may additionally be retained only if weight-sum and official event checks pass",
+    "if_early_2015_missing_but_from_2015_05_onward_passes": "retain from first valid snapshot only; never backfill January-April 2015. Any later predictive experiment must use a common-sample comparator and preregister the resulting train coverage gate.",
+    "if_event_crosscheck_fails": "reject source candidate",
+    "if_counts_or_weights_show systematic corruption": "reject; no ratio repair or manual constituent patching"
+  },
+  "authority": {
+    "target_rows_read": 0,
+    "predictive_model_execution": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false,
+    "merge_main": false
+  }
+}
