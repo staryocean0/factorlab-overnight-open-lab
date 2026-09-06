@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """One-shot first true-fresh validation for frozen Gap-Fill Prediction V2 v1.
 
-This wrapper deliberately reuses the already-frozen 2026 repeat evaluator's
-forward-probability and metric functions. It changes only the preregistered
-fresh calendar window, output paths and sample-sufficiency adjudication.
+This wrapper reuses the already-frozen 2026 repeat evaluator's target, forward-
+probability and metric functions. It reconstructs only the same two runtime
+features for the preregistered fresh calendar block and adds the preregistered
+sample-sufficiency adjudication.
 
 No partial-window execution is authorized. No model/scaler/calibration fit or
 parameter/feature/threshold search is performed.
@@ -14,6 +15,7 @@ import hashlib
 import json
 import os
 import sys
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import numpy as np
@@ -32,6 +34,7 @@ USAGE = ROOT / "docs/governance/gap_fill_v2_true_fresh_2026q4_data_usage_v1.json
 FRESH_START = "2026-08-24"
 FRESH_END = "2026-12-31"
 HISTORY_START = "2026-07-01"
+NOT_BEFORE_CHINA_DATE = "2027-01-01"
 EXPECTED_ARCH_SHA = "07810dafbab629f196d04ea1204d90ee68177ce764bb765be560bc1b84261c00"
 EXPECTED_PARAMETER_BUNDLE_SHA = "07abe29e31ce09b69bd6250b1ce3ebc5af7688b69ed39909feb80e9db882aaa0"
 EXPECTED_PARAMETER_BLOB = "eef7a9af6d42ee2faf53dbd16dce0b15ebfd10ed"
@@ -53,6 +56,10 @@ def load_json(path: Path) -> dict:
 def dump_json(path: Path, payload: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def china_date_now() -> str:
+    return str((datetime.now(timezone.utc) + timedelta(hours=8)).date())
 
 
 def require_source(env_name: str) -> Path:
@@ -80,13 +87,57 @@ def assert_source_boundary(panel_path: Path, minute_path: Path) -> dict:
         raise RuntimeError("post-2026-12-31 row entered first fresh challenge source")
     if panel_days.min() > "2026-07-31":
         raise RuntimeError("insufficient pre-fresh panel history for rvol20")
+
+    panel_fresh_days = set(panel_days.loc[(panel_days >= FRESH_START) & (panel_days <= FRESH_END)])
+    minute_fresh_days = set(minute_days)
+    if panel_fresh_days != minute_fresh_days:
+        raise RuntimeError("fresh panel/minute trading-day inventories differ")
+    counts = minute_days.value_counts()
+    bad_counts = counts.loc[counts != 240]
+    if len(bad_counts):
+        raise RuntimeError(f"fresh minute source has non-240-bar days: {bad_counts.to_dict()}")
+
     return {
         "panel_min_day": str(panel_days.min()),
         "panel_max_day": str(panel_days.max()),
+        "fresh_panel_day_count": int(len(panel_fresh_days)),
         "minute_min_day": str(minute_days.min()),
         "minute_max_day": str(minute_days.max()),
+        "minute_trading_day_count": int(len(minute_fresh_days)),
         "minute_row_count": int(len(minute_days)),
+        "all_minute_days_have_240_bars": True,
     }
+
+
+def load_fresh_panel(path: Path) -> pd.DataFrame:
+    cols = ["trading_day", "open_0931", "prev_close", "close_1500", "overnight_gap"]
+    frame = pd.read_parquet(
+        path,
+        filters=[("trading_day", ">=", HISTORY_START), ("trading_day", "<=", FRESH_END)],
+        columns=cols,
+    )
+    if frame.empty:
+        raise RuntimeError("fresh annotated panel returned no rows")
+    frame["trading_day"] = frame["trading_day"].astype(str)
+    frame = frame.sort_values("trading_day", kind="mergesort").drop_duplicates("trading_day", keep="last").reset_index(drop=True)
+    if frame["trading_day"].max() != FRESH_END:
+        raise RuntimeError("fresh panel filtered inventory does not end at frozen endpoint")
+    if frame["trading_day"].min() > "2026-07-31":
+        raise RuntimeError("fresh panel lacks enough prior close history")
+
+    close = pd.to_numeric(frame["close_1500"], errors="coerce")
+    frame["rvol20"] = close.pct_change(fill_method=None).shift(1).rolling(20, min_periods=20).std()
+    gap_calc = pd.to_numeric(frame["open_0931"], errors="coerce") / pd.to_numeric(frame["prev_close"], errors="coerce") - 1.0
+    stored = pd.to_numeric(frame["overnight_gap"], errors="coerce")
+    valid_gap = gap_calc.notna() & stored.notna()
+    gap_match_max_abs = float((gap_calc.loc[valid_gap] - stored.loc[valid_gap]).abs().max()) if valid_gap.any() else None
+    if gap_match_max_abs is None or gap_match_max_abs > 1e-12:
+        raise RuntimeError(f"fresh panel gap identity mismatch: {gap_match_max_abs}")
+    frame["gap"] = gap_calc
+    frame["abs_gap"] = gap_calc.abs()
+    frame["abs_gap_over_rvol20"] = frame["abs_gap"] / pd.to_numeric(frame["rvol20"], errors="coerce")
+    frame.attrs["gap_match_max_abs"] = gap_match_max_abs
+    return frame
 
 
 def transform_result_to_fresh(result: dict, protocol: dict) -> dict:
@@ -115,6 +166,8 @@ def main() -> int:
     frozen = load_json(PARAMETERS)
     bundle = frozen["parameter_bundle"]
 
+    if china_date_now() < NOT_BEFORE_CHINA_DATE:
+        raise RuntimeError(f"premature true-fresh open forbidden before China date {NOT_BEFORE_CHINA_DATE}")
     if protocol["scientific_role"] != "true_fresh_oos" or protocol["fresh_window_opened"] is not False:
         raise RuntimeError("true-fresh protocol role/open-state drifted")
     expected_window = {
@@ -122,7 +175,7 @@ def main() -> int:
         "end": FRESH_END,
         "complete_calendar_block_required": True,
         "partial_window_open_forbidden": True,
-        "not_before_china_date": "2027-01-01",
+        "not_before_china_date": NOT_BEFORE_CHINA_DATE,
         "post_2026_12_31": "outside_this_first_fresh_challenge",
     }
     if protocol["validation_window"] != expected_window:
@@ -149,13 +202,11 @@ def main() -> int:
     minute_path = require_source("OVERNIGHT_FRESH_DATAHUB_1M")
     source_boundary = assert_source_boundary(panel_path, minute_path)
 
-    # Reuse the frozen repeat evaluator's source/target/scoring implementation,
-    # but only after patching its date constants to the preregistered fresh block.
+    # Target construction and scoring reuse the exact frozen repeat implementation.
     base.VAL_START = FRESH_START
     base.VAL_END = FRESH_END
     base.HISTORY_START = HISTORY_START
-
-    panel = base.load_local_panel(panel_path)
+    panel = load_fresh_panel(panel_path)
     minutes = base.load_local_minutes(minute_path)
     targets, target_audit = base.build_targets(panel, minutes)
 
@@ -191,9 +242,10 @@ def main() -> int:
     else:
         decision = "gap_fill_v2_true_fresh_not_confirmed"
 
+    session_date = china_date_now()
     receipt = {
         "schema_id": "overnight_open_gap_fill_v2_true_fresh_2026q4_receipt@1.0",
-        "session_date": None,
+        "session_date": session_date,
         "research_identity": "gap_fill_prediction_v2",
         "scientific_role": "true_fresh_oos",
         "protocol": str(PROTOCOL.relative_to(ROOT)),
@@ -237,6 +289,7 @@ def main() -> int:
 
     usage = {
         "schema_id": "overnight_open_gap_fill_v2_true_fresh_2026q4_data_usage@1.0",
+        "session_date": session_date,
         "research_identity": "gap_fill_prediction_v2",
         "window": "2026-08-24_to_2026-12-31",
         "role": "true_fresh_oos",
