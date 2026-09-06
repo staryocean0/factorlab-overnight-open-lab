@@ -119,3 +119,10 @@
 117. `docs/governance/local_session_20260906_gap_fill_v2_2026_repeat_data_usage_v1.json`
 118. `docs/research/gap_fill_v2_2026_repeat_cloud_adjudication_20260906.md`
 119. `.github/workflows/gap-fill-v2-2026-repeat-cloud.yml`
+120. `docs/research/gap_fill_v2_true_fresh_preanalysis_20260906.md`
+121. `docs/governance/cloud_session_20260906_gap_fill_v2_true_fresh_protocol_v1.json`
+122. `scripts/evaluate_gap_fill_v2_true_fresh_2026q4.py`
+123. `tests/test_gap_fill_v2_true_fresh_protocol.py`
+124. `docs/governance/cloud_session_20260906_gap_fill_v2_true_fresh_execution_freeze_v1.json`
+125. `docs/governance/gap_fill_v2_true_fresh_state_v1.json`
+126. `.github/workflows/gap-fill-v2-true-fresh-prereg-check.yml`
