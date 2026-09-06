@@ -4,12 +4,22 @@ Codex/cloud research workspace. One private task. Do not mix with the two-wave
 Layer 3 theme.
 
 Follow `.codex/skills/strategy-slice-rebuild/SKILL.md` for any model change.
-2015-2020 are development. Raw 2021+ market rows still do not exist in this
-repository. The frozen two-head candidate has a local 2021-2025 confirmation
-receipt. The frozen Median direction successor has a local 2026 robust
-confirmation receipt. Do not retune on 2021-2025 or on 2026-01-05 through
-2026-08-21. Post-2026-08-21 remains unread for this identity. Production
-authority is false. Do not mutate any FactorLab live registry.
+Raw 2021+ market rows still do not exist in this repository. The prior two-head
+magnitude candidate was confirmed on 2021-2025 and the prior Median direction
+successor was robustly confirmed on 2026-01-05 through 2026-08-21. Those
+receipts remain immutable.
+
+A new research identity, `high_open_recall_successor_v1`, is now open under
+`docs/governance/cloud_session_20260906_high_open_recall_research_protocol_v1.json`.
+For this new identity only, 2015-2025 may be used as development material;
+2021-2025 is already-consumed evidence and must never be called fresh again.
+The exact 2026-01-05 through 2026-08-21 window is sealed from diagnosis,
+feature engineering, candidate-family design, ranking, loss/threshold choice,
+and any other development. It may be opened only after a successor identity is
+frozen, and then only as a repeat black-box reproduction/rejection check because
+that window was already opened in the prior cycle. Post-2026-08-21 remains the
+true unread fresh challenge for any integrated successor. Production authority
+is false. Do not mutate any FactorLab live registry.
 
 ## 云端—本地交接协议（默认不生效）
 
