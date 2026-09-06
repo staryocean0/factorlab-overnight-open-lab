@@ -34,3 +34,6 @@
 32. `docs/ops/cloud_local_communication.md`
 33. `docs/research/cloud_session_20260906_local_high_open_recall_diagnostic_receipt_v1.json`
 34. `docs/governance/local_session_20260906_high_open_recall_data_usage.json`
+35. `docs/research/high_open_recall_phase1_adjudication_20260906.md`
+36. `docs/governance/cloud_session_20260906_high_open_recall_phase2_family_v1.json`
+37. `scripts/select_high_open_recall_phase2_dev.py`
