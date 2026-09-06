@@ -85,3 +85,10 @@
 83. `tests/test_gap_fill_prediction_v2_protocol.py`
 84. `docs/research/cloud_session_20260906_gap_fill_v2_target_ledger_v1.json`
 85. `docs/governance/cloud_session_20260906_gap_fill_v2_target_data_usage_v1.json`
+86. `docs/governance/cloud_session_20260906_gap_fill_v2_phase1_factor_diagnostic_protocol_v1.json`
+87. `scripts/diagnose_gap_fill_v2_phase1_factors.py`
+88. `tests/test_gap_fill_v2_phase1_factor_diagnostic.py`
+89. `docs/governance/cloud_session_20260906_gap_fill_v2_phase1_execution_freeze_v1.json`
+90. `docs/research/cloud_session_20260906_gap_fill_v2_phase1_factor_diagnostic_receipt_v1.json`
+91. `docs/governance/cloud_session_20260906_gap_fill_v2_phase1_factor_data_usage_v1.json`
+92. `docs/research/gap_fill_v2_phase1_factor_adjudication_20260906.md`
