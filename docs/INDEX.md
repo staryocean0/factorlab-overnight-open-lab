@@ -25,3 +25,6 @@
 23. `docs/research/cloud_session_20260906_local_2026_direction_receipt_v1.json`
 24. `docs/governance/local_session_20260906_2026_direction_data_usage.json`
 25. `docs/research/cloud_session_20260906_local_2026_direction_result.md`
+26. `docs/governance/cloud_session_20260906_research_architecture_acceptance_v1.json`
+27. `docs/governance/cloud_session_20260906_production_readiness_review_v1.json`
+28. `docs/research/cloud_session_20260906_research_closeout_v1.md`
