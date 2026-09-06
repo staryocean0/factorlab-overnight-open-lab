@@ -38,3 +38,5 @@
 36. `docs/governance/cloud_session_20260906_high_open_recall_phase2_family_v1.json`
 37. `scripts/select_high_open_recall_phase2_dev.py`
 38. `docs/governance/cloud_session_20260906_high_open_recall_phase2_execution_freeze_v1.json`
+39. `docs/research/cloud_session_20260906_local_high_open_recall_phase2_dev_receipt_v1.json`
+40. `docs/governance/local_session_20260906_high_open_recall_phase2_data_usage.json`

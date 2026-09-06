@@ -67,7 +67,7 @@ OHR-01 到此关闭。2026 黑箱仍未打开。
 
 ## OHR-02 — 高开漏判 Phase-2 分段弱势候选选择（开发阶段，不打开 2026）
 
-**状态：待本地执行并回写。**
+**状态：本地已反馈，待云端复核。**
 
 ### 目标
 
@@ -178,3 +178,73 @@ Selector 应只新增：
 ### 本地完成后回写
 
 在本节末尾追加：执行 commit SHA、三条命令退出码、两个输出路径、四个候选的核心指标/gate、selected/decision、source hashes，以及任何失败或未验证事项。云端复核前不得打开 2026。
+
+### 本地执行反馈（2026-09-06）
+
+- 执行身份：本地 controller；工作目录 `/home/starryocean/桌面/量化/factorlab-overnight-open-lab`。
+- 执行时代码 SHA：`5c734f36f49a80dc46ebdd67b66895740c807b1e`（`Index OHR-02 execution freeze [skip ci]`）。
+- 未设置路径覆盖环境变量；沿用既有本地默认源。
+- 未读取 2026 黑箱结果材料做候选设计或选择；未打开 OHR-03。
+
+| 命令 | 退出码 |
+|---|---|
+| `python3 scripts/validate_theme_package.py` | 0 |
+| `python3 -m pytest -q` | 0（11 passed） |
+| `python3 scripts/select_high_open_recall_phase2_dev.py` | 0 |
+
+输出文件：
+
+- `docs/research/cloud_session_20260906_local_high_open_recall_phase2_dev_receipt_v1.json`
+- `docs/governance/local_session_20260906_high_open_recall_phase2_data_usage.json`
+
+终端摘要：`HIGH_OPEN_RECALL_PHASE2_SELECTION_RESULT` → `eligible_candidate_count=0`，`selected=null`，`decision=retain_incumbent_do_not_open_repeat_blackbox`，`2026_blackbox_opened=false`。
+
+本地对照 OHR-02 验收：
+
+1. 执行代码 SHA 为 OHR-02 冻结后的 `5c734f36`；family/selector blob 与 execution freeze 一致。
+2. validator / pytest / selector 三条命令均退出 0。
+3. family multiplicity = 4，实际 attempts 恰好 4。
+4. `development_window.end == 2025-12-31`；`oof_years == [2016..2025]`；`n_oof == 2426`，与 incumbent / OHR-01 库存逐字段一致。
+5. `2026_rows_loaded == false`，`2026_blackbox_opened == false`。
+6. `parameter_search_performed == false`，`threshold_search_performed == false`，`quantile_search_performed == false`，`trading_return_used == false`。
+7. 2015–2020 reconstruction 全部字段 max-abs 为 `0.0`；same complete-row mask 未触发 runner 失败。
+8. 每个 attempt 含 eligibility gates、年度 `recall_up` delta、material >10bp/>30bp recall、paired disagreements。
+9. 独立重算 4 组门禁与 receipt 完全一致；`eligible_candidate_count == 0`，因此 `selected == null`，decision 必须是 retain incumbent。
+10. `source_hashes` 完整（7 项）；raw rows 未写入 bounded repo；`production_authority == false`。
+
+source hashes：
+
+- `annotated_panel`: `4f093c51add311ade37634a1548a0c22b5f26b3390008d398a36b006c2f8ce69`
+- `datahub_1m_export`: `aeacff04b268c166faac333ec7ab9d840abcd347d82cb3bcee0218d058fc7423`
+- `fred_nasdaq`: `fad2f5f848d0acd4a9c86eebb75bc0d4f8fe18c1c6852bae3bb5c3a3c1a7bf5e`
+- `fred_vix`: `37f565c00b758ebae9ef2144dc102b3a8560b0ce5941baf7bac21210aa9815d6`
+- `incumbent`: `6fe8b600d35c599c55516a10db78e660473d5992c34b52ce471fdf12ab231b95`
+- `family`: `f06c43009de9e0b6844a45392caf740144b74fd9fca08bae904001c44ef2168c`
+- `runner`: `ad171ecdd374ee2bd4543da1f7830754329d1cf0533876b51c17388aaa55d18a`
+
+Incumbent OOF（与 OHR-01 完全相同）：`direction_hit=0.7176422093981863`，`balanced_accuracy=0.7010188647956266`，`recall_up=0.6260593220338984`，`recall_down=0.7759784075573549`，`tp=591`，`fn=353`，`tn=1150`，`fp=332`，`material>10bp recall=0.6600331674958541`，`material>30bp recall=0.7119205298013245`。
+
+四个候选核心指标 / gate（本地独立重算，无人 eligible）：
+
+| 候选 | recall_up | direction_hit | balanced_accuracy | recall_down | pos-year | median Δrecall_up | >10bp | >30bp | eligible |
+|---|---|---|---|---|---|---|---|---|---|
+| `weakness_daytime_piecewise` | 0.62182 | 0.71476 | 0.69789 | 0.77395 | 2/10 | 0.0 | 0.66003 | 0.70861 | 否 |
+| `weakness_afternoon_piecewise` | 0.62288 | 0.71311 | 0.69673 | 0.77058 | 3/10 | 0.0 | 0.66335 | 0.71523 | 否 |
+| `weakness_last_hour_piecewise` | 0.63453 | 0.71434 | 0.69986 | 0.76518 | 5/10 | +0.00459 | 0.66998 | 0.71854 | 否 |
+| `weakness_three_horizon_piecewise` | 0.62712 | 0.71311 | 0.69750 | 0.76788 | 4/10 | 0.0 | 0.66335 | 0.70861 | 否 |
+
+失败门禁摘要：
+
+- `weakness_daytime_piecewise`：recall_up / hit / BA / 6-year / >30bp 未过。
+- `weakness_afternoon_piecewise`：recall_up / hit / BA / 6-year 未过。
+- `weakness_last_hour_piecewise`：pooled recall_up 与 material 10/30bp 提高，但 hit、BA 下降，且仅 5/10 年 Δrecall_up>0。
+- `weakness_three_horizon_piecewise`：pooled recall_up 略升，但 hit / BA / 6-year / >30bp 未过。
+
+`selected`：无。`decision`：`retain_incumbent_do_not_open_repeat_blackbox`。
+
+未验证 / 未做事项：
+
+- 未打开 2026-01-05..2026-08-21 黑箱，也未读取其逐日明细做选择。
+- 未做参数 / 分位 / 阈值搜索或收益优化。
+- 本地不冻结新 successor，不打开 OHR-03。
+- 未上传 2015+ 原始行情或逐日 OOF prediction。
