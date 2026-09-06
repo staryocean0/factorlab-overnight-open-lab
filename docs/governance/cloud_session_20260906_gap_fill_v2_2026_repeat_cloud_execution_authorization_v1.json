@@ -1,0 +1,49 @@
+{
+  "schema_id": "overnight_open_gap_fill_v2_2026_repeat_cloud_execution_authorization@1.0",
+  "session_date": "2026-09-06",
+  "research_identity": "gap_fill_prediction_v2",
+  "scope": "execution_location_only_no_scientific_semantic_change",
+  "user_action": {
+    "description": "user pushed the frozen 2026 repeat input pack to public main and requested cloud execution",
+    "data_pack_commit": "bba8dd8e37fa8666c200a1f58a03b35905dedf83",
+    "paths": [
+      "data/gap_fill_repeat_2026/annotated_panel_2025Q4_to_20260821.parquet",
+      "data/gap_fill_repeat_2026/csi1000_1m_20260105_to_20260821.parquet",
+      "data/gap_fill_repeat_2026/manifest.json"
+    ]
+  },
+  "direct_cloud_attempt": {
+    "attempted": true,
+    "result": "failed_before_repository_checkout_due_to_container_DNS_resolution_failure_for_github.com",
+    "predictive_or_2026_target_output_seen": false
+  },
+  "fallback_authorization": {
+    "github_actions": true,
+    "reason": "current-session direct execution unavailable for infrastructure DNS reasons; repository now contains the exact required inputs; Actions is the last-resort execution location under the active cloud-local protocol",
+    "scientific_freeze_unchanged": true
+  },
+  "bound_scientific_freeze": {
+    "execution_freeze": "docs/governance/cloud_session_20260906_gap_fill_v2_2026_repeat_execution_freeze_v1.json",
+    "protocol_blob_sha": "417121963302cd8cb5225ad74aee788f570e7d94",
+    "runner_blob_sha": "d61e00efa6e605864c8153a1e7e577257f813939",
+    "tests_blob_sha": "1247f71488f7f106ff9fe53413dac0221fd20234",
+    "parameter_artifact_blob_sha": "eef7a9af6d42ee2faf53dbd16dce0b15ebfd10ed",
+    "parameter_bundle_sha256": "07abe29e31ce09b69bd6250b1ce3ebc5af7688b69ed39909feb80e9db882aaa0",
+    "validation_window": "2026-01-05_to_2026-08-21",
+    "scientific_role": "repeat_only_not_fresh"
+  },
+  "bound_cloud_input_pack": {
+    "annotated_panel_sha256": "4619b00670b9443d0c0de7dd8a3a7a2d664a3c8907f28b0f997c9ae737cae216",
+    "one_minute_sha256": "307e48021ef4576c2b364a1309a8b0474d6ab783afee16be41edb975abaa6dcd",
+    "post_2026_08_21_included": false
+  },
+  "forbidden": [
+    "modify_protocol_runner_tests_or_parameter_bundle",
+    "refit_or_calibrate_on_2026",
+    "change_features_thresholds_horizons_weights_or_gates",
+    "load_post_2026_08_21_rows",
+    "call_repeat_window_fresh_oos",
+    "commit_raw_2026_predictions_or_targets"
+  ],
+  "production_authority": false
+}
