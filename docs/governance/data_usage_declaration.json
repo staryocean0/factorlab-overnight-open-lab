@@ -15,6 +15,20 @@
     "receipt": "docs/research/cloud_session_20260906_local_2021_2025_two_head_receipt_v1.json",
     "raw_rows_in_this_repository": false
   },
+  "direction_successor_development": {
+    "window": "2015-01-05_to_2020-12-31",
+    "role": "expanding_year_OOF_selection_of_fixed_loss_objective_family",
+    "selected": "median_quantile_sign",
+    "receipt": "docs/research/cloud_session_20260906_direction_head_dev_receipt_v1.json",
+    "fresh_oos": false
+  },
+  "direction_2026_future_challenge": {
+    "window": "2026-01-05_to_2026-08-21",
+    "protocol": "docs/governance/cloud_session_20260906_direction_2026_fresh_protocol_v1.json",
+    "status": "frozen_not_opened",
+    "raw_rows_in_this_repository": false,
+    "post_2026_08_21": "reserved_unread_for_this_candidate_identity"
+  },
   "fresh_oos": true,
   "production_authority": false
 }
