@@ -1,0 +1,45 @@
+name: gap-fill-v2-historical-extension-prereg-check
+
+on:
+  push:
+    paths:
+      - '.github/workflows/gap-fill-v2-historical-extension-prereg-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install test dependencies
+        run: python -m pip install --upgrade pandas pyarrow numpy scipy scikit-learn pytest
+      - name: Verify HE-00 frozen identities
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git hash-object docs/research/gap_fill_v2_historical_extension_preanalysis_20260906.md)" = "bb7af312f5d8e0256dc3600a5c18336b0386e673"
+          test "$(git hash-object docs/governance/cloud_session_20260906_gap_fill_v2_historical_extension_protocol_v1.json)" = "4eb444723ef7476bdb132745c8b0b523820d6af5"
+          test "$(git hash-object docs/ops/gap_fill_v2_historical_source_inventory_template_v1.json)" = "440b121334df3c736306e4478321b5b286760e60"
+          test "$(git hash-object docs/ops/gap_fill_v2_historical_source_inventory_handoff.md)" = "3b2b827566612b7546f3d0e4c5037e8c0c18536a"
+          test "$(git hash-object tests/test_gap_fill_v2_historical_extension_protocol.py)" = "9108d89eb6110bdf02c09930228c7d9573dda4fb"
+          test "$(git hash-object docs/governance/gap_fill_v2_generation_policy_v1.json)" = "773782ad966606762beeb81ab4f52c7c87cee7a7"
+      - name: Validate theme package
+        run: python3 scripts/validate_theme_package.py
+      - name: Run full regression tests
+        run: python3 -m pytest -q
+      - name: Assert HE outcomes remain unopened
+        shell: bash
+        run: |
+          set -euo pipefail
+          test ! -e docs/research/local_gap_fill_v2_historical_source_inventory_v1.json
+          test ! -e docs/research/gap_fill_v2_historical_dev_receipt_v1.json
+          test ! -e docs/research/gap_fill_v2_historical_audit_a_receipt_v1.json
+          test ! -e docs/research/gap_fill_v2_historical_audit_b_receipt_v1.json
+          echo 'HE-00 preregistration valid; no historical outcomes opened.'
