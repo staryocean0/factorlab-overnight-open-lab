@@ -1,0 +1,50 @@
+{
+  "schema_id": "overnight_open_offshore_china_ohr06_execution_freeze@1.0",
+  "session_date": "2026-09-06",
+  "research_branch": "offshore_china_price_discovery_successor_v1",
+  "frozen_parent_commit": "e3967b354b1295f0ffd79129d79ee44b08e57bd3",
+  "accepted_source_sha256": "045cf728977ff72a9fabd236aaf06b7a9df3310ad1f6f487bd594d487cc05ffd",
+  "protocol": {
+    "path": "docs/governance/cloud_session_20260906_offshore_china_ohr06_diagnostic_protocol_v1.json",
+    "git_blob_sha": "40efe1f4bfe8312c3c4caf98837e0522871b84c0"
+  },
+  "runner": {
+    "path": "scripts/diagnose_offshore_china_price_discovery_dev.py",
+    "git_blob_sha": "80e5e3c703c9950657f30a9d485e8fdefc5143b5"
+  },
+  "boundary_tests": {
+    "path": "tests/test_offshore_china_ohr06_protocol.py",
+    "git_blob_sha": "409cfca84ff230d6f8e9562ee924cd07bc6f3d64"
+  },
+  "execution_stage": "development_mechanism_diagnostic_only",
+  "required_environment": ["OVERNIGHT_OFFSHORE_ETF_DAILY"],
+  "required_commands": [
+    "python3 scripts/validate_theme_package.py",
+    "python3 -m pytest -q",
+    "python3 scripts/diagnose_offshore_china_price_discovery_dev.py"
+  ],
+  "hard_boundary": {
+    "development": "2015-01-05_to_2025-12-31",
+    "repeat_blackbox_2026_01_05_to_2026_08_21": "sealed",
+    "post_2026_08_21": "unread_true_fresh_reserved"
+  },
+  "forbidden_before_result_return": [
+    "change Yahoo source/provider/source hash",
+    "change symbol universe",
+    "change seven source representation formulas",
+    "change mechanism gates",
+    "add ETF thresholds or interactions",
+    "rank candidate models",
+    "change incumbent estimator/loss/threshold",
+    "read 2026 repeat-blackbox results",
+    "read post-2026-08-21 targets",
+    "open OHR-03",
+    "optimize trading return"
+  ],
+  "expected_outputs": [
+    "docs/research/cloud_session_20260906_local_offshore_china_ohr06_diagnostic_receipt_v1.json",
+    "docs/governance/local_session_20260906_offshore_china_ohr06_data_usage.json"
+  ],
+  "candidate_selection_authorized": false,
+  "production_authority": false
+}
