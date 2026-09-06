@@ -1,0 +1,69 @@
+name: ohr07-offshore-china-dev-selection
+
+on:
+  push:
+    paths:
+      - '.github/workflows/ohr07-offshore-china-dev-selection.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  ohr07:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install research dependencies
+        run: python -m pip install --upgrade pip pandas pyarrow numpy scikit-learn pytest
+      - name: Verify frozen offshore source
+        run: |
+          echo '045cf728977ff72a9fabd236aaf06b7a9df3310ad1f6f487bd594d487cc05ffd  data/offshore_etf_dev_2015_2025/offshore_etf_daily.parquet' | sha256sum -c -
+      - name: Validate theme package
+        run: python3 scripts/validate_theme_package.py
+      - name: Run regression tests
+        run: python3 -m pytest -q
+      - name: Run frozen OHR-07 selector
+        run: python3 scripts/select_offshore_china_ohr07_dev.py
+      - name: Verify selection receipt boundary
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('docs/research/cloud_session_20260906_cloud_offshore_china_ohr07_dev_receipt_v1.json')
+          u = Path('docs/governance/cloud_session_20260906_offshore_china_ohr07_data_usage.json')
+          assert p.exists() and u.exists()
+          d = json.loads(p.read_text())
+          assert d['candidate_selection_performed'] is True
+          assert d['parameter_search_performed'] is False
+          assert d['threshold_search_performed'] is False
+          assert d['quantile_search_performed'] is False
+          assert d['2026_rows_loaded'] is False
+          assert d['2026_blackbox_opened'] is False
+          assert d['ohr_03_opened'] is False
+          assert len(d['attempts']) == 1
+          print(json.dumps({
+              'n_oof_common': d['n_oof_common'],
+              'eligible_candidate_count': d['eligible_candidate_count'],
+              'selected': d['selected'],
+              'decision': d['decision'],
+              '2026_blackbox_opened': d['2026_blackbox_opened'],
+          }, indent=2, sort_keys=True))
+          PY
+      - name: Commit aggregate OHR-07 receipts
+        run: |
+          git config user.name 'ohr07-cloud-runner'
+          git config user.email 'ohr07-cloud-runner@users.noreply.github.com'
+          git add \
+            docs/research/cloud_session_20260906_cloud_offshore_china_ohr07_dev_receipt_v1.json \
+            docs/governance/cloud_session_20260906_offshore_china_ohr07_data_usage.json
+          if git diff --cached --quiet; then
+            echo 'No receipt changes.'
+          else
+            git commit -m 'Record cloud OHR-07 offshore selection receipt [skip ci]'
+            git push origin HEAD:main
+          fi
