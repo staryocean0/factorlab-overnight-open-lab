@@ -8,6 +8,8 @@ on:
 permissions:
   contents: write
 
+# Retriggered after user-authorized frozen OHR-05 source pack commit 0ff42399.
+
 jobs:
   ohr06:
     runs-on: ubuntu-latest
