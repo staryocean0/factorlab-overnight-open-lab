@@ -13,16 +13,19 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Download consumed-through-2025 market index product
+      - name: Sparse-clone consumed-through-2025 market index product
         run: |
-          curl -fsSL 'https://raw.githubusercontent.com/staryocean0/factorlab-multifactor-stock-lab/main/data/development/cloudridge_index_series.json' -o /tmp/cloudridge_index_series.json
-          wc -c /tmp/cloudridge_index_series.json
+          git clone --depth 1 --filter=blob:none --sparse https://github.com/staryocean0/factorlab-multifactor-stock-lab.git /tmp/multi
+          cd /tmp/multi
+          git sparse-checkout set data/development/cloudridge_index_series.json
+          test -f data/development/cloudridge_index_series.json
+          wc -c data/development/cloudridge_index_series.json
       - name: Inspect CSI1000 presence and granularity without reading 2026
         run: |
           python - <<'PY'
-          import json, re
+          import json
           from pathlib import Path
-          p=Path('/tmp/cloudridge_index_series.json')
+          p=Path('/tmp/multi/data/development/cloudridge_index_series.json')
           txt=p.read_text(encoding='utf-8')
           print('TEXT_000852_COUNT', txt.count('000852'))
           obj=json.loads(txt)
