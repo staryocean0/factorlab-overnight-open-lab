@@ -13,7 +13,7 @@
     "window": "2021-01-01_to_2025-12-31",
     "role": "opened_once_outside_bounded_repo_after_2015_2020_fit_freeze",
     "receipt": "docs/research/cloud_session_20260906_local_2021_2025_two_head_receipt_v1.json",
-    "raw_rows_in_this_repository": false
+    "raw_rows_in_this_repository_at_challenge_time": false
   },
   "direction_successor_development": {
     "window": "2015-01-05_to_2020-12-31",
@@ -84,21 +84,23 @@
     "research_question": "whether post-China-close US-session price discovery in US-listed China and A-share ETFs supplies a stable China-specific rebound-versus-continuation state",
     "development_material": "2015-01-05_to_2025-12-31",
     "source_admission": {
-      "status": "source_only_probe_frozen_waiting_local_execution",
+      "status": "completed_cloud_review_accepted_yahoo_chart_v8",
       "runner": "scripts/probe_offshore_china_source_quality.py",
-      "required_symbols": [
-        "ASHS",
-        "ASHR",
-        "FXI",
-        "MCHI",
-        "SPY"
-      ],
+      "local_receipt": "docs/research/cloud_session_20260906_local_offshore_china_source_freeze_v1.json",
+      "cloud_review": "docs/research/offshore_china_ohr05_cloud_source_review_20260906.md",
+      "provider": "Yahoo Finance chart v8 (query1.finance.yahoo.com)",
+      "source_sha256": "045cf728977ff72a9fabd236aaf06b7a9df3310ad1f6f487bd594d487cc05ffd",
+      "required_symbols": ["ASHS", "ASHR", "FXI", "MCHI", "SPY"],
       "china_target_loaded": false,
       "2026_used": false
     },
     "predictive_diagnostic": {
-      "status": "not_opened_until_source_provider_and_hash_are_cloud_reviewed",
-      "candidate_selection_performed": false
+      "status": "ohr06_protocol_runner_tests_and_execution_identity_frozen_waiting_local_execution",
+      "protocol": "docs/governance/cloud_session_20260906_offshore_china_ohr06_diagnostic_protocol_v1.json",
+      "execution_freeze": "docs/governance/cloud_session_20260906_offshore_china_ohr06_execution_freeze_v1.json",
+      "runner": "scripts/diagnose_offshore_china_price_discovery_dev.py",
+      "candidate_selection_performed": false,
+      "2026_used": false
     },
     "repeat_blackbox": {
       "window": "2026-01-05_to_2026-08-21",
