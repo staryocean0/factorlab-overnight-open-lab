@@ -1,0 +1,57 @@
+{
+  "schema_id": "overnight_open_offshore_china_ohr08_execution_freeze@1.0",
+  "session_date": "2026-09-06",
+  "research_branch": "offshore_china_price_discovery_successor_v1",
+  "frozen_parent_commit": "c16b3d028b56f7536231f521b3b9b20d8e62a3a5",
+  "ohr07_review": {
+    "path": "docs/research/offshore_china_ohr07_cloud_review_20260906.md",
+    "git_blob_sha": "7cc02e9081e94a8c49226896b6c03ab9573d69e3"
+  },
+  "protocol": {
+    "path": "docs/governance/cloud_session_20260906_offshore_china_ohr08_frozen_base_overlay_v1.json",
+    "git_blob_sha": "a80771911b405cb9ec0d3789ebfcb8d713f7dcfa"
+  },
+  "selector": {
+    "path": "scripts/select_offshore_china_ohr08_frozen_base_overlay_dev.py",
+    "git_blob_sha": "77f10eb7858943487874c18e5c1ee2d14d9adda8"
+  },
+  "boundary_tests": {
+    "path": "tests/test_offshore_china_ohr08_protocol.py",
+    "git_blob_sha": "f71dd1b334eeb5675cbe1eef6486c947e1264470"
+  },
+  "source": {
+    "path": "data/offshore_etf_dev_2015_2025/offshore_etf_daily.parquet",
+    "sha256": "045cf728977ff72a9fabd236aaf06b7a9df3310ad1f6f487bd594d487cc05ffd"
+  },
+  "candidate_count": 1,
+  "candidate_name": "frozen_incumbent_plus_one_dim_offshore_residual_overlay",
+  "stage_1_training_inventory": "exact incumbent 13-feature complete rows; no offshore filtering",
+  "stage_2_training_inventory": "offshore-valid subset of incumbent-complete rows",
+  "stage_2_degrees_of_freedom": 1,
+  "stage_2_intercept": false,
+  "beta_grid_search": false,
+  "required_invariants": [
+    "stage-1 common-validation scores exactly replay incumbent expanding OOF",
+    "candidate scores and predictions exactly equal incumbent whenever prev_last_hour >= 0",
+    "2026 rows are never loaded"
+  ],
+  "hard_boundary": {
+    "development_end": "2025-12-31",
+    "repeat_blackbox_2026_01_05_to_2026_08_21": "sealed",
+    "post_2026_08_21": "unread_true_fresh_reserved"
+  },
+  "forbidden_before_result": [
+    "modify protocol or selector semantics",
+    "change stage-1 inventory",
+    "fit stage-2 intercept",
+    "standardize or center g",
+    "search beta or threshold",
+    "add another representation or interaction",
+    "use trading return",
+    "read 2026 repeat-blackbox",
+    "read post-2026-08-21 targets"
+  ],
+  "if_candidate_fails": "close offshore-China route, retain incumbent, do not open 2026",
+  "if_candidate_passes": "freeze exact two-stage successor before any 2026 repeat blackbox",
+  "production_authority": false
+}
