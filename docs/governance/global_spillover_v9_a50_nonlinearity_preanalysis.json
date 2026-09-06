@@ -1,0 +1,69 @@
+{
+  "schema_id": "overnight_open_global_spillover_v9_a50_nonlinearity_preanalysis@1.0",
+  "registered_date": "2026-09-06",
+  "status": "result_free_before_any_v9_target_model_execution",
+  "parent_candidate": {
+    "id": "V6A_plus_ordinary_A50_preauction_closure",
+    "parent_commit": "02bbb216057f7024b5a82a87c80805383bb02c83",
+    "unseen_2021_2025_identity_must_not_be_mutated": true
+  },
+  "financial_question": "Does the CSI1000 opening-gap pass-through from the already-validated pre-auction SGX A50 offshore-China price-discovery signal vary continuously with the magnitude of the offshore shock, even when the direction of the shock is held fixed?",
+  "why_this_is_not_a_new_information_source": "This phase does not add another market. It tests whether the linear Ridge mapping used by v6 underfits the transmission function of the strongest validated information source.",
+  "economic_prior": {
+    "hypothesis": "Cross-market spillovers can be nonlinear/asymmetric, with transmission intensity changing in extreme or turbulent states. A parsimonious signed-magnitude term can test this without introducing a threshold, regime count, hidden state, or model-family search.",
+    "evidence": [
+      {
+        "title": "Time-varying spillover between the mainland China stock market and the other global main stock markets base on the non-linear Granger causality test",
+        "url": "https://sysengi.cjoe.ac.cn/EN/10.12011/1000-6788%282012%293-466",
+        "relevance": "Reports nonlinear spillovers between mainland China and major global stock markets."
+      },
+      {
+        "title": "Asymmetric spillover effects between the Shanghai and Hong Kong stock markets: evidence from quantile lagged regression",
+        "url": "https://www.tandfonline.com/doi/abs/10.1080/00036846.2016.1208356",
+        "relevance": "Finds return spillovers depend on market state and differ across the conditional distribution."
+      },
+      {
+        "title": "Regime-dependent volatility spillover asymmetry in Shanghai and Hong Kong stock markets with forecasting and portfolio inferences",
+        "url": "https://www.sciencedirect.com/science/article/pii/S0264999325002639",
+        "relevance": "Shows spillover asymmetry intensifies in high-volatility regimes; supports non-constant transmission but not any specific nonlinear formula."
+      }
+    ]
+  },
+  "mathematical_choice": {
+    "new_feature": "a50_ordinary_signed_square",
+    "formula": "x * abs(x), where x = a50_ordinary_preauction_closure_return",
+    "interpretation": "The linear A50 main effect remains in the model. The additional odd quadratic term lets the marginal pass-through slope change smoothly with absolute shock magnitude while preserving the sign of the transformed shock itself.",
+    "degrees_of_freedom_added": 1,
+    "thresholds": 0,
+    "bins": 0,
+    "regime_states": 0,
+    "model_family_search": false,
+    "cutoff_search": false,
+    "transform_search": false
+  },
+  "why_not_more_flexible_methods": {
+    "HMM_or_Markov_switching": "Rejected for this first nonlinearity test because state count, transition structure and estimation choices add large multiplicity after the v8 state-interaction failure.",
+    "splines_or_GAM": "Deferred because knot number/location or smoothing penalties would add tuning freedom on a consumed holdout.",
+    "piecewise_thresholds": "Rejected because threshold selection would directly turn 2019-2020 into a tuning set.",
+    "positive_negative_separate_terms": "Deferred; direction asymmetry is a distinct hypothesis and would add another selectable degree of freedom."
+  },
+  "causal_scope": {
+    "ordinary_rows": "same frozen v6 ordinary A50 source and target cutoff strictly before 09:15",
+    "holiday_rows": "new nonlinear term is exactly 0; holiday mechanism remains the frozen v5 A50 closure channel",
+    "post_2020_rows": 0,
+    "new_external_data": false
+  },
+  "economic_coherence_gate": {
+    "require_positive_total_A50_marginal_slope_on_all_training_ordinary_rows": true,
+    "reason": "The new basis may bend the response curve but must not imply that an incremental rise in A50 predicts a lower CSI1000 opening gap anywhere in the observed training ordinary-session support. This prevents a numerically attractive but economically perverse sign reversal.",
+    "selection_data_for_this_gate": "training rows only"
+  },
+  "authority": {
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false,
+    "runtime_routing": false,
+    "merge_main": false
+  }
+}
