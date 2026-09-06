@@ -29,10 +29,11 @@
   "objective": "predict_next_csi1000_overnight_open_gap_sign_and_magnitude",
   "observed_repository_visibility_after_high_open_dev_pack_20260906": "private",
   "observed_repository_visibility_after_local_controller_fix_20260906": "private",
+  "observed_repository_visibility_after_user_restore_public_20260906": "public",
   "package_role": "temporary_private_cloud_research_repository",
   "private_repository_required": true,
   "production_authority": false,
-  "public_runner_exception_closed": true,
+  "public_runner_exception_closed": false,
   "schema_id": "overnight_open_cloud_theme_package_scope@1.0",
   "sibling_workspace_do_not_merge": "staryocean0/factorlab-two-wave-strategy-lab",
   "source_project": "FactorLab"
