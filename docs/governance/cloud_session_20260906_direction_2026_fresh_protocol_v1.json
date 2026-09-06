@@ -1,0 +1,98 @@
+{
+  "schema_id": "overnight_open_direction_2026_fresh_protocol@1.0",
+  "session_date": "2026-09-06",
+  "purpose": "one unseen 2026 challenge of the frozen median-quantile direction candidate against the frozen Ridge direction comparator",
+  "candidate": "docs/governance/cloud_session_20260906_direction_head_selected_v1.json",
+  "candidate_spec_sha256": "9b0255fbbf6f0c4059e8779e61cb3d5d4eabeab1ce60aed09377d782f755e465",
+  "data_boundary": {
+    "fit": "2015-01-05_to_2025-12-31",
+    "fresh_validation": "2026-01-05_to_2026-08-21",
+    "why_end_2026_08_21": "fixed pre-open endpoint chosen before any 2026 candidate score is read; it is the last full Friday before the previously referenced 2026-08-24 DataHub export date and avoids ambiguity about an in-progress export day",
+    "no_2026_row_may_enter_fit_or_calibration": true,
+    "no_parameter_search_on_2026": true,
+    "raw_2026_rows_must_not_be_committed_to_bounded_repo": true
+  },
+  "refit_policy_before_fresh_open": {
+    "comparator": {
+      "name": "ridge_mean_sign",
+      "pipeline": "StandardScaler + Ridge(alpha=1.0)",
+      "target": "gap",
+      "decision": "prediction >= 0",
+      "fit_window": "2015-2025"
+    },
+    "candidate": {
+      "name": "median_quantile_sign",
+      "pipeline": "StandardScaler + QuantileRegressor(quantile=0.5, alpha=0.0, solver=highs)",
+      "target": "gap",
+      "decision": "prediction >= 0",
+      "fit_window": "2015-2025"
+    },
+    "features": [
+      "r1",
+      "r20",
+      "abs_r1",
+      "prev_gap",
+      "overnight_trend_5",
+      "prev_daytime",
+      "prev_last_hour",
+      "prev_afternoon",
+      "rvol20",
+      "weekend",
+      "holiday_reopen",
+      "us_nasdaq",
+      "us_vix_chg"
+    ],
+    "same_complete_row_mask": true
+  },
+  "primary_metrics": [
+    "direction_hit",
+    "correct_count",
+    "candidate_minus_baseline_correct_count"
+  ],
+  "robustness_metrics": [
+    "balanced_accuracy",
+    "recall_up",
+    "recall_down",
+    "actual_up_share",
+    "pred_up_share",
+    "roc_auc",
+    "monthly_direction_hit",
+    "monthly_balanced_accuracy",
+    "paired_disagreement_counts",
+    "mcnemar_exact_p_value"
+  ],
+  "decision_levels": {
+    "raw_hit_confirmation": [
+      "candidate direction_hit > comparator direction_hit",
+      "candidate_minus_baseline_correct_count > 0"
+    ],
+    "robust_confirmation": [
+      "all raw_hit_confirmation conditions hold",
+      "candidate balanced_accuracy >= comparator balanced_accuracy",
+      "candidate recall_up > 0.5",
+      "candidate recall_down > 0.5"
+    ]
+  },
+  "decision_semantics": {
+    "if_robust_confirmation": "mark direction_candidate_2026_robustly_confirmed; eligible for separate review as the direction head of the confirmed two-head architecture; production_authority remains false",
+    "if_raw_only": "mark direction_candidate_2026_raw_hit_only; retain Ridge as operational research direction head because the base-rate/regime concern was not resolved",
+    "if_raw_fail": "mark direction_candidate_2026_not_confirmed; retain Ridge direction head; do not retune on this 2026 window in the same evidence cycle"
+  },
+  "secondary_statistical_test": {
+    "test": "two-sided exact McNemar/binomial test on model-disagreement days",
+    "role": "report uncertainty only; not a tuning or pass/fail override because the fixed 2026 YTD sample may have limited power"
+  },
+  "forbidden_after_open": [
+    "feature changes",
+    "alpha changes",
+    "quantile changes",
+    "threshold changes",
+    "class-weight changes",
+    "calendar-specific exceptions",
+    "choosing Logistic instead",
+    "using trading return as a gate",
+    "expanding or shrinking the validation endpoint after seeing candidate results"
+  ],
+  "parent_magnitude_status": "the clock-aware magnitude head is already locally confirmed on 2021-2025 and is not part of this direction-head selection",
+  "production_authority": false
+}
