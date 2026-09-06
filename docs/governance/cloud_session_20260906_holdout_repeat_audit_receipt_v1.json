@@ -1,0 +1,62 @@
+{
+  "schema_id": "overnight_open_frozen_holdout_repeat_audit_receipt@1.0",
+  "session_date": "2026-09-06",
+  "evaluation_role": "repeat_audit_recovery_after_comparator_incidents",
+  "first_holdout_run_id": 34009974373,
+  "successful_repeat_audit_run_id": 34010137911,
+  "successful_repeat_audit_commit": "71767cca893454acacbff031bcf60d1e09c5c008",
+  "candidate_sha256": "c2df5d9acdd9d970288ae8f990834d8b91495695b4e95bde0b82f88b160da12e",
+  "candidate_mutated_after_first_holdout_open": false,
+  "retuned_after_holdout": false,
+  "train": "2015-01-05_to_2018-12-31",
+  "holdout": "2019-01-01_to_2020-12-31",
+  "n_train": 952,
+  "n_holdout": 485,
+  "candidate": {
+    "ic": 0.5316392202457357,
+    "sign_hit": 0.711340206185567,
+    "r2": 0.25465360625050215,
+    "mae": 0.0038885879483373585,
+    "rmse": 0.007491833174852838
+  },
+  "frozen_baseline_ridge": {
+    "ic": 0.45698248147216,
+    "sign_hit": 0.7195876288659794,
+    "r2": 0.16075322424988825,
+    "mae": 0.003949353032962774,
+    "rmse": 0.007949757142272211
+  },
+  "legacy_receipt_comparators": {
+    "us_nasdaq_ic": 0.484159954330252,
+    "majority_down_hit_field": 0.48865979381443303,
+    "note": "Preserved verbatim. Recovery exposed reconstruction-contract differences; these historical fields were not rewritten."
+  },
+  "same_run_us_nasdaq_ridge": {
+    "n_train": 974,
+    "n_holdout": 487,
+    "ic": 0.4839829379451814,
+    "sign_hit": 0.6899383983572895,
+    "r2": 0.18942468177671934,
+    "mae": 0.003972540689981789,
+    "rmse": 0.007798157686078104
+  },
+  "same_run_always_down_hit": 0.4865979381443299,
+  "same_run_always_up_hit": 0.51340206185567,
+  "deltas": {
+    "ic_vs_baseline_ridge": 0.07465673877357576,
+    "sign_hit_vs_baseline_ridge": -0.008247422680412342,
+    "sign_hit_vs_same_run_always_down": 0.22474226804123715,
+    "sign_hit_vs_legacy_majority_down_field": 0.222680412371134,
+    "ic_vs_frozen_receipt_us_nasdaq": 0.04747926591548374,
+    "ic_vs_same_run_us_nasdaq_ridge": 0.04765628230055435,
+    "sign_hit_vs_same_run_us_nasdaq_ridge": 0.021401807828277497,
+    "r2_vs_baseline_ridge": 0.0939003820006139,
+    "mae_vs_baseline_ridge": -0.00006076508462541557,
+    "rmse_vs_baseline_ridge": -0.0004579239674193736
+  },
+  "strict_baseline_win": false,
+  "beats_frozen_receipt_us_nasdaq_on_ic": true,
+  "scientific_interpretation": "The causal US-clock accumulation mechanism materially improves magnitude/ranking metrics but does not pass the preregistered joint IC+sign promotion gate because sign hit is 0.8247 percentage points below the frozen baseline.",
+  "fresh_oos": false,
+  "production_authority": false
+}
