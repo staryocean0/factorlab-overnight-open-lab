@@ -51,3 +51,4 @@
 49. `docs/research/offshore_china_price_discovery_preanalysis_20260906.md`
 50. `scripts/probe_offshore_china_source_quality.py`
 51. `docs/ops/ohr_05_offshore_china_source_admission_handoff.md`
+52. `docs/governance/cloud_session_20260906_offshore_china_source_execution_freeze_v1.json`
