@@ -44,18 +44,32 @@
       "2026_used": false
     },
     "phase_2": {
-      "status": "family_frozen_waiting_local_development_selection",
+      "status": "completed_cloud_review_no_incremental_successor",
       "family": "docs/governance/cloud_session_20260906_high_open_recall_phase2_family_v1.json",
       "selector": "scripts/select_high_open_recall_phase2_dev.py",
+      "local_receipt": "docs/research/cloud_session_20260906_local_high_open_recall_phase2_dev_receipt_v1.json",
+      "cloud_review": "docs/research/high_open_recall_phase2_cloud_review_20260906.md",
+      "decision": "retain_incumbent_do_not_open_repeat_blackbox",
+      "selected": null,
+      "diagnostic_progression_material": "weakness_last_hour_piecewise",
       "development_window": "2015-01-05_to_2025-12-31",
+      "2026_used": false
+    },
+    "rebound_conditioning_diagnostic": {
+      "status": "protocol_runner_and_tests_frozen_waiting_development_execution",
+      "protocol": "docs/governance/cloud_session_20260906_high_open_rebound_conditioning_protocol_v1.json",
+      "runner": "scripts/diagnose_last_hour_rebound_conditioning_dev.py",
+      "purpose": "distinguish additional true-high rescues from additional false-high calls caused by the rejected last-hour weakness hinge",
+      "candidate_selection_performed": false,
       "2026_used": false
     },
     "blackbox_repeat_validation": {
       "window": "2026-01-05_to_2026-08-21",
-      "status": "sealed_from_new_development",
+      "status": "sealed_no_successor_so_not_opened_for_this_branch",
+      "ohr_03_status": "not_opened",
       "may_participate_in_design_or_ranking": false,
       "fresh_oos_authority": false,
-      "reason": "already opened in the prior direction-head cycle"
+      "reason": "already opened in the prior direction-head cycle and no Phase-2 successor passed development gates"
     },
     "true_fresh_reserved": "post_2026-08-21",
     "raw_2021_plus_rows_in_repository": false
