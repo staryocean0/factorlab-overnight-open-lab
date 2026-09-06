@@ -31,6 +31,22 @@
     "raw_rows_in_this_repository": false,
     "post_2026_08_21": "reserved_unread_for_this_candidate_identity"
   },
+  "high_open_recall_successor_v1": {
+    "protocol": "docs/governance/cloud_session_20260906_high_open_recall_research_protocol_v1.json",
+    "research_question": "explain_and_reduce_high_open_false_negatives_without_sacrificing_existing_direction_quality",
+    "development_material": "2015-01-05_to_2025-12-31",
+    "development_note": "2021-2025 was already consumed in a prior challenge and is reclassified only as development material for this new identity; it is not fresh evidence",
+    "phase_1": "mechanism_diagnosis_only_no_candidate_selection",
+    "blackbox_repeat_validation": {
+      "window": "2026-01-05_to_2026-08-21",
+      "status": "sealed_from_new_development",
+      "may_participate_in_design_or_ranking": false,
+      "fresh_oos_authority": false,
+      "reason": "already opened in the prior direction-head cycle"
+    },
+    "true_fresh_reserved": "post_2026-08-21",
+    "raw_2021_plus_rows_in_repository": false
+  },
   "fresh_oos": true,
   "production_authority": false
 }
