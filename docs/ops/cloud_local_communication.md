@@ -248,3 +248,22 @@ Incumbent OOF（与 OHR-01 完全相同）：`direction_hit=0.7176422093981863`�
 - 未做参数 / 分位 / 阈值搜索或收益优化。
 - 本地不冻结新 successor，不打开 OHR-03。
 - 未上传 2015+ 原始行情或逐日 OOF prediction。
+
+### Codex controller 独立重跑（2026-09-06）
+
+- 执行身份：本地 Codex controller；工作目录 `/home/starryocean/桌面/量化/factorlab-overnight-open-lab`。
+- 重跑时 HEAD：`32e976cfded98463677d2c74b09f33de9c99b761`（已含上一轮本地 selection receipt）。family / selector / tests 相对 OHR-02 冻结提交 `5c734f36f49a80dc46ebdd67b66895740c807b1e` 无 diff。
+- 未设置路径覆盖环境变量；未读取 2026 黑箱逐日结果做候选设计或选择；未打开 OHR-03。
+
+| 命令 | 退出码 |
+|---|---|
+| `python3 scripts/validate_theme_package.py` | 0 |
+| `python3 -m pytest -q` | 0（11 passed） |
+| `python3 scripts/select_high_open_recall_phase2_dev.py` | 0 |
+
+- selector 终端摘要再次为 `eligible_candidate_count=0`，`selected=null`，`decision=retain_incumbent_do_not_open_repeat_blackbox`，`2026_blackbox_opened=false`。
+- 重跑后 receipt / data-usage 相对 `32e976c` 字节级相同：
+  - `docs/research/cloud_session_20260906_local_high_open_recall_phase2_dev_receipt_v1.json` sha256 `6a65180eaef2b1ef38ed5da52504f3f11018b802cc0aee2d7b83328938c113f5`
+  - `docs/governance/local_session_20260906_high_open_recall_phase2_data_usage.json` sha256 `5712a64c18bd9bd5e6ddc60b19280bc21721e0e665c01b45e577ab506b4df56d`
+- 独立重算 4 组 eligibility gates，与 receipt 完全一致；无人 eligible，因此必须保留 `median_quantile_sign`，不得打开 2026。
+- 本附记只确认上一轮本地反馈可复现，不新增候选、不改门禁、不授予 production / fresh-OOS authority。
