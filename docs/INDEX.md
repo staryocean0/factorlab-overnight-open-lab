@@ -109,3 +109,13 @@
 107. `docs/research/gap_fill_v2_v1_development_closeout_20260906.md`
 108. `data/gap_fill_repeat_2026/`
 109. `docs/ops/gap_fill_v2_2026_repeat_handoff.md`
+110. `docs/governance/cloud_session_20260906_gap_fill_v2_2026_repeat_protocol_v1.json`
+111. `scripts/evaluate_local_gap_fill_v2_2026_repeat.py`
+112. `tests/test_gap_fill_v2_2026_repeat_protocol.py`
+113. `docs/governance/cloud_session_20260906_gap_fill_v2_2026_repeat_execution_freeze_v1.json`
+114. `docs/governance/cloud_session_20260906_gap_fill_v2_2026_repeat_cloud_execution_authorization_v1.json`
+115. `docs/governance/cloud_session_20260906_gap_fill_v2_2026_repeat_execution_incident_v1.json`
+116. `docs/research/cloud_session_20260906_local_gap_fill_v2_2026_repeat_receipt_v1.json`
+117. `docs/governance/local_session_20260906_gap_fill_v2_2026_repeat_data_usage_v1.json`
+118. `docs/research/gap_fill_v2_2026_repeat_cloud_adjudication_20260906.md`
+119. `.github/workflows/gap-fill-v2-2026-repeat-cloud.yml`
