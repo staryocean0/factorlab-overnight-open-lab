@@ -2,7 +2,7 @@
 
 ## OHR-01 — 高开漏判机制诊断（开发阶段，不打开 2026）
 
-**状态：本地已反馈，待云端复核。**
+**状态：云端已复核通过，任务关闭。**
 
 ### 目标
 
@@ -25,119 +25,156 @@
 
 注意：因为 2026-01-05..08-21 已在上一轮打开，而且这轮研究动机本身来自已知的 high-open recall 弱点，所以它不能科学上重新变 fresh。后续可以在候选完全冻结后做一次黑箱复核，但只能提供复现/反证权，不能单独授予新的 fresh-OOS authority。
 
-### 本地执行要求
+### 本地执行反馈（2026-09-06）
 
-本地 controller 原样执行：
+- 本地执行时代码 SHA：`266a5d97df35899e23ca14c88eb4da9b4bfaf969`。
+- `python3 scripts/validate_theme_package.py`：退出码 0。
+- `python3 -m pytest -q`：退出码 0，9 passed。
+- `python3 scripts/diagnose_high_open_false_negatives_dev.py`：退出码 0。
+- 回传 commit：`cfadb9c0d106952a4915c125bf1b6fee4d72e846`。
+- 输出：
+  - `docs/research/cloud_session_20260906_local_high_open_recall_diagnostic_receipt_v1.json`
+  - `docs/governance/local_session_20260906_high_open_recall_data_usage.json`
+- 本地未打开 2026 黑箱；未做候选、参数、quantile、threshold 或收益搜索；未上传原始开发行情或逐日 OOF prediction。
+
+### 云端复核（2026-09-06）
+
+复核结论：**通过**。
+
+完整性检查：
+
+1. `266a5d9..cfadb9c` 之间仅新增/修改 aggregate receipt、data-usage、communication、INDEX；冻结诊断脚本、协议和测试没有在看到结果后被修改。
+2. `development_window.end == 2025-12-31`；`oof_years == [2016..2025]`；`n_oof == 2426`。
+3. `2026_rows_loaded == false`；`2026_blackbox_opened == false`。
+4. `candidate_selection_performed == false`；`parameter_search_performed == false`；`threshold_search_performed == false`；`trading_return_used == false`。
+5. 2015–2020 reconstruction 全字段 max-abs = 0；source hashes 与既有本地源身份一致。
+6. raw development rows 未写入 bounded repo；production authority=false。
+
+机制裁决已写入：`docs/research/high_open_recall_phase1_adjudication_20260906.md`。
+
+核心裁决：
+
+- H1 边界噪声只能解释一部分，不是主因；205/353 个 FN 是 >10bp 高开，87/353 是 >30bp，高开漏判不能靠轻微阈值平移解决。
+- H2 慢 opening regime 状态不稳定，不进入候选族。
+- H3 正向 US risk-on 通道并不缺失：NASDAQ interval Q4 的实际高开 recall 已达约 0.884；剩余错误主要发生在没有强正向 US 信息却仍高开的日子，因此不新增正向 US terms。
+- H4 原预注册的“中国弱势 × US-up”交互不稳定，拒绝。
+- H5 US-session-count / holiday-reopen 不支持作为方向 recall successor。
+- H6 **prior-China-weakness nonlinear rebound** 获得支持：full-day / afternoon / last-hour weakness 在 FN 相对 TP 的差异均为 10/10 年同方向，其中 full-day 与 last-hour 最强。允许用 negative-part piecewise basis 测试负收益侧单独斜率。
+
+OHR-01 到此关闭。2026 黑箱仍未打开。
+
+---
+
+## OHR-02 — 高开漏判 Phase-2 分段弱势候选选择（开发阶段，不打开 2026）
+
+**状态：待本地执行并回写。**
+
+### 目标
+
+在 Phase-1 唯一获支持的金融机制 `prior_china_weakness_nonlinear_rebound` 上，比较一个严格有界的低容量候选族，判断是否存在能提高 high-open recall、同时不牺牲 incumbent 总体方向质量的 successor。
+
+这一步是 **development selection**，不是 2026 黑箱，也不是 fresh validation。
+
+### 冻结输入
+
+- Phase-1 裁决：`docs/research/high_open_recall_phase1_adjudication_20260906.md`
+- Phase-2 family：`docs/governance/cloud_session_20260906_high_open_recall_phase2_family_v1.json`
+- Selector：`scripts/select_high_open_recall_phase2_dev.py`
+- Incumbent：`median_quantile_sign`，spec SHA256 `9b0255fbbf6f0c4059e8779e61cb3d5d4eabeab1ce60aed09377d782f755e465`
+
+### 冻结数学形式
+
+Estimator 保持不变：
+
+`StandardScaler + QuantileRegressor(quantile=0.5, alpha=0.0, solver=highs)`
+
+Target 保持 `gap`，判定保持 `prediction >= 0`。
+
+原 13 个 direction features 全部保留。唯一允许增加的是：
+
+- `prev_daytime_weakness = max(-prev_daytime, 0)`
+- `prev_afternoon_weakness = max(-prev_afternoon, 0)`
+- `prev_last_hour_weakness = max(-prev_last_hour, 0)`
+
+候选严格只有四个：
+
+1. `weakness_daytime_piecewise`
+2. `weakness_afternoon_piecewise`
+3. `weakness_last_hour_piecewise`
+4. `weakness_three_horizon_piecewise`
+
+不得加入任何其他组合或数据源。
+
+### 冻结开发选择
+
+- 原始开发窗口：2015-01-05..2025-12-31。
+- OOF：2016..2025 expanding natural-year。
+- 每个候选使用与 incumbent 相同 complete-row mask。
+
+候选有资格被选择必须同时满足：
+
+1. pooled `recall_up` 严格高于 incumbent；
+2. pooled `direction_hit >= incumbent`；
+3. pooled `balanced_accuracy >= incumbent`；
+4. pooled `recall_down > 0.5`；
+5. 10 个 OOF 年里至少 6 年 `recall_up` delta > 0；
+6. 年度 `recall_up` delta 中位数 >= 0；
+7. actual gap >10bp 的 high-open recall 不低于 incumbent；
+8. actual gap >30bp 的 high-open recall 不低于 incumbent。
+
+若多个候选通过，依次按 pooled recall_up、balanced accuracy、direction hit 降序，再按 extra feature 数量、名称排序。
+
+如果没有候选通过：保留 incumbent，**不要打开 2026 repeat blackbox**。
+
+如果有候选通过：本地只回传开发 selection receipt；**仍然不要打开 2026**。由云端先复核并冻结 exact successor identity，之后才另立 OHR-03 黑箱协议。
+
+### 本地执行命令
 
 ```bash
-python scripts/validate_theme_package.py
-pytest -q
-python scripts/diagnose_high_open_false_negatives_dev.py
+python3 scripts/validate_theme_package.py
+python3 -m pytest -q
+python3 scripts/select_high_open_recall_phase2_dev.py
 ```
 
-如果本地源路径移动，只允许设置以下环境变量：
+如本地源路径移动，只允许使用已有四个 path override 环境变量；不得修改 family、selector、OOF 年份、gate 或模型语义来适配结果。
 
-- `OVERNIGHT_ANNOTATED_PANEL`
-- `OVERNIGHT_DATAHUB_1M`
-- `OVERNIGHT_FRED_NASDAQ`
-- `OVERNIGHT_FRED_VIX`
+### 2026 denylist
 
-不得修改模型语义、开发截止日、OOF 年份、诊断分桶或 probe 定义来适配结果。
-
-### 本地执行时的 denylist
-
-在完成 OHR-01 开发诊断前，本地执行代理不要读取或引用以下 2026 结果材料来做机制判断或候选设计：
+OHR-02 期间不得为了候选设计/选择读取或引用：
 
 - `docs/research/cloud_session_20260906_local_2026_direction_receipt_v1.json`
 - `docs/research/cloud_session_20260906_local_2026_direction_result.md`
-- 任何 2026-01-05..2026-08-21 的逐日 target/prediction/trade 明细。
+- 任何 2026-01-05..2026-08-21 逐日 target/prediction/trade 数据
+- post-2026-08-21 任何 target 或结果材料
 
-协议文件中关于“2026 已经被消费、必须封存”的治理信息可以读取；不得读取其结果内容来调整研究设计。
+治理文件中“2026 已消费/必须封存”的边界信息允许读取；结果内容禁止用于本轮选择。
 
 ### 预期输出
 
-脚本应生成：
+Selector 应只新增：
 
-- `docs/research/cloud_session_20260906_local_high_open_recall_diagnostic_receipt_v1.json`
-- `docs/governance/local_session_20260906_high_open_recall_data_usage.json`
+- `docs/research/cloud_session_20260906_local_high_open_recall_phase2_dev_receipt_v1.json`
+- `docs/governance/local_session_20260906_high_open_recall_phase2_data_usage.json`
 
-只提交聚合诊断和 source hashes；不要提交 2015+ 原始行情、逐日 OOF prediction、2026 数据或本地大文件。
+并在终端打印 `HIGH_OPEN_RECALL_PHASE2_SELECTION_RESULT ...`。
 
-### 验收条件
+不要提交 2015+ 原始行情、逐日 OOF prediction 或 2026 数据。
 
-云端复核时至少检查：
+### 云端验收条件
 
-1. `development_window.end == 2025-12-31`；
-2. `2026_rows_loaded == false`、`2026_blackbox_opened == false`；
-3. `candidate_selection_performed == false`；
-4. `parameter_search_performed == false`；
-5. `threshold_search_performed == false`；
-6. 2015–2020 reconstruction 与冻结包逐字段 max-abs 为 0；
-7. OOF 仅覆盖 2016–2025；
-8. 输出包含 high-open gap magnitude、false-negative margin、slow-state、asymmetric-US、catch-up interaction、US-session-count 等聚合诊断；
-9. source hashes 完整；
-10. `production_authority == false`。
+至少检查：
+
+1. 本地执行代码 SHA 是本 OHR-02 冻结后的代码版本；
+2. validator / pytest / selector 三条命令均退出 0；
+3. family multiplicity = 4，实际 attempts 恰好 4；
+4. `development_window.end == 2025-12-31`，OOF 只覆盖 2016–2025，`n_oof` 与 incumbent 库存一致；
+5. `2026_rows_loaded == false`、`2026_blackbox_opened == false`；
+6. `parameter_search_performed == false`、`threshold_search_performed == false`、`quantile_search_performed == false`；
+7. same complete-row mask 检查通过；
+8. 每个 attempt 的 eligibility gates、annual recall-up deltas、material >10bp/>30bp recall、paired disagreements 完整；
+9. selected 结果严格由冻结排序规则产生；若无人 eligible，decision 必须是 retain incumbent；
+10. source hashes 完整且 raw rows 未写入 bounded repo；production authority=false。
 
 ### 本地完成后回写
 
-本地代理请在本节末尾追加：实际 commit SHA、三条命令的退出码、输出文件路径、关键聚合结果，以及任何失败/未验证事项。云端收到后先复核，再决定 Phase 2 候选族；在此之前不打开 2026 黑箱。
-
-### 本地执行反馈（2026-09-06）
-
-- 执行身份：本地 controller；工作目录 `/home/starryocean/桌面/量化/factorlab-overnight-open-lab`。
-- 执行时代码 SHA：`266a5d9`（`Add fail-closed tests for high-open research boundary [skip ci]`）。
-- 未设置路径覆盖环境变量；沿用既有本地默认源。
-- 未读取 2026 黑箱结果材料做机制判断或候选设计；未打开 Phase 2 候选族。
-
-| 命令 | 退出码 |
-|---|---|
-| `python3 scripts/validate_theme_package.py` | 0 |
-| `python3 -m pytest -q` | 0（9 passed） |
-| `python3 scripts/diagnose_high_open_false_negatives_dev.py` | 0 |
-
-输出文件：
-
-- `docs/research/cloud_session_20260906_local_high_open_recall_diagnostic_receipt_v1.json`
-- `docs/governance/local_session_20260906_high_open_recall_data_usage.json`
-
-本地对照 OHR-01 验收：
-
-1. `development_window.end == 2025-12-31`
-2. `2026_rows_loaded == false`，`2026_blackbox_opened == false`
-3. `candidate_selection_performed == false`
-4. `parameter_search_performed == false`
-5. `threshold_search_performed == false`
-6. 2015–2020 reconstruction 全部字段 max-abs 为 `0.0`
-7. `oof_years == [2016..2025]`，`n_oof == 2426`
-8. 回执含 gap magnitude、FN score-margin、slow-state、asymmetric-US、catch-up、US-session-count 聚合诊断
-9. `source_hashes` 完整（7 项）
-10. `production_authority == false`
-
-source hashes：
-
-- `annotated_panel`: `4f093c51add311ade37634a1548a0c22b5f26b3390008d398a36b006c2f8ce69`
-- `datahub_1m_export`: `aeacff04b268c166faac333ec7ab9d840abcd347d82cb3bcee0218d058fc7423`
-- `fred_nasdaq`: `fad2f5f848d0acd4a9c86eebb75bc0d4f8fe18c1c6852bae3bb5c3a3c1a7bf5e`
-- `fred_vix`: `37f565c00b758ebae9ef2144dc102b3a8560b0ce5941baf7bac21210aa9815d6`
-- `incumbent`: `6fe8b600d35c599c55516a10db78e660473d5992c34b52ce471fdf12ab231b95`
-- `protocol`: `421a96960d58082804635745ee7c991119db44c6b6146ce2f115b6c5bef8a787`
-- `runner`: `2d157956469d2642432c377552e9f1dcabbe8d1aeeab3eed33463ffdeea859fa`
-
-关键聚合（不据此冻结候选）：
-
-- incumbent OOF：`direction_hit=0.71764`，`balanced_accuracy=0.70102`，`recall_up=0.62606`，`recall_down=0.77598`，`pred_up_share=0.38046` vs `actual_up_share=0.38912`，`roc_auc=0.76696`，`tp=591`，`fn=353`，`tn=1150`，`fp=332`。
-- 年别 `recall_up`：2016 `0.730`，2017 `0.714`，2018 `0.441`，2019 `0.563`，2020 `0.646`，2021 `0.740`，2022 `0.587`，2023 `0.660`，2024 `0.580`，2025 `0.610`。
-- 实际正缺口分桶 recall：`gt0_to_10bp` 340/147 漏判、`0.568`；`gt10_to_30bp` 301/118、`0.608`；`gt30bp` 302/87、`0.712`；`material>10bp` 603/205、`0.660`；`material>30bp` 同 `gt30bp`。
-- FN score-margin：353 笔；中位 `10.88bp`，均值 `17.33bp`；`within_5bp` 94（26.6%），`5–15bp` 122（34.6%），`>15bp` 137（38.8%）。
-- `holiday_reopen`：`insufficient_variation`。
-- slow-state 探针 `fn-tp` 标准化差与年符号：`gap_up_share_20` `-0.044`（5+/5-）；`gap_up_share_60` `+0.037`（6+/4-）；`gap_mean_20` `-0.152`（6+/4-）；`gap_mean_60` `-0.031`（6+/4-）；`overnight_trend_5` `-0.125`（4+/6-）。
-- US 不对称：`us_nasdaq_interval` `-0.867`（0+/10-）；`us_nasdaq_interval_pos` `-1.053`（0+/10-）；`us_nasdaq_interval_neg_abs` `+0.343`（10+/0-）；`us_vix_drop` `-0.864`（0+/10-）；`us_vix_rise` `+0.271`（10+/0-）；`global_risk_on_joint` `-0.609`（0+/10-）。Q4 NASDAQ interval 实际高开份额 `0.699`、recall `0.884`；Q1 份额 `0.168`、recall `0.137`。
-- catch-up：`catchup_daytime_x_us_up` `-0.050`（3+/7-）；`catchup_afternoon_x_us_up` `-0.190`（3+/7-）；`catchup_last_hour_x_us_up` `-0.049`（3+/7-）。`prev_daytime_weakness` `+0.480`（10+/0-），其 Q4 实际高开 recall 仅 `0.425`。
-- `us_session_count` `-0.099`（3+/7-）。
-
-未验证 / 未做事项：
-
-- 未打开 2026-01-05..2026-08-21 黑箱，也未读取其逐日明细。
-- 未做候选排序、参数/阈值搜索或收益优化。
-- 本地不裁决哪一个金融机制成立，不冻结 Phase 2 候选族。
-- 未上传 2015+ 原始行情或逐日 OOF prediction。
+在本节末尾追加：执行 commit SHA、三条命令退出码、两个输出路径、四个候选的核心指标/gate、selected/decision、source hashes，以及任何失败或未验证事项。云端复核前不得打开 2026。
