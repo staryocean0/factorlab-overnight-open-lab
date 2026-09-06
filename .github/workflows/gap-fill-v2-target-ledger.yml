@@ -19,7 +19,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install dependencies
-        run: python -m pip install --upgrade pip pandas pyarrow numpy pytest
+        run: python -m pip install --upgrade pip pandas pyarrow numpy scikit-learn pytest
       - name: Validate package
         run: python3 scripts/validate_theme_package.py
       - name: Run tests
