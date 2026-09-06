@@ -147,6 +147,47 @@
     "raw_2026_rows_in_repository": false,
     "production_authority": false
   },
+  "gap_fill_prediction_v2": {
+    "status": "phase1_factor_diagnostic_completed_phase2_family_not_yet_frozen",
+    "research_question": "conditional on the observed CSI1000 09:31 opening gap, predict whether the previous close is fully revisited within 15m, 60m or EOD",
+    "protocol": "docs/governance/cloud_session_20260906_gap_fill_prediction_v2_protocol_v1.json",
+    "development_material": "2015-01-05_to_2025-12-31",
+    "target_ledger": {
+      "status": "completed_cloud_no_model_fitting",
+      "runner": "scripts/build_gap_fill_v2_target_ledger.py",
+      "receipt": "docs/research/cloud_session_20260906_gap_fill_v2_target_ledger_v1.json",
+      "data_usage": "docs/governance/cloud_session_20260906_gap_fill_v2_target_data_usage_v1.json",
+      "valid_target_days": 2670,
+      "2026_used": false
+    },
+    "phase1_factor_diagnostic": {
+      "status": "completed_cloud_adjudicated",
+      "protocol": "docs/governance/cloud_session_20260906_gap_fill_v2_phase1_factor_diagnostic_protocol_v1.json",
+      "execution_freeze": "docs/governance/cloud_session_20260906_gap_fill_v2_phase1_execution_freeze_v1.json",
+      "runner": "scripts/diagnose_gap_fill_v2_phase1_factors.py",
+      "receipt": "docs/research/cloud_session_20260906_gap_fill_v2_phase1_factor_diagnostic_receipt_v1.json",
+      "data_usage": "docs/governance/cloud_session_20260906_gap_fill_v2_phase1_factor_data_usage_v1.json",
+      "adjudication": "docs/research/gap_fill_v2_phase1_factor_adjudication_20260906.md",
+      "cloud_run_id": 34032893251,
+      "common_complete_rows": 2421,
+      "high_rows": 942,
+      "low_rows": 1479,
+      "candidate_selection_performed": false,
+      "gap_fill_model_fitting_performed": false,
+      "2026_used": false
+    },
+    "authorized_first_family_boundary": {
+      "high_gap": ["abs_gap", "abs_gap_over_rvol20", "v1_direction_support", "nasdaq_interval_support", "vix_interval_support", "prior_daytime_alignment", "prior_last_hour_alignment"],
+      "low_gap": ["abs_gap", "abs_gap_over_rvol20", "v1_direction_support", "nasdaq_interval_support", "vix_interval_support"],
+      "excluded_first_family": ["v1_magnitude_surprise", "broad_china_specific_support", "prior_gap_alignment"]
+    },
+    "phase2": {
+      "status": "not_frozen_not_executed"
+    },
+    "repeat_only_reserved": "2026-01-05_to_2026-08-21",
+    "true_fresh_reserved": "post_2026-08-21",
+    "production_authority": false
+  },
   "fresh_oos": true,
   "production_authority": false,
   "high_open_dev_pack_2015_2025": {
