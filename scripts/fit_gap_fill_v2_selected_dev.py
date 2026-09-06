@@ -4,6 +4,10 @@
 This is an identity-freeze step, not model selection. It fits exactly six fixed
 LogisticRegression stages (high/low x 15m/60m/EOD) on the full permitted
 2015-2025 development inventory and writes only aggregate parameters/counts.
+
+The selected V2 predictor depends only on the observed gap and prior 20-session
+close-to-close volatility. Accordingly this runner intentionally does not load
+V1 direction outputs, FRED data, offshore ETFs, or any post-09:31 China feature.
 No 2026 row may be loaded and no raw predictions are persisted.
 """
 from __future__ import annotations
@@ -27,7 +31,6 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import build_gap_fill_v2_target_ledger as targetmod
-import diagnose_high_open_false_negatives_dev as highdiag
 
 PROTOCOL = ROOT / "docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_protocol_v1.json"
 SELECTED = ROOT / "docs/governance/cloud_session_20260906_gap_fill_v2_phase2_selected_v1.json"
@@ -43,7 +46,6 @@ EXPECTED_ARCH_SHA = "07810dafbab629f196d04ea1204d90ee68177ce764bb765be560bc1b842
 EXPECTED_SELECTED_BLOB = "17599d3f77861febf373b2ea05cd16131ceac5e8"
 EXPECTED_PANEL_SHA = "f2587a528a517052016b646b58c734569b64a87766ff096575f353587e46aed1"
 EXPECTED_MINUTES_SHA = "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce"
-EPS = 1e-12
 
 
 def sha256(path: Path) -> str:
@@ -119,16 +121,24 @@ def build_targets_full() -> pd.DataFrame:
     return out.sort_values("trading_day", kind="mergesort").reset_index(drop=True)
 
 
-def build_training_frame() -> tuple[pd.DataFrame, dict, dict]:
-    frame, reconstruction = highdiag.build_development_frame()
-    if frame.empty or (pd.to_datetime(frame["trading_day"]).dt.year >= 2026).any():
-        raise RuntimeError("invalid final-fit feature frame")
-    frame = frame.loc[
-        (pd.to_datetime(frame["trading_day"]) >= pd.Timestamp(START))
-        & (pd.to_datetime(frame["trading_day"]) <= pd.Timestamp(END))
-    ].copy()
+def build_geometry_frame() -> tuple[pd.DataFrame, dict]:
+    panel = pd.read_parquet(
+        PANEL,
+        filters=[("trading_day", ">=", START), ("trading_day", "<=", END)],
+        columns=["trading_day", "close_1500", "overnight_gap"],
+    )
+    panel["trading_day"] = panel["trading_day"].astype(str)
+    panel = panel.sort_values("trading_day", kind="mergesort").reset_index(drop=True)
+    if panel.empty or (pd.to_datetime(panel["trading_day"]).dt.year >= 2026).any():
+        raise RuntimeError("invalid final-fit geometry source")
+
+    close = pd.to_numeric(panel["close_1500"], errors="coerce")
+    gap = pd.to_numeric(panel["overnight_gap"], errors="coerce")
+    panel["gap"] = gap
+    panel["rvol20"] = close.pct_change(fill_method=None).shift(1).rolling(20, min_periods=20).std()
+
     targets = build_targets_full()
-    merged = frame.merge(
+    merged = panel.merge(
         targets[["trading_day", "gap", "gap_sign", "fill_15m", "fill_60m", "fill_eod"]],
         on="trading_day",
         how="inner",
@@ -136,33 +146,44 @@ def build_training_frame() -> tuple[pd.DataFrame, dict, dict]:
         validate="one_to_one",
     )
     if merged.empty:
-        raise RuntimeError("feature/target final-fit merge is empty")
-    gap = pd.to_numeric(merged["gap"], errors="coerce")
+        raise RuntimeError("geometry/target final-fit merge is empty")
+    panel_gap = pd.to_numeric(merged["gap"], errors="coerce")
     target_gap = pd.to_numeric(merged["gap_target"], errors="coerce")
-    diff = float(np.nanmax(np.abs(gap.to_numpy(dtype=float) - target_gap.to_numpy(dtype=float))))
-    if not np.isfinite(diff) or diff > 1e-12:
-        raise RuntimeError(f"final-fit feature/target gap mismatch {diff}")
+    gap_diff = np.abs(panel_gap.to_numpy(dtype=float) - target_gap.to_numpy(dtype=float))
+    if not np.isfinite(gap_diff).all():
+        raise RuntimeError("non-finite gap in final-fit merge")
+    max_gap_diff = float(np.max(gap_diff))
+    if max_gap_diff > 1e-12:
+        raise RuntimeError(f"final-fit geometry/target gap mismatch {max_gap_diff}")
     merged = merged.drop(columns=["gap_target"])
+
     rvol = pd.to_numeric(merged["rvol20"], errors="coerce")
-    merged["abs_gap"] = gap.abs()
-    merged["abs_gap_over_rvol20"] = np.where(rvol > 0.0, gap.abs() / rvol, np.nan)
-    valid = merged[FEATURES + ["gap_sign", "fill_15m", "fill_60m", "fill_eod"]].notna().all(axis=1)
-    valid &= np.isfinite(merged[FEATURES].to_numpy(dtype=float)).all(axis=1)
+    merged["abs_gap"] = panel_gap.abs()
+    merged["abs_gap_over_rvol20"] = np.where(rvol > 0.0, panel_gap.abs() / rvol, np.nan)
+    feature_values = merged[FEATURES].apply(pd.to_numeric, errors="coerce")
+    valid = feature_values.notna().all(axis=1)
+    valid &= np.isfinite(feature_values.to_numpy(dtype=float)).all(axis=1)
+    valid &= merged[["gap_sign", "fill_15m", "fill_60m", "fill_eod"]].notna().all(axis=1)
     final = merged.loc[valid].copy().sort_values("trading_day", kind="mergesort").reset_index(drop=True)
     if final.empty:
         raise RuntimeError("no geometry-complete final-fit rows")
     if (pd.to_datetime(final["trading_day"]).dt.year >= 2026).any():
         raise RuntimeError("2026 row entered final-fit training inventory")
+    if not set(final["gap_sign"].unique()).issubset({"high", "low"}):
+        raise RuntimeError("unexpected gap sign in final-fit inventory")
+
     audit = {
+        "n_panel_rows": int(len(panel)),
         "n_target_valid": int(len(targets)),
         "n_feature_target_merged": int(len(merged)),
         "n_geometry_complete": int(len(final)),
         "geometry_missing_or_invalid_count": int(len(merged) - len(final)),
         "min_day": str(final["trading_day"].min()),
         "max_day": str(final["trading_day"].max()),
-        "gap_match_max_abs": diff,
+        "gap_match_max_abs": max_gap_diff,
+        "rvol20_formula": "close_1500.pct_change(fill_method=None).shift(1).rolling(20,min_periods=20).std()",
     }
-    return final, reconstruction, audit
+    return final, audit
 
 
 def make_pipeline() -> Pipeline:
@@ -239,6 +260,8 @@ def main() -> int:
         raise RuntimeError("final-fit protocol unexpectedly allows selection")
     if selected["selected_architecture_sha256"] != EXPECTED_ARCH_SHA:
         raise RuntimeError("selected V2 architecture SHA drifted")
+    if protocol["selected_architecture"]["git_blob_sha"] != EXPECTED_SELECTED_BLOB:
+        raise RuntimeError("selected V2 file identity drifted in protocol")
     for sign in ["high", "low"]:
         head = selected["selected_heads"][sign]
         if head["selected_feature_set"] != "geometry_only" or head["features"] != FEATURES:
@@ -246,7 +269,7 @@ def main() -> int:
     if sha256(PANEL) != EXPECTED_PANEL_SHA or sha256(MINUTES) != EXPECTED_MINUTES_SHA:
         raise RuntimeError("final-fit source identity drifted")
 
-    frame, reconstruction, inventory = build_training_frame()
+    frame, inventory = build_geometry_frame()
     heads: dict[str, dict] = {}
     for sign in ["high", "low"]:
         sf = frame.loc[frame["gap_sign"] == sign].copy()
@@ -270,27 +293,17 @@ def main() -> int:
         "pyarrow": pyarrow.__version__,
     }
     expected_versions = protocol["execution_environment"]
-    version_map = {
-        "python": expected_versions["python"],
-        "numpy": expected_versions["numpy"],
-        "pandas": expected_versions["pandas"],
-        "scipy": expected_versions["scipy"],
-        "scikit_learn": expected_versions["scikit_learn"],
-        "pyarrow": expected_versions["pyarrow"],
-    }
-    if not versions["python"].startswith(version_map["python"] + "."):
+    if not versions["python"].startswith(expected_versions["python"] + "."):
         raise RuntimeError(f"python version drifted: {versions['python']}")
     for key in ["numpy", "pandas", "scipy", "scikit_learn", "pyarrow"]:
-        if versions[key] != version_map[key]:
-            raise RuntimeError(f"library version drifted for {key}: {versions[key]} != {version_map[key]}")
+        if versions[key] != expected_versions[key]:
+            raise RuntimeError(f"library version drifted for {key}: {versions[key]} != {expected_versions[key]}")
 
     source_hashes = {
         "protocol": sha256(PROTOCOL),
         "selected_architecture_file": sha256(SELECTED),
         "annotated_panel": sha256(PANEL),
         "one_minute_official": sha256(MINUTES),
-        "fred_nasdaq": sha256(highdiag.FRED_NDQ),
-        "fred_vix": sha256(highdiag.FRED_VIX),
         "runner": sha256(Path(__file__)),
     }
     parameter_bundle = {
@@ -325,7 +338,6 @@ def main() -> int:
         "2026_rows_loaded": False,
         "2026_repeat_validation_opened": False,
         "raw_prediction_rows_written_to_repo": False,
-        "reconstruction_2015_2020_max_abs": reconstruction,
         "production_authority": False,
     }
     dump_json(OUT, receipt)
