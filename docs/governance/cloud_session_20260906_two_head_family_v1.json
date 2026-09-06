@@ -1,0 +1,63 @@
+{
+  "schema_id": "overnight_open_two_head_candidate_family@1.0",
+  "session_date": "2026-09-06",
+  "origin": "post_hoc_architecture_after_consumed_2019_2020_showed_direction_magnitude_conflict",
+  "financial_objective": "separate high/low direction from absolute overnight gap magnitude instead of forcing one signed-gap regressor to optimize both",
+  "promotion_eligibility_from_2015_2020": false,
+  "direction_head": {
+    "model": "frozen baseline StandardScaler + Ridge(alpha=1.0)",
+    "features_source": "docs/governance/baseline_receipt.json",
+    "output": "sign(base_gap_prediction)",
+    "parameter_search": false
+  },
+  "magnitude_candidates": {
+    "abs_frozen_clock_signed_prediction": {
+      "fit": "reuse frozen clock signed-gap Ridge(alpha=100)",
+      "magnitude": "abs(clock_signed_prediction)",
+      "new_fit": false
+    },
+    "direct_abs_gap_clock_ridge": {
+      "fit": "StandardScaler + Ridge(alpha=100) on target abs(gap)",
+      "features": "same 16 frozen clock features",
+      "magnitude": "max(raw_magnitude_prediction, 0)",
+      "alpha_search": false
+    }
+  },
+  "candidate_count": 2,
+  "recombination": "signed_gap_prediction = baseline_direction_sign * magnitude_prediction",
+  "development_selection_only": {
+    "window": "2015-2018 time-ordered OOF",
+    "folds": [
+      {"train": "2015", "validate": "2016"},
+      {"train": "2015-2016", "validate": "2017"},
+      {"train": "2015-2017", "validate": "2018"}
+    ],
+    "admissible_if": [
+      "direction sign hit equals baseline direction sign hit by construction",
+      "year-equal mean magnitude MAE <= baseline magnitude MAE",
+      "year-equal mean magnitude RMSE <= baseline magnitude RMSE",
+      "worst-year magnitude correlation > 0"
+    ],
+    "rank": [
+      "lowest year-equal mean magnitude RMSE",
+      "then lowest year-equal mean magnitude MAE",
+      "then highest year-equal mean magnitude correlation"
+    ]
+  },
+  "holdout_policy": {
+    "2019_2020": "consumed; forbidden for new architecture selection or promotion",
+    "2021_2025": "required local fresh confirmation for any selected successor"
+  },
+  "forbidden": [
+    "direction threshold search",
+    "alpha search",
+    "tail threshold as runtime input",
+    "same-morning China information",
+    "2019-2020 selection",
+    "production promotion"
+  ],
+  "authority": {
+    "fresh_oos": false,
+    "production_authority": false
+  }
+}
