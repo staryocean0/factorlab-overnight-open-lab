@@ -79,3 +79,9 @@
 77. `docs/research/cloud_session_20260906_cloud_offshore_china_ohr08_dev_receipt_v1.json`
 78. `docs/governance/cloud_session_20260906_offshore_china_ohr08_data_usage.json`
 79. `docs/research/offshore_china_price_discovery_route_closeout_20260906.md`
+80. `docs/research/gap_fill_prediction_v2_preanalysis_20260906.md`
+81. `docs/governance/cloud_session_20260906_gap_fill_prediction_v2_protocol_v1.json`
+82. `scripts/build_gap_fill_v2_target_ledger.py`
+83. `tests/test_gap_fill_prediction_v2_protocol.py`
+84. `docs/research/cloud_session_20260906_gap_fill_v2_target_ledger_v1.json`
+85. `docs/governance/cloud_session_20260906_gap_fill_v2_target_data_usage_v1.json`
