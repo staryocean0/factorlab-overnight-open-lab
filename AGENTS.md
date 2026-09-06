@@ -59,6 +59,24 @@ Do not inspect any post-2026-08-21 fill outcome, model score or partial fresh
 receipt before the complete block is available. See
 `docs/governance/gap_fill_v2_true_fresh_state_v1.json`.
 
+**Freezing V2 v1 does not freeze the research program.** A distinct historical-
+extension identity, `gap_fill_v2_historical_extension_v1`, is active now and may
+produce V2.1 or later successors using newly admitted historical data. The
+current HE-00 stage is metadata/provenance only; do not inspect new historical
+fill outcomes until source admission. Fixed same-index partitions are HE_DEV
+`2005-01-01..2010-12-31`, HE_AUDIT_A `2011-01-01..2012-12-31`, HE_AUDIT_B
+`2013-01-01..2014-10-16`, and supporting post-publication cross-check
+`2014-10-17..2014-12-31`. Audit dates must not slide after outcomes are seen.
+Pre-2014-10-17 CSI1000 history must be labeled as vendor backfill,
+constituent-reconstruction, or unknown provenance rather than presumed live.
+See `docs/governance/gap_fill_v2_generation_policy_v1.json` and
+`docs/governance/cloud_session_20260906_gap_fill_v2_historical_extension_protocol_v1.json`.
+V2.1 may use newly admitted historical data and consumed evidence as development
+context, but it must have a new model identity and its own sealed audit evidence;
+it may not alter V2 v1 and inherit V2 v1's evidence labels. CSI300/CSI500 may be
+inventoried now, but any outcome-based cross-index transport test requires a
+separate preregistered protocol.
+
 The bounded `high_open_recall_successor_v1` branch has finished without an
 incremental successor. OHR-02 and OHR-04 both retained
 `median_quantile_sign`; OHR-03 was never opened. Do not continue by slicing the
