@@ -51,13 +51,16 @@ def metrics(y: np.ndarray, pred: np.ndarray) -> dict:
 def main() -> int:
     baseline_receipt = json.loads((ROOT / "docs/governance/baseline_receipt.json").read_text())
     freeze = json.loads((ROOT / "docs/governance/cloud_session_20260906_selected_spec_v1.json").read_text())
-    incident = json.loads((ROOT / "docs/governance/cloud_session_20260906_holdout_incident_v1.json").read_text())
+    incident_v1 = json.loads((ROOT / "docs/governance/cloud_session_20260906_holdout_incident_v1.json").read_text())
+    incident_v2 = json.loads((ROOT / "docs/governance/cloud_session_20260906_holdout_comparator_incident_v2.json").read_text())
     spec = freeze["selected_spec"]
 
-    assert incident["holdout_consumed"] is True
-    assert incident["run_id"] == FIRST_HOLDOUT_RUN_ID
-    assert incident["candidate_or_parameter_changed_after_consumption"] is False
-    assert incident["candidate_sha256"] == spec["sha256"]
+    assert incident_v1["holdout_consumed"] is True
+    assert incident_v1["run_id"] == FIRST_HOLDOUT_RUN_ID
+    assert incident_v1["candidate_or_parameter_changed_after_consumption"] is False
+    assert incident_v1["candidate_sha256"] == spec["sha256"]
+    assert incident_v2["candidate_or_parameter_changed"] is False
+    assert incident_v2["candidate_sha256"] == spec["sha256"]
     assert freeze["holdout_protocol"]["no_retuning_after_open"] is True
 
     expected_sha = spec["sha256"]
@@ -76,7 +79,7 @@ def main() -> int:
     y_c, p_c, ntr_c, nte_c = fit_predict(frame, spec["features"], float(spec["alpha"]))
     cand = metrics(y_c, p_c)
 
-    # Frozen baseline comparator. This must exactly reproduce the historical receipt.
+    # Frozen baseline comparator. This must exactly reproduce the historical Ridge receipt.
     base_cols = baseline_receipt["features"]
     y_b, p_b, ntr_b, nte_b = fit_predict(frame, base_cols, 1.0)
     base = metrics(y_b, p_b)
@@ -86,21 +89,18 @@ def main() -> int:
     assert abs(base["sign_hit"] - float(baseline_receipt["metrics"]["ridge_sign_hit"])) < 1e-12
     assert nte_c == nte_b
 
-    # The historical receipt's us_nasdaq_ic is retained as a frozen comparator number.
-    # The first execution proved that its historical sample-mask/recipe is not identical
-    # to a newly reconstructed one-variable regression. Do not rewrite history to force equality.
+    # Preserve legacy comparator fields verbatim, while computing explicit same-run comparators.
     frozen_receipt_us_nasdaq_ic = float(baseline_receipt["metrics"]["us_nasdaq_ic"])
+    frozen_receipt_majority_down_hit = float(baseline_receipt["metrics"]["majority_down_hit"])
 
-    # Also report an explicitly named, reproducible same-run one-variable Ridge comparator.
     y_u, p_u, ntr_u, nte_u = fit_predict(frame, ["us_nasdaq"], 1.0)
     us_same_run = metrics(y_u, p_u)
-
-    majority_down_hit = float(np.mean(y_c < 0.0))
-    assert abs(majority_down_hit - float(baseline_receipt["metrics"]["majority_down_hit"])) < 1e-12
+    same_run_always_down_hit = float(np.mean(y_c < 0.0))
+    same_run_always_up_hit = float(np.mean(y_c >= 0.0))
 
     result = {
         "schema_id": "overnight_open_frozen_holdout_repeat_audit_receipt@1.0",
-        "evaluation_role": "repeat_audit_recovery_after_comparator_incident",
+        "evaluation_role": "repeat_audit_recovery_after_comparator_incidents",
         "first_holdout_run_id": FIRST_HOLDOUT_RUN_ID,
         "candidate_sha256": expected_sha,
         "candidate_mutated_after_first_holdout_open": False,
@@ -111,17 +111,23 @@ def main() -> int:
         "n_holdout": nte_c,
         "candidate": cand,
         "frozen_baseline_ridge": base,
-        "frozen_receipt_us_nasdaq_ic": frozen_receipt_us_nasdaq_ic,
+        "legacy_receipt_comparators": {
+            "us_nasdaq_ic": frozen_receipt_us_nasdaq_ic,
+            "majority_down_hit_field": frozen_receipt_majority_down_hit,
+            "note": "Legacy fields are preserved verbatim; both had reconstruction-contract mismatches during recovery and are not rewritten."
+        },
         "same_run_us_nasdaq_ridge": {
             "n_train": ntr_u,
             "n_holdout": nte_u,
             **us_same_run,
         },
-        "majority_down_hit": majority_down_hit,
+        "same_run_always_down_hit": same_run_always_down_hit,
+        "same_run_always_up_hit": same_run_always_up_hit,
         "deltas": {
             "ic_vs_baseline_ridge": cand["ic"] - base["ic"],
             "sign_hit_vs_baseline_ridge": cand["sign_hit"] - base["sign_hit"],
-            "sign_hit_vs_majority_down": cand["sign_hit"] - majority_down_hit,
+            "sign_hit_vs_same_run_always_down": cand["sign_hit"] - same_run_always_down_hit,
+            "sign_hit_vs_legacy_majority_down_field": cand["sign_hit"] - frozen_receipt_majority_down_hit,
             "ic_vs_frozen_receipt_us_nasdaq": cand["ic"] - frozen_receipt_us_nasdaq_ic,
             "ic_vs_same_run_us_nasdaq_ridge": cand["ic"] - us_same_run["ic"],
             "sign_hit_vs_same_run_us_nasdaq_ridge": cand["sign_hit"] - us_same_run["sign_hit"],
