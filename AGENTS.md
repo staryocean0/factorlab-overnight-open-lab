@@ -43,7 +43,21 @@ and low heads passed all 6/6 preregistered repeat gates**. The decision is
 must never be called scientifically fresh because that calendar window had
 already been opened in the older direction-head cycle. The repeat result cannot
 be used to modify V2 features, parameters, thresholds, calibration, horizons or
-gates. Post-2026-08-21 remains unread true-fresh evidence for V2.
+gates.
+
+The first scientifically fresh V2 challenge is now **preregistered and execution-
+frozen but unopened**. Its only authorized target window is the complete calendar
+block `2026-08-24 .. 2026-12-31`; partial-window scoring is forbidden and
+`scripts/evaluate_gap_fill_v2_true_fresh_2026q4.py` must refuse execution before
+China date `2027-01-01`. The fresh protocol is
+`docs/governance/cloud_session_20260906_gap_fill_v2_true_fresh_protocol_v1.json`
+and the execution freeze is
+`docs/governance/cloud_session_20260906_gap_fill_v2_true_fresh_execution_freeze_v1.json`.
+The six scientific gates are identical to the repeat protocol. Per-sign sample
+sufficiency is frozen at >=25 all-gap rows, >=20 >10bp rows, and >=12 >30bp rows.
+Do not inspect any post-2026-08-21 fill outcome, model score or partial fresh
+receipt before the complete block is available. See
+`docs/governance/gap_fill_v2_true_fresh_state_v1.json`.
 
 The bounded `high_open_recall_successor_v1` branch has finished without an
 incremental successor. OHR-02 and OHR-04 both retained
@@ -69,9 +83,10 @@ sealed from diagnosis, feature engineering, candidate-family design, ranking,
 loss/threshold choice and all other development; no successor passed a gate that
 would justify opening their repeat-blackbox stage. That window can never become
 scientifically fresh again. Post-2026-08-21 remains the true unread fresh
-challenge. Same-morning China information remains forbidden for V1. For V2, the
-09:31 observed gap is allowed by definition but post-09:31 China information is
-forbidden. Do not mutate any FactorLab live registry.
+challenge for those separate identities. Same-morning China information remains
+forbidden for V1. For V2, the 09:31 observed gap is allowed by definition but
+post-09:31 China information is forbidden at prediction time. Do not mutate any
+FactorLab live registry.
 
 ## 云端—本地交接协议（默认不生效）
 
