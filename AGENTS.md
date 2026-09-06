@@ -11,11 +11,34 @@ contains **no 2026 China market rows**. The repository is currently public while
 requirement; treat that as an explicit governance mismatch and do not silently
 change visibility or pretend the earlier contract never existed.
 
-The prior two-head magnitude candidate was confirmed on 2021-2025 and the prior
-Median direction successor was robustly confirmed on 2026-01-05 through
-2026-08-21. Those receipts remain immutable. The accepted direction incumbent
-is still `median_quantile_sign`; the accepted magnitude component remains
-`abs_frozen_clock_signed_prediction`. Production authority is false.
+The prior V1 two-head architecture remains intact. The accepted direction
+incumbent is `median_quantile_sign`; the accepted magnitude component is
+`abs_frozen_clock_signed_prediction`. The direction head was robustly confirmed
+on 2026-01-05 through 2026-08-21 in its earlier research cycle. Those receipts
+remain immutable. Production authority is false.
+
+A second prediction identity, `gap_fill_prediction_v2`, is now **development
+selected and parameter-frozen**. It asks, after the CSI1000 09:31 gap is
+observed, for the probability that the previous 15:00 close is revisited within
+15 trading minutes, 60 trading minutes, or EOD. High and low gaps use separate
+three-stage discrete-time hazard heads. Phase-2 selected `geometry_only` for
+both signs, using exactly `abs_gap` and `abs_gap_over_rvol20`. The selected
+architecture SHA256 is
+`07810dafbab629f196d04ea1204d90ee68177ce764bb765be560bc1b84261c00`.
+The final 2015-2025 parameter bundle is frozen at SHA256
+`07abe29e31ce09b69bd6250b1ce3ebc5af7688b69ed39909feb80e9db882aaa0`.
+See `docs/research/gap_fill_v2_v1_development_closeout_20260906.md` and
+`docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_freeze_v1.json`.
+Do not add the rejected Phase-1 support variables back into V2 v1, retune the
+geometry heads, introduce a gap-size gate, calibrate probabilities, select a
+binary threshold, or use trading return on consumed 2015-2025 evidence.
+
+For `gap_fill_prediction_v2`, the exact 2026-01-05 through 2026-08-21 window is
+still **unopened**. It may only be used under a separately frozen repeat-only
+validation protocol and can never be called scientifically fresh because that
+calendar window was already opened in the older direction-head cycle.
+Post-2026-08-21 remains unread true-fresh evidence. Do not open either window
+for V2 family redesign or parameter tuning.
 
 The bounded `high_open_recall_successor_v1` branch has finished without an
 incremental successor. OHR-02 and OHR-04 both retained
@@ -41,8 +64,9 @@ sealed from diagnosis, feature engineering, candidate-family design, ranking,
 loss/threshold choice and all other development; no successor passed a gate that
 would justify opening their repeat-blackbox stage. That window can never become
 scientifically fresh again. Post-2026-08-21 remains the true unread fresh
-challenge. Same-morning China information remains forbidden. Do not mutate any
-FactorLab live registry.
+challenge. Same-morning China information remains forbidden for V1. For V2, the
+09:31 observed gap is allowed by definition but post-09:31 China information is
+forbidden. Do not mutate any FactorLab live registry.
 
 ## 云端—本地交接协议（默认不生效）
 
