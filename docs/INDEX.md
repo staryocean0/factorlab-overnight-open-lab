@@ -63,7 +63,7 @@
 61. `docs/ops/ohr_06_offshore_china_price_discovery_handoff.md`
 62. `data/offshore_etf_dev_2015_2025/`
 63. `docs/research/cloud_session_20260906_local_offshore_china_ohr06_diagnostic_receipt_v1.json`
-64. `docs/governance/local_session_20260906_offshore_china_ohr06_data_usage.json`
+64. `docs/governance/cloud_session_20260906_offshore_china_ohr06_data_usage.json`
 65. `docs/research/offshore_china_ohr06_cloud_adjudication_20260906.md`
 66. `docs/governance/cloud_session_20260906_offshore_china_ohr07_family_v1.json`
 67. `scripts/select_offshore_china_ohr07_dev.py`
@@ -92,3 +92,18 @@
 90. `docs/research/cloud_session_20260906_gap_fill_v2_phase1_factor_diagnostic_receipt_v1.json`
 91. `docs/governance/cloud_session_20260906_gap_fill_v2_phase1_factor_data_usage_v1.json`
 92. `docs/research/gap_fill_v2_phase1_factor_adjudication_20260906.md`
+93. `docs/governance/cloud_session_20260906_gap_fill_v2_phase2_hazard_family_v1.json`
+94. `scripts/select_gap_fill_v2_phase2_hazard_family.py`
+95. `tests/test_gap_fill_v2_phase2_hazard_family.py`
+96. `docs/governance/cloud_session_20260906_gap_fill_v2_phase2_execution_freeze_v1.json`
+97. `docs/research/cloud_session_20260906_gap_fill_v2_phase2_hazard_selection_receipt_v1.json`
+98. `docs/governance/cloud_session_20260906_gap_fill_v2_phase2_hazard_data_usage_v1.json`
+99. `docs/research/gap_fill_v2_phase2_hazard_adjudication_20260906.md`
+100. `docs/governance/cloud_session_20260906_gap_fill_v2_phase2_selected_v1.json`
+101. `docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_protocol_v1.json`
+102. `scripts/fit_gap_fill_v2_selected_dev.py`
+103. `tests/test_gap_fill_v2_final_fit_protocol.py`
+104. `docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_execution_freeze_v1.json`
+105. `docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_freeze_v1.json`
+106. `docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_data_usage_v1.json`
+107. `docs/research/gap_fill_v2_v1_development_closeout_20260906.md`
