@@ -1,5 +1,5 @@
 {
-  "schema_id": "overnight_open_csi1000_pit_membership_source_audit_preregistration@1.0",
+  "schema_id": "overnight_open_csi1000_pit_membership_source_audit_preregistration@1.1",
   "registered_date": "2026-09-06",
   "status": "result_free_before_public_DoltHub_membership_query",
   "parent_research": "docs/governance/opening_auction_state_source_preanalysis.json",
@@ -43,8 +43,8 @@
     {
       "event": "2020-12 regular adjustment / first batch of STAR Market securities entering CSI1000",
       "effective_date": "2020-12-14",
-      "required_new_member_examples": ["688001.SH", "688005.SH", "688006.SH", "688007.SH", "688008.SH", "688012.SH", "688016.SH", "688018.SH", "688019.SH", "688020.SH", "688023.SH", "688025.SH", "688029.SH", "688036.SH", "688099.SH", "688111.SH", "688116.SH", "688122.SH", "688388.SH"],
-      "evidence_note": "Official/officially sourced 2020-11-27 adjustment disclosure states 19 STAR Market securities entered CSI1000 on 2020-12-14. Exact examples are frozen only for crosschecking source identity, not for constructing the full membership."
+      "required_new_member_examples": ["688001.SH", "688005.SH", "688006.SH", "688007.SH", "688016.SH", "688018.SH", "688019.SH", "688020.SH", "688030.SH", "688033.SH", "688066.SH", "688098.SH", "688108.SH", "688116.SH", "688122.SH", "688139.SH", "688188.SH", "688366.SH", "688388.SH"],
+      "evidence_note": "Officially sourced 2020-11-27 adjustment disclosure states these 19 STAR Market securities entered CSI1000 effective 2020-12-14. The list is frozen only for source-identity crosschecking, not for constructing the full membership."
     }
   ],
   "adjudication": {
@@ -52,6 +52,12 @@
     "if_early_2015_missing_but_from_2015_05_onward_passes": "retain from first valid snapshot only; never backfill January-April 2015. Any later predictive experiment must use a common-sample comparator and preregister the resulting train coverage gate.",
     "if_event_crosscheck_fails": "reject source candidate",
     "if_counts_or_weights_show systematic corruption": "reject; no ratio repair or manual constituent patching"
+  },
+  "result_free_correction": {
+    "from_schema": "overnight_open_csi1000_pit_membership_source_audit_preregistration@1.0",
+    "reason": "Before any DoltHub membership query was issued, several STAR Market security codes had been transcribed from memory incorrectly. Version 1.1 corrects only code-to-name identities for the already frozen 19-name 2020 event crosscheck.",
+    "source_query_executed_before_correction": false,
+    "target_rows_read": 0
   },
   "authority": {
     "target_rows_read": 0,
