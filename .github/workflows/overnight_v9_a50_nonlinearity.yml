@@ -1,0 +1,55 @@
+name: overnight-v9-a50-nonlinearity
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - codex/overnight-a50-nonlinearity-v9-20260906
+    paths:
+      - scripts/research_global_spillover_v9_a50_nonlinearity.py
+      - tests/test_global_spillover_v9_nonlinearity.py
+      - docs/governance/global_spillover_v9_execution_declaration.json
+      - .github/workflows/overnight_v9_a50_nonlinearity.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: overnight-v9-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install fixed research dependencies
+        run: python -m pip install numpy==2.3.5 pandas==2.2.3 scikit-learn==1.8.0 pyarrow==21.0.0 pytest==8.4.2
+      - name: Validate source package and test scientific guards
+        run: |
+          python scripts/validate_theme_package.py
+          python -m pytest -q
+          python scripts/replay_baseline.py
+      - name: Replay V6 and execute the single frozen V9 candidate
+        run: python scripts/research_global_spillover_v9_a50_nonlinearity.py
+      - name: Upload immutable predictions, model snapshots and diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: overnight-v9-a50-nonlinearity
+          path: |
+            artifacts/research/v9_a50_nonlinearity/
+            docs/governance/global_spillover_v9_a50_nonlinearity_preanalysis.json
+            docs/governance/global_spillover_v9_a50_nonlinearity_preregistration.json
+            docs/governance/global_spillover_v9_execution_declaration.json
+          if-no-files-found: error
+          retention-days: 90

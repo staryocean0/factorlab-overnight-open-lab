@@ -1,0 +1,37 @@
+{
+  "schema_id": "overnight_open_v9_execution_declaration@1.0",
+  "registered_date": "2026-09-06",
+  "status": "result_free_before_v9_execution",
+  "parent_commit": "02bbb216057f7024b5a82a87c80805383bb02c83",
+  "preregistration_commit": "9554809cec804545e0713be1be788b42d7803bd5",
+  "new_selectable_candidates": 1,
+  "interval_roles": [
+    {"interval": "2014-01-01/2014-12-31", "role": "development_material", "use": "frozen external source clock warmup only; no target model rows"},
+    {"interval": "2015-01-01/2018-12-31", "role": "development_material", "use": "frozen training and training-only scaler/coherence gate"},
+    {"interval": "2019-01-01/2020-12-31", "role": "repeat_audit", "use": "consumed holdout; single frozen candidate and fixed-prediction forensics"},
+    {"interval": "2021-01-01/2025-12-31", "role": "fresh_challenge", "cloud_read": false, "local_controller_only": true}
+  ],
+  "benchmarks_required_by_cloud_prompt": {
+    "selection_authority": false,
+    "features": ["original baseline features", "us_nasdaq alone"],
+    "estimator": "StandardScaler + Ridge(alpha=1.0)",
+    "sample": "exact same 900 train / 461 holdout rows as frozen V6",
+    "additional_reference": "always predict low open",
+    "additional_nonselectable_reference_fits": 2
+  },
+  "implementation_rules": {
+    "frozen_v6_sources_byte_identical_to_parent": true,
+    "v9_preregistration_byte_identical_to_freeze": true,
+    "replay_failure_stops_before_candidate_fit": true,
+    "no_new_external_data": true,
+    "no_hyperparameter_or_feature_search": true,
+    "forensic_row_exclusions_never_refit_or_select": true,
+    "nonnegative_gates": "literal >=0; no new tolerance beyond frozen comparator replay tolerance",
+    "scaler_fit": "training rows only",
+    "holiday_nonlinear_term": 0.0,
+    "ordinary_missing_values": "preserve, never replace with zero",
+    "coherence_gate": "analytic derivative in raw-return units, evaluated on ordinary training rows only"
+  },
+  "scope": "Forecast diagnostic experiment under the repository cloud prompt and v9 preregistration; no account or trading-policy work.",
+  "authority": {"fresh_oos": false, "baseline_replacement": false, "production": false, "registry_mutation": false, "runtime_routing": false, "merge_main": false}
+}
