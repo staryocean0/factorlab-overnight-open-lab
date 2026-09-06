@@ -20,27 +20,30 @@ on 2026-01-05 through 2026-08-21 in its earlier research cycle. Those receipts
 remain immutable. Production authority is false.
 
 A second prediction identity, `gap_fill_prediction_v2`, is now **development
-selected and parameter-frozen**. It asks, after the CSI1000 09:31 gap is
-observed, for the probability that the previous 15:00 close is revisited within
-15 trading minutes, 60 trading minutes, or EOD. High and low gaps use separate
-three-stage discrete-time hazard heads. Phase-2 selected `geometry_only` for
-both signs, using exactly `abs_gap` and `abs_gap_over_rvol20`. The selected
-architecture SHA256 is
+selected, parameter-frozen, and robustly repeat-confirmed**. It asks, after the
+CSI1000 09:31 gap is observed, for the probability that the previous 15:00 close
+is revisited within 15 trading minutes, 60 trading minutes, or EOD. High and low
+gaps use separate three-stage discrete-time hazard heads. Phase-2 selected
+`geometry_only` for both signs, using exactly `abs_gap` and
+`abs_gap_over_rvol20`. The selected architecture SHA256 is
 `07810dafbab629f196d04ea1204d90ee68177ce764bb765be560bc1b84261c00`.
 The final 2015-2025 parameter bundle is frozen at SHA256
 `07abe29e31ce09b69bd6250b1ce3ebc5af7688b69ed39909feb80e9db882aaa0`.
-See `docs/research/gap_fill_v2_v1_development_closeout_20260906.md` and
-`docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_freeze_v1.json`.
+See `docs/research/gap_fill_v2_v1_development_closeout_20260906.md`,
+`docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_freeze_v1.json`,
+and `docs/research/gap_fill_v2_2026_repeat_cloud_adjudication_20260906.md`.
 Do not add the rejected Phase-1 support variables back into V2 v1, retune the
 geometry heads, introduce a gap-size gate, calibrate probabilities, select a
-binary threshold, or use trading return on consumed 2015-2025 evidence.
+binary threshold, or use trading return on consumed evidence.
 
-For `gap_fill_prediction_v2`, the exact 2026-01-05 through 2026-08-21 window is
-still **unopened**. It may only be used under a separately frozen repeat-only
-validation protocol and can never be called scientifically fresh because that
-calendar window was already opened in the older direction-head cycle.
-Post-2026-08-21 remains unread true-fresh evidence. Do not open either window
-for V2 family redesign or parameter tuning.
+For `gap_fill_prediction_v2`, the exact 2026-01-05 through 2026-08-21 repeat
+window has now been opened once under the frozen repeat protocol and **both high
+and low heads passed all 6/6 preregistered repeat gates**. The decision is
+`gap_fill_v2_2026_repeat_robustly_confirmed`. This is repeat-only evidence and
+must never be called scientifically fresh because that calendar window had
+already been opened in the older direction-head cycle. The repeat result cannot
+be used to modify V2 features, parameters, thresholds, calibration, horizons or
+gates. Post-2026-08-21 remains unread true-fresh evidence for V2.
 
 The bounded `high_open_recall_successor_v1` branch has finished without an
 incremental successor. OHR-02 and OHR-04 both retained
