@@ -7,3 +7,14 @@ Only `000852.SH` and supporting US prints through 2020-12-31.
 - `us_nasdaq_vix.parquet`: FRED NASDAQCOM and VIXCLS. Use the last US session strictly before the China trading day.
 
 No 2021+ rows. Index path, not a tradable fill. Do not resample new wall-clock frequencies.
+
+## High-open development pack
+
+`high_open_dev_2015_2025/` extends the cloud workspace with `000852.SH` rows through
+2025-12-31 so high-open recall development scripts can run without local FactorLab
+absolute paths.
+
+- 2026-01-05 through 2026-08-21 remains excluded.
+- post-2026-08-21 remains excluded.
+- The 2015-2020 files above stay frozen and unmodified.
+

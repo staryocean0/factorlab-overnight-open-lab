@@ -385,3 +385,21 @@ Disagreement morphology：
 - 未做候选 ranking、参数 / 分位 / 阈值搜索、新的 US 交互搜索或收益优化。
 - 未打开 OHR-03，不授予 production / fresh-OOS authority。
 - 未上传 2015+ 原始行情或逐日 OOF prediction。
+
+---
+
+## DATA-PACK-01 — 给云端补 2015–2025 开发包（仍不含 2026）
+
+**状态：本地已推送，等待云端改用该 pack 自行跑开发诊断。**
+
+云端原先只有 2015-01-05..2020-12-31。OHR-01/02/04 需要 2015-01-05..2025-12-31，所以才反复交接本地。缺口本身不大：
+
+- 新增 `000852.SH` 1m 2021-2025：约 9.2MB；整段 2015-2025 1m pack 约 15.5MB
+- 新增 annotated panel 2015-2025：0.20MB（2674 行）
+- FRED NASDAQ/VIX 截到 2025-12-31：约 0.11MB
+- **2026-01-05..2026-08-21 未放入仓库**（154 个交易日 / 约 1.4MB 1m 仍 sealed）
+- post-2026-08-21 仍 unread
+
+现已新增 `data/high_open_dev_2015_2025/`。原 `data/development/` 2015-2020 冻结包未改。本地若仍有 FactorLab/DataHub 绝对路径，则继续用原文件以保持既有 receipt source hash；云端缺这些路径时自动回退到该 pack。
+
+用 pack 对 2015-2020 frozen panel 的 reconstruction max-abs 为 0。不打开 OHR-03，不授予 production / fresh-OOS。

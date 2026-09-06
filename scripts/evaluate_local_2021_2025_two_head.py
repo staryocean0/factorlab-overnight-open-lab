@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -22,14 +23,46 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 from select_clock_candidates_dev import add_us_interval_features
 
+def resolve_source(env_name: str, local_default: Path, pack_relative: str) -> Path:
+    """Prefer env, then the original local files, then the 2015-2025 cloud pack.
+
+    The pack stops on 2025-12-31 and does not contain the sealed 2026 blackbox.
+    """
+    override = os.environ.get(env_name)
+    if override:
+        return Path(override)
+    if local_default.exists():
+        return local_default
+    pack_path = ROOT / pack_relative
+    if pack_path.exists():
+        return pack_path
+    return local_default
+
+
 FACTORLAB_ROOT = Path("/home/starryocean/桌面/量化/baylum terminal 0.4.1/factor_lab")
-ANNOTATED_PANEL = FACTORLAB_ROOT / "artifacts/market_state/timing_layer2_overnight_gap_ledger_v1_2/annotated_panel.parquet"
-DATAHUB_1M = Path(
-    "/home/starryocean/桌面/量化/unified_datahub/.runtime/live/exports/"
-    "factorlab_unified_index_kline_v3_20260824/1m_official.parquet"
+ANNOTATED_PANEL = resolve_source(
+    "OVERNIGHT_ANNOTATED_PANEL",
+    FACTORLAB_ROOT / "artifacts/market_state/timing_layer2_overnight_gap_ledger_v1_2/annotated_panel.parquet",
+    "data/high_open_dev_2015_2025/annotated_panel.parquet",
 )
-FRED_NDQ = FACTORLAB_ROOT / "tmp/csi1000_overnight_gap_model_v2/fred_nasdaq.csv"
-FRED_VIX = FACTORLAB_ROOT / "tmp/csi1000_overnight_gap_model_v2/fred_vix.csv"
+DATAHUB_1M = resolve_source(
+    "OVERNIGHT_DATAHUB_1M",
+    Path(
+        "/home/starryocean/桌面/量化/unified_datahub/.runtime/live/exports/"
+        "factorlab_unified_index_kline_v3_20260824/1m_official.parquet"
+    ),
+    "data/high_open_dev_2015_2025/1m_official.parquet",
+)
+FRED_NDQ = resolve_source(
+    "OVERNIGHT_FRED_NASDAQ",
+    FACTORLAB_ROOT / "tmp/csi1000_overnight_gap_model_v2/fred_nasdaq.csv",
+    "data/high_open_dev_2015_2025/fred_nasdaq.csv",
+)
+FRED_VIX = resolve_source(
+    "OVERNIGHT_FRED_VIX",
+    FACTORLAB_ROOT / "tmp/csi1000_overnight_gap_model_v2/fred_vix.csv",
+    "data/high_open_dev_2015_2025/fred_vix.csv",
+)
 
 FIT_START = "2015-01-05"
 FIT_END = "2020-12-31"
