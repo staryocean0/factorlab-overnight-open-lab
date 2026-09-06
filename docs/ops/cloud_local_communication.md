@@ -434,6 +434,7 @@ Disagreement morphology：
 ### 冻结身份
 
 - 执行时代码 SHA：`50c8b47be3d0702c713f286f181407a0d8f937d8`（其后 `48e81fa` 只改 `package_scope` 可见性；protocol / runner blob 未变）
+- 回传 commit：`341e25d3574fd761ed1ef659e6040cbab0038a82`
 - provider：`Sina Finance US daily staticdata via akshare.stock_us_daily`
 - provider_id：`finance.sina.com.cn/staticdata/us/{symbol}; akshare==1.18.64; adjust=''; development export 2015-01-01..2025-12-31`
 - price_convention：`raw unadjusted regular-session OHLC from Sina US daily; close/open-1 is same-session return; qfq unused`
