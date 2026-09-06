@@ -1,0 +1,69 @@
+{
+  "schema_id": "overnight_open_offshore_china_ohr08_frozen_base_overlay@1.0",
+  "session_date": "2026-09-06",
+  "research_branch": "offshore_china_price_discovery_successor_v1",
+  "stage": "final_low_dof_development_test_after_ohr07_coefficient_refit_failure",
+  "ohr07_review": "docs/research/offshore_china_ohr07_cloud_review_20260906.md",
+  "fixed_incumbent": {
+    "name": "median_quantile_sign",
+    "spec_sha256": "9b0255fbbf6f0c4059e8779e61cb3d5d4eabeab1ce60aed09377d782f755e465",
+    "pipeline": "StandardScaler + QuantileRegressor(quantile=0.5, alpha=0.0, solver=highs)",
+    "decision": "prediction >= 0"
+  },
+  "accepted_source": {
+    "path": "data/offshore_etf_dev_2015_2025/offshore_etf_daily.parquet",
+    "sha256": "045cf728977ff72a9fabd236aaf06b7a9df3310ad1f6f487bd594d487cc05ffd",
+    "provider": "Yahoo Finance chart v8 (query1.finance.yahoo.com)"
+  },
+  "single_candidate": {
+    "name": "frozen_incumbent_plus_one_dim_offshore_residual_overlay",
+    "g_definition": "broad_china_specific_vs_spy * 1(prev_last_hour < 0)",
+    "stage_1": "fit the exact incumbent 13-feature Median pipeline on each training fold",
+    "stage_1_freeze": "after fit, all incumbent coefficients and preprocessing for that fold are frozen",
+    "stage_2_target": "gap - incumbent_training_score",
+    "stage_2_model": "QuantileRegressor(quantile=0.5, alpha=0.0, fit_intercept=false, solver=highs) on one raw feature g",
+    "candidate_score": "incumbent_score + beta * g",
+    "candidate_decision": "candidate_score >= 0",
+    "outside_tail_weak_state": "g=0 therefore candidate_score must equal incumbent_score exactly"
+  },
+  "multiplicity": 1,
+  "development_selection": {
+    "raw_window": "2015-01-05_to_2025-12-31",
+    "oof": "2016_to_2025_expanding_natural_year",
+    "comparison_inventory": "same 2424-style offshore-valid complete-row rule for incumbent and candidate",
+    "eligibility_gates": {
+      "recall_up_strictly_higher": true,
+      "direction_hit_not_lower": true,
+      "balanced_accuracy_not_lower": true,
+      "recall_down_above_half": true,
+      "positive_annual_recall_up_delta_at_least_6_of_10": true,
+      "median_annual_recall_up_delta_nonnegative": true,
+      "material_high_open_gt10bp_recall_not_lower": true,
+      "material_high_open_gt30bp_recall_not_lower": true,
+      "non_tail_predictions_identical_to_incumbent": true
+    }
+  },
+  "forbidden": [
+    "refit or alter incumbent coefficients after stage-1 fit",
+    "fit a stage-2 intercept",
+    "standardize or center g",
+    "beta grid search",
+    "beta clipping or sign constraint chosen after results",
+    "change quantile alpha solver threshold",
+    "add another offshore representation",
+    "add another interaction or nonlinear transform",
+    "optimize trading return",
+    "use 2026 repeat-blackbox in development",
+    "read post-2026-08-21 targets"
+  ],
+  "if_candidate_fails": "close_offshore_china_route_retain_incumbent_do_not_open_2026",
+  "if_candidate_passes": "freeze_exact_two_stage_successor_before_any_2026_repeat_blackbox",
+  "evidence_boundary": {
+    "development": "2015-01-05_to_2025-12-31",
+    "sealed_repeat_blackbox": "2026-01-05_to_2026-08-21",
+    "repeat_blackbox_fresh_authority": false,
+    "true_fresh_reserved": "post_2026-08-21"
+  },
+  "trading_return_gate": false,
+  "production_authority": false
+}
