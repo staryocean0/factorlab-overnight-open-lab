@@ -1,0 +1,65 @@
+{
+  "schema_id": "overnight_open_global_spillover_v6_forensic_diagnostic_plan@1.0",
+  "registered_date": "2026-09-05",
+  "status": "post_hoc_nonselection_after_v6_progression_result",
+  "source_formal_run": 33979839061,
+  "source_job": 101342974088,
+  "source_workflow_head": "2ffec2a2ebfc3490ff0805e9b14680aa076a320e",
+  "purpose": "Stress-test the unexpectedly large preregistered V6A progression without changing the candidate, cutoff, model, sample rule or adjudication. These diagnostics cannot promote a failed candidate, rescue a gate, select a new feature, or choose a new model.",
+  "locked_candidate": "V6A_plus_ordinary_A50_preauction_closure",
+  "locked_comparator": "V5A_common_sample_comparator",
+  "forbidden": [
+    "candidate reselection",
+    "cutoff search",
+    "feature search",
+    "model-family search",
+    "hyperparameter search",
+    "row exclusion based on prediction error",
+    "using diagnostics to alter the already-recorded preregistered pass/fail result"
+  ],
+  "diagnostics": {
+    "causal_clock": [
+      "reassert every selected ordinary A50 endpoint is strictly before 09:15:00",
+      "reassert start endpoint is at or before previous China 15:00",
+      "report endpoint-time distribution"
+    ],
+    "incremental_information": [
+      "ordinary A50 raw correlation with target gap on the fixed holdout rows",
+      "ordinary A50 raw correlation with frozen comparator residual on the same rows",
+      "direct sign agreement between ordinary A50 return and target gap",
+      "same-row versus one-row lead/lag target correlations as a date-alignment placebo"
+    ],
+    "concentration": [
+      "fixed-prediction per-row SSE improvement V6A versus comparator",
+      "positive/negative contribution counts and sums",
+      "top1/top5/top10 share of positive SSE gain",
+      "remaining total SSE improvement after removing the top1/top5/top10 positive contributors without refitting"
+    ],
+    "redundancy": [
+      "correlation of ordinary A50 with existing US/HKMA/global variables on fixed ordinary holdout rows",
+      "report comparator-to-candidate standardized coefficient sign flips as descriptive multicollinearity evidence only"
+    ]
+  },
+  "interpretation_rule": {
+    "invalidating_findings": [
+      "any actual target endpoint at or after 09:15:00",
+      "any start endpoint after previous China 15:00",
+      "date mapping inconsistent with the frozen target/previous-China-day relation"
+    ],
+    "noninvalidating_but_material_caveats": [
+      "high event concentration",
+      "large coefficient redistribution or sign flips",
+      "high redundancy with existing proxies",
+      "lead/lag correlations that are not clearly smaller than same-row correlation"
+    ],
+    "candidate_selection_effect": "none"
+  },
+  "authority": {
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false,
+    "runtime_routing": false,
+    "merge_main": false
+  }
+}

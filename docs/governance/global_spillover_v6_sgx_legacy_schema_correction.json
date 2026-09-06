@@ -1,0 +1,82 @@
+{
+  "schema_id": "overnight_open_global_spillover_v6_sgx_legacy_schema_correction@1.1",
+  "sealed_date": "2026-09-05",
+  "status": "data_contract_correction_before_any_v6_target_model_result",
+  "formal_probe": {
+    "workflow": "overnight-phase6-sgx-schema-probe",
+    "run_id": 33977977781,
+    "job_id": 101337943799,
+    "head_sha": "b7996740a47cfe9b892c237ed87bc9c44cfe88a6",
+    "conclusion": "success",
+    "artifact_id": 9972882332,
+    "artifact_sha256": "a89af3188c6f200a8e8d65c29c77ab9eb89e6ad5e69a1b360cce8da813261cf8"
+  },
+  "legacy_case": {
+    "date": "2015-02-17",
+    "sgx_key": 3248,
+    "official_tick_archive_sha256": "991a155c434ece40456f6a65d2800d5eee444d0676872b8feb876faea63df9bb",
+    "header": ["Comm", "Contract Type", "Mth Code", "Year", "Strike", "Trade Date", "Log Time", "Price Ind", "Price", "Msg Code", "Amend Code", "Volume"],
+    "row_field_count": 12,
+    "official_TickData_structure_sha256": "d30559b941a1385f85bb7526e82829fb86971e791464a301bb38bf30fb594de5",
+    "official_structure_semantics": {
+      "Price Indicator": "field before Price; blank means normal price",
+      "Price": "official structure permits space/blank through numeric range; a blank carries no usable numeric endpoint price",
+      "Message Code B": "Bid",
+      "Message Code A": "Ask",
+      "Message Code Y": "Traded",
+      "Message Code S": "Settlement",
+      "Amend Code blank": "Normal Record",
+      "Amend Code D": "Deleted Record",
+      "Amend Code C": "Corrected Record",
+      "Amend Code I": "Inserted Record",
+      "Amend Code A": "ATS"
+    },
+    "observed_CN_message_counts": {"B": 35109, "A": 34923, "Y": 21836, "S": 6}
+  },
+  "known_good_case": {
+    "date": "2016-01-04",
+    "sgx_key": 3479,
+    "official_tick_archive_sha256": "728954b0bb2cd31e25471c52c64c26d09ccafc61dd00d29c963a5823c8884c74",
+    "actual_file_header": ["Comm", "Contract_Type", "Mth_Code", "Year", "Strike", "Trade_Date", "Log_Time", "Price", "Msg_Code", "Volume"],
+    "row_field_count": 10,
+    "official_TickData_structure_sha256": "36466c197869b624a10882a4854c7ed7a8880ee62953435d499be919dcc3685b",
+    "official_structure_trade_code": "T",
+    "observed_CN_message_counts": {"A": 49215, "B": 49636, "T": 67396}
+  },
+  "corrections": [
+    {
+      "id": "legacy_column_and_trade_code",
+      "root_cause": "The earlier v5 holiday extractor used fixed positional indices compatible with the later 10-field layout: row[7] as Price and row[8] as Msg Code. In the legacy 12-field layout row[7] is Price Indicator, row[8] is Price, and row[9] is Msg Code; legacy trades are coded Y rather than T. This mechanically caused early legacy CN archives to report zero parsed trades.",
+      "rule": "resolve fields from normalized header names; treat Y as the official legacy trade code and T as the later trade code; never treat S settlement as a trade"
+    },
+    {
+      "id": "legacy_blank_price_trade_record",
+      "discovered_from": "the first formal 2015 ordinary-session extraction, before any v6 target model execution",
+      "first_run_id": 33978542836,
+      "first_2015_job_id": 101339451774,
+      "observed_failure": "43 required 2015 archives failed with ValueError converting an empty Price string, producing only 162/237 usable ordinary events",
+      "official_basis": "the legacy TickData_structure.dat explicitly permits a space/blank Price field",
+      "root_cause": "the schema-aware parser correctly identified Y as Traded but still required every normal Y record to contain a numeric Price; a single official blank-price Y record therefore invalidated an otherwise usable archive",
+      "frozen_rule": "a normal Y/T record with blank Price is counted as blank_price_trade_rows and skipped as a price endpoint; the rest of that archive remains eligible. Nonblank invalid numeric prices still fail. Model results may not choose this rule.",
+      "scope": "data-contract repair only; rerun 2015 extraction only because 2016-2020 artifacts did not exhibit this failure"
+    }
+  ],
+  "frozen_correction_rule_for_v6": {
+    "column_resolution": "resolve fields by normalized header names, not fixed absolute indices",
+    "legacy_trade_code": "Y when the official legacy schema/header identifies the 12-field Price-Ind/Amend layout",
+    "later_trade_code": "T when the later schema/header identifies the traded code T",
+    "settlement_code": "S is not a trade and must never be used as an endpoint",
+    "amendment_policy": "only normal records with blank Amend Code may form endpoints; nonblank amendment records are conservatively excluded",
+    "blank_price_policy": "official blank-price Y/T records cannot form numeric endpoints and are skipped record-by-record rather than invalidating the whole archive",
+    "price_normalization": "for nonblank numeric prices preserve the frozen CN rule: if raw numeric price >100000 divide by 100 exactly once; final sanity range 1000..50000",
+    "model_results_may_not_select_schema_or_blank_price_policy": true
+  },
+  "v5_preservation": {
+    "frozen_v5_branch_is_rewritten": false,
+    "frozen_v5_receipt_is_rewritten": false,
+    "frozen_v5_unseen_candidate_is_retrained": false,
+    "successor_v6_ordinary_A50_may_use_corrected_legacy_parser": true,
+    "note": "The frozen v5 candidate remains historical evidence exactly as sealed. Phase 6 uses the corrected official schema for its new ordinary-session A50 dataset; it does not retroactively change the v5 receipt."
+  },
+  "authority": {"fresh_oos": false, "baseline_replacement": false, "production": false, "registry_mutation": false}
+}

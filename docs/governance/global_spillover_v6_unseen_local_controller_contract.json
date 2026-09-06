@@ -1,0 +1,179 @@
+{
+  "schema_id": "overnight_open_global_spillover_v6_unseen_local_controller_contract@1.0",
+  "registered_date": "2026-09-05",
+  "status": "result_free_with_respect_to_2021_2025_unseen_rows",
+  "purpose": "Genuinely unseen confirmation of the locked V6A ordinary-session SGX A50 pre-auction price-discovery increment without allowing the cloud research branch to read, tune on, store or commit 2021-2025 China target rows or external market rows.",
+  "scientific_question": "Does the same-contract SGX FTSE China A50 move accumulated from the previous mainland close to immediately before the next mainland opening call auction continue to add stable explanatory information about the CSI1000 09:31 opening gap beyond the frozen V5A comparator?",
+  "locked_candidate": {
+    "id": "V6A_plus_ordinary_A50_preauction_closure",
+    "receipt": "docs/governance/global_spillover_v6_daily_a50_receipt.json",
+    "preregistration": "docs/governance/global_spillover_v6_daily_a50_preregistration.json",
+    "formal_candidate_code_sha": "2ffec2a2ebfc3490ff0805e9b14680aa076a320e",
+    "bounded_external_data_freeze_sha": "0ae33649208805937dd41549f6874496319ae911",
+    "pipeline": "StandardScaler + Ridge(alpha=1.0)",
+    "training_period": "2015-2018 only",
+    "training_rule": "reproduce the frozen v6 common-sample training construction and complete-case handling exactly; do not use any 2021-2025 observation to fit scaler, coefficients, feature definitions, contract rules or missing-data rules",
+    "no_refit_using_2021_2025": true,
+    "no_hyperparameter_search": true,
+    "no_feature_search": true,
+    "no_cutoff_search": true,
+    "no_model_family_search": true,
+    "no_regime_search_inside_this_confirmation": true
+  },
+  "locked_comparator": {
+    "id": "V5A_common_sample_comparator",
+    "definition": "the same frozen v4 + holiday A50 feature family used as the comparator in the formal v6 experiment, trained only on the exact frozen 2015-2018 training construction",
+    "common_unseen_rows_required": true,
+    "purpose": "measure the incremental value of the ordinary-session pre-auction A50 channel, not sample composition"
+  },
+  "unseen_boundary": {
+    "target_window": ["2021-01-01", "2025-12-31"],
+    "data_owner": "local controller",
+    "cloud_read_permission": false,
+    "cloud_upload_permission": false,
+    "repository_commit_permission_for_unseen_market_rows": false,
+    "require_local_pre_evaluation_manifest": true,
+    "manifest_must_be_frozen_before_target_metrics_are_computed": true,
+    "manifest_requirements": [
+      "China target source identifiers, local file hashes, row counts and date range",
+      "all external source identifiers and local file hashes",
+      "official SGX archive URL/key/SHA256 provenance for every consumed ordinary and holiday A50 endpoint",
+      "SGX schema identifier and blank-price/amend handling",
+      "China trading calendar and holiday_reopen construction/version",
+      "FRED/HKMA retrieval or frozen-source provenance and causal date clocks",
+      "explicit assertion that ordinary A50 uses zero target trades at or after 09:15:00",
+      "explicit assertion that frozen holiday A50 uses zero target trades at or after 09:25:00",
+      "explicit assertion that no 2021-2025 row was used to change the model or rules"
+    ]
+  },
+  "target": {
+    "name": "CSI1000 next-session opening gap",
+    "formula": "target China 09:31 open / previous China 15:00 close - 1",
+    "evaluation_objective": "explanatory and directional quality, not trading PnL"
+  },
+  "feature_semantics": {
+    "implementation_rule": "reproduce the frozen v3/v4/v5/v6 code and clocks from the locked candidate code; do not reinterpret dates or market sessions for convenience",
+    "US": "preserve the frozen complete-clock U.S. daily and closure-extra construction using only observations available before the China target open",
+    "HKMA_China_FX": "preserve the frozen v4 clock correction and target-date observation prohibition",
+    "SGX_A50_holiday": {
+      "activation": "holiday_reopen == 1",
+      "definition": "preserve the frozen V5A same-contract holiday closure feature exactly",
+      "target_cutoff": "09:24:59 Singapore/Beijing time",
+      "ordinary_rows": 0
+    },
+    "SGX_A50_ordinary": {
+      "activation": "holiday_reopen == 0",
+      "feature": "a50_ordinary_preauction_closure_return",
+      "contract_selection": "nearest non-past CN contract month with an actual trade at or before previous China 15:00",
+      "same_contract_required_at_target": true,
+      "start": "last selected-contract trade at or before previous China 15:00:00",
+      "end": "last same-contract trade strictly before target China 09:15:00, operational cutoff 09:14:59",
+      "formula": "end_price/start_price - 1",
+      "holiday_rows": 0,
+      "future_volume_or_OI_selection": false,
+      "mid_window_roll": false,
+      "target_ticks_at_or_after_09_15": false,
+      "legacy_schema_rule": "resolve fields by normalized official header; legacy Y and later T are trade codes; S is settlement; nonblank amend records excluded; official blank-price trade-status rows are skipped record-by-record"
+    }
+  },
+  "external_source_rule": {
+    "SGX_price_provider": "Singapore Exchange official historical derivatives archives only",
+    "third_party_navigation_prices_allowed": false,
+    "date_to_key_navigation": "a third-party date-to-SGX-key index may be used only as navigation if pinned/frozen before evaluating targets; all market-price bytes must come from official SGX archives",
+    "missing_official_archive_or_same_contract_endpoint": "mark unavailable and exclude the row from both V5A and V6A common-sample comparison; never impute, switch contracts or use future volume/open interest"
+  },
+  "required_reports": {
+    "full_unseen_2021_2025": [
+      "n", "R2 V5A", "R2 V6A", "delta_R2", "SSE V5A", "SSE V6A", "SSE improvement", "IC V5A", "IC V6A", "delta_IC", "sign_hit V5A", "sign_hit V6A", "sign_hit_delta"
+    ],
+    "each_calendar_year": ["n", "R2", "SSE", "IC", "sign_hit for V5A and V6A", "delta metrics"],
+    "each_calendar_quarter": ["n", "SSE improvement", "delta_IC", "sign_hit_delta"],
+    "ordinary_subset": ["n", "R2", "SSE", "IC", "sign_hit", "V6A-minus-V5A deltas"],
+    "holiday_subset": ["event_count", "SSE", "IC", "sign_hit", "event-level fixed predictions and squared-error differences"],
+    "coverage": ["ordinary events total/usable/unavailable with reason", "holiday events total/usable/unavailable with reason", "SGX archive and same-contract endpoint coverage"],
+    "concentration": ["fixed-prediction per-row SSE contribution", "top1/top5/top10 positive-gain shares", "remaining total gain after removing top1/top5/top10 positive contributors without refit"],
+    "benchmarks": ["frozen operational baseline descriptive metrics", "NASDAQ single-variable descriptive metrics", "always-low-open sign benchmark"]
+  },
+  "confirmatory_gates": {
+    "gate_0_causality_and_data_integrity": {
+      "required": true,
+      "conditions": [
+        "zero post-target leakage",
+        "zero ordinary A50 target endpoints at or after 09:15:00",
+        "zero frozen holiday A50 target endpoints at or after 09:25:00",
+        "all A50 intervals use the same selected contract at start and target",
+        "no future volume/open-interest contract selection",
+        "no mid-window roll or continuous-contract splice",
+        "no forward fill or interpolation that invents market observations",
+        "V5A and V6A metrics use an identical unseen common sample",
+        "zero 2021-2025 observations used for training or rule selection"
+      ]
+    },
+    "gate_1_full_period_increment": {
+      "conditions": [
+        "V6A full-unseen R2 > V5A full-unseen R2",
+        "V6A full-unseen SSE < V5A full-unseen SSE",
+        "V6A full-unseen IC > V5A full-unseen IC",
+        "V6A sign-hit deterioration versus V5A is no worse than 0.01 absolute"
+      ]
+    },
+    "gate_2_ordinary_mechanism_subset": {
+      "conditions": [
+        "V6A ordinary-subset SSE < V5A ordinary-subset SSE",
+        "V6A ordinary-subset IC >= V5A ordinary-subset IC",
+        "V6A ordinary-subset sign-hit deterioration versus V5A is no worse than 0.01 absolute"
+      ]
+    },
+    "gate_3_multi_year_stability": {
+      "conditions": [
+        "V6A improves calendar-year SSE versus V5A in at least 3 of the 5 years 2021-2025",
+        "V6A has nonnegative annual IC delta versus V5A in at least 3 of the 5 years 2021-2025"
+      ],
+      "reason": "prevent one crisis year or one market regime from defining the unseen confirmation"
+    },
+    "gate_4_quarterly_and_concentration_diagnostic": {
+      "selection_gate": false,
+      "required_report": true,
+      "conditions": [
+        "report all calendar-quarter deltas without excluding bad quarters",
+        "report top1/top5/top10 fixed-prediction SSE-gain concentration",
+        "do not refit after removing contributors"
+      ],
+      "reason": "document stability and concentration without inventing a new post-hoc threshold after seeing the consumed holdout"
+    },
+    "gate_5_holiday_preservation": {
+      "conditions": [
+        "V6A holiday-subset SSE <= V5A holiday-subset SSE"
+      ],
+      "sign_and_IC": "report descriptively but do not create a new sign-hit threshold from the 11-event consumed-holdout caveat",
+      "reason": "the new ordinary feature is zero on holiday rows, but model refitting can redistribute coefficients; unseen confirmation must not buy ordinary-session fit by materially worsening holiday magnitude error"
+    },
+    "gate_6_minimum_data_coverage": {
+      "conditions": [
+        "ordinary unseen A50 availability under the frozen contract is at least 0.90 of ordinary target rows",
+        "all unavailable rows have objective source/contract reasons and are removed from both comparator and candidate"
+      ]
+    }
+  },
+  "decision_rule": {
+    "all_selection_gates_pass": "eligible_for_separate_baseline_replacement_review_only; this is not automatic promotion",
+    "gate_0_failure": "invalidate_unseen_run_and repair data/schema/clock only; do not tune model or candidate",
+    "other_selection_gate_failure": "do_not_promote_V6A; preserve the failure as confirmatory evidence and do not use 2021-2025 to tune a rescue",
+    "insufficient_coverage": "retain V6A as research candidate only and do not impute or substitute a new source after seeing targets"
+  },
+  "forbidden_selection_inputs": [
+    "PnL", "total return", "Sharpe", "execution profitability",
+    "post-hoc feature combinations", "post-hoc year or quarter exclusion",
+    "post-hoc SGX cutoff changes", "post-hoc A50 contract-selection changes",
+    "using 2021-2025 to tune V6A, revive another candidate or define a regime model"
+  ],
+  "authority": {
+    "cloud_can_view_unseen_market_rows": false,
+    "baseline_replacement": false,
+    "fresh_oos_until_local_controller_executes": false,
+    "production": false,
+    "registry_mutation": false,
+    "runtime_routing": false,
+    "merge_main": false
+  }
+}

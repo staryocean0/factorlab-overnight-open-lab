@@ -1,0 +1,45 @@
+{
+  "schema_id": "overnight_open_global_spillover_v6_time_guard_incident@1.0",
+  "recorded_date": "2026-09-05",
+  "status": "implementation_incident_before_any_v6_model_fit_or_metric_output",
+  "failed_run": {
+    "run_id": 33979692236,
+    "job_id": 101342575900,
+    "workflow_head_sha": "d42f1e447f0f05c9a1bf93b28ab887ef6abf1f63",
+    "data_freeze_commit_created_before_failure": "0ae3364",
+    "completed_before_failure": [
+      "six corrected yearly artifacts required and downloaded",
+      "combined ordinary A50 dataset validation",
+      "bounded package validation",
+      "29 tests passed",
+      "compact ordinary A50 data freeze",
+      "frozen baseline replay",
+      "v3 replay",
+      "v4 replay"
+    ],
+    "failure_step": "Run preregistered v6 ordinary A50 experiment",
+    "exception": "AssertionError: ordinary A50 target endpoint at or after 09:15"
+  },
+  "root_cause": "The ordinary endpoint column is integer HHMMSS in the compact ordinary A50 parquet. A left merge onto the full China panel introduces NaN on holiday rows, causing pandas to represent the merged column as float, e.g. 91459 becomes 91459.0. The first implementation converted those float values to strings and lexically compared them with '091500'; '91459.0' therefore falsely appeared to be at or after the cutoff even though it represents 09:14:59.",
+  "scientific_impact": {
+    "v6_model_fit_started": false,
+    "v6_candidate_metrics_produced": false,
+    "v6_result_file_produced": false,
+    "candidate_definition_changed": false,
+    "data_definition_changed": false,
+    "cutoff_changed": false,
+    "adjudication_gates_changed": false
+  },
+  "correction": {
+    "rule": "Within already-available endpoint subsets, parse merged endpoint-time values numerically, require finite integer HHMMSS values, and compare ordinary endpoints with numeric 91500 and frozen holiday endpoints with numeric 92500.",
+    "ordinary_cutoff_remains": "strictly before 09:15:00",
+    "holiday_cutoff_remains": "strictly before 09:25:00",
+    "test": "tests/test_global_spillover_v6_time_guard.py"
+  },
+  "authority": {
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false
+  }
+}

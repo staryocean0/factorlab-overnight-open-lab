@@ -1,0 +1,123 @@
+name: overnight-phase6-daily-a50-finalize
+
+on:
+  push:
+    branches:
+      - codex/overnight-next-explained-20260905
+    paths:
+      - '.github/workflows/overnight_phase6_daily_a50_finalize.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: overnight-phase6-daily-a50-finalize-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      SOURCE_RUN_ID: '33979117113'
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install research dependencies
+        run: python -m pip install --upgrade pandas pyarrow numpy scikit-learn pytest
+      - name: Require all six frozen yearly artifacts from corrected source run
+        shell: bash
+        run: |
+          set -euo pipefail
+          # The source run is frozen; repeated boundary archives must match on stable identity.
+          for i in $(seq 1 90); do
+            names=$(gh api "/repos/${GITHUB_REPOSITORY}/actions/runs/${SOURCE_RUN_ID}/artifacts" --paginate --jq '.artifacts[].name' || true)
+            count=$(printf '%s\n' "$names" | grep -E '^a50-ordinary-(2015|2016|2017|2018|2019|2020)$' | sort -u | wc -l)
+            echo "source yearly artifact count=${count}"
+            if [ "$count" -eq 6 ]; then
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "Six corrected yearly artifacts did not materialize" >&2
+          exit 1
+      - name: Download corrected yearly A50 evidence from source run
+        uses: actions/download-artifact@v4
+        with:
+          pattern: a50-ordinary-*
+          path: artifacts/staging/a50_ordinary_combined
+          merge-multiple: true
+          run-id: 33979117113
+          github-token: ${{ github.token }}
+      - name: Combine and validate ordinary A50 external dataset
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/combine_external_sgx_a50_ordinary.py \
+            --input-dir artifacts/staging/a50_ordinary_combined \
+            | tee a50_ordinary_combine.log
+      - name: Validate bounded package
+        run: python scripts/validate_theme_package.py
+      - name: Run full tests
+        run: pytest -q
+      - name: Freeze compact ordinary A50 assets on latest successor branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            data/external/sgx_a50_ordinary_preauction_endpoints_2015_2020.csv \
+            data/development/sgx_a50_ordinary_preauction_endpoints.parquet \
+            data/external/sgx_historical_date_index_used_ordinary_2015_2020.json \
+            docs/governance/external_sgx_a50_ordinary_preauction_2015_2020_manifest.json \
+            data/manifest.json
+          if git diff --cached --quiet; then
+            echo "Ordinary A50 compact assets already frozen."
+          else
+            git commit -m "data: freeze corrected ordinary SGX A50 preauction endpoints through 2020 [skip ci]"
+            git push origin HEAD:codex/overnight-next-explained-20260905
+          fi
+      - name: Replay frozen baseline
+        run: python scripts/replay_baseline.py
+      - name: Replay authoritative v3 complete U.S. clock
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/research_global_spillover_v3_complete_clock.py | tee phase6_v3_replay.log
+      - name: Replay corrected v4 HKMA increment
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/research_global_spillover_v4_cnh.py | tee phase6_v4_replay.log
+      - name: Run preregistered v6 ordinary A50 experiment
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/research_global_spillover_v6_daily_a50.py | tee global_spillover_v6_daily_a50.log
+      - name: Upload final phase6 ordinary A50 research evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: overnight-phase6-daily-a50-final
+          path: |
+            docs/governance/global_spillover_v6_daily_a50_preregistration.json
+            docs/governance/global_spillover_v6_sgx_legacy_schema_correction.json
+            docs/governance/global_spillover_v6_time_guard_incident.json
+            docs/governance/external_sgx_a50_ordinary_preauction_2015_2020_manifest.json
+            data/external/sgx_a50_ordinary_preauction_endpoints_2015_2020.csv
+            data/external/sgx_historical_date_index_used_ordinary_2015_2020.json
+            artifacts/research/global_spillover_v6_daily_a50_results.json
+            artifacts/staging/a50_ordinary_combined/**/a50_ordinary_manifest_*.json
+            a50_ordinary_combine.log
+            phase6_v3_replay.log
+            phase6_v4_replay.log
+            global_spillover_v6_daily_a50.log
+          if-no-files-found: error
+          retention-days: 90

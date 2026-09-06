@@ -1,0 +1,47 @@
+name: overnight-phase6-forensics
+
+on:
+  push:
+    branches:
+      - codex/overnight-next-explained-20260905
+    paths:
+      - 'scripts/audit_global_spillover_v6_daily_a50_forensics.py'
+      - 'docs/governance/global_spillover_v6_forensic_diagnostic_plan.json'
+      - '.github/workflows/overnight_phase6_forensics.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: overnight-phase6-forensics-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install research dependencies
+        run: python -m pip install --upgrade pandas pyarrow numpy scikit-learn pytest
+      - name: Run full tests
+        run: pytest -q
+      - name: Replay frozen v6 candidate and run post-hoc nonselection diagnostics
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/audit_global_spillover_v6_daily_a50_forensics.py | tee global_spillover_v6_forensics.log
+      - name: Upload forensic evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: overnight-phase6-forensics
+          path: |
+            docs/governance/global_spillover_v6_forensic_diagnostic_plan.json
+            artifacts/research/global_spillover_v6_daily_a50_forensics.json
+            global_spillover_v6_forensics.log
+          if-no-files-found: error
+          retention-days: 90

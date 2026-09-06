@@ -1,0 +1,74 @@
+{
+  "schema_id": "overnight_open_global_spillover_v6_data_usage_declaration@1.0",
+  "registered_date": "2026-09-05",
+  "branch": "codex/overnight-next-explained-20260905",
+  "frozen_parent_commit": "d183c7da81c2f4a46c8d938c7fa959acb939887c",
+  "purpose": "successor research on additional causally available information channels while preserving the locked v5 unseen-confirmation identity",
+  "interval_roles": [
+    {
+      "interval": "2015-01-01/2018-12-31",
+      "role": "development_material",
+      "allowed": [
+        "source validation",
+        "candidate construction under preregistration",
+        "frozen training",
+        "clock and coverage diagnostics"
+      ]
+    },
+    {
+      "interval": "2019-01-01/2020-12-31",
+      "role": "repeat_audit",
+      "status": "consumed_internal_holdout_not_fresh",
+      "allowed": [
+        "bounded preregistered retrospective progression measurement",
+        "fixed common-sample diagnostics",
+        "year and quarter stability reporting"
+      ],
+      "forbidden": [
+        "fresh_oos_claim",
+        "open-ended candidate search",
+        "post-hoc cutoff search",
+        "model-family ranking"
+      ]
+    },
+    {
+      "interval": "2021-01-01/2025-12-31",
+      "role": "fresh_challenge_reserved_for_local_controller",
+      "cloud_read": false,
+      "cloud_store": false,
+      "cloud_commit": false,
+      "reference_contract": "docs/governance/global_spillover_v5_unseen_local_controller_contract.json"
+    }
+  ],
+  "branch_isolation": {
+    "frozen_v5_branch": "codex/overnight-global-spillover-20260905",
+    "frozen_v5_head_at_fork": "d183c7da81c2f4a46c8d938c7fa959acb939887c",
+    "v5_unseen_candidate_mutation": false,
+    "successor_branch_may_use_prior_v1_v5_evidence_as_declared_parent_material": true,
+    "successor_results_cannot_retroactively_change_v5_unseen_contract": true
+  },
+  "selection_objective": {
+    "target": "CSI1000 next-session 09:31 open / previous China 15:00 close - 1",
+    "metrics": ["R2", "SSE", "IC", "sign_hit"],
+    "pnl_selection": false,
+    "total_return_selection": false,
+    "sharpe_selection": false,
+    "aspirational_R2_range": "0.25-0.35",
+    "aspiration_is_selection_threshold": false,
+    "aspiration_is_stop_rule": false
+  },
+  "hard_causal_boundary": {
+    "primary_new_offshore_cutoff": "09:14:59 Asia/Shanghai",
+    "reason": "strictly before A-share opening call auction begins at 09:15",
+    "mainland_target_auction_output_allowed": false,
+    "post_target_information_allowed": false
+  },
+  "authority": {
+    "fresh_oos": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false,
+    "runtime_routing": false,
+    "merge_main": false
+  }
+}
