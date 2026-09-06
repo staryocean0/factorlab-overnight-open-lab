@@ -30,11 +30,15 @@ Then follow [`docs/user/cloud_execution_prompt.md`](docs/user/cloud_execution_pr
 Scientific status:
 
 - the two-head architecture's clock-aware **magnitude head is locally confirmed on 2021-2025**;
-- the operational research **direction head remains Ridge**;
-- `median_quantile_sign` is the selected retrospective direction successor candidate from 2015-2020 expanding OOF and is **waiting for the frozen unseen 2026 challenge**;
-- 2021-2025 must not be reused to promote that new direction candidate.
+- the frozen direction successor `median_quantile_sign` is **locally robustly confirmed** on the unseen 2026-01-05 through 2026-08-21 challenge against Ridge;
+- that 2026 window is now consumed for this identity and must not be reused to retune it;
+- post-2026-08-21 remains unread for this candidate identity;
+- the candidate is eligible only for a separate research-baseline review as the two-head direction head.
 
 Direction candidate spec SHA256:
 `9b0255fbbf6f0c4059e8779e61cb3d5d4eabeab1ce60aed09377d782f755e465`.
+
+Receipt:
+`docs/research/cloud_session_20260906_local_2026_direction_receipt_v1.json`.
 
 Production authority is false. A separate production review is still required.

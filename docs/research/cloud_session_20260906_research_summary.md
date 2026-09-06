@@ -234,11 +234,29 @@ correlation 0.319940 -> 0.521871; MAE 0.002417 -> 0.002400; RMSE 0.005410 ->
 0.005094. Correlation is positive in every year 2021-2025, and both error
 metrics beat baseline in 3 of 5 years. Production authority remains false.
 
+## 11. Local 2026 direction challenge
+
+The frozen Median direction successor was refit on 2015-2025 and then opened
+once on 2026-01-05 through 2026-08-21. Cloud execution could not open this
+window because the bounded repository still has no raw 2021+ rows. The local
+controller used the same annotated panel, DataHub 1m export and FRED prints as
+the 2021-2025 confirmation. The window passed both the raw-hit and robust
+layers.
+
+Receipt: `docs/research/cloud_session_20260906_local_2026_direction_receipt_v1.json`
+
+Primary pooled result: direction hit 0.642857 -> 0.720779; correct count 99 ->
+111; balanced accuracy 0.646160 -> 0.725148; recall_up 0.518987 -> 0.556962;
+recall_down 0.773333 -> 0.893333. McNemar p on 20 disagreements is 0.011818 and
+is uncertainty-only. Production authority remains false. Post-2026-08-21 was
+not opened.
+
 ## Current research decision
 
 1. **Retain the original frozen signed-gap baseline as the baseline.**
 2. **Do not promote the global clock-aware signed-gap replacement.**
 3. **Reject the simple clock-state full-model gate.**
-4. **The two-head candidate is locally confirmed on 2021-2025:** baseline direction + `abs(clock_prediction)` magnitude.
-5. **2019-2020 and 2021-2025 are both consumed for this identity; do not retune it on either window.**
-6. **Production authority remains false pending a separate production review.**
+4. **The two-head magnitude head is locally confirmed on 2021-2025:** `abs(clock_prediction)`.
+5. **The Median direction successor is locally robustly confirmed on 2026-01-05 through 2026-08-21.** It is eligible only for a separate research-baseline review as the two-head direction head.
+6. **2019-2020, 2021-2025 and 2026-01-05_to_2026-08-21 are consumed for these identities; do not retune on them.**
+7. **Production authority remains false pending a separate production review.**

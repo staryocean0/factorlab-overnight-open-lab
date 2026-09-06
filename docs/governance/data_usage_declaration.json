@@ -25,7 +25,9 @@
   "direction_2026_future_challenge": {
     "window": "2026-01-05_to_2026-08-21",
     "protocol": "docs/governance/cloud_session_20260906_direction_2026_fresh_protocol_v1.json",
-    "status": "frozen_not_opened",
+    "status": "opened_once_after_fit_freeze",
+    "decision": "direction_candidate_2026_robustly_confirmed",
+    "receipt": "docs/research/cloud_session_20260906_local_2026_direction_receipt_v1.json",
     "raw_rows_in_this_repository": false,
     "post_2026_08_21": "reserved_unread_for_this_candidate_identity"
   },

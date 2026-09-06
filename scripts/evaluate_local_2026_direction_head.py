@@ -216,8 +216,8 @@ def main() -> int:
             "protocol": sha256(PROTOCOL_PATH),
             "runner": sha256(Path(__file__)),
         },
-        "fresh_oos": false,
-        "production_authority": false,
+        "fresh_oos": False,
+        "production_authority": False,
         "note": "Both fixed direction heads were fit on 2015-2025 before any 2026 target row was loaded/scored.",
     }
     dump_json(FIT_FREEZE_PATH, fit_freeze)
@@ -302,11 +302,11 @@ def main() -> int:
         "raw_hit_confirmation": raw_confirmed,
         "robust_confirmation": robust_confirmed,
         "decision": decision,
-        "fresh_oos": true,
-        "production_authority": false,
-        "parameter_search_after_open": false,
-        "trading_return_used_in_gate": false,
-        "raw_2026_rows_written_to_bounded_repo": false,
+        "fresh_oos": True,
+        "production_authority": False,
+        "parameter_search_after_open": False,
+        "trading_return_used_in_gate": False,
+        "raw_2026_rows_written_to_bounded_repo": False,
         "source_hashes": fit_freeze["source_hashes"],
         "local_source_paths": {
             "annotated_panel": str(ANNOTATED_PANEL),
@@ -322,9 +322,9 @@ def main() -> int:
         "2015-01-05_to_2025-12-31": "fit_only_for_fixed_ridge_and_median_direction_heads",
         "2026-01-05_to_2026-08-21": "fresh_direction_challenge_opened_once_after_fit_freeze",
         "post_2026-08-21": "unread_for_this_candidate_identity",
-        "raw_validation_rows_persisted_in_bounded_repo": false,
-        "fresh_oos": true,
-        "production_authority": false,
+        "raw_validation_rows_persisted_in_bounded_repo": False,
+        "fresh_oos": True,
+        "production_authority": False,
     }
     dump_json(DATA_USAGE_PATH, data_usage)
     print("DIRECTION_2026_FRESH_RESULT", json.dumps(receipt, sort_keys=True))

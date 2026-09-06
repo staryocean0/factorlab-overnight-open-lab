@@ -21,4 +21,7 @@
 19. `scripts/evaluate_local_2026_direction_head.py`
 20. `docs/user/local_2026_direction_fresh_validation.md`
 21. `docs/governance/cloud_session_20260906_public_runner_recovery_v1.json`
-
+22. `docs/research/cloud_session_20260906_local_2026_direction_fit_freeze_v1.json`
+23. `docs/research/cloud_session_20260906_local_2026_direction_receipt_v1.json`
+24. `docs/governance/local_session_20260906_2026_direction_data_usage.json`
+25. `docs/research/cloud_session_20260906_local_2026_direction_result.md`

@@ -1,5 +1,21 @@
 # Local controller handoff — frozen 2026 direction fresh challenge
 
+## Execution status
+
+This window was opened once on 2026-09-06 by the local controller because the
+cloud package has no raw 2021+ rows.
+
+- fit freeze: `docs/research/cloud_session_20260906_local_2026_direction_fit_freeze_v1.json`
+- receipt: `docs/research/cloud_session_20260906_local_2026_direction_receipt_v1.json`
+- result: `docs/research/cloud_session_20260906_local_2026_direction_result.md`
+- decision: `direction_candidate_2026_robustly_confirmed`
+- `fresh_oos=true` for that receipt only
+- `production_authority=false`
+
+Do not retune features, alphas, quantile, threshold, class weights, calendar
+exceptions or the 2026 endpoint on this window. A later run may only reproduce
+the frozen receipt. Post-2026-08-21 remains unread for this identity.
+
 ## Mission
 
 Run exactly one fresh 2026 challenge of the frozen direction-head successor candidate.
