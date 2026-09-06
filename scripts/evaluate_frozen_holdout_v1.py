@@ -112,7 +112,7 @@ def main() -> int:
         },
         "strict_baseline_win": bool(cand["ic"] > base["ic"] and cand["sign_hit"] > base["sign_hit"]),
         "beats_us_nasdaq_on_ic": bool(cand["ic"] > us_one["ic"]),
-        "retuned_after_holdout": false if False else False,
+        "retuned_after_holdout": False,
         "fresh_oos": False,
         "production_authority": False,
     }
