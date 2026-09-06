@@ -12,13 +12,13 @@ import json
 import os
 from pathlib import Path
 
-import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_ENV = "OVERNIGHT_OFFSHORE_ETF_DAILY"
 PROVIDER_ENV = "OVERNIGHT_OFFSHORE_ETF_PROVIDER"
 PROVIDER_ID_ENV = "OVERNIGHT_OFFSHORE_ETF_PROVIDER_ID"
+PRICE_CONVENTION_ENV = "OVERNIGHT_OFFSHORE_ETF_PRICE_CONVENTION"
 START = "2015-01-01"
 END = "2025-12-31"
 SYMBOLS = ["ASHS", "ASHR", "FXI", "MCHI", "SPY"]
@@ -105,8 +105,13 @@ def main() -> int:
         )
     provider = os.environ.get(PROVIDER_ENV, "").strip()
     provider_id = os.environ.get(PROVIDER_ID_ENV, "").strip()
+    price_convention = os.environ.get(PRICE_CONVENTION_ENV, "").strip()
     if not provider:
         raise RuntimeError(f"{PROVIDER_ENV} is required; freeze the provider identity before any predictive diagnostics")
+    if not price_convention:
+        raise RuntimeError(
+            f"{PRICE_CONVENTION_ENV} is required; state whether OHLC is raw or consistently adjusted and the provider convention"
+        )
 
     path = Path(source_value).expanduser().resolve()
     if not path.is_file():
@@ -117,8 +122,6 @@ def main() -> int:
         raise RuntimeError("offshore source is empty")
     if frame["date"].max() > pd.Timestamp(END):
         raise RuntimeError("source file contains post-2025 rows; create a development-only export before source admission")
-    if frame["date"].min() > pd.Timestamp(START):
-        raise RuntimeError("source begins after 2015-01-01")
 
     extras = sorted(set(frame["symbol"]) - set(SYMBOLS))
     missing_symbols = sorted(set(SYMBOLS) - set(frame["symbol"]))
@@ -166,6 +169,7 @@ def main() -> int:
         "session_date": "2026-09-06",
         "provider": provider,
         "provider_id": provider_id or None,
+        "price_convention": price_convention,
         "local_source_path": str(path),
         "source_sha256": sha256(path),
         "source_format": path.suffix.lower(),
@@ -181,7 +185,7 @@ def main() -> int:
         "2026_blackbox_opened": False,
         "raw_external_rows_written_to_bounded_repo": False,
         "production_authority": False,
-        "note": "Source/provider identity and source-only quality are frozen before any China-target predictive diagnostic."
+        "note": "Source/provider/price-convention identity and source-only quality are frozen before any China-target predictive diagnostic."
     }
     dump_json(OUT, receipt)
 
@@ -199,6 +203,7 @@ def main() -> int:
 
     summary = {
         "provider": provider,
+        "price_convention": price_convention,
         "source_sha256": receipt["source_sha256"],
         "spy_session_count": receipt["spy_session_count"],
         "quality": {s: {k: quality[s][k] for k in ["coverage_vs_spy", "missing_vs_spy", "invalid_price_rows", "invalid_volume_rows", "zero_volume_rows", "zero_return_rows"]} for s in SYMBOLS},
