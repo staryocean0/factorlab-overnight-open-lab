@@ -1,0 +1,62 @@
+{
+  "schema_id": "overnight_open_candidate_family_preregistration@1.0",
+  "session_date": "2026-09-06",
+  "research_question": "Does replacing/re-expressing the one-US-day external signal with a causally accumulated US-session interval improve next-CSI1000-open gap prediction?",
+  "mechanism": "For China session D with previous China session P, US information arriving after P's 15:00 close and before D's 09:31 open comprises all completed US sessions with dates >= P and < D. Using only the last US daily return can undercount long China closures and can repeat stale US news when the US market is closed. Construct interval NASDAQ and VIX changes from the last US close strictly before P to the last US close strictly before D.",
+  "development_only": "2015-01-05_to_2018-12-31",
+  "holdout_forbidden_during_selection": "2019-01-01_to_2020-12-31",
+  "base_domestic_features": [
+    "r1",
+    "r20",
+    "abs_r1",
+    "prev_gap",
+    "overnight_trend_5",
+    "prev_daytime",
+    "prev_last_hour",
+    "prev_afternoon",
+    "rvol20",
+    "weekend",
+    "holiday_reopen"
+  ],
+  "candidate_feature_sets": {
+    "baseline": "base_domestic_features + [us_nasdaq, us_vix_chg]",
+    "clock_replace": "base_domestic_features + [us_nasdaq_interval, us_vix_interval]",
+    "clock_count": "clock_replace + [us_session_count]",
+    "clock_holiday_interaction": "clock_count + [us_nasdaq_interval_x_holiday, us_vix_interval_x_holiday]",
+    "clock_piecewise": "clock_count + [us_nasdaq_pos, us_nasdaq_neg, us_vix_pos, us_vix_neg, us_nasdaq_x_us_vix]",
+    "clock_both": "baseline + [us_nasdaq_interval, us_vix_interval, us_session_count]"
+  },
+  "model": "StandardScaler + Ridge",
+  "ridge_alphas": [0.1, 1.0, 10.0, 100.0],
+  "multiplicity": 24,
+  "time_ordered_cv": [
+    {"train": "2015", "validate": "2016"},
+    {"train": "2015-2016", "validate": "2017"},
+    {"train": "2015-2017", "validate": "2018"}
+  ],
+  "metrics": ["year_equal_mean_ic", "year_equal_mean_sign_hit", "worst_year_ic", "pooled_oof_ic", "pooled_oof_sign_hit"],
+  "selection_rule": {
+    "baseline_reference": "baseline alpha=1.0",
+    "admissible_if": [
+      "year_equal_mean_sign_hit >= baseline_reference_mean_sign_hit - 0.005",
+      "worst_year_ic > 0"
+    ],
+    "rank": [
+      "highest year_equal_mean_ic",
+      "then highest year_equal_mean_sign_hit",
+      "then fewer features",
+      "then alpha closest to 1.0"
+    ],
+    "holdout_is_not_part_of_ranking": true
+  },
+  "forbidden": [
+    "total_return_optimization",
+    "news_status_or_event_id_as_predictors",
+    "same_morning_China_information",
+    "post_2020_rows"
+  ],
+  "authority": {
+    "fresh_oos": false,
+    "production_authority": false
+  }
+}
