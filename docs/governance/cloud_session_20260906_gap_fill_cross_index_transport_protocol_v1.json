@@ -1,0 +1,128 @@
+{
+  "schema_id": "overnight_open_gap_fill_cross_index_transport_protocol@1.0",
+  "session_date": "2026-09-06",
+  "research_identity": "gap_fill_cross_index_transport_v1",
+  "parent_research_program": "gap_fill_prediction",
+  "stage": "CT-DEV_external_index_development_transport",
+  "source_adjudication": "docs/research/gap_fill_v2_he00_cloud_source_adjudication_20260906.md",
+  "source_receipt": "docs/research/local_gap_fill_v2_historical_source_inventory_v1.json",
+  "frozen_csi1000_v2_v1": {
+    "architecture_sha256": "07810dafbab629f196d04ea1204d90ee68177ce764bb765be560bc1b84261c00",
+    "parameter_bundle_sha256": "07abe29e31ce09b69bd6250b1ce3ebc5af7688b69ed39909feb80e9db882aaa0",
+    "parameter_artifact": "docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_freeze_v1.json",
+    "must_not_be_modified": true
+  },
+  "admitted_source": {
+    "dataset_version": "bars_cn_index_1m_raw_canonical_market_index_baidu_3s_20000714_20260821_factorlab_unified_missing_day_repaired_v8_20260824",
+    "dataset_sha256": "25f4f9f8b67c799ffb1a7b7fdee94b0b21dbbfed1efc54d063264ccb046411f0",
+    "frequency": "1m",
+    "bar_semantics": "end_label_1m_no_silent_minute_forward_fill",
+    "price_space": "raw_index_level",
+    "required_environment_variable": "OVERNIGHT_HISTORICAL_INDEX_1M_LAKE"
+  },
+  "indices": {
+    "CSI300": {
+      "symbol": "000300.SH",
+      "provenance_class": "contemporaneous_live_index",
+      "development_window": {"start": "2005-04-08", "end": "2010-12-31"},
+      "oof_minimum_training_end": "2006-12-31",
+      "oof_validation_years": [2007, 2008, 2009, 2010],
+      "audit_a": {"start": "2011-01-01", "end": "2012-12-31", "sealed_now": true},
+      "audit_b": {"start": "2013-01-01", "end": "2014-10-16", "sealed_now": true},
+      "supporting_crosscheck": {"start": "2014-10-17", "end": "2014-12-31", "sealed_now": true}
+    },
+    "CSI500": {
+      "symbol": "000905.SH",
+      "provenance_class": "contemporaneous_live_index",
+      "development_window": {"start": "2007-01-15", "end": "2010-12-31"},
+      "oof_minimum_training_end": "2008-12-31",
+      "oof_validation_years": [2009, 2010],
+      "audit_a": {"start": "2011-01-01", "end": "2012-12-31", "sealed_now": true},
+      "audit_b": {"start": "2013-01-01", "end": "2014-10-16", "sealed_now": true},
+      "supporting_crosscheck": {"start": "2014-10-17", "end": "2014-12-31", "sealed_now": true}
+    }
+  },
+  "target_day_validity": {
+    "current_day_must_have_exact_complete_240_official_clocks": true,
+    "duplicate_timestamp_count_must_be_zero": true,
+    "previous_china_trading_day_15_00_close_required": true,
+    "current_09_31_open_required": true,
+    "rvol20_required_and_positive": true,
+    "missing_minutes_may_be_forward_filled": false,
+    "missing_minutes_may_be_treated_as_non_events": false,
+    "common_complete_240_row_inventory_for_all_three_horizons": true
+  },
+  "target_contract": {
+    "gap": "current_09_31_open/previous_china_trading_day_15_00_close-1",
+    "high_fill": "later_low_touches_or_crosses_previous_close",
+    "low_fill": "later_high_touches_or_crosses_previous_close",
+    "fill_15m": "09:31_through_09:45_inclusive",
+    "fill_60m": "09:31_through_10:30_inclusive",
+    "fill_eod": "all_240_target_day_minutes_09:31_through_15:00",
+    "nested_invariant": "fill_15m<=fill_60m<=fill_eod"
+  },
+  "features": {
+    "names": ["abs_gap", "abs_gap_over_rvol20"],
+    "rvol20_formula": "close_1500.pct_change(fill_method=None).shift(1).rolling(20,min_periods=20).std()"
+  },
+  "transport_modes": {
+    "T1_exact_parameter_transport": {
+      "refit": false,
+      "apply_frozen_csi1000_parameter_bundle": true,
+      "role": "descriptive_external_parameter_transport_not_model_selection"
+    },
+    "T2_architecture_transport": {
+      "refit": true,
+      "refit_scope": "each_external_index_development_window_only",
+      "architecture": "separate_high_low_three_stage_discrete_time_hazard",
+      "pipeline": "StandardScaler+LogisticRegression",
+      "standard_scaler": {"with_mean": true, "with_std": true},
+      "logistic_regression": {
+        "C": 1.0,
+        "penalty": "l2",
+        "solver": "lbfgs",
+        "class_weight": null,
+        "fit_intercept": true,
+        "max_iter": 1000
+      },
+      "binary_threshold": null,
+      "probability_calibration": "none",
+      "alternative_model_or_hyperparameter_search": false
+    }
+  },
+  "t2_oof": {
+    "scheme": "expanding_natural_year",
+    "benchmark": "training_fold_empirical_stage_hazards_by_sign",
+    "benchmark_cumulative_formula": "same_three_stage_hazard_formula",
+    "model_selection_performed": false,
+    "final_dev_fit_after_oof": "fit_one_exact_index_specific_parameter_bundle_per_index_for_future_audit_A_identity"
+  },
+  "mandatory_reporting": {
+    "signs": ["high", "low"],
+    "cohorts": ["all_nonzero_gap", "abs_gap_gt_10bp", "abs_gap_gt_30bp"],
+    "horizons": ["fill_15m", "fill_60m", "fill_eod"],
+    "metrics": ["brier_score", "log_loss", "roc_auc", "pr_auc"],
+    "integrated_metrics": "equal_weight_mean_across_three_horizons",
+    "annual_summary": true,
+    "monotonicity_violations": true
+  },
+  "CT_DEV_may_open": [
+    "CSI300_2005-04-08_to_2010-12-31",
+    "CSI500_2007-01-15_to_2010-12-31"
+  ],
+  "CT_DEV_must_not_open": [
+    "CSI300_or_CSI500_2011-01-01_to_2012-12-31_Audit_A",
+    "CSI300_or_CSI500_2013-01-01_to_2014-10-16_Audit_B",
+    "CSI300_or_CSI500_2014-10-17_to_2014-12-31_supporting_crosscheck",
+    "CSI1000_post_2026-08-21_any_outcome_or_score"
+  ],
+  "CT_DEV_outputs": [
+    "docs/research/local_gap_fill_cross_index_transport_dev_receipt_v1.json",
+    "docs/governance/local_gap_fill_cross_index_transport_dev_parameter_freeze_v1.json",
+    "docs/governance/local_gap_fill_cross_index_transport_dev_data_usage_v1.json"
+  ],
+  "next_stage_rule": "cloud_review_CT_DEV_before_any_Audit_A_open",
+  "audit_b_remains_sealed_after_CT_DEV": true,
+  "fresh_oos": false,
+  "production_authority": false
+}
