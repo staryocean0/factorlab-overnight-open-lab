@@ -1,0 +1,35 @@
+{
+  "schema_id": "overnight_open_csi1000_pit_membership_runner_incident@1.0",
+  "recorded_date": "2026-09-06",
+  "failed_run": {
+    "run_id": 34006863567,
+    "job_id": 101415590311,
+    "head_sha": "a8db31a9eed5a83a204dff7d0b0df1929becb3b4",
+    "conclusion": "failure",
+    "elapsed_seconds_approximately": 3,
+    "reported_steps": [],
+    "artifacts": [],
+    "downloadable_job_log_available": false
+  },
+  "classification": "pre_runner_or_runner_provisioning_infrastructure_failure_before_any_audit_script_step",
+  "source_query_executed": false,
+  "scientific_gate_reached": false,
+  "target_rows_read": 0,
+  "permitted_fix": "change only GitHub-hosted runner selector from ubuntu-24.04 to ubuntu-latest and rerun the identical frozen @1.2 audit",
+  "forbidden_changes": [
+    "PIT timing gate",
+    "2020-12-14 official crosscheck",
+    "19 frozen STAR security codes",
+    "constituent-count or weight-sum limits",
+    "bounded 2015-2020 source window",
+    "source table or index code",
+    "adjudication rule"
+  ],
+  "authority": {
+    "predictive_model_execution": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false,
+    "merge_main": false
+  }
+}
