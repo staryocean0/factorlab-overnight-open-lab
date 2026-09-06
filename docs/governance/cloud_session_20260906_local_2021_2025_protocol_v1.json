@@ -1,0 +1,95 @@
+{
+  "schema_id": "overnight_open_two_head_local_fresh_protocol@1.0",
+  "session_date": "2026-09-06",
+  "candidate": "docs/governance/cloud_session_20260906_two_head_selected_v1.json",
+  "candidate_sha256": "76ff94f401eb3a9a9edc1cc462a3d818b49bfc732b93ee0bfc1a7070f92ccb8f",
+  "purpose": "one fresh local confirmation of the frozen two-head direction/magnitude candidate on 2021-2025",
+  "data_boundary": {
+    "fit": "2015-01-05_to_2020-12-31",
+    "fresh_validation": "2021-01-01_to_2025-12-31",
+    "no_2021_plus_row_may_enter_fit_or_calibration": true,
+    "no_parameter_search_on_2021_2025": true
+  },
+  "refit_policy_before_fresh_open": {
+    "baseline_direction_model": {
+      "pipeline": "StandardScaler + Ridge(alpha=1.0)",
+      "target": "gap",
+      "features": [
+        "r1", "r20", "abs_r1", "prev_gap", "overnight_trend_5",
+        "prev_daytime", "prev_last_hour", "prev_afternoon", "rvol20",
+        "weekend", "holiday_reopen", "us_nasdaq", "us_vix_chg"
+      ],
+      "fit_window": "2015-2020"
+    },
+    "clock_magnitude_model": {
+      "pipeline": "StandardScaler + Ridge(alpha=100.0)",
+      "fit_target": "gap",
+      "features": [
+        "r1", "r20", "abs_r1", "prev_gap", "overnight_trend_5",
+        "prev_daytime", "prev_last_hour", "prev_afternoon", "rvol20",
+        "weekend", "holiday_reopen", "us_nasdaq_interval", "us_vix_interval",
+        "us_session_count", "us_nasdaq_interval_x_holiday", "us_vix_interval_x_holiday"
+      ],
+      "fit_window": "2015-2020",
+      "magnitude_output": "abs(clock_signed_prediction)"
+    },
+    "candidate_outputs": {
+      "direction": "baseline_prediction >= 0",
+      "magnitude": "abs(clock_signed_prediction)",
+      "signed_gap_for_secondary_reporting": "(+1 if baseline_prediction>=0 else -1) * magnitude"
+    }
+  },
+  "causal_us_clock_contract": {
+    "for_cn_session_D_with_previous_cn_session_P": "use all completed US sessions after P's China close information set and before D's China open information set",
+    "implementation": "us_nasdaq_interval = last_US_close_strictly_before_D / last_US_close_strictly_before_P - 1; same construction for VIX; us_session_count is the number of intervening completed US sessions",
+    "zero_us_sessions": "interval change is 0 rather than repeating stale prior-US-day news",
+    "multiple_us_sessions": "use cumulative change rather than only the last US daily return",
+    "same_morning_china_information": "forbidden"
+  },
+  "comparators": {
+    "primary_baseline": "same refit baseline Ridge(alpha=1.0) on 2015-2020",
+    "baseline_direction": "prediction>=0",
+    "baseline_magnitude": "abs(baseline_prediction)"
+  },
+  "primary_metrics": [
+    "direction_hit",
+    "corr_abs_gap",
+    "mae_abs_gap",
+    "rmse_abs_gap"
+  ],
+  "secondary_metrics": [
+    "signed_gap_ic",
+    "signed_gap_mae",
+    "signed_gap_rmse",
+    "tail_abs_gap_gt_30bp_direction_hit",
+    "tail_abs_gap_gt_30bp_magnitude_mae",
+    "tail_abs_gap_gt_30bp_magnitude_rmse",
+    "year_by_year_primary_metrics"
+  ],
+  "pass_gate": {
+    "direction": "candidate direction_hit must equal baseline direction_hit exactly because direction head is the baseline",
+    "pooled_magnitude": [
+      "candidate corr_abs_gap > baseline corr_abs_gap",
+      "candidate mae_abs_gap < baseline mae_abs_gap",
+      "candidate rmse_abs_gap < baseline rmse_abs_gap"
+    ],
+    "year_robustness": [
+      "candidate corr_abs_gap > 0 in every available full validation year",
+      "candidate must beat baseline on both magnitude MAE and magnitude RMSE in at least 3 of the 5 years"
+    ],
+    "no_return_metric_in_gate": true
+  },
+  "decision": {
+    "if_pass": "mark research_candidate_local_2021_2025_confirmed; keep production_authority=false pending separate production review",
+    "if_fail": "retain frozen baseline; record two-head candidate as not confirmed; do not retune on 2021-2025 in the same evidence cycle"
+  },
+  "forbidden_after_open": [
+    "feature changes",
+    "alpha changes",
+    "direction threshold changes",
+    "choosing a different magnitude head",
+    "calendar-specific exceptions",
+    "optimizing total return"
+  ],
+  "production_authority": false
+}
