@@ -1,0 +1,64 @@
+name: overnight-eastmoney-compat-probe
+
+on:
+  push:
+    paths:
+      - '.github/workflows/overnight-eastmoney-compat-probe.yml'
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install probe dependencies
+        run: python -m pip install --upgrade pandas pyarrow requests
+      - name: Compare public Eastmoney historical minutes with frozen DataHub only
+        run: |
+          python - <<'PY'
+          import json
+          import pandas as pd
+          import requests
+
+          frozen = pd.read_parquet('data/development/1m_official.parquet')
+          frozen['wall_clock'] = frozen['timestamp_source_serialized'].astype(str).str.slice(0,16)
+          days = ['2015-01-05','2020-12-31']
+          clocks = ['09:31','13:01','14:00','15:00']
+          sample = frozen.loc[
+              frozen['trading_day'].astype(str).isin(days)
+              & frozen['wall_clock'].str.slice(11,16).isin(clocks),
+              ['trading_day','wall_clock','open','high','low','close','source_kind','causal_flat_fill']
+          ].copy()
+          print('FROZEN_SAMPLE')
+          print(sample.to_string(index=False))
+
+          url='https://push2his.eastmoney.com/api/qt/stock/kline/get'
+          headers={'User-Agent':'Mozilla/5.0','Referer':'https://quote.eastmoney.com/'}
+          for secid in ['1.000852','0.000852']:
+              for day in days:
+                  params={
+                      'secid':secid,
+                      'fields1':'f1,f2,f3,f4,f5,f6',
+                      'fields2':'f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61',
+                      'klt':'1','fqt':'0','beg':day.replace('-',''),'end':day.replace('-',''),
+                      'lmt':'1000000','ut':'fa5fd1943c7b386f172d6893dbbd1d0c'
+                  }
+                  r=requests.get(url,params=params,headers=headers,timeout=30)
+                  print('HTTP',secid,day,r.status_code,'LEN',len(r.text))
+                  try:
+                      payload=r.json()
+                  except Exception:
+                      print('BODY_HEAD',r.text[:500]); continue
+                  data=payload.get('data') if isinstance(payload,dict) else None
+                  print('META',secid,day,None if data is None else {k:data.get(k) for k in ['code','name','decimal','dktotal']})
+                  kl=[] if data is None else (data.get('klines') or [])
+                  print('KLINE_COUNT',secid,day,len(kl))
+                  picked=[]
+                  for row in kl:
+                      parts=row.split(',')
+                      if len(parts)>=5 and parts[0][-5:] in clocks:
+                          picked.append(parts[:7])
+                  print('PICKED',secid,day,picked)
+          PY
