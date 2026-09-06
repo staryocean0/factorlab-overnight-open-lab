@@ -46,3 +46,8 @@
 44. `docs/ops/ohr_04_last_hour_rebound_conditioning_handoff.md`
 45. `docs/research/cloud_session_20260906_local_last_hour_rebound_conditioning_receipt_v1.json`
 46. `docs/governance/local_session_20260906_last_hour_rebound_conditioning_data_usage.json`
+47. `docs/research/high_open_recall_ohr04_cloud_review_20260906.md`
+48. `docs/governance/cloud_session_20260906_offshore_china_price_discovery_protocol_v1.json`
+49. `docs/research/offshore_china_price_discovery_preanalysis_20260906.md`
+50. `scripts/probe_offshore_china_source_quality.py`
+51. `docs/ops/ohr_05_offshore_china_source_admission_handoff.md`
