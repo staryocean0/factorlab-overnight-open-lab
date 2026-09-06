@@ -1,0 +1,103 @@
+name: gap-fill-v2-2026-repeat-cloud
+
+on:
+  push:
+    paths:
+      - '.github/workflows/gap-fill-v2-2026-repeat-cloud.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  repeat:
+    runs-on: ubuntu-latest
+    env:
+      OVERNIGHT_ANNOTATED_PANEL: ${{ github.workspace }}/data/gap_fill_repeat_2026/annotated_panel_2025Q4_to_20260821.parquet
+      OVERNIGHT_DATAHUB_1M: ${{ github.workspace }}/data/gap_fill_repeat_2026/csi1000_1m_20260105_to_20260821.parquet
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned-enough evaluation dependencies
+        run: python -m pip install --upgrade pandas pyarrow numpy scipy scikit-learn pytest
+      - name: Verify frozen scientific identities
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git hash-object docs/governance/cloud_session_20260906_gap_fill_v2_2026_repeat_protocol_v1.json)" = "417121963302cd8cb5225ad74aee788f570e7d94"
+          test "$(git hash-object scripts/evaluate_local_gap_fill_v2_2026_repeat.py)" = "d61e00efa6e605864c8153a1e7e577257f813939"
+          test "$(git hash-object tests/test_gap_fill_v2_2026_repeat_protocol.py)" = "1247f71488f7f106ff9fe53413dac0221fd20234"
+          test "$(git hash-object docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_freeze_v1.json)" = "eef7a9af6d42ee2faf53dbd16dce0b15ebfd10ed"
+          test "$(git hash-object docs/research/gap_fill_v2_v1_development_closeout_20260906.md)" = "7cdcbab2883c4ca0d6911b30e6ee48e84ff956b4"
+      - name: Verify exact cloud repeat input pack
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo '4619b00670b9443d0c0de7dd8a3a7a2d664a3c8907f28b0f997c9ae737cae216  data/gap_fill_repeat_2026/annotated_panel_2025Q4_to_20260821.parquet' | sha256sum -c -
+          echo '307e48021ef4576c2b364a1309a8b0474d6ab783afee16be41edb975abaa6dcd  data/gap_fill_repeat_2026/csi1000_1m_20260105_to_20260821.parquet' | sha256sum -c -
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          m=json.loads(Path('data/gap_fill_repeat_2026/manifest.json').read_text())
+          assert m['fresh_oos'] is False
+          assert m['post_2026-08-21_included'] is False
+          assert m['validation_window']=={'start':'2026-01-05','end':'2026-08-21','endpoint_is_frozen':True}
+          assert m['products'][0]['rows']==214 and m['products'][0]['validation_rows']==154
+          assert m['products'][1]['rows']==36960 and m['products'][1]['trading_days']==154 and m['products'][1]['rows_per_day']==240
+          PY
+      - name: Validate theme package
+        run: python3 scripts/validate_theme_package.py
+      - name: Run full regression tests
+        run: python3 -m pytest -q
+      - name: Open frozen repeat window once and evaluate sealed V2
+        run: python3 scripts/evaluate_local_gap_fill_v2_2026_repeat.py
+      - name: Verify repeat receipt boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('docs/research/cloud_session_20260906_local_gap_fill_v2_2026_repeat_receipt_v1.json')
+          u=Path('docs/governance/local_session_20260906_gap_fill_v2_2026_repeat_data_usage_v1.json')
+          assert p.exists() and u.exists()
+          d=json.loads(p.read_text())
+          assert d['scientific_role']=='repeat_only_not_fresh'
+          assert d['fresh_oos'] is False
+          assert d['parameter_bundle_sha256']=='07abe29e31ce09b69bd6250b1ce3ebc5af7688b69ed39909feb80e9db882aaa0'
+          assert d['validation_window']=={'start':'2026-01-05','end':'2026-08-21'}
+          assert d['model_refit_performed'] is False
+          assert d['scaler_refit_performed'] is False
+          assert d['hyperparameter_search_performed'] is False
+          assert d['threshold_search_performed'] is False
+          assert d['probability_calibration_layer_fit_or_applied'] is False
+          assert d['trading_return_used_in_gate'] is False
+          assert d['post_2026_08_21_rows_loaded'] is False
+          assert d['raw_2026_rows_written_to_repo'] is False
+          print(json.dumps({
+            'decision': d['decision'],
+            'validation_min_day': d['validation_min_day'],
+            'validation_max_day': d['validation_max_day'],
+            'n_validation_complete': d['n_validation_complete'],
+            'sign_results': {s: {'repeat_confirmed': d['sign_results'][s]['repeat_confirmation']['repeat_confirmed']} for s in ['high','low']},
+            'fresh_oos': d['fresh_oos'],
+          }, indent=2, sort_keys=True))
+          PY
+      - name: Commit aggregate repeat receipts only
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'gap-fill-v2-repeat-cloud-runner'
+          git config user.email 'gap-fill-v2-repeat-cloud-runner@users.noreply.github.com'
+          git add \
+            docs/research/cloud_session_20260906_local_gap_fill_v2_2026_repeat_receipt_v1.json \
+            docs/governance/local_session_20260906_gap_fill_v2_2026_repeat_data_usage_v1.json
+          if git diff --cached --quiet; then
+            echo 'No repeat receipt changes.'
+          else
+            git commit -m 'Record cloud Gap-Fill V2 2026 repeat receipts [skip ci]'
+            git push origin HEAD:main
+          fi
