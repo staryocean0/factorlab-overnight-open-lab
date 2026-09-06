@@ -4,9 +4,11 @@ Codex/cloud research workspace for one bounded overnight-open research task. Do
 not mix with the two-wave Layer 3 theme.
 
 Follow `.codex/skills/strategy-slice-rebuild/SKILL.md` for any model change.
-The repository currently contains a 2015-2025 China high-open development pack
-and the exact frozen 2015-2025 Yahoo offshore-ETF development artifact. It still
-contains **no 2026 China market rows**. The repository is currently public while
+The repository currently contains a 2015-2025 China high-open development pack,
+the exact frozen 2015-2025 Yahoo offshore-ETF development artifact, and a
+user-authorized Gap-Fill V2 2026 repeat pack in
+`data/gap_fill_repeat_2026/`. Post-2026-08-21 China market rows remain absent.
+The repository is currently public while
 `docs/governance/package_scope.json` still records the earlier private-repository
 requirement; treat that as an explicit governance mismatch and do not silently
 change visibility or pretend the earlier contract never existed.

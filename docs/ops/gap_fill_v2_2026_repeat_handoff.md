@@ -2,7 +2,7 @@
 
 ## Status
 
-**Cloud design and execution identity are frozen; local one-shot execution is required because the bounded/cloud repository contains no raw 2026 China panel or one-minute rows.**
+**Cloud design and execution identity are frozen. The user later authorized a public in-repo 2026 pack, so the cloud evaluator can now run without a local FactorLab/DataHub absolute path.**
 
 Research identity: `gap_fill_prediction_v2`.
 
@@ -25,11 +25,16 @@ The evaluator performs **no model/scaler refit**. It applies the sealed scaler m
 
 ## Required local data
 
-Set exactly two local source paths:
+The user-authorized public pack is:
+
+- `data/gap_fill_repeat_2026/annotated_panel_2025Q4_to_20260821.parquet`
+- `data/gap_fill_repeat_2026/csi1000_1m_20260105_to_20260821.parquet`
+
+Set exactly two source paths. From this repository root:
 
 ```bash
-export OVERNIGHT_ANNOTATED_PANEL=/absolute/path/to/the/local/annotated_panel.parquet
-export OVERNIGHT_DATAHUB_1M=/absolute/path/to/the/local/000852_1m_OHLC.parquet
+export OVERNIGHT_ANNOTATED_PANEL="$PWD/data/gap_fill_repeat_2026/annotated_panel_2025Q4_to_20260821.parquet"
+export OVERNIGHT_DATAHUB_1M="$PWD/data/gap_fill_repeat_2026/csi1000_1m_20260105_to_20260821.parquet"
 ```
 
 `OVERNIGHT_ANNOTATED_PANEL` must contain:
@@ -39,7 +44,7 @@ export OVERNIGHT_DATAHUB_1M=/absolute/path/to/the/local/000852_1m_OHLC.parquet
 
 `OVERNIGHT_DATAHUB_1M` must contain 000852.SH one-minute OHLC rows for the complete frozen repeat window, including all 09:31..15:00 trading-minute bars needed to construct the targets.
 
-Do **not** copy raw 2026 rows into this GitHub repository.
+Do **not** load or commit any row after 2026-08-21. The frozen evaluator, protocol, tests and parameter artifact stay unmodified.
 
 ## Frozen commands
 
@@ -97,7 +102,7 @@ Only aggregate outputs should be committed:
 - `docs/research/cloud_session_20260906_local_gap_fill_v2_2026_repeat_receipt_v1.json`
 - `docs/governance/local_session_20260906_gap_fill_v2_2026_repeat_data_usage_v1.json`
 
-Do not commit raw target rows, raw predictions, 1m data or annotated 2026 rows.
+Do not commit raw target rows or raw predictions. The user-authorized input pack in `data/gap_fill_repeat_2026/` is the only allowed 2026 raw-row exception.
 
 ## Return to cloud for acceptance
 
@@ -113,6 +118,6 @@ Return/commit the two aggregate outputs above and report:
 8. for each sign: model vs frozen benchmark integrated Brier/log-loss for all, >10bp and >30bp;
 9. all six gate booleans and `repeat_confirmed` per sign;
 10. overall `decision`;
-11. confirmation that `post_2026_08_21_rows_loaded=false`, no refit/search/calibration layer/trading-return gate occurred, and raw 2026 rows were not committed.
+11. confirmation that `post_2026_08_21_rows_loaded=false`, no refit/search/calibration layer/trading-return gate occurred, and no additional raw 2026 rows were committed beyond `data/gap_fill_repeat_2026/`.
 
 Cloud will independently inspect the returned aggregate receipts and frozen-code identity before accepting the repeat result.

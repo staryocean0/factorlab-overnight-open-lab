@@ -490,3 +490,33 @@ ASHS 最大同日回撤是 2015-08-24 的 −14.42%（开 43.07 / 收 36.86，�
 - 日历完整性已对齐：五 ticker 对 SPY 覆盖均为 1.0，无年度缺口。剩余观察是 ASHS 两个零成交日，以及 ASHS/ASHR 相对更高的 zero-return 计数（薄交易 ETF 的同日开收相等），不是缺失行。
 - 并行草稿曾把新浪截断源写成“唯一齐套源”，并误报 Yahoo 429。该叙述与当前 receipt 不一致，已作废；新浪缺口源不是当前冻结身份。
 - 未打开 2026-01-05..2026-08-21 黑箱，未读取 post-2026-08-21 目标，未做候选 / 参数 / 阈值 / 收益搜索。
+
+---
+
+## DATA-PACK-02 — 用户授权把 Gap-Fill V2 2026 复验包推进公开 overnight-open-lab
+
+**状态：本地已按用户明确要求推入公开仓。冻结评估器 / 协议 / 测试 / 参数未改。尚未运行 V2 2026 repeat evaluator。**
+
+用户原话：`请推进公开 overnight-open-lab`。这是把已经切好的最小 2026 输入包放到云端可见位置，不是 fresh OOS，也不是 production。
+
+仓库路径：
+
+- `data/gap_fill_repeat_2026/annotated_panel_2025Q4_to_20260821.parquet` SHA256 `4619b00670b9443d0c0de7dd8a3a7a2d664a3c8907f28b0f997c9ae737cae216`
+- `data/gap_fill_repeat_2026/csi1000_1m_20260105_to_20260821.parquet` SHA256 `307e48021ef4576c2b364a1309a8b0474d6ab783afee16be41edb975abaa6dcd`
+- `data/gap_fill_repeat_2026/manifest.json`
+
+窗口：
+
+- annotated panel：`2025-10-09..2026-08-21`，214 行，其中 154 行属于 `2026-01-05..2026-08-21`
+- 1min：`2026-01-05..2026-08-21`，36960 行 = 154 日 × 240 分钟
+- post-2026-08-21：0 行
+
+云端执行：
+
+```bash
+export OVERNIGHT_ANNOTATED_PANEL="$PWD/data/gap_fill_repeat_2026/annotated_panel_2025Q4_to_20260821.parquet"
+export OVERNIGHT_DATAHUB_1M="$PWD/data/gap_fill_repeat_2026/csi1000_1m_20260105_to_20260821.parquet"
+python3 scripts/evaluate_local_gap_fill_v2_2026_repeat.py
+```
+
+未改 `scripts/evaluate_local_gap_fill_v2_2026_repeat.py`、repeat protocol、tests 或 final-fit 参数。未把 post-2026-08-21 行写入仓库。`fresh_oos=false`，`production_authority=false`。

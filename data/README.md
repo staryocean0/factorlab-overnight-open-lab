@@ -14,7 +14,19 @@ No 2021+ rows. Index path, not a tradable fill. Do not resample new wall-clock f
 2025-12-31 so high-open recall development scripts can run without local FactorLab
 absolute paths.
 
-- 2026-01-05 through 2026-08-21 remains excluded.
+- 2026-01-05 through 2026-08-21 remains excluded from this development pack.
 - post-2026-08-21 remains excluded.
 - The 2015-2020 files above stay frozen and unmodified.
+
+## Gap-Fill V2 2026 repeat pack
+
+`gap_fill_repeat_2026/` is a user-authorized public copy of the frozen
+repeat-only inputs:
+
+- annotated panel `2025-10-09` through `2026-08-21` (214 rows; 154 in the
+  2026 validation window)
+- `000852.SH` one-minute bars `2026-01-05` through `2026-08-21` (36960 rows)
+
+This pack is not fresh OOS. Post-2026-08-21 remains excluded. See
+`data/gap_fill_repeat_2026/README.md`.
 

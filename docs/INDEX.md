@@ -107,3 +107,5 @@
 105. `docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_freeze_v1.json`
 106. `docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_data_usage_v1.json`
 107. `docs/research/gap_fill_v2_v1_development_closeout_20260906.md`
+108. `data/gap_fill_repeat_2026/`
+109. `docs/ops/gap_fill_v2_2026_repeat_handoff.md`
