@@ -1,0 +1,94 @@
+{
+  "candidates": {
+    "V6A_frozen_common_sample_comparator": {
+      "n_train": 900,
+      "n_holdout": 461,
+      "holdout_r2": 0.383016982986099,
+      "holdout_ic": 0.6537331110508788,
+      "holdout_sse": 0.016461577133831628,
+      "holdout_sign_hit": 0.7592190889370932,
+      "standardized_coefficients": {
+        "r1": 0.006120898061295566,
+        "r20": 0.00043489194914223813,
+        "abs_r1": -0.0002907971897375864,
+        "prev_gap": -0.0026591220421036347,
+        "overnight_trend_5": 0.00028948079405409564,
+        "prev_daytime": -0.00315392622598674,
+        "prev_last_hour": 0.0005113159718442032,
+        "prev_afternoon": -0.00033218743311871587,
+        "rvol20": -0.001282898967642878,
+        "weekend": 0.0004456492432191659,
+        "holiday_reopen": -0.000015012571053673135,
+        "us_nasdaq": 0.0007078774421605042,
+        "us_vix_chg": -0.0010891209350908566,
+        "us_nasdaq_closure_extra": 0.0005968390064115451,
+        "us_vix_closure_extra": -0.0005483507038465254,
+        "hkma_usdcny_closure_return": 0.0001353006163900737,
+        "a50_holiday_closure_return": 0.000830451486821766,
+        "a50_ordinary_preauction_closure_return": 0.0037718050355083333
+      }
+    },
+    "V9A_plus_A50_signed_square": {
+      "n_train": 900,
+      "n_holdout": 461,
+      "holdout_r2": 0.38923570201358804,
+      "holdout_ic": 0.6649604026168545,
+      "holdout_sse": 0.01629565697051807,
+      "holdout_sign_hit": 0.7678958785249458,
+      "standardized_coefficients": {
+        "r1": 0.005365194613253166,
+        "r20": 0.0004711862132582955,
+        "abs_r1": -0.00037238167841357344,
+        "prev_gap": -0.002240011793792455,
+        "overnight_trend_5": 0.0003718662953309235,
+        "prev_daytime": -0.002458330350667926,
+        "prev_last_hour": 0.0005187343469196684,
+        "prev_afternoon": -0.0003257836221580318,
+        "rvol20": -0.0012166146888489197,
+        "weekend": 0.0003338100651945689,
+        "holiday_reopen": -0.00003191805605472704,
+        "us_nasdaq": 0.0010081491115524822,
+        "us_vix_chg": -0.0012290210853887298,
+        "us_nasdaq_closure_extra": 0.0006592132065681564,
+        "us_vix_closure_extra": -0.0006015083286404764,
+        "hkma_usdcny_closure_return": 0.0000463730666794797,
+        "a50_holiday_closure_return": 0.0007311696119144613,
+        "a50_ordinary_preauction_closure_return": 0.001770963102164102,
+        "a50_ordinary_signed_square": 0.002413148114067448
+      }
+    }
+  },
+  "economic_coherence": {
+    "n": 879,
+    "min": 0.2636793034688601,
+    "median": 0.32754726904616266,
+    "max": 1.9279348281212438,
+    "nonpositive_count": 0,
+    "strictly_positive_everywhere_observed": true,
+    "observed_abs_x_min": 0,
+    "observed_abs_x_max": 0.0694536606945
+  },
+  "adjudication": {
+    "gates": {
+      "holdout_r2": true,
+      "holdout_sse": true,
+      "holdout_ic": true,
+      "sign_hit": true,
+      "ordinary_subset_sse": true,
+      "ordinary_subset_ic": true,
+      "annual_sse": false,
+      "quarterly_total_sse_improvement": true,
+      "quarterly_median_sse_improvement": false,
+      "quarterly_nonnegative_count": false,
+      "holiday_subset_sse": false,
+      "economic_coherence_gate": true
+    },
+    "all_preregistered_gates_pass": false,
+    "selected_candidate": null,
+    "hard_valid_increment_retained": true,
+    "scientific_status": "no_incremental_successor_beyond_V6",
+    "economic_incoherence_rejection": false,
+    "new_selectable_candidates_executed": 1,
+    "additional_nonselectable_reference_fits": 2
+  }
+}

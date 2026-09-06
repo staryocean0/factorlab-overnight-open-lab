@@ -1,0 +1,18 @@
+{
+  "schema_id": "overnight_open_v9_target_integrity_audit_plan@1.0",
+  "registered_date": "2026-09-06",
+  "stage": "post_v9_result_before_minute_endpoint_inspection",
+  "trigger": "Fixed-prediction forensics expose large target gaps among the top three positive loss contributors (2020-02-04, 2020-03-13, 2020-04-20). Verify measurement before giving them financial interpretations.",
+  "scope": "all available 2015-2020 packaged target rows, not selected favorable events",
+  "checks": [
+    "raw 09:31 open and 15:00 close exist uniquely per China day",
+    "packaged open_0931 and close_1500 equal corresponding minute endpoints",
+    "packaged prev_close equals previous chronological China day's 15:00 close",
+    "gap equals current 09:31 open divided by prior China close minus one",
+    "date uniqueness and no post-2020 rows"
+  ],
+  "tolerance": {"raw_price_atol": 1e-8, "gap_atol": 1e-12, "rtol": 0.0},
+  "first_row": "previous close outside package is unresolved unless directly available; no fabricated warmup",
+  "limitations": "Internal minute-panel parity cannot validate the upstream market-data vendor against the exchange.",
+  "authority": {"selection": false, "refit": false, "event_exclusion": false, "target_repair": false, "post_2020_read": false, "production": false}
+}

@@ -7,3 +7,8 @@
 5. `docs/governance/baseline_receipt.json`
 6. `docs/research/literature.md`
 7. `docs/user/timing_layer2_overnight_gap_ledger_workflow.md`
+# Latest continuation
+
+- [2026-09-06 handoff](user/overnight_research_handoff_20260906.md)
+- [V9 method](research/global_spillover_v9_method.md)
+- [V9 result and source-audit continuation](research/global_spillover_v9_conclusion_20260906.md)
