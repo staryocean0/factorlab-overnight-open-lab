@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """OHR-08 final low-DOF offshore-China development test.
 
-The incumbent 13-feature Median model is fit and frozen independently in each
-expanding OOF fold. Exactly one no-intercept median-regression coefficient is
-then fit on the residual using the preregistered offshore gated feature g.
-No 2026 row may be loaded.
+The incumbent 13-feature Median model is fit on its exact original complete-row
+training inventory and frozen independently in each expanding OOF fold. Exactly
+one no-intercept median-regression coefficient is then fit on offshore-valid
+training residuals using the preregistered gated feature g. No 2026 row may be
+loaded.
 """
 from __future__ import annotations
 
@@ -71,12 +72,11 @@ def add_g(frame: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
-def common_mask(frame: pd.DataFrame, base_features: list[str]) -> pd.Series:
-    cols = base_features + [G]
-    x = frame[cols].apply(pd.to_numeric, errors="coerce")
-    y = pd.to_numeric(frame["gap"], errors="coerce")
-    valid = frame["offshore_common_valid"].astype(bool)
-    return x.notna().all(axis=1) & y.notna() & valid
+def overlay_common_mask(frame: pd.DataFrame, base_features: list[str]) -> pd.Series:
+    base_complete = highdiag.complete_mask(frame, base_features)
+    g = pd.to_numeric(frame[G], errors="coerce")
+    offshore_valid = frame["offshore_common_valid"].astype(bool)
+    return base_complete & offshore_valid & g.notna()
 
 
 def run_expanding_overlay(frame: pd.DataFrame, base_features: list[str]) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
@@ -88,23 +88,36 @@ def run_expanding_overlay(frame: pd.DataFrame, base_features: list[str]) -> tupl
     for valid_year in YEARS:
         train = frame.loc[frame_year < valid_year].copy()
         valid = frame.loc[frame_year == valid_year].copy()
-        train_mask = common_mask(train, base_features)
-        valid_mask = common_mask(valid, base_features)
-        if int(train_mask.sum()) == 0 or int(valid_mask.sum()) == 0:
-            raise RuntimeError(f"empty OHR-08 common fold for {valid_year}")
 
-        x_train = train.loc[train_mask, base_features].apply(pd.to_numeric, errors="coerce")
-        y_train = pd.to_numeric(train.loc[train_mask, "gap"], errors="coerce").to_numpy(dtype=float)
-        x_valid = valid.loc[valid_mask, base_features].apply(pd.to_numeric, errors="coerce")
-        g_train = pd.to_numeric(train.loc[train_mask, G], errors="coerce").to_numpy(dtype=float)
-        g_valid = pd.to_numeric(valid.loc[valid_mask, G], errors="coerce").to_numpy(dtype=float)
+        # Stage 1 uses the exact incumbent training inventory. Offshore source
+        # validity is not allowed to change the 13-feature incumbent fit.
+        base_train_mask = highdiag.complete_mask(train, base_features)
+        base_valid_mask = highdiag.complete_mask(valid, base_features)
+        overlay_train_mask = overlay_common_mask(train, base_features)
+        common_valid_mask = overlay_common_mask(valid, base_features)
+        if int(base_train_mask.sum()) == 0 or int(base_valid_mask.sum()) == 0:
+            raise RuntimeError(f"empty incumbent fold for {valid_year}")
+        if int(overlay_train_mask.sum()) == 0 or int(common_valid_mask.sum()) == 0:
+            raise RuntimeError(f"empty OHR-08 offshore-common fold for {valid_year}")
+        if not bool((overlay_train_mask <= base_train_mask).all()):
+            raise RuntimeError(f"overlay train mask escaped incumbent inventory in {valid_year}")
+        if not bool((common_valid_mask <= base_valid_mask).all()):
+            raise RuntimeError(f"common valid mask escaped incumbent inventory in {valid_year}")
+
+        x_base_train = train.loc[base_train_mask, base_features].apply(pd.to_numeric, errors="coerce")
+        y_base_train = pd.to_numeric(train.loc[base_train_mask, "gap"], errors="coerce").to_numpy(dtype=float)
+        x_overlay_train = train.loc[overlay_train_mask, base_features].apply(pd.to_numeric, errors="coerce")
+        y_overlay_train = pd.to_numeric(train.loc[overlay_train_mask, "gap"], errors="coerce").to_numpy(dtype=float)
+        x_valid_common = valid.loc[common_valid_mask, base_features].apply(pd.to_numeric, errors="coerce")
+        g_train = pd.to_numeric(train.loc[overlay_train_mask, G], errors="coerce").to_numpy(dtype=float)
+        g_valid = pd.to_numeric(valid.loc[common_valid_mask, G], errors="coerce").to_numpy(dtype=float)
 
         base = phase2.median_pipe()
-        base.fit(x_train, y_train)
-        base_train_score = np.asarray(base.predict(x_train), dtype=float)
-        base_valid_score = np.asarray(base.predict(x_valid), dtype=float)
+        base.fit(x_base_train, y_base_train)
+        base_overlay_train_score = np.asarray(base.predict(x_overlay_train), dtype=float)
+        base_valid_score = np.asarray(base.predict(x_valid_common), dtype=float)
 
-        residual = y_train - base_train_score
+        residual = y_overlay_train - base_overlay_train_score
         if int(np.sum(np.abs(g_train) > EPS)) == 0:
             raise RuntimeError(f"OHR-08 training fold {valid_year} has no nonzero g observations")
         overlay = QuantileRegressor(quantile=0.5, alpha=0.0, fit_intercept=False, solver="highs")
@@ -113,17 +126,16 @@ def run_expanding_overlay(frame: pd.DataFrame, base_features: list[str]) -> tupl
         if abs(float(overlay.intercept_)) > EPS:
             raise RuntimeError("OHR-08 overlay unexpectedly fit an intercept")
 
-        correction = beta * g_valid
-        candidate_score = np.where(np.abs(g_valid) <= EPS, base_valid_score, base_valid_score + correction)
+        candidate_score = np.where(np.abs(g_valid) <= EPS, base_valid_score, base_valid_score + beta * g_valid)
 
         part_cols = ["trading_day", "gap", "prev_last_hour"]
-        inc = valid.loc[valid_mask, part_cols].copy()
+        inc = valid.loc[common_valid_mask, part_cols].copy()
         inc["score"] = base_valid_score
         inc["pred_up"] = inc["score"] >= 0.0
         inc["oof_year"] = int(valid_year)
         inc[G] = g_valid
 
-        cand = valid.loc[valid_mask, part_cols].copy()
+        cand = valid.loc[common_valid_mask, part_cols].copy()
         cand["score"] = candidate_score
         cand["pred_up"] = cand["score"] >= 0.0
         cand["oof_year"] = int(valid_year)
@@ -139,9 +151,11 @@ def run_expanding_overlay(frame: pd.DataFrame, base_features: list[str]) -> tupl
         cand_parts.append(cand)
         betas[str(valid_year)] = {
             "beta": beta,
-            "n_train_common": int(train_mask.sum()),
+            "n_base_train_complete": int(base_train_mask.sum()),
+            "n_overlay_train_common": int(overlay_train_mask.sum()),
             "n_train_nonzero_g": int(np.sum(np.abs(g_train) > EPS)),
-            "n_valid_common": int(valid_mask.sum()),
+            "n_base_valid_complete": int(base_valid_mask.sum()),
+            "n_valid_common": int(common_valid_mask.sum()),
             "n_valid_nonzero_g": int(np.sum(np.abs(g_valid) > EPS)),
         }
 
@@ -152,6 +166,12 @@ def run_expanding_overlay(frame: pd.DataFrame, base_features: list[str]) -> tupl
     if incumbent_oof["trading_day"].tolist() != candidate_oof["trading_day"].tolist():
         raise RuntimeError("OHR-08 incumbent/candidate inventory mismatch")
     return incumbent_oof, candidate_oof, betas
+
+
+def reference_incumbent_common(frame: pd.DataFrame, base_features: list[str]) -> pd.DataFrame:
+    reference = highdiag.expanding_oof(frame, base_features)
+    mask = reference["offshore_common_valid"].astype(bool) & pd.to_numeric(reference[G], errors="coerce").notna()
+    return reference.loc[mask, ["trading_day", "gap", "prev_last_hour", "score", "pred_up", "oof_year", G]].reset_index(drop=True)
 
 
 def annual_metrics(pred: pd.DataFrame) -> dict:
@@ -186,17 +206,19 @@ def spec(protocol: dict, base_features: list[str]) -> dict:
         "stage_1": {
             "pipeline": protocol["fixed_incumbent"]["pipeline"],
             "direction_features": base_features,
-            "fit_target": "gap"
+            "fit_target": "gap",
+            "training_inventory": "exact_incumbent_complete_rows_no_offshore_filter"
         },
         "stage_2": {
             "feature": G,
             "target": "gap - frozen_incumbent_training_score",
+            "training_inventory": "offshore_valid_subset_of_incumbent_complete_rows",
             "model": protocol["single_candidate"]["stage_2_model"]
         },
         "score": "frozen_incumbent_score + beta * broad_china_specific_tail_weak",
         "decision": "score >= 0",
         "offshore_source_sha256": EXPECTED_SOURCE_SHA,
-        "development_selection_window": "2016-2025_expanding_natural_year_OOF_common_offshore_inventory",
+        "development_selection_window": "2016-2025_expanding_natural_year_OOF_common_offshore_evaluation_inventory",
         "repeat_blackbox": "2026-01-05_to_2026-08-21_after_exact_successor_freeze_only",
         "true_fresh_reserved": "post_2026-08-21"
     }
@@ -230,8 +252,19 @@ def main() -> int:
         raise RuntimeError("2026 row entered OHR-08 development frame")
 
     incumbent_oof, candidate_oof, betas = run_expanding_overlay(frame, base_features)
+    reference_oof = reference_incumbent_common(frame, base_features)
     if len(incumbent_oof) != int(ohr06_receipt["n_common_offshore_oof"]):
         raise RuntimeError("OHR-08 common OOF inventory differs from OHR-06")
+    if reference_oof["trading_day"].tolist() != incumbent_oof["trading_day"].tolist():
+        raise RuntimeError("OHR-08 Stage-1 day inventory differs from exact incumbent replay")
+    reference_score_max_abs = float(np.max(np.abs(
+        pd.to_numeric(reference_oof["score"], errors="coerce").to_numpy(dtype=float)
+        - pd.to_numeric(incumbent_oof["score"], errors="coerce").to_numpy(dtype=float)
+    ))) if len(reference_oof) else 0.0
+    if reference_score_max_abs > EPS:
+        raise RuntimeError(f"OHR-08 Stage-1 score drifted from exact incumbent replay: {reference_score_max_abs}")
+    if not np.array_equal(reference_oof["pred_up"].to_numpy(dtype=bool), incumbent_oof["pred_up"].to_numpy(dtype=bool)):
+        raise RuntimeError("OHR-08 Stage-1 predictions drifted from exact incumbent replay")
 
     non_tail = pd.to_numeric(incumbent_oof["prev_last_hour"], errors="coerce") >= 0.0
     non_tail_score_max_abs = float(np.max(np.abs(
@@ -261,6 +294,7 @@ def main() -> int:
         "material_gt10bp_recall_not_lower": cand_metrics["material_high_open_gt10bp_recall"] >= inc_metrics["material_high_open_gt10bp_recall"] - EPS,
         "material_gt30bp_recall_not_lower": cand_metrics["material_high_open_gt30bp_recall"] >= inc_metrics["material_high_open_gt30bp_recall"] - EPS,
         "non_tail_predictions_identical_to_incumbent": non_tail_predictions_identical and non_tail_score_max_abs <= EPS,
+        "stage1_exact_incumbent_replay": reference_score_max_abs <= EPS,
     }
     eligible = bool(all(gates.values()))
     candidate_spec = spec(protocol, base_features)
@@ -274,6 +308,7 @@ def main() -> int:
         "positive_annual_recall_up_delta_count": positive_years,
         "median_annual_recall_up_delta": median_delta,
         "fold_betas": betas,
+        "stage1_reference_score_max_abs_difference": reference_score_max_abs,
         "non_tail_score_max_abs_difference": non_tail_score_max_abs,
         "non_tail_predictions_identical": non_tail_predictions_identical,
         "paired_disagreement_counts": phase2.paired_counts(incumbent_oof, candidate_oof),
@@ -366,6 +401,7 @@ def main() -> int:
         "eligible_candidate_count": receipt["eligible_candidate_count"],
         "selected": receipt["selected"],
         "decision": receipt["decision"],
+        "stage1_reference_score_max_abs_difference": reference_score_max_abs,
         "non_tail_score_max_abs_difference": non_tail_score_max_abs,
         "2026_blackbox_opened": False,
     }, sort_keys=True))
