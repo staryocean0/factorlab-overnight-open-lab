@@ -1,0 +1,40 @@
+{
+  "schema_id": "overnight_open_cloud_session_data_usage@1.0",
+  "session_date": "2026-09-06",
+  "objective": "improve causal prediction of next CSI1000 overnight open gap sign and magnitude without optimizing trading return",
+  "baseline_receipt": "docs/governance/baseline_receipt.json",
+  "evidence_boundary": {
+    "2015-01-05_to_2018-12-31": "development_material",
+    "2019-01-01_to_2020-12-31": "frozen_holdout_open_once_after_candidate_freeze",
+    "2021_plus": "forbidden_not_present"
+  },
+  "phase_a": {
+    "name": "development_inventory_and_mechanism_audit",
+    "may_read_holdout_target": false,
+    "may_rank_candidates": false,
+    "allowed_outputs": [
+      "schema_inventory",
+      "development_only_missingness",
+      "development_only_target_and_feature_summaries",
+      "causal_US_clock_alignment_diagnostics"
+    ]
+  },
+  "phase_b_rule": "Before any new candidate is evaluated on 2019-2020, freeze a bounded candidate family, time-ordered 2015-2018 selection rule, multiplicity count, and final-candidate digest. Then evaluate exactly that selected candidate once on 2019-2020 together with already-frozen comparators.",
+  "required_holdout_metrics": [
+    "IC",
+    "sign_hit",
+    "increment_vs_majority_down",
+    "increment_vs_us_nasdaq_single_variable"
+  ],
+  "forbidden_selection_objective": "total_return",
+  "authority": {
+    "fresh_oos": false,
+    "production_authority": false,
+    "local_controller_2021_2025_confirmation_required": true
+  },
+  "known_governance_gap": {
+    "package_requires_private_repository": true,
+    "observed_repository_visibility_on_2026_09_06": "public",
+    "effect": "record_as_governance_gap; do not infer production or confidentiality authority"
+  }
+}
