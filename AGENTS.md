@@ -1,38 +1,47 @@
 # Overnight Open Lab
 
-Codex/cloud research workspace. One private task. Do not mix with the two-wave
-Layer 3 theme.
+Codex/cloud research workspace for one bounded overnight-open research task. Do
+not mix with the two-wave Layer 3 theme.
 
 Follow `.codex/skills/strategy-slice-rebuild/SKILL.md` for any model change.
-Raw 2021+ China market rows still do not exist in this repository. The prior
-two-head magnitude candidate was confirmed on 2021-2025 and the prior Median
-direction successor was robustly confirmed on 2026-01-05 through 2026-08-21.
-Those receipts remain immutable.
+The repository currently contains a 2015-2025 China high-open development pack
+and the exact frozen 2015-2025 Yahoo offshore-ETF development artifact. It still
+contains **no 2026 China market rows**. The repository is currently public while
+`docs/governance/package_scope.json` still records the earlier private-repository
+requirement; treat that as an explicit governance mismatch and do not silently
+change visibility or pretend the earlier contract never existed.
 
-The bounded `high_open_recall_successor_v1` branch has finished its domestic
-mechanism work without an incremental successor. OHR-02 and OHR-04 both retain
+The prior two-head magnitude candidate was confirmed on 2021-2025 and the prior
+Median direction successor was robustly confirmed on 2026-01-05 through
+2026-08-21. Those receipts remain immutable. The accepted direction incumbent
+is still `median_quantile_sign`; the accepted magnitude component remains
+`abs_frozen_clock_signed_prediction`. Production authority is false.
+
+The bounded `high_open_recall_successor_v1` branch has finished without an
+incremental successor. OHR-02 and OHR-04 both retained
 `median_quantile_sign`; OHR-03 was never opened. Do not continue by slicing the
 same domestic weakness variables, tuning thresholds, or reusing those failed
 runtime routes.
 
-A new research identity, `offshore_china_price_discovery_successor_v1`, is open
-under
-`docs/governance/cloud_session_20260906_offshore_china_price_discovery_protocol_v1.json`.
-Its first task is source admission only: freeze one provider/cache for ASHS,
-ASHR, FXI, MCHI and SPY regular-session daily OHLCV through 2025, audit its
-calendar and price quality, and record the source hash **before** any China
-target relationship is inspected. `scripts/probe_offshore_china_source_quality.py`
-must not load the CSI1000 target. Raw external rows stay local.
+The `offshore_china_price_discovery_successor_v1` identity is also **closed**.
+OHR-05 admitted one exact Yahoo chart-v8 source, OHR-06 found genuine mechanism
+evidence only for `broad_china_specific_vs_spy`, OHR-07 rejected a one-feature
+joint-refit candidate, and OHR-08 rejected the final one-parameter frozen-base
+residual overlay under the preregistered high-open-successor gates. See
+`docs/research/offshore_china_price_discovery_route_closeout_20260906.md`.
+The offshore signal may be cited only as progression/mechanism material for this
+identity; do not rescue it post hoc by changing beta, thresholds, weights,
+tickers, interactions or the loss objective on the consumed 2015-2025 window.
+Any future use for confidence, abstention, calibration or false-positive control
+requires a new preregistered objective and research identity.
 
-For this new identity only, 2015-2025 may later be used as development material
-after source admission; 2021-2025 is already-consumed evidence and must never be
-called fresh again. The exact 2026-01-05 through 2026-08-21 window remains
-sealed from source choice, diagnosis, feature engineering, candidate-family
-design, ranking, loss/threshold choice, and all other development. It can only
-be considered under a separately frozen repeat-blackbox protocol after a future
-successor identity exists, and it can never become scientifically fresh again.
-Post-2026-08-21 remains the true unread fresh challenge. Same-morning China
-information remains forbidden. Production authority is false. Do not mutate any
+For the completed high-open and offshore identities, 2015-2025 is consumed
+development material. The exact 2026-01-05 through 2026-08-21 window remains
+sealed from diagnosis, feature engineering, candidate-family design, ranking,
+loss/threshold choice and all other development; no successor passed a gate that
+would justify opening their repeat-blackbox stage. That window can never become
+scientifically fresh again. Post-2026-08-21 remains the true unread fresh
+challenge. Same-morning China information remains forbidden. Do not mutate any
 FactorLab live registry.
 
 ## 云端—本地交接协议（默认不生效）
