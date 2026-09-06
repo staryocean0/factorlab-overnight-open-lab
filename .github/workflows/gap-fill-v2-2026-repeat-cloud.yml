@@ -32,6 +32,7 @@ jobs:
           test "$(git hash-object tests/test_gap_fill_v2_2026_repeat_protocol.py)" = "1247f71488f7f106ff9fe53413dac0221fd20234"
           test "$(git hash-object docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_freeze_v1.json)" = "eef7a9af6d42ee2faf53dbd16dce0b15ebfd10ed"
           test "$(git hash-object docs/research/gap_fill_v2_v1_development_closeout_20260906.md)" = "7cdcbab2883c4ca0d6911b30e6ee48e84ff956b4"
+          test -f docs/governance/cloud_session_20260906_gap_fill_v2_2026_repeat_execution_incident_v1.json
       - name: Verify exact cloud repeat input pack
         shell: bash
         run: |
@@ -52,9 +53,9 @@ jobs:
         run: python3 scripts/validate_theme_package.py
       - name: Run full regression tests
         run: python3 -m pytest -q
-      - name: Open frozen repeat window once and evaluate sealed V2
+      - name: Mechanically re-evaluate frozen repeat window with unchanged evaluator
         run: python3 scripts/evaluate_local_gap_fill_v2_2026_repeat.py
-      - name: Verify repeat receipt boundary
+      - name: Verify repeat receipt boundary and frozen schema
         shell: bash
         run: |
           set -euo pipefail
@@ -65,24 +66,34 @@ jobs:
           u=Path('docs/governance/local_session_20260906_gap_fill_v2_2026_repeat_data_usage_v1.json')
           assert p.exists() and u.exists()
           d=json.loads(p.read_text())
+          usage=json.loads(u.read_text())
           assert d['scientific_role']=='repeat_only_not_fresh'
           assert d['fresh_oos'] is False
           assert d['parameter_bundle_sha256']=='07abe29e31ce09b69bd6250b1ce3ebc5af7688b69ed39909feb80e9db882aaa0'
           assert d['validation_window']=={'start':'2026-01-05','end':'2026-08-21'}
           assert d['model_refit_performed'] is False
           assert d['scaler_refit_performed'] is False
+          assert d['feature_selection_performed'] is False
           assert d['hyperparameter_search_performed'] is False
           assert d['threshold_search_performed'] is False
           assert d['probability_calibration_layer_fit_or_applied'] is False
-          assert d['trading_return_used_in_gate'] is False
+          assert d['trading_return_used'] is False
           assert d['post_2026_08_21_rows_loaded'] is False
           assert d['raw_2026_rows_written_to_repo'] is False
+          assert d['source_hashes']['local_annotated_panel']=='4619b00670b9443d0c0de7dd8a3a7a2d664a3c8907f28b0f997c9ae737cae216'
+          assert d['source_hashes']['local_datahub_1m']=='307e48021ef4576c2b364a1309a8b0474d6ab783afee16be41edb975abaa6dcd'
+          assert usage['role']=='repeat_only_not_fresh'
+          assert usage['post_2026_08_21']=='not_loaded_true_fresh_reserved'
+          assert usage['model_refit_performed'] is False
+          assert usage['parameter_search_performed'] is False
           print(json.dumps({
             'decision': d['decision'],
-            'validation_min_day': d['validation_min_day'],
-            'validation_max_day': d['validation_max_day'],
-            'n_validation_complete': d['n_validation_complete'],
-            'sign_results': {s: {'repeat_confirmed': d['sign_results'][s]['repeat_confirmation']['repeat_confirmed']} for s in ['high','low']},
+            'validation_min_day': d['target_audit']['validation_min_day'],
+            'validation_max_day': d['target_audit']['validation_max_day'],
+            'n_repeat_rows': d['n_repeat_rows'],
+            'n_repeat_high': d['n_repeat_high'],
+            'n_repeat_low': d['n_repeat_low'],
+            'sign_results': {s: {'repeat_confirmed': d['results'][s]['repeat_confirmed']} for s in ['high','low']},
             'fresh_oos': d['fresh_oos'],
           }, indent=2, sort_keys=True))
           PY
