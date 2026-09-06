@@ -1,0 +1,52 @@
+{
+  "schema_id": "overnight_open_csi1000_pit_membership_candidate_verdict@1.0",
+  "sealed_date": "2026-09-06",
+  "scope": "Source-only adjudication of chenditc/investment_data ts_index_weight as an exact point-in-time CSI1000 membership transport. No target/gap model executed.",
+  "candidate": {
+    "transport": "public chenditc/investment_data DoltHub table ts_index_weight",
+    "upstream": "Tushare index_weight",
+    "index_code": "000852.SH",
+    "exporter": "qlib/dump_index_weight.py"
+  },
+  "evidence": {
+    "tushare_official_frequency_description": "index_weight is documented as monthly constituent and weight data; callers are advised to query from the first to last day of each month",
+    "upstream_ingestion": "chenditc downloads Tushare index_weight in bounded date windows and stores returned trade_date without reconstructing official rebalance effective dates",
+    "qlib_interval_algorithm": "membership signature is computed per returned trade_date; the first observed trade_date for a signature becomes the exported interval start",
+    "known_early_history_issue": "public upstream issue reports only three CSI1000 lines over 2014-10-31 through 2015-05-28; no early-2015 backfill is scientifically allowed",
+    "frequency_irregularity_caveat": "public Tushare issue reports historical index_weight frequency may vary across eras, so trade_date cannot be assumed to have one uniform semantic frequency"
+  },
+  "frozen_exact_PIT_gate": {
+    "official_event": "2020-12-14 regular CSI1000 adjustment including 19 STAR Market securities",
+    "requirement": "the new membership signature must be directly observed on the official effective date; a later monthly/sparse snapshot is insufficient",
+    "direct_2020_12_14_source_snapshot_verified": false
+  },
+  "adjudication": {
+    "exact_PIT_transport_approved": false,
+    "status": "timing_unverified_reference_anchor_only",
+    "reason": "The candidate has useful historical membership snapshots but its documented monthly/sparse upstream semantics and exporter algorithm do not prove that signature interval starts equal official effective dates. The frozen exact-effective-date gate has not been satisfied.",
+    "permitted_use": [
+      "reference membership signature anchor",
+      "source-health comparison against an independently reconstructed official PIT series"
+    ],
+    "forbidden_use": [
+      "daily PIT auction breadth construction",
+      "blindly extending a monthly signature backward to an official rebalance date",
+      "backfilling January-April 2015",
+      "daily historical weight features"
+    ],
+    "manual_date_shift_repair_allowed": false
+  },
+  "next_source_path": "reconstruct PIT membership from an independently verified base snapshot plus official CSI regular and temporary adjustment events; validate every event boundary against at least one independent membership interval source",
+  "actions_incident_note": {
+    "user_repo_runs": [34006863567],
+    "runner_pre_step_failure_does_not_constitute_source_failure": true
+  },
+  "authority": {
+    "target_rows_read": 0,
+    "predictive_model_execution": false,
+    "baseline_replacement": false,
+    "production": false,
+    "registry_mutation": false,
+    "merge_main": false
+  }
+}
