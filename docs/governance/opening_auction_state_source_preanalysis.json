@@ -1,5 +1,5 @@
 {
-  "schema_id": "overnight_open_opening_auction_state_source_preanalysis@1.0",
+  "schema_id": "overnight_open_opening_auction_state_source_preanalysis@1.1",
   "registered_date": "2026-09-06",
   "status": "source_and_clock_preanalysis_only_no_target_model",
   "branch": "codex/overnight-auction-source-20260906",
@@ -12,67 +12,87 @@
   "financial_question": "Can target-market opening-call-auction state explain a further part of the CSI1000 next-session opening gap while remaining causal and operationally distinct from simply reading the final opening price?",
   "source_findings": {
     "SSE": {
-      "historical_product": "SSE InfoNet historical market-data product",
-      "official_url": "https://www.sseinfo.com/services/assortment/historical/",
-      "finding": "The official historical-data catalogue explicitly lists opening call-auction data for SSE Level-2, alongside snapshots and tick trades. The catalogue does not list opening call-auction history under Level-1.",
-      "access_status": "licensed/application product rather than an anonymous public-download source",
-      "business_application": "https://bsp.sseinfo.com/"
+      "historical_catalogue": "https://www.sseinfo.com/services/assortment/historical/",
+      "historical_interface_manual": "https://www.sseinfo.com/services/assortment/market/hqywwd/wdzsjk/c/10764822/files/4f38cae1022a4cfa8410bbc2702e2b95.pdf",
+      "level1_finding": "Official SSE Level-1 semantics are sufficient for the early-auction measurement family: during call auction the quotation publishes the virtual opening/reference price, virtual matched quantity and virtual unmatched quantity/direction. Historical Level-1 Snapshot.csv includes call-auction state.",
+      "level2_schema_switch": {
+        "before_2018_12_24": "Level-2 opening call-auction state is carried by sh2\\yyyymmdd\\Auction.csv with SecurityID, DateTime, Price, VirtualAuctionQty, LeaveQty and Side.",
+        "from_2018_12_24": "Level-2 opening-auction state is published through sh2\\yyyymmdd\\Snapshot.csv."
+      },
+      "correction_to_v1_0": "Level-2 is not a scientific hard requirement. A validated historical Level-1 or Level-2 snapshot transport is acceptable if it reproduces the required pre-09:20 state with official semantics.",
+      "access_status": "Official historical products are licensed/application products; no anonymous reproducible full-coverage 2015-2020 transport has yet been established."
     },
     "SZSE": {
-      "official_market_data_overview": "https://investor.szse.cn/English/services/dataServices/index.html",
       "official_historical_interface_reference": "https://www.szse.cn/www/marketServices/technicalservice/history/P020180328468171229352.pdf",
       "official_distributor": "Shenzhen Securities Information Co., Ltd. (SSIC)",
       "distributor_url": "https://www.szsi.cn/cpfw/overseas/reference/overview/",
-      "finding": "Historical SZSE interface specifications already encode opening/closing call-auction reference price, matched quantity and unmatched quantity in the quotation fields. SSIC is the authorized SZSE market-data distributor and exposes Historical Tick Data as a licensed product category.",
-      "access_status": "licensed/application path; no reproducible anonymous historical Level-2 bulk download established in this preanalysis"
+      "finding": "Official quotation semantics encode call-auction reference price, matched quantity and unmatched quantity through Level-1 quotation fields, so Level-1 is sufficient for the same early-auction measurement family.",
+      "access_status": "Historical Tick Data is distributed through licensed/application channels; no anonymous reproducible full-coverage 2015-2020 transport has yet been established."
     }
   },
   "exchange_rule_semantics": {
-    "SSE_auction_window": "09:15:00-09:25:00",
-    "SSE_cancel_rule": "orders may be cancelled during 09:15-09:20; cancellation requests are not accepted during 09:20-09:25",
-    "official_rule_url": "https://www.sse.com.cn/lawandrules/sselawsrules2025/stocks/exchange/c/c_20260424_10816482.shtml",
-    "published_auction_state_fields": [
+    "auction_window": "09:15:00-09:25:00",
+    "cancel_rule": "orders may be cancelled during 09:15-09:20; cancellation requests are not accepted during 09:20-09:25",
+    "published_state": [
       "virtual_reference_price",
       "virtual_matched_quantity",
-      "virtual_unmatched_quantity"
+      "virtual_unmatched_quantity_or_direction"
     ]
   },
   "causal_clock_preanalysis": {
     "preferred_first_research_cutoff": "09:19:59",
-    "reason": "This is the latest conceptual point before the non-cancellable 09:20-09:25 phase begins. It measures an early auction consensus/imbalance while leaving an operational distinction from the final opening result.",
-    "secondary_later_cutoffs": "not selectable in the first experiment; 09:20+ or near-09:25 snapshots require a separately preregistered execution-use case because they increasingly approximate the final auction result",
+    "reason": "latest conceptual point before the non-cancellable 09:20-09:25 phase begins; measures early auction consensus/imbalance while preserving an operational distinction from the final opening result",
+    "secondary_later_cutoffs": "not selectable in the first experiment; 09:20+ or near-09:25 snapshots require a separately preregistered execution-use case",
     "09_25_final_auction_price_as_predictor": false,
-    "reason_09_25_forbidden": "The final call-auction price is economically almost the object being predicted. Using it to raise explanatory R2 would be target reconstruction rather than discovering an independent information factor.",
+    "reason_09_25_forbidden": "the final call-auction price is economically almost the object being predicted and would turn explanatory power into target reconstruction",
     "current_repo_1m_0931_proxy_allowed": false
   },
-  "candidate_information_families_if_licensed_history_is_obtained": {
-    "note": "These are economic measurement families only, not selectable candidates yet. Exact formulas and multiplicity must be frozen in a separate result-free preregistration after the historical file schema and coverage are audited.",
+  "alternative_transport_audit": {
+    "JoinQuant": "authentication required; exact full 2015-2020 pre-09:20 snapshot history and frozen transport contract not proven",
+    "Tushare_stk_auction_o": "final/result-level opening-auction aggregate rather than the frozen early 09:19:59 state; unsuitable",
+    "AKShare_Eastmoney_pre_minute": "pre-open minute surface is recent-day only, not a 2015-2020 historical transport",
+    "TongdaXin_eltdx": "current-day auction access exists but no proven full historical pre-09:20 series",
+    "KLineAPI": "historical auction surface is final/09:25 oriented and not a validated early-state source",
+    "Caifushuju": "paid reseller claims historical auction tick data but official provenance/full schema closure has not been established for this branch",
+    "HuggingFace_Wind_L2_mirror": "starts in 2017, downloadable mirror is partial/gated, and therefore cannot be the sole 2015-2020 frozen source",
+    "repo_1m_official": "contains no pre-09:20 historical state and using post-open bars would leak/reconstruct the target"
+  },
+  "candidate_information_families_if_history_is_unblocked": {
+    "note": "Economic measurement families only; formulas and multiplicity must be frozen after transport and point-in-time membership are audited.",
     "families": [
-      "CSI1000-weighted virtual-reference-price gap versus previous close",
-      "CSI1000-weighted matched-quantity intensity normalized by lagged liquid capacity",
-      "signed unmatched-quantity imbalance at the frozen cutoff",
+      "point-in-time CSI1000 aggregate virtual-reference-price gap versus previous close",
+      "matched-quantity intensity normalized by lagged liquid capacity",
+      "signed unmatched-quantity imbalance at 09:19:59",
       "breadth of component-level positive/negative virtual gaps",
       "cross-sectional dispersion of virtual gaps"
     ],
-    "component_weights": "must use point-in-time CSI1000 constituent/weight information available before the target date; current-day hindsight constituent reconstruction is forbidden"
+    "component_membership": "must use point-in-time CSI1000 constituents available for the target date; current constituents applied retroactively are forbidden",
+    "weights": "official point-in-time weights are preferred for index-like aggregation; breadth/dispersion/equal-member summaries may be preregistered as non-hindsight alternatives if exact weights are not reproducibly available"
   },
   "hard_data_gates_before_any_model": [
-    "document exact historical Level-2 file schema and historical coverage through 2020",
+    "document exact accepted historical Level-1-or-Level-2 schema and source identifiers for both exchanges",
+    "establish reproducible 2015-2020 transport coverage for 09:15:00-09:19:59 state",
     "prove timestamps and auction-state field semantics for both exchanges",
-    "prove point-in-time CSI1000 component weights or freeze a non-hindsight aggregation alternative",
-    "zero rows at or after the preregistered cutoff for the selectable first experiment",
+    "prove point-in-time CSI1000 constituents and, for weighted features, point-in-time weights; otherwise preregister a non-hindsight aggregation that does not require unavailable weights",
+    "zero selectable rows at or after 09:20:00 in the first experiment",
     "no use of final opening auction price as an explanatory feature",
     "no 2021+ cloud rows"
   ],
   "decision": {
-    "scientific_priority": "high_if_official_history_can_be_licensed_or_otherwise_reproducibly_accessed",
-    "current_blocker": "data_access_contract_not_financial_mechanism",
+    "scientific_priority": "high_if_full_2015_2020_early_auction_transport_can_be_reproducibly_accessed",
+    "current_blocker": "historical_transport_and_access_contract_not_field_semantics_and_not_Level2_requirement",
     "do_not_substitute": [
       "09:31 one-minute bar",
       "final 09:25 auction/open price",
       "unverified retail screen scrape",
       "post-open order-book state"
     ]
+  },
+  "correction_note": {
+    "reason": "Version 1.0 overstated Level-2 as the necessary historical product. Official Level-1 interface semantics show that the required virtual reference price, matched quantity and unmatched quantity state can be represented in Level-1 call-auction snapshots as well.",
+    "research_definition_changed": false,
+    "cutoff_changed": false,
+    "target_rows_read": 0
   },
   "authority": {
     "predictive_model_execution": false,
