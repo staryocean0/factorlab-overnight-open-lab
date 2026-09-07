@@ -1,0 +1,68 @@
+{
+  "schema_id": "overnight_open_gap_fill_v21_regime_diagnostic_execution_freeze@1.0",
+  "session_date": "2026-09-07",
+  "research_identity": "gap_fill_v2_1_regime_conditioned_successor",
+  "stage": "V21_RD1_execution_frozen_before_consumed_diagnostic_open",
+  "protocol": {
+    "path": "docs/governance/cloud_session_20260907_gap_fill_v21_regime_diagnostic_protocol_v1.json",
+    "git_blob_sha": "81348fbdde35a8ccab634cd01ef783820243a1d1"
+  },
+  "runner": {
+    "path": "scripts/diagnose_gap_fill_v21_regime_consumed.py",
+    "git_blob_sha": "d5512b9037631cb9e07cd1c680a35c11ec14ea44"
+  },
+  "tests": {
+    "path": "tests/test_gap_fill_v21_regime_diagnostic_protocol.py",
+    "git_blob_sha": "194571b15f325caeb9a26761d96df220d17ecab3"
+  },
+  "parent_Audit_B_adjudication": {
+    "path": "docs/research/gap_fill_cross_index_audit_b_cloud_adjudication_20260907.md",
+    "git_blob_sha": "8902756ac8a8b266969c07029908a852d4a146c7",
+    "decision": "CT_AUDIT_B_final_backward_external_not_confirmed"
+  },
+  "external_parameter_artifact": {
+    "path": "docs/governance/local_gap_fill_cross_index_transport_dev_parameter_freeze_v1.json",
+    "git_blob_sha": "4cce91f54a0dbbf1380f12db24db4c1d2c0c3162",
+    "sha256": "0cc74f79d9e9f26d1b9d8d554c96db0207a63d68787cceff1152dd71d26ae992",
+    "CSI300_bundle_sha256": "87b4bf1c4153bd786189b48e631175e0eaf83a34fc9ca7b96bff8d794c5158eb",
+    "CSI500_bundle_sha256": "6cf2966d1ae4c48df2d52ef024c197907d76169ac2672ac0c6dd96e0ddd9a957"
+  },
+  "source_identity": {
+    "dataset_version": "bars_cn_index_1m_raw_canonical_market_index_baidu_3s_20000714_20260821_factorlab_unified_missing_day_repaired_v8_20260824",
+    "dataset_sha256": "25f4f9f8b67c799ffb1a7b7fdee94b0b21dbbfed1efc54d063264ccb046411f0",
+    "environment_variable": "OVERNIGHT_HISTORICAL_INDEX_1M_LAKE"
+  },
+  "static_preregistration_check": {
+    "github_actions_run_id": 34099247900,
+    "runner_compile_passed": true,
+    "theme_validator_passed": true,
+    "pytest_passed_count": 94,
+    "RD1_outputs_absent": true,
+    "2014Q4_supporting_crosscheck_output_absent": true,
+    "V21_future_outcome_outputs_absent": true
+  },
+  "authorized_outcome_open": [
+    "CSI300_2011-01-01_to_2014-10-16_consumed_Audit_A_and_Audit_B_only",
+    "CSI500_2011-01-01_to_2014-10-16_consumed_Audit_A_and_Audit_B_only"
+  ],
+  "authorized_future_scan": "CSI300_and_CSI500_2015-01-01_to_2026-08-21_symbol_trading_day_timestamp_metadata_only",
+  "forbidden": [
+    "open_2014-10-17_to_2014-12-31_supporting_crosscheck",
+    "read_2015plus_external_OHLC",
+    "construct_2015plus_gap_or_fill_targets",
+    "score_any_model_on_2015plus_external_rows",
+    "open_CSI1000_post_2026-08-21_outcomes",
+    "fit_or_select_a_V21_successor_model_in_RD1",
+    "change_probe_set_expected_sign_primary_cell_beta_bounds_or_future_partitions_after_RD1_open"
+  ],
+  "commands": [
+    "python3 scripts/validate_theme_package.py",
+    "python3 -m pytest -q",
+    "python3 scripts/diagnose_gap_fill_v21_regime_consumed.py"
+  ],
+  "required_outputs": [
+    "docs/research/local_gap_fill_v21_regime_diagnostic_receipt_v1.json",
+    "docs/governance/local_gap_fill_v21_regime_diagnostic_data_usage_v1.json"
+  ],
+  "production_authority": false
+}
