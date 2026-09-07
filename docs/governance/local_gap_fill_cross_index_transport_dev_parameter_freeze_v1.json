@@ -1,0 +1,658 @@
+{
+  "CSI1000_frozen_reference": {
+    "architecture_sha256": "07810dafbab629f196d04ea1204d90ee68177ce764bb765be560bc1b84261c00",
+    "parameter_bundle_sha256": "07abe29e31ce09b69bd6250b1ce3ebc5af7688b69ed39909feb80e9db882aaa0"
+  },
+  "audit_a_opened": false,
+  "audit_b_opened": false,
+  "csi1000_2026q4_fresh_opened": false,
+  "external_index_bundles": {
+    "CSI300": {
+      "parameter_bundle": {
+        "development_window": {
+          "end": "2010-12-31",
+          "start": "2005-04-08"
+        },
+        "estimator": {
+          "LogisticRegression": {
+            "C": 1.0,
+            "class_weight": null,
+            "fit_intercept": true,
+            "max_iter": 1000,
+            "penalty": "l2",
+            "solver": "lbfgs"
+          },
+          "StandardScaler": {
+            "with_mean": true,
+            "with_std": true
+          },
+          "binary_threshold": null,
+          "pipeline": "StandardScaler + LogisticRegression",
+          "probability_calibration": "none"
+        },
+        "features": [
+          "abs_gap",
+          "abs_gap_over_rvol20"
+        ],
+        "hazard_probability_contract": {
+          "p15": "h15",
+          "p60": "1-(1-h15)*(1-h60)",
+          "pEOD": "1-(1-h15)*(1-h60)*(1-hEOD)"
+        },
+        "heads": {
+          "high": {
+            "features": [
+              "abs_gap",
+              "abs_gap_over_rvol20"
+            ],
+            "max_day": "2010-12-31",
+            "min_day": "2005-06-08",
+            "n_sign_rows": 543,
+            "stages": {
+              "15m": {
+                "event_count": 211,
+                "event_rate": 0.3885819521178637,
+                "feature_names": [
+                  "abs_gap",
+                  "abs_gap_over_rvol20"
+                ],
+                "logistic": {
+                  "classes": [
+                    0,
+                    1
+                  ],
+                  "coef": [
+                    -0.7986938149505073,
+                    -2.41112331903761
+                  ],
+                  "intercept": -1.1246362077870888,
+                  "n_features_in": 2,
+                  "n_iter": [
+                    11
+                  ]
+                },
+                "n_train_risk": 543,
+                "scaler": {
+                  "mean": [
+                    0.005090174943662956,
+                    0.25165566869727474
+                  ],
+                  "n_features_in": 2,
+                  "n_samples_seen": 543,
+                  "scale": [
+                    0.008448846068738651,
+                    0.3466030843954323
+                  ],
+                  "var": [
+                    7.138299989324055e-05,
+                    0.12013369811242716
+                  ]
+                },
+                "stage": "15m",
+                "training_max_day": "2010-12-31",
+                "training_min_day": "2005-06-08"
+              },
+              "60m": {
+                "event_count": 105,
+                "event_rate": 0.31626506024096385,
+                "feature_names": [
+                  "abs_gap",
+                  "abs_gap_over_rvol20"
+                ],
+                "logistic": {
+                  "classes": [
+                    0,
+                    1
+                  ],
+                  "coef": [
+                    -1.5582873906165522,
+                    -0.699403038931699
+                  ],
+                  "intercept": -1.2164778181519156,
+                  "n_features_in": 2,
+                  "n_iter": [
+                    10
+                  ]
+                },
+                "n_train_risk": 332,
+                "scaler": {
+                  "mean": [
+                    0.0070068568046292865,
+                    0.34356732239997045
+                  ],
+                  "n_features_in": 2,
+                  "n_samples_seen": 332,
+                  "scale": [
+                    0.010188152002601565,
+                    0.40923140959745224
+                  ],
+                  "var": [
+                    0.00010379844122811428,
+                    0.16747034660111773
+                  ]
+                },
+                "stage": "60m",
+                "training_max_day": "2010-12-31",
+                "training_min_day": "2005-06-08"
+              },
+              "eod": {
+                "event_count": 74,
+                "event_rate": 0.32599118942731276,
+                "feature_names": [
+                  "abs_gap",
+                  "abs_gap_over_rvol20"
+                ],
+                "logistic": {
+                  "classes": [
+                    0,
+                    1
+                  ],
+                  "coef": [
+                    0.25891109418210195,
+                    -0.257874265313113
+                  ],
+                  "intercept": -0.7284599262839014,
+                  "n_features_in": 2,
+                  "n_iter": [
+                    8
+                  ]
+                },
+                "n_train_risk": 227,
+                "scaler": {
+                  "mean": [
+                    0.008667953385422235,
+                    0.41163652243134974
+                  ],
+                  "n_features_in": 2,
+                  "n_samples_seen": 227,
+                  "scale": [
+                    0.011858326787546976,
+                    0.4718478734920788
+                  ],
+                  "var": [
+                    0.00014061991420025418,
+                    0.2226404157189968
+                  ]
+                },
+                "stage": "eod",
+                "training_max_day": "2010-12-31",
+                "training_min_day": "2005-06-08"
+              }
+            }
+          },
+          "low": {
+            "features": [
+              "abs_gap",
+              "abs_gap_over_rvol20"
+            ],
+            "max_day": "2010-12-28",
+            "min_day": "2005-05-23",
+            "n_sign_rows": 570,
+            "stages": {
+              "15m": {
+                "event_count": 239,
+                "event_rate": 0.4192982456140351,
+                "feature_names": [
+                  "abs_gap",
+                  "abs_gap_over_rvol20"
+                ],
+                "logistic": {
+                  "classes": [
+                    0,
+                    1
+                  ],
+                  "coef": [
+                    -0.5147866625512738,
+                    -1.0346049026251058
+                  ],
+                  "intercept": -0.5895685928251301,
+                  "n_features_in": 2,
+                  "n_iter": [
+                    9
+                  ]
+                },
+                "n_train_risk": 570,
+                "scaler": {
+                  "mean": [
+                    0.006170838660004323,
+                    0.28128602928599233
+                  ],
+                  "n_features_in": 2,
+                  "n_samples_seen": 570,
+                  "scale": [
+                    0.00761101823212361,
+                    0.33545217576629593
+                  ],
+                  "var": [
+                    5.7927598529718005e-05,
+                    0.11252816222634189
+                  ]
+                },
+                "stage": "15m",
+                "training_max_day": "2010-12-28",
+                "training_min_day": "2005-05-23"
+              },
+              "60m": {
+                "event_count": 100,
+                "event_rate": 0.3021148036253776,
+                "feature_names": [
+                  "abs_gap",
+                  "abs_gap_over_rvol20"
+                ],
+                "logistic": {
+                  "classes": [
+                    0,
+                    1
+                  ],
+                  "coef": [
+                    -0.10579554170907036,
+                    -0.6011453922811578
+                  ],
+                  "intercept": -0.9275346799615537,
+                  "n_features_in": 2,
+                  "n_iter": [
+                    8
+                  ]
+                },
+                "n_train_risk": 331,
+                "scaler": {
+                  "mean": [
+                    0.008513106219997145,
+                    0.3819476314836741
+                  ],
+                  "n_features_in": 2,
+                  "n_samples_seen": 331,
+                  "scale": [
+                    0.008772720308952403,
+                    0.3904803979417538
+                  ],
+                  "var": [
+                    7.696062161910594e-05,
+                    0.15247494117675042
+                  ]
+                },
+                "stage": "60m",
+                "training_max_day": "2010-12-28",
+                "training_min_day": "2005-05-23"
+              },
+              "eod": {
+                "event_count": 96,
+                "event_rate": 0.4155844155844156,
+                "feature_names": [
+                  "abs_gap",
+                  "abs_gap_over_rvol20"
+                ],
+                "logistic": {
+                  "classes": [
+                    0,
+                    1
+                  ],
+                  "coef": [
+                    0.03122891438499288,
+                    -0.06585300275191562
+                  ],
+                  "intercept": -0.3410681310843712,
+                  "n_features_in": 2,
+                  "n_iter": [
+                    6
+                  ]
+                },
+                "n_train_risk": 231,
+                "scaler": {
+                  "mean": [
+                    0.009677855353105334,
+                    0.43485316046424716
+                  ],
+                  "n_features_in": 2,
+                  "n_samples_seen": 231,
+                  "scale": [
+                    0.009371185595455708,
+                    0.4261168220874932
+                  ],
+                  "var": [
+                    8.781911946447654e-05,
+                    0.18157554606594434
+                  ]
+                },
+                "stage": "eod",
+                "training_max_day": "2010-12-28",
+                "training_min_day": "2005-05-23"
+              }
+            }
+          }
+        },
+        "index": "CSI300",
+        "symbol": "000300.SH"
+      },
+      "parameter_bundle_sha256": "87b4bf1c4153bd786189b48e631175e0eaf83a34fc9ca7b96bff8d794c5158eb"
+    },
+    "CSI500": {
+      "parameter_bundle": {
+        "development_window": {
+          "end": "2010-12-31",
+          "start": "2007-01-15"
+        },
+        "estimator": {
+          "LogisticRegression": {
+            "C": 1.0,
+            "class_weight": null,
+            "fit_intercept": true,
+            "max_iter": 1000,
+            "penalty": "l2",
+            "solver": "lbfgs"
+          },
+          "StandardScaler": {
+            "with_mean": true,
+            "with_std": true
+          },
+          "binary_threshold": null,
+          "pipeline": "StandardScaler + LogisticRegression",
+          "probability_calibration": "none"
+        },
+        "features": [
+          "abs_gap",
+          "abs_gap_over_rvol20"
+        ],
+        "hazard_probability_contract": {
+          "p15": "h15",
+          "p60": "1-(1-h15)*(1-h60)",
+          "pEOD": "1-(1-h15)*(1-h60)*(1-hEOD)"
+        },
+        "heads": {
+          "high": {
+            "features": [
+              "abs_gap",
+              "abs_gap_over_rvol20"
+            ],
+            "max_day": "2010-12-31",
+            "min_day": "2007-02-13",
+            "n_sign_rows": 388,
+            "stages": {
+              "15m": {
+                "event_count": 151,
+                "event_rate": 0.38917525773195877,
+                "feature_names": [
+                  "abs_gap",
+                  "abs_gap_over_rvol20"
+                ],
+                "logistic": {
+                  "classes": [
+                    0,
+                    1
+                  ],
+                  "coef": [
+                    -1.7779000331145158,
+                    -1.9920287814499407
+                  ],
+                  "intercept": -1.22804257622362,
+                  "n_features_in": 2,
+                  "n_iter": [
+                    11
+                  ]
+                },
+                "n_train_risk": 388,
+                "scaler": {
+                  "mean": [
+                    0.005181015310606905,
+                    0.2095644649126475
+                  ],
+                  "n_features_in": 2,
+                  "n_samples_seen": 388,
+                  "scale": [
+                    0.009225763025183987,
+                    0.29775849673607974
+                  ],
+                  "var": [
+                    8.5114703396852e-05,
+                    0.08866012237852999
+                  ]
+                },
+                "stage": "15m",
+                "training_max_day": "2010-12-31",
+                "training_min_day": "2007-02-13"
+              },
+              "60m": {
+                "event_count": 66,
+                "event_rate": 0.27848101265822783,
+                "feature_names": [
+                  "abs_gap",
+                  "abs_gap_over_rvol20"
+                ],
+                "logistic": {
+                  "classes": [
+                    0,
+                    1
+                  ],
+                  "coef": [
+                    -0.3170969266390334,
+                    -1.2327066361475
+                  ],
+                  "intercept": -1.2294288414181325,
+                  "n_features_in": 2,
+                  "n_iter": [
+                    10
+                  ]
+                },
+                "n_train_risk": 237,
+                "scaler": {
+                  "mean": [
+                    0.007223181674126753,
+                    0.2857323387216755
+                  ],
+                  "n_features_in": 2,
+                  "n_samples_seen": 237,
+                  "scale": [
+                    0.0112501417829036,
+                    0.3547880392861083
+                  ],
+                  "var": [
+                    0.0001265656901354334,
+                    0.12587455282048113
+                  ]
+                },
+                "stage": "60m",
+                "training_max_day": "2010-12-31",
+                "training_min_day": "2007-02-13"
+              },
+              "eod": {
+                "event_count": 54,
+                "event_rate": 0.3157894736842105,
+                "feature_names": [
+                  "abs_gap",
+                  "abs_gap_over_rvol20"
+                ],
+                "logistic": {
+                  "classes": [
+                    0,
+                    1
+                  ],
+                  "coef": [
+                    0.6694585721054261,
+                    -0.8413651692583752
+                  ],
+                  "intercept": -0.7918448376024915,
+                  "n_features_in": 2,
+                  "n_iter": [
+                    9
+                  ]
+                },
+                "n_train_risk": 171,
+                "scaler": {
+                  "mean": [
+                    0.008479068015087916,
+                    0.3315022079566909
+                  ],
+                  "n_features_in": 2,
+                  "n_samples_seen": 171,
+                  "scale": [
+                    0.012867166086572583,
+                    0.4033693683247965
+                  ],
+                  "var": [
+                    0.0001655639630994436,
+                    0.16270684730274532
+                  ]
+                },
+                "stage": "eod",
+                "training_max_day": "2010-12-31",
+                "training_min_day": "2007-02-13"
+              }
+            }
+          },
+          "low": {
+            "features": [
+              "abs_gap",
+              "abs_gap_over_rvol20"
+            ],
+            "max_day": "2010-12-30",
+            "min_day": "2007-02-28",
+            "n_sign_rows": 411,
+            "stages": {
+              "15m": {
+                "event_count": 195,
+                "event_rate": 0.4744525547445255,
+                "feature_names": [
+                  "abs_gap",
+                  "abs_gap_over_rvol20"
+                ],
+                "logistic": {
+                  "classes": [
+                    0,
+                    1
+                  ],
+                  "coef": [
+                    -0.9264379593286919,
+                    -1.0480576961343586
+                  ],
+                  "intercept": -0.44434813473135254,
+                  "n_features_in": 2,
+                  "n_iter": [
+                    9
+                  ]
+                },
+                "n_train_risk": 411,
+                "scaler": {
+                  "mean": [
+                    0.007005195416115225,
+                    0.26720257632682587
+                  ],
+                  "n_features_in": 2,
+                  "n_samples_seen": 411,
+                  "scale": [
+                    0.008059362620580966,
+                    0.29519868112330744
+                  ],
+                  "var": [
+                    6.495332585001769e-05,
+                    0.08714226133694015
+                  ]
+                },
+                "stage": "15m",
+                "training_max_day": "2010-12-30",
+                "training_min_day": "2007-02-28"
+              },
+              "60m": {
+                "event_count": 85,
+                "event_rate": 0.39351851851851855,
+                "feature_names": [
+                  "abs_gap",
+                  "abs_gap_over_rvol20"
+                ],
+                "logistic": {
+                  "classes": [
+                    0,
+                    1
+                  ],
+                  "coef": [
+                    -0.6648301401828814,
+                    0.19888294183203722
+                  ],
+                  "intercept": -0.46805140648782984,
+                  "n_features_in": 2,
+                  "n_iter": [
+                    9
+                  ]
+                },
+                "n_train_risk": 216,
+                "scaler": {
+                  "mean": [
+                    0.010504537804462451,
+                    0.39516436766202334
+                  ],
+                  "n_features_in": 2,
+                  "n_samples_seen": 216,
+                  "scale": [
+                    0.009381355174401576,
+                    0.339365491428189
+                  ],
+                  "var": [
+                    8.800982490827121e-05,
+                    0.11516893677229624
+                  ]
+                },
+                "stage": "60m",
+                "training_max_day": "2010-12-30",
+                "training_min_day": "2007-03-06"
+              },
+              "eod": {
+                "event_count": 47,
+                "event_rate": 0.35877862595419846,
+                "feature_names": [
+                  "abs_gap",
+                  "abs_gap_over_rvol20"
+                ],
+                "logistic": {
+                  "classes": [
+                    0,
+                    1
+                  ],
+                  "coef": [
+                    -0.027229640308026666,
+                    -0.008986944903014275
+                  ],
+                  "intercept": -0.5809652536738248,
+                  "n_features_in": 2,
+                  "n_iter": [
+                    7
+                  ]
+                },
+                "n_train_risk": 131,
+                "scaler": {
+                  "mean": [
+                    0.012085411767968917,
+                    0.43837539729202946
+                  ],
+                  "n_features_in": 2,
+                  "n_samples_seen": 131,
+                  "scale": [
+                    0.010197384955558417,
+                    0.35955341317975836
+                  ],
+                  "var": [
+                    0.00010398665993184915,
+                    0.12927865692921403
+                  ]
+                },
+                "stage": "eod",
+                "training_max_day": "2010-12-28",
+                "training_min_day": "2007-03-06"
+              }
+            }
+          }
+        },
+        "index": "CSI500",
+        "symbol": "000905.SH"
+      },
+      "parameter_bundle_sha256": "6cf2966d1ae4c48df2d52ef024c197907d76169ac2672ac0c6dd96e0ddd9a957"
+    }
+  },
+  "hyperparameter_search_performed": false,
+  "model_selection_performed": false,
+  "production_authority": false,
+  "research_identity": "gap_fill_cross_index_transport_v1",
+  "schema_id": "overnight_open_gap_fill_cross_index_transport_dev_parameter_freeze@1.0",
+  "session_date": "2026-09-06",
+  "source_dataset_sha256_from_HE00": "25f4f9f8b67c799ffb1a7b7fdee94b0b21dbbfed1efc54d063264ccb046411f0",
+  "source_dataset_version": "bars_cn_index_1m_raw_canonical_market_index_baidu_3s_20000714_20260821_factorlab_unified_missing_day_repaired_v8_20260824",
+  "stage": "CT-DEV_final_index_specific_parameter_freeze_before_Audit_A"
+}

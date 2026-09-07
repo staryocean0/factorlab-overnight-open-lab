@@ -520,3 +520,144 @@ python3 scripts/evaluate_local_gap_fill_v2_2026_repeat.py
 ```
 
 未改 `scripts/evaluate_local_gap_fill_v2_2026_repeat.py`、repeat protocol、tests 或 final-fit 参数。未把 post-2026-08-21 行写入仓库。`fresh_oos=false`，`production_authority=false`。
+
+---
+
+## CT-DEV — Gap-Fill cross-index transport（仅打开外部指数 DEV，不打开 Audit A/B，不打开 CSI1000 2026Q4）
+
+**状态：本地已反馈，等待云端复核。Audit A 未打开。不授予 production / fresh-OOS。**
+
+### 目标
+
+在冻结的 `gap_fill_cross_index_transport_v1` 身份上，对 CSI300 / CSI500 的 DEV 窗口执行：
+
+- T1：把 CSI1000 V2 v1 参数原样外推，不做拟合；
+- T2：同一 geometry 架构在各指数 DEV 内做 expanding-year OOF，并在 OOF 之后冻一份指数专用全 DEV 参数，供未来 Audit A 使用。
+
+本任务不做候选 ranking、不做 feature / model / C / threshold / calibration / horizon 搜索，也不打开 Audit A/B 或 CSI1000 2026-08-24..2026-12-31。
+
+### 执行身份
+
+- 冻结 runner 执行时 HEAD：`59d9c7b0b8975f5658ab1a6dbf51500a79b9701d`
+- protocol blob：`5a74436422939973267a1edc4e4deeb21bf5a05e`
+- runner blob：`165f75e60c407f4952440dd50c3a38f8fc45c4df`
+- tests blob：`2bc0784b6b6daa7f3f53cef5767bdd130438244c`
+- CSI1000 parameter artifact blob：`eef7a9af6d42ee2faf53dbd16dce0b15ebfd10ed`
+- architecture SHA256：`07810dafbab629f196d04ea1204d90ee68177ce764bb765be560bc1b84261c00`
+- CSI1000 bundle SHA256：`07abe29e31ce09b69bd6250b1ce3ebc5af7688b69ed39909feb80e9db882aaa0`
+
+看到结果后未修改 protocol / runner / tests / CSI1000 参数冻结件。
+
+### 源路径适配（基础设施，不是模型改动）
+
+交接给出的 lake 根目录含 `manifest.json` / `quality_report.json` / `publish_receipt.json`。`pandas.read_parquet` 会把这些 JSON 当 parquet 打开并失败。
+
+本地未改冻结 runner，只把环境变量指到同一 admitted dataset 的 parquet 分区根：
+
+`/home/starryocean/桌面/量化/unified_datahub/.runtime/live/lake/bars/dataset_version=bars_cn_index_1m_raw_canonical_market_index_baidu_3s_20000714_20260821_factorlab_unified_missing_day_repaired_v8_20260824/instrument_type=market_index`
+
+路径仍包含 HE-00 dataset-version 身份。dataset SHA256 仍是 manifest 文件哈希 `25f4f9f8b67c799ffb1a7b7fdee94b0b21dbbfed1efc54d063264ccb046411f0`。`trading_day` 过滤后的 min/max 均落在各自 DEV 窗内；Audit A/B 与 supporting crosscheck 行未进入 target inventory。
+
+### 命令与退出码
+
+| 命令 | 退出码 |
+|---|---|
+| `python3 scripts/validate_theme_package.py` | 0 |
+| `python3 -m pytest -q` | 0（72 passed） |
+| `python3 scripts/run_gap_fill_cross_index_transport_dev.py` | 0 |
+
+### 库存
+
+| 指数 | 加载交易日 | exact-240 | target-valid | high / low | >10bp / >30bp | 窗内 min / max |
+|---|---|---|---|---|---|---|
+| CSI300 / `000300.SH` | 1396 | 1283 | 1113 | 543 / 570 | 868 / 570 | 2005-05-23 / 2010-12-31 |
+| CSI500 / `000905.SH` | 967 | 911 | 799 | 388 / 411 | 660 / 438 | 2007-02-13 / 2010-12-31 |
+
+CSI300 / CSI500 的 loaded days 与 exact-240 与 HE-00 inventory 的 DEV 块完全一致（1396/1283 与 967/911）。target-valid 少于 exact-240，是因为还要求 previous 15:00、正的 `rvol20`，并剔除 zero-gap。
+
+无效原因：
+
+- CSI300：`not_exact_complete_240_clocks=113`，`incomplete_gap_or_rvol20=117`，`zero_gap=53`
+- CSI500：`not_exact_complete_240_clocks=56`，`incomplete_gap_or_rvol20=70`，`zero_gap=42`
+
+### T1 精确参数外推（DEV 描述性证据，无拟合）
+
+等权 integrated Brier / log-loss，以及 15m/60m/EOD ROC-AUC：
+
+| 指数 | 方向 | cohort | n | integrated Brier | integrated log-loss | AUC 15m / 60m / EOD |
+|---|---|---|---|---|---|---|
+| CSI300 | high | all | 543 | 0.175537 | 0.529540 | 0.823 / 0.810 / 0.716 |
+| CSI300 | high | >10bp | 437 | 0.183565 | 0.547909 | 0.793 / 0.808 / 0.698 |
+| CSI300 | high | >30bp | 268 | 0.184054 | 0.547044 | 0.711 / 0.749 / 0.628 |
+| CSI300 | low | all | 570 | 0.188542 | 0.557380 | 0.759 / 0.758 / 0.696 |
+| CSI300 | low | >10bp | 431 | 0.199800 | 0.583357 | 0.733 / 0.719 / 0.672 |
+| CSI300 | low | >30bp | 302 | 0.201281 | 0.587333 | 0.713 / 0.713 / 0.621 |
+| CSI500 | high | all | 388 | 0.175076 | 0.525833 | 0.824 / 0.797 / 0.749 |
+| CSI500 | high | >10bp | 323 | 0.182175 | 0.541462 | 0.814 / 0.782 / 0.732 |
+| CSI500 | high | >30bp | 191 | 0.182838 | 0.538424 | 0.707 / 0.734 / 0.671 |
+| CSI500 | low | all | 411 | 0.167933 | 0.509032 | 0.800 / 0.770 / 0.730 |
+| CSI500 | low | >10bp | 337 | 0.181967 | 0.541476 | 0.786 / 0.740 / 0.709 |
+| CSI500 | low | >30bp | 247 | 0.198895 | 0.579717 | 0.762 / 0.669 / 0.642 |
+
+T1 monotonicity violations = 0。T1 年度摘要已写入 receipt，此处不逐行展开。T1 不是 successor 选择。
+
+### T2 架构外推 expanding-year OOF（开发机制证据）
+
+OOF 年：CSI300 `2007-2010`（n=814）；CSI500 `2009-2010`（n=354）。对照是训练折 empirical stage hazard，再用同一三段公式合成累计概率。
+
+| 指数 | 方向 | cohort | n | T2 Brier | bench Brier | Δ | T2 AUC 15m / 60m / EOD |
+|---|---|---|---|---|---|---|---|
+| CSI300 | high | all | 405 | 0.172946 | 0.236076 | −0.063130 | 0.822 / 0.835 / 0.718 |
+| CSI300 | high | >10bp | 363 | 0.179080 | 0.240270 | −0.061190 | 0.797 / 0.827 / 0.699 |
+| CSI300 | high | >30bp | 240 | 0.183047 | 0.264761 | −0.081713 | 0.738 / 0.768 / 0.609 |
+| CSI300 | low | all | 409 | 0.202764 | 0.228569 | −0.025805 | 0.745 / 0.714 / 0.669 |
+| CSI300 | low | >10bp | 350 | 0.212146 | 0.235612 | −0.023466 | 0.715 / 0.672 / 0.647 |
+| CSI300 | low | >30bp | 283 | 0.223969 | 0.245655 | −0.021686 | 0.628 / 0.598 / 0.578 |
+| CSI500 | high | all | 167 | 0.182081 | 0.235546 | −0.053465 | 0.844 / 0.791 / 0.744 |
+| CSI500 | high | >10bp | 130 | 0.194518 | 0.239581 | −0.045062 | 0.813 / 0.761 / 0.710 |
+| CSI500 | high | >30bp | 69 | 0.193739 | 0.255808 | −0.062069 | 0.561 / 0.664 / 0.581 |
+| CSI500 | low | all | 187 | 0.162749 | 0.198962 | −0.036213 | 0.763 / 0.733 / 0.661 |
+| CSI500 | low | >10bp | 140 | 0.172205 | 0.204638 | −0.032433 | 0.770 / 0.741 / 0.699 |
+| CSI500 | low | >30bp | 89 | 0.206608 | 0.225257 | −0.018648 | 0.705 / 0.624 / 0.547 |
+
+T2 / bench monotonicity violations = 0。
+
+年度 all-gap integrated Brier：T2 在 CSI300 2007 low 差于 empirical benchmark（+0.026029）；其余 CSI300 年×方向以及全部 CSI500 年×方向均为 T2 更好。这是开发对照，不是录取。
+
+### 最终 T2 参数冻结（全 DEV fit，不用于声称 OOF 能力）
+
+- CSI300 bundle SHA256：`87b4bf1c4153bd786189b48e631175e0eaf83a34fc9ca7b96bff8d794c5158eb`
+- CSI500 bundle SHA256：`6cf2966d1ae4c48df2d52ef024c197907d76169ac2672ac0c6dd96e0ddd9a957`
+
+### 回传产物（仅聚合，无原始分钟、无逐日预测）
+
+- `docs/research/local_gap_fill_cross_index_transport_dev_receipt_v1.json` SHA256 `93d71d61ac359ba97f3029d4128fd5ad9454ca263459c48c4642359e5e92e738`
+- `docs/governance/local_gap_fill_cross_index_transport_dev_parameter_freeze_v1.json` SHA256 `0cc74f79d9e9f26d1b9d8d554c96db0207a63d68787cceff1152dd71d26ae992`
+- `docs/governance/local_gap_fill_cross_index_transport_dev_data_usage_v1.json` SHA256 `c84b6df65e039e20e4742b3936de265f15fa255c247b0b3964afb97f3aeaa373`
+
+### 边界确认
+
+- `audit_a_opened=false`
+- `audit_b_opened=false`
+- `supporting_crosscheck_opened=false`
+- `csi1000_post_2026_08_21_outcomes_opened=false`
+- `feature_search_performed=false`
+- `model_class_search_performed=false`
+- `hyperparameter_search_performed=false`
+- `threshold_search_performed=false`
+- `probability_calibration_performed=false`
+- `fresh_oos=false`
+- `production_authority=false`
+- `raw_rows_written_to_repo=false`
+
+### 本地独立复核
+
+用冻结 runner 函数在内存中重放 CSI300/CSI500 的 DEV 构造、T1、T2 OOF 和最终参数 digest：库存完全一致，T1/T2 integrated Brier 最大误差 0，最终 bundle SHA256 一致。未打开 Audit A/B evaluator。
+
+未验证 / 未做事项：
+
+- 未打开 CSI300/CSI500 `2011-01-01..2012-12-31` Audit A、`2013-01-01..2014-10-16` Audit B、`2014-10-17..2014-12-31` supporting crosscheck。
+- 未打开 CSI1000 2026-08-24..2026-12-31 true-fresh，也未读取任何 CSI1000 post-2026-08-21 结果。
+- 未把 T1 或 T2 选为 V2.1 successor，未修改冻结 V2 v1。
+- 未上传原始历史分钟或逐日预测。
+
