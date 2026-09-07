@@ -2,7 +2,7 @@
   "schema_id": "overnight_open_gap_fill_cross_index_audit_b_state@1.0",
   "session_date": "2026-09-07",
   "research_identity": "gap_fill_cross_index_transport_v1",
-  "current_status": "Audit_B_execution_frozen_local_data_execution_authorized",
+  "current_status": "Audit_B_cloud_review_completed_final_backward_external_not_confirmed",
   "audit_a_decision": "CT_AUDIT_A_cloud_review_passed_all_four_heads_Audit_B_eligible",
   "audit_a_adjudication": "docs/research/gap_fill_cross_index_audit_a_cloud_adjudication_20260907.md",
   "audit_b_protocol": "docs/governance/cloud_session_20260907_gap_fill_cross_index_audit_b_protocol_v1.json",
@@ -12,25 +12,46 @@
   "audit_b_handoff": "docs/ops/gap_fill_cross_index_audit_b_handoff.md",
   "static_check_run_id": 34094884076,
   "static_check": "evaluator_compile_passed_theme_validator_passed_87_pytests_passed_Audit_B_and_supporting_crosscheck_outputs_absent",
-  "authorized_open": {
-    "CSI300": "2013-01-01_to_2014-10-16",
-    "CSI500": "2013-01-01_to_2014-10-16"
+  "audit_b_result_commit": "17ee944478188bf9a7834205d8cd44a8e7e10572",
+  "audit_b_receipt": "docs/research/local_gap_fill_cross_index_transport_audit_b_receipt_v1.json",
+  "audit_b_data_usage": "docs/governance/local_gap_fill_cross_index_transport_audit_b_data_usage_v1.json",
+  "audit_b_cloud_adjudication": "docs/research/gap_fill_cross_index_audit_b_cloud_adjudication_20260907.md",
+  "audit_b_decision": "CT_AUDIT_B_final_backward_external_not_confirmed",
+  "all_four_T2_heads_sample_sufficient": true,
+  "all_four_T2_heads_pass_all_six_gates": false,
+  "per_head_gate_pass_count": {
+    "CSI300_high": 6,
+    "CSI300_low": 6,
+    "CSI500_high": 4,
+    "CSI500_low": 6
+  },
+  "failure_localization": {
+    "head": "CSI500_high",
+    "failed_gates": [
+      "gt10_integrated_brier_better",
+      "gt10_at_least_2_of_3_horizon_brier_better"
+    ],
+    "gt10_model_integrated_brier": 0.2483906346401932,
+    "gt10_benchmark_integrated_brier": 0.24817403998868323,
+    "gt10_horizon_brier_wins": 1,
+    "gt10_horizon_brier_required_wins": 2
   },
   "frozen_T2_bundles": {
     "CSI300": "87b4bf1c4153bd786189b48e631175e0eaf83a34fc9ca7b96bff8d794c5158eb",
     "CSI500": "6cf2966d1ae4c48df2d52ef024c197907d76169ac2672ac0c6dd96e0ddd9a957"
   },
+  "opened": {
+    "CSI300_Audit_B_2013-01-01_to_2014-10-16": true,
+    "CSI500_Audit_B_2013-01-01_to_2014-10-16": true
+  },
   "sealed": {
     "supporting_crosscheck_2014-10-17_to_2014-12-31": true,
     "CSI1000_2026Q4_true_fresh": true
   },
-  "expected_outputs": [
-    "docs/research/local_gap_fill_cross_index_transport_audit_b_receipt_v1.json",
-    "docs/governance/local_gap_fill_cross_index_transport_audit_b_data_usage_v1.json"
-  ],
-  "next_action": "local_execute_frozen_Audit_B_then_return_aggregate_outputs_for_cloud_adjudication",
+  "supporting_crosscheck_may_rescue_audit_b": false,
+  "next_action": "do_not_retune_current_identity_on_consumed_Audit_B; if continuing, preregister a new successor identity for the CSI500-high material-gap short-medium-horizon failure mechanism",
   "audit_a_opened": true,
-  "audit_b_opened": false,
+  "audit_b_opened": true,
   "supporting_crosscheck_opened": false,
   "production_authority": false
 }
