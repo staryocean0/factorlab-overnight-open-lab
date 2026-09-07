@@ -1,0 +1,60 @@
+name: gap-fill-v21-evaluation-kernel-static
+
+on:
+  push:
+    branches:
+      - codex/v21-evaluation-kernel-freeze
+  pull_request:
+    paths:
+      - 'scripts/v21_evaluation_kernel.py'
+      - 'tests/test_gap_fill_v21_evaluation_kernel.py'
+      - 'docs/governance/cloud_session_20260907_gap_fill_v21_evaluation_kernel_contract_v1.json'
+      - 'docs/governance/gap_fill_v21_state_v1.json'
+
+permissions:
+  contents: read
+
+jobs:
+  static-evaluation-check:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install static dependencies
+        run: python -m pip install pytest numpy
+      - name: Parse evaluation contract
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          for p in [
+              Path('docs/governance/cloud_session_20260907_gap_fill_v21_evaluation_kernel_contract_v1.json'),
+              Path('docs/governance/cloud_session_20260907_gap_fill_v21_candidate_family_v1.json'),
+              Path('docs/governance/gap_fill_v21_state_v1.json'),
+          ]:
+              json.loads(p.read_text(encoding='utf-8'))
+              print('parsed', p)
+          PY
+      - name: Run frozen evaluation-kernel tests
+        run: python -m pytest -q tests/test_gap_fill_v21_evaluation_kernel.py
+      - name: Confirm evaluation kernel has no data/model authority
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          source = Path('scripts/v21_evaluation_kernel.py').read_text(encoding='utf-8')
+          contract = json.loads(Path('docs/governance/cloud_session_20260907_gap_fill_v21_evaluation_kernel_contract_v1.json').read_text())
+          state = json.loads(Path('docs/governance/gap_fill_v21_state_v1.json').read_text())
+          assert 'read_parquet' not in source
+          assert 'open(' not in source
+          assert '.fit(' not in source
+          assert contract['V21_DEV_outcomes_open_authorized'] is False
+          assert contract['Audit_A_outcomes_open_authorized'] is False
+          assert contract['Audit_B_outcomes_open_authorized'] is False
+          assert state['sealed']['V21_DEV_outcomes'] is True
+          assert state['sealed']['V21_AUDIT_A_outcomes'] is True
+          assert state['sealed']['V21_AUDIT_B_outcomes'] is True
+          print('evaluation kernel is pure and future outcomes remain sealed')
+          PY
