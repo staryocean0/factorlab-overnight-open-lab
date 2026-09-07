@@ -2,7 +2,7 @@
   "schema_id": "overnight_open_gap_fill_v21_state@1.0",
   "session_date": "2026-09-07",
   "research_identity": "gap_fill_v2_1_regime_conditioned_successor",
-  "current_status": "future_audit_session_complete_239_gate_frozen_owner_reported_package_pending_cloud_receipt_or_file_verification_DEV_still_sealed",
+  "current_status": "P2_candidate_family_and_future_audit_gates_frozen_before_DEV_open_source_identity_verification_and_DEV_metadata_reinventory_still_required",
   "rd1_execution_freeze_commit": "833db59ffd0334e6f7fcd49704e58983b5036344",
   "rd1_result_commit": "01d5c02c5fd6e7b1fbd6dc066a1b52ca9fc23532",
   "rd1_adjudication": "docs/research/gap_fill_v21_rd1_cloud_adjudication_20260907.md",
@@ -53,8 +53,25 @@
     "cloud_file_level_verification_complete": false,
     "audit_A_B_semantic_blocker_status": "gate_remediated_pending_identity_verification"
   },
-  "source_blocker": "historical_exact_240_zero_day_blocker_is_superseded_for_future_source_admission_by_named_session_complete_239_gate; owner-reported package identity still requires cloud receipt_or_file verification",
-  "next_action": "verify_local_source_admission_receipt_or_package_with_metadata_only_gate_then_reinventory_V21_DEV_before_any_outcome_open",
+  "candidate_family": {
+    "protocol": "docs/governance/cloud_session_20260907_gap_fill_v21_candidate_family_v1.json",
+    "preanalysis": "docs/research/gap_fill_v21_candidate_family_preanalysis_20260907.md",
+    "pure_math_module": "scripts/v21_p2_overlay.py",
+    "status": "frozen_before_DEV_outcome_open",
+    "geometry_control_role": "same-era_drift_control_not_promotable_by_itself",
+    "candidate_ladder": [
+      "P2_XI_SHARED_1B",
+      "P2_CSI500_SHARED_1B",
+      "P2_CSI500_STAGE_2B"
+    ],
+    "selection_rule": "first_eligible_in_frozen_complexity_ladder",
+    "primary_cell": "CSI500_high_abs_gap_gt_10bp",
+    "primary_horizons": ["15m", "60m"],
+    "eod_role": "mandatory_descriptive_only",
+    "future_Audit_A_and_Audit_B_primary_gates_frozen_before_DEV": true
+  },
+  "source_blocker": "historical_exact_240_zero_day_blocker_is_superseded_for_future_source_admission_by_named_session_complete_239_gate; owner-reported package identity still requires cloud receipt_or_file verification and V21_DEV metadata reinventory",
+  "next_action": "verify_local_source_admission_receipt_or_package_then_metadata-only_reinventory_V21_DEV_under_session_complete_239; only after separate cloud authorization may the already-frozen P2 candidate ladder open DEV outcomes",
   "opened": {
     "RD1_consumed_Audit_A_Audit_B_outcomes": true
   },
