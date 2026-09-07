@@ -1,0 +1,114 @@
+{
+  "schema_id": "overnight_open_gap_fill_v21_future_audit_source_admission@1.0",
+  "session_date": "2026-09-07",
+  "research_identity": "gap_fill_v2_1_regime_conditioned_successor",
+  "stage": "future_audit_source_admission_before_any_V21_DEV_outcome_open",
+  "purpose": "supersede the historical exact_240 future-source admission assumption with a source-specific session_complete_239_required contract while preserving all frozen RD1 evidence",
+  "supersedes_for_future_source_admission_only": "exact_240",
+  "does_not_rewrite": [
+    "docs/governance/cloud_session_20260907_gap_fill_v21_regime_diagnostic_protocol_v1.json",
+    "scripts/diagnose_gap_fill_v21_regime_consumed.py",
+    "docs/research/local_gap_fill_v21_regime_diagnostic_receipt_v1.json",
+    "docs/research/gap_fill_v21_rd1_cloud_adjudication_20260907.md"
+  ],
+  "reported_package": {
+    "relative_path": "data/v21_future_audit_csi_index_1m_session_complete_2019_2024/csi300_csi500_1m.parquet",
+    "rows": 695929,
+    "sha256": "3088ff2119ccffce3ff2fb8468a497775bcf64bc78df01008c85390ccd27777c",
+    "parent_he00_v8_sha256": "25f4f9f8b67c799ffb1a7b7fdee94b0b21dbbfed1efc54d063264ccb046411f0",
+    "calendar_days_per_symbol": 1456,
+    "expected_rows_if_all_days_pass_239": 695968,
+    "reported_missing_required_rows_total": 39,
+    "symbols": {
+      "000300.SH": {
+        "session_complete_days": 1449,
+        "incomplete_days": 7
+      },
+      "000905.SH": {
+        "session_complete_days": 1448,
+        "incomplete_days": 8
+      }
+    },
+    "reported_systematic_1459_presence_days": 0,
+    "reported_incomplete_day_examples": [
+      "13:22",
+      "10:39-10:44",
+      "09:31-09:34"
+    ],
+    "reported_incomplete_days_are_not_1459_only": true,
+    "local_source_admission_receipt": "docs/research/local_gap_fill_v21_future_audit_source_admission_receipt_v1.json",
+    "cloud_receipt_file_present_at_freeze_time": false,
+    "cloud_package_file_present_at_freeze_time": false,
+    "cloud_package_sha256_independently_verified": false,
+    "identity_status": "owner_reported_and_contract_frozen_pending_cloud_visibility_of_receipt_or_package"
+  },
+  "gate": {
+    "id": "session_complete_239_required_v1",
+    "legacy_expected_clock_count": 240,
+    "legacy_expected_clock_formula": "09:31..11:30 plus 13:01..15:00 inclusive",
+    "systematic_optional_clock": "14:59",
+    "required_clock_count": 239,
+    "required_clock_formula": "legacy_expected_240 minus {14:59}",
+    "generic_len_239_rule": false,
+    "all_required_239_clocks_must_be_present": true,
+    "14_59_may_be_present": true,
+    "14_59_may_be_synthesized": false,
+    "duplicate_target_session_clock_allowed": false,
+    "unexpected_target_session_clock_allowed": false,
+    "any_other_missing_clock_allowed": false,
+    "imputation_allowed": false,
+    "forward_fill_allowed": false,
+    "backfill_allowed": false,
+    "missing_middle_clock_behavior": "fail_closed"
+  },
+  "scope": {
+    "primary_admitted_windows": {
+      "V21_AUDIT_A": {
+        "start": "2019-01-01",
+        "end": "2021-12-31"
+      },
+      "V21_AUDIT_B": {
+        "start": "2022-01-01",
+        "end": "2024-12-31"
+      }
+    },
+    "date_boundaries_may_move": false,
+    "V21_EXTERNAL_RESERVE_admitted_by_this_package": false,
+    "V21_DEV_source_reinventory_required_before_outcome_open": true
+  },
+  "pre_outcome_verification": {
+    "allowed_columns_before_DEV_open": [
+      "symbol",
+      "trading_day",
+      "timestamp"
+    ],
+    "OHLC_read_allowed_before_successor_family_freeze": false,
+    "gap_or_fill_target_construction_allowed_before_successor_family_freeze": false,
+    "model_scoring_allowed_before_successor_family_freeze": false,
+    "required_verifications": [
+      "local_receipt_path_and_schema_visible_to_cloud_or_package_uploaded",
+      "package_sha256_equals_reported_sha256",
+      "parent_HE00_v8_identity_matches",
+      "per_symbol_session_complete_and_incomplete_day_counts_reproduce",
+      "all incomplete days fail because of required clocks other than the optional 14:59 or another explicit fail-closed reason",
+      "no future partition outcome columns are opened during source admission"
+    ]
+  },
+  "reported_arithmetic_consistency": {
+    "all_complete_rows_formula": "1456 * 239 * 2",
+    "all_complete_rows": 695968,
+    "reported_rows": 695929,
+    "difference": 39,
+    "consistent_with_reported_incomplete_day_ledger": true
+  },
+  "implementation": {
+    "gate_module": "scripts/v21_session_complete_239_gate.py",
+    "gate_test": "tests/test_v21_session_complete_239_gate.py",
+    "future_V21_runners_must_use_this_gate": true,
+    "historical_rd1_runner_must_change": false
+  },
+  "V21_DEV_outcomes_open_authorized": false,
+  "successor_model_fit_authorized": false,
+  "successor_model_selection_authorized": false,
+  "production_authority": false
+}
