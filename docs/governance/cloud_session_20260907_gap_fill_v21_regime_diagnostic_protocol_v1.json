@@ -83,6 +83,8 @@
     "base_probability_source": "frozen_index_specific_T2_bundle",
     "probe_standardization": "within_evaluated_cell_mean0_std1_population",
     "optimizer": "scipy_optimize_minimize_scalar_bounded",
+    "beta_bounds": [-6.0, 6.0],
+    "minimum_cell_rows": 20,
     "calibration_layer_authority": false,
     "candidate_model_authority": false
   },
