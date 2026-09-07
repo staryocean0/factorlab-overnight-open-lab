@@ -1,0 +1,54 @@
+{
+  "schema_id": "overnight_open_gap_fill_v21_source_to_dev_metadata_controller@1.0",
+  "session_date": "2026-09-07",
+  "research_identity": "gap_fill_v2_1_regime_conditioned_successor",
+  "stage": "source_verification_then_DEV_metadata_admission_before_any_DEV_outcome_open",
+  "source_gate_id": "session_complete_239_required_v1",
+  "audit_package": {
+    "relative_path": "data/v21_future_audit_csi_index_1m_session_complete_2019_2024/csi300_csi500_1m.parquet",
+    "expected_sha256": "3088ff2119ccffce3ff2fb8468a497775bcf64bc78df01008c85390ccd27777c",
+    "expected_rows": 695929,
+    "expected_parent_he00_v8_sha256": "25f4f9f8b67c799ffb1a7b7fdee94b0b21dbbfed1efc54d063264ccb046411f0",
+    "expected_coverage": {
+      "000300.SH": {"observed_days": 1456, "session_complete_days": 1449, "incomplete_days": 7},
+      "000905.SH": {"observed_days": 1456, "session_complete_days": 1448, "incomplete_days": 8}
+    }
+  },
+  "DEV_metadata_window": {"start": "2015-01-01", "end": "2018-12-31"},
+  "DEV_symbols": ["000300.SH", "000905.SH"],
+  "metadata_columns_only": ["symbol", "trading_day", "timestamp"],
+  "forbidden_columns_during_this_controller": ["open", "high", "low", "close", "gap", "fill_15m", "fill_60m", "fill_eod", "model_score"],
+  "source_verification_required_before_DEV_metadata": true,
+  "source_verification_acceptance": {
+    "audit_package_sha_matches": true,
+    "audit_package_row_count_matches": true,
+    "parent_source_identity_matches": true,
+    "reported_per_symbol_coverage_matches": true,
+    "no_middle_clock_imputation": true,
+    "OHLC_read": false,
+    "outcome_read": false
+  },
+  "DEV_metadata_acceptance": {
+    "same_named_239_gate": true,
+    "both_symbols_present": true,
+    "frozen_window_only": true,
+    "all_rejections_reported_fail_closed": true,
+    "no_imputation": true,
+    "OHLC_read": false,
+    "outcome_read": false,
+    "date_window_may_not_move": true,
+    "note": "individual incomplete symbol-days may remain excluded; admission means the frozen inventory is reproducibly enumerated, not that every calendar day passes the gate"
+  },
+  "outputs": [
+    "docs/research/local_gap_fill_v21_future_audit_source_admission_receipt_v1.json",
+    "docs/research/local_gap_fill_v21_dev_metadata_admission_receipt_v1.json"
+  ],
+  "hard_stop_after_outputs": true,
+  "reason_for_hard_stop": "cloud must review both compact receipts and explicitly update state before DEV outcomes/model fitting may open",
+  "V21_DEV_outcomes_open_authorized": false,
+  "successor_model_fit_authorized": false,
+  "successor_model_selection_authorized": false,
+  "Audit_A_outcomes_open_authorized": false,
+  "Audit_B_outcomes_open_authorized": false,
+  "production_authority": false
+}
