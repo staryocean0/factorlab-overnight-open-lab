@@ -171,6 +171,11 @@ def test_contract_and_repo_state_keep_kernel_pure_and_future_sealed():
     assert c["Audit_A_outcomes_open_authorized"] is False
     assert c["Audit_B_outcomes_open_authorized"] is False
     assert f["V21_DEV_outcomes_open_authorized"] is False
+    assert s["evaluation_kernel"]["contract"] == "docs/governance/cloud_session_20260907_gap_fill_v21_evaluation_kernel_contract_v1.json"
+    assert s["evaluation_kernel"]["implementation"] == "scripts/v21_evaluation_kernel.py"
+    assert s["evaluation_kernel"]["file_IO_authority"] is False
+    assert s["evaluation_kernel"]["model_fit_authority"] is False
+    assert s["evaluation_kernel"]["future_outcome_authority"] is False
     assert s["sealed"]["V21_DEV_outcomes"] is True
     assert s["sealed"]["V21_AUDIT_A_outcomes"] is True
     assert s["sealed"]["V21_AUDIT_B_outcomes"] is True
