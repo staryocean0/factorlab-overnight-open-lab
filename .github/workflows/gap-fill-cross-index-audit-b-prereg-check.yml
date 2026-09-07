@@ -1,0 +1,50 @@
+name: gap-fill-cross-index-audit-b-prereg-check
+
+on:
+  push:
+    paths:
+      - 'docs/governance/cloud_session_20260907_gap_fill_cross_index_audit_b_protocol_v1.json'
+      - 'scripts/evaluate_gap_fill_cross_index_audit_b.py'
+      - 'tests/test_gap_fill_cross_index_audit_b_protocol.py'
+      - '.github/workflows/gap-fill-cross-index-audit-b-prereg-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install test dependencies
+        run: python -m pip install --upgrade pandas pyarrow numpy scipy scikit-learn pytest
+      - name: Verify Audit-B preregistered blobs
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git hash-object docs/governance/cloud_session_20260907_gap_fill_cross_index_audit_b_protocol_v1.json)" = "9437e6e51038414c43fb477221104163a799d14b"
+          test "$(git hash-object scripts/evaluate_gap_fill_cross_index_audit_b.py)" = "ff3d6f1ec49789b02bc659373674af0a10110445"
+          test "$(git hash-object tests/test_gap_fill_cross_index_audit_b_protocol.py)" = "5153bab5514f7855c9b6d79e95cfe3e2258e57cb"
+          test "$(git hash-object docs/governance/local_gap_fill_cross_index_transport_dev_parameter_freeze_v1.json)" = "4cce91f54a0dbbf1380f12db24db4c1d2c0c3162"
+          test "$(git hash-object docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_freeze_v1.json)" = "eef7a9af6d42ee2faf53dbd16dce0b15ebfd10ed"
+          test "$(git hash-object docs/research/gap_fill_cross_index_audit_a_cloud_adjudication_20260907.md)" = "54f71c3ebd72e4e721dc72322287acead002a757"
+      - name: Compile Audit-B evaluator only
+        run: python3 -m py_compile scripts/evaluate_gap_fill_cross_index_audit_b.py
+      - name: Validate theme package
+        run: python3 scripts/validate_theme_package.py
+      - name: Run full regression tests
+        run: python3 -m pytest -q
+      - name: Assert Audit-B and supporting-crosscheck outcomes remain unopened
+        shell: bash
+        run: |
+          set -euo pipefail
+          test ! -e docs/research/local_gap_fill_cross_index_transport_audit_b_receipt_v1.json
+          test ! -e docs/governance/local_gap_fill_cross_index_transport_audit_b_data_usage_v1.json
+          test ! -e docs/research/local_gap_fill_cross_index_transport_supporting_crosscheck_receipt_v1.json
+          echo 'Audit-B preregistration valid; 2013-01-01..2014-10-16 outcomes remain unopened.'
