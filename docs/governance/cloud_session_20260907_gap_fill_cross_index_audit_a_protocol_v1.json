@@ -1,0 +1,116 @@
+{
+  "schema_id": "overnight_open_gap_fill_cross_index_audit_a_protocol@1.0",
+  "session_date": "2026-09-07",
+  "research_identity": "gap_fill_cross_index_transport_v1",
+  "stage": "CT_AUDIT_A_preregistered_unopened",
+  "ct_dev_adjudication": "docs/research/gap_fill_cross_index_ct_dev_cloud_adjudication_20260907.md",
+  "ct_dev_result_commit": "1a4338ce05de90d64267770ded9db0d80203d0d0",
+  "frozen_external_parameter_artifact": {
+    "path": "docs/governance/local_gap_fill_cross_index_transport_dev_parameter_freeze_v1.json",
+    "sha256": "0cc74f79d9e9f26d1b9d8d554c96db0207a63d68787cceff1152dd71d26ae992",
+    "CSI300_parameter_bundle_sha256": "87b4bf1c4153bd786189b48e631175e0eaf83a34fc9ca7b96bff8d794c5158eb",
+    "CSI500_parameter_bundle_sha256": "6cf2966d1ae4c48df2d52ef024c197907d76169ac2672ac0c6dd96e0ddd9a957"
+  },
+  "frozen_CSI1000_T1_reference": {
+    "architecture_sha256": "07810dafbab629f196d04ea1204d90ee68177ce764bb765be560bc1b84261c00",
+    "parameter_bundle_sha256": "07abe29e31ce09b69bd6250b1ce3ebc5af7688b69ed39909feb80e9db882aaa0",
+    "role": "descriptive_exact_parameter_transport_only_not_audit_promotion_gate"
+  },
+  "admitted_source": {
+    "dataset_version": "bars_cn_index_1m_raw_canonical_market_index_baidu_3s_20000714_20260821_factorlab_unified_missing_day_repaired_v8_20260824",
+    "dataset_sha256": "25f4f9f8b67c799ffb1a7b7fdee94b0b21dbbfed1efc54d063264ccb046411f0",
+    "frequency": "1m",
+    "bar_semantics": "end_label_1m_no_silent_minute_forward_fill",
+    "price_space": "raw_index_level"
+  },
+  "audit_a_window": {
+    "CSI300": {"symbol": "000300.SH", "start": "2011-01-01", "end": "2012-12-31"},
+    "CSI500": {"symbol": "000905.SH", "start": "2011-01-01", "end": "2012-12-31"}
+  },
+  "target_day_validity": {
+    "current_day_must_have_exact_complete_240_official_clocks": true,
+    "duplicate_timestamp_count_must_be_zero": true,
+    "previous_china_trading_day_15_00_close_required": true,
+    "current_09_31_open_required": true,
+    "rvol20_required_and_positive": true,
+    "rvol20_may_use_pre_2011_history_only_as_feature_history": true,
+    "missing_minutes_may_be_forward_filled": false,
+    "missing_minutes_may_be_treated_as_non_events": false,
+    "common_complete_240_row_inventory_for_all_three_horizons": true
+  },
+  "target_contract": {
+    "gap": "current_09_31_open/previous_china_trading_day_15_00_close-1",
+    "high_fill": "later_low_touches_or_crosses_previous_close",
+    "low_fill": "later_high_touches_or_crosses_previous_close",
+    "fill_15m": "09:31_through_09:45_inclusive",
+    "fill_60m": "09:31_through_10:30_inclusive",
+    "fill_eod": "all_240_target_day_minutes_09:31_through_15:00",
+    "nested_invariant": "fill_15m<=fill_60m<=fill_eod"
+  },
+  "features": {
+    "names": ["abs_gap", "abs_gap_over_rvol20"],
+    "rvol20_formula": "close_1500.pct_change(fill_method=None).shift(1).rolling(20,min_periods=20).std()"
+  },
+  "transport_modes": {
+    "T1_exact_CSI1000_parameter_transport": {
+      "refit": false,
+      "report": true,
+      "promotion_gate": false
+    },
+    "T2_frozen_external_index_parameter_transport": {
+      "refit": false,
+      "recalibration": false,
+      "primary_audit_gate": true
+    }
+  },
+  "T2_fixed_benchmark": {
+    "rule": "for_each_index_and_sign_use_full_DEV_stage_event_rates_stored_in_the_frozen_external_parameter_artifact_then_compose_cumulative_probabilities_with_the_same_three_stage_formula",
+    "may_be_reestimated_on_Audit_A": false
+  },
+  "mandatory_reporting": {
+    "indices": ["CSI300", "CSI500"],
+    "signs": ["high", "low"],
+    "cohorts": ["all_nonzero_gap", "abs_gap_gt_10bp", "abs_gap_gt_30bp"],
+    "horizons": ["fill_15m", "fill_60m", "fill_eod"],
+    "probability_metrics": ["brier_score", "log_loss", "roc_auc", "pr_auc"],
+    "calibration_descriptive_only": ["calibration_intercept", "calibration_slope", "probability_decile_observed_fill_rate"],
+    "integrated_metrics": "equal_weight_arithmetic_mean_across_15m_60m_eod",
+    "annual_2011_2012_summary": true,
+    "monotonicity_violations": true
+  },
+  "sample_sufficiency_per_index_sign": {
+    "minimum_all_nonzero_gap_rows": 25,
+    "minimum_abs_gap_gt_10bp_rows": 20,
+    "minimum_abs_gap_gt_30bp_rows": 12,
+    "rule": "counts_use_only_observed_09_31_gap_state; insufficient_heads_are_labeled_evidence_insufficient_and_the_Audit_A_window_is_not_extended"
+  },
+  "primary_T2_gate_per_index_sign": {
+    "pooled_all_integrated_brier_strictly_lower_than_frozen_DEV_empirical_benchmark": true,
+    "pooled_all_integrated_log_loss_strictly_lower_than_frozen_DEV_empirical_benchmark": true,
+    "pooled_gt10_integrated_brier_strictly_lower_than_frozen_DEV_empirical_benchmark": true,
+    "pooled_gt30_integrated_brier_not_higher_than_frozen_DEV_empirical_benchmark": true,
+    "gt10_at_least_2_of_3_horizon_brier_scores_strictly_lower_than_benchmark": true,
+    "monotonicity_violations_zero": true
+  },
+  "audit_a_decision_rule": {
+    "open_Audit_B": "all_four_index_sign_heads_are_sample_sufficient_and_pass_all_six_primary_T2_gates",
+    "do_not_open_Audit_B": "otherwise",
+    "no_posthoc_partial_rescue": true,
+    "T1_results_cannot_override_T2_gate_failure": true
+  },
+  "forbidden_before_or_after_Audit_A_open": [
+    "refit_any_T1_or_T2_model_on_Audit_A",
+    "refit_any_scaler_on_Audit_A",
+    "fit_or_apply_probability_calibration_using_Audit_A_outcomes",
+    "change_features_model_class_C_gap_thresholds_horizons_or_horizon_weights",
+    "change_primary_T2_gates_or_sample_sufficiency_after_any_Audit_A_outcome_is_seen",
+    "select_binary_threshold",
+    "use_trading_return_as_an_audit_gate",
+    "open_Audit_B_or_supporting_crosscheck_in_the_same_execution",
+    "inspect_CSI1000_post_2026_08_21_outcomes"
+  ],
+  "audit_a_opened": false,
+  "audit_b_opened": false,
+  "fresh_oos": false,
+  "production_authority": false
+}
