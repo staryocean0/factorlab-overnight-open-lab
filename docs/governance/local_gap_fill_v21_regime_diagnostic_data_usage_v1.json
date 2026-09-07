@@ -1,0 +1,19 @@
+{
+  "CSI1000_post_2026_08_21_outcomes_opened": false,
+  "aggregate_outputs_only": true,
+  "future_external_OHLC_read": false,
+  "future_external_gap_fill_or_model_scores_opened": false,
+  "future_external_metadata_only_scanned": true,
+  "outcome_bearing_consumed_data_opened": {
+    "CSI300_Audit_A_2011_2012": true,
+    "CSI300_Audit_B_2013_to_2014_10_16": true,
+    "CSI500_Audit_A_2011_2012": true,
+    "CSI500_Audit_B_2013_to_2014_10_16": true
+  },
+  "production_authority": false,
+  "raw_rows_written_to_repo": false,
+  "research_identity": "gap_fill_v2_1_regime_conditioned_successor",
+  "schema_id": "overnight_open_gap_fill_v21_regime_diagnostic_data_usage@1.0",
+  "session_date": "2026-09-07",
+  "supporting_crosscheck_2014Q4_opened": false
+}
