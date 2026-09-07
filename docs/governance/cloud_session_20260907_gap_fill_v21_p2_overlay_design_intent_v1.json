@@ -2,113 +2,32 @@
   "schema_id": "overnight_open_gap_fill_v21_p2_overlay_design_intent@1.0",
   "session_date": "2026-09-07",
   "research_identity": "gap_fill_v2_1_regime_conditioned_successor",
-  "stage": "design_intent_only_pending_source_identity_verification",
+  "stage": "historical_design_intent_superseded_before_DEV_open",
   "preanalysis": "docs/research/gap_fill_v21_p2_overlay_family_preanalysis_20260907.md",
+  "superseded_by": "docs/governance/cloud_session_20260907_gap_fill_v21_candidate_family_v1.json",
+  "supersession_reason": "the formally frozen family preserves the same P2-only mechanism and 15m/60m scope while adding a preregistered complexity ladder and same-era geometry drift control; it therefore dominates this earlier single-2beta design intent without using any V21_DEV outcome",
   "formal_family_freeze": false,
+  "historical_only": true,
+  "V21_DEV_outcomes_were_open_at_supersession": false,
   "V21_DEV_outcomes_open_authorized": false,
   "successor_model_fit_authorized": false,
   "successor_model_selection_authorized": false,
-  "source_verification_required_before_formal_freeze": true,
-  "source_gate": "session_complete_239_required_v1",
-  "source_contract": "docs/governance/cloud_session_20260907_gap_fill_v21_future_audit_source_admission_v1.json",
-  "admitted_RD1_probe_ids": [
-    "P2_relative_gap_excess"
+  "scientific_elements_retained_by_formal_family": [
+    "P2_relative_gap_excess_only",
+    "high_gap_focus",
+    "abs_gap_gt_10bp_primary_cell",
+    "fill_15m_and_fill_60m_primary_horizons",
+    "EOD_descriptive_only_under_session_complete_239",
+    "positive_beta_mechanism_sign",
+    "no_rejected_RD1_probe",
+    "no_probability_calibration",
+    "no_trading_return_gate"
   ],
-  "excluded_RD1_probe_ids": [
-    "P1_common_gap_support",
-    "P3_trend20_alignment",
-    "P4_prior_daytime_alignment",
-    "P5_relative_momentum5_alignment"
+  "scientific_elements_replaced_by_formal_family": [
+    "single_CSI500_stage_specific_2beta_only",
+    "frozen_old_geometry_base_as_only_control",
+    "two_validation_year_OOF_plan"
   ],
-  "candidate_scope": {
-    "target_index": "CSI500",
-    "target_symbol": "000905.SH",
-    "anchor_index": "CSI300",
-    "anchor_symbol": "000300.SH",
-    "gap_sign": "high",
-    "material_gap_rule": "abs_gap > 0.001",
-    "promotion_horizons": [
-      "fill_15m",
-      "fill_60m"
-    ],
-    "EOD_promotion_authority": false
-  },
-  "frozen_base": {
-    "parameter_bundle_sha256": "6cf2966d1ae4c48df2d52ef024c197907d76169ac2672ac0c6dd96e0ddd9a957",
-    "features": [
-      "abs_gap",
-      "abs_gap_over_rvol20"
-    ],
-    "geometry_refit_allowed": false,
-    "intercept_recalibration_allowed": false
-  },
-  "overlay": {
-    "raw_state": "(gap_CSI500-gap_CSI300)/rvol20_CSI500",
-    "training_standardization": "eligible_training_rows_mean0_population_std1",
-    "stage_15": "logit(h15_v21)=logit(h15_base)+beta15*z",
-    "stage_60": "logit(h60_v21)=logit(h60_base)+beta60*z",
-    "stage_60_risk_set": "fill15==0",
-    "new_parameter_count": 2,
-    "expected_beta15_sign": "positive",
-    "expected_beta60_sign": "positive",
-    "low_gap_overlay": false,
-    "EOD_overlay": false
-  },
-  "future_partitions": {
-    "V21_DEV": {
-      "start": "2015-01-01",
-      "end": "2018-12-31"
-    },
-    "V21_AUDIT_A": {
-      "start": "2019-01-01",
-      "end": "2021-12-31"
-    },
-    "V21_AUDIT_B": {
-      "start": "2022-01-01",
-      "end": "2024-12-31"
-    },
-    "V21_EXTERNAL_RESERVE": {
-      "start": "2025-01-01",
-      "end": "2026-08-21"
-    }
-  },
-  "planned_DEV_OOF": [
-    {
-      "train_start": "2015-01-01",
-      "train_end": "2016-12-31",
-      "validate_start": "2017-01-01",
-      "validate_end": "2017-12-31"
-    },
-    {
-      "train_start": "2015-01-01",
-      "train_end": "2017-12-31",
-      "validate_start": "2018-01-01",
-      "validate_end": "2018-12-31"
-    }
-  ],
-  "planned_DEV_gate_all_required": [
-    "pooled_2017_2018_integrated_brier_15_60_strictly_lower_than_frozen_base",
-    "pooled_2017_2018_integrated_logloss_15_60_strictly_lower_than_frozen_base",
-    "fill15_brier_strictly_lower_than_frozen_base",
-    "fill60_brier_strictly_lower_than_frozen_base",
-    "all_OOF_beta15_and_beta60_positive",
-    "calendar_2017_and_2018_integrated_brier_each_lower_than_frozen_base",
-    "p15_gt_p60_monotonicity_violations_zero"
-  ],
-  "sample_sufficiency_rule_status": "to_be_bound_at_formal_family_freeze_before_DEV_open",
-  "explicitly_forbidden": [
-    "add_rejected_RD1_probe",
-    "search_gap_threshold",
-    "P2_interaction_search",
-    "full_geometry_refit",
-    "intercept_recalibration",
-    "EOD_promotion_gate_under_session_complete_239_source",
-    "model_class_search",
-    "hyperparameter_search",
-    "probability_calibration",
-    "trading_return_gate",
-    "open_2014Q4_supporting_crosscheck",
-    "open_CSI1000_2026Q4_true_fresh"
-  ],
+  "authoritative_family_from_now_on": "docs/governance/cloud_session_20260907_gap_fill_v21_candidate_family_v1.json",
   "production_authority": false
 }
