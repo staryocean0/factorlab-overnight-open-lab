@@ -1,0 +1,33 @@
+{
+  "schema_id": "overnight_open_gap_fill_v21_regime_diagnostic_state@1.0",
+  "session_date": "2026-09-07",
+  "research_identity": "gap_fill_v2_1_regime_conditioned_successor",
+  "current_status": "V21_RD1_execution_frozen_local_data_execution_authorized",
+  "parent_Audit_B_decision": "CT_AUDIT_B_final_backward_external_not_confirmed",
+  "protocol": "docs/governance/cloud_session_20260907_gap_fill_v21_regime_diagnostic_protocol_v1.json",
+  "runner": "scripts/diagnose_gap_fill_v21_regime_consumed.py",
+  "tests": "tests/test_gap_fill_v21_regime_diagnostic_protocol.py",
+  "execution_freeze": "docs/governance/cloud_session_20260907_gap_fill_v21_regime_diagnostic_execution_freeze_v1.json",
+  "handoff": "docs/ops/gap_fill_v21_regime_diagnostic_handoff.md",
+  "static_check_run_id": 34099247900,
+  "static_check": "runner_compile_passed_theme_validator_passed_94_pytests_passed_RD1_and_future_outcomes_absent",
+  "consumed_outcome_data_authorized_for_RD1": {
+    "CSI300": "2011-01-01_to_2014-10-16",
+    "CSI500": "2011-01-01_to_2014-10-16"
+  },
+  "future_external_partitions": {
+    "V21_DEV": "2015-01-01_to_2018-12-31",
+    "V21_AUDIT_A": "2019-01-01_to_2021-12-31",
+    "V21_AUDIT_B": "2022-01-01_to_2024-12-31",
+    "V21_EXTERNAL_RESERVE": "2025-01-01_to_2026-08-21"
+  },
+  "future_external_outcomes_opened": false,
+  "supporting_crosscheck_2014Q4_opened": false,
+  "CSI1000_2026Q4_true_fresh_opened": false,
+  "expected_outputs": [
+    "docs/research/local_gap_fill_v21_regime_diagnostic_receipt_v1.json",
+    "docs/governance/local_gap_fill_v21_regime_diagnostic_data_usage_v1.json"
+  ],
+  "next_action": "local_execute_frozen_RD1_then_cloud_adjudicates_supported_probes_and_freezes_successor_family_before_V21_DEV_open",
+  "production_authority": false
+}
