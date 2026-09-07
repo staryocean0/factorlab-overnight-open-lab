@@ -1,16 +1,14 @@
-from importlib.util import module_from_spec, spec_from_file_location
 from pathlib import Path
 import json
+import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-GATE_PATH = ROOT / "scripts/v21_session_complete_239_gate.py"
+sys.path.insert(0, str(ROOT / "scripts"))
+
+import v21_session_complete_239_gate as mod
+
 CONTRACT = ROOT / "docs/governance/cloud_session_20260907_gap_fill_v21_future_audit_source_admission_v1.json"
 STATE = ROOT / "docs/governance/gap_fill_v21_state_v1.json"
-
-spec = spec_from_file_location("v21_session_complete_239_gate", GATE_PATH)
-assert spec and spec.loader
-mod = module_from_spec(spec)
-spec.loader.exec_module(mod)
 
 
 def test_required_clock_set_is_old_240_minus_only_1459():
@@ -85,7 +83,7 @@ def test_contract_preserves_rd1_and_keeps_dev_sealed():
     assert c["gate"]["systematic_optional_clock"] == "14:59"
     assert c["gate"]["generic_len_239_rule"] is False
     assert c["gate"]["imputation_allowed"] is False
-    assert c["historical_rd1_runner_must_change"] is False
+    assert c["implementation"]["historical_rd1_runner_must_change"] is False
     assert c["V21_DEV_outcomes_open_authorized"] is False
     assert c["successor_model_fit_authorized"] is False
     assert c["successor_model_selection_authorized"] is False
