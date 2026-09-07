@@ -1,6 +1,7 @@
 from importlib.util import module_from_spec, spec_from_file_location
 from pathlib import Path
 import json
+import sys
 
 import numpy as np
 
@@ -12,6 +13,7 @@ STATE = ROOT / "docs/governance/gap_fill_v21_state_v1.json"
 spec = spec_from_file_location("v21_p2_overlay", MODULE_PATH)
 assert spec and spec.loader
 mod = module_from_spec(spec)
+sys.modules[spec.name] = mod
 spec.loader.exec_module(mod)
 
 
