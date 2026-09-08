@@ -1,5 +1,6 @@
 name: rmr-r6-stage1
 
+# Scientific semantics remain frozen in protocol v1; execution identity is v2 after a pre-outcome test-only incident.
 on:
   push:
     branches:
@@ -8,7 +9,8 @@ on:
       - 'scripts/run_rmr_R6_stage1.py'
       - 'tests/test_rmr_R6_stage1.py'
       - 'docs/governance/reversal_mean_reversion_R6_stage1_protocol_v1.json'
-      - 'docs/governance/reversal_mean_reversion_R6_stage1_execution_freeze_v1.json'
+      - 'docs/governance/reversal_mean_reversion_R6_stage1_execution_freeze_v2.json'
+      - 'docs/governance/reversal_mean_reversion_R6_stage1_execution_incident_v1.json'
       - '.github/workflows/rmr-r6-stage1.yml'
   workflow_dispatch:
 
