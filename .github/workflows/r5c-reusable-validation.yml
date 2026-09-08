@@ -1,0 +1,75 @@
+name: R5-C reusable validation
+
+on:
+  push:
+    branches:
+      - codex/r5c-reusable-validation-20260908
+    paths:
+      - '.github/workflows/r5c-reusable-validation.yml'
+      - 'scripts/run_rmr_R5C_reusable_validation.py'
+      - 'scripts/certify_rmr_R5C_reusable_blackbox.py'
+      - 'tests/test_rmr_R5C_reusable_validation.py'
+      - 'docs/governance/reversal_mean_reversion_R5C_reusable_validation_protocol_v1.json'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip pandas numpy pyarrow scikit-learn pytest
+      - name: Test frozen R5-C family
+        run: python -m pytest -q tests/test_rmr_R5C_reusable_validation.py tests/test_reusable_three_role_blackbox.py
+      - name: Run detailed R5-C DEV VALIDATION
+        run: |
+          python scripts/run_rmr_R5C_reusable_validation.py \
+            --receipt /tmp/r5c_validation.json \
+            --freeze /tmp/r5c_freeze.json
+      - name: Run low-bandwidth R5-C BLACKBOX certification
+        shell: bash
+        run: |
+          set +e
+          python scripts/certify_rmr_R5C_reusable_blackbox.py \
+            --freeze /tmp/r5c_freeze.json \
+            --receipt /tmp/r5c_blackbox.json
+          code=$?
+          set -e
+          if [ "$code" -ne 0 ] && [ "$code" -ne 2 ] && [ "$code" -ne 3 ]; then
+            echo "R5-C BLACKBOX infrastructure failure"
+            exit "$code"
+          fi
+      - name: Enforce BLACKBOX low bandwidth
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path('/tmp/r5c_blackbox.json').read_text())
+          allowed={
+            'schema_id','research_identity','query_id','candidate_fingerprint',
+            'protocol_fingerprint','blackbox_source_fingerprint','blackbox_window',
+            'decision','details_released','exact_metrics_released','counts_released',
+            'subperiods_released','event_rows_released','blackbox_remains_closed',
+            'repeated_query_is_independent_OOS','production_authority'
+          }
+          assert set(p)==allowed
+          assert p['decision'] in {'PASS','FAIL','INSUFFICIENT'}
+          assert p['details_released'] is False
+          assert p['exact_metrics_released'] is False
+          assert p['counts_released'] is False
+          assert p['subperiods_released'] is False
+          assert p['event_rows_released'] is False
+          print(p['decision'])
+          PY
+      - name: Upload bounded outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: r5c-reusable-validation
+          path: |
+            /tmp/r5c_validation.json
+            /tmp/r5c_freeze.json
+            /tmp/r5c_blackbox.json
+          if-no-files-found: warn
