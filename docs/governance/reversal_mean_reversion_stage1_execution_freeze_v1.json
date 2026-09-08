@@ -1,0 +1,69 @@
+{
+  "schema_id": "factorlab_reversal_mean_reversion_stage1_execution_freeze@1.0",
+  "session_date": "2026-09-08",
+  "program_identity": "broad_reversal_mean_reversion_discovery_program_v1",
+  "stage": "stage1_parallel_execution_frozen_before_empirical_outcome_open",
+  "implementation_freeze_commit": "3d6ea62062168374650254aa9aa9df706815ec34",
+  "frozen_blobs": {
+    "common_data_role": {
+      "path": "docs/governance/reversal_mean_reversion_stage1_common_data_role_v1.json",
+      "blob_sha": "89a317ab7d306368c64759ee7cc1857553f1a019"
+    },
+    "execution_protocol": {
+      "path": "docs/governance/reversal_mean_reversion_stage1_execution_protocol_v1.json",
+      "blob_sha": "abbf4f5e854158d9af53786fd14925b8bd6ca3f6"
+    },
+    "runner": {
+      "path": "scripts/run_rmr_stage1_parallel_screen.py",
+      "blob_sha": "5dadd2be97ad9e6ab14c166bb09145f347a9a5e8"
+    },
+    "tests": {
+      "path": "tests/test_rmr_stage1_parallel_screen.py",
+      "blob_sha": "2a2a7d603cd6899486f439c6892771f9bfa12e13"
+    }
+  },
+  "common_source": {
+    "path": "data/high_open_dev_2015_2025/1m_official.parquet",
+    "sha256": "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce",
+    "role": "development_material_only",
+    "max_day": "2025-12-31"
+  },
+  "frozen_scale_pairings": [
+    {"id": "PAIR_A", "lower_sigma": 0.50, "parent_sigma": 1.50},
+    {"id": "PAIR_B", "lower_sigma": 0.75, "parent_sigma": 2.25}
+  ],
+  "frozen_event_constants": {
+    "maximum_outcome_sessions": 5,
+    "R2_excursion_trigger_fraction_of_parent_range_width": 0.10,
+    "R3_minimum_abs_residual_sigma": 0.50,
+    "R3_first_passage_fraction_of_abs_residual": 0.50
+  },
+  "cloud_static_review": {
+    "runner_python_source_compiled_in_staging": true,
+    "synthetic_directional_change_confirmation_check": true,
+    "synthetic_parent_information_cutoff_check": true,
+    "synthetic_first_passage_and_same_bar_tie_check": true,
+    "full_repository_pytest_executed_in_cloud": false,
+    "reason_full_pytest_not_executed": "current computation container cannot resolve github.com for checkout; GitHub connector can review/write text but does not expose the parquet/repository as a runnable filesystem"
+  },
+  "empirical_execution": {
+    "cloud_empirical_run_performed": false,
+    "local_execution_required": true,
+    "reason": "15.5MB common parquet is committed but binary bytes are not exposed by the GitHub text connector to the computation filesystem",
+    "must_run_all_three_lanes_in_one_frozen_invocation": true
+  },
+  "forbidden_after_freeze": [
+    "change_common_dataset_after_results",
+    "change_scale_pairings_after_results",
+    "change_R1_R2_R3_event_or_outcome_boundaries_after_results",
+    "add_lane_specific_features_after_results",
+    "run_only_one_lane_and_tune_it_before_other_lanes",
+    "use_2026_rows",
+    "use_trading_return_or_PnL_to_select_a_lane"
+  ],
+  "expected_outputs": [
+    "docs/research/local_rmr_stage1_parallel_screen_receipt_v1.json",
+    "docs/governance/local_rmr_stage1_parallel_screen_data_usage_v1.json"
+  ],
+  "production_authority": false
+}
