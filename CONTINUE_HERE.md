@@ -44,6 +44,8 @@ R1 and R2 are complementary parent-normal-state mechanisms, but they are not int
 
 `rmr_unified_parent_normal_state_router_v1` is closed at VALIDATION. After the scale-alignment implementation bug was fixed without changing the scientific protocol, both R2 cells worsened. Router v2 rescue is not authorized.
 
+The historical router branch `codex/unified-parent-state-router-20260908` is now behind `main` with no commits ahead. It is historical only and must not be merged back as an active research surface.
+
 ### Existing economic families
 
 No tested trading implementation is certified.
@@ -67,6 +69,8 @@ It established:
 6. R1_B alone showed a broad delayed positive markout term structure and slow resolution.
 
 That sixth observation authorized one results-blind temporal theory identity, not a horizon choice.
+
+The completed diagnostic implementation surface is already absent from current `main`: the one-time runner is not present, no diagnostic/router test files remain in the current `tests/` surface, and there is no active `.github/workflows/` directory. Decisive adjudication/receipt and archive anchors remain the reproduction authority.
 
 ## R1_B temporal impulse completion v1 — CLOSED ON DEV
 
@@ -108,17 +112,27 @@ Evidence:
 - `docs/research/rmr_R1B_temporal_impulse_completion_DEV_decisive_receipt_20260908.json`
 - `docs/archive/rmr_R1B_temporal_impulse_completion_v1_history_anchor_20260908.md`
 
+## Payoff-object / instrument-theory review — complete
+
+`docs/research/rmr_payoff_object_instrument_theory_review_v1.md` is now part of the current authority chain.
+
+It is a results-blind boundary review, not an empirical candidate. It authorizes no DEV execution, no VALIDATION execution and no BLACKBOX access.
+
+The review leaves only three theory-level possibilities:
+
+1. a materially independent causal execution-timing theory;
+2. instrument mapping only after an instrument-specific source and cost-model contract covering spread, basis, carry, liquidity, convexity/premium and execution conventions;
+3. stop economic translation if no independent payoff theory is established.
+
+It does not authorize repair of the closed R1_B rule or any probability/horizon/entry/stop/target/cost/scale/year/regime/time-of-day rescue.
+
 ## Exact next action
 
 There is currently **no empirical economic candidate authorized**.
 
 Do not automatically create R1_B temporal v2, R1 economic v4, R2 economic v2, router v2, or a probability/horizon/entry/stop/target/cost/scale rescue.
 
-If economic research is to continue, the next allowed step is a separate results-blind **payoff-object or instrument-theory program review**. It must state an independent economic theory before opening any new empirical candidate.
-
-A new review may consider whether the observed right-tail payoff suggests a materially different payoff object or instrument, but it must not simply repair the closed impulse-confirmation rule. Any instrument mapping must first establish an instrument-specific data-source and cost-model contract covering the relevant spread, basis, carry, liquidity, convexity/premium and execution conventions.
-
-No current instrument study is empirically authorized because this repository contains index-level paths, not instrument-specific execution evidence.
+Do not open DEV, VALIDATION or BLACKBOX for a new economic identity until a materially independent payoff or instrument theory is explicitly preregistered and separately authorized. For instrument mapping, freeze the instrument-specific data-source and cost-model contract before DEV can be opened.
 
 Broad R8/R9 indicator discovery remains paused.
 
@@ -141,7 +155,7 @@ Do not wait for future data. Continue only work authorized above. If newer data 
 1. `CONTINUE_HERE.md`
 2. `docs/governance/reusable_three_role_data_policy_v1.json`
 3. `docs/governance/reversal_mean_reversion_program_state_v1.json`
-4. active certified-mechanism states/protocols listed in `docs/INDEX.md`
+4. `docs/research/rmr_payoff_object_instrument_theory_review_v1.md`
 5. `docs/INDEX.md`
 
 Production authority remains `false`.
