@@ -1,0 +1,71 @@
+{
+  "schema_id": "factorlab_reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_protocol@1.0",
+  "session_date": "2026-09-08",
+  "research_identity": "rmr_cross_scale_pullback_parent_integrity_v2",
+  "stage": "true_fresh_2026Q4_preregistered_unopened",
+  "prior_holdout_adjudication": "docs/research/reversal_mean_reversion_R1_parent_integrity_v2_holdout_adjudication_20260908.md",
+  "selected_candidate_id": "R1_PARENT_COMPOSITE_1D",
+  "parameter_freeze": "docs/governance/cloud_session_20260908_rmr_R1_parent_integrity_v2_parameter_freeze_v1.json",
+  "parameter_bundle_sha256": "e618a5a06a803f4464267e69e39f98fa316fd572f40efcb3f9e40fc25df2779c",
+  "challenge_window": {
+    "start": "2026-10-01",
+    "end": "2026-12-31",
+    "complete_calendar_block_required": true,
+    "partial_window_scoring_forbidden": true,
+    "earliest_execution_date_China": "2027-01-01",
+    "scientifically_fresh_if_unopened_until_execution": true
+  },
+  "source_admission_required_before_outcome_read": {
+    "instrument": "000852.SH",
+    "frequency": "1m",
+    "source_family": "FactorLab_DataHub_official_canonical_index_1m_or_explicitly_adjudicated_equivalent",
+    "exact_future_source_sha256": "to_be_frozen_by_separate_source_admission_after_complete_Q4_exists",
+    "timestamp_and_session_coverage_audit_required": true,
+    "no_outcome_metrics_allowed_during_source_admission": true
+  },
+  "pairings": [
+    {"id": "PAIR_A", "lower": "S1", "parent": "S2", "minimum_resolved": 40},
+    {"id": "PAIR_B", "lower": "S2", "parent": "S3", "minimum_resolved": 15}
+  ],
+  "event_geometry": "identical_to_frozen_R1_parent_integrity_v2_holdout_protocol",
+  "model_use": {
+    "refit_allowed": false,
+    "parameter_change_allowed": false,
+    "candidate_change_allowed": false,
+    "scale_or_threshold_change_allowed": false,
+    "severity_definition_change_allowed": false,
+    "calibration_allowed": false,
+    "binary_threshold_allowed": false
+  },
+  "primary_confirmation_gate_each_pairing": {
+    "sample_minimum_passed": true,
+    "candidate_Brier_strictly_lower_than_frozen_severity_baseline": true,
+    "candidate_logloss_strictly_lower_than_frozen_severity_baseline": true
+  },
+  "both_pairings_required": true,
+  "monthly_breakdown": "mandatory_descriptive_not_gate_due_small_expected_PAIR_B_monthly_sample",
+  "possible_decisions": [
+    "R1_parent_integrity_v2_true_fresh_2026Q4_confirmed",
+    "R1_parent_integrity_v2_true_fresh_2026Q4_failed",
+    "R1_parent_integrity_v2_true_fresh_2026Q4_evidence_insufficient"
+  ],
+  "after_pass": {
+    "mechanism_may_enter_separate_economic_translation_and_PnL_preregistration": true,
+    "production_authority_still_false": true
+  },
+  "after_fail_or_insufficient": {
+    "no_posthoc_formula_scale_threshold_or_filter_rescue_on_Q4": true,
+    "new_identity_required_for_material_change": true
+  },
+  "forbidden": [
+    "inspect_any_2026Q4_R1_recovery_failure_outcome_before_complete_block_execution",
+    "score_October_or_October_November_partial_results",
+    "refit_on_2026Q4",
+    "change_parent_integrity_formula",
+    "change_scale_pairings",
+    "change_first_passage_boundaries",
+    "use_PnL_to_interpret_fresh_gate",
+    "open_Q4_outcomes_during_source_admission"
+  ],
+  "production_authority": false
+}
