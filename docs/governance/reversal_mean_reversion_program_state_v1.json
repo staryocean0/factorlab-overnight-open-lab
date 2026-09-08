@@ -1,9 +1,9 @@
 {
-  "schema_id": "factorlab_reversal_mean_reversion_program_state@3.2",
+  "schema_id": "factorlab_reversal_mean_reversion_program_state@3.3",
   "session_date": "2026-09-08",
   "canonical_repository": "staryocean0/factorlab-overnight-open-lab",
-  "current_status": "three_role_governance_active_R1_mechanism_BLACKBOX_PASS_R1_economic_round_closed_R5C_BLACKBOX_FAIL_R2_dedicated_approved",
-  "repository_wide_current_mainline": "R2_range_boundary_parent_integrity_dedicated_validation",
+  "current_status": "three_role_governance_active_R1_and_R2_mechanisms_BLACKBOX_PASS_R5C_BLACKBOX_FAIL_simple_economic_families_closed_router_review_next",
+  "repository_wide_current_mainline": "certified_R1_R2_parent_state_synthesis_and_results_blind_router_review",
   "authority_order": [
     "CONTINUE_HERE.md",
     "docs/governance/reusable_three_role_data_policy_v1.json",
@@ -15,27 +15,34 @@
     "VALIDATION": "2021-01-01_to_2025-12-31_reusable_detailed",
     "BLACKBOX": "2026-01-05_to_2026-08-21_reusable_three_state_only",
     "blackbox_query_ledger": "docs/governance/reusable_blackbox_query_ledger_v1.json",
-    "blackbox_query_count": 2,
+    "blackbox_query_count": 3,
     "data_is_consumed_by_one_validation": false
   },
   "certified_mechanisms": {
     "R1_parent_integrity": {
       "identity": "rmr_cross_scale_pullback_parent_integrity_v2",
-      "status": "certified",
+      "normal_state": "trend_like_intact_parent",
       "blackbox_query_id": "a9ba75c39e675ae6be17",
       "blackbox_decision": "PASS",
       "final_parameter_bundle_sha256": "41072c78a6e657aec01d7da95d9c00bff23ff01829ada6afe256d7c254107fcb"
+    },
+    "R2_range_integrity": {
+      "identity": "rmr_range_boundary_parent_integrity_v2",
+      "normal_state": "range_like_intact_parent",
+      "blackbox_query_id": "a7e7f0208512aa7c1f31",
+      "blackbox_decision": "PASS",
+      "final_parameter_bundle_sha256": "08d28cc1f145247cc755cea70b26cfb75a53941db8df0f0a0f640c268ae5f0d1"
     }
   },
   "closed_specialists": {
-    "R1_economic_translation_round": "v1_v2_v3_failed_detailed_VALIDATION_no_blackbox_query",
+    "R1_economic_translation_round": "v1_v2_v3_failed_detailed_VALIDATION_no_economic_blackbox_query",
+    "R2_economic_translation_v1": "failed_detailed_VALIDATION_no_blackbox_query_4",
     "R5C_event_density_v2": {
       "validation": "PASS",
       "blackbox_query_id": "4fa9bfa2ec38f16cd65f",
       "blackbox_decision": "FAIL",
       "details_released": false,
-      "same_identity_rescue_authorized": false,
-      "closeout": "docs/research/rmr_R5C_reusable_closeout_20260908.md"
+      "same_identity_rescue_authorized": false
     },
     "R3_regime_conditioned_residual_v1": "closed",
     "R4_gap_fill_V21_P2": "closed_no_successor",
@@ -44,31 +51,37 @@
     "R6_multiscale_amplitude_state_v1": "closed",
     "R7_directional_path_energy_asymmetry_v1": "closed"
   },
-  "held_to_dedicated_transition": {
-    "R2_range_boundary_reversion": {
-      "old_status": "hold_not_promoted",
-      "program_review": "docs/research/rmr_R2_dedicated_program_review_20260908.md",
-      "approved_identity": "rmr_range_boundary_parent_integrity_v2",
-      "approved_budget": "one_dedicated_identity_only",
-      "blackbox_direct_access": false,
-      "next_blackbox_query_number_if_VALIDATION_passes": 3
-    }
+  "scientific_synthesis": {
+    "R1_R2_common_question": "is_parent_normal_state_intact_and_what_kind_of_normal_state_is_it",
+    "trend_side": "R1_parent_integrity",
+    "range_side": "R2_range_integrity",
+    "economic_translation_status": "certified_probability_mechanisms_without_certified_index_level_execution",
+    "broad_new_indicator_generation_paused": true
   },
-  "broad_discovery": {
-    "round1_closed": true,
-    "automatic_new_lane_generation_paused": true,
-    "R2_dedicated_review_is_not_new_broad_lane_generation": true
+  "next_stage": {
+    "stage": "results_blind_unified_parent_state_router_program_review",
+    "status": "authorized_to_review_and_freeze_at_most_one_low_capacity_router_identity",
+    "blackbox_direct_access": false,
+    "candidate_constraints": [
+      "certified_R1_R2_parent_features_only",
+      "certified_R1_R2_event_geometries_only",
+      "no_new_indicator_family",
+      "no_scale_or_threshold_search",
+      "no_PnL_objective"
+    ],
+    "next_blackbox_query_number_if_VALIDATION_passes": 4
   },
   "optional_future_fresh_challenge": {
     "identity": "R1_complete_2026Q4_true_fresh_challenge",
     "status": "preregistered_optional_not_current_blocker"
   },
   "next_actions_in_order": [
-    "freeze_R2_dedicated_protocol_runner_tests_results_blind",
-    "run_R2_on_reusable_DEV_VALIDATION_only",
-    "only_after_both_scale_VALIDATION_PASS_freeze_one_DEV_plus_VALIDATION_refit",
-    "only_then_allow_low_bandwidth_BLACKBOX_query_3",
-    "close_R2_v2_on_blackbox_FAIL_or_INSUFFICIENT_without_breakdown"
+    "write_results_blind_R1_R2_unified_router_program_review",
+    "if_approved_freeze_one_low_capacity_router_protocol_runner_tests_before_empirical_execution",
+    "run_router_on_DEV_and_detailed_VALIDATION_only",
+    "only_after_full_VALIDATION_PASS_freeze_one_DEV_plus_VALIDATION_refit",
+    "only_then_allow_low_bandwidth_BLACKBOX_query_4",
+    "do_not_resume_simple_economic_threshold_or_execution_tuning"
   ],
   "production_authority": false
 }
