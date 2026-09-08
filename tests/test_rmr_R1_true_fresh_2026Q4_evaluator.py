@@ -60,46 +60,62 @@ def test_authorization_must_bind_exact_source_and_evaluator(tmp_path):
 
 def test_combine_sources_rejects_duplicate_minute_identity():
     hist = pd.DataFrame(
-        {"symbol": [mod.SYMBOL], "trading_day": ["2025-12-31"], "timestamp": ["2025-12-31 15:00:00"], "close": [1.0]}
+        {
+            "symbol": [mod.SYMBOL],
+            "trading_day": ["2025-12-31"],
+            "timestamp": ["2025-12-31 15:00:00"],
+            "close": [1.0],
+        }
     )
     fut = pd.DataFrame(
-        {"symbol": [mod.SYMBOL], "trading_day": ["2026-01-05"], "timestamp": ["2026-01-05 09:31:00"], "close": [1.0]}
+        {
+            "symbol": [mod.SYMBOL, mod.SYMBOL],
+            "trading_day": ["2026-01-05", "2026-12-31"],
+            "timestamp": ["2026-01-05 09:31:00", "2026-12-31 15:00:00"],
+            "close": [1.0, 1.1],
+        }
     )
     combined = mod.combine_sources(hist, fut)
-    assert combined.iloc[-1]["trading_day"] == "2026-01-05"
+    assert combined.iloc[-1]["trading_day"] == "2026-12-31"
 
-    bad = pd.concat([fut, fut], ignore_index=True)
+    bad = pd.concat([fut, fut.iloc[[1]]], ignore_index=True)
     with pytest.raises(RuntimeError):
         mod.combine_sources(hist, bad)
 
 
 def test_q4_pair_gate_uses_frozen_probabilities_and_q4_days_only():
     rows = []
-    for i in range(25):
-        rows.append({
-            "day": "2026-10-08",
+    for _ in range(25):
+        rows.append(
+            {
+                "day": "2026-10-08",
+                "severity": 1.0,
+                "abs_drift": 3.0,
+                "overlap": 0.0,
+                "parent_eff": 0.0,
+                "outcome": "recovery",
+            }
+        )
+        rows.append(
+            {
+                "day": "2026-11-02",
+                "severity": 1.0,
+                "abs_drift": 0.0,
+                "overlap": 3.0,
+                "parent_eff": 0.0,
+                "outcome": "failure",
+            }
+        )
+    rows.append(
+        {
+            "day": "2026-09-30",
             "severity": 1.0,
             "abs_drift": 3.0,
             "overlap": 0.0,
             "parent_eff": 0.0,
             "outcome": "recovery",
-        })
-        rows.append({
-            "day": "2026-11-02",
-            "severity": 1.0,
-            "abs_drift": 0.0,
-            "overlap": 3.0,
-            "parent_eff": 0.0,
-            "outcome": "failure",
-        })
-    rows.append({
-        "day": "2026-09-30",
-        "severity": 1.0,
-        "abs_drift": 3.0,
-        "overlap": 0.0,
-        "parent_eff": 0.0,
-        "outcome": "recovery",
-    })
+        }
+    )
     events = pd.DataFrame(rows)
     frozen_pair = {
         "parent_feature_scaler": {"mean": [0.0, 0.0, 0.0], "scale": [1.0, 1.0, 1.0]},
