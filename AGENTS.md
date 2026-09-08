@@ -1,6 +1,6 @@
 # AGENTS.md — repository operating rules
 
-## 1. One project, one canonical repository
+## 1. One canonical repository
 
 `staryocean0/factorlab-overnight-open-lab` is the only active repository for this research project.
 
@@ -11,68 +11,75 @@ Read in this order:
 1. `CONTINUE_HERE.md`
 2. `docs/governance/reusable_three_role_data_policy_v1.json`
 3. `docs/governance/reversal_mean_reversion_program_state_v1.json`
-4. `docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_state_v1.json`
-5. `docs/governance/reversal_mean_reversion_R1_reusable_blackbox_protocol_v1.json`
-6. `docs/INDEX.md`
+4. `docs/INDEX.md`
 
-Old reserve/holdout/fresh `next_action` statements are historical evidence only when they conflict with this authority.
+Historical `next_action` fields never override these files.
 
 ## 3. Reusable three-role data governance
 
-Market history is a reusable research asset, not a one-shot consumable.
+Market history is reusable, not a one-shot consumable.
 
 ### DEV
 
 `2015-01-05 .. 2020-12-31`
 
-Full access. Fit, diagnose, engineer, ablate and iterate here.
+Full access for fitting, diagnosis, feature work and iteration.
 
 ### VALIDATION
 
 `2021-01-01 .. 2025-12-31`
 
-Reusable detailed validation. It may be inspected by year/event/regime and may support later development iterations. A validation use does not consume these rows forever.
+Reusable detailed validation. Year/event/regime diagnostics are allowed and may motivate later DEV/VALIDATION iterations.
 
 ### BLACKBOX
 
 `2026-01-05 .. 2026-08-21`
 
-Reusable final certification. Current research must access it only through a frozen blackbox validator. Public scientific output is restricted to:
+Reusable certification only. Public output is limited to:
 
 `PASS / FAIL / INSUFFICIENT`
 
-Do not release exact blackbox metrics, counts, dates, months, regimes, event examples, probabilities, feature attribution or error analysis.
+Never release exact BLACKBOX metrics, counts, dates, months, regimes, event examples, probabilities, feature attribution or failure analysis.
 
-A blackbox query does not consume the data. However repeated queries are **not independent new OOS samples**. Log every query in `docs/governance/reusable_blackbox_query_ledger_v1.json`.
+Repeated BLACKBOX queries are allowed for separately frozen candidates, but they are not independent new OOS samples. Append every completed query to `docs/governance/reusable_blackbox_query_ledger_v1.json`.
 
-After a blackbox FAIL, return to DEV/VALIDATION. Any changed feature, threshold, rule or model must be justified from DEV/VALIDATION, never from blackbox details.
+A BLACKBOX FAIL/INSUFFICIENT returns research to DEV/VALIDATION without a breakdown.
 
 ## 4. Final-fit rule
 
-A candidate may be refit once on DEV+VALIDATION before blackbox only when its structure and exact fit recipe were frozen beforehand. The blackbox may never participate in fitting.
+A candidate may receive one preregistered DEV+VALIDATION final refit only after detailed VALIDATION passes. BLACKBOX may never participate in fitting, candidate selection, thresholds or feature choice.
 
-## 5. Current R1 status
+## 5. R1 status
 
-`rmr_cross_scale_pullback_parent_integrity_v2` / `R1_PARENT_COMPOSITE_1D` passed reusable validation and the first reusable blackbox certification.
+`rmr_cross_scale_pullback_parent_integrity_v2` is a certified mechanism.
 
-Current final parameter bundle SHA256:
+Final mechanism bundle:
 
 `41072c78a6e657aec01d7da95d9c00bff23ff01829ada6afe256d7c254107fcb`
 
-Blackbox query `a9ba75c39e675ae6be17` returned `PASS`; no blackbox details were released.
+Reusable BLACKBOX query `a9ba75c39e675ae6be17` returned `PASS`; no detail was released.
 
-The next research identity is `rmr_R1_parent_integrity_economic_translation_v1`. Economic/PnL research is allowed on DEV/VALIDATION only. A second blackbox query requires a newly frozen strategy candidate and gates.
+The first R1 economic-translation round is closed after three materially different low-capacity implementations all failed detailed VALIDATION before BLACKBOX. Do not create automatic v4/v5 tweaks against the same execution family. A new R1 economic identity requires genuinely new execution or instrument theory.
 
-## 6. Optional future Q4 challenge
+## 6. Current active specialist
 
-The old complete-2026Q4 true-fresh protocol remains a valid optional future experiment. It is not the repository-wide blocker. Do not inspect partial Q4 under that protocol unless later authority explicitly changes it.
+The active research identity is:
 
-## 7. Repository hygiene
+`rmr_event_density_state_reversal_v2`  (R5-C)
 
-- Keep current authority concise and non-duplicative.
-- Keep blackbox receipts low-bandwidth.
-- Do not copy blackbox details into docs, logs, charts or issue comments.
-- Completed workflows should be removed after their bounded execution; immutable evidence remains in Git history.
+Use the existing R5-C handoff and freeze a small family before empirical work. The family must test event-density information beyond nearby event geometry on both S1 and S2. Only a detailed VALIDATION PASS may authorize final refit and a low-bandwidth BLACKBOX query.
+
+## 7. Optional future Q4 challenge
+
+The previously preregistered complete-2026Q4 R1 challenge remains optional and is not the current blocker. Do not inspect partial Q4 under that protocol unless later authority explicitly changes it.
+
+## 8. Repository hygiene
+
+- Keep authority concise and non-duplicative.
+- Keep BLACKBOX receipts low-bandwidth.
+- Do not copy BLACKBOX detail into docs, logs, charts or issues.
+- Remove completed Actions workflows after their bounded execution.
+- Completed implementation details may be recovered from Git history instead of remaining as active clutter.
 - Do not create a second active repository for this project.
 
 Production authority remains false.
