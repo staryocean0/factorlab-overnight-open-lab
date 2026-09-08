@@ -1,9 +1,9 @@
 {
-  "schema_id": "factorlab_reversal_mean_reversion_program_state@3.5",
+  "schema_id": "factorlab_reversal_mean_reversion_program_state@3.6",
   "session_date": "2026-09-08",
   "canonical_repository": "staryocean0/factorlab-overnight-open-lab",
-  "current_status": "R1_R2_statistical_mechanisms_BLACKBOX_certified_router_v1_closed_diagnostic_complete_simple_index_execution_closed_R1B_temporal_theory_review_next",
-  "repository_wide_current_mainline": "certified_mechanisms_to_results_blind_R1B_temporal_execution_theory",
+  "current_status": "R1_R2_statistical_mechanisms_BLACKBOX_certified_router_closed_simple_index_execution_closed_R1B_temporal_impulse_DEV_closed_no_VALIDATION_no_empirical_rescue_authorized",
+  "repository_wide_current_mainline": "certified_mechanisms_with_current_economic_translation_paused_pending_independent_program_theory",
   "authority_order": [
     "CONTINUE_HERE.md",
     "docs/governance/reusable_three_role_data_policy_v1.json",
@@ -57,6 +57,23 @@
     "R1A_current_index_execution_family": "closed_after_mechanism_to_execution_diagnostic",
     "R2_current_index_execution_family": "closed_after_mechanism_to_execution_diagnostic",
     "probability_filter_rescue": "closed_nonmonotonic_probability_to_realized_return",
+    "R1B_temporal_impulse_completion_v1": {
+      "identity": "rmr_R1B_temporal_impulse_completion_v1",
+      "DEV_decision": "CLOSE",
+      "DEV_workflow_run_id": 34229441615,
+      "DEV_execution_commit": "a0801a7905f96b8bf7f075fe60a4a4d20052ef53",
+      "DEV_candidate_mean_net_bps": 10.594867732185498,
+      "DEV_candidate_median_net_bps": -32.10831329594431,
+      "DEV_candidate_win_rate": 0.3709677419354839,
+      "DEV_positive_mean_net_years": 5,
+      "DEV_gate_failed": "pooled_candidate_median_net_gt_zero",
+      "VALIDATION_opened": false,
+      "BLACKBOX_opened": false,
+      "automatic_rescue_authorized": false,
+      "adjudication": "docs/research/rmr_R1B_temporal_impulse_completion_DEV_adjudication_20260908.md",
+      "decisive_receipt": "docs/research/rmr_R1B_temporal_impulse_completion_DEV_decisive_receipt_20260908.json",
+      "history_anchor": "docs/archive/rmr_R1B_temporal_impulse_completion_v1_history_anchor_20260908.md"
+    },
     "R3_regime_conditioned_residual_v1": "closed",
     "R4_gap_fill_V21_P2": "closed_no_successor",
     "R5_A_path_efficiency": "closed",
@@ -66,66 +83,44 @@
   },
   "scientific_synthesis": {
     "R1_R2_common_question": "is_parent_normal_state_intact_and_what_kind_of_normal_state_is_it",
-    "trend_side": "R1_parent_integrity",
-    "range_side": "R2_range_integrity",
     "single_common_standardized_axis_supported": false,
-    "mechanism_to_execution_diagnostic": {
-      "identity": "rmr_mechanism_to_execution_diagnostic_v1",
-      "status": "COMPLETE",
-      "workflow_run_id": 34226850838,
-      "execution_commit": "f35f64dcb567b681f583ae16881226c6ca738784",
-      "BLACKBOX_opened": false,
-      "BLACKBOX_query_created": false,
-      "selection_or_strategy_optimization_performed": false,
-      "primary_failure_mode": "payoff_geometry_mismatch",
-      "probability_is_monotonic_realized_return_score": false,
-      "R2_temporal_directional_translation": "adverse_with_horizon",
-      "R1B_temporal_translation": "delayed_positive_term_structure_motivates_new_theory_review_only",
-      "adjudication": "docs/research/rmr_mechanism_to_execution_diagnostic_v1_adjudication_20260908.md",
-      "decisive_receipt": "docs/research/rmr_mechanism_to_execution_diagnostic_v1_decisive_receipt_20260908.json",
-      "history_anchor": "docs/archive/rmr_mechanism_to_execution_diagnostic_v1_history_anchor_20260908.md"
-    },
-    "economic_translation_status": "certified_probability_mechanisms_without_certified_trading_implementation",
+    "mechanism_to_execution_primary_failure": "payoff_geometry_mismatch",
+    "R1B_temporal_DEV_finding": "parent_aligned_S2_completion_exit_improves_mean_and_is_positive_in_5_of_6_DEV_years_but_has_negative_median_and_low_win_rate_so_right_tail_not_broad_translation",
+    "economic_translation_status": "certified_probability_mechanisms_without_certified_trading_implementation_and_no_current_empirical_rescue_authorized",
     "broad_new_indicator_generation_paused": true
   },
   "next_stage": {
-    "stage": "results_blind_R1B_temporal_execution_theory_review",
-    "status": "authorized_to_review_and_freeze_at_most_one_materially_new_temporal_identity",
-    "scope": "R1_B_S2_inside_S3_only_as_theory_motivation",
+    "stage": "independent_economic_object_or_instrument_theory_program_review",
+    "status": "theory_review_only_no_empirical_candidate_currently_authorized",
     "blackbox_direct_access": false,
     "blackbox_query_4_authorized": false,
-    "candidate_constraints": [
-      "certified_R1B_mechanism_and_frozen_scale_identity_only",
-      "completed_fixed_markout_term_structure_is_motivation_not_horizon_selection",
-      "causal_temporal_path_theory_before_outcome_driven_parameterization",
-      "no_probability_threshold_search",
-      "no_entry_delay_search",
-      "no_stop_target_search",
-      "no_cost_search",
-      "no_scale_search",
-      "no_horizon_selection",
-      "no_year_regime_or_time_of_day_selection",
-      "no_automatic_R1_economic_v4",
-      "DEV_then_frozen_detailed_VALIDATION",
-      "no_BLACKBOX_in_initial_review_or_DEV_VALIDATION_work"
+    "constraints": [
+      "do_not_repair_R1B_temporal_impulse_completion_v1",
+      "do_not_remove_failed_median_gate_after_DEV",
+      "no_exit_at_unobservable_S2_extreme",
+      "no_probability_filter_to_isolate_right_tail",
+      "no_horizon_entry_stop_target_cost_scale_year_regime_time_of_day_search",
+      "no_portfolio_optimization_rescue",
+      "new_identity_requires_independent_payoff_or_instrument_theory_and_new_preregistration",
+      "instrument_mapping_requires_instrument_specific_data_and_cost_model_before_empirical_authority",
+      "no_VALIDATION_or_BLACKBOX_for_closed_R1B_temporal_identity"
     ]
   },
   "instrument_mapping": {
-    "status": "not_selected_by_current_diagnostic",
-    "reason": "no_instrument_specific_spread_basis_carry_liquidity_or_convexity_evidence",
-    "future_eligibility": "requires_independent_instrument_theory"
+    "status": "eligible_only_for_separate_independent_program_review_not_empirically_authorized",
+    "reason": "current_index_data_do_not_measure_instrument_specific_spread_basis_carry_liquidity_convexity_or_option_premium",
+    "future_eligibility": "requires_independent_instrument_theory_plus_data_source_contract"
   },
   "optional_future_fresh_challenge": {
     "identity": "R1_complete_2026Q4_true_fresh_challenge",
     "status": "preregistered_optional_not_current_blocker"
   },
   "next_actions_in_order": [
-    "write_results_blind_R1B_temporal_execution_theory_program_review",
-    "if_approved_freeze_at_most_one_materially_new_temporal_identity_before_empirical_execution",
-    "develop_on_DEV_only_then_freeze",
-    "run_detailed_reusable_VALIDATION_without_horizon_or_threshold_selection",
-    "do_not_open_BLACKBOX_without_separate_future_authority",
-    "do_not_resume_R1A_R2_simple_index_execution_or_router_v2_rescue"
+    "close_and_archive_R1B_temporal_impulse_DEV_implementation_surface",
+    "if_continuing_economic_research_write_separate_results_blind_payoff_or_instrument_program_review_before_any_new_candidate",
+    "do_not_open_R1B_temporal_VALIDATION",
+    "do_not_open_BLACKBOX_query_4",
+    "do_not_resume_R1A_R2_simple_index_execution_router_v2_or_probability_filter_rescue"
   ],
   "production_authority": false
 }
