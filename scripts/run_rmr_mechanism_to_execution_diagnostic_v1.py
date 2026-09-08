@@ -2,6 +2,7 @@
 """Diagnostic bridge from certified R1/R2 mechanisms to realized index economics.
 
 DEV/VALIDATION only. No strategy selection, no refit, no BLACKBOX access.
+The certified event engines and frozen parameter bundles are reused unchanged.
 """
 from __future__ import annotations
 
@@ -24,6 +25,8 @@ DEFAULT_OUTPUT = ROOT / "docs/research/local_rmr_mechanism_to_execution_diagnost
 R1_FREEZE = ROOT / "docs/governance/rmr_R1_reusable_blackbox_parameter_freeze_v1.json"
 R2_FREEZE = ROOT / "docs/governance/rmr_R2_range_integrity_v2_parameter_freeze.json"
 EXPECTED_SHA = "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce"
+EXPECTED_R1_BUNDLE_SHA = "41072c78a6e657aec01d7da95d9c00bff23ff01829ada6afe256d7c254107fcb"
+EXPECTED_R2_BUNDLE_SHA = "08d28cc1f145247cc755cea70b26cfb75a53941db8df0f0a0f640c268ae5f0d1"
 SYMBOL = "000852.SH"
 DEV_END = "2020-12-31"
 VAL_START = "2021-01-01"
@@ -67,6 +70,26 @@ def read_source(path: Path) -> pd.DataFrame:
     return frame.sort_values(["trading_day", "timestamp"], kind="mergesort").reset_index(drop=True)
 
 
+def validate_freezes(r1f: dict, r2f: dict) -> dict[str, float]:
+    if r1f.get("parameter_bundle_sha256") != EXPECTED_R1_BUNDLE_SHA:
+        raise RuntimeError("R1 certified bundle identity drifted")
+    if r2f.get("parameter_bundle_sha256") != EXPECTED_R2_BUNDLE_SHA:
+        raise RuntimeError("R2 certified bundle identity drifted")
+    if r1f.get("historical_source_sha256") != EXPECTED_SHA or r2f.get("historical_source_sha256") != EXPECTED_SHA:
+        raise RuntimeError("certified bundle historical source drifted")
+    thresholds = {k: float(v) for k, v in r1f["directional_change_thresholds"].items()}
+    if thresholds != {k: float(v) for k, v in r2f["thresholds"].items()}:
+        raise RuntimeError("R1/R2 frozen scales disagree")
+    expected = {
+        "S1": 0.003445827004614232,
+        "S2": 0.006891654009228464,
+        "S3": 0.013783308018456928,
+    }
+    if thresholds != expected or float(r1f["DEV_median_rvol20"]) != expected["S3"]:
+        raise RuntimeError("certified scale identity drifted")
+    return thresholds
+
+
 def frozen_predict(snapshot: dict, frame: pd.DataFrame) -> np.ndarray:
     features = snapshot["features"]
     x = frame[features].to_numpy(float)
@@ -106,6 +129,79 @@ def break_even_probability(target_gross: float, failure_gross: float) -> float:
     return float((COST - failure_gross) / denom)
 
 
+def add_execution_fields(
+    row: dict,
+    prices: np.ndarray,
+    confirm_idx: int,
+    resolved: int,
+    direction: int,
+    target: float,
+    failure: float,
+    outcome: str,
+    restoration_label: str,
+    failure_label: str,
+) -> None:
+    entry_idx = confirm_idx + 1
+    row["entry_invalid"] = True
+    if entry_idx >= len(prices):
+        return
+    entry = float(prices[entry_idx])
+    current = float(prices[confirm_idx])
+    if direction > 0:
+        valid = failure < entry < target
+    else:
+        valid = target < entry < failure
+    row["entry_invalid"] = not valid
+    if not valid:
+        return
+
+    target_g = float(direction * (target / entry - 1.0))
+    failure_g = float(direction * (failure / entry - 1.0))
+    target_at_confirm = float(direction * (target / current - 1.0))
+    failure_at_confirm = float(direction * (failure / current - 1.0))
+    entry_move = float(direction * (entry / current - 1.0))
+    reward_consumed = float(target_at_confirm - target_g)
+    reward_consumed_fraction = (
+        float(reward_consumed / target_at_confirm) if np.isfinite(target_at_confirm) and target_at_confirm > 0.0 else np.nan
+    )
+    p = float(row["certified_probability"])
+    binary_expected_net = float(p * target_g + (1.0 - p) * failure_g - COST)
+
+    exit_price = float(prices[resolved])
+    gross = float(direction * (exit_price / entry - 1.0))
+    theoretical = target_g if outcome == restoration_label else failure_g if outcome == failure_label else np.nan
+    boundary_overshoot = gross - theoretical if np.isfinite(theoretical) else np.nan
+    target_overshoot = boundary_overshoot if outcome == restoration_label else np.nan
+    failure_overshoot = boundary_overshoot if outcome == failure_label else np.nan
+
+    row.update(
+        {
+            "entry_idx": int(entry_idx),
+            "entry_price": entry,
+            "confirmation_price": current,
+            "entry_move_from_confirmation": entry_move,
+            "target_gross_at_confirmation": target_at_confirm,
+            "failure_gross_at_confirmation": failure_at_confirm,
+            "target_reward_consumed_by_entry": reward_consumed,
+            "target_reward_consumed_fraction": reward_consumed_fraction,
+            "target_gross": target_g,
+            "failure_gross": failure_g,
+            "reward_loss_abs_ratio": abs(target_g) / abs(failure_g) if failure_g != 0 else np.nan,
+            "break_even_restoration_probability_10bp": break_even_probability(target_g, failure_g),
+            "binary_structural_expected_net_10bp": binary_expected_net,
+            "realized_gross": gross,
+            "realized_net": gross - COST,
+            "win": bool(gross - COST > 0),
+            "holding_bars": int(max(0, resolved - entry_idx)),
+            "censored": outcome == "censored",
+            "boundary_overshoot": boundary_overshoot,
+            "target_overshoot": target_overshoot,
+            "failure_overshoot": failure_overshoot,
+        }
+    )
+    row.update(markouts(prices, entry_idx, entry, direction))
+
+
 def r1_diagnostic_events(prices, days, lower_waves, parent_waves, vol_ref, cell, freeze_pair):
     parent_confirms = [w.confirm_idx for w in parent_waves]
     rows = []
@@ -134,38 +230,33 @@ def r1_diagnostic_events(prices, days, lower_waves, parent_waves, vol_ref, cell,
         if outcome == "tie":
             continue
         row = {
-            "cell": cell, "lane": "R1", "day": str(days[lower.confirm_idx]),
-            "confirm_idx": int(lower.confirm_idx), "resolve_idx": int(resolved),
-            "mechanism_outcome": outcome, "restoration": 1 if outcome == "recovery" else 0 if outcome == "failure" else np.nan,
-            "severity": float(abs(lower.move) / vol_ref), **pf,
-            "direction": int(parent_sign), "target": target, "failure": failure,
+            "cell": cell,
+            "lane": "R1",
+            "day": str(days[lower.confirm_idx]),
+            "confirm_idx": int(lower.confirm_idx),
+            "resolve_idx": int(resolved),
+            "mechanism_outcome": outcome,
+            "restoration": 1 if outcome == "recovery" else 0 if outcome == "failure" else np.nan,
+            "severity": float(abs(lower.move) / vol_ref),
+            **pf,
+            "direction": int(parent_sign),
+            "target": target,
+            "failure": failure,
         }
-        temp = pd.DataFrame([row])
-        temp = add_integrity(temp, freeze_pair["parent_feature_scaler"], "parent_integrity")
+        temp = add_integrity(pd.DataFrame([row]), freeze_pair["parent_feature_scaler"], "parent_integrity")
         row["certified_probability"] = float(frozen_predict(freeze_pair["selected_candidate_model"], temp)[0])
-        entry_idx = lower.confirm_idx + 1
-        row["entry_invalid"] = True
-        if entry_idx < len(prices):
-            entry = float(prices[entry_idx])
-            valid = (failure < entry < target) if parent_sign > 0 else (target < entry < failure)
-            row["entry_invalid"] = not valid
-            if valid:
-                target_g = float(parent_sign * (target / entry - 1.0))
-                failure_g = float(parent_sign * (failure / entry - 1.0))
-                exit_price = float(prices[resolved])
-                gross = float(parent_sign * (exit_price / entry - 1.0))
-                row.update({
-                    "entry_idx": int(entry_idx), "entry_price": entry,
-                    "target_gross": target_g, "failure_gross": failure_g,
-                    "reward_loss_abs_ratio": abs(target_g) / abs(failure_g) if failure_g != 0 else np.nan,
-                    "break_even_restoration_probability_10bp": break_even_probability(target_g, failure_g),
-                    "realized_gross": gross, "realized_net": gross - COST,
-                    "win": bool(gross - COST > 0), "holding_bars": int(max(0, resolved - entry_idx)),
-                    "censored": outcome == "censored",
-                })
-                theoretical = target_g if outcome == "recovery" else failure_g if outcome == "failure" else np.nan
-                row["boundary_overshoot"] = gross - theoretical if np.isfinite(theoretical) else np.nan
-                row.update(markouts(prices, entry_idx, entry, parent_sign))
+        add_execution_fields(
+            row,
+            prices,
+            lower.confirm_idx,
+            resolved,
+            parent_sign,
+            target,
+            failure,
+            outcome,
+            "recovery",
+            "failure",
+        )
         rows.append(row)
         next_allowed = resolved
     return pd.DataFrame(rows)
@@ -205,19 +296,35 @@ def r2_diagnostic_events(prices, days, parent_waves, lower_threshold, parent_thr
         for j in range(i, end + 1):
             z = float(prices[j])
             if side > 0:
-                if z <= edge: outcome, resolved = "reentry", j; break
-                if z >= continuation: outcome, resolved = "continuation", j; break
+                if z <= edge:
+                    outcome, resolved = "reentry", j
+                    break
+                if z >= continuation:
+                    outcome, resolved = "continuation", j
+                    break
             else:
-                if z >= edge: outcome, resolved = "reentry", j; break
-                if z <= continuation: outcome, resolved = "continuation", j; break
+                if z >= edge:
+                    outcome, resolved = "reentry", j
+                    break
+                if z <= continuation:
+                    outcome, resolved = "continuation", j
+                    break
         speed, vol_ratio = common.local_vol_features(prices, i)
         row = {
-            "cell": cell, "lane": "R2", "day": str(days[i]), "confirm_idx": int(i), "resolve_idx": int(resolved),
-            "mechanism_outcome": outcome, "restoration": 1 if outcome == "reentry" else 0 if outcome == "continuation" else np.nan,
+            "cell": cell,
+            "lane": "R2",
+            "day": str(days[i]),
+            "confirm_idx": int(i),
+            "resolve_idx": int(resolved),
+            "mechanism_outcome": outcome,
+            "restoration": 1 if outcome == "reentry" else 0 if outcome == "continuation" else np.nan,
             "outside_ratio": float(abs(x - edge) / edge / (width / edge)),
             "break_speed": float(speed / lower_threshold) if lower_threshold > 0 else np.nan,
-            "local_vol_ratio": float(vol_ratio), **pf,
-            "direction": int(-side), "target": float(edge), "failure": float(continuation),
+            "local_vol_ratio": float(vol_ratio),
+            **pf,
+            "direction": int(-side),
+            "target": float(edge),
+            "failure": float(continuation),
         }
         temp = pd.DataFrame([row]).replace([np.inf, -np.inf], np.nan)
         needed = freeze_pair["candidate_model"]["features"][:-1]
@@ -225,30 +332,18 @@ def r2_diagnostic_events(prices, days, parent_waves, lower_threshold, parent_thr
             continue
         temp = add_integrity(temp, freeze_pair["parent_feature_scaler"], "range_integrity")
         row["certified_probability"] = float(frozen_predict(freeze_pair["candidate_model"], temp)[0])
-        entry_idx = i + 1
-        row["entry_invalid"] = True
-        if entry_idx < len(prices):
-            entry = float(prices[entry_idx])
-            valid = (edge < entry < continuation) if side > 0 else (continuation < entry < edge)
-            row["entry_invalid"] = not valid
-            if valid:
-                direction = -side
-                target_g = float(direction * (edge / entry - 1.0))
-                failure_g = float(direction * (continuation / entry - 1.0))
-                exit_price = float(prices[resolved])
-                gross = float(direction * (exit_price / entry - 1.0))
-                row.update({
-                    "entry_idx": int(entry_idx), "entry_price": entry,
-                    "target_gross": target_g, "failure_gross": failure_g,
-                    "reward_loss_abs_ratio": abs(target_g) / abs(failure_g) if failure_g != 0 else np.nan,
-                    "break_even_restoration_probability_10bp": break_even_probability(target_g, failure_g),
-                    "realized_gross": gross, "realized_net": gross - COST,
-                    "win": bool(gross - COST > 0), "holding_bars": int(max(0, resolved - entry_idx)),
-                    "censored": outcome == "censored",
-                })
-                theoretical = target_g if outcome == "reentry" else failure_g if outcome == "continuation" else np.nan
-                row["boundary_overshoot"] = gross - theoretical if np.isfinite(theoretical) else np.nan
-                row.update(markouts(prices, entry_idx, entry, direction))
+        add_execution_fields(
+            row,
+            prices,
+            i,
+            resolved,
+            -side,
+            float(edge),
+            float(continuation),
+            outcome,
+            "reentry",
+            "continuation",
+        )
         rows.append(row)
         next_allowed = resolved
     return pd.DataFrame(rows)
@@ -264,49 +359,80 @@ def safe_median(s):
     return float(s.median()) if len(s) else None
 
 
+def safe_quantile(s, q: float):
+    s = pd.to_numeric(s, errors="coerce").dropna()
+    return float(s.quantile(q)) if len(s) else None
+
+
 def summarize(frame: pd.DataFrame) -> dict:
     if frame.empty:
-        return {"events": 0}
+        return {"events": 0, "tradeable": 0, "next_minute_tradeable_fraction": None}
     trade = frame.loc[~frame["entry_invalid"] & frame["realized_net"].notna()].copy()
     out = {
         "events": int(len(frame)),
         "tradeable": int(len(trade)),
+        "next_minute_tradeable_fraction": float(len(trade) / len(frame)),
         "entry_invalid": int(frame["entry_invalid"].sum()),
         "mechanism_restoration_rate_resolved": safe_mean(frame["restoration"]),
+        "mean_certified_probability_all_confirmed": safe_mean(frame["certified_probability"]),
     }
     if trade.empty:
         return out
-    out.update({
-        "mean_target_gross": safe_mean(trade["target_gross"]),
-        "mean_failure_gross": safe_mean(trade["failure_gross"]),
-        "median_reward_loss_abs_ratio": safe_median(trade["reward_loss_abs_ratio"]),
-        "mean_break_even_probability_10bp": safe_mean(trade["break_even_restoration_probability_10bp"]),
-        "mean_certified_probability": safe_mean(trade["certified_probability"]),
-        "mean_realized_gross": safe_mean(trade["realized_gross"]),
-        "mean_realized_net": safe_mean(trade["realized_net"]),
-        "median_realized_net": safe_median(trade["realized_net"]),
-        "win_rate": safe_mean(trade["win"].astype(float)),
-        "censor_rate": safe_mean(trade["censored"].astype(float)),
-        "median_holding_bars": safe_median(trade["holding_bars"]),
-        "mean_boundary_overshoot": safe_mean(trade["boundary_overshoot"]),
-    })
+    out.update(
+        {
+            "mean_target_gross": safe_mean(trade["target_gross"]),
+            "mean_failure_gross": safe_mean(trade["failure_gross"]),
+            "median_reward_loss_abs_ratio": safe_median(trade["reward_loss_abs_ratio"]),
+            "mean_break_even_probability_10bp": safe_mean(trade["break_even_restoration_probability_10bp"]),
+            "mean_certified_probability": safe_mean(trade["certified_probability"]),
+            "mean_binary_structural_expected_net_10bp": safe_mean(trade["binary_structural_expected_net_10bp"]),
+            "mean_realized_gross": safe_mean(trade["realized_gross"]),
+            "mean_realized_net": safe_mean(trade["realized_net"]),
+            "median_realized_net": safe_median(trade["realized_net"]),
+            "win_rate": safe_mean(trade["win"].astype(float)),
+            "censor_rate": safe_mean(trade["censored"].astype(float)),
+            "mean_holding_bars": safe_mean(trade["holding_bars"]),
+            "median_holding_bars": safe_median(trade["holding_bars"]),
+            "p90_holding_bars": safe_quantile(trade["holding_bars"], 0.90),
+            "mean_entry_move_from_confirmation": safe_mean(trade["entry_move_from_confirmation"]),
+            "mean_target_reward_consumed_by_entry": safe_mean(trade["target_reward_consumed_by_entry"]),
+            "median_target_reward_consumed_fraction": safe_median(trade["target_reward_consumed_fraction"]),
+            "mean_boundary_overshoot": safe_mean(trade["boundary_overshoot"]),
+            "mean_target_overshoot": safe_mean(trade["target_overshoot"]),
+            "mean_failure_overshoot": safe_mean(trade["failure_overshoot"]),
+        }
+    )
     for h in MARKOUTS:
         col = f"markout_{h}"
         out[f"mean_{col}"] = safe_mean(trade[col])
         values = pd.to_numeric(trade[col], errors="coerce").dropna()
         out[f"positive_share_{col}"] = float((values > 0).mean()) if len(values) else None
+
     valid = trade[["certified_probability", "realized_net"]].dropna()
     out["probability_net_return_correlation"] = float(valid.corr().iloc[0, 1]) if len(valid) > 2 else None
     bin_rows = []
+    nonempty_bin_means = []
     for lo, hi in zip(BINS[:-1], BINS[1:]):
         mask = trade["certified_probability"].ge(lo) & trade["certified_probability"].lt(hi)
         sub = trade.loc[mask]
-        bin_rows.append({
-            "lo": lo, "hi": min(hi, 1.0), "n": int(len(sub)),
-            "mean_net_return": safe_mean(sub["realized_net"]),
-            "mean_break_even_probability_10bp": safe_mean(sub["break_even_restoration_probability_10bp"]),
-        })
+        mean_net = safe_mean(sub["realized_net"])
+        bin_rows.append(
+            {
+                "lo": lo,
+                "hi": min(hi, 1.0),
+                "n": int(len(sub)),
+                "mean_certified_probability": safe_mean(sub["certified_probability"]),
+                "mean_realized_net": mean_net,
+                "mean_binary_structural_expected_net_10bp": safe_mean(sub["binary_structural_expected_net_10bp"]),
+                "mean_break_even_probability_10bp": safe_mean(sub["break_even_restoration_probability_10bp"]),
+            }
+        )
+        if mean_net is not None:
+            nonempty_bin_means.append(mean_net)
     out["fixed_probability_bins"] = bin_rows
+    out["probability_bin_mean_net_monotonic_non_decreasing"] = (
+        all(b >= a for a, b in zip(nonempty_bin_means, nonempty_bin_means[1:])) if len(nonempty_bin_means) >= 2 else None
+    )
     return out
 
 
@@ -319,28 +445,6 @@ def role_summary(frame: pd.DataFrame) -> dict:
     return {"DEV": summarize(dev), "VALIDATION": summarize(val), "VALIDATION_annual": annual}
 
 
-def classify_failure_modes(report: dict) -> list[str]:
-    labels = set()
-    for cell in report["cells"].values():
-        v = cell["VALIDATION"]
-        if not v.get("tradeable"):
-            continue
-        bp = v.get("mean_break_even_probability_10bp")
-        cp = v.get("mean_certified_probability")
-        if bp is not None and cp is not None and bp > cp:
-            labels.add("geometry_unfavorable")
-        if (v.get("mean_boundary_overshoot") or 0) < -0.0005:
-            labels.add("boundary_overshoot_tail")
-        if (v.get("median_holding_bars") or 0) > 60 or (v.get("censor_rate") or 0) > 0.10:
-            labels.add("slow_resolution_cost_exposure")
-        if (v.get("mean_markout_1") or 0) < 0 or (v.get("mean_markout_5") or 0) < 0:
-            labels.add("short_horizon_wrong_way_markout")
-        corr = v.get("probability_net_return_correlation")
-        if corr is not None and corr <= 0:
-            labels.add("probability_not_monetonic_with_realized_return")
-    return sorted(labels)
-
-
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--source", type=Path, default=DEFAULT_SOURCE)
@@ -349,11 +453,9 @@ def main() -> int:
 
     frame = read_source(args.source.resolve())
     r1f, r2f = load_json(R1_FREEZE), load_json(R2_FREEZE)
+    thresholds = validate_freezes(r1f, r2f)
     prices = frame["close"].to_numpy(float)
     days = frame["trading_day"].to_numpy(str)
-    thresholds = {k: float(v) for k, v in r1f["directional_change_thresholds"].items()}
-    if thresholds != {k: float(v) for k, v in r2f["thresholds"].items()}:
-        raise RuntimeError("R1/R2 frozen scales disagree")
     vol_ref = float(r1f["DEV_median_rvol20"])
     waves = {k: common.detect_waves(prices, thresholds[k]) for k in ("S1", "S2", "S3")}
 
@@ -368,15 +470,21 @@ def main() -> int:
         "session_date": "2026-09-08",
         "research_identity": "rmr_mechanism_to_execution_diagnostic_v1",
         "historical_source_sha256": EXPECTED_SHA,
+        "certified_R1_parameter_bundle_sha256": EXPECTED_R1_BUNDLE_SHA,
+        "certified_R2_parameter_bundle_sha256": EXPECTED_R2_BUNDLE_SHA,
+        "frozen_scale_identity": thresholds,
         "max_read_day": VAL_END,
         "BLACKBOX_opened": False,
+        "BLACKBOX_query_created": False,
         "selection_or_strategy_optimization_performed": False,
+        "refit_performed": False,
         "round_trip_cost_bps_for_diagnostic": 10.0,
+        "structural_resolution_horizon_bars": HORIZON,
         "fixed_markout_horizons": MARKOUTS,
+        "fixed_probability_bins": [[0.0, 0.2], [0.2, 0.4], [0.4, 0.6], [0.6, 0.8], [0.8, 1.0]],
         "cells": {k: role_summary(v) for k, v in events.items()},
         "production_authority": False,
     }
-    report["descriptive_failure_mode_labels"] = classify_failure_modes(report)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print("MECHANISM_TO_EXECUTION_DIAGNOSTIC_COMPLETE")
