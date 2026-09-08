@@ -96,7 +96,7 @@ def test_v2_blackbox_receipt_is_low_bandwidth():
 
 
 def test_blackbox_pairing_gate_uses_both_filters_without_releasing_detail():
-    events = pd.DataFrame({
+    selected = pd.DataFrame({
         "day": ["2026-03-02"] * 30,
         "severity": [1.0] * 30,
         "abs_drift": [3.0] * 30,
@@ -106,6 +106,17 @@ def test_blackbox_pairing_gate_uses_both_filters_without_releasing_detail():
         "failure_gross": [-0.005] * 30,
         "net_return": [0.01] * 30,
     })
+    unselected = pd.DataFrame({
+        "day": ["2026-03-03"] * 10,
+        "severity": [1.0] * 10,
+        "abs_drift": [0.0] * 10,
+        "overlap": [3.0] * 10,
+        "parent_eff": [0.0] * 10,
+        "recovery_gross": [0.02] * 10,
+        "failure_gross": [-0.005] * 10,
+        "net_return": [-0.02] * 10,
+    })
+    events = pd.concat([selected, unselected], ignore_index=True)
     frozen_pair = {
         "parent_feature_scaler": {"mean": [0.0, 0.0, 0.0], "scale": [1.0, 1.0, 1.0]},
         "severity_baseline_model": {
