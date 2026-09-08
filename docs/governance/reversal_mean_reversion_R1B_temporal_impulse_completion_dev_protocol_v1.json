@@ -1,0 +1,85 @@
+{
+  "schema_id": "factorlab_rmr_R1B_temporal_impulse_completion_DEV_protocol@1.0",
+  "session_date": "2026-09-08",
+  "research_identity": "rmr_R1B_temporal_impulse_completion_v1",
+  "candidate_id": "R1B_S2_PARENT_IMPULSE_CONFIRM_EXIT",
+  "source_identity": {
+    "symbol": "000852.SH",
+    "historical_source_sha256": "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce",
+    "max_read_day": "2020-12-31",
+    "DEV_window": {"start": "2015-01-05", "end": "2020-12-31"}
+  },
+  "certified_R1_dependency": {
+    "research_identity": "rmr_cross_scale_pullback_parent_integrity_v2",
+    "parameter_bundle_sha256": "41072c78a6e657aec01d7da95d9c00bff23ff01829ada6afe256d7c254107fcb",
+    "pairing": "PAIR_B",
+    "lower_scale": "S2",
+    "parent_scale": "S3",
+    "S2_threshold": 0.006891654009228464,
+    "S3_threshold": 0.013783308018456928,
+    "DEV_median_rvol20": 0.013783308018456928
+  },
+  "execution": {
+    "entry": "next_observed_1m_close_after_certified_R1B_confirmation",
+    "entry_validity": "original_recovery_failure_interval_must_contain_entry",
+    "direction": "frozen_R1B_parent_direction",
+    "candidate_success_exit": "first_subsequent_parent_aligned_S2_wave_confirmation_close",
+    "candidate_failure_exit": "first_crossing_close_of_original_R1B_S3_structural_failure_boundary_before_success",
+    "candidate_censor_exit": "inherited_1200_observed_bar_horizon_or_available_DEV_boundary",
+    "wave_extreme_exit_forbidden": true,
+    "structural_resolution_horizon_bars": 1200,
+    "round_trip_cost_bps": 10.0,
+    "probability_threshold": null,
+    "position_sizing": "unit_event_return_only_no_portfolio_authority"
+  },
+  "baseline": {
+    "id": "R1B_ORIGINAL_STRUCTURAL_FIRST_PASSAGE",
+    "entry": "same_candidate_next_bar_entry",
+    "target": "original_lower_wave_start_price",
+    "failure": "original_R1B_S3_structural_failure_boundary",
+    "horizon_bars": 1200,
+    "round_trip_cost_bps": 10.0
+  },
+  "DEV_report": [
+    "events",
+    "tradeable",
+    "entry_invalid",
+    "candidate_mean_gross",
+    "candidate_mean_net",
+    "candidate_median_net",
+    "candidate_win_rate",
+    "candidate_exit_classes",
+    "candidate_mean_holding_bars",
+    "candidate_median_holding_bars",
+    "candidate_p90_holding_bars",
+    "baseline_mean_gross",
+    "baseline_mean_net",
+    "baseline_median_net",
+    "annual_2015_2020_candidate_mean_net",
+    "annual_2015_2020_baseline_mean_net",
+    "annual_2015_2020_candidate_minus_baseline_mean_net"
+  ],
+  "DEV_gate": {
+    "pooled_candidate_mean_net_gt_zero": true,
+    "pooled_candidate_mean_net_gt_pooled_baseline_mean_net": true,
+    "pooled_candidate_median_net_gt_zero": true,
+    "positive_candidate_mean_net_years_min": 4,
+    "calendar_years": [2015, 2016, 2017, 2018, 2019, 2020]
+  },
+  "forbidden": [
+    "VALIDATION_read_before_DEV_decision_recorded",
+    "BLACKBOX_access",
+    "BLACKBOX_query_4",
+    "probability_filter_or_sizing",
+    "entry_delay_search",
+    "stop_target_search",
+    "cost_search",
+    "scale_search",
+    "horizon_search",
+    "year_regime_time_of_day_selection",
+    "R1_refit",
+    "portfolio_optimization",
+    "production_authority"
+  ],
+  "production_authority": false
+}
