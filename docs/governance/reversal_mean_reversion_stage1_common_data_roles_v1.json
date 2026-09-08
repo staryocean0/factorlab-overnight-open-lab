@@ -1,0 +1,55 @@
+{
+  "schema_id": "factorlab_reversal_mean_reversion_stage1_common_data_roles@1.0",
+  "session_date": "2026-09-08",
+  "program_identity": "broad_reversal_mean_reversion_discovery_program_v1",
+  "stage": "results_blind_role_assignment_before_R1_R2_R3_empirical_probe",
+  "source": {
+    "path": "data/high_open_dev_2015_2025/1m_official.parquet",
+    "instrument": "000852.SH",
+    "frequency": "1m",
+    "min_day": "2015-01-05",
+    "max_day": "2025-12-31",
+    "rows": 641441,
+    "sha256": "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce",
+    "legacy_source_role": "already_consumed_specialist_development_material",
+    "fresh_for_broad_program": false
+  },
+  "broad_program_roles": {
+    "STAGE1_DEV": {
+      "start": "2015-01-05",
+      "end": "2019-12-31",
+      "role": "development_material",
+      "may_define_measurements_or_fit_low_capacity_models": true
+    },
+    "STAGE1_STABILITY": {
+      "start": "2020-01-01",
+      "end": "2022-12-31",
+      "role": "chronological_stability_check_not_fresh",
+      "may_change_lane_definition_after_open": false,
+      "scientifically_fresh": false
+    },
+    "STAGE1_RESERVE": {
+      "start": "2023-01-01",
+      "end": "2025-12-31",
+      "role": "internal_program_reserve_not_fresh",
+      "open_now": false,
+      "scientifically_fresh": false,
+      "may_rescue_a_failed_stage1_lane": false
+    }
+  },
+  "common_use_rule": "R1_R2_R3_use_the_same_source_and_same_date_roles_for_comparable_first_pass_screening",
+  "outcome_access_before_this_freeze": {
+    "R1_stage1_outcomes": false,
+    "R2_stage1_outcomes": false,
+    "R3_stage1_outcomes": false
+  },
+  "stage1_claim_limit": "direction_screening_and_chronological_stability_only_not_fresh_confirmation",
+  "forbidden": [
+    "call_any_2015_2025_result_fresh",
+    "open_2023_2025_before_the_three_primary_lane_first_pass_definitions_and_2020_2022_stability_results_are_frozen",
+    "use_2023_2025_to_rescue_a_failed_lane",
+    "change_date_roles_after_R1_R2_R3_outcomes_are_seen",
+    "use_legacy_2026_or_post_2026_08_21_sealed_data"
+  ],
+  "production_authority": false
+}
