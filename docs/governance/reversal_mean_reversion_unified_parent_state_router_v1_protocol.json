@@ -1,0 +1,114 @@
+{
+  "schema_id": "factorlab_rmr_unified_parent_normal_state_router_v1@1.0",
+  "session_date": "2026-09-08",
+  "research_identity": "rmr_unified_parent_normal_state_router_v1",
+  "program_review": "docs/research/rmr_unified_parent_state_router_program_review_20260908.md",
+  "data_policy": "docs/governance/reusable_three_role_data_policy_v1.json",
+  "stage": "results_blind_router_protocol_before_empirical_execution",
+  "source": {
+    "historical": "data/high_open_dev_2015_2025/1m_official.parquet",
+    "historical_sha256": "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce",
+    "blackbox": "archive/data/gap_fill_repeat_2026/csi1000_1m_20260105_to_20260821.parquet",
+    "blackbox_sha256": "307e48021ef4576c2b364a1309a8b0474d6ab783afee16be41edb975abaa6dcd"
+  },
+  "frozen_scales": {
+    "DEV_median_rvol20": 0.013783308018456928,
+    "S1": 0.003445827004614232,
+    "S2": 0.006891654009228464,
+    "S3": 0.013783308018456928,
+    "scale_search_allowed": false
+  },
+  "cells": {
+    "R1_A": {"lane": "R1", "lower": "S1", "parent": "S2", "positive": "recovery", "negative": "failure", "local_baseline_features": ["severity"]},
+    "R1_B": {"lane": "R1", "lower": "S2", "parent": "S3", "positive": "recovery", "negative": "failure", "local_baseline_features": ["severity"]},
+    "R2_A": {"lane": "R2", "lower": "S1", "parent": "S2", "positive": "reentry", "negative": "continuation", "local_baseline_features": ["outside_ratio", "break_speed", "local_vol_ratio"]},
+    "R2_B": {"lane": "R2", "lower": "S2", "parent": "S3", "positive": "reentry", "negative": "continuation", "local_baseline_features": ["outside_ratio", "break_speed", "local_vol_ratio"]}
+  },
+  "parent_state": {
+    "features": ["abs_drift", "overlap", "parent_eff"],
+    "scaler_fit": "combined_all_eligible_DEV_events_outcome_not_used",
+    "trend_axis": "(z(abs_drift)-z(overlap)+z(parent_eff))/3",
+    "state_consistency": {"R1": "+trend_axis", "R2": "-trend_axis"},
+    "weight_search_allowed": false,
+    "threshold_search_allowed": false
+  },
+  "local_baseline_model": {
+    "pipeline": "StandardScaler_plus_LogisticRegression",
+    "C": 1.0,
+    "penalty": "l2",
+    "solver": "lbfgs",
+    "max_iter": 1000,
+    "fit": "one_DEV_only_model_per_cell",
+    "base_logit": "logit(clip(p_base,1e-6,1-1e-6))"
+  },
+  "pooled_models": {
+    "baseline_features": ["base_logit", "lane_R2", "pair_B"],
+    "candidate_features": ["base_logit", "lane_R2", "pair_B", "state_consistency"],
+    "pipeline": "StandardScaler_plus_LogisticRegression",
+    "C": 1.0,
+    "penalty": "l2",
+    "solver": "lbfgs",
+    "max_iter": 1000,
+    "interactions_allowed": false,
+    "hyperparameter_search_allowed": false
+  },
+  "DEV": {"start": "2015-01-05", "end": "2020-12-31", "detail_access": "full"},
+  "VALIDATION": {
+    "start": "2021-01-01",
+    "end": "2025-12-31",
+    "detail_access": "full",
+    "minimum_resolved": {"R1_A": 800, "R1_B": 300, "R2_A": 250, "R2_B": 80},
+    "gates": {
+      "pooled_candidate_Brier_strictly_lower": true,
+      "pooled_candidate_logloss_strictly_lower": true,
+      "R1_lane_Brier_and_logloss_strictly_lower": true,
+      "R2_lane_Brier_and_logloss_strictly_lower": true,
+      "each_of_four_cells_candidate_Brier_strictly_lower": true,
+      "pooled_annual_Brier_improvement_positive_min_years_of_5": 4,
+      "DEV_state_consistency_coefficient_strictly_positive": true
+    },
+    "all_gates_required": true
+  },
+  "final_refit": {
+    "allowed_only_after_VALIDATION_PASS": true,
+    "window": "2015-01-05_to_2025-12-31",
+    "recipe_change_allowed": false,
+    "output": "frozen_common_parent_scaler_cell_baselines_and_pooled_models"
+  },
+  "BLACKBOX": {
+    "start": "2026-01-05",
+    "end": "2026-08-21",
+    "query_number_if_reached": 4,
+    "minimum_resolved": {"R1_A": 80, "R1_B": 30, "R2_A": 30, "R2_B": 10},
+    "gates": {
+      "pooled_Brier_and_logloss_strictly_lower": true,
+      "R1_lane_Brier_and_logloss_strictly_lower": true,
+      "R2_lane_Brier_and_logloss_strictly_lower": true,
+      "each_of_four_cells_candidate_Brier_strictly_lower": true
+    },
+    "public_output_only": ["PASS", "FAIL", "INSUFFICIENT"],
+    "detail_release": false
+  },
+  "blackbox_decision_rule": {
+    "if_any_cell_below_minimum": "INSUFFICIENT",
+    "else_if_all_pooled_lane_and_cell_gates_pass": "PASS",
+    "else": "FAIL"
+  },
+  "forbidden": [
+    "new_parent_features",
+    "new_indicator_family",
+    "state_axis_weight_search",
+    "state_consistency_threshold_search",
+    "lane_interactions",
+    "scale_search",
+    "model_family_search",
+    "hyperparameter_search",
+    "probability_calibration_search",
+    "PnL_entry_exit_cost_or_portfolio_optimization",
+    "change_R1_or_R2_event_geometry",
+    "blackbox_detail_inspection",
+    "automatic_router_v2_rescue",
+    "production_use"
+  ],
+  "production_authority": false
+}
