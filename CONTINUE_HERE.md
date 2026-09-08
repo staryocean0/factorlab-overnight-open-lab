@@ -2,41 +2,110 @@
 
 **This file is the first authority for deciding what this repository should do next.**
 
-The repository slug `factorlab-overnight-open-lab` is historical. As of 2026-09-08, the active program is no longer a single overnight-open or gap-fill strategy project. It is a **broad reversal / mean-reversion discovery program** whose job is to identify, compare, and graduate promising mechanism families.
+The repository slug `factorlab-overnight-open-lab` is historical. As of 2026-09-08, the active program is a **broad reversal / mean-reversion discovery program** whose job is to identify, compare, and graduate promising mechanism families rather than optimize one specialist strategy indefinitely.
 
 ## Mission
 
-The central question is not “is price far from a moving average?” It is:
+The central question is:
 
 > **Given the current scale and market state, has price temporarily deviated from an intact normal state, or has the normal state itself changed?**
 
 A “mean” may be a line, band, trajectory, distribution, cross-asset relationship, wave structure, or state-conditioned statistical expectation.
 
-## Active research lanes
+The most important discrimination problem is:
 
-Research several lanes shallowly before taking any one lane deep.
+> **temporary lower-scale deviation within an intact parent state vs. true change of the parent state.**
 
-1. **R1 — Cross-scale pullback inside an intact parent trend**
-   - Example: a larger-scale uptrend is intact while a lower-scale sharp decline appears.
-   - Main question: can we identify in advance when the decline is only a lower-scale fluctuation rather than the start of a same-scale reversal?
+## Common coordinate system
 
-2. **R2 — Range-boundary / failed-breakout reversion**
-   - Parent state is oscillatory/range-like rather than trending.
-   - Main question: when is an excursion outside the normal range a temporary overshoot versus a genuine state transition/breakout?
+Every reversal hypothesis must declare before outcome inspection:
 
-3. **R3 — Regime-conditioned residual reversion**
-   - Estimate the normal path/distribution conditional on the current regime, then study the residual from that normal state.
-   - Main question: which residual extremes revert without assuming one stationary mean across all market regimes?
+1. **Scale:** lower / current / parent.
+2. **Parent state:** trend / range / transition / unknown.
+3. **Deviation object:** price / path / wave / distribution / relative relationship / statistical property.
+4. **Recovery criterion:** what counts as reversion, what counts as state change, and the causal observation horizon.
 
-### Secondary lanes
+Do not reduce mean reversion to moving-average distance or “price moved a lot.”
 
-4. **R4 — Relative-value / cross-asset dislocation**
-   - Includes the existing overnight-gap / cross-index gap-fill work.
-   - It remains valid historical evidence and a useful case study, but another specialized line already covers it. **Do not make it the main program unless the user explicitly reassigns it here.**
+## First equal-budget screen — completed 2026-09-08
 
-5. **R5 — Statistical-state extremes**
-   - Path efficiency, volatility, frequency-band amplitude, clustering, asymmetry, wave duration, and similar market properties may themselves have state-dependent “means.”
-   - Keep as an exploratory source of future lanes, not the first deep target.
+The first three primary lanes received comparable shallow, results-blind designs and were tested on the same CSI1000 one-minute source.
+
+Evidence roles were frozen before execution:
+
+- DEV: `2015-01-05 .. 2019-12-31`;
+- chronological stability: `2020-01-01 .. 2022-12-31`, explicitly not fresh;
+- internal reserve: `2023-01-01 .. 2025-12-31`, **still unopened**.
+
+No result from this first screen is fresh confirmation or production evidence.
+
+### R1 — Cross-scale pullback inside an intact parent trend
+
+Status: **`stage1_supported_progression_worthy`**.
+
+Question: after a lower-scale counter-move against an already-completed parent structure, does parent context add information beyond the size of the counter-move itself?
+
+Result:
+
+- at the finer predeclared scale pairing, adding parent-state measurements to move severity improved held-forward Brier in **2020, 2021 and 2022**;
+- at the coarser pairing, pooled Brier/log-loss improved and annual Brier improved in **2 of 3** years;
+- sample supply was substantial at both scales.
+
+Bounded interpretation:
+
+> The size of the sudden counter-move is not the whole story. Causally available parent structure adds information about whether the move recovers before the parent structure fails.
+
+This is the strongest first-pass direction and should **graduate to a dedicated deeper identity / specialist handoff**. Do not turn this broad repo into an R1-only optimizer.
+
+### R2 — Range-boundary / failed-breakout reversion
+
+Status: **`stage1_mixed_hold_not_promoted`**.
+
+Result:
+
+- the fine scale was unstable;
+- the coarser combined model showed a small improvement in all three stability years;
+- but parent “range-state” measurements alone did not beat excursion-size baseline, so the gain cannot cleanly be attributed to the parent range mechanism.
+
+Action: **hold**. Do not add filters, alternative range algorithms or thresholds to rescue this identity.
+
+### R3 — Regime-conditioned residual reversion
+
+Status: **`stage1_v1_not_supported_closed`**.
+
+Result:
+
+- the predeclared next-session residual screen did not show mean reversion at either parent scale;
+- state conditioning changed very little versus unconditional deviation;
+- the observed relation was slightly continuation-like rather than reverting.
+
+Action: **close Stage1 v1**. Do not escalate to HMM, Koopman or deep latent-dynamics models as a rescue under this identity.
+
+## Next broad lane
+
+### R5 — Statistical-state extremes
+
+Status: **next shallow exploratory candidate**.
+
+Potential objects include:
+
+- path efficiency;
+- volatility and volatility clustering;
+- frequency-band amplitude;
+- asymmetry;
+- wave duration and event density.
+
+R5 should receive the same treatment as the first lanes: a very small predeclared candidate budget, a simple severity/state baseline, chronological stability, and honest closure if it does not add information.
+
+## R4 / legacy overnight-open work
+
+All prior V1, Gap-Fill V2, V2.1, cross-index and source-admission artifacts remain valid evidence for their own identities and retain all original sealed/fresh/consumed boundaries.
+
+They are classified repository-wide as:
+
+`legacy_specialist_case_study / delegated_subprogram`
+
+The latest parallel V2.1 DEV receipt reports no eligible P2 candidate and leaves Audit A/B sealed. That is valid R4 evidence, but **R4 does not control this repository’s broad next action**.
 
 ## Research style
 
@@ -44,35 +113,12 @@ The program is a **direction finder**, not a single-strategy optimizer.
 
 Default behavior:
 
-- keep 2–3 active mechanisms alive in parallel;
-- spend a small, comparable research budget on each;
-- first establish phenomenon → causal/pre-event observability → stability;
-- do not immediately optimize thresholds, model classes, trading PnL, or execution;
-- promote only the strongest lanes to dedicated deep research identities/repositories;
-- a failed lane is a useful closure, not something to rescue with post-hoc conditions.
-
-## Common coordinate system
-
-Every reversal hypothesis must state four things:
-
-1. **Scale:** lower/current/parent scale.
-2. **Parent state:** trend, range, transition, or unknown.
-3. **Deviation object:** what is abnormal—price, path, wave, distribution, relative relationship, or statistical property?
-4. **Recovery criterion:** what observable event counts as reversion, and over what causal horizon?
-
-The most important discrimination problem is always:
-
-> **temporary lower-scale deviation within an intact parent state vs. true change of the parent state.**
-
-## Legacy overnight-open work
-
-All prior V1, Gap-Fill V2, V2.1, cross-index, and source-admission artifacts remain immutable evidence for their own identities. They are **not deleted, rewritten, or called invalid**.
-
-They are now classified as:
-
-`legacy_specialist_case_study / delegated_subprogram`
-
-Their sealed data boundaries and evidence labels remain binding if that specialist identity is resumed. However, an outstanding receipt, data blocker, or next action inside that legacy subprogram **does not block the broad program**.
+- give multiple mechanisms comparable shallow budgets;
+- establish phenomenon → causal observability → stability first;
+- do not optimize PnL, thresholds or model class in Stage 1;
+- promote strong lanes to dedicated identities/repositories;
+- hold ambiguous lanes without rescue tuning;
+- close failed lanes rather than increase complexity until they work.
 
 ## Authority order
 
@@ -84,21 +130,22 @@ For repository-wide direction and next action, read in this order:
 4. `docs/research/reversal_mean_reversion_program_whitepaper_v1.md`
 5. `AGENTS.md`
 6. lane-specific protocols created after the authority reset
-7. legacy overnight/gap-fill documents, which have authority only inside their historical identities
+7. legacy overnight/gap-fill documents, authoritative only inside their historical identities
 
-If an older file says this repository has one bounded overnight-open task, that statement is **superseded for repository-wide scope** by this authority reset. Historical results remain unchanged.
+Key first-screen evidence:
 
-## Current stage and next action
+- `docs/governance/reversal_mean_reversion_common_measurement_contract_v1.json`
+- `docs/governance/reversal_mean_reversion_stage1_screening_plan_v1.json`
+- `docs/governance/reversal_mean_reversion_stage1_common_data_roles_v1.json`
+- `docs/governance/reversal_mean_reversion_stage1_scale_contract_v1.json`
+- `docs/research/cloud_session_20260908_rmr_stage1_common_probe_receipt_v1.json`
+- `docs/research/reversal_mean_reversion_stage1_lane_comparison_adjudication_20260908.md`
 
-Current stage: **Stage 0/1 — broad mechanism definition and shallow parallel screening.**
+## Current next actions
 
-Next action:
-
-1. freeze a common measurement vocabulary for scale / parent regime / deviation / reversion;
-2. create shallow, bounded preanalysis for R1, R2, and R3;
-3. identify the smallest data requirement and simplest falsifiable test for each;
-4. compare evidence across lanes before selecting any deep research target.
-
-Do **not** return to prolonged Gap-Fill V2.1 execution merely because its historical state files contain an unfinished next action.
+1. write/freeze an **R1 promotion handoff** that carries the current non-fresh evidence and leaves 2023–2025 untouched;
+2. do **not** tune R2 or rescue R3 v1;
+3. write a bounded **R5 statistical-state-extremes Stage-1 preanalysis**;
+4. continue broad direction discovery before any prolonged single-lane optimization.
 
 Production authority remains `false`.

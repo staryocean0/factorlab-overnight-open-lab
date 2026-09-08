@@ -1,0 +1,130 @@
+{
+  "schema_id": "factorlab_rmr_stage1_common_probe_cloud_receipt@1.0",
+  "session_date": "2026-09-08",
+  "program_identity": "broad_reversal_mean_reversion_discovery_program_v1",
+  "execution": {
+    "location": "GitHub Actions",
+    "reason": "current cloud runtime direct git/data fetch failed DNS resolution and no directly invokable local-model execution channel was available; Actions was used as the final available execution location because the frozen public repo already contains the source parquet",
+    "run_id": 34182643377,
+    "job_id": 101924658265,
+    "head_sha": "78d052a360ee5a87163362d7340445494a00335f",
+    "conclusion": "success",
+    "synthetic_and_boundary_tests": "passed",
+    "empirical_step": "passed",
+    "reserve_boundary_step": "passed",
+    "artifact_id": 10039432727,
+    "artifact_name": "rmr-stage1-common-probe-receipt",
+    "artifact_digest": "sha256:982e047abe8e6e846c203a8777a8bf9d4163eca69b5fb1196a92643e8ab27386"
+  },
+  "source": {
+    "path": "data/high_open_dev_2015_2025/1m_official.parquet",
+    "sha256": "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce",
+    "rows_loaded_through_2022": 466961,
+    "min_day_loaded": "2015-01-05",
+    "max_day_loaded": "2022-12-30",
+    "scientifically_fresh": false,
+    "STAGE1_RESERVE_2023_2025_opened": false
+  },
+  "roles": {
+    "STAGE1_DEV": "2015-01-05_to_2019-12-31",
+    "STAGE1_STABILITY": "2020-01-01_to_2022-12-31_not_fresh",
+    "STAGE1_RESERVE": "2023-01-01_to_2025-12-31_unopened_not_fresh"
+  },
+  "scale_measurement": {
+    "DEV_median_lagged_rvol20": 0.013783308018456928,
+    "S1": 0.003445827004614232,
+    "S2": 0.006891654009228464,
+    "S3": 0.013783308018456928,
+    "wave_counts_through_2022": {"S1": 11389, "S2": 4358, "S3": 1512}
+  },
+  "R1_cross_scale_pullback": {
+    "S1_inside_S2": {
+      "n_DEV": 1457,
+      "n_STABILITY": 763,
+      "STABILITY_recovery_first_rate": 0.7142857142857143,
+      "severity_only_brier": 0.180901932523148,
+      "parent_plus_severity_brier": 0.17228599510813097,
+      "brier_improvement": 0.008615937415017039,
+      "severity_only_logloss": 0.5394142128910144,
+      "parent_plus_severity_logloss": 0.5207026436008297,
+      "annual_brier_improvement_control_minus_parent_plus_severity": {
+        "2020": 0.008815309591885423,
+        "2021": 0.006061522200849129,
+        "2022": 0.00996130998800615
+      },
+      "annual_positive_count": 3
+    },
+    "S2_inside_S3": {
+      "n_DEV": 589,
+      "n_STABILITY": 291,
+      "STABILITY_recovery_first_rate": 0.738831615120275,
+      "severity_only_brier": 0.16284766054314972,
+      "parent_plus_severity_brier": 0.15601153513138838,
+      "brier_improvement": 0.006836125411761346,
+      "severity_only_logloss": 0.4968338325100549,
+      "parent_plus_severity_logloss": 0.4828112288489507,
+      "annual_brier_improvement_control_minus_parent_plus_severity": {
+        "2020": 0.004676997883891948,
+        "2021": -0.002689056584301075,
+        "2022": 0.014234605152646629
+      },
+      "annual_positive_count": 2
+    },
+    "bounded_interpretation": "adding causal parent-state measurements to counter-move severity improves held-forward probability quality at both predeclared scale pairings; this supports progression of R1 but is not fresh confirmation or a trading-strategy result"
+  },
+  "R2_range_boundary_reversion": {
+    "S1_outside_S2": {
+      "n_DEV": 2002,
+      "n_STABILITY": 1198,
+      "STABILITY_reentry_first_rate": 0.2345575959933222,
+      "excursion_size_only_brier": 0.1779632128571416,
+      "parent_plus_excursion_state_brier": 0.1775947160068185,
+      "brier_improvement": 0.00036849685032308566,
+      "annual_brier_improvement_control_minus_combined": {
+        "2020": -0.0032527988820601483,
+        "2021": -0.003678783216300552,
+        "2022": 0.006197560845317224
+      },
+      "annual_positive_count": 1
+    },
+    "S2_outside_S3": {
+      "n_DEV": 975,
+      "n_STABILITY": 583,
+      "STABILITY_reentry_first_rate": 0.19210977701543738,
+      "excursion_size_only_brier": 0.15099261764183622,
+      "parent_plus_excursion_state_brier": 0.1477432975444465,
+      "brier_improvement": 0.0032493200973897074,
+      "annual_brier_improvement_control_minus_combined": {
+        "2020": 0.0029622034295859745,
+        "2021": 0.0011940261384381368,
+        "2022": 0.004893410827439326
+      },
+      "annual_positive_count": 3
+    },
+    "parent_range_state_only_vs_excursion_baseline": {
+      "S1_outside_S2_brier_difference_baseline_minus_parent_only": -0.004547983196896838,
+      "S2_outside_S3_brier_difference_baseline_minus_parent_only": -0.0046761976364223246
+    },
+    "bounded_interpretation": "coarser-scale combined state shows a small stable improvement, but parent-range state alone does not beat excursion size and the fine-scale result is unstable; core R2 mechanism is not clean enough for promotion in this identity"
+  },
+  "R3_regime_conditioned_residual": {
+    "S2": {
+      "n_DEV": 1198,
+      "n_STABILITY": 727,
+      "pooled_corr_reversion_unconditional": -0.07145785835189067,
+      "pooled_corr_reversion_conditional": -0.07172851007783167,
+      "mse_unconditional_linear": 0.0002315608557782096,
+      "mse_conditional_linear": 0.00023157102422855606
+    },
+    "S3": {
+      "n_DEV": 1198,
+      "n_STABILITY": 727,
+      "pooled_corr_reversion_unconditional": -0.07145785835189067,
+      "pooled_corr_reversion_conditional": -0.07246358565889446,
+      "mse_unconditional_linear": 0.0002315608557782096,
+      "mse_conditional_linear": 0.00023147969021746533
+    },
+    "bounded_interpretation": "the predeclared next-session residual screen does not show reversion at either parent scale and conditioning does not materially improve over the unconditional deviation; this Stage1 identity is not supported and does not authorize Koopman_HMM_or_deep_regime escalation"
+  },
+  "production_authority": false
+}
