@@ -72,7 +72,16 @@ def test_blackbox_pairing_internal_gate_works_without_releasing_detail():
 
 def test_query_ledger_is_low_bandwidth_and_append_only():
     ledger = json.loads((ROOT / "docs/governance/reusable_blackbox_query_ledger_v1.json").read_text())
-    assert ledger["query_count"] == 0
-    assert ledger["queries"] == []
+    assert ledger["query_count"] == len(ledger["queries"])
+    assert ledger["query_count"] >= 1
     assert ledger["rules"]["append_only"] is True
     assert ledger["rules"]["no_exact_blackbox_metric_storage"] is True
+    assert ledger["rules"]["no_subperiod_or_error_detail_storage"] is True
+    for q in ledger["queries"]:
+        assert q["decision"] in {"PASS", "FAIL", "INSUFFICIENT"}
+        assert q["details_released"] is False
+        assert q["independent_new_OOS_sample"] is False
+        assert "candidate_fingerprint" in q
+        assert "protocol_fingerprint" in q
+        forbidden = {"brier", "logloss", "mean_return", "count", "year", "month", "event_rows"}
+        assert not forbidden.intersection(q.keys())
