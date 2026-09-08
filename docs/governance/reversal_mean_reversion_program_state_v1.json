@@ -1,48 +1,56 @@
 {
-  "schema_id": "factorlab_reversal_mean_reversion_program_state@2.2",
+  "schema_id": "factorlab_reversal_mean_reversion_program_state@3.0",
   "session_date": "2026-09-08",
   "canonical_repository": "staryocean0/factorlab-overnight-open-lab",
-  "retired_merged_repository": "staryocean0/factorlab-overnight-gap-fill-repeat-2026",
-  "current_status": "R1_holdout_confirmed_true_fresh_2026Q4_preregistered_source_admission_and_evaluator_frozen_waiting_complete_2026_extension",
-  "repository_wide_current_mainline": "R1_parent_integrity_priority_A_scientific_confirmation_path",
+  "current_status": "three_role_reusable_data_governance_active_R1_reusable_blackbox_PASS_economic_translation_next",
+  "repository_wide_current_mainline": "R1_parent_integrity_economic_translation_after_reusable_blackbox_certification",
   "authority_order": [
     "CONTINUE_HERE.md",
+    "docs/governance/reusable_three_role_data_policy_v1.json",
     "docs/governance/reversal_mean_reversion_program_state_v1.json",
     "docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_state_v1.json",
-    "docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_protocol_v1.json",
+    "docs/governance/reversal_mean_reversion_R1_reusable_blackbox_protocol_v1.json",
     "docs/INDEX.md"
   ],
+  "data_roles": {
+    "policy": "docs/governance/reusable_three_role_data_policy_v1.json",
+    "DEV": "2015-01-05_to_2020-12-31_reusable_detailed",
+    "VALIDATION": "2021-01-01_to_2025-12-31_reusable_detailed",
+    "BLACKBOX": "2026-01-05_to_2026-08-21_reusable_three_state_only",
+    "blackbox_query_ledger": "docs/governance/reusable_blackbox_query_ledger_v1.json",
+    "blackbox_query_count": 1,
+    "data_is_consumed_by_one_validation": false
+  },
   "active_specialist": {
     "research_identity": "rmr_cross_scale_pullback_parent_integrity_v2",
-    "state": "docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_state_v1.json",
     "selected_candidate_id": "R1_PARENT_COMPOSITE_1D",
-    "parameter_bundle_sha256": "e618a5a06a803f4464267e69e39f98fa316fd572f40efcb3f9e40fc25df2779c",
-    "mechanism_holdout_decision": "R1_PARENT_INTEGRITY_V2_holdout_confirmed_not_fresh",
-    "true_fresh_protocol": "docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_protocol_v1.json",
-    "true_fresh_window": "2026-10-01_to_2026-12-31",
-    "causal_context_extension_required": "2026-01-05_to_2026-12-31",
-    "true_fresh_opened": false,
-    "earliest_true_fresh_execution_date_China": "2027-01-01",
-    "source_admission_protocol": "docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_source_admission_protocol_v1.json",
-    "source_admission_runner": "scripts/admit_rmr_R1_true_fresh_2026Q4_source.py",
-    "source_admission_execution_freeze": "docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_source_admission_execution_freeze_v1.json",
-    "source_admission_status": "frozen_not_executed",
-    "evaluation_protocol": "docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_evaluation_protocol_v1.json",
-    "evaluator": "scripts/evaluate_rmr_R1_true_fresh_2026Q4.py",
-    "evaluation_execution_freeze": "docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_evaluation_execution_freeze_v1.json",
-    "evaluator_blob_sha": "f041beaab2b72f82114b05bac24db9d37266de44",
-    "execution_authorization_template": "docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_execution_authorization_template_v1.json",
-    "Q4_outcome_execution_authorized": false
+    "reusable_protocol": "docs/governance/reversal_mean_reversion_R1_reusable_blackbox_protocol_v1.json",
+    "validation_adjudication": "docs/research/rmr_R1_reusable_validation_adjudication_20260908.md",
+    "final_parameter_freeze": "docs/governance/rmr_R1_reusable_blackbox_parameter_freeze_v1.json",
+    "final_parameter_bundle_sha256": "41072c78a6e657aec01d7da95d9c00bff23ff01829ada6afe256d7c254107fcb",
+    "validation_status": "PASS_both_pairings_5_of_5_years_positive_Brier_improvement",
+    "blackbox_query_id": "a9ba75c39e675ae6be17",
+    "blackbox_decision": "PASS",
+    "blackbox_details_released": false,
+    "blackbox_remains_reusable": true,
+    "blackbox_result_is_independent_new_OOS_for_future_queries": false
+  },
+  "next_stage": {
+    "research_identity": "rmr_R1_parent_integrity_economic_translation_v1",
+    "status": "authorized_to_define_and_develop_on_DEV_VALIDATION",
+    "allowed_data": ["DEV", "VALIDATION"],
+    "blackbox_direct_access": false,
+    "economic_translation_and_PnL_research_on_DEV_VALIDATION_authorized": true,
+    "next_blackbox_query_requires_frozen_strategy_candidate_and_gates": true,
+    "production_authority": false
   },
   "secondary_specialist": {
     "research_identity": "rmr_event_density_state_reversal_v2",
-    "status": "priority_B_queued_behind_R1",
-    "handoff": "docs/ops/rmr_R5C_event_density_promotion_handoff_20260908.md"
+    "status": "priority_B_queued_behind_R1"
   },
   "broad_discovery": {
     "round1_closed": true,
-    "automatic_new_lane_generation_paused": true,
-    "closeout": "docs/research/reversal_mean_reversion_stage1_discovery_round_closeout_20260908.md"
+    "automatic_new_lane_generation_paused": true
   },
   "closed_or_held_identities": {
     "R2_range_boundary_reversion": "hold_not_promoted",
@@ -53,22 +61,17 @@
     "R6_multiscale_amplitude_state_v1": "closed",
     "R7_directional_path_energy_asymmetry_v1": "closed"
   },
-  "repository_consolidation": {
-    "pre_cleanup_full_tree_commit": "21ddcceb79929f5cd318ac5b8aa4579539f70dd7",
-    "retired_repeat_repo_original_commit": "e160390c8f9b700227b0c0203926c04bdce9f602",
-    "duplicate_repeat_parquet_copy_removed": true,
-    "historical_evidence_preserved_in_git_history": true,
-    "old_embedded_next_actions_have_current_authority": false
+  "optional_future_fresh_challenge": {
+    "identity": "R1_complete_2026Q4_true_fresh_challenge",
+    "status": "preregistered_optional_not_current_blocker",
+    "partial_Q4_inspection_still_forbidden_under_that_protocol": true
   },
   "next_actions_in_order": [
-    "preserve_R1_parameter_bundle_and_frozen_evaluator_without_mutation",
-    "do_not_inspect_partial_2026Q4_outcomes",
-    "wait_until_complete_2026_context_extension_and_authoritative_calendar_exist",
-    "not_before_2027_01_01_China_run_metadata_only_source_admission_using_frozen_runner",
-    "cloud_review_source_admission_and_create_separate_concrete_exact_source_authorization_if_and_only_if_passed",
-    "run_the_already_frozen_Q4_evaluator_once_only_after_that_authorization",
-    "only_after_true_fresh_pass_consider_a_separate_economic_translation_and_PnL_preregistration"
+    "define_small_results_blind_R1_economic_translation_family_using_DEV_VALIDATION_only",
+    "develop_and_diagnose_on_reusable_DEV_VALIDATION",
+    "freeze_strategy_candidate_fit_recipe_cost_model_and_blackbox_gates_before_any_second_blackbox_query",
+    "use_reusable_blackbox_only_for_three_state_certification",
+    "keep_blackbox_details_closed_after_every_query"
   ],
-  "PnL_optimization_authorized": false,
   "production_authority": false
 }
