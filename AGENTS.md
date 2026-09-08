@@ -47,49 +47,60 @@ A BLACKBOX FAIL/INSUFFICIENT returns research to DEV/VALIDATION without a breakd
 
 A candidate may receive one preregistered DEV+VALIDATION final refit only after detailed VALIDATION passes. BLACKBOX may never participate in fitting, candidate selection, thresholds or feature choice.
 
-## 5. Current evidence
+## 5. Certified mechanisms
 
 ### R1
 
-`rmr_cross_scale_pullback_parent_integrity_v2` is the only currently certified mechanism.
+`rmr_cross_scale_pullback_parent_integrity_v2`
 
-BLACKBOX query #1 `a9ba75c39e675ae6be17`: `PASS`.
+Trend-like intact-parent pullback recovery. BLACKBOX query #1 `a9ba75c39e675ae6be17`: `PASS`.
 
-The first R1 economic-translation round is closed after three materially different low-capacity implementations all failed detailed VALIDATION before BLACKBOX. Do not create automatic v4/v5 tweaks against the same execution family.
-
-### R5-C
-
-`rmr_event_density_state_reversal_v2` passed detailed dedicated VALIDATION but BLACKBOX query #2 `4fa9bfa2ec38f16cd65f` returned `FAIL`.
-
-No BLACKBOX detail was released. R5-C v2 is closed; do not choose a scale, density window, z threshold, interaction or rescue feature from hidden recent behavior.
-
-## 6. Current active specialist
-
-One bounded dedicated R2 successor has been approved:
+### R2
 
 `rmr_range_boundary_parent_integrity_v2`
 
-Scientific question:
+Range-like intact-parent boundary re-entry. BLACKBOX query #3 `a7e7f0208512aa7c1f31`: `PASS`.
 
-> Does parent-range integrity add re-entry probability information beyond attempted-breakout geometry, speed and local volatility?
+R1 and R2 are complementary state-restoration mechanisms, not independent generic signals.
 
-Dedicated baseline:
+### R5-C
 
-`outside_ratio + break_speed + local_vol_ratio`
+`rmr_event_density_state_reversal_v2` passed detailed VALIDATION but BLACKBOX query #2 `4fa9bfa2ec38f16cd65f` returned `FAIL`. The identity is closed and may not be rescued using hidden recent-period behavior.
 
-Only added feature:
+## 6. Economic translation boundary
 
-`range_integrity = (-z(abs_drift) + z(overlap) - z(parent_eff)) / 3`
+No tested economic implementation is certified.
 
-S1-outside-S2 and S2-outside-S3 are co-primary. Use the original broad R2 event/outcome geometry. No threshold, scale, speed-window, vol-window, interaction or PnL search.
+- R1 economic v1/v2/v3 all failed detailed VALIDATION before BLACKBOX.
+- R2 economic v1 failed detailed VALIDATION before BLACKBOX.
+- no economic BLACKBOX query has occurred; the ledger count remains three mechanism queries.
 
-Both scales must pass detailed VALIDATION before any BLACKBOX query #3. A BLACKBOX FAIL/INSUFFICIENT closes R2 v2 and does not authorize automatic R2 v3.
+Do not create automatic follow-on economic versions by changing probability thresholds, expected-return thresholds, entry delays, stops, costs, scales, time filters or portfolio weights against VALIDATION.
 
-## 7. Optional future Q4 challenge
+A future economic identity requires materially new execution or instrument theory, not tuning of the closed index-level next-minute / structural-boundary family.
+
+## 7. Current next research
+
+Automatic broad indicator generation remains paused.
+
+The next allowed task is a results-blind unified parent-state router review using only already-certified R1/R2 features and event geometries.
+
+The review may approve at most one low-capacity router identity. It must:
+
+- use no new indicator family;
+- introduce no scale or threshold search;
+- remain a non-PnL scientific test;
+- fit on DEV and require cross-lane / cross-year detailed VALIDATION stability;
+- access BLACKBOX only after full VALIDATION PASS, as query #4;
+- close on BLACKBOX FAIL/INSUFFICIENT without breakdown.
+
+The router is a synthesis layer, not a new broad R8/R9 lane and not an economic rescue.
+
+## 8. Optional future Q4 challenge
 
 The preregistered complete-2026Q4 R1 challenge remains optional and is not the current blocker. Do not inspect partial Q4 under that protocol unless later authority explicitly changes it.
 
-## 8. Repository hygiene
+## 9. Repository hygiene
 
 - Keep current authority concise and non-duplicative.
 - Keep BLACKBOX receipts low-bandwidth.
