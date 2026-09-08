@@ -40,6 +40,8 @@ R1 and R2 are complementary parent-normal-state mechanisms, not interchangeable 
 
 `rmr_unified_parent_normal_state_router_v1` closed at VALIDATION. After a pure scale-identity implementation fix, both R2 cells worsened; the tested common standardized state-consistency axis is not supported. No BLACKBOX query occurred.
 
+The historical router branch has no commits ahead of `main`; it is history only and is not an active merge target.
+
 ### Mechanism → execution diagnostic
 
 `rmr_mechanism_to_execution_diagnostic_v1` completed on DEV+VALIDATION only. It showed:
@@ -50,7 +52,7 @@ R1 and R2 are complementary parent-normal-state mechanisms, not interchangeable 
 - R2 directional markouts deteriorate with horizon;
 - R1_B alone showed a delayed positive markout term structure, motivating one separate temporal theory test.
 
-No BLACKBOX source was opened; the ledger remained at 3 queries.
+No BLACKBOX source was opened; the ledger remained at 3 queries. The completed diagnostic/router one-time implementation surface is already absent from current `main`; decisive receipts, adjudications, history anchors and Git history preserve reproducibility.
 
 ### R1_B temporal impulse completion v1 — closed on DEV
 
@@ -90,13 +92,23 @@ Closed without BLACKBOX:
 
 No automatic R1 economic v4, R2 economic v2, router v2, temporal v2, probability-filter rescue, or horizon/entry/stop/cost/scale tuning is authorized.
 
+## Payoff-object / instrument-theory review
+
+`docs/research/rmr_payoff_object_instrument_theory_review_v1.md` is complete and is now part of the authority chain.
+
+It is a results-blind boundary review, not an empirical candidate. It authorizes no DEV, VALIDATION or BLACKBOX execution.
+
+The only theory-level paths left open are:
+
+- a materially independent causal execution-timing theory;
+- instrument mapping after an instrument-specific source and cost-model contract is frozen;
+- stop economic translation if no independent payoff theory is established.
+
 ## Exact next stage
 
 There is currently **no empirical economic candidate authorized**.
 
-If economic research continues, the next task must be a separate results-blind **payoff-object or instrument-theory program review**. A new identity must be materially independent of the closed timing rule and preregistered before any new empirical output is opened.
-
-Instrument mapping remains only a theory-level possibility because the current repository does not contain instrument-specific spread, basis, carry, liquidity, convexity or option-premium evidence. Any ETF/futures/options study requires its own data-source and cost-model contract first.
+A new economic identity may be opened only after a materially independent payoff/instrument theory is separately preregistered and explicitly authorized. Any ETF/futures/options study requires an instrument-specific data-source and cost-model contract covering spread, basis, carry, liquidity, convexity/premium and execution conventions before DEV can be opened.
 
 Broad R8/R9 indicator discovery remains paused.
 
@@ -115,6 +127,7 @@ Completed reusable BLACKBOX queries remain exactly:
 1. `CONTINUE_HERE.md`
 2. `docs/governance/reusable_three_role_data_policy_v1.json`
 3. `docs/governance/reversal_mean_reversion_program_state_v1.json`
-4. `docs/INDEX.md`
+4. `docs/research/rmr_payoff_object_instrument_theory_review_v1.md`
+5. `docs/INDEX.md`
 
 Production authority remains `false`.
