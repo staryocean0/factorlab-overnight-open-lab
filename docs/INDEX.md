@@ -1,74 +1,63 @@
 # Documentation index
 
-This index describes the **current worktree only**. Historical experiments removed during consolidation remain available in Git history; see `archive/README.md`.
+This index describes the current worktree only. Historical experiments removed during consolidation remain available in Git history; see `docs/archive/README.md`.
 
 ## Current authority
 
-- `../CONTINUE_HERE.md` — exact next action and prohibitions.
-- `governance/reversal_mean_reversion_program_state_v1.json` — repository-wide current state.
-- `governance/reversal_mean_reversion_R1_parent_integrity_v2_state_v1.json` — R1 specialist state.
-- `governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_protocol_v1.json` — frozen true-fresh challenge.
+1. `../CONTINUE_HERE.md`
+2. `governance/reusable_three_role_data_policy_v1.json`
+3. `governance/reversal_mean_reversion_program_state_v1.json`
+4. `governance/reversal_mean_reversion_R1_parent_integrity_v2_state_v1.json`
+5. `governance/reversal_mean_reversion_R1_reusable_blackbox_protocol_v1.json`
 
-## Frozen R1 specialist assets
+## Data governance
 
-- `governance/cloud_session_20260908_rmr_R1_parent_integrity_v2_parameter_freeze_v1.json` — frozen 2015–2022 parameters and model/scaler bundle.
-- `governance/reversal_mean_reversion_R1_parent_integrity_v2_selection_protocol_v1.json` — bounded representation-selection contract.
-- `governance/reversal_mean_reversion_R1_parent_integrity_v2_selection_execution_freeze_v1.json` — selection execution identity.
-- `governance/reversal_mean_reversion_R1_parent_integrity_v2_holdout_protocol_v1.json` — 2023–2025 mechanism-holdout contract.
-- `governance/reversal_mean_reversion_R1_parent_integrity_v2_holdout_execution_freeze_v1.json` — holdout execution identity.
-- `governance/reversal_mean_reversion_stage1_scale_contract_v1.json` — causal directional-change scale definitions inherited by R1.
+- `governance/reusable_three_role_data_policy_v1.json` — DEV 2015–2020, VALIDATION 2021–2025, reusable BLACKBOX 2026-01-05..2026-08-21.
+- `governance/reusable_blackbox_query_ledger_v1.json` — append-only low-bandwidth blackbox query ledger.
 
-## Frozen future source gate
+BLACKBOX output is restricted to `PASS / FAIL / INSUFFICIENT`. Exact metrics, counts, subperiods and failure examples must never be copied into the current research surface.
 
-The true-fresh outcome window is Q4 2026, but causal state reconstruction requires one complete 2026 CSI1000 1m extension.
+## Current R1 reusable certification assets
 
-- `governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_source_admission_protocol_v1.json` — metadata-only admission contract for `2026-01-05 .. 2026-12-31` context, with Q4 scoring restricted to `2026-10-01 .. 2026-12-31`.
-- `governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_source_admission_execution_freeze_v1.json` — frozen source-admission runner/protocol/test identities.
-- `../scripts/admit_rmr_R1_true_fresh_2026Q4_source.py` — admission runner; reads only `symbol / trading_day / timestamp`.
-- `../tests/test_rmr_R1_true_fresh_2026Q4_source_admission.py` — named-clock/date-boundary tests.
+- `governance/reversal_mean_reversion_R1_reusable_blackbox_protocol_v1.json` — DEV/VALIDATION/final-refit/blackbox contract.
+- `../scripts/run_rmr_R1_reusable_dev_validation.py` — detailed DEV/VALIDATION runner; physically excludes 2026.
+- `../scripts/certify_rmr_R1_reusable_blackbox.py` — low-bandwidth blackbox certifier.
+- `../tests/test_reusable_three_role_blackbox.py` — role, leakage and three-state output tests.
+- `research/rmr_R1_reusable_validation_adjudication_20260908.md` — detailed 2021–2025 validation evidence.
+- `governance/rmr_R1_reusable_blackbox_parameter_freeze_v1.json` — final 2015–2025 fit frozen before blackbox; SHA256 `41072c78a6e657aec01d7da95d9c00bff23ff01829ada6afe256d7c254107fcb`.
+- `research/rmr_R1_reusable_blackbox_certification_20260908.json` — query 1 low-bandwidth result: `PASS`.
 
-The source gate requires an authoritative A-share trading calendar and exact named 240-clock sessions: `09:31..11:30` plus `13:01..15:00`. The V21 239-clock exception is explicitly inapplicable.
+## R1 mechanism history retained in current tree
 
-## Frozen future Q4 evaluator
+- `governance/reversal_mean_reversion_stage1_scale_contract_v1.json`
+- `governance/cloud_session_20260908_rmr_R1_parent_integrity_v2_parameter_freeze_v1.json`
+- `governance/reversal_mean_reversion_R1_parent_integrity_v2_selection_protocol_v1.json`
+- `governance/reversal_mean_reversion_R1_parent_integrity_v2_holdout_protocol_v1.json`
+- `research/rmr_R1_parent_integrity_v2_preanalysis_20260908.md`
+- `research/reversal_mean_reversion_R1_parent_integrity_v2_selection_adjudication_20260908.md`
+- `research/reversal_mean_reversion_R1_parent_integrity_v2_holdout_adjudication_20260908.md`
 
-- `governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_evaluation_protocol_v1.json` — one-time no-refit Q4 evaluation contract.
-- `governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_evaluation_execution_freeze_v1.json` — evaluator and dependency blob identities.
-- `../scripts/evaluate_rmr_R1_true_fresh_2026Q4.py` — frozen evaluator; reconstructs causal state from 2015–2025 history + authorized 2026 extension and scores Q4-confirmed events only.
-- `../tests/test_rmr_R1_true_fresh_2026Q4_evaluator.py` — authorization, no-fit, Q4-only and decision-rule tests.
-- `governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_execution_authorization_template_v1.json` — field/schema template only. A later cloud review must create a separate concrete authorization that binds exact source/calendar/receipt identities and evaluator blob SHA.
+The old 2023–2025 `holdout` label is historical. Under current repository-wide governance those years belong to reusable VALIDATION.
 
-No source-admission PASS automatically authorizes the evaluator. No 2027Q1 prices may be used to resolve late-Q4 events.
+## Next research stage
 
-## Decisive R1 evidence
+Next identity:
 
-- `research/rmr_R1_parent_integrity_v2_preanalysis_20260908.md` — specialist hypothesis and bounded family frozen before holdout.
-- `research/reversal_mean_reversion_R1_parent_integrity_v2_selection_adjudication_20260908.md` — 1D composite selected on consumed 2015–2022 evidence.
-- `research/reversal_mean_reversion_R1_parent_integrity_v2_holdout_adjudication_20260908.md` — 2023–2025 no-refit mechanism-holdout PASS.
+`rmr_R1_parent_integrity_economic_translation_v1`
 
-## Program-level context
+Use DEV/VALIDATION for strategy economics and implementation research. Freeze a strategy candidate before another blackbox query.
 
-- `research/reversal_mean_reversion_stage1_discovery_round_closeout_20260908.md` — why broad R8/R9-style lane creation stopped.
-- `research/reversal_mean_reversion_two_promotion_program_review_20260908.md` — R1 Priority A vs R5-C Priority B review.
-- `research/reversal_mean_reversion_program_whitepaper_v1.md` — conceptual framework; background, not next-action authority.
-- `research/reversal_mean_reversion_literature_map_20260908.md` — literature constraints; background, not next-action authority.
-- `ops/rmr_R5C_event_density_promotion_handoff_20260908.md` — secondary Priority-B mechanism queued behind R1.
+R5-C remains the secondary Priority-B mechanism:
 
-## Reproduction / future execution code
+`ops/rmr_R5C_event_density_promotion_handoff_20260908.md`
 
-The active code surface is intentionally small:
+## Optional future Q4 experiment
 
-- `../scripts/run_rmr_stage1_common_probe.py` — causal directional-change/event construction used by R1.
-- `../scripts/run_rmr_R1_parent_integrity_v2_selection.py` — historical representation-selection reproduction.
-- `../scripts/evaluate_rmr_R1_parent_integrity_v2_holdout.py` — historical no-refit holdout reproduction and frozen probability math.
-- `../scripts/admit_rmr_R1_true_fresh_2026Q4_source.py` — future metadata-only source gate.
-- `../scripts/evaluate_rmr_R1_true_fresh_2026Q4.py` — future one-time true-fresh evaluator, currently sealed.
-- matching tests under `../tests/`.
+The previously frozen complete-2026Q4 source-admission/evaluator protocols remain in `governance/` and `scripts/` as an optional future fresh challenge. They are not current next-action authority.
 
-## Data
+## Data paths
 
-- `../data/high_open_dev_2015_2025/` — active frozen CSI1000 source used for R1 consumed evidence and 2023–2025 mechanism holdout.
-- `../archive/data/gap_fill_repeat_2026/` — legacy repeat-only pack consolidated from the retired temporary repository; historical evidence only.
+- `../data/high_open_dev_2015_2025/` — current detailed historical pool for DEV/VALIDATION.
+- `../archive/data/gap_fill_repeat_2026/csi1000_1m_20260105_to_20260821.parquet` — current reusable BLACKBOX physical source; direct research inspection is prohibited by policy.
 
-## Historical evidence
-
-`archive/README.md` records immutable commit anchors for the large pre-consolidation tree. Old workflow/protocol/receipt files not present here remain retrievable there and have no current authority.
+Production authority remains false.
