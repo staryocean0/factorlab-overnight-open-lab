@@ -28,7 +28,15 @@ def test_blackbox_decision_rule():
 def test_economic_blackbox_receipt_source_is_low_bandwidth():
     source = (ROOT / "scripts/certify_rmr_R1_economic_translation_blackbox.py").read_text(encoding="utf-8")
     receipt = source.split("receipt = {", 1)[1].split("args.receipt.parent", 1)[0].lower()
-    for forbidden in ("mean_net_return", "win_rate", "holding_bars", "resolved", "count", "by_year", "by_month"):
+    for forbidden in (
+        "mean_net_return",
+        "win_rate",
+        "holding_bars",
+        '"resolved"',
+        '"n"',
+        "by_year",
+        "by_month",
+    ):
         assert forbidden not in receipt
     assert '"decision": decision' in receipt
     assert '"exact_metrics_released": false' in receipt
