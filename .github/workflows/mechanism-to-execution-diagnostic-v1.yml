@@ -50,8 +50,9 @@ jobs:
               assert set(cell['VALIDATION_annual']) == {'2021','2022','2023','2024','2025'}
           print('DIAGNOSTIC_GOVERNANCE_CONTRACT_OK')
           PY
+      - name: Print detailed DEV VALIDATION receipt
+        run: cat /tmp/rmr_mechanism_to_execution_diagnostic_v1.json
       - name: Upload detailed DEV VALIDATION receipt
-        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: mechanism-to-execution-diagnostic-v1
