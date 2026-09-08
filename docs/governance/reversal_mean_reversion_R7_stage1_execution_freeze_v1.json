@@ -1,0 +1,47 @@
+{
+  "schema_id": "factorlab_reversal_mean_reversion_R7_stage1_execution_freeze@1.0",
+  "session_date": "2026-09-08",
+  "program_identity": "broad_reversal_mean_reversion_discovery_program_v1",
+  "research_identity": "R7_directional_path_energy_asymmetry_stage1_v1",
+  "stage": "R7_stage1_execution_identity_frozen_before_outcome_open",
+  "protocol": {
+    "path": "docs/governance/reversal_mean_reversion_R7_stage1_protocol_v1.json",
+    "git_blob_sha": "7e65581e3ce1c4396c29b4a4b4d56f0681f5a735"
+  },
+  "runner": {
+    "path": "scripts/run_rmr_R7_stage1.py",
+    "git_blob_sha": "a38a1fe94e186ff847e4f1b18dec11aaeede596b"
+  },
+  "tests": {
+    "path": "tests/test_rmr_R7_stage1.py",
+    "git_blob_sha": "b8d9f00d98c2bf4260dcc6769c9f0420e4bfbab6"
+  },
+  "source": {
+    "path": "data/high_open_dev_2015_2025/1m_official.parquet",
+    "sha256": "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce",
+    "read_through": "2022-12-31"
+  },
+  "fixed_measurement": {
+    "event_scales": ["S1", "S2"],
+    "state_window_observed_bars": 240,
+    "minimum_valid_within_session_returns": 120,
+    "score_id": "R7_directional_energy_balance",
+    "score_formula": "(E_same-E_opp)/(E_same+E_opp) using squared adjacent within-session 1m log returns aligned to completed-wave direction",
+    "normalization_reference_window": 100,
+    "price_outcome_horizon_bars": 1200
+  },
+  "fixed_model_objects_each_scale": [
+    "severity_only",
+    "severity_plus_directional_energy_z"
+  ],
+  "candidate_for_program_review_gate_frozen": true,
+  "third_mechanism_auto_promotion": false,
+  "reserve_2023_2025_open_authorized": false,
+  "2026_open_authorized": false,
+  "alternative_asymmetry_definition_allowed": false,
+  "window_or_threshold_search_allowed": false,
+  "trading_return_allowed": false,
+  "deep_model_allowed": false,
+  "production_authority": false,
+  "execution_instruction": "run_tests_then_identical_runner_then_sealed_boundary_verification; a positive result is candidate_for_program_review_only"
+}
