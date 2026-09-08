@@ -1,0 +1,133 @@
+{
+  "schema_id": "factorlab_rmr_R6_stage1_cloud_action_receipt@1.0",
+  "session_date": "2026-09-08",
+  "program_identity": "broad_reversal_mean_reversion_discovery_program_v1",
+  "research_identity": "R6_multiscale_amplitude_state_stage1_v1",
+  "stage": "cloud_action_execution_complete_pending_adjudication",
+  "execution_identity": "docs/governance/reversal_mean_reversion_R6_stage1_execution_freeze_v2.json",
+  "pre_outcome_incident": "docs/governance/reversal_mean_reversion_R6_stage1_execution_incident_v1.json",
+  "github_actions": {
+    "run_id": 34185451407,
+    "job_id": 101932766104,
+    "head_branch": "codex/rmr-r6-multiscale-amplitude-20260908",
+    "head_sha": "45efc30037927131d136312ba16b5881b5db5268",
+    "conclusion": "success",
+    "artifact_id": 10040345753,
+    "artifact_name": "rmr-r6-stage1-receipts",
+    "artifact_digest": "sha256:f2f3e74d53bec61afdec877fcc4fecb0c7f8c0d008f7bce27a92379cab8504d3"
+  },
+  "artifact_file_sha256": {
+    "rmr_R6_stage1_receipt.json": "5386dba276c8db5698fc0e1e0c9e8c99e47104fdb5a09a78b64c0501ce844eb6",
+    "rmr_R6_stage1_data_usage.json": "5407dcf029e35b7751382460c1a1329994d7722c79813870d68be033cf232b78"
+  },
+  "execution_checks": {
+    "dependency_install": "success",
+    "corrected_R6_synthetic_and_boundary_tests": "success",
+    "frozen_runner": "success",
+    "sealed_boundary_and_no_auto_promotion_verification": "success",
+    "aggregate_artifact_upload": "success"
+  },
+  "source": {
+    "sha256": "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce",
+    "rows_loaded": 466961,
+    "min_day": "2015-01-05",
+    "max_day": "2022-12-30",
+    "rows_2023_or_later": 0
+  },
+  "frozen_scales": {
+    "S1": 0.003445827004614232,
+    "S2": 0.006891654009228464
+  },
+  "fixed_amplitude": {
+    "lookback_observed_bars": 240,
+    "horizons_bars": [4, 16, 64],
+    "normalization_reference_window": 100,
+    "score_ids": ["R6_A_short_mid", "R6_B_mid_parent"]
+  },
+  "candidate_for_program_review_gate": {
+    "qualified_score_ids": [],
+    "ranked_for_review": [],
+    "third_mechanism_auto_promotion": false,
+    "by_score": {
+      "R6_A_short_mid": {
+        "qualifies_for_program_review": false,
+        "mean_pooled_brier_improvement_across_scales": -0.000977345681149891,
+        "mean_pooled_logloss_improvement_across_scales": -0.001964301118151879
+      },
+      "R6_B_mid_parent": {
+        "qualifies_for_program_review": false,
+        "mean_pooled_brier_improvement_across_scales": -0.00027354042504201814,
+        "mean_pooled_logloss_improvement_across_scales": -0.0005478063124715882
+      }
+    }
+  },
+  "cell_summary": {
+    "S1": {
+      "R6_A_short_mid": {
+        "stability_resolved": 2329,
+        "pooled_brier_delta_augmented_minus_baseline": 0.000046095437989446264,
+        "pooled_logloss_delta_augmented_minus_baseline": 0.00009387215707634677,
+        "annual_brier_delta": {
+          "2020": -0.0004898563495623065,
+          "2021": 0.00001547183581246392,
+          "2022": 0.0005479390118055538
+        },
+        "scale_local_gate_passed": false
+      },
+      "R6_B_mid_parent": {
+        "stability_resolved": 2329,
+        "pooled_brier_delta_augmented_minus_baseline": -0.000023784054793196674,
+        "pooled_logloss_delta_augmented_minus_baseline": -0.000048001422259691395,
+        "annual_brier_delta": {
+          "2020": -0.00010679307091374102,
+          "2021": 0.00027518969132800386,
+          "2022": -0.00014222893314319585
+        },
+        "scale_local_gate_passed": true
+      }
+    },
+    "S2": {
+      "R6_A_short_mid": {
+        "stability_resolved": 831,
+        "pooled_brier_delta_augmented_minus_baseline": 0.0019085959243103356,
+        "pooled_logloss_delta_augmented_minus_baseline": 0.003834730079227411,
+        "annual_brier_delta": {
+          "2020": 0.0028541072216832497,
+          "2021": 0.001955041866308349,
+          "2022": 0.0009772599044453323
+        },
+        "scale_local_gate_passed": false
+      },
+      "R6_B_mid_parent": {
+        "stability_resolved": 831,
+        "pooled_brier_delta_augmented_minus_baseline": 0.000570864904877233,
+        "pooled_logloss_delta_augmented_minus_baseline": 0.0011436140472028677,
+        "annual_brier_delta": {
+          "2020": 0.0013184574780456815,
+          "2021": 0.0005081135950061877,
+          "2022": -0.00010065819791285624
+        },
+        "scale_local_gate_passed": false
+      }
+    }
+  },
+  "boundary_flags": {
+    "reserve_2023_2025_opened": false,
+    "2026_rows_loaded": false,
+    "amplitude_horizon_search_performed": false,
+    "amplitude_lookback_search_performed": false,
+    "z_threshold_search_performed": false,
+    "combined_score_model_used": false,
+    "FFT_or_wavelet_family_search_performed": false,
+    "scale_search_performed": false,
+    "hyperparameter_search_performed": false,
+    "probability_calibration_performed": false,
+    "binary_threshold_selection_performed": false,
+    "trading_return_used": false,
+    "deep_model_used": false,
+    "third_mechanism_auto_promoted": false,
+    "raw_event_rows_written_to_repo": false,
+    "scientifically_fresh": false,
+    "production_authority": false
+  }
+}
