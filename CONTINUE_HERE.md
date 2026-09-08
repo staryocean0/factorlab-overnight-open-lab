@@ -1,151 +1,173 @@
-# CONTINUE HERE — Reversal & Mean-Reversion Discovery Program
+# CONTINUE HERE — Reversal & Mean-Reversion Program
 
 **This file is the first authority for deciding what this repository should do next.**
 
-The repository slug `factorlab-overnight-open-lab` is historical. The active repository-wide mission is broad **reversal / mean-reversion mechanism discovery**: distinguish temporary deviation inside an intact state from genuine state change, compare mechanisms shallowly, and hand strong directions to dedicated identities rather than turning this repo into one strategy optimizer.
+## Current program position
 
-## Common scientific coordinate system
+Broad Stage-1 direction discovery Round 1 is **closed**. Automatic R8/R9-style lane generation is paused to control multiplicity.
 
-Every new reversal hypothesis must declare before outcome inspection:
+The evidence ranking is now:
 
-1. **Scale:** lower / current / parent.
-2. **Parent state:** trend / range / transition / unknown.
-3. **Deviation object:** price / path / wave / distribution / relative relationship / statistical property.
-4. **Recovery criterion:** reversion boundary, state-change/failure boundary, causal horizon and censoring rule.
+1. **R1 parent integrity — Priority A, mechanism holdout confirmed**;
+2. **R5-C event density — Priority B, weak but consistent secondary mechanism**;
+3. R2 hold;
+4. R3/R4/R5-A/R5-B/R6/R7 closed under their tested identities.
 
-## Frozen broad Stage-1 evidence roles
+Round-1 closeout:
 
-Common CSI1000 source:
-
-`data/high_open_dev_2015_2025/1m_official.parquet`
-
-- DEV: `2015-01-05 .. 2019-12-31`;
-- chronological stability: `2020-01-01 .. 2022-12-31`, **not fresh**;
-- internal reserve: `2023-01-01 .. 2025-12-31`, **still unopened and not fresh**;
-- all 2026 rows remain outside the broad Stage-1 program.
+`docs/research/reversal_mean_reversion_stage1_discovery_round_closeout_20260908.md`
 
 Production authority remains false.
 
-## Current lane decisions
+## R1 — active scientific mainline
 
-### R1 — Cross-scale pullback / parent integrity
+Dedicated identity:
 
-**Progressed — Priority A specialist.**
+`rmr_cross_scale_pullback_parent_integrity_v2`
 
-Parent-state information materially improves recovery-before-failure probability quality beyond counter-move severity at both frozen scale pairings. This remains the strongest broad-program discovery by effect size and structural interpretability.
+Scientific statement:
+
+> For a lower-scale counter-move of comparable severity, stronger causally available parent-state integrity raises the probability of recovery before the parent structure fails.
+
+### Frozen representation
+
+The specialist compared a two-candidate complexity ladder on already-consumed 2015–2022 evidence:
+
+1. `R1_PARENT_COMPOSITE_1D`;
+2. `R1_PARENT_ORIGINAL_3D`.
+
+The first candidate passed every gate at both mandatory scale pairings, so the 3D candidate was not selected/evaluated further.
+
+Frozen scalar:
+
+`parent_integrity = (z(abs_drift) - z(overlap) + z(parent_eff)) / 3`
+
+with train-only standardization and the original broad-R1 severity definition:
+
+`severity = abs(counter_move) / DEV_median_rvol20`.
+
+Selection adjudication:
+
+`docs/research/reversal_mean_reversion_R1_parent_integrity_v2_selection_adjudication_20260908.md`
+
+Frozen parameter bundle:
+
+`docs/governance/cloud_session_20260908_rmr_R1_parent_integrity_v2_parameter_freeze_v1.json`
+
+SHA256:
+
+`e618a5a06a803f4464267e69e39f98fa316fd572f40efcb3f9e40fc25df2779c`
+
+### 2023–2025 mechanism holdout — confirmed
+
+The selected 1D representation was refit once on all consumed 2015–2022 data, frozen, then replayed **without refit** on the previously unopened within-program 2023–2025 mechanism holdout.
+
+PAIR_A S1-inside-S2:
+
+- n = 792;
+- frozen severity Brier `0.18919349`;
+- frozen candidate Brier `0.17919907`;
+- improvement `0.00999443`;
+- log-loss improvement `0.02245356`;
+- annual Brier improvement positive in 2023, 2024 and 2025.
+
+PAIR_B S2-inside-S3:
+
+- n = 322;
+- frozen severity Brier `0.18028120`;
+- frozen candidate Brier `0.16985390`;
+- improvement `0.01042730`;
+- log-loss improvement `0.02611772`;
+- annual Brier improvement positive in 2023, 2024 and 2025.
+
+All preregistered holdout gates passed at both pairings. No model/parameter/scale/threshold change occurred.
+
+Holdout adjudication:
+
+`docs/research/reversal_mean_reversion_R1_parent_integrity_v2_holdout_adjudication_20260908.md`
+
+This is **independent within-program mechanism confirmation, but not scientifically fresh**, because 2023–2025 raw history was consumed elsewhere in the wider research history.
+
+## R1 true-fresh gate — frozen and unopened
+
+The next scientific gate is now preregistered as the complete future block:
+
+`2026-10-01 .. 2026-12-31`
+
+Protocol:
+
+`docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_protocol_v1.json`
+
+Rules:
+
+- complete Q4 block only;
+- **no October-only or October–November partial scoring**;
+- no execution before China date `2027-01-01`;
+- future CSI1000 1m source must first pass metadata/provenance/session-coverage admission without outcome inspection;
+- frozen parameter bundle and both scale pairings must be replayed without refit;
+- PAIR_A requires at least 40 resolved events; PAIR_B at least 15;
+- at each pairing the frozen candidate must beat the frozen severity baseline in both Brier and log-loss;
+- all 2026Q4 outcomes remain unopened until the one-time complete-window execution.
+
+Current specialist state:
+
+`docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_state_v1.json`
+
+### What is not authorized yet
+
+Do **not**:
+
+- optimize entry, stop, holding period or PnL;
+- change the integrity formula;
+- add filters/indicators;
+- change directional-change scales or event boundaries;
+- inspect partial 2026Q4 R1 outcomes;
+- call the 2023–2025 holdout fresh;
+- claim production readiness.
+
+Only after a true-fresh Q4 pass may a separate economic-translation / PnL protocol be considered.
+
+## R5-C — secondary queue
+
+`R5_C_event_density` remains Priority B. Its effect is much smaller than R1 and it should not consume the R1 fresh-confirmation budget.
 
 Handoff:
 
-`docs/ops/rmr_R1_cross_scale_pullback_promotion_handoff_20260908.md`
-
-Do not optimize R1 inside this broad repo.
-
-### R2 — Range-boundary / failed-breakout reversion
-
-**Hold, not promoted.**
-
-Do not rescue by changing range algorithms, adding filters or tuning thresholds under the current identity.
-
-### R3 — Regime-conditioned residual reversion
-
-**Stage-1 v1 closed.**
-
-Do not escalate to HMM, Koopman or deep latent dynamics as a rescue under the current identity.
-
-### R4 — Legacy relative-value / Gap-Fill specialist
-
-**V21 P2 successor family closed.** Audit A/B and future reserves remain sealed.
-
-Closeout:
-
-`docs/research/gap_fill_v21_dev_cloud_adjudication_20260908.md`
-
-### R5 — Statistical-state extremes
-
-Stage-1 v1 complete.
-
-- **R5-A path efficiency:** closed. The statistic itself reverts strongly, but incremental price-path information is not cross-scale stable.
-- **R5-B volatility-state displacement:** closed. Cross-scale evidence is unstable.
-- **R5-C event density:** **progressed — Priority B specialist.** It adds weak but consistent held-forward information beyond wave severity at S1 and S2, but the effect is much smaller than R1.
-
-R5 adjudication:
-
-`docs/research/reversal_mean_reversion_R5_stage1_adjudication_20260908.md`
-
-R5-C handoff:
-
 `docs/ops/rmr_R5C_event_density_promotion_handoff_20260908.md`
 
-### R6 — Multi-scale amplitude-state displacement
+## Closed / held lanes
 
-**Stage-1 v1 closed. No score qualified for program review.**
+- R2 range-boundary: hold, no rescue tuning;
+- R3 regime-conditioned residual: closed;
+- R4/V21 P2 successor: closed, Audit A/B remain sealed;
+- R5-A path efficiency: closed as price-path predictor;
+- R5-B volatility displacement: closed;
+- R6 multi-scale amplitude state: closed;
+- R7 directional path-energy asymmetry: closed.
 
-R6 was a new results-blind identity, not an R5 rescue. It froze:
+Program-level finding retained from R5-A/R6/R7:
 
-- causal event scales S1/S2;
-- trailing 240 observed 1m bars;
-- fixed amplitude horizons 4/16/64 bars;
-- `R6_A = log(amp_4/amp_16)`;
-- `R6_B = log(amp_16/amp_64)`;
-- severity-only versus one-score augmented models;
-- a gate requiring improvement at both S1 and S2.
+> **A market statistic can strongly revert toward its own normal state without implying robust price-path mean reversion.**
 
-The first Action attempt failed in tests **before the market runner executed**; that test-only incident exposed no outcome and did not change the protocol or runner. Execution-freeze v2 then ran successfully.
+## Exact next action
 
-Final result:
+There is **no empirical R1 action to run today after this freeze** without violating the fresh protocol.
 
-- **R6-A short/mid:** fails both-scale review; S2 materially worsens the severity baseline.
-- **R6-B mid/parent:** S1 has a tiny local improvement, but S2 worsens Brier/log-loss, so the frozen cross-scale gate fails.
-- `qualified_score_ids = []`;
-- no third mechanism was promoted;
-- 2023–2025 reserve remained unopened.
+Next action, only after the complete 2026Q4 block exists:
 
-R6 adjudication:
+1. metadata/provenance/session-coverage source admission for the complete Q4 CSI1000 1m package, with no R1 outcomes read;
+2. not before `2027-01-01`, one-time execution of the frozen R1 true-fresh Q4 challenge;
+3. only after a pass, consider a separate economic-translation/PnL research identity.
 
-`docs/research/reversal_mean_reversion_R6_stage1_adjudication_20260908.md`
-
-Do not rescue R6 by changing 4/16/64, adding more bands, selecting only S1, combining R6-A/B, or searching FFT/wavelet variants on the same consumed window.
-
-## Two-promotion program review
-
-R1 and R5-C are the two progressed mechanisms. The required program review is complete:
-
-`docs/research/reversal_mean_reversion_two_promotion_program_review_20260908.md`
-
-Priority:
-
-1. **R1 = Priority A** — larger effect and clearer structure;
-2. **R5-C = Priority B** — simpler state variable and larger sample, but much smaller effect.
-
-The broad repo remains a direction finder.
-
-## Current next action
-
-R6 closed without promotion, so the broad-program budget allows **one new results-blind shallow lane definition**.
-
-The next lane must be orthogonal to the failed fixed-amplitude-ratio identity and must not be a post-hoc R6 repair.
-
-Preferred next definition candidate: **directional path-energy asymmetry state** — a pre-existing unexplored statistical-state idea from the broad program, asking whether the balance of same-direction versus opposite-direction realized movement before a completed wave contains reversal/continuation information beyond wave severity.
-
-Before empirical execution it must receive its own:
-
-1. exact causal score definition;
-2. fixed window/normalization;
-3. S1/S2 role;
-4. tiny candidate/model budget;
-5. chronological gates;
-6. explicit rule that any positive result is only a candidate for a new cross-lane review, not automatic third promotion.
-
-Keep 2023–2025 unopened during definition and first screening.
-
-Do not tune R2, rescue R3, reopen V21 P2, expand R5-A/B, or reconfigure R6 under their closed identities.
+Until then, preserve the frozen parameter bundle and do not consume the fresh window.
 
 ## Authority order
 
 1. `CONTINUE_HERE.md`
-2. `docs/governance/reversal_mean_reversion_program_charter_v1.json`
-3. `docs/governance/reversal_mean_reversion_program_state_v1.json`
-4. `docs/research/reversal_mean_reversion_program_whitepaper_v1.md`
-5. `AGENTS.md`
-6. lane-specific protocols created after the authority reset
-7. legacy overnight/gap-fill documents, authoritative only inside their historical identities
+2. `docs/governance/reversal_mean_reversion_program_state_v1.json`
+3. `docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_state_v1.json`
+4. `docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_protocol_v1.json`
+5. `docs/research/reversal_mean_reversion_stage1_discovery_round_closeout_20260908.md`
+6. older lane-specific artifacts inside their own historical identities
+
+Production authority remains `false`.
