@@ -8,6 +8,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 import certify_rmr_R1_economic_translation_blackbox as bb
 
+# Blackbox confidentiality tests must allow explicit false-valued safety flags
+# such as counts_released=false while forbidding actual metric/count payloads.
+
 
 def test_protocol_has_one_candidate_and_no_threshold_or_cost_search():
     p = json.loads((ROOT / "docs/governance/reversal_mean_reversion_R1_economic_translation_v1_protocol.json").read_text())
