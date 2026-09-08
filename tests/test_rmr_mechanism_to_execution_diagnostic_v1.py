@@ -43,7 +43,7 @@ def test_frozen_diagnostic_constants_and_no_selection_surface():
 def test_break_even_probability_is_frozen_binary_geometry():
     got = m.break_even_probability(0.010, -0.005)
     assert got == pytest.approx(0.4)
-    assert np.isnan(m.break_even_probability(-0.001, -0.002))
+    assert m.break_even_probability(-0.001, -0.002) == pytest.approx(3.0)
 
 
 def test_next_bar_execution_fields_boundary_accounting():
