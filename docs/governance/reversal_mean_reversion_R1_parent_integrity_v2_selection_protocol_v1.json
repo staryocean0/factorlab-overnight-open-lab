@@ -25,7 +25,7 @@
   ],
   "event_and_outcome": {
     "event": "causally_confirmed_lower_scale_completed_wave_opposite_to_net_drift_of_last_two_causally_available_parent_waves",
-    "severity": "abs(lower_wave_move)/frozen_lower_scale_threshold",
+    "severity": "abs(lower_wave_move)/DEV_median_rvol20_exact_broad_R1_definition",
     "recovery": "regain_lower_counter_wave_origin_first",
     "failure": "break_latest_causally_available_parent_structural_trough_or_peak_first",
     "maximum_observed_1m_bars": 1200,
@@ -47,10 +47,7 @@
     }
   ],
   "selection_rule": "first_eligible_in_complexity_ladder",
-  "baseline": {
-    "candidate_id": "R1_SEVERITY_ONLY",
-    "features": ["severity"]
-  },
+  "baseline": {"candidate_id": "R1_SEVERITY_ONLY", "features": ["severity"]},
   "model": {
     "class": "LogisticRegression",
     "pipeline": "StandardScaler+LogisticRegression(C=1,l2,lbfgs,max_iter=1000)",
@@ -72,6 +69,7 @@
     "freeze_before_holdout": [
       "selected_candidate_id",
       "pairing_thresholds",
+      "severity_denominator",
       "feature_scalers",
       "model_coefficients_intercepts",
       "source_sha256",
@@ -91,6 +89,7 @@
     "read_any_2026_rows",
     "change_scale_pairings",
     "change_wave_thresholds",
+    "change_broad_compatible_severity_definition",
     "add_candidate",
     "reorder_candidates",
     "add_interaction_or_nonlinear_transform",
