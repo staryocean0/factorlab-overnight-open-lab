@@ -1,104 +1,53 @@
 # Documentation index
 
-## A. Repository-wide authority — read first
+This index describes the **current worktree only**. Historical experiments removed during consolidation remain available in Git history; see `archive/README.md`.
 
-1. `CONTINUE_HERE.md`
-2. `docs/governance/reversal_mean_reversion_program_charter_v1.json`
-3. `docs/governance/reversal_mean_reversion_program_state_v1.json`
-4. `docs/research/reversal_mean_reversion_program_whitepaper_v1.md`
-5. `README.md`
-6. `AGENTS.md`
-7. `docs/user/cloud_execution_prompt.md`
-8. `docs/user/handoff_prompt.md`
-9. `docs/governance/package_scope.json`
+## Current authority
 
-These documents define what the repository is **currently for** and what should be executed next.
+- `../CONTINUE_HERE.md` — exact next action and prohibitions.
+- `governance/reversal_mean_reversion_program_state_v1.json` — repository-wide current state.
+- `governance/reversal_mean_reversion_R1_parent_integrity_v2_state_v1.json` — R1 specialist state.
+- `governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_protocol_v1.json` — next frozen true-fresh gate.
 
-Older documents must not override this repository-wide authority merely because they contain their own `next_action`, `current_status`, or task-specific state.
+## Frozen R1 specialist assets
 
-## B. Active broad-program work
+- `governance/cloud_session_20260908_rmr_R1_parent_integrity_v2_parameter_freeze_v1.json` — frozen 2015–2022 parameters and model/scaler bundle.
+- `governance/reversal_mean_reversion_R1_parent_integrity_v2_selection_protocol_v1.json` — bounded representation-selection contract.
+- `governance/reversal_mean_reversion_R1_parent_integrity_v2_selection_execution_freeze_v1.json` — selection execution identity.
+- `governance/reversal_mean_reversion_R1_parent_integrity_v2_holdout_protocol_v1.json` — 2023–2025 mechanism-holdout contract.
+- `governance/reversal_mean_reversion_R1_parent_integrity_v2_holdout_execution_freeze_v1.json` — holdout execution identity.
+- `governance/reversal_mean_reversion_stage1_scale_contract_v1.json` — causal directional-change scale definitions inherited by R1.
 
-Current primary lanes:
+## Decisive R1 evidence
 
-- `R1_cross_scale_pullback`
-- `R2_range_boundary_reversion`
-- `R3_regime_conditioned_residual`
+- `research/rmr_R1_parent_integrity_v2_preanalysis_20260908.md` — specialist hypothesis and bounded family frozen before holdout.
+- `research/reversal_mean_reversion_R1_parent_integrity_v2_selection_adjudication_20260908.md` — 1D composite selected on consumed 2015–2022 evidence.
+- `research/reversal_mean_reversion_R1_parent_integrity_v2_holdout_adjudication_20260908.md` — 2023–2025 no-refit mechanism-holdout PASS.
 
-Secondary/reference lanes:
+## Program-level context
 
-- `R4_relative_value_dislocation`
-- `R5_statistical_state_extremes`
+- `research/reversal_mean_reversion_stage1_discovery_round_closeout_20260908.md` — why broad R8/R9-style lane creation stopped.
+- `research/reversal_mean_reversion_two_promotion_program_review_20260908.md` — R1 Priority A vs R5-C Priority B review.
+- `research/reversal_mean_reversion_program_whitepaper_v1.md` — conceptual framework; background, not next-action authority.
+- `research/reversal_mean_reversion_literature_map_20260908.md` — literature constraints; background, not next-action authority.
+- `ops/rmr_R5C_event_density_promotion_handoff_20260908.md` — secondary Priority-B mechanism queued behind R1.
 
-New lane-specific preanalysis, protocols, receipts, and state files created after the 2026-09-08 authority reset belong here conceptually and should be linked from the program state as they are created.
+## Reproduction code
 
-## C. Legacy specialist archive — evidence preserved, not repository-wide direction
+The active code surface is intentionally small:
 
-The repository contains substantial historical work from its earlier overnight-open specialist identity. These files remain authoritative for their **own frozen experiments**.
+- `../scripts/run_rmr_stage1_common_probe.py` — causal directional-change/event construction used by R1.
+- `../scripts/run_rmr_R1_parent_integrity_v2_selection.py` — historical representation-selection reproduction.
+- `../scripts/evaluate_rmr_R1_parent_integrity_v2_holdout.py` — historical no-refit holdout reproduction.
+- matching R1 tests under `../tests/`.
 
-### C1. Next-session open direction / magnitude
+These scripts reproduce completed evidence; they do **not** authorize early 2026Q4 scoring. A future Q4 evaluator must be written against the frozen true-fresh protocol only after source admission is appropriate.
 
-Representative entry points:
+## Data
 
-- `docs/governance/baseline_receipt.json`
-- `docs/research/direction_head_preanalysis_20260906.md`
-- `docs/governance/cloud_session_20260906_direction_head_selected_v1.json`
-- `docs/research/cloud_session_20260906_local_2026_direction_result.md`
-- `docs/governance/cloud_session_20260906_research_architecture_acceptance_v1.json`
-- `docs/research/cloud_session_20260906_research_closeout_v1.md`
+- `../data/high_open_dev_2015_2025/` — active frozen CSI1000 source used for R1 consumed evidence and 2023–2025 mechanism holdout.
+- `../archive/data/gap_fill_repeat_2026/` — legacy repeat-only pack consolidated from the retired temporary repository; historical evidence only.
 
-### C2. High-open recall / rebound conditioning
+## Historical evidence
 
-Representative entry points:
-
-- `docs/governance/cloud_session_20260906_high_open_recall_research_protocol_v1.json`
-- `docs/research/high_open_recall_phase1_adjudication_20260906.md`
-- `docs/research/high_open_recall_phase2_cloud_review_20260906.md`
-- `docs/research/high_open_recall_ohr04_cloud_review_20260906.md`
-
-### C3. Offshore-China price discovery
-
-Representative entry points:
-
-- `docs/research/offshore_china_price_discovery_preanalysis_20260906.md`
-- `docs/research/offshore_china_ohr06_cloud_adjudication_20260906.md`
-- `docs/research/offshore_china_ohr07_cloud_review_20260906.md`
-- `docs/research/offshore_china_price_discovery_route_closeout_20260906.md`
-
-### C4. Gap-Fill V2
-
-Representative entry points:
-
-- `docs/research/gap_fill_prediction_v2_preanalysis_20260906.md`
-- `docs/governance/cloud_session_20260906_gap_fill_prediction_v2_protocol_v1.json`
-- `docs/research/gap_fill_v2_phase2_hazard_adjudication_20260906.md`
-- `docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_freeze_v1.json`
-- `docs/research/gap_fill_v2_2026_repeat_cloud_adjudication_20260906.md`
-- `docs/governance/gap_fill_v2_true_fresh_state_v1.json`
-
-### C5. Gap-Fill historical extension / V2.1 / cross-index
-
-Representative entry points include the `gap_fill_v2_historical_extension`, `cross_index_transport`, and `gap_fill_v21_*` files under:
-
-- `docs/governance/`
-- `docs/research/`
-- `docs/ops/`
-
-These experiments may contain valid unfinished execution handoffs. They are local to R4 and **do not block R1/R2/R3 broad-program progress**.
-
-## D. Data / execution governance
-
-- `docs/ops/cloud_local_communication.md`
-- `.codex/skills/strategy-slice-rebuild/SKILL.md`
-- timing/data-contract documents under `docs/user/`, `docs/ops/`, and `docs/governance/`
-
-The strategy-slice workflow applies after a lane is promoted to strategy-level work or when explicitly required; it is not the default Stage-0/Stage-1 broad direction-screening workflow.
-
-## E. Legacy literature
-
-`docs/research/literature.md` is the literature note for the **legacy overnight-gap specialist program**, not the complete literature base for broad reversal/mean-reversion research.
-
-A broad-program literature map should be created and maintained separately as R1/R2/R3 are screened.
-
-## Rule for future assistants
-
-When context is compressed or a new assistant takes over, do not reconstruct repository scope from the number of old files or the most detailed legacy state. Use Section A first.
+`archive/README.md` records immutable commit anchors for the large pre-consolidation tree. Old workflow/protocol/receipt files not present here remain retrievable there and have no current authority.
