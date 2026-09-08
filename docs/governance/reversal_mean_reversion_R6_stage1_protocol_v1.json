@@ -1,0 +1,110 @@
+{
+  "schema_id": "factorlab_reversal_mean_reversion_R6_stage1_protocol@1.0",
+  "session_date": "2026-09-08",
+  "program_identity": "broad_reversal_mean_reversion_discovery_program_v1",
+  "research_identity": "R6_multiscale_amplitude_state_stage1_v1",
+  "stage": "results_blind_R6_stage1_protocol_freeze_before_empirical_outcome_open",
+  "preanalysis": "docs/research/rmr_R6_multiscale_amplitude_state_preanalysis_20260908.md",
+  "common_data_roles": "docs/governance/reversal_mean_reversion_stage1_common_data_roles_v1.json",
+  "common_scale_contract": "docs/governance/reversal_mean_reversion_stage1_scale_contract_v1.json",
+  "market_outcomes_opened_for_protocol_design": false,
+  "source": {
+    "path": "data/high_open_dev_2015_2025/1m_official.parquet",
+    "instrument": "000852.SH",
+    "sha256": "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce",
+    "read_through": "2022-12-31",
+    "reserve_2023_2025_open": false,
+    "scientifically_fresh": false
+  },
+  "evidence_roles": {
+    "DEV": {"start": "2015-01-05", "end": "2019-12-31"},
+    "STABILITY": {"start": "2020-01-01", "end": "2022-12-31", "fresh": false},
+    "RESERVE": {"start": "2023-01-01", "end": "2025-12-31", "open": false}
+  },
+  "event_scales": {
+    "reuse_common_frozen_directional_change_thresholds": true,
+    "reported_scales": ["S1", "S2"],
+    "S1": "0.25 * DEV_median_rvol20",
+    "S2": "0.50 * DEV_median_rvol20",
+    "scale_search": false
+  },
+  "amplitude_measurement": {
+    "lookback_observed_1m_bars": 240,
+    "fixed_horizons_bars": [4, 16, 64],
+    "cross_session_k_bar_returns": "excluded",
+    "amplitude_k": "median(abs(valid_within_session_k_bar_log_return))/sqrt(k)",
+    "minimum_valid_k_bar_returns_each_horizon": 20,
+    "horizon_search": false
+  },
+  "scores": {
+    "R6_A_short_mid": "log(amp_4/amp_16)",
+    "R6_B_mid_parent": "log(amp_16/amp_64)"
+  },
+  "normalization": {
+    "reference_window": 100,
+    "scope": "preceding_completed_same_scale_score_observations_only",
+    "current_observation_excluded": true,
+    "center": "median",
+    "scale": "median_absolute_deviation",
+    "zero_or_nonfinite_MAD": "exclude_observation",
+    "continuous_z_primary": true,
+    "descriptive_extreme_abs_z": 2.0,
+    "threshold_search": false
+  },
+  "price_path_outcome": {
+    "reuse_R5_symmetric_same_scale_first_passage": true,
+    "reversion_boundary": "opposite_completed_wave_direction_by_one_same_scale_threshold_from_event_price",
+    "extension_boundary": "completed_wave_direction_by_one_same_scale_threshold_from_event_price",
+    "maximum_observed_1m_bars": 1200,
+    "same_bar_or_unresolved": "censored",
+    "overlap_policy": "within_each_score_and_scale_do_not_start_new_event_until_prior_resolves_or_censors"
+  },
+  "model_budget": {
+    "objects_per_scale": [
+      "severity_only",
+      "severity_plus_short_mid_z",
+      "severity_plus_mid_parent_z"
+    ],
+    "combined_two_score_model": false,
+    "pipeline": "StandardScaler+LogisticRegression(C=1,l2,lbfgs,max_iter=1000)",
+    "train": "DEV_2015_2019",
+    "score": "STABILITY_2020_2022",
+    "annual_years": [2020, 2021, 2022],
+    "hyperparameter_search": false,
+    "probability_calibration": false,
+    "binary_threshold": null
+  },
+  "candidate_for_program_review_gate": {
+    "minimum_resolved_stability_events_each_scale": 200,
+    "minimum_resolved_each_year_each_scale": 50,
+    "pooled_Brier_strictly_lower_than_severity_at_S1_and_S2": true,
+    "pooled_logloss_strictly_lower_than_severity_at_S1_and_S2": true,
+    "annual_Brier_improvement_positive_in_at_least_2_of_3_years_each_scale": true,
+    "causal_integrity_required": true,
+    "third_mechanism_auto_promotion": false,
+    "positive_result_label": "candidate_for_program_review_only"
+  },
+  "if_both_scores_qualify": {
+    "ranking": [
+      "mean_pooled_Brier_improvement_across_S1_S2_descending",
+      "mean_pooled_logloss_improvement_across_S1_S2_descending",
+      "score_id_ascending"
+    ],
+    "ranking_grants_promotion": false
+  },
+  "forbidden": [
+    "read_2023_2025_reserve",
+    "read_any_2026_rows",
+    "change_4_16_64_horizons",
+    "change_240_bar_amplitude_lookback",
+    "add_third_band_score",
+    "combine_two_scores",
+    "search_z_threshold",
+    "search_wave_scale",
+    "search_model_hyperparameters",
+    "use_FFT_or_wavelet_family_search",
+    "use_trading_return_or_PnL",
+    "use_deep_model_to_rescue_failure"
+  ],
+  "production_authority": false
+}
