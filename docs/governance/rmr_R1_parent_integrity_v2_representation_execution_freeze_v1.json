@@ -1,0 +1,26 @@
+{
+  "schema_id": "factorlab_rmr_R1_parent_integrity_v2_representation_execution_freeze@1.0",
+  "session_date": "2026-09-08",
+  "research_identity": "rmr_cross_scale_pullback_parent_integrity_v2",
+  "stage": "representation_execution_frozen_before_market_run",
+  "protocol_blob_sha": "cb77a863a21883293cdf7247b1c3fe5062dd16e9",
+  "preanalysis_blob_sha": "828db3d26b7854b019761bbc04bb6e2c1a673554",
+  "runner_blob_sha": "ae66cca0230cedf390c9d2eeb306bb8132680c8f",
+  "tests_blob_sha": "1f54a7f199ef02a126779a07d4098932607a180b",
+  "candidate_order": [
+    "composite_integrity_plus_severity",
+    "original_three_parent_plus_severity"
+  ],
+  "complexity_first_stop_rule": true,
+  "source_sha256": "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce",
+  "read_through": "2022-12-31",
+  "holdout_2023_2025_open_authorized": false,
+  "all_2026_rows_open_authorized": false,
+  "trading_return_used": false,
+  "production_authority": false,
+  "execution_location_policy": {
+    "direct_cloud_attempt": "failed_github.com_DNS_resolution",
+    "direct_local_model_channel_available_in_current_session": false,
+    "github_actions": "authorized_as_final_available_execution_location_for_this_frozen_run"
+  }
+}
