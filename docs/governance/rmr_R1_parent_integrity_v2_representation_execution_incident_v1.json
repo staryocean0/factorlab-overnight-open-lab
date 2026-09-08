@@ -1,0 +1,26 @@
+{
+  "schema_id": "factorlab_rmr_R1_parent_integrity_v2_representation_execution_incident@1.0",
+  "session_date": "2026-09-08",
+  "research_identity": "rmr_cross_scale_pullback_parent_integrity_v2",
+  "github_actions_run_id": 34186777445,
+  "head_sha": "52f505c4a79e329dee3399e63ffa41b04e5dab98",
+  "status": "failed_during_outcome_independent_parent_standardization_before_candidate_metrics_or_selection_output",
+  "tests": "5_passed",
+  "failure": "RuntimeError_invalid_parent_feature_standardization",
+  "root_cause": "the broad R1 overlap feature is constant under the consecutive directional-change parent-wave geometry, giving DEV population_std_zero; sklearn StandardScaler semantics would treat this as a zero-information standardized column, but the new composite helper incorrectly fail-closed on zero variance",
+  "market_data_access": {
+    "rows_later_than_2022_read": false,
+    "2023_2025_holdout_opened": false,
+    "2026_rows_opened": false,
+    "causal_R1_event_outcomes_constructed_in_memory_before_failure": true,
+    "candidate_Brier_or_logloss_reported": false,
+    "candidate_selected": false,
+    "artifact_uploaded": false
+  },
+  "allowed_fix_only": "map_exact_zero_variance_parent_feature_to_standardized_zero_with_scale_one_matching_standard_scaler_constant_feature_semantics",
+  "scientific_protocol_change_allowed": false,
+  "candidate_or_gate_change_allowed": false,
+  "rerun_allowed": true,
+  "reason_rerun_allowed": "2015_2022_is_consumed_development_and_stability_material_not_fresh; no holdout was opened and no candidate metric or selection was exposed",
+  "production_authority": false
+}
