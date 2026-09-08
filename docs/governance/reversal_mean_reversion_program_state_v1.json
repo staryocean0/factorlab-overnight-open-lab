@@ -2,7 +2,7 @@
   "schema_id": "factorlab_reversal_mean_reversion_program_state@1.0",
   "session_date": "2026-09-08",
   "program_identity": "broad_reversal_mean_reversion_discovery_program_v1",
-  "current_status": "authority_reset_in_progress_then_stage0_stage1_parallel_screening",
+  "current_status": "repository_authority_reset_frozen_stage0_stage1_parallel_screening_ready",
   "repository_wide_current_mainline": "broad_reversal_mean_reversion_mechanism_discovery",
   "legacy_overnight_mainline_active": false,
   "legacy_overnight_role": "delegated_specialist_case_study",
