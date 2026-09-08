@@ -2,11 +2,11 @@
   "schema_id": "factorlab_reversal_mean_reversion_program_state@1.0",
   "session_date": "2026-09-08",
   "program_identity": "broad_reversal_mean_reversion_discovery_program_v1",
-  "current_status": "R1_and_R5C_progressed_R2_hold_R3_closed_R4_V21_closed_program_review_required_before_any_third_promotion",
+  "current_status": "R1_priority_A_R5C_priority_B_two_promotion_program_review_complete_next_new_lane_definition",
   "repository_wide_current_mainline": "broad_reversal_mean_reversion_mechanism_discovery",
   "legacy_overnight_mainline_active": false,
   "legacy_overnight_role": "delegated_specialist_case_study",
-  "stage": "stage1_two_progressed_mechanisms_reached_program_review_gate",
+  "stage": "two_promotion_program_review_complete_new_results_blind_shallow_lane_definition_authorized",
   "common_measurement_contract": "docs/governance/reversal_mean_reversion_common_measurement_contract_v1.json",
   "stage1_screening_plan": "docs/governance/reversal_mean_reversion_stage1_screening_plan_v1.json",
   "stage1_data_roles": "docs/governance/reversal_mean_reversion_stage1_common_data_roles_v1.json",
@@ -17,23 +17,22 @@
   "R5_stage1_execution_freeze": "docs/governance/reversal_mean_reversion_R5_stage1_execution_freeze_v1.json",
   "R5_stage1_cloud_receipt": "docs/research/cloud_session_20260908_rmr_R5_stage1_action_receipt_v1.json",
   "R5_stage1_adjudication": "docs/research/reversal_mean_reversion_R5_stage1_adjudication_20260908.md",
+  "latest_program_review": "docs/research/reversal_mean_reversion_two_promotion_program_review_20260908.md",
   "lane_status": {
     "R1_cross_scale_pullback": {
-      "status": "stage1_supported_progression_worthy",
-      "action": "dedicated_specialist_handoff_frozen",
+      "status": "stage1_supported_progression_worthy_priority_A",
+      "action": "dedicated_specialist_handoff_frozen_first_deeper_mechanism_budget",
       "handoff": "docs/ops/rmr_R1_cross_scale_pullback_promotion_handoff_20260908.md",
       "fresh_confirmation": false,
       "production_authority": false
     },
     "R2_range_boundary_reversion": {
       "status": "stage1_mixed_hold_not_promoted",
-      "action": "no_rescue_tuning_under_current_identity",
-      "reason": "coarse_combined_model_improves_but_parent_range_state_alone_does_not_isolate_the_mechanism_and_fine_scale_is_unstable"
+      "action": "no_rescue_tuning_under_current_identity"
     },
     "R3_regime_conditioned_residual": {
       "status": "stage1_v1_not_supported_closed",
-      "action": "do_not_escalate_to_HMM_Koopman_or_deep_latent_model_as_rescue",
-      "reason": "predeclared_conditional_residual_did_not_show_next_session_reversion_or_material_improvement_over_unconditional_deviation"
+      "action": "do_not_escalate_to_HMM_Koopman_or_deep_latent_model_as_rescue"
     },
     "R4_relative_value_dislocation": {
       "status": "legacy_V21_DEV_no_P2_successor_closed",
@@ -42,10 +41,10 @@
       "blocks_broad_program": false
     },
     "R5_statistical_state_extremes": {
-      "status": "stage1_completed_event_density_only_progressed",
+      "status": "stage1_completed",
       "R5_A_path_efficiency": "closed_property_reverts_but_price_path_increment_not_cross_scale_stable",
       "R5_B_volatility_state_displacement": "closed_cross_scale_price_path_relation_unstable",
-      "R5_C_event_density": "progressed_weak_but_consistent_incremental_state_information",
+      "R5_C_event_density": "progressed_priority_B_weak_but_consistent_incremental_state_information",
       "handoff": "docs/ops/rmr_R5C_event_density_promotion_handoff_20260908.md",
       "fresh_confirmation": false,
       "production_authority": false
@@ -68,8 +67,8 @@
     "all_2026_rows_opened": false
   },
   "active_progressed_handoffs": [
-    "R1_cross_scale_pullback_parent_integrity",
-    "R5C_event_density_state_information"
+    "R1_cross_scale_pullback_parent_integrity_priority_A",
+    "R5C_event_density_state_information_priority_B"
   ],
   "held_or_closed_lanes": [
     "R2_range_boundary_reversion_hold",
@@ -79,10 +78,12 @@
     "R5_B_volatility_displacement_closed"
   ],
   "promotion_budget": {
-    "maximum_lanes_to_promote_without_new_program_review": 2,
-    "progressed_since_last_program_review": 2,
-    "third_promotion_authorized": false,
-    "program_review_required_now": true
+    "prior_maximum_lanes_without_review": 2,
+    "prior_progressed_count": 2,
+    "program_review_completed": true,
+    "new_shallow_lane_definition_authorized": true,
+    "new_empirical_screen_authorized_only_after_results_blind_preanalysis_and_protocol_freeze": true,
+    "third_mechanism_promotion_requires_new_cross_lane_review": true
   },
   "deep_strategy_optimization_authorized_in_broad_repo": false,
   "single_lane_full_backtest_authorized_in_broad_repo": false,
@@ -92,22 +93,24 @@
     "common_scale_parent_state_deviation_recovery_vocabulary_frozen",
     "broad_literature_constraints_mapped",
     "R1_R2_R3_results_blind_shallow_preanalysis_frozen",
-    "common_data_roles_and_event_scales_frozen_before_results",
     "equal_budget_R1_R2_R3_empirical_probe_executed",
     "R1_R2_R3_lane_comparison_adjudicated",
     "R1_promotion_handoff_frozen",
     "R5_three_property_results_blind_preanalysis_frozen",
     "R5_stage1_cloud_execution_completed",
     "R5_event_density_only_progressed",
+    "R5C_promotion_handoff_frozen",
+    "two_promotion_program_review_completed",
     "2023_2025_program_reserve_kept_unopened"
   ],
   "next_actions_in_order": [
-    "perform_program_review_comparing_R1_and_R5C_before_any_third_lane_promotion",
-    "keep_2023_2025_reserve_unopened_until_each_dedicated_identity_freezes_representation_candidate_budget_and_gates",
+    "freeze_one_new_results_blind_shallow_lane_preanalysis_without_opening_new_outcomes",
+    "prefer_an_unexplored_multiscale_or_frequency_band_statistical_state_mechanism_as_the_next_definition_candidate",
+    "keep_2023_2025_reserve_unopened_until_dedicated_R1_or_R5C_identities_freeze_their_own_candidate_budgets_and_gates",
     "do_not_tune_R2_rescue_R3_or_reopen_V21_P2_under_closed_identities",
-    "after_program_review_continue_direction_discovery_without_turning_broad_repo_into_a_single_lane_optimizer"
+    "do_not_promote_a_third_mechanism_without_another_explicit_cross_lane_review"
   ],
-  "lane_budget_rule": "two_mechanisms_have_now_progressed_so_a_program_review_is_required_before_any_third_promotion",
+  "lane_budget_rule": "program_review_reset_allows_one_new_shallow_results_blind_lane_definition_but_not_a_third_promotion_without_new_review",
   "authority_files": [
     "CONTINUE_HERE.md",
     "docs/governance/reversal_mean_reversion_program_charter_v1.json",
