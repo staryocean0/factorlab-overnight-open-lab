@@ -11,7 +11,8 @@ Read in this order:
 1. `CONTINUE_HERE.md`
 2. `docs/governance/reusable_three_role_data_policy_v1.json`
 3. `docs/governance/reversal_mean_reversion_program_state_v1.json`
-4. `docs/INDEX.md`
+4. `docs/research/rmr_payoff_object_instrument_theory_review_v1.md`
+5. `docs/INDEX.md`
 
 Historical `next_action` fields never override these files.
 
@@ -65,6 +66,8 @@ R1 and R2 are complementary state-restoration mechanisms, not generic interchang
 
 `rmr_unified_parent_normal_state_router_v1` is closed at VALIDATION. Do not create router v2 by lane-specific scaling, axis-weight tuning, interaction search or automatic rescue.
 
+The historical router branch is behind `main` and has no commits ahead; treat it as history only, not as an active merge target.
+
 ### Existing simple economic translation
 
 No tested trading implementation is certified.
@@ -109,11 +112,19 @@ The preregistered positive-median gate failed. Therefore:
 
 ## 6. Current research boundary
 
+`docs/research/rmr_payoff_object_instrument_theory_review_v1.md` is a completed results-blind boundary review and is now part of the authority chain.
+
 There is currently **no empirical economic candidate authorized**.
 
-If economic research continues, the next step must be a separate results-blind **payoff-object or instrument-theory program review**. A new identity must be materially independent of the closed temporal rule and must be preregistered before any new empirical output is opened.
+The review permits only theory-level consideration of:
 
-Instrument mapping is only theory-eligible at present. Before any ETF/futures/options empirical study, freeze an instrument-specific source and cost-model contract covering relevant spread, basis, carry, liquidity, convexity/premium and execution conventions. Do not infer instrument viability from index-level price paths alone.
+- a materially independent causal execution-timing theory;
+- instrument mapping after an instrument-specific source and cost-model contract is frozen;
+- stopping economic translation if no independent payoff theory is established.
+
+The review itself authorizes no DEV, VALIDATION or BLACKBOX execution.
+
+Before any ETF/futures/options empirical study, freeze an instrument-specific source and cost-model contract covering relevant spread, basis, carry, liquidity, convexity/premium and execution conventions. Do not infer instrument viability from index-level price paths alone.
 
 Broad R8/R9 indicator generation remains paused.
 
@@ -137,5 +148,7 @@ Do not wait for future data. Continue only work authorized by current authority.
 - Keep decisive adjudications and compact receipts on the current surface.
 - Do not create a second active repository.
 - After substantial work, synchronize canonical `main` by fast-forward when the research branch is clean and a descendant of `main`.
+
+Current `main` already has no diagnostic/router one-time runner or dedicated completed workflow surface; preserve the closeout through adjudications, receipts, anchors and Git history rather than reintroducing implementation files.
 
 Production authority remains `false`.
