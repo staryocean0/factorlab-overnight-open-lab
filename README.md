@@ -1,62 +1,80 @@
-# FactorLab Overnight Open Lab
+# FactorLab Reversal & Mean-Reversion Discovery Lab
 
-Bounded cloud workspace for one task: predict the next CSI1000 overnight open
-(high open vs low open, and gap size). It is not the two-wave Layer 3 theme and
-must not be merged into `factorlab-two-wave-strategy-lab`.
-
-The package contract requires a private repository. The repository is currently
-public only because the private-repository GitHub Actions quota/runner path was
-unavailable and a public runner was needed to execute already-frozen research
-workflows. See
-`docs/governance/cloud_session_20260906_public_runner_recovery_v1.json`.
-Restore private visibility after public-runner-only checks are complete before
-treating the package as fully compliant with its confidentiality contract.
-
-The package is a research minimum set: clock/gap contracts, 2015-2020 CSI1000
-bars, PIT US prints, frozen model identities, and research receipts. It does not
-contain raw 2021+ market rows, FactorLab git history, credentials, or Layer 4
-execution.
+> The repository slug `factorlab-overnight-open-lab` is historical. The active repository-wide program was reset on **2026-09-08** from a single overnight-open task to a **broad reversal / mean-reversion discovery program**.
 
 ## Start here
 
-```bash
-python -m pip install -e .
-python scripts/validate_theme_package.py
-pytest -q
-```
+Read these in order:
 
-Then follow [`docs/user/cloud_execution_prompt.md`](docs/user/cloud_execution_prompt.md).
+1. [`CONTINUE_HERE.md`](CONTINUE_HERE.md)
+2. [`docs/governance/reversal_mean_reversion_program_charter_v1.json`](docs/governance/reversal_mean_reversion_program_charter_v1.json)
+3. [`docs/governance/reversal_mean_reversion_program_state_v1.json`](docs/governance/reversal_mean_reversion_program_state_v1.json)
+4. [`docs/research/reversal_mean_reversion_program_whitepaper_v1.md`](docs/research/reversal_mean_reversion_program_whitepaper_v1.md)
+5. [`AGENTS.md`](AGENTS.md)
 
-## Scientific status
+These files define the current repository-wide direction. Older overnight-open and Gap-Fill files remain authoritative only for their own historical research identities.
 
-The current prediction-model research cycle is closed for the accepted identity.
+## Mission
 
-- **Magnitude head:** `abs_frozen_clock_signed_prediction` is fresh-OOS confirmed on 2021-2025.
-- **Direction head:** `median_quantile_sign` is robustly fresh-OOS confirmed against Ridge on 2026-01-05 through 2026-08-21.
-- Accepted status: `component_confirmed_incumbent_research_architecture`.
-- Direction and magnitude remain separate primary tasks; no stronger joint-fresh full-model claim is made.
-- All opened data through 2026-08-21 are consumed for these identities and must not be reused for retuning.
-- Post-2026-08-21 remains unread for the integrated identity.
+The lab asks a general question:
 
-Direction candidate spec SHA256:
-`9b0255fbbf6f0c4059e8779e61cb3d5d4eabeab1ce60aed09377d782f755e465`.
+> **Given the current scale and parent market state, is an observed move a temporary deviation from an intact normal state, or has the normal state itself changed?**
 
-Direction fresh receipt:
-`docs/research/cloud_session_20260906_local_2026_direction_receipt_v1.json`.
+A “mean” is not restricted to a moving average. It may be a price level, dynamic range, parent-scale trend/wave, state-conditioned path or distribution, relative relationship, or a statistical market property.
 
-Research acceptance:
-`docs/governance/cloud_session_20260906_research_architecture_acceptance_v1.json`.
+The repository is primarily a **direction finder**. It should compare several plausible mechanisms shallowly before allowing any one specialist strategy to consume a large research budget.
 
-## Production boundary
+## Current primary lanes
+
+- **R1 — Cross-scale pullback inside an intact parent trend**
+- **R2 — Range-boundary / failed-breakout reversion**
+- **R3 — Regime-conditioned residual reversion**
+
+Secondary lanes:
+
+- **R4 — Relative-value / cross-asset dislocation**. Existing overnight-open / Gap-Fill V2 / V2.1 work belongs here and is now a delegated specialist case study rather than the main program.
+- **R5 — Statistical-state extremes**, including path efficiency, volatility, frequency-band amplitude, clustering, asymmetry, and wave duration.
+
+## Research rule
+
+Default progression:
+
+`define → shallow falsifiable probe → compare lanes → graduate only the strongest lane → deep preregistered research → execution/cost work only later`
+
+Do not:
+
+- optimize one lane for many rounds while other primary lanes have not received comparable shallow probes;
+- treat “price moved a lot” as sufficient evidence for reversion;
+- use trading return alone to select a mechanism;
+- rescue a failed direction by adding post-hoc thresholds or filters;
+- let an unfinished legacy Gap-Fill next action block the broad program.
+
+## Legacy overnight-open evidence
+
+The repository still contains substantial completed/frozen research on:
+
+- next-session CSI1000 high/low open prediction;
+- high-open recall;
+- offshore-China price discovery;
+- Gap-Fill V2;
+- V2.1 relative-gap-excess;
+- historical/fresh source and audit protocols.
+
+Those results are preserved unchanged. If one of those identities is explicitly resumed, all of its original sealed-data and evidence rules remain binding.
+
+They are **not** the default next task for the repository anymore.
+
+## Current stage
+
+Current stage is **Stage 0/1: common measurement definition + shallow parallel screening** for R1/R2/R3.
+
+The immediate program work is to define a common causal vocabulary for:
+
+- scale;
+- parent regime;
+- deviation;
+- reversion / state change;
+
+then give R1, R2, and R3 comparable low-budget tests before choosing a deep target.
 
 Production authority is `false`.
-
-The next step is **not model retuning or unconstrained return optimization**. A
-financial decision-use contract must first define the tradable instrument,
-signal/decision time, order and fill semantics, post-signal economic target,
-costs, risk constraints, and the mapping from direction/magnitude outputs to an
-action. The CSI1000 index level is not itself a tradable fill, and an order
-filled at the open cannot retroactively capture the previous-close-to-open gap.
-
-See `docs/governance/cloud_session_20260906_production_readiness_review_v1.json`
-and `docs/research/cloud_session_20260906_research_closeout_v1.md`.

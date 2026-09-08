@@ -1,110 +1,123 @@
-# Overnight Open Lab
+# Reversal & Mean-Reversion Discovery Program
 
-Codex/cloud research workspace for one bounded overnight-open research task. Do
-not mix with the two-wave Layer 3 theme.
+## Repository-wide authority reset — 2026-09-08
 
-Follow `.codex/skills/strategy-slice-rebuild/SKILL.md` for any model change.
-The repository currently contains a 2015-2025 China high-open development pack,
-the exact frozen 2015-2025 Yahoo offshore-ETF development artifact, and a
-user-authorized Gap-Fill V2 2026 repeat pack in
-`data/gap_fill_repeat_2026/`. Post-2026-08-21 China market rows remain absent.
-The repository is currently public while
-`docs/governance/package_scope.json` still records the earlier private-repository
-requirement; treat that as an explicit governance mismatch and do not silently
-change visibility or pretend the earlier contract never existed.
+The repository slug `factorlab-overnight-open-lab` is historical. The active repository-wide mission is now **broad reversal / mean-reversion mechanism discovery**, not one bounded overnight-open task.
 
-The prior V1 two-head architecture remains intact. The accepted direction
-incumbent is `median_quantile_sign`; the accepted magnitude component is
-`abs_frozen_clock_signed_prediction`. The direction head was robustly confirmed
-on 2026-01-05 through 2026-08-21 in its earlier research cycle. Those receipts
-remain immutable. Production authority is false.
+When deciding what this repository should do next, read and obey in this order:
 
-A second prediction identity, `gap_fill_prediction_v2`, is now **development
-selected, parameter-frozen, and robustly repeat-confirmed**. It asks, after the
-CSI1000 09:31 gap is observed, for the probability that the previous 15:00 close
-is revisited within 15 trading minutes, 60 trading minutes, or EOD. High and low
-gaps use separate three-stage discrete-time hazard heads. Phase-2 selected
-`geometry_only` for both signs, using exactly `abs_gap` and
-`abs_gap_over_rvol20`. The selected architecture SHA256 is
-`07810dafbab629f196d04ea1204d90ee68177ce764bb765be560bc1b84261c00`.
-The final 2015-2025 parameter bundle is frozen at SHA256
-`07abe29e31ce09b69bd6250b1ce3ebc5af7688b69ed39909feb80e9db882aaa0`.
-See `docs/research/gap_fill_v2_v1_development_closeout_20260906.md`,
-`docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_freeze_v1.json`,
-and `docs/research/gap_fill_v2_2026_repeat_cloud_adjudication_20260906.md`.
-Do not add the rejected Phase-1 support variables back into V2 v1, retune the
-geometry heads, introduce a gap-size gate, calibrate probabilities, select a
-binary threshold, or use trading return on consumed evidence.
+1. `CONTINUE_HERE.md`
+2. `docs/governance/reversal_mean_reversion_program_charter_v1.json`
+3. `docs/governance/reversal_mean_reversion_program_state_v1.json`
+4. `docs/research/reversal_mean_reversion_program_whitepaper_v1.md`
+5. this `AGENTS.md`
+6. lane-specific protocols created after 2026-09-08
+7. older overnight-open / Gap-Fill documents, which remain authoritative **only inside their historical research identities**
 
-For `gap_fill_prediction_v2`, the exact 2026-01-05 through 2026-08-21 repeat
-window has now been opened once under the frozen repeat protocol and **both high
-and low heads passed all 6/6 preregistered repeat gates**. The decision is
-`gap_fill_v2_2026_repeat_robustly_confirmed`. This is repeat-only evidence and
-must never be called scientifically fresh because that calendar window had
-already been opened in the older direction-head cycle. The repeat result cannot
-be used to modify V2 features, parameters, thresholds, calibration, horizons or
-gates.
+If an older file says this repository has one overnight-open task, that repository-wide scope statement is superseded. Do not rewrite old results or sealed evidence labels.
 
-The first scientifically fresh V2 challenge is now **preregistered and execution-
-frozen but unopened**. Its only authorized target window is the complete calendar
-block `2026-08-24 .. 2026-12-31`; partial-window scoring is forbidden and
-`scripts/evaluate_gap_fill_v2_true_fresh_2026q4.py` must refuse execution before
-China date `2027-01-01`. The fresh protocol is
-`docs/governance/cloud_session_20260906_gap_fill_v2_true_fresh_protocol_v1.json`
-and the execution freeze is
-`docs/governance/cloud_session_20260906_gap_fill_v2_true_fresh_execution_freeze_v1.json`.
-The six scientific gates are identical to the repeat protocol. Per-sign sample
-sufficiency is frozen at >=25 all-gap rows, >=20 >10bp rows, and >=12 >30bp rows.
-Do not inspect any post-2026-08-21 fill outcome, model score or partial fresh
-receipt before the complete block is available. See
-`docs/governance/gap_fill_v2_true_fresh_state_v1.json`.
+## Program mission
 
-**Freezing V2 v1 does not freeze the research program.** A distinct historical-
-extension identity, `gap_fill_v2_historical_extension_v1`, is active now and may
-produce V2.1 or later successors using newly admitted historical data. The
-current HE-00 stage is metadata/provenance only; do not inspect new historical
-fill outcomes until source admission. Fixed same-index partitions are HE_DEV
-`2005-01-01..2010-12-31`, HE_AUDIT_A `2011-01-01..2012-12-31`, HE_AUDIT_B
-`2013-01-01..2014-10-16`, and supporting post-publication cross-check
-`2014-10-17..2014-12-31`. Audit dates must not slide after outcomes are seen.
-Pre-2014-10-17 CSI1000 history must be labeled as vendor backfill,
-constituent-reconstruction, or unknown provenance rather than presumed live.
-See `docs/governance/gap_fill_v2_generation_policy_v1.json` and
-`docs/governance/cloud_session_20260906_gap_fill_v2_historical_extension_protocol_v1.json`.
-V2.1 may use newly admitted historical data and consumed evidence as development
-context, but it must have a new model identity and its own sealed audit evidence;
-it may not alter V2 v1 and inherit V2 v1's evidence labels. CSI300/CSI500 may be
-inventoried now, but any outcome-based cross-index transport test requires a
-separate preregistered protocol.
+The main question is:
 
-The bounded `high_open_recall_successor_v1` branch has finished without an
-incremental successor. OHR-02 and OHR-04 both retained
-`median_quantile_sign`; OHR-03 was never opened. Do not continue by slicing the
-same domestic weakness variables, tuning thresholds, or reusing those failed
-runtime routes.
+> Given the current scale and parent market state, is an observed move a temporary deviation from an intact normal state, or has the normal state itself changed?
 
-The `offshore_china_price_discovery_successor_v1` identity is also **closed**.
-OHR-05 admitted one exact Yahoo chart-v8 source, OHR-06 found genuine mechanism
-evidence only for `broad_china_specific_vs_spy`, OHR-07 rejected a one-feature
-joint-refit candidate, and OHR-08 rejected the final one-parameter frozen-base
-residual overlay under the preregistered high-open-successor gates. See
-`docs/research/offshore_china_price_discovery_route_closeout_20260906.md`.
-The offshore signal may be cited only as progression/mechanism material for this
-identity; do not rescue it post hoc by changing beta, thresholds, weights,
-tickers, interactions or the loss objective on the consumed 2015-2025 window.
-Any future use for confidence, abstention, calibration or false-positive control
-requires a new preregistered objective and research identity.
+“Mean” may mean a line, band, range, parent-scale wave/path, state-conditioned trajectory/distribution, cross-asset relationship, or statistical market property. Do not reduce mean reversion to moving-average distance.
 
-For the completed high-open and offshore identities, 2015-2025 is consumed
-development material. The exact 2026-01-05 through 2026-08-21 window remains
-sealed from diagnosis, feature engineering, candidate-family design, ranking,
-loss/threshold choice and all other development; no successor passed a gate that
-would justify opening their repeat-blackbox stage. That window can never become
-scientifically fresh again. Post-2026-08-21 remains the true unread fresh
-challenge for those separate identities. Same-morning China information remains
-forbidden for V1. For V2, the 09:31 observed gap is allowed by definition but
-post-09:31 China information is forbidden at prediction time. Do not mutate any
-FactorLab live registry.
+The main scientific discrimination is:
+
+`temporary lower-scale deviation inside intact parent state`
+
+versus
+
+`true change of the parent state`.
+
+## Active lanes
+
+Keep several lanes alive shallowly before taking one deep.
+
+### R1 — Cross-scale pullback inside an intact parent trend
+
+Primary question: can a sharp lower-scale counter-move be identified as a pullback before recovery, rather than a same-scale trend reversal?
+
+### R2 — Range-boundary / failed-breakout reversion
+
+Primary question: in a parent oscillatory/range state, can an excursion beyond the range be distinguished as temporary overshoot versus genuine breakout before reentry/continuation?
+
+### R3 — Regime-conditioned residual reversion
+
+Primary question: after defining a low-capacity state-conditioned normal path/distribution, does the residual show more stable reversion than unconditional price deviation?
+
+### R4 — Relative-value / cross-asset dislocation
+
+Existing next-open, Gap-Fill V2/V2.1, CSI300/CSI500 relative-gap work belongs here. It remains useful and valid as a **delegated specialist case study**. Do not make it the main program merely because its old state file contains an unfinished `next_action`.
+
+### R5 — Statistical-state extremes
+
+Path efficiency, volatility, frequency-band amplitude, clustering, asymmetry, wave duration, and similar properties are exploratory sources for parent-state classification or future reversion lanes.
+
+## Mandatory coordinate system for every new reversal hypothesis
+
+Before outcome inspection, state:
+
+1. `scale`: lower / current / parent;
+2. `parent_state`: trend / range / transition / unknown;
+3. `deviation_object`: price / path / wave / distribution / relative relationship / statistical property;
+4. `recovery_criterion`: causal horizon and observable event that counts as reversion versus state change.
+
+Do not call an event “mean reverting” merely because the move was large.
+
+## Research-budget rule
+
+This repository is a **direction finder**, not a single-strategy optimizer.
+
+Default behavior:
+
+- run comparable shallow probes for 2–3 primary lanes;
+- answer phenomenon → pre-event observability → stability first;
+- keep each first-pass candidate family very small;
+- compare lanes before deep promotion;
+- close weak lanes honestly rather than rescuing them;
+- graduate a strong lane into a dedicated identity/repository before long optimization.
+
+Until R1/R2/R3 have received comparable shallow screening, do **not** spend many iterations tuning one lane.
+
+The `.codex/skills/strategy-slice-rebuild/SKILL.md` workflow is not the default for Stage-0/Stage-1 broad direction screening. Use it after a lane has been promoted to strategy-level development, or when a task explicitly requires that workflow.
+
+## Legacy research boundary
+
+Prior research remains immutable evidence for its own identity, including:
+
+- next-session CSI1000 open direction/magnitude;
+- high-open recall successors;
+- offshore-China price-discovery successors;
+- `gap_fill_prediction_v2`;
+- V2.1 / relative-gap-excess and cross-index experiments;
+- their source-admission, repeat, audit, true-fresh and execution protocols.
+
+Rules:
+
+- do not relabel consumed evidence as fresh;
+- do not open a legacy sealed window in order to help a new broad lane;
+- do not change a frozen legacy model and keep its old evidence label;
+- an unfinished legacy receipt/data blocker **does not block** R1/R2/R3 broad-program work;
+- resume a legacy subprogram only when explicitly assigned or when the broad program formally promotes it as a comparison/deep lane.
+
+Production authority remains false. Do not mutate any FactorLab live registry.
+
+## Current broad-program stage
+
+Current stage is **Stage 0 / Stage 1**:
+
+1. freeze a common scale / parent-state / deviation / reversion measurement vocabulary;
+2. write bounded shallow preanalysis for R1, R2 and R3;
+3. identify minimum data and the smallest falsifiable test for each;
+4. execute comparable low-budget probes when inputs are available;
+5. compare lanes before any deep promotion.
+
+Do not let a historical Gap-Fill state file replace this next-action order.
+
+---
 
 ## 云端—本地交接协议（默认不生效）
 

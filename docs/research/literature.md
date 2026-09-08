@@ -1,4 +1,6 @@
-# Overnight gap literature used for v2 (not a complete survey)
+# Legacy overnight-gap literature note
+
+> **Scope notice (2026-09-08):** this file is the literature note for the historical overnight-open / Gap-Fill specialist program. It remains valid for that subprogram, but it is **not** the literature authority for the repository-wide broad reversal / mean-reversion program. New R1/R2/R3 literature should be maintained separately under the authority reset defined in `CONTINUE_HERE.md`.
 
 Sources retrieved via OpenAlex, 2026-09-05, with additional offshore price-discovery sources reviewed 2026-09-06.
 
