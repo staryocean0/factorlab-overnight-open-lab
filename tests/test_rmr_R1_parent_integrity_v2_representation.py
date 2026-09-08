@@ -27,6 +27,21 @@ def test_composite_formula_has_frozen_integrity_directions():
     assert out.loc[1, "parent_integrity"] < 0
 
 
+def test_zero_variance_overlap_matches_standard_scaler_constant_semantics():
+    train = pd.DataFrame({
+        "abs_drift": [0.0, 1.0, 2.0],
+        "overlap": [0.0, 0.0, 0.0],
+        "parent_eff": [0.2, 0.5, 0.8],
+    })
+    params = r1.fit_parent_standardizer(train)
+    assert params["zero_variance_features"] == ["overlap"]
+    assert params["scale"]["overlap"] == 1.0
+    out = r1.add_composite(train, params)
+    overlap_z = (train["overlap"] - params["mean"]["overlap"]) / params["scale"]["overlap"]
+    assert np.allclose(overlap_z.to_numpy(), 0.0)
+    assert np.isfinite(out["parent_integrity"]).all()
+
+
 def test_binary_events_keeps_only_recovery_and_failure():
     raw = pd.DataFrame([
         {"day": "2020-01-01", "severity": 1.0, "abs_drift": 0.2, "overlap": 0.1, "parent_eff": 0.5, "outcome": "recovery"},
