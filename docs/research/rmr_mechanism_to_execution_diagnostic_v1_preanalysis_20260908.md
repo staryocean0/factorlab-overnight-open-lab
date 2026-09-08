@@ -32,6 +32,16 @@ Four cells:
 
 Use all causally valid events under each certified event engine. No probability threshold, state threshold or economic filter is applied.
 
+Certified frozen identities must be reused without refit:
+
+- R1 parameter bundle SHA256: `41072c78a6e657aec01d7da95d9c00bff23ff01829ada6afe256d7c254107fcb`
+- R2 parameter bundle SHA256: `08d28cc1f145247cc755cea70b26cfb75a53941db8df0f0a0f640c268ae5f0d1`
+- S1: `0.003445827004614232`
+- S2: `0.006891654009228464`
+- S3: `0.013783308018456928`
+
+The historical certified scale identity is not re-estimated from the current DEV window.
+
 ## Frozen execution convention for diagnosis
 
 For every event:
@@ -41,25 +51,49 @@ For every event:
 - if the original structural target/failure boundaries are already invalidated before entry, mark the event `entry_invalid` and do not create a trade-return path;
 - direction = restoration direction;
 - diagnostic round-trip cost = fixed 10bp, matching the closed economic families;
-- structural resolution horizon = the certified 1200 observed bars;
+- structural resolution horizon = certified 1200 observed bars;
 - unresolved events are censored at the frozen horizon / available data boundary.
 
 This convention is descriptive only and is not being selected as a strategy.
 
 ## Frozen diagnostic objects
 
+### D0 — event and tradeability inventory
+
+For each cell and role report:
+
+- confirmed event count;
+- next-minute tradeable count;
+- next-minute tradeable fraction;
+- entry-invalid count;
+- resolved restoration rate;
+- mean frozen certified restoration probability.
+
 ### D1 — structural reward/loss geometry at entry
 
 For each tradeable event report:
 
-- `target_gross`: directional return from entry price to the original restoration boundary;
-- `failure_gross`: directional return from entry price to the original failure/continuation boundary;
+- `target_gross`: directional return from entry price to original restoration boundary;
+- `failure_gross`: directional return from entry price to original failure/continuation boundary;
 - `reward_loss_abs_ratio = abs(target_gross) / abs(failure_gross)`;
-- `break_even_restoration_probability_10bp` implied by the two boundaries and 10bp cost.
+- `break_even_restoration_probability_10bp` implied by the two boundaries and 10bp cost;
+- `binary_structural_expected_net_10bp = p_certified * target_gross + (1-p_certified) * failure_gross - 10bp`.
 
 Do not search a ratio/probability threshold.
 
-### D2 — realized structural-resolution economics
+### D2 — confirmation-to-entry reward consumption
+
+Using the fixed next-observed-1m entry only, report:
+
+- restoration-direction move from confirmation price to entry price;
+- structural target reward available at confirmation;
+- structural target reward available at entry;
+- reward consumed by the fixed confirmation-to-entry delay;
+- reward-consumed fraction where defined.
+
+This is diagnostic evidence for possible `entry_slippage_or_confirmation_delay`; it is not permission to search entry delay.
+
+### D3 — realized structural-resolution economics
 
 At actual first-passage/censor exit report:
 
@@ -67,69 +101,67 @@ At actual first-passage/censor exit report:
 - realized net return after 10bp;
 - win indicator;
 - holding bars;
-- resolution class;
-- boundary overshoot: realized exit return minus theoretical boundary return for the reached side.
+- censor rate;
+- target-side overshoot;
+- failure-side overshoot.
 
-### D3 — fixed markout term structure
+Resolution time must include mean, median and p90 holding bars. Overshoot is signed realized return minus the theoretical reached-boundary return.
+
+### D4 — fixed markout term structure
 
 From next-bar entry, report directional restoration markouts at exactly:
 
 `[1, 5, 15, 30, 60, 120, 240]` observed 1m bars.
 
-If a horizon is beyond available data, mark missing. Do not select or promote any horizon.
+For every horizon report both mean markout and positive-share where available. If a horizon is beyond available data, mark missing. Do not select or promote any horizon.
 
-### D4 — restoration probability versus realized economics
+### D5 — restoration probability versus realized economics
 
 Use the **already frozen final certified mechanism models** only. No refit.
 
-For each cell compute the certified candidate restoration probability at event time and report on VALIDATION:
+For each cell compute the certified candidate restoration probability at event time and report:
 
 - Pearson correlation with realized net return among tradeable events;
 - mean realized net return by fixed probability bins `[0,.2), [.2,.4), [.4,.6), [.6,.8), [.8,1]`;
-- event count in each bin;
-- mean structural break-even restoration probability in each bin.
+- event count in every fixed bin;
+- mean certified probability in every fixed bin;
+- mean binary structural expected net in every fixed bin;
+- mean structural break-even restoration probability in every fixed bin;
+- descriptive check whether non-empty bin mean realized-net returns are monotonic non-decreasing.
 
 These bins are descriptive and fixed ex ante; they are not thresholds for a strategy.
 
-### D5 — DEV versus VALIDATION stability
+### D6 — DEV versus VALIDATION stability
 
-Report every D1–D4 object separately for:
+Report D0-D5 separately for:
 
 - DEV `2015-01-05 .. 2020-12-31`;
 - VALIDATION `2021-01-01 .. 2025-12-31`;
 
 and for each of the four cells.
 
-For VALIDATION additionally report annual summaries 2021–2025 for:
-
-- tradeable count;
-- restoration rate;
-- mean gross/net return;
-- win rate;
-- censor rate;
-- median holding bars.
-
-No year may be selected or excluded.
+For VALIDATION also report full summaries for each calendar year 2021, 2022, 2023, 2024 and 2025. No year may be selected or excluded.
 
 ## Diagnostic interpretation categories
 
-The report may classify observed failure modes descriptively, without selecting a new strategy:
+The later adjudication may classify observed failure modes descriptively, without selecting a new strategy:
 
-1. `geometry_unfavorable` — reward/loss geometry demands restoration probabilities materially above observed/certified levels;
-2. `entry_slippage_or_confirmation_delay` — event-confirmation to next-bar move consumes much of theoretical reward;
+1. `geometry_unfavorable` — reward/loss geometry demands restoration probabilities above frozen certified levels;
+2. `entry_slippage_or_confirmation_delay` — event-confirmation to fixed next-bar move consumes material theoretical reward;
 3. `boundary_overshoot_tail` — failure-side overshoot creates losses larger than binary boundary approximation;
-4. `slow_resolution_cost_exposure` — long/censored paths dominate despite probability edge;
-5. `short_horizon_wrong_way_markout` — restoration probability is long-horizon but immediate markouts are adverse;
-6. `probability_not_monetonic_with_realized_return` — higher certified restoration probability does not map monotonically to realized net return.
+4. `slow_resolution_cost_exposure` — long/censored paths dominate despite probability information;
+5. `short_horizon_wrong_way_markout` — restoration probability is long-horizon while immediate fixed markouts are adverse;
+6. `probability_not_monotonic_with_realized_return` — higher certified restoration probability does not map monotonically to realized net return.
 
-The final report may assign multiple categories. These are explanatory labels, not model features.
+These labels are adjudication language only. The runner must not introduce hidden classification thresholds or use them to select observations.
 
 ## Data governance
 
 - DEV and VALIDATION only.
 - Maximum read date: `2025-12-31`.
-- BLACKBOX source must not be opened or referenced by the runner.
+- BLACKBOX source must not be opened or referenced as an input by the runner.
 - No query is appended to the BLACKBOX ledger.
+- This diagnostic does not create BLACKBOX query #4.
 
 ## Explicitly forbidden
 
@@ -146,6 +178,12 @@ The final report may assign multiple categories. These are explanatory labels, n
 
 ## Intended next decision
 
-After this diagnostic, a program review may decide whether a materially new **execution/instrument** identity is scientifically justified (for example, different tradable instrument mapping or execution timing theory). It may also conclude that no further economic translation should be attempted with the current data/instruments.
+After the detailed DEV/VALIDATION receipt is read in full, program adjudication must choose one of only three directions:
+
+1. a materially new execution-timing theory;
+2. a materially new instrument-mapping theory (ETF / futures / options or another explicitly motivated tradable representation);
+3. stop economic translation for the certified mechanisms under current evidence.
+
+Any new identity must have independent theory motivation and cannot be threshold/entry/stop/cost/scale rescue of the closed economic families.
 
 Production authority remains false.
