@@ -126,10 +126,14 @@ def binary_events(raw: pd.DataFrame) -> pd.DataFrame:
 
 def fit_parent_standardizer(train: pd.DataFrame) -> dict:
     mean = {c: float(train[c].mean()) for c in PARENT}
-    scale = {c: float(train[c].std(ddof=0)) for c in PARENT}
-    if any((not np.isfinite(scale[c]) or scale[c] <= 0) for c in PARENT):
+    raw_scale = {c: float(train[c].std(ddof=0)) for c in PARENT}
+    if any(not np.isfinite(raw_scale[c]) for c in PARENT):
         raise RuntimeError("invalid parent-feature standardization")
-    return {"mean": mean, "scale": scale}
+    # Match StandardScaler's constant-feature semantics: a zero-variance column
+    # carries no standardized information, so use scale=1 and z=(x-mean)=0.
+    zero_variance = [c for c in PARENT if raw_scale[c] == 0.0]
+    scale = {c: (1.0 if raw_scale[c] == 0.0 else raw_scale[c]) for c in PARENT}
+    return {"mean": mean, "scale": scale, "zero_variance_features": zero_variance}
 
 
 def add_composite(data: pd.DataFrame, params: dict) -> pd.DataFrame:
