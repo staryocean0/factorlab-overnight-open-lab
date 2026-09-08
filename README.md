@@ -4,13 +4,11 @@ This is the single canonical repository for the project.
 
 ## Permanent data model
 
-The project uses a reusable three-role scheme:
-
-- **DEV** `2015-01-05 .. 2020-12-31` — full development and diagnosis;
-- **VALIDATION** `2021-01-01 .. 2025-12-31` — reusable detailed validation and diagnosis;
+- **DEV** `2015-01-05 .. 2020-12-31` — reusable full development and diagnosis.
+- **VALIDATION** `2021-01-01 .. 2025-12-31` — reusable detailed validation and diagnosis.
 - **BLACKBOX** `2026-01-05 .. 2026-08-21` — reusable low-bandwidth certification only.
 
-BLACKBOX output is restricted to `PASS / FAIL / INSUFFICIENT`. Repeated queries are not independent OOS samples. Exact BLACKBOX metrics, counts, dates, subperiods, events, probabilities, attribution and failure examples must never be released.
+BLACKBOX output is restricted to `PASS / FAIL / INSUFFICIENT`. Repeated queries are not independent OOS samples. Exact hidden metrics, counts, dates, subperiods, events, probabilities, attribution and failure examples must never be released.
 
 ## Certified statistical mechanisms
 
@@ -18,87 +16,99 @@ BLACKBOX output is restricted to `PASS / FAIL / INSUFFICIENT`. Repeated queries 
 
 `rmr_cross_scale_pullback_parent_integrity_v2`
 
-- reusable detailed VALIDATION: PASS;
+- detailed VALIDATION: PASS;
 - BLACKBOX query #1: `PASS`;
-- final parameter bundle: `41072c78a6e657aec01d7da95d9c00bff23ff01829ada6afe256d7c254107fcb`.
+- final bundle: `41072c78a6e657aec01d7da95d9c00bff23ff01829ada6afe256d7c254107fcb`.
 
 ### R2 — range-parent boundary re-entry
 
 `rmr_range_boundary_parent_integrity_v2`
 
-- reusable detailed VALIDATION: PASS on both co-primary cells;
+- detailed VALIDATION: PASS on both co-primary cells;
 - BLACKBOX query #3: `PASS`;
-- final parameter bundle: `08d28cc1f145247cc755cea70b26cfb75a53941db8df0f0a0f640c268ae5f0d1`.
+- final bundle: `08d28cc1f145247cc755cea70b26cfb75a53941db8df0f0a0f640c268ae5f0d1`.
 
-R1 and R2 are complementary parent-normal-state mechanisms: an intact trend raises lower-scale recovery probability, while an intact range raises attempted-breakout re-entry probability. They are not interchangeable signals and are not automatically one common scalar axis.
+R1 and R2 are complementary parent-normal-state mechanisms, not interchangeable scalar signals.
 
 ### R5-C — closed
 
 `rmr_event_density_state_reversal_v2` passed detailed VALIDATION but BLACKBOX query #2 returned `FAIL`. No hidden-period detail was released and same-identity rescue is prohibited.
 
-## Unified router result
+## Closed synthesis and economic work
 
-`rmr_unified_parent_normal_state_router_v1` was tested on DEV/VALIDATION only and **closed at VALIDATION**.
+### Unified parent-state router v1
 
-After a pure scale-identity implementation bug was fixed without changing protocol, the router improved pooled metrics overall because R1 improved, but both R2 cells worsened. Therefore:
+`rmr_unified_parent_normal_state_router_v1` closed at VALIDATION. After a pure scale-identity implementation fix, both R2 cells worsened; the tested common standardized state-consistency axis is not supported. No BLACKBOX query occurred.
 
-> R1 and R2 are conceptually complementary, but cannot be compressed into the tested common standardized state-consistency axis.
+### Mechanism → execution diagnostic
 
-No BLACKBOX query occurred. There is still no query #4.
+`rmr_mechanism_to_execution_diagnostic_v1` completed on DEV+VALIDATION only. It showed:
 
-Current retained evidence:
+- payoff geometry is the primary bridge failure;
+- next-minute delay and boundary overshoot are secondary;
+- restoration probability is not a monotonic realized-return score;
+- R2 directional markouts deteriorate with horizon;
+- R1_B alone showed a delayed positive markout term structure, motivating one separate temporal theory test.
 
-- `docs/research/rmr_unified_parent_state_router_v1_validation_adjudication_20260908.md`
-- `docs/research/rmr_unified_parent_state_router_v1_closeout_20260908.md`
-- `docs/archive/rmr_unified_parent_state_router_v1_history_anchor_20260908.md`
+No BLACKBOX source was opened; the ledger remained at 3 queries.
 
-## Mechanism → execution diagnostic
+### R1_B temporal impulse completion v1 — closed on DEV
 
-`rmr_mechanism_to_execution_diagnostic_v1` is complete on DEV+VALIDATION only.
+`rmr_R1B_temporal_impulse_completion_v1` was the single results-blind temporal identity authorized after the diagnostic.
 
-The diagnostic explains why certified restoration probabilities did not translate into the tested index-level next-minute / structural-boundary / 10bp execution family:
+Theory: after a certified R1_B `S2-inside-S3` pullback confirmation, treat the next complete parent-aligned S2 impulse as the temporal economic object. Entry remained the next observed 1m close. Exit was the **causal confirmation close** of the first subsequent parent-aligned S2 wave, unless the original S3 structural failure boundary was crossed first. S2/S3 thresholds, 10bp cost and the inherited 1200-bar safety horizon were unchanged.
 
-- the dominant failure is payoff-geometry mismatch: eventwise binary structural expected net is negative in all four VALIDATION cells;
-- next-minute confirmation delay consumes little structural reward and is not the primary cause;
-- boundary overshoot is a secondary aggravator, not the root cause;
-- frozen restoration probabilities are not monotonic realized-return scores;
-- R2 markouts deteriorate with horizon under the current directional execution family;
-- R1_B alone shows a broad delayed positive markout term structure, motivating a **new temporal execution theory review**, not horizon selection.
+DEV-only result on `682` tradeable events:
+
+- candidate mean net: **+10.59bp**;
+- candidate minus structural baseline mean net: **+11.87bp**;
+- positive candidate mean-net years: **5 / 6**;
+- candidate median net: **-32.11bp**;
+- candidate win rate: **37.10%**.
+
+The preregistered DEV gate required positive median net. That gate failed, so the identity is **closed on DEV**. VALIDATION was never opened.
+
+Interpretation: the temporal object captures a positive right-tail component, but not a broad typical-event translation. The result may not be rescued by removing the median gate, exiting at the unobservable S2 extreme, choosing a fixed horizon, adding a probability filter, or tuning entry/stop/target/cost/scale/year/regime.
 
 Evidence:
 
-- `docs/research/rmr_mechanism_to_execution_diagnostic_v1_adjudication_20260908.md`
-- `docs/research/rmr_mechanism_to_execution_diagnostic_v1_decisive_receipt_20260908.json`
-- `docs/archive/rmr_mechanism_to_execution_diagnostic_v1_history_anchor_20260908.md`
+- `docs/research/rmr_R1B_temporal_execution_theory_program_review_20260908.md`
+- `docs/research/rmr_R1B_temporal_impulse_completion_DEV_adjudication_20260908.md`
+- `docs/research/rmr_R1B_temporal_impulse_completion_DEV_decisive_receipt_20260908.json`
+- `docs/archive/rmr_R1B_temporal_impulse_completion_v1_history_anchor_20260908.md`
 
-No BLACKBOX source was opened; the query ledger remains exactly **3**.
-
-## Economic translation status
+## Current economic status
 
 No trading implementation is certified.
 
-- R1 economic v1/v2/v3 failed detailed VALIDATION before BLACKBOX.
-- R2 economic v1 failed detailed VALIDATION before BLACKBOX.
-- the current index-level next-minute / structural-boundary / 10bp family is closed for R1_A and R2_A/R2_B;
-- do not create automatic R1 economic v4, R2 economic v2, router v2, probability-threshold rescue or horizon/entry/stop/cost/scale tuning against VALIDATION.
+Closed without BLACKBOX:
+
+- R1 economic v1/v2/v3;
+- R2 economic v1;
+- unified router v1;
+- R1_B temporal impulse completion v1.
+
+No automatic R1 economic v4, R2 economic v2, router v2, temporal v2, probability-filter rescue, or horizon/entry/stop/cost/scale tuning is authorized.
 
 ## Exact next stage
 
-Automatic broad R8/R9 indicator generation remains paused.
+There is currently **no empirical economic candidate authorized**.
 
-The next allowed task is a **results-blind R1_B temporal execution theory review**. It must first explain causally why the higher-scale trend-parent restoration mechanism should realize through a distributed time path. It may not select 120/240 bars from the completed diagnostic, tune any execution parameter, use a PnL threshold to formulate the theory, access BLACKBOX, or claim production authority.
+If economic research continues, the next task must be a separate results-blind **payoff-object or instrument-theory program review**. A new identity must be materially independent of the closed timing rule and preregistered before any new empirical output is opened.
 
-Instrument mapping (ETF/futures/options) is not the current choice because the diagnostic contains no instrument-specific basis, spread, liquidity, carry or convexity evidence. It remains eligible only under a separate independently motivated theory.
+Instrument mapping remains only a theory-level possibility because the current repository does not contain instrument-specific spread, basis, carry, liquidity, convexity or option-premium evidence. Any ETF/futures/options study requires its own data-source and cost-model contract first.
+
+Broad R8/R9 indicator discovery remains paused.
 
 ## BLACKBOX ledger
 
-Completed reusable BLACKBOX queries:
+Completed reusable BLACKBOX queries remain exactly:
 
 1. R1 parent integrity — `PASS`;
 2. R5-C event density — `FAIL`;
 3. R2 range integrity — `PASS`.
 
-**No query #4 exists or is currently authorized.**
+**No query #4 exists or is authorized.**
 
 ## Read first
 
