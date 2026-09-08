@@ -49,9 +49,11 @@ Outcome:
 
 ## Candidate family — exactly two parent representations
 
-All candidates use the same severity feature:
+All candidates retain the exact broad-screen severity definition:
 
-`severity = abs(lower_wave_move) / frozen_scale_threshold`.
+`severity = abs(lower_wave_move) / DEV_median_rvol20`.
+
+The directional-change threshold determines the measurement scale; it is **not** substituted into the severity denominator. This preserves the promoted broad R1 baseline exactly.
 
 ### C1 — `R1_PARENT_COMPOSITE_1D`
 
@@ -111,6 +113,7 @@ Freeze:
 - logistic coefficients/intercepts;
 - source SHA;
 - event thresholds;
+- broad-compatible severity denominator;
 - candidate identity;
 - model/parameter digest;
 - holdout gates.
@@ -138,6 +141,7 @@ Passing the mechanism holdout is still **not fresh confirmation, not PnL evidenc
 - opening 2023–2025 before selection and parameter freeze;
 - choosing only one scale pairing;
 - changing directional-change thresholds;
+- changing the broad-compatible severity definition;
 - adding trend indicators or volatility filters;
 - searching an integrity cutoff;
 - modifying recovery/failure boundaries;
