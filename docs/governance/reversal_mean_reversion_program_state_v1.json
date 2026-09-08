@@ -1,13 +1,14 @@
 {
-  "schema_id": "factorlab_reversal_mean_reversion_program_state@3.6",
+  "schema_id": "factorlab_reversal_mean_reversion_program_state@3.7",
   "session_date": "2026-09-08",
   "canonical_repository": "staryocean0/factorlab-overnight-open-lab",
-  "current_status": "R1_R2_statistical_mechanisms_BLACKBOX_certified_router_closed_simple_index_execution_closed_R1B_temporal_impulse_DEV_closed_no_VALIDATION_no_empirical_rescue_authorized",
-  "repository_wide_current_mainline": "certified_mechanisms_with_current_economic_translation_paused_pending_independent_program_theory",
+  "current_status": "R1_R2_statistical_mechanisms_BLACKBOX_certified_router_closed_simple_index_execution_closed_R1B_temporal_impulse_DEV_closed_payoff_object_instrument_theory_review_completed_no_empirical_candidate_authorized",
+  "repository_wide_current_mainline": "certified_mechanisms_with_economic_translation_paused_after_results_blind_payoff_object_instrument_theory_review",
   "authority_order": [
     "CONTINUE_HERE.md",
     "docs/governance/reusable_three_role_data_policy_v1.json",
     "docs/governance/reversal_mean_reversion_program_state_v1.json",
+    "docs/research/rmr_payoff_object_instrument_theory_review_v1.md",
     "docs/INDEX.md"
   ],
   "data_roles": {
@@ -86,12 +87,25 @@
     "single_common_standardized_axis_supported": false,
     "mechanism_to_execution_primary_failure": "payoff_geometry_mismatch",
     "R1B_temporal_DEV_finding": "parent_aligned_S2_completion_exit_improves_mean_and_is_positive_in_5_of_6_DEV_years_but_has_negative_median_and_low_win_rate_so_right_tail_not_broad_translation",
-    "economic_translation_status": "certified_probability_mechanisms_without_certified_trading_implementation_and_no_current_empirical_rescue_authorized",
+    "economic_translation_status": "certified_probability_mechanisms_without_certified_trading_implementation_and_no_current_empirical_candidate_authorized",
     "broad_new_indicator_generation_paused": true
   },
+  "payoff_object_instrument_theory_review": {
+    "identity": "rmr_payoff_object_instrument_theory_review_v1",
+    "status": "completed_results_blind_boundary_review",
+    "path": "docs/research/rmr_payoff_object_instrument_theory_review_v1.md",
+    "empirical_candidate_authorized": false,
+    "blackbox_access_authorized": false,
+    "production_authority": false,
+    "allowed_theory_lanes": [
+      "independent_execution_timing_theory",
+      "instrument_mapping_theory_with_instrument_specific_source_and_cost_contract",
+      "stop_economic_translation"
+    ]
+  },
   "next_stage": {
-    "stage": "independent_economic_object_or_instrument_theory_program_review",
-    "status": "theory_review_only_no_empirical_candidate_currently_authorized",
+    "stage": "post_review_hold_no_empirical_economic_candidate",
+    "status": "theory_boundary_frozen_no_DEV_VALIDATION_or_BLACKBOX_execution_authorized_for_a_new_economic_identity",
     "blackbox_direct_access": false,
     "blackbox_query_4_authorized": false,
     "constraints": [
@@ -101,26 +115,27 @@
       "no_probability_filter_to_isolate_right_tail",
       "no_horizon_entry_stop_target_cost_scale_year_regime_time_of_day_search",
       "no_portfolio_optimization_rescue",
-      "new_identity_requires_independent_payoff_or_instrument_theory_and_new_preregistration",
+      "no_new_empirical_candidate_without_a_materially_independent_preregistered_payoff_or_instrument_theory",
       "instrument_mapping_requires_instrument_specific_data_and_cost_model_before_empirical_authority",
       "no_VALIDATION_or_BLACKBOX_for_closed_R1B_temporal_identity"
     ]
   },
   "instrument_mapping": {
-    "status": "eligible_only_for_separate_independent_program_review_not_empirically_authorized",
+    "status": "theory_review_completed_but_empirically_unauthorized",
     "reason": "current_index_data_do_not_measure_instrument_specific_spread_basis_carry_liquidity_convexity_or_option_premium",
-    "future_eligibility": "requires_independent_instrument_theory_plus_data_source_contract"
+    "future_eligibility": "requires_independent_instrument_theory_plus_data_source_and_cost_model_contract_plus_separate_preregistration"
   },
   "optional_future_fresh_challenge": {
     "identity": "R1_complete_2026Q4_true_fresh_challenge",
     "status": "preregistered_optional_not_current_blocker"
   },
   "next_actions_in_order": [
-    "close_and_archive_R1B_temporal_impulse_DEV_implementation_surface",
-    "if_continuing_economic_research_write_separate_results_blind_payoff_or_instrument_program_review_before_any_new_candidate",
+    "keep_current_surface_clean_and_preserve_closed_work_via_decisive_receipts_and_history_anchors",
+    "do_not_open_new_empirical_economic_work_until_a_materially_independent_identity_is_explicitly_preregistered_and_authorized",
+    "for_any_future_instrument_mapping_freeze_instrument_specific_source_and_cost_model_before_DEV",
     "do_not_open_R1B_temporal_VALIDATION",
     "do_not_open_BLACKBOX_query_4",
-    "do_not_resume_R1A_R2_simple_index_execution_router_v2_or_probability_filter_rescue"
+    "do_not_resume_R1A_R2_simple_index_execution_router_v2_probability_filter_or_parameter_search_rescue"
   ],
   "production_authority": false
 }
