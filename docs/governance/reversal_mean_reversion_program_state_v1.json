@@ -2,7 +2,7 @@
   "schema_id": "factorlab_reversal_mean_reversion_program_state@1.0",
   "session_date": "2026-09-08",
   "program_identity": "broad_reversal_mean_reversion_discovery_program_v1",
-  "current_status": "repository_authority_reset_frozen_stage0_stage1_parallel_screening_ready",
+  "current_status": "authority_reset_and_common_measurement_frozen_R1_R2_R3_stage1_preanalysis_frozen_pending_common_dataset_role_assignment",
   "repository_wide_current_mainline": "broad_reversal_mean_reversion_mechanism_discovery",
   "legacy_overnight_mainline_active": false,
   "legacy_overnight_role": "delegated_specialist_case_study",
@@ -15,7 +15,16 @@
     "R4_relative_value_dislocation",
     "R5_statistical_state_extremes"
   ],
-  "stage": "stage0_common_measurement_and_stage1_shallow_preanalysis",
+  "stage": "stage1_results_blind_parallel_screening_design_frozen",
+  "common_measurement_contract": "docs/governance/reversal_mean_reversion_common_measurement_contract_v1.json",
+  "stage1_screening_plan": "docs/governance/reversal_mean_reversion_stage1_screening_plan_v1.json",
+  "literature_map": "docs/research/reversal_mean_reversion_literature_map_20260908.md",
+  "lane_preanalysis": {
+    "R1": "docs/research/rmr_R1_cross_scale_pullback_preanalysis_20260908.md",
+    "R2": "docs/research/rmr_R2_range_boundary_reversion_preanalysis_20260908.md",
+    "R3": "docs/research/rmr_R3_regime_conditioned_residual_preanalysis_20260908.md"
+  },
+  "market_outcomes_opened_for_broad_stage1_design": false,
   "deep_strategy_optimization_authorized": false,
   "single_lane_full_backtest_authorized": false,
   "production_authority": false,
@@ -26,11 +35,20 @@
     "blocks_program_wide_progress": false,
     "resume_only_if_explicitly_assigned_or_needed_as_comparison_case": true
   },
+  "completed_program_actions": [
+    "repository_authority_reset",
+    "common_scale_parent_state_deviation_recovery_vocabulary_frozen",
+    "broad_literature_constraints_mapped",
+    "R1_results_blind_shallow_preanalysis_frozen",
+    "R2_results_blind_shallow_preanalysis_frozen",
+    "R3_results_blind_shallow_preanalysis_frozen",
+    "equal_budget_stage1_screening_plan_frozen"
+  ],
   "next_actions_in_order": [
-    "freeze_common_scale_parent_state_deviation_reversion_measurement_vocabulary",
-    "write_bounded_shallow_preanalysis_for_R1_R2_R3",
-    "map_minimum_data_and_falsification_test_for_each_lane",
-    "execute_comparable_low_budget_probes_when_data_is_available",
+    "inventory_candidate_common_price_datasets_without_opening_any_new_sealed_outcome",
+    "assign_development_and_future_audit_roles_before_empirical_screening",
+    "freeze_first_pass_scale_pairings_and_wave_measurement_scales_from_data_contract_not_results",
+    "execute_one_comparable_low_budget_probe_for_R1_R2_R3",
     "compare_lanes_before_any_deep_promotion"
   ],
   "lane_budget_rule": "do_not_spend_many_iterations_on_one_lane_while_other_primary_lanes_have_not_received_a_comparable_shallow_probe",
