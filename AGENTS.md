@@ -4,60 +4,75 @@
 
 `staryocean0/factorlab-overnight-open-lab` is the only active repository for this research project.
 
-`staryocean0/factorlab-overnight-gap-fill-repeat-2026` was a temporary input-pack repository and is retired. Do not recreate a second active research authority for the same project.
+## 2. Current authority
 
-## 2. Authority
-
-For current work, read in this order:
+Read in this order:
 
 1. `CONTINUE_HERE.md`
-2. `docs/governance/reversal_mean_reversion_program_state_v1.json`
-3. `docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_state_v1.json`
-4. `docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_protocol_v1.json`
-5. `docs/INDEX.md`
+2. `docs/governance/reusable_three_role_data_policy_v1.json`
+3. `docs/governance/reversal_mean_reversion_program_state_v1.json`
+4. `docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_state_v1.json`
+5. `docs/governance/reversal_mean_reversion_R1_reusable_blackbox_protocol_v1.json`
+6. `docs/INDEX.md`
 
-Historical files and old commits are immutable evidence, not current instructions. An old `current_status`, `next_action`, handoff or workflow must never override the authority list above.
+Old reserve/holdout/fresh `next_action` statements are historical evidence only when they conflict with this authority.
 
-## 3. Current scientific boundary
+## 3. Reusable three-role data governance
 
-The active mechanism is `rmr_cross_scale_pullback_parent_integrity_v2` with frozen candidate `R1_PARENT_COMPOSITE_1D` and parameter bundle SHA256:
+Market history is a reusable research asset, not a one-shot consumable.
 
-`e618a5a06a803f4464267e69e39f98fa316fd572f40efcb3f9e40fc25df2779c`
+### DEV
 
-The 2023–2025 within-program mechanism holdout passed without refit. It is not scientifically fresh.
+`2015-01-05 .. 2020-12-31`
 
-The next scientific gate is the complete 2026Q4 challenge. Until the complete block exists:
+Full access. Fit, diagnose, engineer, ablate and iterate here.
 
-- do not inspect partial Q4 R1 outcomes;
-- do not refit or tune the model;
-- do not optimize PnL;
-- do not manufacture a new broad lane merely to keep the project busy.
+### VALIDATION
 
-## 4. Research governance
+`2021-01-01 .. 2025-12-31`
 
-- Freeze hypotheses, measurement rules, candidate budgets and gates before opening the corresponding outcome block.
-- A failed frozen identity is closed unless a materially new identity is separately preregistered.
-- Statistical-state reversion is not evidence of price-path mean reversion by itself.
-- Keep development, consumed stability, mechanism holdout and truly fresh evidence labels explicit.
-- Never call 2023–2025 fresh OOS for R1.
-- Production authority is false until separately granted after future evidence and economic validation.
+Reusable detailed validation. It may be inspected by year/event/regime and may support later development iterations. A validation use does not consume these rows forever.
 
-## 5. Repository hygiene
+### BLACKBOX
+
+`2026-01-05 .. 2026-08-21`
+
+Reusable final certification. Current research must access it only through a frozen blackbox validator. Public scientific output is restricted to:
+
+`PASS / FAIL / INSUFFICIENT`
+
+Do not release exact blackbox metrics, counts, dates, months, regimes, event examples, probabilities, feature attribution or error analysis.
+
+A blackbox query does not consume the data. However repeated queries are **not independent new OOS samples**. Log every query in `docs/governance/reusable_blackbox_query_ledger_v1.json`.
+
+After a blackbox FAIL, return to DEV/VALIDATION. Any changed feature, threshold, rule or model must be justified from DEV/VALIDATION, never from blackbox details.
+
+## 4. Final-fit rule
+
+A candidate may be refit once on DEV+VALIDATION before blackbox only when its structure and exact fit recipe were frozen beforehand. The blackbox may never participate in fitting.
+
+## 5. Current R1 status
+
+`rmr_cross_scale_pullback_parent_integrity_v2` / `R1_PARENT_COMPOSITE_1D` passed reusable validation and the first reusable blackbox certification.
+
+Current final parameter bundle SHA256:
+
+`41072c78a6e657aec01d7da95d9c00bff23ff01829ada6afe256d7c254107fcb`
+
+Blackbox query `a9ba75c39e675ae6be17` returned `PASS`; no blackbox details were released.
+
+The next research identity is `rmr_R1_parent_integrity_economic_translation_v1`. Economic/PnL research is allowed on DEV/VALIDATION only. A second blackbox query requires a newly frozen strategy candidate and gates.
+
+## 6. Optional future Q4 challenge
+
+The old complete-2026Q4 true-fresh protocol remains a valid optional future experiment. It is not the repository-wide blocker. Do not inspect partial Q4 under that protocol unless later authority explicitly changes it.
+
+## 7. Repository hygiene
 
 - Keep current authority concise and non-duplicative.
-- Current tree should contain only active governance, compact decisive evidence, required data, and minimal reproduction code.
-- Completed experimental workflows and closed-lane runners/tests belong in Git history, not the active surface.
-- Do not copy the same raw data into multiple repositories or multiple active paths.
-- Before adding a new file, check whether an existing current artifact already carries the same authority or evidence.
+- Keep blackbox receipts low-bandwidth.
+- Do not copy blackbox details into docs, logs, charts or issue comments.
+- Completed workflows should be removed after their bounded execution; immutable evidence remains in Git history.
+- Do not create a second active repository for this project.
 
-## 6. Historical recovery
-
-The full pre-consolidation research tree is preserved at commit:
-
-`21ddcceb79929f5cd318ac5b8aa4579539f70dd7`
-
-The temporary repeat-pack repository's original state is preserved at commit:
-
-`e160390c8f9b700227b0c0203926c04bdce9f602`
-
-See `docs/archive/README.md` before restoring anything from history.
+Production authority remains false.
