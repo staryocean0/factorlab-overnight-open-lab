@@ -1,5 +1,6 @@
 name: rmr-r5-stage1
 
+# Frozen execution wrapper only; scientific semantics live in the preregistered protocol/runner.
 on:
   push:
     branches:
