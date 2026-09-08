@@ -1,0 +1,57 @@
+{
+  "schema_id": "factorlab_reversal_mean_reversion_R1_parent_integrity_v2_cloud_selection_receipt@1.0",
+  "session_date": "2026-09-08",
+  "research_identity": "rmr_cross_scale_pullback_parent_integrity_v2",
+  "github_actions_run_id": 34186521059,
+  "execution_head_sha": "05dc17690c9fec9d7babecd80bde334e41b77d8e",
+  "workflow_conclusion": "success",
+  "selected_candidate_id": "R1_PARENT_COMPOSITE_1D",
+  "selection_rule": "first_eligible_in_complexity_ladder",
+  "attempted_candidates": ["R1_PARENT_COMPOSITE_1D"],
+  "R1_PARENT_ORIGINAL_3D_evaluated": false,
+  "source_sha256": "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce",
+  "source_max_day_read": "2022-12-30",
+  "holdout_2023_2025_opened": false,
+  "all_2026_rows_opened": false,
+  "DEV_median_rvol20": 0.013783308018456928,
+  "pairings": {
+    "PAIR_A_S1_inside_S2": {
+      "DEV_resolved": 1457,
+      "STABILITY_resolved": 763,
+      "severity_Brier": 0.180901932523148,
+      "composite_Brier": 0.1722330634687922,
+      "Brier_improvement": 0.008668869054355821,
+      "severity_logloss": 0.5394142128910144,
+      "composite_logloss": 0.5203756836829876,
+      "logloss_improvement": 0.019038529208026844,
+      "annual_Brier_improvement": {"2020": 0.008848749310414655, "2021": 0.006110937211976142, "2022": 0.01003367106494682},
+      "all_frozen_gates_passed": true
+    },
+    "PAIR_B_S2_inside_S3": {
+      "DEV_resolved": 589,
+      "STABILITY_resolved": 291,
+      "severity_Brier": 0.16284766054314972,
+      "composite_Brier": 0.15663156940697978,
+      "Brier_improvement": 0.006216091136169943,
+      "severity_logloss": 0.4968338325100549,
+      "composite_logloss": 0.48432995321258326,
+      "logloss_improvement": 0.012503879297471654,
+      "annual_Brier_improvement": {"2020": 0.0052957808473528545, "2021": 0.001185532444690135, "2022": 0.00995035812145234},
+      "all_frozen_gates_passed": true
+    }
+  },
+  "full_consumed_refit": {
+    "window": "2015-01-05_to_2022-12-31",
+    "parameter_bundle_sha256": "e618a5a06a803f4464267e69e39f98fa316fd572f40efcb3f9e40fc25df2779c",
+    "PAIR_A_parent_integrity_coefficient": 0.45779695471098597,
+    "PAIR_B_parent_integrity_coefficient": 0.375418637711021,
+    "mechanistic_sign_precondition_passed": true
+  },
+  "overlap_feature_note": "overlap has zero variance in both consumed pairing samples and therefore contributes zero after frozen standardization; the selected scalar is effectively carried by drift and path-efficiency under the preregistered orientation",
+  "candidate_search_performed": false,
+  "model_or_hyperparameter_search_performed": false,
+  "threshold_or_scale_search_performed": false,
+  "trading_return_used": false,
+  "scientifically_fresh": false,
+  "production_authority": false
+}
