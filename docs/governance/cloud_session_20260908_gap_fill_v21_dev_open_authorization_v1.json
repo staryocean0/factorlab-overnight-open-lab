@@ -1,0 +1,82 @@
+{
+  "schema_id": "overnight_open_gap_fill_v21_dev_open_authorization@1.0",
+  "session_date": "2026-09-08",
+  "research_identity": "gap_fill_v2_1_regime_conditioned_successor",
+  "decision": "V21_DEV_open_authorized_after_SA1_SA2_cloud_review",
+  "cloud_adjudication": "docs/research/gap_fill_v21_sa1_sa2_cloud_adjudication_20260908.md",
+  "receipt_commit": "2110277ff1ea569e8021edd2eb7fc86f13bf8fd8",
+  "source_to_dev_controller_commit": "254dd461abf49f23965be557cee556001f941d85",
+  "accepted_receipts": {
+    "SA1_future_audit_source_admission": "docs/research/local_gap_fill_v21_future_audit_source_admission_receipt_v1.json",
+    "SA2_DEV_metadata_admission": "docs/research/local_gap_fill_v21_dev_metadata_admission_receipt_v1.json"
+  },
+  "source_identity": {
+    "gate_id": "session_complete_239_required_v1",
+    "required_named_clocks": 239,
+    "optional_clock": "14:59",
+    "generic_len_239_rule": false,
+    "imputation_allowed": false,
+    "audit_package_rows": 695929,
+    "audit_package_sha256": "3088ff2119ccffce3ff2fb8468a497775bcf64bc78df01008c85390ccd27777c",
+    "parent_he00_v8_sha256": "25f4f9f8b67c799ffb1a7b7fdee94b0b21dbbfed1efc54d063264ccb046411f0",
+    "cloud_receipt_review_complete": true,
+    "cloud_raw_parquet_second_hash_performed": false,
+    "verification_label": "cloud_reviewed_local_receipt_matches_frozen_contract"
+  },
+  "DEV_metadata_admission": {
+    "window": {"start": "2015-01-01", "end": "2018-12-31"},
+    "symbols": ["000300.SH", "000905.SH"],
+    "per_symbol": {
+      "000300.SH": {"observed_days": 975, "session_complete_days": 944, "incomplete_days": 31},
+      "000905.SH": {"observed_days": 975, "session_complete_days": 944, "incomplete_days": 31}
+    },
+    "OHLC_read_during_admission": false,
+    "outcome_read_during_admission": false,
+    "passed": true
+  },
+  "frozen_DEV_execution": {
+    "DEV_window": {"start": "2015-01-01", "end": "2018-12-31"},
+    "oof_validation_years": [2016, 2017, 2018],
+    "candidate_order": ["P2_XI_SHARED_1B", "P2_CSI500_SHARED_1B", "P2_CSI500_STAGE_2B"],
+    "stop_at_first_eligible": true,
+    "candidate_family": "docs/governance/cloud_session_20260907_gap_fill_v21_candidate_family_v1.json",
+    "DEV_selection_protocol": "docs/governance/cloud_session_20260907_gap_fill_v21_dev_selection_protocol_v1.json",
+    "evaluation_kernel": "scripts/v21_evaluation_kernel.py",
+    "P2_math": "scripts/v21_p2_overlay.py",
+    "allowed_new_state": "P2_relative_gap_excess",
+    "primary_cell": "CSI500_high_abs_gap_gt_10bp",
+    "primary_horizons": ["15m", "60m"],
+    "eod_role": "mandatory_descriptive_only"
+  },
+  "allowed_now": {
+    "read_V21_DEV_CSI300_CSI500_OHLC": true,
+    "construct_V21_DEV_gap_fill_targets": true,
+    "fit_same_era_geometry_control_in_frozen_DEV_folds": true,
+    "fit_frozen_P2_candidate_ladder": true,
+    "select_first_eligible_candidate_only": true,
+    "write_aggregate_DEV_receipt": true,
+    "write_selected_full_DEV_parameter_freeze_if_valid": true
+  },
+  "still_forbidden": [
+    "read_V21_AUDIT_A_outcomes",
+    "read_V21_AUDIT_B_outcomes",
+    "read_V21_EXTERNAL_RESERVE_outcomes",
+    "read_2014Q4_supporting_crosscheck",
+    "inspect_CSI1000_post_2026_08_21_outcomes",
+    "change_candidate_order",
+    "add_or_remove_candidate",
+    "change_primary_cohort_or_horizons",
+    "search_model_class_or_hyperparameters",
+    "search_beta_bounds_or_regularizer",
+    "probability_calibration",
+    "binary_threshold_selection",
+    "trading_return_use"
+  ],
+  "V21_DEV_outcomes_open_authorized": true,
+  "successor_model_fit_authorized": true,
+  "successor_model_selection_authorized": true,
+  "Audit_A_outcomes_open_authorized": false,
+  "Audit_B_outcomes_open_authorized": false,
+  "External_Reserve_outcomes_open_authorized": false,
+  "production_authority": false
+}
