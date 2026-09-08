@@ -22,12 +22,22 @@ This index describes the **current worktree only**. Historical experiments remov
 
 The true-fresh outcome window is Q4 2026, but causal state reconstruction requires one complete 2026 CSI1000 1m extension.
 
-- `governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_source_admission_protocol_v1.json` — metadata-only admission contract for `2026-01-05 .. 2026-12-31` context, with Q4 scoring still restricted to `2026-10-01 .. 2026-12-31`.
+- `governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_source_admission_protocol_v1.json` — metadata-only admission contract for `2026-01-05 .. 2026-12-31` context, with Q4 scoring restricted to `2026-10-01 .. 2026-12-31`.
+- `governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_source_admission_execution_freeze_v1.json` — frozen source-admission runner/protocol/test identities.
 - `../scripts/admit_rmr_R1_true_fresh_2026Q4_source.py` — admission runner; reads only `symbol / trading_day / timestamp`.
 - `../tests/test_rmr_R1_true_fresh_2026Q4_source_admission.py` — named-clock/date-boundary tests.
-- `governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_execution_authorization_template_v1.json` — template only; source-admission PASS does not authorize outcome access.
 
 The source gate requires an authoritative A-share trading calendar and exact named 240-clock sessions: `09:31..11:30` plus `13:01..15:00`. The V21 239-clock exception is explicitly inapplicable.
+
+## Frozen future Q4 evaluator
+
+- `governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_evaluation_protocol_v1.json` — one-time no-refit Q4 evaluation contract.
+- `governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_evaluation_execution_freeze_v1.json` — evaluator and dependency blob identities.
+- `../scripts/evaluate_rmr_R1_true_fresh_2026Q4.py` — frozen evaluator; reconstructs causal state from 2015–2025 history + authorized 2026 extension and scores Q4-confirmed events only.
+- `../tests/test_rmr_R1_true_fresh_2026Q4_evaluator.py` — authorization, no-fit, Q4-only and decision-rule tests.
+- `governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_execution_authorization_template_v1.json` — field/schema template only. A later cloud review must create a separate concrete authorization that binds exact source/calendar/receipt identities and evaluator blob SHA.
+
+No source-admission PASS automatically authorizes the evaluator. No 2027Q1 prices may be used to resolve late-Q4 events.
 
 ## Decisive R1 evidence
 
@@ -43,17 +53,16 @@ The source gate requires an authoritative A-share trading calendar and exact nam
 - `research/reversal_mean_reversion_literature_map_20260908.md` — literature constraints; background, not next-action authority.
 - `ops/rmr_R5C_event_density_promotion_handoff_20260908.md` — secondary Priority-B mechanism queued behind R1.
 
-## Reproduction code
+## Reproduction / future execution code
 
 The active code surface is intentionally small:
 
 - `../scripts/run_rmr_stage1_common_probe.py` — causal directional-change/event construction used by R1.
 - `../scripts/run_rmr_R1_parent_integrity_v2_selection.py` — historical representation-selection reproduction.
-- `../scripts/evaluate_rmr_R1_parent_integrity_v2_holdout.py` — historical no-refit holdout reproduction.
+- `../scripts/evaluate_rmr_R1_parent_integrity_v2_holdout.py` — historical no-refit holdout reproduction and frozen probability math.
 - `../scripts/admit_rmr_R1_true_fresh_2026Q4_source.py` — future metadata-only source gate.
+- `../scripts/evaluate_rmr_R1_true_fresh_2026Q4.py` — future one-time true-fresh evaluator, currently sealed.
 - matching tests under `../tests/`.
-
-No current script authorizes early 2026Q4 outcome scoring. A later Q4 evaluator must bind the admitted exact source SHA and frozen R1 parameter bundle in a separate authorization artifact.
 
 ## Data
 
