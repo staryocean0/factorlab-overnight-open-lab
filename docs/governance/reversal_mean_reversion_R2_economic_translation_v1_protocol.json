@@ -1,0 +1,110 @@
+{
+  "schema_id": "factorlab_rmr_R2_range_reentry_economic_translation_v1@1.0",
+  "session_date": "2026-09-08",
+  "research_identity": "rmr_R2_range_reentry_economic_translation_v1",
+  "parent_mechanism_identity": "rmr_range_boundary_parent_integrity_v2",
+  "program_synthesis": "docs/research/rmr_R1_R2_certified_mechanism_synthesis_20260908.md",
+  "data_policy": "docs/governance/reusable_three_role_data_policy_v1.json",
+  "stage": "results_blind_single_candidate_economic_translation_before_DEV_VALIDATION_execution",
+  "strategy_candidate": {
+    "id": "R2_STRUCTURAL_EXPECTANCY_POSITIVE_NEXT_BAR_10BP",
+    "event": "original_R2_range_break_event",
+    "direction": "toward_old_range_edge_opposite_breakout_side",
+    "entry": "next_observed_1m_close_after_R2_event_confirmation",
+    "skip_if_entry_not_strictly_between_reentry_edge_and_continuation_boundary": true,
+    "reentry_exit": "first_subsequent_observed_close_crossing_original_range_edge",
+    "continuation_exit": "first_subsequent_observed_close_crossing_original_parent_continuation_boundary",
+    "censor_exit": "close_at_frozen_1200_bar_horizon_or_last_available_bar_if_earlier",
+    "nonoverlap": "no_new_same_pair_trade_until_prior_event_resolves_or_censors",
+    "filter_1": "p_range_integrity_augmented_strictly_greater_than_p_geometry_baseline",
+    "filter_2": "candidate_structural_expected_net_return_strictly_greater_than_zero",
+    "probability_threshold_search": false,
+    "expectancy_threshold": 0.0,
+    "expectancy_threshold_search": false
+  },
+  "probability_model": {
+    "baseline_features": ["outside_ratio", "break_speed", "local_vol_ratio"],
+    "candidate_features": ["outside_ratio", "break_speed", "local_vol_ratio", "range_integrity"],
+    "range_integrity": "(-z(abs_drift)+z(overlap)-z(parent_eff))/3",
+    "VALIDATION_fit": "DEV_only_2015_2020",
+    "final_blackbox_fit_if_validation_passes": "DEV_plus_VALIDATION_2015_2025",
+    "model": "StandardScaler_plus_LogisticRegression_C1_L2_lbfgs",
+    "blackbox_used_in_fit": false
+  },
+  "structural_expectancy": {
+    "reward_gross": "mean_reversion_direction*(reentry_edge/entry_price-1)",
+    "loss_gross": "mean_reversion_direction*(continuation_boundary/entry_price-1)",
+    "formula": "p_candidate*reward_gross+(1-p_candidate)*loss_gross-0.0010",
+    "uses_only_event_time_known_boundaries_and_frozen_probability": true
+  },
+  "cost_model": {
+    "primary_round_trip_bps": 10.0,
+    "realized_net_return": "mean_reversion_direction*(exit_price/entry_price-1)-0.0010",
+    "cost_search_allowed": false,
+    "leverage": 1.0,
+    "instrument_translation": "CSI1000_index_return_research_reference_only"
+  },
+  "frozen_scales": {
+    "S1": 0.003445827004614232,
+    "S2": 0.006891654009228464,
+    "S3": 0.013783308018456928,
+    "pairings": {
+      "PAIR_A": {"lower": "S1", "parent": "S2"},
+      "PAIR_B": {"lower": "S2", "parent": "S3"}
+    }
+  },
+  "DEV": {"start": "2015-01-05", "end": "2020-12-31"},
+  "VALIDATION": {
+    "start": "2021-01-01",
+    "end": "2025-12-31",
+    "detail_access": "full",
+    "gate_each_pairing": {
+      "minimum_selected_trades": {"PAIR_A": 200, "PAIR_B": 80},
+      "minimum_each_year_selected_trades": {"PAIR_A": 20, "PAIR_B": 8},
+      "selected_mean_net_return_gt_0": true,
+      "selected_mean_net_return_gt_all_tradeable_event_baseline": true,
+      "annual_positive_mean_net_return_min_years_of_5": 4
+    },
+    "both_pairings_required": true
+  },
+  "final_refit": {
+    "allowed_only_after_VALIDATION_PASS": true,
+    "window": "2015-01-05_to_2025-12-31",
+    "strategy_rule_change_allowed": false,
+    "cost_model_change_allowed": false,
+    "output": "frozen_probability_and_strategy_bundle"
+  },
+  "BLACKBOX": {
+    "start": "2026-01-05",
+    "end": "2026-08-21",
+    "source": "archive/data/gap_fill_repeat_2026/csi1000_1m_20260105_to_20260821.parquet",
+    "query_number_if_reached": 4,
+    "gate_each_pairing": {
+      "minimum_selected_trades": {"PAIR_A": 25, "PAIR_B": 10},
+      "selected_mean_net_return_gt_0": true,
+      "selected_mean_net_return_gt_all_tradeable_event_baseline": true
+    },
+    "both_pairings_required": true,
+    "public_output_only": ["PASS", "FAIL", "INSUFFICIENT"],
+    "blackbox_detail_release": false
+  },
+  "blackbox_decision_rule": {
+    "if_any_pairing_below_minimum_selected_trades": "INSUFFICIENT",
+    "else_if_both_pairings_pass_both_return_gates": "PASS",
+    "else": "FAIL"
+  },
+  "forbidden": [
+    "probability_threshold_search",
+    "expectancy_threshold_search",
+    "entry_delay_search",
+    "target_stop_horizon_search",
+    "cost_assumption_search",
+    "scale_search",
+    "time_of_day_filter_search",
+    "portfolio_weight_rescue",
+    "blackbox_detail_inspection",
+    "automatic_economic_v2_or_v3_rescue",
+    "production_use"
+  ],
+  "production_authority": false
+}
