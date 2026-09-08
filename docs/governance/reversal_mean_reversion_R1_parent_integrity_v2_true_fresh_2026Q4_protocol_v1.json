@@ -1,8 +1,8 @@
 {
-  "schema_id": "factorlab_reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_protocol@1.0",
+  "schema_id": "factorlab_reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_protocol@1.1",
   "session_date": "2026-09-08",
   "research_identity": "rmr_cross_scale_pullback_parent_integrity_v2",
-  "stage": "true_fresh_2026Q4_preregistered_unopened",
+  "stage": "true_fresh_2026Q4_preregistered_unopened_source_admission_tooling_frozen",
   "prior_holdout_adjudication": "docs/research/reversal_mean_reversion_R1_parent_integrity_v2_holdout_adjudication_20260908.md",
   "selected_candidate_id": "R1_PARENT_COMPOSITE_1D",
   "parameter_freeze": "docs/governance/cloud_session_20260908_rmr_R1_parent_integrity_v2_parameter_freeze_v1.json",
@@ -15,13 +15,28 @@
     "earliest_execution_date_China": "2027-01-01",
     "scientifically_fresh_if_unopened_until_execution": true
   },
+  "causal_context_for_challenge": {
+    "future_extension_required_start": "2026-01-05",
+    "future_extension_required_end": "2026-12-31",
+    "reason": "preserve_pre_Q4_directional_change_and_parent_wave_state_without_truncating_October_events",
+    "challenge_events_scored_only_if_event_day_in_Q4": true,
+    "pre_Q4_context_may_not_be_used_for_refit_or_candidate_selection": true
+  },
   "source_admission_required_before_outcome_read": {
+    "protocol": "docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_source_admission_protocol_v1.json",
+    "runner": "scripts/admit_rmr_R1_true_fresh_2026Q4_source.py",
     "instrument": "000852.SH",
     "frequency": "1m",
     "source_family": "FactorLab_DataHub_official_canonical_index_1m_or_explicitly_adjudicated_equivalent",
-    "exact_future_source_sha256": "to_be_frozen_by_separate_source_admission_after_complete_Q4_exists",
+    "exact_future_source_sha256": "to_be_frozen_by_separate_source_admission_after_complete_2026_extension_exists",
     "timestamp_and_session_coverage_audit_required": true,
-    "no_outcome_metrics_allowed_during_source_admission": true
+    "authoritative_trading_calendar_required": true,
+    "exact_named_240_clock_gate_required": true,
+    "V21_239_clock_exception_applies": false,
+    "OHLC_read_during_source_admission": false,
+    "no_outcome_metrics_allowed_during_source_admission": true,
+    "execution_authorization_template": "docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_execution_authorization_template_v1.json",
+    "separate_cloud_authorization_after_admission_required": true
   },
   "pairings": [
     {"id": "PAIR_A", "lower": "S1", "parent": "S2", "minimum_resolved": 40},
@@ -65,7 +80,9 @@
     "change_scale_pairings",
     "change_first_passage_boundaries",
     "use_PnL_to_interpret_fresh_gate",
-    "open_Q4_outcomes_during_source_admission"
+    "open_Q4_outcomes_during_source_admission",
+    "truncate_causal_state_at_2026_10_01_instead_of_using_the_frozen_2026_context_extension",
+    "treat_source_admission_pass_as_outcome_execution_authorization"
   ],
   "production_authority": false
 }
