@@ -1,0 +1,93 @@
+{
+  "schema_id": "factorlab_rmr_R1_parent_integrity_v2_true_fresh_source_admission@1.0",
+  "session_date": "2026-09-08",
+  "research_identity": "rmr_cross_scale_pullback_parent_integrity_v2",
+  "stage": "results_blind_future_source_admission_protocol_frozen_before_2026Q4_exists",
+  "controlling_true_fresh_protocol": "docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_protocol_v1.json",
+  "challenge_window": {"start": "2026-10-01", "end": "2026-12-31"},
+  "required_context_extension": {
+    "start": "2026-01-05",
+    "end": "2026-12-31",
+    "purpose": "causal_wave_state_context_for_Q4_without_refit",
+    "challenge_scoring_still_Q4_only": true
+  },
+  "source": {
+    "instrument": "000852.SH",
+    "frequency": "1m",
+    "allowed_family": "FactorLab_DataHub_official_canonical_index_1m_or_explicitly_adjudicated_equivalent",
+    "exact_source_sha256": "TO_BE_FILLED_ONLY_AFTER_COMPLETE_2026_EXTENSION_EXISTS",
+    "required_columns_for_metadata_admission_only": ["symbol", "trading_day", "timestamp"],
+    "OHLC_read_during_admission": false,
+    "outcome_read_during_admission": false
+  },
+  "trading_calendar": {
+    "required": true,
+    "allowed_family": "FactorLab_or_exchange_authoritative_A_share_trading_calendar",
+    "exact_calendar_sha256": "TO_BE_FILLED_AT_ADMISSION",
+    "required_column": "trading_day",
+    "calendar_must_cover": "2026-01-05_to_2026-12-31",
+    "calendar_used_only_for_expected_session_dates": true
+  },
+  "named_session_clock_gate": {
+    "timezone": "Asia/Shanghai",
+    "expected_clock_count_per_complete_day": 240,
+    "morning": "09:31..11:30 inclusive one-minute grid",
+    "afternoon": "13:01..15:00 inclusive one-minute grid",
+    "duplicate_clock_allowed": false,
+    "missing_clock_allowed": false,
+    "unexpected_clock_allowed": false,
+    "generic_len_240_without_named_clock_equality_is_insufficient": true,
+    "V21_239_clock_exception_applies": false
+  },
+  "date_coverage_gate": {
+    "source_trading_days_must_equal_authoritative_calendar_days": true,
+    "entire_2026_context_extension_required": true,
+    "partial_Q4_source_admission": false,
+    "extra_post_2026_12_31_rows_allowed": false
+  },
+  "admission_outputs": {
+    "compact_receipt_only": true,
+    "must_record": [
+      "source_sha256",
+      "calendar_sha256",
+      "source_path_or_identity",
+      "calendar_path_or_identity",
+      "observed_trading_days",
+      "expected_trading_days",
+      "complete_trading_days",
+      "incomplete_trading_days",
+      "missing_expected_days",
+      "unexpected_days",
+      "total_metadata_rows",
+      "named_clock_gate_passed",
+      "OHLC_read",
+      "outcome_read"
+    ],
+    "row_level_export_forbidden": true
+  },
+  "admission_pass_requires": {
+    "exact_calendar_day_equality": true,
+    "all_days_named_clock_complete": true,
+    "OHLC_read_false": true,
+    "outcome_read_false": true,
+    "challenge_outcomes_opened_false": true
+  },
+  "after_admission_pass": {
+    "cloud_review_required": true,
+    "separate_exact_source_authorization_artifact_required": true,
+    "Q4_outcome_execution_automatically_authorized": false,
+    "earliest_Q4_outcome_execution_date_China": "2027-01-01"
+  },
+  "forbidden": [
+    "read_open_high_low_close_during_source_admission",
+    "compute_R1_events_or_recovery_failure_labels_during_source_admission",
+    "inspect_partial_Q4_outcomes",
+    "accept_a_240_row_day_without_exact_named_clock_match",
+    "apply_the_legacy_V21_optional_1459_or_239_clock_rule",
+    "impute_missing_minutes",
+    "synthesize_missing_trading_days",
+    "open_post_2026_12_31_rows",
+    "authorize_Q4_scoring_from_the_admission_runner_itself"
+  ],
+  "production_authority": false
+}
