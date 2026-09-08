@@ -1,0 +1,61 @@
+{
+  "schema_id": "factorlab_rmr_R1_true_fresh_2026Q4_source_admission_execution_freeze@1.0",
+  "session_date": "2026-09-08",
+  "research_identity": "rmr_cross_scale_pullback_parent_integrity_v2",
+  "stage": "future_metadata_source_admission_execution_identity_frozen_before_source_exists",
+  "freeze_parent_commit": "7976e6fab03e24141a6988b23a55993611522368",
+  "protocol": {
+    "path": "docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_source_admission_protocol_v1.json",
+    "blob_sha": "115bf931af4bb80baee853ce35dc2a6b0e769fb6"
+  },
+  "runner": {
+    "path": "scripts/admit_rmr_R1_true_fresh_2026Q4_source.py",
+    "blob_sha": "0afff653f8a55d6ecffc3dae699f4700f55b4229"
+  },
+  "tests": {
+    "path": "tests/test_rmr_R1_true_fresh_2026Q4_source_admission.py",
+    "blob_sha": "5cd34b26e92d1b881432641a1eed872a095694ef"
+  },
+  "authorization_template": {
+    "path": "docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_execution_authorization_template_v1.json",
+    "blob_sha": "6dc8619b6305fcc12e1ace4a507e86f516fb7f9d"
+  },
+  "controlling_true_fresh_protocol": {
+    "path": "docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_protocol_v1.json",
+    "blob_sha_after_source_binding": "1af093c9a736aa7be3feae63ad8e77715c7cdb4f"
+  },
+  "frozen_scientific_boundaries": {
+    "context_extension": "2026-01-05_to_2026-12-31",
+    "challenge_window": "2026-10-01_to_2026-12-31",
+    "earliest_admission_date_China": "2027-01-01",
+    "metadata_columns_only": ["symbol", "trading_day", "timestamp"],
+    "named_clocks_per_complete_session": 240,
+    "V21_239_clock_exception_applies": false,
+    "authoritative_calendar_required": true,
+    "OHLC_read": false,
+    "outcome_read": false,
+    "source_admission_auto_authorizes_Q4_outcomes": false
+  },
+  "pre_freeze_validation": {
+    "synthetic_named_240_clock_pass_case_checked": true,
+    "synthetic_missing_clock_fail_case_checked": true,
+    "synthetic_duplicate_clock_fail_case_checked": true,
+    "date_guard_2026_12_31_fail_2027_01_01_pass_checked": true,
+    "official_2026_exchange_schedule_external_sanity_checked": true,
+    "official_schedule_notes": "SSE/SZSE notices show Jan 5 as first post-New-Year trading day and Oct 8 as post-National-Day reopening; authoritative calendar file is still required at actual admission.",
+    "full_repository_pytest_run": false,
+    "reason_full_pytest_not_run": "No future source exists and the new gate is self-contained; synthetic core logic was executed in the cloud session. Actual runner execution is date-sealed until 2027-01-01 China time."
+  },
+  "future_execution_outputs_allowed": [
+    "compact_metadata_source_admission_receipt_only"
+  ],
+  "future_execution_outputs_forbidden": [
+    "OHLC_dump",
+    "R1_event_rows",
+    "recovery_failure_labels",
+    "Q4_probabilities",
+    "row_level_metadata_export"
+  ],
+  "Q4_outcome_open_authorized": false,
+  "production_authority": false
+}
