@@ -27,7 +27,7 @@ Full development/diagnostic access.
 
 `2021-01-01 .. 2025-12-31`
 
-Reusable detailed validation. Year/event/regime diagnostics are allowed, but repeated VALIDATION variants must remain low-capacity and scientifically motivated.
+Reusable detailed validation for separately frozen low-capacity identities. Do not open VALIDATION for an identity that failed its preregistered DEV gate.
 
 ### BLACKBOX
 
@@ -35,19 +35,11 @@ Reusable detailed validation. Year/event/regime diagnostics are allowed, but rep
 
 Reusable certification only. Public output is limited to `PASS / FAIL / INSUFFICIENT`.
 
-Never release exact BLACKBOX metrics, counts, dates, subperiods, regimes, event examples, probabilities, feature attribution or failure analysis. Repeated BLACKBOX queries are allowed only for separately frozen candidates and are not independent new OOS samples. Append every completed query to `docs/governance/reusable_blackbox_query_ledger_v1.json`.
-
-A BLACKBOX FAIL/INSUFFICIENT returns research to DEV/VALIDATION without a breakdown. Hidden BLACKBOX behavior may never justify a feature, threshold, scale, rule or model change.
+Never release exact BLACKBOX metrics, counts, dates, subperiods, regimes, event examples, probabilities, feature attribution or failure analysis. Hidden BLACKBOX behavior may never justify a feature, threshold, scale, rule, instrument or model change.
 
 Current completed BLACKBOX query count is exactly **3**. There is no query #4.
 
-## 4. Final-fit rule
-
-A mechanism candidate may receive one preregistered DEV+VALIDATION final refit only after detailed VALIDATION passes. BLACKBOX may never participate in fitting, candidate selection, thresholds or feature choice.
-
-No current temporal-execution research has BLACKBOX authority. Future BLACKBOX access, if ever appropriate, requires separate explicit governance after a newly frozen identity passes its authorized DEV/VALIDATION process.
-
-## 5. Certified mechanisms
+## 4. Certified mechanisms
 
 ### R1
 
@@ -65,52 +57,75 @@ R1 and R2 are complementary state-restoration mechanisms, not generic interchang
 
 ### R5-C
 
-`rmr_event_density_state_reversal_v2` passed detailed VALIDATION but BLACKBOX query #2 `4fa9bfa2ec38f16cd65f` returned `FAIL`. The identity is closed and may not be rescued using hidden recent-period behavior.
+`rmr_event_density_state_reversal_v2` passed detailed VALIDATION but BLACKBOX query #2 `4fa9bfa2ec38f16cd65f` returned `FAIL`. The identity is closed and may not be rescued from hidden-period behavior.
 
-## 6. Closed router and economic boundaries
+## 5. Closed synthesis and economic identities
 
 ### Unified parent-state router v1
 
-`rmr_unified_parent_normal_state_router_v1` is closed at VALIDATION. After the scale-identity implementation bug was fixed without changing research protocol, both R2 cells worsened. Do not create router v2 by lane-specific scaling, axis-weight tuning, interaction search or other automatic rescue.
+`rmr_unified_parent_normal_state_router_v1` is closed at VALIDATION. Do not create router v2 by lane-specific scaling, axis-weight tuning, interaction search or automatic rescue.
 
-### Economic translation
+### Existing simple economic translation
 
 No tested trading implementation is certified.
 
 - R1 economic v1/v2/v3 failed detailed VALIDATION before BLACKBOX.
 - R2 economic v1 failed detailed VALIDATION before BLACKBOX.
-- no economic BLACKBOX query has occurred.
+- R1_A and R2 simple index-level execution were closed by the completed mechanism-to-execution diagnostic.
+- probability-filter rescue is closed because frozen restoration probability is not a monotonic realized-return score.
 
-The completed `rmr_mechanism_to_execution_diagnostic_v1` found that payoff geometry is the primary bridge failure, next-minute delay is secondary, overshoot is secondary, and frozen restoration probability is not a monotonic realized-return score.
+### R1_B temporal impulse completion v1
 
-Do not create automatic follow-on economic versions by changing probability thresholds, expected-return thresholds, entry delays, stops, targets, costs, scales, horizons, years/regimes, time filters or portfolio weights against VALIDATION.
+`rmr_R1B_temporal_impulse_completion_v1` is **closed on DEV**.
 
-## 7. Current next research
+The single preregistered temporal candidate used:
 
-Automatic broad R8/R9 indicator generation remains paused.
+- certified R1_B S2-inside-S3 events only;
+- unchanged next-bar entry;
+- first subsequent parent-aligned S2 **confirmation close** as causal temporal completion;
+- original S3 failure boundary;
+- fixed 10bp cost;
+- inherited 1200-bar safety cap;
+- no probability filter or parameter search.
 
-The next allowed task is a results-blind **R1_B temporal execution theory review**.
+DEV result:
 
-The review may authorize at most one materially new temporal identity and must obey:
+- mean net `+10.59bp`;
+- mean improvement over structural baseline `+11.87bp`;
+- positive mean-net years `5/6`;
+- median net **`-32.11bp`**;
+- win rate `37.10%`.
 
-- start from certified R1_B / frozen S2-inside-S3 identity without changing R1;
-- treat completed fixed markouts `[1,5,15,30,60,120,240]` as motivation only, never as a horizon-selection menu;
-- state the causal temporal/path theory before outcome-driven parameterization;
-- no probability-threshold search;
-- no entry-delay, stop, target, cost, scale or horizon search;
-- no year/regime/time-of-day selection;
-- no automatic `R1 economic v4` naming or rescue logic;
-- DEV first, then freeze before detailed reusable VALIDATION;
-- no BLACKBOX access under the current next-stage authority;
-- production authority remains false.
+The preregistered positive-median gate failed. Therefore:
 
-R1_A and R2 simple index-level economic translation are closed under current evidence.
+- identity decision = `DEV_CLOSE`;
+- VALIDATION must remain unopened;
+- do not delete or weaken the failed gate after the result;
+- do not exit at the unobservable S2 extreme;
+- do not add a probability filter to isolate right-tail events;
+- do not choose 30/60/120/240 bars;
+- do not tune entry, stop, target, cost, scale, year, regime or time of day;
+- no automatic temporal v2 or R1 economic v4.
 
-Instrument mapping is not the current selected direction because the diagnostic provides no instrument-specific spread, basis, carry, liquidity or convexity evidence. ETF/futures/options research requires a separate independently motivated instrument theory.
+## 6. Current research boundary
+
+There is currently **no empirical economic candidate authorized**.
+
+If economic research continues, the next step must be a separate results-blind **payoff-object or instrument-theory program review**. A new identity must be materially independent of the closed temporal rule and must be preregistered before any new empirical output is opened.
+
+Instrument mapping is only theory-eligible at present. Before any ETF/futures/options empirical study, freeze an instrument-specific source and cost-model contract covering relevant spread, basis, carry, liquidity, convexity/premium and execution conventions. Do not infer instrument viability from index-level price paths alone.
+
+Broad R8/R9 indicator generation remains paused.
+
+## 7. BLACKBOX and final-fit rules
+
+No current economic research has BLACKBOX authority. Query #4 is neither scheduled nor authorized.
+
+A future candidate may reach BLACKBOX only after its own explicitly authorized DEV/VALIDATION process and a separate governance decision. BLACKBOX may never participate in fitting, threshold selection, scale selection, timing selection, instrument selection or strategy rescue.
 
 ## 8. Optional future data
 
-Do not wait for future data. Continue authorized DEV/VALIDATION research. If the user later supplies newer data, version the three-role map forward rather than declaring existing history consumed.
+Do not wait for future data. Continue only work authorized by current authority. If newer data is later supplied, version the three-role map forward rather than declaring existing history consumed.
 
 ## 9. Repository hygiene
 
@@ -118,8 +133,9 @@ Do not wait for future data. Continue authorized DEV/VALIDATION research. If the
 - Keep BLACKBOX receipts low-bandwidth.
 - Do not copy BLACKBOX detail into docs, logs, charts or issues.
 - Remove completed Actions workflows after bounded execution.
-- Remove completed runners/tests/protocols/preanalysis from current surface when no longer active; preserve them through execution commits plus compact history anchors.
-- Do not create a second active repository for this project.
-- After substantial work, synchronize the canonical `main` by fast-forward when the research branch is clean and descendant of `main`.
+- Remove completed runners/tests/protocols/preanalysis from the current surface when no longer active; preserve them through execution commits plus compact history anchors.
+- Keep decisive adjudications and compact receipts on the current surface.
+- Do not create a second active repository.
+- After substantial work, synchronize canonical `main` by fast-forward when the research branch is clean and a descendant of `main`.
 
 Production authority remains `false`.
