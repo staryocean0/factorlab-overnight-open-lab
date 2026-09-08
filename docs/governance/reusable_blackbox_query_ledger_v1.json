@@ -4,7 +4,7 @@
   "blackbox_window": {"start": "2026-01-05", "end": "2026-08-21"},
   "policy": "docs/governance/reusable_three_role_data_policy_v1.json",
   "output_contract": "three_state_only_PASS_FAIL_INSUFFICIENT",
-  "query_count": 2,
+  "query_count": 3,
   "queries": [
     {
       "query_number": 1,
@@ -26,6 +26,17 @@
       "decision": "FAIL",
       "details_released": false,
       "receipt": "docs/research/rmr_R5C_reusable_blackbox_certification_20260908.json",
+      "independent_new_OOS_sample": false
+    },
+    {
+      "query_number": 3,
+      "query_id": "a7e7f0208512aa7c1f31",
+      "research_identity": "rmr_range_boundary_parent_integrity_v2",
+      "candidate_fingerprint": "08d28cc1f145247cc755cea70b26cfb75a53941db8df0f0a0f640c268ae5f0d1",
+      "protocol_fingerprint": "04c1acf6ac4182e045dc684ea3b44d3bb8e6150302c544e194919f8c7f99bcb5",
+      "decision": "PASS",
+      "details_released": false,
+      "receipt": "docs/research/rmr_R2_range_integrity_v2_blackbox_certification_20260908.json",
       "independent_new_OOS_sample": false
     }
   ],
