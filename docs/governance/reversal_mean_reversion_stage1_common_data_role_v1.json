@@ -1,0 +1,102 @@
+{
+  "schema_id": "factorlab_reversal_mean_reversion_stage1_common_data_role@1.0",
+  "session_date": "2026-09-08",
+  "program_identity": "broad_reversal_mean_reversion_discovery_program_v1",
+  "stage": "stage1_common_dataset_role_and_measurement_scale_freeze_before_empirical_screening",
+  "market_outcomes_opened_for_this_freeze": false,
+  "common_dataset": {
+    "instrument": "000852.SH",
+    "instrument_name": "CSI1000",
+    "asset_role": "broad_liquid_index_first_pass_common_underlying_for_R1_R2_R3",
+    "path": "data/high_open_dev_2015_2025/1m_official.parquet",
+    "manifest": "data/high_open_dev_2015_2025/manifest.json",
+    "sha256": "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce",
+    "rows": 641441,
+    "min_day": "2015-01-05",
+    "max_day": "2025-12-31",
+    "frequency": "1m",
+    "price_view": "raw_index_OHLC",
+    "reason": "same broad index and same timestamped OHLC source can support all three shallow mechanism screens without cross-asset or constituent complications"
+  },
+  "evidence_roles": {
+    "2015-01-05_to_2025-12-31": {
+      "role": "development_material_only",
+      "fresh_oos": false,
+      "reason": "this entire interval was already consumed by prior legacy overnight-open research; the broad program may reuse it for mechanism development but may never relabel it fresh"
+    },
+    "internal_chronological_stability_blocks": [
+      {"id": "DEV_A", "start": "2015-01-05", "end": "2018-12-31", "role": "development_stability_block"},
+      {"id": "DEV_B", "start": "2019-01-01", "end": "2022-12-31", "role": "development_stability_block"},
+      {"id": "DEV_C", "start": "2023-01-01", "end": "2025-12-31", "role": "development_stability_block"}
+    ],
+    "2026-01-05_to_2026-08-21": {
+      "role": "forbidden_for_broad_stage1",
+      "reason": "legacy repeat/consumed evidence and not required for the equal-budget shallow screen"
+    },
+    "2026-08-24_to_2026-12-31": {
+      "role": "forbidden_for_broad_stage1",
+      "reason": "preserved legacy true-fresh reserve; broad Stage1 may not spend it"
+    },
+    "broad_program_future_audit": {
+      "role": "future_reserve_not_yet_populated",
+      "earliest_eligible_calendar_start": "2027-01-01",
+      "rule": "no R1_R2_R3 lane may call development-slice stability a fresh audit; any deep identity must freeze a genuinely unseen future challenge separately"
+    }
+  },
+  "common_volatility_unit": {
+    "id": "prior_20_session_close_to_close_sigma",
+    "formula": "std(log(close_d/close_d-1), ddof=0) over the 20 completed China sessions strictly before the current session",
+    "availability": "frozen at each session open from prior completed sessions only",
+    "minimum_history_sessions": 20,
+    "future_or_same_session_close_use": false
+  },
+  "completed_wave_engine": {
+    "type": "causal_directional_change",
+    "price_input": "1m close",
+    "log_price": true,
+    "confirmation_rule": "a provisional extreme becomes a completed pivot only after price reverses from that extreme by the scale threshold available causally at the confirmation time",
+    "future_extreme_lookahead": false,
+    "threshold_search": false,
+    "overnight_gap_treatment": "price path remains chronological across sessions; the first observed next-session minute may move the causal directional-change state but no synthetic overnight bars are inserted",
+    "event_overlap_rule": "within each lane and scale pairing keep at most one active first-passage outcome event at a time; later triggers are counted as overlap_skipped until the active event resolves or censors"
+  },
+  "first_pass_scale_pairings": [
+    {
+      "id": "PAIR_A",
+      "lower_wave_reversal_threshold_sigma": 0.50,
+      "parent_wave_reversal_threshold_sigma": 1.50,
+      "parent_to_lower_threshold_ratio": 3.0,
+      "role": "faster_cross_scale_measurement"
+    },
+    {
+      "id": "PAIR_B",
+      "lower_wave_reversal_threshold_sigma": 0.75,
+      "parent_wave_reversal_threshold_sigma": 2.25,
+      "parent_to_lower_threshold_ratio": 3.0,
+      "role": "slower_cross_scale_measurement"
+    }
+  ],
+  "scale_policy": {
+    "why_two_pairings": "common contract requires scale sensitivity; two fixed 3x-separated directional-change pairings provide one faster and one slower view without a threshold grid",
+    "pairing_addition_after_results": false,
+    "pairing_removal_after_results": false,
+    "choose_best_pairing_for_lane": false,
+    "report_both_pairings": true
+  },
+  "common_outcome_cap": {
+    "maximum_trading_sessions_after_event_detection": 5,
+    "rule": "first structural/symmetric boundary hit wins; if neither boundary is reached by the cap the event is censored",
+    "horizon_search": false
+  },
+  "common_stage1_model_capacity": {
+    "maximum_objects_per_lane": 3,
+    "allowed_probability_model": "standardized_logistic_regression_C1_l2_lbfgs_when_a_probability_comparison_is_needed",
+    "hyperparameter_search": false,
+    "calibration_search": false,
+    "binary_threshold_selection": false,
+    "trading_return_use": false
+  },
+  "required_reporting_blocks": ["DEV_A", "DEV_B", "DEV_C", "PAIR_A", "PAIR_B"],
+  "raw_row_outputs_to_repo": false,
+  "production_authority": false
+}
