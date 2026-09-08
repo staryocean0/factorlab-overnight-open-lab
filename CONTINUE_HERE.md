@@ -2,68 +2,78 @@
 
 This file is the first authority for deciding what this repository should do next.
 
-## Current research identity
+## Current data rule
 
-Repository-wide priority is the frozen R1 specialist:
+Historical data is **not a consumable resource**. The repository now uses the reusable three-role policy:
+
+- **DEV** — `2015-01-05 .. 2020-12-31`: unrestricted development and diagnosis;
+- **VALIDATION** — `2021-01-01 .. 2025-12-31`: reusable detailed validation; results may be opened and diagnosed;
+- **BLACKBOX** — `2026-01-05 .. 2026-08-21`: reusable certification only, with output restricted to `PASS / FAIL / INSUFFICIENT`.
+
+Controlling policy:
+
+`docs/governance/reusable_three_role_data_policy_v1.json`
+
+A blackbox query does **not** consume the blackbox and does not open its details. Repeated queries are allowed, but they are not independent new OOS samples. Each query must be logged and candidate changes after a query must be justified from DEV/VALIDATION, never from blackbox breakdowns.
+
+## Current R1 position
+
+Active mechanism:
 
 `rmr_cross_scale_pullback_parent_integrity_v2`
 
-Current R1 status:
+Frozen representation:
 
-`composite_1D_selected_holdout_confirmed_not_fresh_true_fresh_2026Q4_preregistered_source_admission_and_evaluator_frozen_waiting_complete_2026_extension`
+`R1_PARENT_COMPOSITE_1D`
 
-Broad Stage-1 direction discovery is closed. Automatic R8/R9-style lane generation is paused. R5-C event density remains a secondary Priority-B handoff only.
+Under the new role map, R1 was re-evaluated as follows:
+
+1. fit on DEV 2015–2020;
+2. detailed validation on 2021–2025;
+3. both pairings passed all gates and improved Brier in **5/5 validation years**;
+4. one predeclared final refit used DEV+VALIDATION through 2025-12-31;
+5. final parameter bundle SHA256: `41072c78a6e657aec01d7da95d9c00bff23ff01829ada6afe256d7c254107fcb`;
+6. reusable 2026 blackbox query `a9ba75c39e675ae6be17` returned **PASS**;
+7. no blackbox metric, count, subperiod, event or error detail was released.
+
+Blackbox receipt:
+
+`docs/research/rmr_R1_reusable_blackbox_certification_20260908.json`
+
+Query ledger:
+
+`docs/governance/reusable_blackbox_query_ledger_v1.json`
 
 ## Exact next action
 
-Do **not** write or run another empirical R1 model now. The future execution path is already frozen end-to-end.
+Do **not** wait for unannounced future data.
 
-The fresh challenge is `2026-10-01 .. 2026-12-31`, while causal state reconstruction uses the complete `2026-01-05 .. 2026-12-31` CSI1000 1m extension so October events are not initialized from an artificial quarter boundary.
+The next research stage is a separate economic-translation identity for R1 using DEV and VALIDATION only. It may study implementable entry/exit, holding geometry, costs and PnL on the reusable detailed pools, but must keep the current blackbox closed.
 
-Not before `2027-01-01` China time:
+Required progression:
 
-1. obtain the complete 2026 CSI1000 1m extension and an authoritative A-share trading calendar;
-2. run the frozen metadata-only source gate: `scripts/admit_rmr_R1_true_fresh_2026Q4_source.py`;
-3. the source gate may read only `symbol / trading_day / timestamp` and requires exact named 240-clock sessions (`09:31..11:30` + `13:01..15:00`); the legacy V21 239-clock exception does not apply;
-4. cloud-review the compact admission receipt;
-5. only if admission passes, create a **new concrete** execution authorization from the frozen template, binding source SHA, calendar SHA, receipt SHA and evaluator blob SHA;
-6. source-admission PASS alone does not authorize outcome access;
-7. after concrete authorization, run the already-frozen evaluator exactly once: `scripts/evaluate_rmr_R1_true_fresh_2026Q4.py`;
-8. do not refit, change candidate, change scale/threshold, calibrate, or read post-2026-12-31 prices;
-9. PAIR_A and PAIR_B must each meet their sample minimum and beat the frozen severity baseline on both Brier and log-loss.
+1. create `rmr_R1_parent_integrity_economic_translation_v1` with a small preregistered strategy family;
+2. develop on DEV and inspect VALIDATION in detail;
+3. iterate using DEV/VALIDATION as needed;
+4. before any next blackbox query, freeze the exact strategy candidate, fit recipe, cost model and certification gates;
+5. only then submit the frozen candidate to the same reusable blackbox validator or a versioned successor;
+6. the blackbox returns only `PASS / FAIL / INSUFFICIENT`; never request a failure breakdown.
 
-Frozen files:
+Economic research on DEV/VALIDATION is now authorized. Production authority remains false.
 
-- `docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_protocol_v1.json`
-- `docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_source_admission_protocol_v1.json`
-- `docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_source_admission_execution_freeze_v1.json`
-- `docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_evaluation_protocol_v1.json`
-- `docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_evaluation_execution_freeze_v1.json`
-- `docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_execution_authorization_template_v1.json`
+## 2026Q4 protocol
 
-## Explicitly forbidden before that gate
-
-- score October alone or October–November partial Q4;
-- inspect partial Q4 outcome metrics;
-- read OHLC during metadata-only source admission;
-- truncate causal state at 2026-10-01;
-- treat source-admission PASS as outcome-execution authorization;
-- modify the frozen Q4 evaluator after source inspection;
-- use 2027Q1 prices to resolve late-Q4 events;
-- refit or alter the frozen R1 parameters;
-- change the parent-integrity formula, severity definition, scale pairings or first-passage boundaries;
-- optimize entry, stop, holding period, trading return or PnL;
-- reopen closed R2/R3/R4/R5-A/R5-B/R6/R7 identities to rescue them;
-- create new broad indicator lanes merely because no work is currently executable.
+The previously preregistered complete-2026Q4 challenge is retained as an **optional future extra fresh challenge**. It is no longer the repository-wide blocker and does not prevent current DEV/VALIDATION research. Do not inspect partial Q4 data unless a later authority explicitly changes that protocol.
 
 ## Authority order
 
 1. `CONTINUE_HERE.md`
-2. `docs/governance/reversal_mean_reversion_program_state_v1.json`
-3. `docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_state_v1.json`
-4. `docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_protocol_v1.json`
-5. frozen R1 source/evaluator/parameter/evidence files listed in `docs/INDEX.md`
+2. `docs/governance/reusable_three_role_data_policy_v1.json`
+3. `docs/governance/reversal_mean_reversion_program_state_v1.json`
+4. `docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_state_v1.json`
+5. `docs/governance/reversal_mean_reversion_R1_reusable_blackbox_protocol_v1.json`
+6. `docs/INDEX.md`
 
-Everything else is background, reproducibility material or historical evidence. Old `next_action` fields in Git history have no repository-wide authority.
+Old reserve/holdout/true-fresh `next_action` statements remain historical evidence only where they conflict with this authority.
 
 Production authority remains `false`.
