@@ -45,9 +45,10 @@ def test_within_session_k_returns_exclude_cross_day_jump():
     logp = np.log(prices)
     days = np.asarray(["2020-01-02"] * 3 + ["2020-01-03"] * 5)
     vals = mod.valid_k_bar_returns(logp, days, end_idx=7, k=2, lookback=8)
-    # Only same-day two-bar returns survive. The huge overnight jump is excluded.
-    assert len(vals) == 3
-    assert np.max(np.abs(vals)) < 0.1
+    # One valid two-bar return exists on day 1 and three on day 2. The huge
+    # cross-day jump is excluded, so every retained return is only 0.02.
+    assert len(vals) == 4
+    assert np.allclose(vals, 0.02)
 
 
 def test_robust_amplitude_scales_by_sqrt_k():
@@ -122,10 +123,13 @@ def test_if_both_qualify_ranking_prefers_mean_brier_improvement():
     assert gate["ranked_for_review"] == ["R6_A_short_mid", "R6_B_mid_parent"]
 
 
-def test_runner_source_contains_no_forbidden_search_or_pnl_surface():
+def test_runner_source_boundary_and_no_search_surfaces():
     text = MODULE_PATH.read_text(encoding="utf-8")
-    assert "2025-12-31" not in text
-    assert "2026-" not in text
+    assert mod.DEV_END == "2019-12-31"
+    assert mod.STAB_END == "2022-12-31"
+    assert 'filters=[("trading_day", "<=", STAB_END)]' in text
     assert "GridSearch" not in text
     assert "RandomizedSearch" not in text
-    assert "trading_return_used\": True" not in text
+    assert "combined_score_model_used\": True" not in text
+    assert "FFT_or_wavelet_family_search_performed\": True" not in text
+    assert "third_mechanism_auto_promoted\": True" not in text
