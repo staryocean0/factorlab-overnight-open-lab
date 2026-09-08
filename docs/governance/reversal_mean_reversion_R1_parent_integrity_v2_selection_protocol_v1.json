@@ -1,0 +1,106 @@
+{
+  "schema_id": "factorlab_reversal_mean_reversion_R1_parent_integrity_v2_selection_protocol@1.0",
+  "session_date": "2026-09-08",
+  "program_identity": "broad_reversal_mean_reversion_discovery_program_v1",
+  "research_identity": "rmr_cross_scale_pullback_parent_integrity_v2",
+  "stage": "results_blind_specialist_representation_selection_before_2023_2025_holdout_open",
+  "preanalysis": "docs/research/rmr_R1_parent_integrity_v2_preanalysis_20260908.md",
+  "source": {
+    "path": "data/high_open_dev_2015_2025/1m_official.parquet",
+    "instrument": "000852.SH",
+    "sha256": "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce",
+    "selection_read_through": "2022-12-31",
+    "holdout_2023_2025_open_for_selection": false,
+    "all_2026_open": false
+  },
+  "evidence_roles": {
+    "SELECTION_DEV": {"start": "2015-01-05", "end": "2019-12-31"},
+    "SELECTION_STABILITY": {"start": "2020-01-01", "end": "2022-12-31", "fresh": false},
+    "MECHANISM_HOLDOUT": {"start": "2023-01-01", "end": "2025-12-31", "open": false, "fresh": false}
+  },
+  "reuse_common_scale_contract": "docs/governance/reversal_mean_reversion_stage1_scale_contract_v1.json",
+  "pairings": [
+    {"id": "PAIR_A", "lower": "S1", "parent": "S2"},
+    {"id": "PAIR_B", "lower": "S2", "parent": "S3"}
+  ],
+  "event_and_outcome": {
+    "event": "causally_confirmed_lower_scale_completed_wave_opposite_to_net_drift_of_last_two_causally_available_parent_waves",
+    "severity": "abs(lower_wave_move)/frozen_lower_scale_threshold",
+    "recovery": "regain_lower_counter_wave_origin_first",
+    "failure": "break_latest_causally_available_parent_structural_trough_or_peak_first",
+    "maximum_observed_1m_bars": 1200,
+    "unresolved": "censored",
+    "overlap_policy": "no_new_same_pair_event_until_prior_resolves_or_censors"
+  },
+  "candidate_ladder": [
+    {
+      "candidate_id": "R1_PARENT_COMPOSITE_1D",
+      "features": ["severity", "parent_integrity"],
+      "parent_integrity": "(z(abs_drift)-z(overlap)+z(parent_eff))/3",
+      "standardization": "fit_on_training_partition_only_per_pairing",
+      "orientation": {"abs_drift": 1, "overlap": -1, "parent_eff": 1}
+    },
+    {
+      "candidate_id": "R1_PARENT_ORIGINAL_3D",
+      "features": ["severity", "abs_drift", "overlap", "parent_eff"],
+      "standardization": "StandardScaler_inside_probability_pipeline_fit_on_training_partition_only"
+    }
+  ],
+  "selection_rule": "first_eligible_in_complexity_ladder",
+  "baseline": {
+    "candidate_id": "R1_SEVERITY_ONLY",
+    "features": ["severity"]
+  },
+  "model": {
+    "class": "LogisticRegression",
+    "pipeline": "StandardScaler+LogisticRegression(C=1,l2,lbfgs,max_iter=1000)",
+    "hyperparameter_search": false,
+    "calibration": false,
+    "binary_threshold": null
+  },
+  "eligibility_each_pairing": {
+    "minimum_pooled_stability_resolved": 200,
+    "minimum_each_year_resolved": 50,
+    "years": [2020, 2021, 2022],
+    "pooled_Brier_strictly_lower_than_severity_baseline": true,
+    "pooled_logloss_strictly_lower_than_severity_baseline": true,
+    "annual_Brier_improvement_positive_min_years": 2
+  },
+  "selection_requires_both_pairings_eligible": true,
+  "if_selected": {
+    "refit_baseline_and_selected_on_all_consumed_2015_2022": true,
+    "freeze_before_holdout": [
+      "selected_candidate_id",
+      "pairing_thresholds",
+      "feature_scalers",
+      "model_coefficients_intercepts",
+      "source_sha256",
+      "parameter_bundle_sha256",
+      "holdout_gate"
+    ],
+    "holdout_open_authorized_by_selection_run_itself": false,
+    "separate_cloud_adjudication_and_authorization_required": true
+  },
+  "if_none_selected": {
+    "decision": "R1_parent_integrity_v2_no_representation_selected",
+    "open_2023_2025_holdout": false,
+    "posthoc_candidate_addition": false
+  },
+  "forbidden": [
+    "read_2023_2025_during_selection",
+    "read_any_2026_rows",
+    "change_scale_pairings",
+    "change_wave_thresholds",
+    "add_candidate",
+    "reorder_candidates",
+    "add_interaction_or_nonlinear_transform",
+    "search_integrity_threshold",
+    "change_event_or_recovery_failure_boundaries",
+    "search_model_class_or_logistic_hyperparameters",
+    "probability_calibration",
+    "binary_threshold_selection",
+    "use_trading_return_or_PnL"
+  ],
+  "scientifically_fresh": false,
+  "production_authority": false
+}
