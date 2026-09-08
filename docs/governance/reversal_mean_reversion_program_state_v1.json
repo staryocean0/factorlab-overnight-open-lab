@@ -1,9 +1,9 @@
 {
-  "schema_id": "factorlab_reversal_mean_reversion_program_state@2.0",
+  "schema_id": "factorlab_reversal_mean_reversion_program_state@2.1",
   "session_date": "2026-09-08",
   "canonical_repository": "staryocean0/factorlab-overnight-open-lab",
   "retired_merged_repository": "staryocean0/factorlab-overnight-gap-fill-repeat-2026",
-  "current_status": "broad_stage1_round1_closed_R1_parent_integrity_v2_holdout_confirmed_waiting_complete_2026Q4_true_fresh_challenge",
+  "current_status": "R1_holdout_confirmed_true_fresh_2026Q4_preregistered_source_admission_tooling_frozen_waiting_complete_2026_extension",
   "repository_wide_current_mainline": "R1_parent_integrity_priority_A_scientific_confirmation_path",
   "authority_order": [
     "CONTINUE_HERE.md",
@@ -20,8 +20,15 @@
     "mechanism_holdout_decision": "R1_PARENT_INTEGRITY_V2_holdout_confirmed_not_fresh",
     "true_fresh_protocol": "docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_protocol_v1.json",
     "true_fresh_window": "2026-10-01_to_2026-12-31",
+    "causal_context_extension_required": "2026-01-05_to_2026-12-31",
     "true_fresh_opened": false,
-    "earliest_true_fresh_execution_date_China": "2027-01-01"
+    "earliest_true_fresh_execution_date_China": "2027-01-01",
+    "source_admission_protocol": "docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_source_admission_protocol_v1.json",
+    "source_admission_runner": "scripts/admit_rmr_R1_true_fresh_2026Q4_source.py",
+    "source_admission_status": "tooling_frozen_not_executed",
+    "source_admission_OHLC_read": false,
+    "source_admission_outcome_read": false,
+    "Q4_outcome_execution_authorized": false
   },
   "secondary_specialist": {
     "research_identity": "rmr_event_density_state_reversal_v2",
@@ -50,9 +57,11 @@
     "old_embedded_next_actions_have_current_authority": false
   },
   "next_actions_in_order": [
-    "wait_for_complete_2026Q4_block_without_partial_R1_outcome_inspection",
-    "after_2026_12_31_perform_metadata_only_Q4_source_admission_and_freeze_exact_source_identity",
-    "not_before_2027_01_01_China_execute_one_frozen_complete_Q4_R1_challenge",
+    "preserve_R1_parameter_bundle_and_do_not_inspect_partial_2026Q4_outcomes",
+    "wait_until_complete_2026_context_extension_and_authoritative_calendar_exist",
+    "not_before_2027_01_01_China_run_metadata_only_source_admission_using_frozen_runner",
+    "cloud_review_source_admission_and_create_separate_exact_source_execution_authorization_if_and_only_if_passed",
+    "execute_one_frozen_complete_Q4_R1_challenge_only_after_that_authorization",
     "only_after_true_fresh_pass_consider_a_separate_economic_translation_and_PnL_preregistration"
   ],
   "PnL_optimization_authorized": false,
