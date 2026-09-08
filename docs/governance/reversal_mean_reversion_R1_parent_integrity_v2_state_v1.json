@@ -1,8 +1,8 @@
 {
-  "schema_id": "factorlab_reversal_mean_reversion_R1_parent_integrity_v2_state@1.0",
+  "schema_id": "factorlab_reversal_mean_reversion_R1_parent_integrity_v2_state@1.1",
   "session_date": "2026-09-08",
   "research_identity": "rmr_cross_scale_pullback_parent_integrity_v2",
-  "current_status": "composite_1D_selected_2023_2025_mechanism_holdout_confirmed_not_fresh_true_fresh_2026Q4_preregistered_unopened",
+  "current_status": "composite_1D_selected_holdout_confirmed_not_fresh_true_fresh_2026Q4_preregistered_source_admission_tooling_frozen_waiting_complete_2026_extension",
   "selected_candidate_id": "R1_PARENT_COMPOSITE_1D",
   "parameter_bundle_sha256": "e618a5a06a803f4464267e69e39f98fa316fd572f40efcb3f9e40fc25df2779c",
   "selection": {
@@ -23,10 +23,18 @@
   "true_fresh_challenge": {
     "protocol": "docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_protocol_v1.json",
     "window": "2026-10-01_to_2026-12-31",
+    "causal_context_extension": "2026-01-05_to_2026-12-31",
     "opened": false,
     "partial_scoring_forbidden": true,
     "earliest_execution_date_China": "2027-01-01",
-    "source_admission_pending": true
+    "source_admission_protocol": "docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_source_admission_protocol_v1.json",
+    "source_admission_runner": "scripts/admit_rmr_R1_true_fresh_2026Q4_source.py",
+    "source_admission_status": "protocol_and_runner_frozen_waiting_complete_2026_extension",
+    "source_admission_OHLC_read": false,
+    "source_admission_outcome_read": false,
+    "exact_future_source_sha256": null,
+    "execution_authorization_template": "docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_execution_authorization_template_v1.json",
+    "Q4_outcome_open_authorized": false
   },
   "PnL_optimization_authorized": false,
   "economic_translation_protocol_authorized_before_true_fresh_pass": false,
