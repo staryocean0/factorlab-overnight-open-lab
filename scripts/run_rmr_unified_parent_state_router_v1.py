@@ -105,25 +105,15 @@ def read_source(path: Path) -> pd.DataFrame:
     return frame.sort_values(["trading_day", "timestamp"], kind="mergesort").reset_index(drop=True)
 
 
-def dev_vol_ref(frame: pd.DataFrame) -> float:
-    clocks = frame["timestamp"].astype(str).str[11:16]
-    daily = frame.loc[clocks.eq("15:00"), ["trading_day", "close"]].drop_duplicates("trading_day").sort_values("trading_day")
-    daily["ret"] = daily["close"].pct_change(fill_method=None)
-    daily["rv20"] = daily["ret"].rolling(20, min_periods=20).std().shift(1)
-    value = float(daily.loc[daily["trading_day"] <= DEV_END, "rv20"].dropna().median())
-    if not np.isfinite(value) or value <= 0.0:
-        raise RuntimeError("router invalid DEV volatility reference")
-    return value
-
-
 def build_events(frame: pd.DataFrame, protocol: dict) -> dict[str, pd.DataFrame]:
     prices = frame["close"].to_numpy(float)
     days = frame["trading_day"].to_numpy(str)
     thresholds = {k: float(protocol["frozen_scales"][k]) for k in ("S1", "S2", "S3")}
-    vol_ref = dev_vol_ref(frame)
-    expected = float(protocol["frozen_scales"]["DEV_median_rvol20"])
-    if not np.isclose(vol_ref, expected, rtol=0.0, atol=1e-12):
-        raise RuntimeError(f"router DEV volatility reference drifted: {vol_ref} vs {expected}")
+    # Scale identity is inherited from the already-certified R1/R2 mechanisms.
+    # Do not re-estimate it under the later reusable DEV window.
+    vol_ref = float(protocol["frozen_scales"]["DEV_median_rvol20"])
+    if not np.isfinite(vol_ref) or vol_ref <= 0.0:
+        raise RuntimeError("router frozen DEV volatility reference invalid")
     waves = {name: common.detect_waves(prices, thresholds[name]) for name in ("S1", "S2", "S3")}
     out: dict[str, pd.DataFrame] = {}
     for cell_id in CELL_ORDER:
@@ -151,7 +141,8 @@ def resolved_frame(events: pd.DataFrame, cfg: dict) -> pd.DataFrame:
     positive, negative = cfg["positive"], cfg["negative"]
     out = events.loc[events["outcome"].isin([positive, negative])].copy()
     out["y"] = out["outcome"].eq(positive).astype(int)
-    return out.replace([np.inf, -np.inf], np.nan).dropna(subset=PARENT_FEATURES + cfg["local_baseline_features"]).reset_index(drop=True)
+    needed = PARENT_FEATURES + cfg["local_baseline_features"]
+    return out.replace([np.inf, -np.inf], np.nan).dropna(subset=needed).reset_index(drop=True)
 
 
 def fit_parent_scaler(all_events: dict[str, pd.DataFrame], end_day: str) -> StandardScaler:
@@ -172,8 +163,7 @@ def add_state_consistency(frame: pd.DataFrame, scaler: StandardScaler, lane: str
     out = frame.copy()
     z = scaler.transform(out[PARENT_FEATURES].to_numpy(float))
     axis = (z[:, 0] - z[:, 1] + z[:, 2]) / 3.0
-    sign = 1.0 if lane == "R1" else -1.0
-    out["state_consistency"] = sign * axis
+    out["state_consistency"] = axis if lane == "R1" else -axis
     return out
 
 
@@ -241,7 +231,11 @@ def model_snapshot(model: Pipeline, features: list[str]) -> dict:
 
 
 def parent_scaler_snapshot(scaler: StandardScaler) -> dict:
-    return {"features": PARENT_FEATURES, "mean": [float(x) for x in scaler.mean_], "scale": [float(x) for x in scaler.scale_]}
+    return {
+        "features": PARENT_FEATURES,
+        "mean": [float(x) for x in scaler.mean_],
+        "scale": [float(x) for x in scaler.scale_],
+    }
 
 
 def evaluate_validation(all_events: dict[str, pd.DataFrame], protocol: dict) -> tuple[dict, dict]:
@@ -268,19 +262,25 @@ def evaluate_validation(all_events: dict[str, pd.DataFrame], protocol: dict) -> 
     lane_results = {}
     for lane in ("R1", "R2"):
         subset = val_pool.loc[val_pool["lane"].eq(lane)]
+        b = score(base_model, subset, POOL_BASE_FEATURES)
+        c = score(cand_model, subset, POOL_CAND_FEATURES)
         lane_results[lane] = {
-            "baseline": score(base_model, subset, POOL_BASE_FEATURES),
-            "candidate": score(cand_model, subset, POOL_CAND_FEATURES),
+            "baseline": b,
+            "candidate": c,
+            "brier_improvement": b["brier"] - c["brier"],
+            "logloss_improvement": b["log_loss"] - c["log_loss"],
         }
-        lane_results[lane]["brier_improvement"] = lane_results[lane]["baseline"]["brier"] - lane_results[lane]["candidate"]["brier"]
-        lane_results[lane]["logloss_improvement"] = lane_results[lane]["baseline"]["log_loss"] - lane_results[lane]["candidate"]["log_loss"]
 
     cell_results = {}
     for cell_id in CELL_ORDER:
         subset = val_pool.loc[val_pool["cell"].eq(cell_id)]
         b = score(base_model, subset, POOL_BASE_FEATURES)
         c = score(cand_model, subset, POOL_CAND_FEATURES)
-        cell_results[cell_id] = {"baseline": b, "candidate": c, "brier_improvement": b["brier"] - c["brier"]}
+        cell_results[cell_id] = {
+            "baseline": b,
+            "candidate": c,
+            "brier_improvement": b["brier"] - c["brier"],
+        }
 
     annual = {}
     positive_years = 0
@@ -323,7 +323,10 @@ def evaluate_validation(all_events: dict[str, pd.DataFrame], protocol: dict) -> 
     }
     fit_meta = {
         "DEV_parent_scaler": parent_scaler_snapshot(parent_scaler),
-        "DEV_cell_baselines": {c: model_snapshot(cell_models[c], protocol["cells"][c]["local_baseline_features"]) for c in CELL_ORDER},
+        "DEV_cell_baselines": {
+            c: model_snapshot(cell_models[c], protocol["cells"][c]["local_baseline_features"])
+            for c in CELL_ORDER
+        },
         "DEV_pooled_baseline": model_snapshot(base_model, POOL_BASE_FEATURES),
         "DEV_pooled_candidate": model_snapshot(cand_model, POOL_CAND_FEATURES),
     }
@@ -340,10 +343,12 @@ def final_refit(all_events: dict[str, pd.DataFrame], protocol: dict) -> dict:
         pool = data.loc[data["day"] <= VAL_END].copy()
         cell_models[cell_id] = fit_logit(pool, cfg["local_baseline_features"])
         final_counts[cell_id] = int(len(pool))
+
     pooled = build_pooled(all_events, protocol, parent_scaler, cell_models)
     pool = pooled.loc[pooled["day"] <= VAL_END].copy()
     base_model = fit_logit(pool, POOL_BASE_FEATURES)
     cand_model = fit_logit(pool, POOL_CAND_FEATURES)
+
     payload = {
         "schema_id": "factorlab_rmr_unified_parent_state_router_v1_parameter_freeze@1.0",
         "session_date": "2026-09-08",
@@ -355,7 +360,10 @@ def final_refit(all_events: dict[str, pd.DataFrame], protocol: dict) -> dict:
         "DEV_median_rvol20": float(protocol["frozen_scales"]["DEV_median_rvol20"]),
         "thresholds": {k: float(protocol["frozen_scales"][k]) for k in ("S1", "S2", "S3")},
         "parent_scaler": parent_scaler_snapshot(parent_scaler),
-        "cell_baselines": {c: model_snapshot(cell_models[c], protocol["cells"][c]["local_baseline_features"]) for c in CELL_ORDER},
+        "cell_baselines": {
+            c: model_snapshot(cell_models[c], protocol["cells"][c]["local_baseline_features"])
+            for c in CELL_ORDER
+        },
         "pooled_baseline": model_snapshot(base_model, POOL_BASE_FEATURES),
         "pooled_candidate": model_snapshot(cand_model, POOL_CAND_FEATURES),
         "final_refit_resolved_counts": final_counts,
