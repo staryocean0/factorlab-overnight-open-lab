@@ -2,7 +2,7 @@
   "schema_id": "factorlab_reversal_mean_reversion_program_state@1.0",
   "session_date": "2026-09-08",
   "program_identity": "broad_reversal_mean_reversion_discovery_program_v1",
-  "current_status": "authority_reset_and_common_measurement_frozen_R1_R2_R3_stage1_preanalysis_frozen_pending_common_dataset_role_assignment",
+  "current_status": "R1_R2_R3_common_dataset_roles_scales_event_semantics_runner_and_execution_identity_frozen_pending_one_equal_budget_local_parallel_screen",
   "repository_wide_current_mainline": "broad_reversal_mean_reversion_mechanism_discovery",
   "legacy_overnight_mainline_active": false,
   "legacy_overnight_role": "delegated_specialist_case_study",
@@ -15,25 +15,46 @@
     "R4_relative_value_dislocation",
     "R5_statistical_state_extremes"
   ],
-  "stage": "stage1_results_blind_parallel_screening_design_frozen",
+  "stage": "stage1_parallel_empirical_execution_frozen_pending_receipt",
   "common_measurement_contract": "docs/governance/reversal_mean_reversion_common_measurement_contract_v1.json",
   "stage1_screening_plan": "docs/governance/reversal_mean_reversion_stage1_screening_plan_v1.json",
+  "stage1_common_data_role": "docs/governance/reversal_mean_reversion_stage1_common_data_role_v1.json",
+  "stage1_execution_protocol": "docs/governance/reversal_mean_reversion_stage1_execution_protocol_v1.json",
+  "stage1_execution_freeze": "docs/governance/reversal_mean_reversion_stage1_execution_freeze_v1.json",
+  "stage1_runner": "scripts/run_rmr_stage1_parallel_screen.py",
+  "stage1_handoff": "docs/ops/rmr_stage1_parallel_screen_execution_handoff.md",
   "literature_map": "docs/research/reversal_mean_reversion_literature_map_20260908.md",
   "lane_preanalysis": {
     "R1": "docs/research/rmr_R1_cross_scale_pullback_preanalysis_20260908.md",
     "R2": "docs/research/rmr_R2_range_boundary_reversion_preanalysis_20260908.md",
     "R3": "docs/research/rmr_R3_regime_conditioned_residual_preanalysis_20260908.md"
   },
+  "common_stage1_dataset": {
+    "instrument": "000852.SH",
+    "path": "data/high_open_dev_2015_2025/1m_official.parquet",
+    "sha256": "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce",
+    "window": {"start": "2015-01-05", "end": "2025-12-31"},
+    "role": "development_material_only",
+    "fresh_oos": false
+  },
+  "first_pass_scale_pairings": [
+    {"id": "PAIR_A", "lower_sigma": 0.50, "parent_sigma": 1.50},
+    {"id": "PAIR_B", "lower_sigma": 0.75, "parent_sigma": 2.25}
+  ],
   "market_outcomes_opened_for_broad_stage1_design": false,
+  "broad_stage1_empirical_outcomes_opened": false,
   "deep_strategy_optimization_authorized": false,
   "single_lane_full_backtest_authorized": false,
   "production_authority": false,
   "legacy_gap_fill_status": {
     "evidence_preserved": true,
     "sealed_boundaries_preserved": true,
-    "unfinished_local_or_data_handoffs_may_exist": true,
+    "V21_P2_family_status": "closed_no_successor",
+    "V21_DEV_decision": "V21_DEV_no_P2_successor",
+    "V21_DEV_cloud_adjudication": "docs/research/gap_fill_v21_dev_cloud_adjudication_20260908.md",
+    "Audit_A_B_external_reserve_remain_sealed": true,
     "blocks_program_wide_progress": false,
-    "resume_only_if_explicitly_assigned_or_needed_as_comparison_case": true
+    "resume_only_under_new_identity_if_new_evidence_and_new_result_free_protocol_exist": true
   },
   "completed_program_actions": [
     "repository_authority_reset",
@@ -42,14 +63,20 @@
     "R1_results_blind_shallow_preanalysis_frozen",
     "R2_results_blind_shallow_preanalysis_frozen",
     "R3_results_blind_shallow_preanalysis_frozen",
-    "equal_budget_stage1_screening_plan_frozen"
+    "equal_budget_stage1_screening_plan_frozen",
+    "common_CSI1000_2015_2025_development_dataset_role_frozen",
+    "2026_legacy_and_fresh_windows_forbidden_to_broad_stage1",
+    "two_directional_change_scale_pairings_frozen",
+    "R1_R2_R3_parallel_event_and_first_passage_semantics_frozen",
+    "parallel_stage1_runner_and_fail_closed_tests_frozen",
+    "legacy_R4_V21_P2_family_cloud_closed_no_successor"
   ],
   "next_actions_in_order": [
-    "inventory_candidate_common_price_datasets_without_opening_any_new_sealed_outcome",
-    "assign_development_and_future_audit_roles_before_empirical_screening",
-    "freeze_first_pass_scale_pairings_and_wave_measurement_scales_from_data_contract_not_results",
-    "execute_one_comparable_low_budget_probe_for_R1_R2_R3",
-    "compare_lanes_before_any_deep_promotion"
+    "execute_RMR_STAGE1_PARALLEL_01_once_on_the_frozen_common_dataset_after_tests_pass",
+    "commit_only_the_two_compact_stage1_receipts",
+    "cloud_review_R1_R2_R3_together_on_equal_budget",
+    "compare_effect_strength_stability_scale_consistency_sample_supply_censoring_definition_complexity_and_R4_independence",
+    "promote_at_most_two_lanes_or_hold_close_lanes_before_any_deep_identity"
   ],
   "lane_budget_rule": "do_not_spend_many_iterations_on_one_lane_while_other_primary_lanes_have_not_received_a_comparable_shallow_probe",
   "authority_files": [
