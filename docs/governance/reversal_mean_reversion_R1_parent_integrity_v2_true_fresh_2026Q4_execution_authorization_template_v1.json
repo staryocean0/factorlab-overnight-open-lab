@@ -1,26 +1,25 @@
 {
-  "schema_id": "factorlab_rmr_R1_parent_integrity_v2_true_fresh_execution_authorization_template@1.0",
+  "schema_id": "factorlab_rmr_R1_parent_integrity_v2_true_fresh_execution_authorization_template@1.1",
+  "template_for_concrete_schema_id": "factorlab_rmr_R1_parent_integrity_v2_true_fresh_execution_authorization@1.0",
   "session_date": "2026-09-08",
   "research_identity": "rmr_cross_scale_pullback_parent_integrity_v2",
   "stage": "template_only_not_an_authorization",
   "controlling_protocol": "docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_protocol_v1.json",
+  "evaluation_protocol": "docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_evaluation_protocol_v1.json",
   "source_admission_protocol": "docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_source_admission_protocol_v1.json",
-  "frozen_parameter_bundle_sha256": "e618a5a06a803f4464267e69e39f98fa316fd572f40efcb3f9e40fc25df2779c",
+  "parameter_bundle_sha256": "e618a5a06a803f4464267e69e39f98fa316fd572f40efcb3f9e40fc25df2779c",
   "selected_candidate_id": "R1_PARENT_COMPOSITE_1D",
+  "context_window": {"start": "2026-01-05", "end": "2026-12-31"},
   "challenge_window": {"start": "2026-10-01", "end": "2026-12-31"},
   "earliest_execution_date_China": "2027-01-01",
-  "to_be_filled_after_source_admission": {
-    "source_admission_receipt_path": null,
-    "source_admission_receipt_sha256": null,
-    "exact_2026_extension_source_sha256": null,
-    "exact_trading_calendar_sha256": null,
-    "observed_trading_days": null,
-    "expected_trading_days": null,
-    "complete_trading_days": null,
-    "metadata_rows": null,
-    "source_admission_cloud_review_decision": null
-  },
-  "required_preconditions_before_authorization": {
+  "evaluator_blob_sha": "f041beaab2b72f82114b05bac24db9d37266de44",
+  "source_admission_cloud_review_decision": null,
+  "source_admission_receipt_sha256": null,
+  "exact_2026_extension_source_sha256": null,
+  "exact_trading_calendar_sha256": null,
+  "authorization_date_China": null,
+  "required_source_review_decision_value": "R1_true_fresh_2026Q4_source_admission_cloud_passed",
+  "required_preconditions_before_concrete_authorization": {
     "current_China_date_on_or_after_2027_01_01": false,
     "complete_2026_context_extension_admitted": false,
     "all_authoritative_calendar_days_present": false,
@@ -28,6 +27,7 @@
     "OHLC_read_during_source_admission_false": false,
     "outcome_read_during_source_admission_false": false,
     "parameter_bundle_digest_matches_frozen_value": false,
+    "evaluator_blob_matches_frozen_value": false,
     "true_fresh_protocol_unchanged": false,
     "cloud_review_complete": false
   },
@@ -40,5 +40,5 @@
     "PnL_use_authorized": false,
     "production_authority": false
   },
-  "instruction": "This file is a template. A later cloud adjudication must create a separate concrete authorization artifact after metadata-only source admission. Do not mutate this template into an authorization in place."
+  "instruction": "This file is only a field/schema template. After source admission, cloud review must create a separate concrete artifact with schema factorlab_rmr_R1_parent_integrity_v2_true_fresh_execution_authorization@1.0. Do not mutate this template into an authorization in place. The concrete artifact must fill all top-level source/calendar/receipt fields, preserve evaluator_blob_sha exactly, and set only Q4_R1_outcome_open_authorized=true while every other authorization flag remains false."
 }
