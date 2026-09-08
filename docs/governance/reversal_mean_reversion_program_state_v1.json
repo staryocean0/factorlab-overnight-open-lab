@@ -1,0 +1,43 @@
+{
+  "schema_id": "factorlab_reversal_mean_reversion_program_state@1.0",
+  "session_date": "2026-09-08",
+  "program_identity": "broad_reversal_mean_reversion_discovery_program_v1",
+  "current_status": "authority_reset_in_progress_then_stage0_stage1_parallel_screening",
+  "repository_wide_current_mainline": "broad_reversal_mean_reversion_mechanism_discovery",
+  "legacy_overnight_mainline_active": false,
+  "legacy_overnight_role": "delegated_specialist_case_study",
+  "active_primary_lanes": [
+    "R1_cross_scale_pullback",
+    "R2_range_boundary_reversion",
+    "R3_regime_conditioned_residual"
+  ],
+  "secondary_lanes": [
+    "R4_relative_value_dislocation",
+    "R5_statistical_state_extremes"
+  ],
+  "stage": "stage0_common_measurement_and_stage1_shallow_preanalysis",
+  "deep_strategy_optimization_authorized": false,
+  "single_lane_full_backtest_authorized": false,
+  "production_authority": false,
+  "legacy_gap_fill_status": {
+    "evidence_preserved": true,
+    "sealed_boundaries_preserved": true,
+    "unfinished_local_or_data_handoffs_may_exist": true,
+    "blocks_program_wide_progress": false,
+    "resume_only_if_explicitly_assigned_or_needed_as_comparison_case": true
+  },
+  "next_actions_in_order": [
+    "freeze_common_scale_parent_state_deviation_reversion_measurement_vocabulary",
+    "write_bounded_shallow_preanalysis_for_R1_R2_R3",
+    "map_minimum_data_and_falsification_test_for_each_lane",
+    "execute_comparable_low_budget_probes_when_data_is_available",
+    "compare_lanes_before_any_deep_promotion"
+  ],
+  "lane_budget_rule": "do_not_spend_many_iterations_on_one_lane_while_other_primary_lanes_have_not_received_a_comparable_shallow_probe",
+  "authority_files": [
+    "CONTINUE_HERE.md",
+    "docs/governance/reversal_mean_reversion_program_charter_v1.json",
+    "docs/governance/reversal_mean_reversion_program_state_v1.json",
+    "docs/research/reversal_mean_reversion_program_whitepaper_v1.md"
+  ]
+}
