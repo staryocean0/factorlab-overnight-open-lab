@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 MODULE_PATH = ROOT / "scripts/v21_p2_overlay.py"
 FAMILY = ROOT / "docs/governance/cloud_session_20260907_gap_fill_v21_candidate_family_v1.json"
 STATE = ROOT / "docs/governance/gap_fill_v21_state_v1.json"
+AUTH = ROOT / "docs/governance/cloud_session_20260908_gap_fill_v21_dev_open_authorization_v1.json"
 
 spec = spec_from_file_location("v21_p2_overlay", MODULE_PATH)
 assert spec and spec.loader
@@ -58,7 +59,6 @@ def test_positive_beta_has_expected_direction_and_preserves_nesting():
     assert h60[2] > base60[2]
     p15, p60, peod = mod.cumulative_probs(h15, h60, baseeod)
     assert mod.monotonicity_violations(p15, p60, peod) == 0
-    # EOD stage hazard itself stays frozen even though cumulative pEOD changes.
     control = mod.cumulative_probs(base15, base60, baseeod)[2]
     assert not np.allclose(peod, control)
 
@@ -122,10 +122,16 @@ def test_dev_and_future_audit_gates_are_frozen_before_dev_open():
     assert f["future_audit_decision_rule"]["external_reserve_cannot_replace_or_rescue_Audit_A_or_Audit_B"] is True
 
 
-def test_repo_state_still_denies_dev_fit_and_selection():
+def test_repo_state_authorizes_dev_only_via_separate_sa_review():
     state = json.loads(STATE.read_text(encoding="utf-8"))
-    assert state["sealed"]["V21_DEV_outcomes"] is True
+    auth = json.loads(AUTH.read_text(encoding="utf-8"))
+    assert state["DEV_open_authorization"] == str(AUTH.relative_to(ROOT))
+    assert state["sealed"]["V21_DEV_outcomes"] is False
     assert state["sealed"]["V21_AUDIT_A_outcomes"] is True
     assert state["sealed"]["V21_AUDIT_B_outcomes"] is True
-    assert state["successor_model_fit_authorized"] is False
-    assert state["successor_model_selection_authorized"] is False
+    assert state["sealed"]["V21_EXTERNAL_RESERVE_outcomes"] is True
+    assert state["successor_model_fit_authorized"] is True
+    assert state["successor_model_selection_authorized"] is True
+    assert auth["V21_DEV_outcomes_open_authorized"] is True
+    assert auth["Audit_A_outcomes_open_authorized"] is False
+    assert auth["Audit_B_outcomes_open_authorized"] is False
