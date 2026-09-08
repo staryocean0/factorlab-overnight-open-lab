@@ -1,5 +1,5 @@
 {
-  "schema_id": "factorlab_rmr_R1_true_fresh_2026Q4_evaluation_execution_freeze@1.0",
+  "schema_id": "factorlab_rmr_R1_true_fresh_2026Q4_evaluation_execution_freeze@1.1",
   "session_date": "2026-09-08",
   "research_identity": "rmr_cross_scale_pullback_parent_integrity_v2",
   "stage": "one_time_true_fresh_Q4_evaluator_frozen_before_fresh_outcomes_exist",
@@ -49,6 +49,10 @@
     "Q4_only_event_filter_test_defined": true,
     "synthetic_frozen_candidate_brier_logloss_improvement_checked_in_cloud_session": true,
     "decision_rule_confirmed_failed_insufficient_test_defined": true,
+    "source_admission_synthetic_named_clock_checks_run_in_cloud_session": true,
+    "cloud_repository_checkout_attempted": true,
+    "cloud_repository_checkout_result": "failed_dns_could_not_resolve_github.com",
+    "full_repository_pytest_run": false,
     "full_future_execution_performed": false,
     "fresh_Q4_outcomes_opened": false
   },
