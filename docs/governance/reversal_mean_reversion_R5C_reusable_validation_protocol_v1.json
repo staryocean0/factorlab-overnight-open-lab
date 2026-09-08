@@ -1,0 +1,118 @@
+{
+  "schema_id": "factorlab_rmr_event_density_state_reversal_v2_reusable_validation@1.0",
+  "session_date": "2026-09-08",
+  "research_identity": "rmr_event_density_state_reversal_v2",
+  "source_handoff": "docs/ops/rmr_R5C_event_density_promotion_handoff_20260908.md",
+  "data_policy": "docs/governance/reusable_three_role_data_policy_v1.json",
+  "stage": "results_blind_dedicated_family_frozen_before_reusable_validation",
+  "scientific_question": "does_same_scale_event_density_add_stable_reversal_vs_extension_information_beyond_nearby_event_geometry_on_both_preregistered_scales",
+  "source": {
+    "path": "data/high_open_dev_2015_2025/1m_official.parquet",
+    "sha256": "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce",
+    "instrument": "000852.SH",
+    "frequency": "1m"
+  },
+  "roles": {
+    "DEV": {"start": "2015-01-05", "end": "2020-12-31", "detail_access": "full"},
+    "VALIDATION": {"start": "2021-01-01", "end": "2025-12-31", "detail_access": "full"},
+    "BLACKBOX": {"start": "2026-01-05", "end": "2026-08-21", "detail_access": "three_state_only_after_validation_pass"}
+  },
+  "scales": {
+    "reference": "exact_existing_stage1_scale_contract",
+    "DEV_median_rvol20": 0.013783308018456928,
+    "S1": 0.003445827004614232,
+    "S2": 0.006891654009228464,
+    "co_primary": ["S1", "S2"],
+    "scale_search": false
+  },
+  "event": {
+    "observation_time": "causal_same_scale_directional_change_wave_confirmation",
+    "wave_direction": "direction_of_just_completed_same_scale_wave",
+    "severity": "abs(completed_wave_move)/same_scale_directional_change_threshold",
+    "completed_wave_duration_bars": "completed_wave_end_idx_minus_start_idx",
+    "bars_since_prev_confirmation": "current_confirmation_idx_minus_previous_same_scale_confirmation_idx",
+    "overlap_policy": "within_each_role_do_not_start_new_same_scale_price_path_event_until_prior_event_resolves_or_censors"
+  },
+  "event_density": {
+    "definition": "count_same_scale_wave_confirmations_in_trailing_240_observed_1m_bars_including_current_confirmation_divided_by_240",
+    "trailing_bars": 240,
+    "window_search": false,
+    "normalization": {
+      "history": "preceding_100_same_scale_property_observations",
+      "current_excluded": true,
+      "center": "median",
+      "scale": "median_absolute_deviation_without_consistency_multiplier",
+      "z_formula": "(current_density-past100_median)/past100_MAD",
+      "zero_or_nonfinite_MAD": "exclude_observation",
+      "normalization_window_search": false
+    }
+  },
+  "price_path_outcome": {
+    "anchor": "confirmation_close",
+    "reversion": "move_opposite_completed_wave_direction_by_one_same_scale_threshold_before_extension",
+    "extension": "move_with_completed_wave_direction_by_one_same_scale_threshold_before_reversion",
+    "same_bar_tie": "censored",
+    "maximum_observed_1m_bars": 1200,
+    "unresolved": "censored",
+    "horizon_search": false,
+    "DEV_outcome_read_must_not_cross_2020_12_31": true
+  },
+  "model_family": {
+    "exact_model_count": 2,
+    "baseline_id": "R5C_NEARBY_GEOMETRY_BASELINE",
+    "baseline_features": ["severity", "wave_duration_bars", "bars_since_prev_confirmation"],
+    "candidate_id": "R5C_GEOMETRY_PLUS_EVENT_DENSITY_Z",
+    "candidate_features": ["severity", "wave_duration_bars", "bars_since_prev_confirmation", "event_density_z"],
+    "pipeline": "StandardScaler_then_LogisticRegression",
+    "logistic": {"C": 1.0, "penalty": "l2", "solver": "lbfgs", "max_iter": 1000},
+    "interaction_terms": false,
+    "hyperparameter_search": false,
+    "threshold_selection": false,
+    "ensemble": false
+  },
+  "VALIDATION_gates_each_scale": {
+    "minimum_resolved": {"S1": 2500, "S2": 800},
+    "minimum_resolved_each_year": {"S1": 350, "S2": 100},
+    "candidate_pooled_Brier_strictly_lower_than_geometry_baseline": true,
+    "candidate_pooled_logloss_strictly_lower_than_geometry_baseline": true,
+    "annual_Brier_improvement_positive_min_years_of_5": 4
+  },
+  "VALIDATION_pass_requires_both_scales": true,
+  "final_refit": {
+    "allowed_only_after_VALIDATION_PASS": true,
+    "window": "2015-01-05_to_2025-12-31",
+    "exact_same_model_family": true,
+    "candidate_or_window_mutation_allowed": false,
+    "output": "frozen_geometry_and_event_density_probability_models"
+  },
+  "BLACKBOX": {
+    "source": "archive/data/gap_fill_repeat_2026/csi1000_1m_20260105_to_20260821.parquet",
+    "source_sha256": "307e48021ef4576c2b364a1309a8b0474d6ab783afee16be41edb975abaa6dcd",
+    "context": "append_to_frozen_2015_2025_history_for_causal_wave_and_past100_state",
+    "minimum_resolved": {"S1": 250, "S2": 80},
+    "gate_each_scale": {
+      "candidate_Brier_strictly_lower_than_geometry_baseline": true,
+      "candidate_logloss_strictly_lower_than_geometry_baseline": true
+    },
+    "both_scales_required": true,
+    "public_output_only": ["PASS", "FAIL", "INSUFFICIENT"],
+    "details_released": false,
+    "query_allowed_only_after_VALIDATION_PASS_and_final_refit": true
+  },
+  "forbidden": [
+    "event_density_window_search",
+    "normalization_window_search",
+    "directional_change_scale_search",
+    "feature_subset_search",
+    "interaction_search",
+    "logistic_hyperparameter_search",
+    "z_threshold_search",
+    "time_of_day_or_regime_rescue_filters",
+    "choose_only_S1_or_S2_from_validation_results",
+    "BLACKBOX_detail_inspection",
+    "BLACKBOX_use_in_fit_or_selection",
+    "PnL_or_trading_rule_selection_in_this_mechanism_identity",
+    "production_use"
+  ],
+  "production_authority": false
+}
