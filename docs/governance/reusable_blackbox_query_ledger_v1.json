@@ -1,0 +1,18 @@
+{
+  "schema_id": "factorlab_reusable_blackbox_query_ledger@1.0",
+  "effective_date": "2026-09-08",
+  "blackbox_window": {"start": "2026-01-05", "end": "2026-08-21"},
+  "policy": "docs/governance/reusable_three_role_data_policy_v1.json",
+  "output_contract": "three_state_only_PASS_FAIL_INSUFFICIENT",
+  "query_count": 0,
+  "queries": [],
+  "rules": {
+    "append_only": true,
+    "candidate_fingerprint_required": true,
+    "protocol_fingerprint_required": true,
+    "no_exact_blackbox_metric_storage": true,
+    "no_subperiod_or_error_detail_storage": true,
+    "repeated_queries_are_not_independent_OOS_samples": true
+  },
+  "production_authority": false
+}
