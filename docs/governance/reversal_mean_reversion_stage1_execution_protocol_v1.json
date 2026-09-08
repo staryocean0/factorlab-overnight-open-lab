@@ -1,0 +1,112 @@
+{
+  "schema_id": "factorlab_reversal_mean_reversion_stage1_execution_protocol@1.0",
+  "session_date": "2026-09-08",
+  "program_identity": "broad_reversal_mean_reversion_discovery_program_v1",
+  "stage": "stage1_parallel_empirical_screening_semantics_frozen_before_outcome_read",
+  "common_measurement_contract": "docs/governance/reversal_mean_reversion_common_measurement_contract_v1.json",
+  "screening_plan": "docs/governance/reversal_mean_reversion_stage1_screening_plan_v1.json",
+  "common_data_role": "docs/governance/reversal_mean_reversion_stage1_common_data_role_v1.json",
+  "market_outcomes_opened_for_protocol_design": false,
+  "common_parent_state_snapshot": {
+    "availability": "last_two_parent_waves_whose_confirmation_timestamp_is_not_later_than_the_event_information_cutoff",
+    "prices": "log_price",
+    "signed_drift_ratio": "(end_wave2-start_wave1)/(abs(move_wave1)+abs(move_wave2))",
+    "absolute_drift_ratio": "abs(signed_drift_ratio)",
+    "overlap_ratio": "overlap_width_of_the_two_wave_log_price_intervals/min(interval_width_wave1,interval_width_wave2)",
+    "parent_path_efficiency": "abs(end_wave2-start_wave1)/sum_abs_1m_log_returns_from_wave1_start_through_wave2_end",
+    "parent_range_width": "max(log_price_over_two_parent_wave_intervals)-min(log_price_over_two_parent_wave_intervals)",
+    "short_to_parent_volatility_ratio": "sqrt(240)*std(last_60_available_1m_log_returns,ddof=0)/prior_20_session_close_to_close_sigma",
+    "minimum_short_returns": 30
+  },
+  "common_first_pass_model": {
+    "pipeline": "StandardScaler+LogisticRegression",
+    "LogisticRegression": {"C": 1.0, "penalty": "l2", "solver": "lbfgs", "fit_intercept": true, "class_weight": null, "max_iter": 1000},
+    "probability_calibration": "none",
+    "binary_threshold": null,
+    "fitting_role": "development_diagnostic_only",
+    "chronological_scoring": [
+      {"train": "DEV_A", "validate": "DEV_B"},
+      {"train": "DEV_A+DEV_B", "validate": "DEV_C"}
+    ],
+    "if_training_target_has_one_class": "report_evidence_insufficient_for_that_fold_not_model_failure"
+  },
+  "R1": {
+    "identity": "R1_cross_scale_pullback_stage1_v1",
+    "event": "a_completed_lower_wave_whose_direction_is_opposite_the_sign_of_the_parent_signed_drift_snapshot_taken_at_the_lower_wave_start_information_time",
+    "pre_event_parent_failure_exclusion": true,
+    "recovery_boundary": "lower_counter_wave_start_pivot_price",
+    "failure_boundary": "for_positive_parent_drift_the_minimum_parent_structural_pivot_price_across_the_two_snapshot_waves; for_negative_parent_drift_the_maximum",
+    "outcome": "recovery_first_vs_parent_failure_first_with_common_5_session_censor",
+    "objects": [
+      {"id": "severity_only", "features": ["counter_move_abs_log_return_over_sigma"]},
+      {"id": "parent_state_only", "features": ["absolute_drift_ratio", "overlap_ratio", "parent_path_efficiency", "short_to_parent_volatility_ratio"]},
+      {"id": "parent_state_plus_severity", "features": ["counter_move_abs_log_return_over_sigma", "absolute_drift_ratio", "overlap_ratio", "parent_path_efficiency", "short_to_parent_volatility_ratio"]}
+    ],
+    "descriptive_only": ["counter_move_duration_trading_minutes", "counter_move_path_efficiency"]
+  },
+  "R2": {
+    "identity": "R2_range_boundary_reversion_stage1_v1",
+    "event": "first_1m_close_outside_the_last_two_parent_wave_envelope_by_at_least_0.10_times_the_snapshot_parent_range_width_while_no_R2_event_is_active",
+    "excursion_trigger_fraction_of_range_width": 0.10,
+    "breach_side": "up_if_above_snapshot_envelope_high_else_down_if_below_snapshot_envelope_low",
+    "reentry_boundary": "the_breached_snapshot_envelope_edge",
+    "continuation_boundary": "from_event_price_extend_in_breach_direction_by_the_same_absolute_log_distance_that_event_price_already_lies_outside_the_edge",
+    "outcome": "range_reentry_first_vs_symmetric_extension_first_with_common_5_session_censor",
+    "objects": [
+      {"id": "excursion_size_only", "features": ["outside_distance_over_parent_range_width"]},
+      {"id": "parent_range_state_only", "features": ["absolute_drift_ratio", "overlap_ratio", "parent_path_efficiency"]},
+      {"id": "parent_range_plus_state_change", "features": ["outside_distance_over_parent_range_width", "absolute_drift_ratio", "overlap_ratio", "parent_path_efficiency", "short_to_parent_volatility_ratio"]}
+    ],
+    "hard_range_label_for_event_selection": false,
+    "reason": "all causal envelopes may generate events; continuous range-character scores are tested rather than tuned into a post-hoc range threshold"
+  },
+  "R3": {
+    "identity": "R3_regime_conditioned_residual_stage1_v1",
+    "sample_unit": "completed_lower_wave",
+    "current_move": "signed_lower_wave_log_return/prior_20_session_sigma_available_at_wave_start_information_time",
+    "state_features": ["signed_drift_ratio", "parent_path_efficiency", "short_to_parent_volatility_ratio"],
+    "conditional_expectation_model": "StandardScaler+Ridge(alpha=1.0,fit_intercept=true) trained only on earlier chronological development blocks",
+    "unconditional_expectation": "mean_current_move_on_the_same_training_rows",
+    "scoring_folds": [
+      {"train": "DEV_A", "validate": "DEV_B"},
+      {"train": "DEV_A+DEV_B", "validate": "DEV_C"}
+    ],
+    "paired_event_filter": "both_abs_conditional_residual_and_abs_unconditional_deviation_must_be_at_least_0.50_sigma_units",
+    "minimum_abs_residual_sigma": 0.50,
+    "first_passage_distance": "0.50_times_abs(residual)_times_event_sigma_in_log_price",
+    "reversion_boundary": "from_event_price_move_opposite_the_sign_of_the_residual_by_first_passage_distance",
+    "extension_boundary": "from_event_price_move_in_the_sign_of_the_residual_by_first_passage_distance",
+    "outcome": "paired_first_passage_share_and_time_for_conditional_residual_vs_unconditional_deviation_with_common_5_session_censor",
+    "objects": [
+      {"id": "unconditional_deviation", "predictor": "abs_unconditional_deviation"},
+      {"id": "state_conditioned_residual", "predictor": "abs_conditional_residual"},
+      {"id": "state_conditioned_residual_probability", "features": ["abs_conditional_residual"]}
+    ],
+    "regime_count_search": false,
+    "deep_model": false
+  },
+  "sample_reporting": {
+    "minimum_nontrivial_resolved_events_per_scored_block_guideline": 30,
+    "guideline_role": "reporting_flag_not_a_tunable_strategy_gate",
+    "censored_events_retained_in_inventory": true,
+    "overlap_skipped_reported": true
+  },
+  "lane_comparison_after_execution": {
+    "compare_only_after_R1_R2_R3_all_complete": true,
+    "primary_axes": ["effect_direction", "Brier_or_probability_separation", "chronological_stability", "PAIR_A_PAIR_B_consistency", "resolved_event_supply", "censoring", "definition_complexity"],
+    "no_PnL": true,
+    "maximum_lanes_promoted": 2
+  },
+  "forbidden": [
+    "add_scale_pairing_after_results",
+    "change_0.10_range_excursion_trigger_after_results",
+    "change_0.50_R3_residual_event_threshold_after_results",
+    "change_5_session_outcome_cap_after_results",
+    "add_features_after_results",
+    "search_model_hyperparameters",
+    "search_probability_thresholds",
+    "use_2026_rows",
+    "use_trading_return_to_rank_lanes"
+  ],
+  "production_authority": false
+}
