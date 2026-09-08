@@ -1,0 +1,67 @@
+name: R1B temporal impulse DEV v1
+
+on:
+  push:
+    branches:
+      - codex/r1b-temporal-execution-theory-20260908
+    paths:
+      - '.github/workflows/r1b-temporal-impulse-dev-v1.yml'
+      - 'scripts/run_rmr_R1B_temporal_impulse_completion_dev_v1.py'
+      - 'tests/test_rmr_R1B_temporal_impulse_completion_dev_v1.py'
+      - 'docs/governance/reversal_mean_reversion_R1B_temporal_impulse_completion_dev_protocol_v1.json'
+      - 'docs/research/rmr_R1B_temporal_execution_theory_program_review_20260908.md'
+  workflow_dispatch:
+
+jobs:
+  dev-only:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip pandas numpy pyarrow scikit-learn pytest
+      - name: Test frozen temporal identity boundaries
+        run: python -m pytest -q tests/test_rmr_R1B_temporal_impulse_completion_dev_v1.py
+      - name: Run DEV only
+        shell: bash
+        run: |
+          set +e
+          python scripts/run_rmr_R1B_temporal_impulse_completion_dev_v1.py \
+            --output /tmp/r1b_temporal_impulse_dev_v1.json
+          code=$?
+          set -e
+          if [ "$code" -ne 0 ] && [ "$code" -ne 2 ]; then
+            echo "R1B temporal DEV infrastructure failure"
+            exit "$code"
+          fi
+          echo "R1B_TEMPORAL_DEV_EXIT_CODE=$code"
+      - name: Enforce DEV-only governance contract
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path('/tmp/r1b_temporal_impulse_dev_v1.json').read_text())
+          assert p['role'] == 'DEV_ONLY'
+          assert p['max_read_day'] == '2020-12-31'
+          assert p['certified_R1_event_population_match'] is True
+          assert p['probability_filter_used'] is False
+          assert p['parameter_or_horizon_search_performed'] is False
+          assert p['VALIDATION_opened'] is False
+          assert p['BLACKBOX_opened'] is False
+          assert p['BLACKBOX_query_created'] is False
+          assert p['production_authority'] is False
+          assert p['round_trip_cost_bps'] == 10.0
+          assert p['structural_resolution_horizon_bars'] == 1200
+          print('R1B_TEMPORAL_DEV_GOVERNANCE_OK')
+          PY
+      - name: Print DEV receipt
+        run: cat /tmp/r1b_temporal_impulse_dev_v1.json
+      - name: Upload DEV receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: r1b-temporal-impulse-dev-v1
+          path: /tmp/r1b_temporal_impulse_dev_v1.json
+          if-no-files-found: error
