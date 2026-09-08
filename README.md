@@ -10,62 +10,62 @@ The project uses a reusable three-role scheme:
 - **VALIDATION** `2021-01-01 .. 2025-12-31` — reusable detailed validation and diagnosis;
 - **BLACKBOX** `2026-01-05 .. 2026-08-21` — reusable low-bandwidth certification only.
 
-BLACKBOX output is restricted to `PASS / FAIL / INSUFFICIENT`. Repeated queries are allowed for separately frozen candidates, but they are not independent new OOS samples and never release blackbox detail.
+BLACKBOX output is restricted to `PASS / FAIL / INSUFFICIENT`. Details remain closed after every query. Reusing the same BLACKBOX is allowed, but repeated queries are not independent new OOS samples.
 
-Controlling policy:
+## Current evidence
 
-`docs/governance/reusable_three_role_data_policy_v1.json`
-
-## Strongest established mechanism
+### R1 parent integrity — certified mechanism
 
 `rmr_cross_scale_pullback_parent_integrity_v2`
 
-Frozen representation:
-
-`parent_integrity = (z(abs_drift) - z(overlap) + z(parent_eff)) / 3`
-
-R1 was fit on DEV 2015–2020 and validated in detail on 2021–2025:
-
-- PAIR_A: 1,283 validation events; Brier improvement `0.0097436681`; positive annual Brier improvement 5/5 years;
-- PAIR_B: 517 validation events; Brier improvement `0.0094935894`; positive annual Brier improvement 5/5 years.
-
-After the predeclared DEV+VALIDATION final refit, parameter bundle:
-
-`41072c78a6e657aec01d7da95d9c00bff23ff01829ada6afe256d7c254107fcb`
-
-Reusable BLACKBOX query `a9ba75c39e675ae6be17` returned:
+The low-capacity parent-integrity representation passed detailed 2021–2025 VALIDATION and reusable BLACKBOX query #1:
 
 **PASS**
 
-No blackbox metric, count, subperiod, event or failure detail was released.
+Final mechanism bundle:
 
-R1 is therefore a **certified mechanism**, not a certified trading strategy.
+`41072c78a6e657aec01d7da95d9c00bff23ff01829ada6afe256d7c254107fcb`
 
-## R1 economic translation result
+The first bounded R1 economic-translation family is separately closed: v1/v2/v3 all failed detailed VALIDATION before any economic BLACKBOX query. This does not invalidate the statistical mechanism, but it means no currently tested execution family has established trading viability.
 
-Three bounded implementations were tested on DEV / VALIDATION only:
+### R5-C event density — validation survived, certification failed
 
-1. probability-edge filter;
-2. binary-boundary structural expectancy filter;
-3. direct realized-return Ridge model.
+`rmr_event_density_state_reversal_v2`
 
-All three failed the detailed VALIDATION gates before BLACKBOX. No economic blackbox query occurred. The economic round is closed rather than continuing to fit VALIDATION with v4/v5 tweaks.
+A stricter dedicated test compared event density against a baseline containing severity, completed-wave duration and time since previous confirmation.
 
-Closeout:
+Detailed VALIDATION passed on both S1 and S2, but reusable BLACKBOX query #2 returned:
 
-`docs/research/rmr_R1_economic_translation_round_closeout_20260908.md`
+**FAIL**
 
-## Current active research
+No BLACKBOX detail was released. R5-C v2 is closed and is not eligible for hidden-period rescue.
 
-The next specialist is the previously promoted Priority-B mechanism:
+## Current next stage
 
-`rmr_event_density_state_reversal_v2`  (R5-C)
+The only broad Stage-1 direction that remained on HOLD rather than CLOSED was R2 range-boundary reversion. A program review has approved exactly one dedicated successor:
 
-Its dedicated work must use the same DEV / VALIDATION / reusable BLACKBOX policy. BLACKBOX is only available after a frozen R5-C candidate passes detailed VALIDATION.
+`rmr_range_boundary_parent_integrity_v2`
 
-Scientific handoff:
+Its question is whether parent-range integrity adds re-entry probability information after controlling for breakout geometry, break speed and local volatility.
 
-`docs/ops/rmr_R5C_event_density_promotion_handoff_20260908.md`
+Dedicated representation:
+
+`range_integrity = (-z(abs_drift) + z(overlap) - z(parent_eff)) / 3`
+
+This identity must first pass both co-primary scales on reusable DEV/VALIDATION. Only then may BLACKBOX query #3 occur.
+
+Review:
+
+`docs/research/rmr_R2_dedicated_program_review_20260908.md`
+
+## Query ledger
+
+The reusable BLACKBOX ledger currently contains two completed queries:
+
+1. R1 parent integrity — `PASS`;
+2. R5-C event density — `FAIL`.
+
+Neither query exposes exact recent-period metrics or failure breakdowns.
 
 ## Read first
 
@@ -73,7 +73,5 @@ Scientific handoff:
 2. `docs/governance/reusable_three_role_data_policy_v1.json`
 3. `docs/governance/reversal_mean_reversion_program_state_v1.json`
 4. `docs/INDEX.md`
-
-The optional complete-2026Q4 R1 experiment remains preregistered but is not a current blocker. When newer data is supplied, version the three-role map forward rather than declaring old history consumed.
 
 Production authority remains false.
