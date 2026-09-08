@@ -1,0 +1,104 @@
+{
+  "schema_id": "factorlab_rmr_R1_parent_integrity_v2_representation_protocol@1.0",
+  "session_date": "2026-09-08",
+  "program_identity": "broad_reversal_mean_reversion_discovery_program_v1",
+  "research_identity": "rmr_cross_scale_pullback_parent_integrity_v2",
+  "stage": "results_blind_representation_selection_freeze_before_2023_2025_holdout",
+  "preanalysis": "docs/research/rmr_R1_parent_integrity_v2_representation_preanalysis_20260908.md",
+  "promotion_handoff": "docs/ops/rmr_R1_cross_scale_pullback_promotion_handoff_20260908.md",
+  "source": {
+    "path": "data/high_open_dev_2015_2025/1m_official.parquet",
+    "instrument": "000852.SH",
+    "sha256": "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce",
+    "representation_selection_read_through": "2022-12-31",
+    "holdout_2023_2025_open_authorized": false,
+    "scientifically_fresh": false
+  },
+  "evidence_roles": {
+    "DEV": {"start": "2015-01-05", "end": "2019-12-31"},
+    "STABILITY": {"start": "2020-01-01", "end": "2022-12-31", "fresh": false},
+    "MECHANISM_HOLDOUT": {"start": "2023-01-01", "end": "2025-12-31", "open": false, "fresh": false}
+  },
+  "event_identity": {
+    "reuse_broad_R1_exact_code_semantics": true,
+    "directional_change_thresholds": {
+      "S1": "0.25 * DEV_median_rvol20",
+      "S2": "0.50 * DEV_median_rvol20",
+      "S3": "1.00 * DEV_median_rvol20"
+    },
+    "pairings": ["S1_inside_S2", "S2_inside_S3"],
+    "counter_move_must_oppose_parent_sign": true,
+    "parent_sign": "sign(last_two_parent_waves_signed_drift)",
+    "recovery_boundary": "lower_wave_start_price",
+    "failure_boundary": "existing_broad_R1_structural_boundary",
+    "maximum_observed_1m_bars": 1200,
+    "overlap_policy": "no_new_event_until_prior_resolves_or_censors",
+    "event_or_scale_search": false
+  },
+  "baseline": {
+    "id": "severity_only",
+    "features": ["severity"],
+    "severity": "abs(lower_wave_move)/DEV_median_rvol20"
+  },
+  "candidate_ladder": [
+    {
+      "rank": 1,
+      "id": "composite_integrity_plus_severity",
+      "features": ["severity", "parent_integrity"],
+      "parent_integrity": "(z_DEV(abs_drift)-z_DEV(overlap)+z_DEV(parent_eff))/3",
+      "weights_frozen": [1.0, -1.0, 1.0],
+      "weight_fit_allowed": false,
+      "direction_gate": "standardized_logistic_coefficient(parent_integrity)>0_at_both_pairings"
+    },
+    {
+      "rank": 2,
+      "id": "original_three_parent_plus_severity",
+      "features": ["severity", "abs_drift", "overlap", "parent_eff"],
+      "direction_gate": "standardized_coef(abs_drift)-standardized_coef(overlap)+standardized_coef(parent_eff)>0_at_both_pairings"
+    }
+  ],
+  "model": {
+    "pipeline": "StandardScaler+LogisticRegression(C=1,l2,lbfgs,max_iter=1000)",
+    "class_weight": null,
+    "probability_calibration": false,
+    "binary_threshold": null,
+    "hyperparameter_search": false
+  },
+  "eligibility_gate_each_candidate": {
+    "minimum_resolved_stability_events_each_pairing": 200,
+    "minimum_resolved_each_year_each_pairing": 50,
+    "pooled_Brier_strictly_lower_than_severity_both_pairings": true,
+    "pooled_logloss_strictly_lower_than_severity_both_pairings": true,
+    "annual_Brier_improvement_positive_at_least_2_of_3_each_pairing": true,
+    "positive_integrity_direction_both_pairings": true,
+    "causal_integrity_required": true
+  },
+  "selection_rule": {
+    "complexity_first": true,
+    "evaluate_in_rank_order": true,
+    "stop_at_first_eligible": true,
+    "later_candidate_cannot_replace_earlier_eligible_candidate": true,
+    "if_none_eligible": "close_specialist_before_holdout"
+  },
+  "post_selection_freeze": {
+    "refit_selected_candidate_on_all_2015_2022": true,
+    "refit_severity_baseline_on_all_2015_2022": true,
+    "if_composite_selected_refit_constituent_standardization_on_all_2015_2022": true,
+    "freeze_scalers_coefficients_intercepts_thresholds_source": true,
+    "write_parameter_bundle_digest": true,
+    "open_2023_2025_in_same_execution": false,
+    "separate_holdout_authorization_required": true
+  },
+  "forbidden": [
+    "read_2023_2025_during_representation_selection",
+    "read_any_2026_rows",
+    "tune_composite_weights",
+    "add_parent_features",
+    "change_event_scales",
+    "change_recovery_or_failure_boundaries",
+    "select_by_PnL",
+    "add_entry_stop_holding_period",
+    "use_nonlinear_or_deep_model_to_rescue_failure"
+  ],
+  "production_authority": false
+}
