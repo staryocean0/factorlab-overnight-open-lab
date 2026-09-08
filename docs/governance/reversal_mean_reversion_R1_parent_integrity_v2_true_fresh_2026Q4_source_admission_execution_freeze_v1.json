@@ -1,9 +1,9 @@
 {
-  "schema_id": "factorlab_rmr_R1_true_fresh_2026Q4_source_admission_execution_freeze@1.0",
+  "schema_id": "factorlab_rmr_R1_true_fresh_2026Q4_source_admission_execution_freeze@1.1",
   "session_date": "2026-09-08",
   "research_identity": "rmr_cross_scale_pullback_parent_integrity_v2",
   "stage": "future_metadata_source_admission_execution_identity_frozen_before_source_exists",
-  "freeze_parent_commit": "7976e6fab03e24141a6988b23a55993611522368",
+  "freeze_parent_commit": "c62456633765fcc38df2d931bfb4cf7ff19dde40",
   "protocol": {
     "path": "docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_source_admission_protocol_v1.json",
     "blob_sha": "115bf931af4bb80baee853ce35dc2a6b0e769fb6"
@@ -18,7 +18,12 @@
   },
   "authorization_template": {
     "path": "docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_execution_authorization_template_v1.json",
-    "blob_sha": "6dc8619b6305fcc12e1ace4a507e86f516fb7f9d"
+    "blob_sha": "5fef3c1d8ee3ce01b77fad7ea060a1f3460c67ea"
+  },
+  "downstream_evaluator": {
+    "path": "scripts/evaluate_rmr_R1_true_fresh_2026Q4.py",
+    "blob_sha": "f041beaab2b72f82114b05bac24db9d37266de44",
+    "source_admission_pass_does_not_auto_authorize": true
   },
   "controlling_true_fresh_protocol": {
     "path": "docs/governance/reversal_mean_reversion_R1_parent_integrity_v2_true_fresh_2026Q4_protocol_v1.json",
@@ -44,11 +49,9 @@
     "official_2026_exchange_schedule_external_sanity_checked": true,
     "official_schedule_notes": "SSE/SZSE notices show Jan 5 as first post-New-Year trading day and Oct 8 as post-National-Day reopening; authoritative calendar file is still required at actual admission.",
     "full_repository_pytest_run": false,
-    "reason_full_pytest_not_run": "No future source exists and the new gate is self-contained; synthetic core logic was executed in the cloud session. Actual runner execution is date-sealed until 2027-01-01 China time."
+    "reason_full_pytest_not_run": "No future source exists and the gate is date-sealed; synthetic core logic was executed in the cloud session."
   },
-  "future_execution_outputs_allowed": [
-    "compact_metadata_source_admission_receipt_only"
-  ],
+  "future_execution_outputs_allowed": ["compact_metadata_source_admission_receipt_only"],
   "future_execution_outputs_forbidden": [
     "OHLC_dump",
     "R1_event_rows",
