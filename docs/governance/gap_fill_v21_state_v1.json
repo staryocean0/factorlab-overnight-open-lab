@@ -1,8 +1,8 @@
 {
   "schema_id": "overnight_open_gap_fill_v21_state@1.0",
-  "session_date": "2026-09-07",
+  "session_date": "2026-09-08",
   "research_identity": "gap_fill_v2_1_regime_conditioned_successor",
-  "current_status": "P2_candidate_family_DEV_audit_gates_and_pure_evaluation_kernel_frozen_before_DEV_open_source_identity_verification_and_DEV_metadata_reinventory_still_required",
+  "current_status": "SA1_SA2_cloud_review_passed_V21_DEV_outcome_open_authorized_pending_local_frozen_candidate_ladder_execution",
   "rd1_execution_freeze_commit": "833db59ffd0334e6f7fcd49704e58983b5036344",
   "rd1_result_commit": "01d5c02c5fd6e7b1fbd6dc066a1b52ca9fc23532",
   "rd1_adjudication": "docs/research/gap_fill_v21_rd1_cloud_adjudication_20260907.md",
@@ -31,9 +31,18 @@
       "V21_EXTERNAL_RESERVE": {"observed_trading_days": 397, "exact_240_days": 0}
     }
   },
+  "SA1_SA2_cloud_review": {
+    "decision": "V21_SA1_SA2_cloud_review_passed_DEV_open_may_be_authorized",
+    "adjudication": "docs/research/gap_fill_v21_sa1_sa2_cloud_adjudication_20260908.md",
+    "receipt_commit": "2110277ff1ea569e8021edd2eb7fc86f13bf8fd8",
+    "source_to_dev_controller_commit": "254dd461abf49f23965be557cee556001f941d85",
+    "receipt_commit_delta_only_two_compact_receipts": true,
+    "cloud_raw_parquet_second_hash_performed": false,
+    "review_scope": "cloud_reviewed_committed_local_receipts_against_frozen_contracts"
+  },
   "future_source_admission": {
     "contract": "docs/governance/cloud_session_20260907_gap_fill_v21_future_audit_source_admission_v1.json",
-    "cloud_adjudication": "docs/research/gap_fill_v21_future_audit_source_admission_cloud_adjudication_20260907.md",
+    "prior_cloud_adjudication": "docs/research/gap_fill_v21_future_audit_source_admission_cloud_adjudication_20260907.md",
     "gate_id": "session_complete_239_required_v1",
     "required_clock_count": 239,
     "systematic_optional_clock": "14:59",
@@ -47,18 +56,36 @@
       "000905.SH": {"calendar_days": 1456, "session_complete_days": 1448, "incomplete_days": 8}
     },
     "reported_missing_required_rows_total": 39,
-    "local_receipt_expected": "docs/research/local_gap_fill_v21_future_audit_source_admission_receipt_v1.json",
-    "cloud_receipt_visible": false,
+    "local_receipt": "docs/research/local_gap_fill_v21_future_audit_source_admission_receipt_v1.json",
+    "cloud_receipt_visible": true,
+    "cloud_receipt_review_complete": true,
     "cloud_package_visible": false,
     "cloud_file_level_verification_complete": false,
-    "audit_A_B_semantic_blocker_status": "gate_remediated_pending_identity_verification"
+    "verification_label": "cloud_reviewed_local_receipt_matches_frozen_contract",
+    "audit_A_B_semantic_blocker_status": "source_gate_and_identity_receipt_admitted_but_future_outcomes_remain_sealed"
   },
+  "DEV_metadata_admission": {
+    "receipt": "docs/research/local_gap_fill_v21_dev_metadata_admission_receipt_v1.json",
+    "window": {"start": "2015-01-01", "end": "2018-12-31"},
+    "gate_id": "session_complete_239_required_v1",
+    "per_symbol": {
+      "000300.SH": {"observed_days": 975, "session_complete_days": 944, "incomplete_days": 31, "optional_1459_present_days": 884},
+      "000905.SH": {"observed_days": 975, "session_complete_days": 944, "incomplete_days": 31, "optional_1459_present_days": 884}
+    },
+    "metadata_rows": 467094,
+    "total_missing_required_clock_rows": 724,
+    "OHLC_read_during_admission": false,
+    "outcome_read_during_admission": false,
+    "cloud_review_complete": true,
+    "passed": true
+  },
+  "DEV_open_authorization": "docs/governance/cloud_session_20260908_gap_fill_v21_dev_open_authorization_v1.json",
   "candidate_family": {
     "protocol": "docs/governance/cloud_session_20260907_gap_fill_v21_candidate_family_v1.json",
     "preanalysis": "docs/research/gap_fill_v21_candidate_family_preanalysis_20260907.md",
     "DEV_selection_protocol": "docs/governance/cloud_session_20260907_gap_fill_v21_dev_selection_protocol_v1.json",
     "pure_math_module": "scripts/v21_p2_overlay.py",
-    "status": "frozen_before_DEV_outcome_open",
+    "status": "frozen_before_DEV_outcome_open_and_now_authorized_for_execution_without_mutation",
     "geometry_control_role": "same-era_drift_control_not_promotable_by_itself",
     "candidate_ladder": [
       "P2_XI_SHARED_1B",
@@ -80,22 +107,26 @@
     "model_fit_authority": false,
     "primary_metric_horizons": ["15m", "60m"],
     "strict_comparison_epsilon": 1e-12,
-    "future_outcome_authority": false
+    "future_outcome_authority": false,
+    "DEV_use_by_separate_authorized_runner": true
   },
-  "source_blocker": "historical_exact_240_zero_day_blocker_is_superseded_for_future_source_admission_by_named_session_complete_239_gate; owner-reported package identity still requires cloud receipt_or_file verification and V21_DEV metadata reinventory",
-  "next_action": "verify_local_source_admission_receipt_or_package_then_metadata-only_reinventory_V21_DEV_under_session_complete_239; only after separate cloud authorization may the already-frozen P2 candidate ladder open DEV outcomes and use the already-frozen evaluation kernel",
+  "source_blocker": "resolved_for_V21_DEV_open_via_cloud_reviewed_SA1_SA2_receipts; large local raw parquet remains outside cloud and will be metadata-preflight-rechecked by the authorized local DEV runner before OHLC access",
+  "next_action": "execute_frozen_V21_DEV_expanding_OOF_candidate_ladder_locally_using_authorized_runner_then_commit_compact_DEV_receipt_and_optional_parameter_freeze_for_cloud_review_before_any_Audit_A_open",
   "opened": {
-    "RD1_consumed_Audit_A_Audit_B_outcomes": true
+    "RD1_consumed_Audit_A_Audit_B_outcomes": true,
+    "V21_DEV_outcomes": false
   },
   "sealed": {
     "2014Q4_supporting_crosscheck": true,
-    "V21_DEV_outcomes": true,
+    "V21_DEV_outcomes": false,
     "V21_AUDIT_A_outcomes": true,
     "V21_AUDIT_B_outcomes": true,
     "V21_EXTERNAL_RESERVE_outcomes": true,
     "CSI1000_2026Q4_true_fresh": true
   },
-  "successor_model_fit_authorized": false,
-  "successor_model_selection_authorized": false,
+  "successor_model_fit_authorized": true,
+  "successor_model_selection_authorized": true,
+  "Audit_A_outcomes_open_authorized": false,
+  "Audit_B_outcomes_open_authorized": false,
   "production_authority": false
 }
