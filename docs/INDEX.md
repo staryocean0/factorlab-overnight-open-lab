@@ -7,7 +7,8 @@ This index describes the current worktree only. Historical implementation detail
 1. `../CONTINUE_HERE.md`
 2. `governance/reusable_three_role_data_policy_v1.json`
 3. `governance/reversal_mean_reversion_program_state_v1.json`
-4. this index
+4. `research/rmr_payoff_object_instrument_theory_review_v1.md`
+5. this index
 
 ## Reusable data governance
 
@@ -52,7 +53,7 @@ BLACKBOX output is restricted to `PASS / FAIL / INSUFFICIENT`. Exact hidden metr
 - `research/rmr_unified_parent_state_router_v1_closeout_20260908.md`
 - `archive/rmr_unified_parent_state_router_v1_history_anchor_20260908.md`
 
-The corrected router worsened both R2 cells, so the tested common standardized state-consistency axis is closed. No router BLACKBOX query occurred.
+The corrected router worsened both R2 cells, so the tested common standardized state-consistency axis is closed. No router BLACKBOX query occurred. The historical router branch is behind `main` and has no commits ahead, so it is historical only and requires no merge.
 
 ## Mechanism → execution diagnostic — complete
 
@@ -61,6 +62,8 @@ The corrected router worsened both R2 cells, so the tested common standardized s
 - `archive/rmr_mechanism_to_execution_diagnostic_v1_history_anchor_20260908.md`
 
 Conclusion: payoff geometry is the primary bridge failure; probability is not a monotonic realized-return score; R1_A and R2 current simple index execution are closed; R1_B delayed markouts justified one separate temporal theory test only.
+
+The current `main` surface no longer carries the one-time diagnostic runner, diagnostic/router-specific tests, or completed Actions workflows. Reproduction is preserved by decisive receipts, adjudications, history anchors and Git history.
 
 ## R1_B temporal impulse completion v1 — closed on DEV
 
@@ -75,13 +78,23 @@ DEV on 682 tradeable events produced mean net `+10.59bp` and positive mean net i
 
 No temporal v2 rescue, horizon selection, probability filtering or noncausal S2-extreme exit is authorized from this result.
 
+## Payoff-object / instrument-theory review — current boundary
+
+- `research/rmr_payoff_object_instrument_theory_review_v1.md` — completed results-blind boundary review and current stage-specific authority.
+
+This review does **not** authorize an empirical candidate. It leaves three theory-level outcomes only:
+
+- materially independent execution-timing theory;
+- instrument mapping after a frozen instrument-specific source and cost-model contract;
+- stop economic translation.
+
+No DEV, VALIDATION or BLACKBOX execution is authorized for a new economic identity by this review alone.
+
 ## Current next research
 
 There is currently **no empirical economic candidate authorized**.
 
-If economic work continues, first write a separate results-blind **payoff-object or instrument-theory program review**. Any new identity must be materially independent of the closed timing rule and preregistered before empirical execution.
-
-Instrument mapping is not yet an empirical task because the repository lacks instrument-specific spread, basis, carry, liquidity, convexity/premium and execution evidence. A future ETF/futures/options study needs its own source and cost-model contract.
+A new economic identity may be opened only after a materially independent payoff/instrument theory is separately preregistered and authorized. Any ETF/futures/options mapping must first freeze an instrument-specific source and cost-model contract covering spread, basis, carry, liquidity, convexity/premium and execution conventions.
 
 Broad R8/R9 indicator discovery remains paused. BLACKBOX query count remains 3; no query #4 exists.
 
