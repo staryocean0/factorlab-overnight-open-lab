@@ -160,7 +160,7 @@ def test_audit_rejects_row_outside_frozen_calendar():
         )
 
 
-def test_contract_and_repo_state_keep_kernel_pure_and_future_sealed():
+def test_kernel_freeze_is_immutable_while_separate_state_authorizes_dev():
     c = json.loads(CONTRACT.read_text(encoding="utf-8"))
     f = json.loads(FAMILY.read_text(encoding="utf-8"))
     s = json.loads(STATE.read_text(encoding="utf-8"))
@@ -176,7 +176,9 @@ def test_contract_and_repo_state_keep_kernel_pure_and_future_sealed():
     assert s["evaluation_kernel"]["file_IO_authority"] is False
     assert s["evaluation_kernel"]["model_fit_authority"] is False
     assert s["evaluation_kernel"]["future_outcome_authority"] is False
-    assert s["sealed"]["V21_DEV_outcomes"] is True
+    assert s["sealed"]["V21_DEV_outcomes"] is False
+    assert s["successor_model_fit_authorized"] is True
+    assert s["successor_model_selection_authorized"] is True
     assert s["sealed"]["V21_AUDIT_A_outcomes"] is True
     assert s["sealed"]["V21_AUDIT_B_outcomes"] is True
     source = (ROOT / "scripts/v21_evaluation_kernel.py").read_text(encoding="utf-8")
