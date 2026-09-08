@@ -2,22 +2,24 @@
   "schema_id": "factorlab_reversal_mean_reversion_program_state@1.0",
   "session_date": "2026-09-08",
   "program_identity": "broad_reversal_mean_reversion_discovery_program_v1",
-  "current_status": "R1_priority_A_R5C_priority_B_two_promotion_program_review_complete_next_new_lane_definition",
+  "current_status": "R1_priority_A_R5C_priority_B_R6_closed_next_results_blind_lane_definition_authorized",
   "repository_wide_current_mainline": "broad_reversal_mean_reversion_mechanism_discovery",
   "legacy_overnight_mainline_active": false,
   "legacy_overnight_role": "delegated_specialist_case_study",
-  "stage": "two_promotion_program_review_complete_new_results_blind_shallow_lane_definition_authorized",
+  "stage": "post_R6_close_continue_results_blind_broad_direction_discovery",
   "common_measurement_contract": "docs/governance/reversal_mean_reversion_common_measurement_contract_v1.json",
   "stage1_screening_plan": "docs/governance/reversal_mean_reversion_stage1_screening_plan_v1.json",
   "stage1_data_roles": "docs/governance/reversal_mean_reversion_stage1_common_data_roles_v1.json",
   "stage1_scale_contract": "docs/governance/reversal_mean_reversion_stage1_scale_contract_v1.json",
   "first_R1_R2_R3_receipt": "docs/research/cloud_session_20260908_rmr_stage1_common_probe_receipt_v1.json",
   "first_R1_R2_R3_adjudication": "docs/research/reversal_mean_reversion_stage1_lane_comparison_adjudication_20260908.md",
-  "R5_stage1_protocol": "docs/governance/reversal_mean_reversion_R5_stage1_protocol_v1.json",
-  "R5_stage1_execution_freeze": "docs/governance/reversal_mean_reversion_R5_stage1_execution_freeze_v1.json",
-  "R5_stage1_cloud_receipt": "docs/research/cloud_session_20260908_rmr_R5_stage1_action_receipt_v1.json",
   "R5_stage1_adjudication": "docs/research/reversal_mean_reversion_R5_stage1_adjudication_20260908.md",
-  "latest_program_review": "docs/research/reversal_mean_reversion_two_promotion_program_review_20260908.md",
+  "two_promotion_program_review": "docs/research/reversal_mean_reversion_two_promotion_program_review_20260908.md",
+  "R6_stage1_protocol": "docs/governance/reversal_mean_reversion_R6_stage1_protocol_v1.json",
+  "R6_stage1_execution_incident": "docs/governance/reversal_mean_reversion_R6_stage1_execution_incident_v1.json",
+  "R6_stage1_execution_freeze": "docs/governance/reversal_mean_reversion_R6_stage1_execution_freeze_v2.json",
+  "R6_stage1_cloud_receipt": "docs/research/cloud_session_20260908_rmr_R6_stage1_action_receipt_v1.json",
+  "R6_stage1_adjudication": "docs/research/reversal_mean_reversion_R6_stage1_adjudication_20260908.md",
   "lane_status": {
     "R1_cross_scale_pullback": {
       "status": "stage1_supported_progression_worthy_priority_A",
@@ -48,6 +50,14 @@
       "handoff": "docs/ops/rmr_R5C_event_density_promotion_handoff_20260908.md",
       "fresh_confirmation": false,
       "production_authority": false
+    },
+    "R6_multiscale_amplitude_state": {
+      "status": "stage1_v1_closed_no_score_qualified_for_program_review",
+      "R6_A_short_mid": "closed_S1_flat_to_worse_and_S2_materially_worse_than_severity_baseline",
+      "R6_B_mid_parent": "closed_S1_local_pass_but_S2_worse_so_cross_scale_gate_failed",
+      "third_mechanism_auto_promoted": false,
+      "reserve_2023_2025_opened": false,
+      "production_authority": false
     }
   },
   "common_evidence_roles": {
@@ -59,10 +69,11 @@
     "reserve_opened": false
   },
   "latest_cloud_execution": {
-    "research_identity": "R5_statistical_state_extremes_stage1_v1",
-    "github_actions_run_id": 34184683011,
-    "head_sha": "b6ef18c31ceb89dbbcf69961c252ec6af9e1ce80",
+    "research_identity": "R6_multiscale_amplitude_state_stage1_v1",
+    "github_actions_run_id": 34185451407,
+    "head_sha": "45efc30037927131d136312ba16b5881b5db5268",
     "conclusion": "success",
+    "qualified_score_ids": [],
     "reserve_2023_2025_opened": false,
     "all_2026_rows_opened": false
   },
@@ -75,15 +86,16 @@
     "R3_regime_conditioned_residual_stage1_v1_closed",
     "R4_gap_fill_V21_no_successor_closed",
     "R5_A_path_efficiency_closed",
-    "R5_B_volatility_displacement_closed"
+    "R5_B_volatility_displacement_closed",
+    "R6_multiscale_amplitude_state_stage1_v1_closed"
   ],
   "promotion_budget": {
-    "prior_maximum_lanes_without_review": 2,
-    "prior_progressed_count": 2,
-    "program_review_completed": true,
-    "new_shallow_lane_definition_authorized": true,
-    "new_empirical_screen_authorized_only_after_results_blind_preanalysis_and_protocol_freeze": true,
-    "third_mechanism_promotion_requires_new_cross_lane_review": true
+    "two_promotion_program_review_completed": true,
+    "progressed_mechanisms": ["R1_cross_scale_pullback", "R5C_event_density"],
+    "new_results_blind_shallow_lane_definition_authorized": true,
+    "new_empirical_screen_authorized_only_after_preanalysis_protocol_and_execution_freeze": true,
+    "third_mechanism_auto_promotion": false,
+    "third_mechanism_promotion_requires_explicit_cross_lane_review": true
   },
   "deep_strategy_optimization_authorized_in_broad_repo": false,
   "single_lane_full_backtest_authorized_in_broad_repo": false,
@@ -92,25 +104,25 @@
     "repository_authority_reset",
     "common_scale_parent_state_deviation_recovery_vocabulary_frozen",
     "broad_literature_constraints_mapped",
-    "R1_R2_R3_results_blind_shallow_preanalysis_frozen",
-    "equal_budget_R1_R2_R3_empirical_probe_executed",
-    "R1_R2_R3_lane_comparison_adjudicated",
+    "R1_R2_R3_equal_budget_screen_and_adjudication_completed",
     "R1_promotion_handoff_frozen",
-    "R5_three_property_results_blind_preanalysis_frozen",
-    "R5_stage1_cloud_execution_completed",
-    "R5_event_density_only_progressed",
+    "R5_stage1_completed_event_density_only_progressed",
     "R5C_promotion_handoff_frozen",
     "two_promotion_program_review_completed",
+    "R6_results_blind_multiscale_amplitude_identity_frozen",
+    "R6_pre_outcome_test_incident_closed_without_result_exposure",
+    "R6_stage1_cloud_execution_completed",
+    "R6_stage1_closed_no_score_qualified",
     "2023_2025_program_reserve_kept_unopened"
   ],
   "next_actions_in_order": [
-    "freeze_one_new_results_blind_shallow_lane_preanalysis_without_opening_new_outcomes",
-    "prefer_an_unexplored_multiscale_or_frequency_band_statistical_state_mechanism_as_the_next_definition_candidate",
-    "keep_2023_2025_reserve_unopened_until_dedicated_R1_or_R5C_identities_freeze_their_own_candidate_budgets_and_gates",
-    "do_not_tune_R2_rescue_R3_or_reopen_V21_P2_under_closed_identities",
-    "do_not_promote_a_third_mechanism_without_another_explicit_cross_lane_review"
+    "define_one_new_results_blind_shallow_lane_from_a_pre_existing_unexplored_program_mechanism_not_as_R6_rescue",
+    "keep_2023_2025_reserve_unopened_during_new_lane_design_and_first_screen",
+    "prefer_a_mechanism_orthogonal_to_failed_fixed_amplitude_ratios_and_to_legacy_R4",
+    "do_not_tune_R2_rescue_R3_expand_R5_A_B_or_reconfigure_R6_bands_under_closed_identities",
+    "do_not_promote_a_third_mechanism_without_explicit_cross_lane_review"
   ],
-  "lane_budget_rule": "program_review_reset_allows_one_new_shallow_results_blind_lane_definition_but_not_a_third_promotion_without_new_review",
+  "lane_budget_rule": "R6_closed_without_promotion_so_one_new_results_blind_shallow_lane_may_be_defined; any third promotion still requires explicit review",
   "authority_files": [
     "CONTINUE_HERE.md",
     "docs/governance/reversal_mean_reversion_program_charter_v1.json",
