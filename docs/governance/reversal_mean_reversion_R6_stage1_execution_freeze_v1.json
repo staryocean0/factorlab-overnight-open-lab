@@ -1,0 +1,49 @@
+{
+  "schema_id": "factorlab_reversal_mean_reversion_R6_stage1_execution_freeze@1.0",
+  "session_date": "2026-09-08",
+  "program_identity": "broad_reversal_mean_reversion_discovery_program_v1",
+  "research_identity": "R6_multiscale_amplitude_state_stage1_v1",
+  "stage": "R6_stage1_execution_identity_frozen_before_outcome_open",
+  "protocol": {
+    "path": "docs/governance/reversal_mean_reversion_R6_stage1_protocol_v1.json",
+    "git_blob_sha": "474647ce861c6ed376bee6dd440f4949b368c51f"
+  },
+  "runner": {
+    "path": "scripts/run_rmr_R6_stage1.py",
+    "git_blob_sha": "f2ae872e9922d44cb85bc8c1d4d5dc542e9da005"
+  },
+  "tests": {
+    "path": "tests/test_rmr_R6_stage1.py",
+    "git_blob_sha": "8a7fae6a3c9b17ad176557e354005cbc84a64af2"
+  },
+  "source": {
+    "path": "data/high_open_dev_2015_2025/1m_official.parquet",
+    "sha256": "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce",
+    "read_through": "2022-12-31"
+  },
+  "fixed_measurement": {
+    "event_scales": ["S1", "S2"],
+    "amplitude_lookback_bars": 240,
+    "amplitude_horizons_bars": [4, 16, 64],
+    "minimum_valid_k_bar_returns": 20,
+    "score_ids": ["R6_A_short_mid", "R6_B_mid_parent"],
+    "normalization_reference_window": 100,
+    "price_outcome_horizon_bars": 1200
+  },
+  "fixed_model_objects_each_scale": [
+    "severity_only",
+    "severity_plus_short_mid_z",
+    "severity_plus_mid_parent_z"
+  ],
+  "candidate_gate_frozen": true,
+  "third_mechanism_auto_promotion": false,
+  "reserve_2023_2025_open_authorized": false,
+  "2026_open_authorized": false,
+  "trading_return_allowed": false,
+  "band_or_horizon_search_allowed": false,
+  "combined_score_model_allowed": false,
+  "FFT_wavelet_family_search_allowed": false,
+  "deep_model_allowed": false,
+  "production_authority": false,
+  "execution_instruction": "run_tests_then_runner_then_boundary_verification; any positive R6 result is candidate_for_program_review_only"
+}
