@@ -1,0 +1,29 @@
+{
+  "schema_id": "overnight_reusable_blackbox_policy@1.0",
+  "session_date": "2026-09-09",
+  "repository": "staryocean0/factorlab-overnight-open-lab",
+  "scope": "Overnight/Open research only",
+  "blackbox_window": {
+    "start": "2021-01-01",
+    "end": "2025-12-31"
+  },
+  "data_role": "reusable_blackbox_validation",
+  "one_time_consumable": false,
+  "reuse_rule": "The same 2021-2025 BLACKBOX may be queried again only for a separately frozen identity whose model, features, clocks, gates and decision rule were fixed before that query. Reuse does not create a new independent OOS sample.",
+  "public_output_enum": ["PASS", "FAIL", "INSUFFICIENT"],
+  "forbidden_public_outputs": [
+    "exact_scores",
+    "sample_counts",
+    "year_or_quarter_breakdowns",
+    "dates_or_event_rows",
+    "subgroup_or_regime_breakdowns",
+    "failure_examples",
+    "feature_attribution",
+    "probability_breakdowns",
+    "internal_gate_details",
+    "parameter_or_threshold_rescue_clues"
+  ],
+  "design_prohibition": "BLACKBOX behavior may not be used to choose or repair features, thresholds, cutoffs, market clocks, contract-selection rules, model families, hyperparameters, regimes or successor candidates.",
+  "query_ledger": "docs/governance/overnight_reusable_blackbox_query_ledger_v1.json",
+  "production_authority": false
+}
