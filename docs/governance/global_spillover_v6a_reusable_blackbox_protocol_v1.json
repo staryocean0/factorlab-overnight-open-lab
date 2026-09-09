@@ -1,0 +1,45 @@
+{
+  "schema_id": "overnight_global_spillover_v6a_reusable_blackbox_protocol@1.0",
+  "session_date": "2026-09-09",
+  "research_identity": "V6A_plus_ordinary_A50_preauction_closure",
+  "purpose": "Low-bandwidth reusable BLACKBOX confirmation of the already-frozen V6A increment versus the frozen V5A common-sample comparator on 2021-2025.",
+  "historical_frozen_authority": {
+    "branch": "codex/overnight-next-explained-20260905",
+    "branch_head_observed": "d106817f1b153b8bcc11f7b18ef55c0f9a78f288",
+    "candidate_code_sha": "2ffec2a2ebfc3490ff0805e9b14680aa076a320e",
+    "external_data_freeze_sha": "0ae33649208805937dd41549f6874496319ae911",
+    "preregistration": "docs/governance/global_spillover_v6_daily_a50_preregistration.json",
+    "formal_receipt": "docs/governance/global_spillover_v6_daily_a50_receipt.json",
+    "prior_unseen_contract": "docs/governance/global_spillover_v6_unseen_local_controller_contract.json"
+  },
+  "candidate": {
+    "id": "V6A_plus_ordinary_A50_preauction_closure",
+    "comparator": "V5A_common_sample_comparator",
+    "model": "StandardScaler + Ridge(alpha=1.0)",
+    "fit_window": "2015-01-01..2018-12-31",
+    "blackbox_window": "2021-01-01..2025-12-31",
+    "target": "CSI1000 target 09:31 open / previous China 15:00 close - 1",
+    "ordinary_A50_cutoff": "09:14:59",
+    "holiday_A50_cutoff": "09:24:59",
+    "same_contract_required": true,
+    "future_volume_or_OI_selection": false,
+    "mid_window_roll": false,
+    "no_blackbox_refit": true,
+    "no_feature_search": true,
+    "no_cutoff_search": true,
+    "no_model_family_search": true,
+    "no_regime_search": true
+  },
+  "decision_semantics": {
+    "PASS": "All selection gates from the prior frozen unseen confirmation contract pass on the hidden common-sample evaluation.",
+    "FAIL": "Data integrity is valid and at least one non-integrity selection gate fails.",
+    "INSUFFICIENT": "The frozen data-integrity/coverage requirements cannot support a valid decision without changing the candidate or source contract."
+  },
+  "public_output": "PASS_FAIL_INSUFFICIENT_only",
+  "public_detail_release": false,
+  "blackbox_is_reusable": true,
+  "blackbox_is_consumed_by_this_query": false,
+  "blackbox_behavior_may_design_successor": false,
+  "query_must_be_appended_to_ledger_only_after_actual_execution": true,
+  "production_authority": false
+}
