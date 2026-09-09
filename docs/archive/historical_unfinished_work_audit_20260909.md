@@ -10,7 +10,7 @@ Audit prior designs, `IN PROGRESS` notes, preregistrations and completed-but-sti
 
 `AUDIT_COMPLETE_NO_ACTIONABLE_HISTORICAL_EMPIRICAL_DESIGN_REMAINS`
 
-This does not mean the research program is finished. It means no earlier design discovered in the canonical repository remains silently pending for automatic empirical execution.
+This does not mean the research program is finished. It means no earlier design discovered for the canonical repository remains silently pending for automatic empirical execution.
 
 `production_authority = false`.
 
@@ -125,7 +125,15 @@ This audit does not authorize:
 - retired R1 2026Q4 challenge resurrection;
 - use of BLACKBOX behavior to design a successor.
 
-## 7. Repository-state target after cleanup
+## 7. Cross-repository prior plans — superseded, not imported
+
+An older conversation authority had temporarily assigned broad reversal work to `staryocean0/factorlab-two-wave-strategy-lab`, including `R5_multiscale_serial_dependence_state_v1` and diagnostic `CL-20260908-008`.
+
+That assignment is **not** treated as an unfinished task of this canonical repository. It was superseded by the later explicit authority that `staryocean0/factorlab-overnight-open-lab` is the unique canonical repository and that future research for this project enters here.
+
+Therefore this audit does not execute, copy, merge or silently re-register `CL-20260908-008` or its TRAIN/VALIDATION contracts in the overnight canonical repo. Importing it would mix distinct data-role maps and scientific identities. Any future reuse of that idea would require a new independently motivated identity under the current canonical governance, not continuation by name.
+
+## 8. Repository-state target after cleanup
 
 Current `main` should expose only:
 
