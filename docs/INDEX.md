@@ -27,6 +27,8 @@ BLACKBOX output is restricted to `PASS / FAIL / INSUFFICIENT`. Exact hidden metr
 - `research/rmr_R1_economic_translation_round_closeout_20260908.md`.
 - `archive/rmr_R1_economic_translation_round_history_anchor_20260908.md`.
 
+The superseded earlier specialist selection/holdout implementation is no longer on the current surface; exact history is preserved by `archive/rmr_R1_parent_integrity_selection_holdout_history_anchor_20260909.md`.
+
 ## Certified mechanism 2 — R2 range-parent boundary re-entry
 
 - `governance/reversal_mean_reversion_R2_state_v1.json`
@@ -90,9 +92,18 @@ This review does **not** authorize an empirical candidate. It leaves three theor
 
 No DEV, VALIDATION or BLACKBOX execution is authorized for a new economic identity by this review alone.
 
+## Historical unfinished-work audit — complete
+
+- `archive/historical_unfinished_work_audit_20260909.md` — aggregate audit and final disposition.
+- `archive/phase2_old_strategy_identity_recovery_closeout_20260909.md` — issue #11 provenance investigation, fail-closed for insufficient exact evidence.
+- `archive/rmr_R1_parent_integrity_selection_holdout_history_anchor_20260909.md` — superseded R1 specialist selection/holdout surface preserved by history and removed from current tree.
+- `archive/rmr_R1_true_fresh_2026Q4_preregistration_retirement_20260909.md` — old future challenge retired unopened; its protocols/runners/tests were removed.
+
+The audit found no historical empirical design that remains silently queued for automatic execution. The retired R1 Q4 protocol must not be resurrected; future newer data, if supplied, requires versioning the current three-role map and a new preregistration under then-current authority.
+
 ## Current next research
 
-There is currently **no empirical economic candidate authorized**.
+There is currently **no empirical economic candidate authorized** and no dormant empirical challenge scheduled for automatic execution.
 
 A new economic identity may be opened only after a materially independent payoff/instrument theory is separately preregistered and authorized. Any ETF/futures/options mapping must first freeze an instrument-specific source and cost-model contract covering spread, basis, carry, liquidity, convexity/premium and execution conventions.
 
