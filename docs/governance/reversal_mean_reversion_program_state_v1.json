@@ -1,8 +1,8 @@
 {
-  "schema_id": "factorlab_reversal_mean_reversion_program_state@3.7",
-  "session_date": "2026-09-08",
+  "schema_id": "factorlab_reversal_mean_reversion_program_state@3.8",
+  "session_date": "2026-09-09",
   "canonical_repository": "staryocean0/factorlab-overnight-open-lab",
-  "current_status": "R1_R2_statistical_mechanisms_BLACKBOX_certified_router_closed_simple_index_execution_closed_R1B_temporal_impulse_DEV_closed_payoff_object_instrument_theory_review_completed_no_empirical_candidate_authorized",
+  "current_status": "R1_R2_statistical_mechanisms_BLACKBOX_certified_closed_economic_families_historical_unfinished_work_audited_no_empirical_candidate_authorized",
   "repository_wide_current_mainline": "certified_mechanisms_with_economic_translation_paused_after_results_blind_payoff_object_instrument_theory_review",
   "authority_order": [
     "CONTINUE_HERE.md",
@@ -103,6 +103,28 @@
       "stop_economic_translation"
     ]
   },
+  "historical_unfinished_work_cleanup": {
+    "status": "completed_2026-09-09",
+    "old_strategy_identity_recovery": {
+      "decision": "INSUFFICIENT_EVIDENCE_TO_RECOVER_EXACT_IDENTITY",
+      "issue_11_closed": true,
+      "empirical_redevelopment_authorized": false,
+      "closeout": "docs/archive/phase2_old_strategy_identity_recovery_closeout_20260909.md"
+    },
+    "R1_specialist_selection_holdout_surface": {
+      "status": "superseded_implementation_removed_from_current_surface",
+      "history_anchor": "docs/archive/rmr_R1_parent_integrity_selection_holdout_history_anchor_20260909.md",
+      "current_authority_uses_final_reusable_bundle": true
+    },
+    "R1_true_fresh_2026Q4_preregistration": {
+      "status": "RETIRED_UNOPENED_SUPERSEDED_BY_CURRENT_REUSABLE_GOVERNANCE",
+      "source_admission_opened": false,
+      "outcomes_opened": false,
+      "blackbox_opened": false,
+      "history_anchor": "docs/archive/rmr_R1_true_fresh_2026Q4_preregistration_retirement_20260909.md",
+      "automatic_reactivation_allowed": false
+    }
+  },
   "next_stage": {
     "stage": "post_review_hold_no_empirical_economic_candidate",
     "status": "theory_boundary_frozen_no_DEV_VALIDATION_or_BLACKBOX_execution_authorized_for_a_new_economic_identity",
@@ -117,7 +139,8 @@
       "no_portfolio_optimization_rescue",
       "no_new_empirical_candidate_without_a_materially_independent_preregistered_payoff_or_instrument_theory",
       "instrument_mapping_requires_instrument_specific_data_and_cost_model_before_empirical_authority",
-      "no_VALIDATION_or_BLACKBOX_for_closed_R1B_temporal_identity"
+      "no_VALIDATION_or_BLACKBOX_for_closed_R1B_temporal_identity",
+      "do_not_resurrect_retired_R1_2026Q4_preregistration"
     ]
   },
   "instrument_mapping": {
@@ -125,14 +148,17 @@
     "reason": "current_index_data_do_not_measure_instrument_specific_spread_basis_carry_liquidity_convexity_or_option_premium",
     "future_eligibility": "requires_independent_instrument_theory_plus_data_source_and_cost_model_contract_plus_separate_preregistration"
   },
-  "optional_future_fresh_challenge": {
-    "identity": "R1_complete_2026Q4_true_fresh_challenge",
-    "status": "preregistered_optional_not_current_blocker"
+  "future_data_rule": {
+    "pending_fresh_challenge": false,
+    "wait_for_future_data": false,
+    "when_newer_data_is_supplied": "version_current_three_role_map_forward_and_preregister_under_then_current_authority",
+    "resurrect_retired_2026Q4_protocol": false
   },
   "next_actions_in_order": [
     "keep_current_surface_clean_and_preserve_closed_work_via_decisive_receipts_and_history_anchors",
     "do_not_open_new_empirical_economic_work_until_a_materially_independent_identity_is_explicitly_preregistered_and_authorized",
     "for_any_future_instrument_mapping_freeze_instrument_specific_source_and_cost_model_before_DEV",
+    "if_newer_data_is_supplied_version_the_three_role_map_forward_before_any_new_challenge",
     "do_not_open_R1B_temporal_VALIDATION",
     "do_not_open_BLACKBOX_query_4",
     "do_not_resume_R1A_R2_simple_index_execution_router_v2_probability_filter_or_parameter_search_rescue"
