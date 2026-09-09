@@ -44,7 +44,7 @@ R1 and R2 are complementary parent-normal-state mechanisms, but they are not int
 
 `rmr_unified_parent_normal_state_router_v1` is closed at VALIDATION. After the scale-alignment implementation bug was fixed without changing the scientific protocol, both R2 cells worsened. Router v2 rescue is not authorized.
 
-The historical router branch `codex/unified-parent-state-router-20260908` is now behind `main` with no commits ahead. It is historical only and must not be merged back as an active research surface.
+The historical router branch `codex/unified-parent-state-router-20260908` is behind `main` with no commits ahead. It is historical only and must not be merged back as an active research surface.
 
 ### Existing economic families
 
@@ -70,7 +70,7 @@ It established:
 
 That sixth observation authorized one results-blind temporal theory identity, not a horizon choice.
 
-The completed diagnostic implementation surface is already absent from current `main`: the one-time runner is not present, no diagnostic/router test files remain in the current `tests/` surface, and there is no active `.github/workflows/` directory. Decisive adjudication/receipt and archive anchors remain the reproduction authority.
+The completed diagnostic implementation surface is absent from current `main`: the one-time runner is not present, no diagnostic/router test files remain in the current `tests/` surface, and there is no active `.github/workflows/` directory. Decisive adjudication/receipt and archive anchors remain the reproduction authority.
 
 ## R1_B temporal impulse completion v1 — CLOSED ON DEV
 
@@ -114,7 +114,7 @@ Evidence:
 
 ## Payoff-object / instrument-theory review — complete
 
-`docs/research/rmr_payoff_object_instrument_theory_review_v1.md` is now part of the current authority chain.
+`docs/research/rmr_payoff_object_instrument_theory_review_v1.md` is part of the current authority chain.
 
 It is a results-blind boundary review, not an empirical candidate. It authorizes no DEV execution, no VALIDATION execution and no BLACKBOX access.
 
@@ -126,9 +126,19 @@ The review leaves only three theory-level possibilities:
 
 It does not authorize repair of the closed R1_B rule or any probability/horizon/entry/stop/target/cost/scale/year/regime/time-of-day rescue.
 
+## Historical unfinished-work audit — complete
+
+The stale designs and incomplete administrative surfaces found in the repository have been adjudicated rather than left pending:
+
+- GitHub issue #11, old-strategy identity / `CORE_SPATIAL_H20` provenance recovery, is closed `INSUFFICIENT_EVIDENCE_TO_RECOVER_EXACT_IDENTITY`; no historical identity was invented and no empirical redevelopment was authorized. Closeout: `docs/archive/phase2_old_strategy_identity_recovery_closeout_20260909.md`.
+- the superseded R1 specialist selection/holdout preanalysis, protocols, temporary freeze, runners and tests were removed from current `main`; exact history is preserved at `docs/archive/rmr_R1_parent_integrity_selection_holdout_history_anchor_20260909.md`. Current R1 authority is the reusable final bundle above.
+- the old R1 `true_fresh_2026Q4` preregistration was retired **unopened** because it depended on the superseded specialist bundle/protocol and required a future complete Q4 block. Its source-admission/evaluation protocols, runners and tests were removed from current `main`. Retirement anchor: `docs/archive/rmr_R1_true_fresh_2026Q4_preregistration_retirement_20260909.md`.
+
+These are administrative/provenance closeouts, not new scientific failures and not new BLACKBOX queries.
+
 ## Exact next action
 
-There is currently **no empirical economic candidate authorized**.
+There is currently **no empirical economic candidate authorized** and no dormant empirical challenge scheduled for automatic execution.
 
 Do not automatically create R1_B temporal v2, R1 economic v4, R2 economic v2, router v2, or a probability/horizon/entry/stop/target/cost/scale rescue.
 
@@ -148,7 +158,9 @@ There is **no query #4**, and none is scheduled or authorized.
 
 ## Optional future data
 
-Do not wait for future data. Continue only work authorized above. If newer data is supplied later, version the three-role map forward rather than declaring existing history consumed.
+Do not wait for future data. The historical R1 `2026Q4` preregistration is retired unopened and must not be resurrected automatically.
+
+If newer data is supplied later, version the **current** three-role map forward and preregister any new challenge under the then-current authority before opening outcomes. Existing history is not consumed by one validation.
 
 ## Authority order
 
