@@ -1,0 +1,52 @@
+{
+  "schema_id": "overnight_open_direction_head_selected_candidate@1.0",
+  "session_date": "2026-09-06",
+  "family": "docs/governance/cloud_session_20260906_direction_head_family_v1.json",
+  "family_sha256": "736eedba0b52c30c522132a4e43171532583309eac9f6c0df63c137047df8427",
+  "selection_receipt": "docs/research/cloud_session_20260906_direction_head_dev_receipt_v1.json",
+  "selection_run_id": 34012509781,
+  "selection_run_attempt": 3,
+  "selection_job_id": 101433996262,
+  "selection_commit": "43e8968f802185b3d9f2029401b6538d206550c1",
+  "selected_spec": {
+    "name": "median_quantile_sign",
+    "pipeline": "StandardScaler + QuantileRegressor(quantile=0.5, alpha=0.0, solver=highs)",
+    "fit_target": "gap",
+    "decision": "prediction >= 0",
+    "direction_features": [
+      "r1",
+      "r20",
+      "abs_r1",
+      "prev_gap",
+      "overnight_trend_5",
+      "prev_daytime",
+      "prev_last_hour",
+      "prev_afternoon",
+      "rvol20",
+      "weekend",
+      "holiday_reopen",
+      "us_nasdaq",
+      "us_vix_chg"
+    ],
+    "selection_window": "2015-2020_expanding_natural_year_OOF",
+    "eligible_fresh_validation": "2026_unseen_only"
+  },
+  "selected_spec_sha256": "9b0255fbbf6f0c4059e8779e61cb3d5d4eabeab1ce60aed09377d782f755e465",
+  "development_result": {
+    "ridge_year_equal_direction_hit": 0.6993412627126819,
+    "candidate_year_equal_direction_hit": 0.7182209577142513,
+    "ridge_pooled_direction_hit": 0.699341021416804,
+    "candidate_pooled_direction_hit": 0.7182866556836903,
+    "total_correct_count_increment": 23,
+    "positive_annual_hit_delta_count": 3,
+    "median_annual_hit_delta": 0.004132231404958664,
+    "candidate_pooled_balanced_accuracy": 0.697069656844461,
+    "ridge_pooled_balanced_accuracy": 0.7052230977247296,
+    "candidate_pooled_roc_auc": 0.7643370011189854,
+    "ridge_pooled_roc_auc": 0.7647187383439016
+  },
+  "interpretation": "The conditional-median objective improves the preregistered primary high-open/low-open hit rate on consumed 2015-2020 development OOF and is the unique admitted successor candidate. However balanced accuracy is lower and AUC is essentially unchanged, so the gain may partly reflect more conservative up predictions and regime/base-rate adaptation. This identity must not replace the current direction head without a new unseen 2026 challenge.",
+  "holdout_2021_2025_used_for_selection": false,
+  "fresh_oos": false,
+  "production_authority": false
+}

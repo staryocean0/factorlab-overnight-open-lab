@@ -1,0 +1,127 @@
+{
+  "schema_id": "overnight_open_high_open_recall_phase2_family@1.0",
+  "session_date": "2026-09-06",
+  "research_branch": "high_open_recall_successor_v1",
+  "parent_protocol": "docs/governance/cloud_session_20260906_high_open_recall_research_protocol_v1.json",
+  "phase1_adjudication": "docs/research/high_open_recall_phase1_adjudication_20260906.md",
+  "incumbent": {
+    "name": "median_quantile_sign",
+    "spec": "docs/governance/cloud_session_20260906_direction_head_selected_v1.json",
+    "spec_sha256": "9b0255fbbf6f0c4059e8779e61cb3d5d4eabeab1ce60aed09377d782f755e465"
+  },
+  "evidence_boundary": {
+    "development": "2015-01-05_to_2025-12-31",
+    "development_oof": "2016_to_2025_expanding_natural_year",
+    "sealed_repeat_blackbox": "2026-01-05_to_2026-08-21",
+    "true_fresh_reserved": "post_2026-08-21"
+  },
+  "fixed_estimator": {
+    "pipeline": "StandardScaler + QuantileRegressor(quantile=0.5, alpha=0.0, solver=highs)",
+    "target": "gap",
+    "decision": "prediction >= 0",
+    "threshold": 0.0,
+    "quantile": 0.5,
+    "alpha": 0.0,
+    "solver": "highs"
+  },
+  "base_features": [
+    "r1",
+    "r20",
+    "abs_r1",
+    "prev_gap",
+    "overnight_trend_5",
+    "prev_daytime",
+    "prev_last_hour",
+    "prev_afternoon",
+    "rvol20",
+    "weekend",
+    "holiday_reopen",
+    "us_nasdaq",
+    "us_vix_chg"
+  ],
+  "derived_feature_definitions": {
+    "prev_daytime_weakness": "max(-prev_daytime, 0)",
+    "prev_afternoon_weakness": "max(-prev_afternoon, 0)",
+    "prev_last_hour_weakness": "max(-prev_last_hour, 0)"
+  },
+  "financial_mechanism": {
+    "name": "prior_china_weakness_nonlinear_rebound",
+    "rationale": "Phase-1 OOF diagnostics showed that actual-high-open false negatives are consistently preceded by stronger prior China full-day, afternoon and last-hour weakness in all 10 development years, while the preregistered weakness-times-positive-US interactions were not stable. The candidate family therefore changes only the negative-side slope of already-causal domestic return features.",
+    "capacity_principle": "continuous piecewise-linear negative-part basis only; no new data source, route, calendar rule, threshold shift or loss change"
+  },
+  "candidates": [
+    {
+      "name": "weakness_daytime_piecewise",
+      "extra_features": ["prev_daytime_weakness"],
+      "extra_feature_count": 1
+    },
+    {
+      "name": "weakness_afternoon_piecewise",
+      "extra_features": ["prev_afternoon_weakness"],
+      "extra_feature_count": 1
+    },
+    {
+      "name": "weakness_last_hour_piecewise",
+      "extra_features": ["prev_last_hour_weakness"],
+      "extra_feature_count": 1
+    },
+    {
+      "name": "weakness_three_horizon_piecewise",
+      "extra_features": [
+        "prev_daytime_weakness",
+        "prev_afternoon_weakness",
+        "prev_last_hour_weakness"
+      ],
+      "extra_feature_count": 3
+    }
+  ],
+  "multiplicity": 4,
+  "same_complete_row_mask": true,
+  "development_metrics": [
+    "direction_hit",
+    "balanced_accuracy",
+    "recall_up",
+    "recall_down",
+    "pred_up_share",
+    "actual_up_share",
+    "roc_auc",
+    "correct_count",
+    "material_high_open_gt10bp_recall",
+    "material_high_open_gt30bp_recall",
+    "annual_recall_up_delta",
+    "paired_disagreement_counts"
+  ],
+  "eligibility_gates": [
+    "pooled recall_up > incumbent pooled recall_up",
+    "pooled direction_hit >= incumbent pooled direction_hit",
+    "pooled balanced_accuracy >= incumbent pooled balanced_accuracy",
+    "pooled recall_down > 0.5",
+    "positive annual recall_up delta in at least 6 of 10 OOF years",
+    "median annual recall_up delta >= 0",
+    "material high-open recall for actual gap >10bp >= incumbent",
+    "material high-open recall for actual gap >30bp >= incumbent"
+  ],
+  "selection_order_among_eligible": [
+    "highest pooled recall_up",
+    "highest pooled balanced_accuracy",
+    "highest pooled direction_hit",
+    "fewest extra features",
+    "lexicographic candidate name"
+  ],
+  "if_none_eligible": "retain incumbent median_quantile_sign and do not open the 2026 repeat blackbox",
+  "if_selected": "freeze exact selected successor identity before any 2026 repeat-blackbox open",
+  "forbidden": [
+    "2026 data access before selection freeze",
+    "threshold search",
+    "quantile search",
+    "alpha search",
+    "class weighting",
+    "positive-US interaction features",
+    "slow-state features",
+    "US-session-count routing",
+    "calendar-specific rules",
+    "trading-return optimization",
+    "feature combinations outside the four registered candidates"
+  ],
+  "production_authority": false
+}

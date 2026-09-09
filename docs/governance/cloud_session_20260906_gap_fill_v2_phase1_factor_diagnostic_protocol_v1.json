@@ -1,0 +1,148 @@
+{
+  "schema_id": "overnight_open_gap_fill_v2_phase1_factor_diagnostic@1.0",
+  "session_date": "2026-09-06",
+  "research_identity": "gap_fill_prediction_v2",
+  "stage": "phase1_preregistered_mechanism_diagnostic_before_candidate_family",
+  "parent_protocol": "docs/governance/cloud_session_20260906_gap_fill_prediction_v2_protocol_v1.json",
+  "target_ledger": "docs/research/cloud_session_20260906_gap_fill_v2_target_ledger_v1.json",
+  "prediction_timestamp": "09:31_China_time_after_open_gap_is_observed",
+  "development": {
+    "raw_window": "2015-01-05_to_2025-12-31",
+    "diagnostic_oof_window": "2016-01-01_to_2025-12-31",
+    "reason_2015_not_scored": "frozen_v1_reference_predictions_are_expanding_year_OOF_and_require_prior_training_data"
+  },
+  "target_horizons": ["fill_15m", "fill_60m", "fill_eod"],
+  "mandatory_strata": {
+    "gap_sign": ["high", "low"],
+    "material_cohorts": ["abs_gap_gt_10bp", "abs_gap_gt_30bp"],
+    "rule": "report_all_sign_horizon_cohort_cells; do_not_select_between_10bp_and_30bp"
+  },
+  "frozen_v1_reference": {
+    "direction": {
+      "spec": "median_quantile_sign",
+      "spec_sha256": "9b0255fbbf6f0c4059e8779e61cb3d5d4eabeab1ce60aed09377d782f755e465",
+      "pipeline": "StandardScaler + QuantileRegressor(quantile=0.5, alpha=0.0, solver=highs)",
+      "oof_fit": "for_each_validation_year_2016_to_2025_fit_only_prior_calendar_years"
+    },
+    "magnitude": {
+      "spec": "abs_frozen_clock_signed_prediction",
+      "selected_architecture_sha256": "76ff94f401eb3a9a9edc1cc462a3d818b49bfc732b93ee0bfc1a7070f92ccb8f",
+      "pipeline": "StandardScaler + Ridge(alpha=100.0)",
+      "transform": "abs(signed_prediction)",
+      "oof_fit": "for_each_validation_year_2016_to_2025_fit_only_prior_calendar_years"
+    },
+    "rule": "V1 reference fits may be recomputed only from their frozen specs to construct OOF surprise/support probes; gap-fill outcomes must never enter these fits"
+  },
+  "probes": [
+    {
+      "name": "abs_gap",
+      "block": "gap_geometry",
+      "definition": "abs(observed_gap)",
+      "higher_expected_fill_effect": "lower",
+      "mechanism": "larger displacement requires more post-open movement to revisit previous close"
+    },
+    {
+      "name": "abs_gap_over_rvol20",
+      "block": "gap_geometry",
+      "definition": "abs(observed_gap) / rvol20; missing if rvol20<=0",
+      "higher_expected_fill_effect": "lower",
+      "mechanism": "gap size relative to recent daily volatility measures state-adjusted displacement"
+    },
+    {
+      "name": "v1_magnitude_surprise",
+      "block": "frozen_v1_surprise_and_support",
+      "definition": "abs(observed_gap) - frozen_v1_magnitude_oof",
+      "higher_expected_fill_effect": "higher",
+      "mechanism": "opening displacement beyond the pre-open V1 magnitude expectation is more consistent with opening overshoot or temporary pressure"
+    },
+    {
+      "name": "v1_direction_support",
+      "block": "frozen_v1_surprise_and_support",
+      "definition": "sign(observed_gap) * frozen_v1_direction_score_oof",
+      "higher_expected_fill_effect": "lower",
+      "mechanism": "a gap aligned with the pre-open conditional-median direction signal is more information-supported"
+    },
+    {
+      "name": "broad_china_specific_support",
+      "block": "overnight_external_information_support",
+      "definition": "sign(observed_gap) * broad_china_specific_vs_spy",
+      "higher_expected_fill_effect": "lower",
+      "mechanism": "broad China ETF repricing relative to SPY in completed US sessions supports the observed China gap"
+    },
+    {
+      "name": "nasdaq_interval_support",
+      "block": "overnight_external_information_support",
+      "definition": "sign(observed_gap) * us_nasdaq_interval",
+      "higher_expected_fill_effect": "lower",
+      "mechanism": "same-direction completed-US-session Nasdaq movement supports the observed gap"
+    },
+    {
+      "name": "vix_interval_support",
+      "block": "overnight_external_information_support",
+      "definition": "-sign(observed_gap) * us_vix_interval",
+      "higher_expected_fill_effect": "lower",
+      "mechanism": "VIX falling supports a high gap and VIX rising supports a low gap"
+    },
+    {
+      "name": "prior_daytime_alignment",
+      "block": "prior_china_state",
+      "definition": "sign(observed_gap) * prev_daytime",
+      "higher_expected_fill_effect": "lower",
+      "mechanism": "same-direction prior-day China move suggests continuation rather than isolated opening pressure"
+    },
+    {
+      "name": "prior_last_hour_alignment",
+      "block": "prior_china_state",
+      "definition": "sign(observed_gap) * prev_last_hour",
+      "higher_expected_fill_effect": "lower",
+      "mechanism": "same-direction late-session pressure suggests persistence into the next opening state"
+    },
+    {
+      "name": "prior_gap_alignment",
+      "block": "prior_china_state",
+      "definition": "sign(observed_gap) * prev_gap",
+      "higher_expected_fill_effect": "lower",
+      "mechanism": "same-direction prior overnight gap may indicate a persistent opening regime"
+    }
+  ],
+  "diagnostic_statistics": {
+    "continuous_primary": "mean_probe_filled_minus_unfilled_and_standardized_difference",
+    "quartile": "Q1_to_Q4_fill_rate_separation",
+    "annual": "filled_minus_unfilled_mean_difference_by_OOF_year_2016_to_2025",
+    "no_p_value_selection": true
+  },
+  "mechanism_progression_gate_per_sign_horizon_probe": {
+    "pooled_difference_matches_preregistered_direction": true,
+    "positive_direction_year_count_at_least_6_of_10": true,
+    "median_annual_difference_matches_preregistered_direction": true,
+    "Q4_vs_Q1_fill_rate_matches_preregistered_direction": true,
+    "gt30bp_pooled_difference_same_direction_as_gt10bp": true
+  },
+  "later_family_authorization": "a factor block may enter a later bounded candidate-family discussion only through probes that satisfy the preregistered mechanism gate; this diagnostic itself performs no candidate ranking or model selection",
+  "data_sources": {
+    "china_panel": "data/high_open_dev_2015_2025/annotated_panel.parquet",
+    "china_1m": "data/high_open_dev_2015_2025/1m_official.parquet",
+    "nasdaq": "data/high_open_dev_2015_2025/fred_nasdaq.csv",
+    "vix": "data/high_open_dev_2015_2025/fred_vix.csv",
+    "offshore_etf": "data/offshore_etf_dev_2015_2025/offshore_etf_daily.parquet"
+  },
+  "forbidden": [
+    "use_2026_rows",
+    "fit_any_gap_fill_candidate_model",
+    "select_or_rank_candidate_models",
+    "change_probe_definitions_after_results",
+    "add_unregistered_probes_after_results",
+    "choose_between_10bp_and_30bp_by_development_performance",
+    "use_post_09:31_information_as_a_probe",
+    "retune_v1_parameters_on_gap_fill_outcomes",
+    "optimize_trading_return"
+  ],
+  "evidence_boundary": {
+    "development": "2015-01-05_to_2025-12-31",
+    "repeat_only_reserved": "2026-01-05_to_2026-08-21",
+    "true_fresh_reserved": "post_2026-08-21"
+  },
+  "candidate_selection_performed": false,
+  "gap_fill_model_fitting_performed": false,
+  "production_authority": false
+}

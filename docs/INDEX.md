@@ -1,120 +1,136 @@
-# Documentation index
+# Index
 
-This index describes the current worktree only. Historical implementation details remain recoverable from Git history and compact history anchors.
-
-## Current authority
-
-1. `../CONTINUE_HERE.md`
-2. `governance/reusable_three_role_data_policy_v1.json`
-3. `governance/reversal_mean_reversion_program_state_v1.json`
-4. `research/rmr_payoff_object_instrument_theory_review_v1.md`
-5. this index
-
-## Reusable data governance
-
-- `governance/reusable_three_role_data_policy_v1.json` — DEV 2015–2020, VALIDATION 2021–2025, reusable BLACKBOX 2026-01-05..2026-08-21.
-- `governance/reusable_blackbox_query_ledger_v1.json` — append-only ledger; completed query count = **3**.
-
-BLACKBOX output is restricted to `PASS / FAIL / INSUFFICIENT`. Exact hidden metrics, counts, dates, subperiods, events, probabilities, attribution and failure examples must not enter the research surface.
-
-## Certified mechanism 1 — R1 trend-parent pullback recovery
-
-- `governance/reversal_mean_reversion_R1_parent_integrity_v2_state_v1.json`
-- `governance/reversal_mean_reversion_R1_reusable_blackbox_protocol_v1.json`
-- `governance/rmr_R1_reusable_blackbox_parameter_freeze_v1.json` — final bundle `41072c78a6e657aec01d7da95d9c00bff23ff01829ada6afe256d7c254107fcb`.
-- `research/rmr_R1_reusable_validation_adjudication_20260908.md`
-- `research/rmr_R1_reusable_blackbox_certification_20260908.json` — BLACKBOX query #1: `PASS`.
-- `research/rmr_R1_economic_translation_round_closeout_20260908.md`.
-- `archive/rmr_R1_economic_translation_round_history_anchor_20260908.md`.
-
-The superseded earlier specialist selection/holdout implementation is no longer on the current surface; exact history is preserved by `archive/rmr_R1_parent_integrity_selection_holdout_history_anchor_20260909.md`.
-
-## Certified mechanism 2 — R2 range-parent boundary re-entry
-
-- `governance/reversal_mean_reversion_R2_state_v1.json`
-- `governance/reversal_mean_reversion_R2_range_integrity_v2_protocol.json`
-- `governance/rmr_R2_range_integrity_v2_parameter_freeze.json` — final bundle `08d28cc1f145247cc755cea70b26cfb75a53941db8df0f0a0f640c268ae5f0d1`.
-- `research/rmr_R2_range_integrity_v2_validation_adjudication_20260908.md`
-- `research/rmr_R2_range_integrity_v2_blackbox_certification_20260908.json` — BLACKBOX query #3: `PASS`.
-- `research/rmr_R2_economic_translation_v1_closeout_20260908.md`.
-- `archive/rmr_R2_range_integrity_and_economic_v1_history_anchor_20260908.md`.
-
-## Closed specialist — R5-C
-
-- `governance/reversal_mean_reversion_R5C_state_v1.json`
-- `research/rmr_R5C_reusable_validation_adjudication_20260908.md`
-- `research/rmr_R5C_reusable_blackbox_certification_20260908.json` — BLACKBOX query #2: `FAIL`.
-- `research/rmr_R5C_reusable_closeout_20260908.md`
-- `archive/rmr_R5C_v2_history_anchor_20260908.md`
-
-## Closed unified router
-
-- `research/rmr_R1_R2_certified_mechanism_synthesis_20260908.md`
-- `research/rmr_unified_parent_state_router_program_review_20260908.md`
-- `research/rmr_unified_parent_state_router_v1_validation_adjudication_20260908.md`
-- `research/rmr_unified_parent_state_router_v1_closeout_20260908.md`
-- `archive/rmr_unified_parent_state_router_v1_history_anchor_20260908.md`
-
-The corrected router worsened both R2 cells, so the tested common standardized state-consistency axis is closed. No router BLACKBOX query occurred. The historical router branch is behind `main` and has no commits ahead, so it is historical only and requires no merge.
-
-## Mechanism → execution diagnostic — complete
-
-- `research/rmr_mechanism_to_execution_diagnostic_v1_adjudication_20260908.md`
-- `research/rmr_mechanism_to_execution_diagnostic_v1_decisive_receipt_20260908.json`
-- `archive/rmr_mechanism_to_execution_diagnostic_v1_history_anchor_20260908.md`
-
-Conclusion: payoff geometry is the primary bridge failure; probability is not a monotonic realized-return score; R1_A and R2 current simple index execution are closed; R1_B delayed markouts justified one separate temporal theory test only.
-
-The current `main` surface no longer carries the one-time diagnostic runner, diagnostic/router-specific tests, or completed Actions workflows. Reproduction is preserved by decisive receipts, adjudications, history anchors and Git history.
-
-## R1_B temporal impulse completion v1 — closed on DEV
-
-- `research/rmr_R1B_temporal_execution_theory_program_review_20260908.md` — results-blind theory review that authorized the single candidate.
-- `research/rmr_R1B_temporal_impulse_completion_DEV_adjudication_20260908.md` — decisive DEV closeout.
-- `research/rmr_R1B_temporal_impulse_completion_DEV_decisive_receipt_20260908.json` — compact DEV evidence.
-- `archive/rmr_R1B_temporal_impulse_completion_v1_history_anchor_20260908.md` — execution commit/run/artifact and removed implementation surface.
-
-The candidate used next-bar entry and the first subsequent parent-aligned S2 **confirmation close** as temporal completion, with original S3 failure, 10bp cost and 1200-bar safety cap unchanged.
-
-DEV on 682 tradeable events produced mean net `+10.59bp` and positive mean net in `5/6` years, but median net `-32.11bp` and win rate `37.10%`. The predeclared positive-median gate failed, so the identity closed before VALIDATION.
-
-No temporal v2 rescue, horizon selection, probability filtering or noncausal S2-extreme exit is authorized from this result.
-
-## Payoff-object / instrument-theory review — current boundary
-
-- `research/rmr_payoff_object_instrument_theory_review_v1.md` — completed results-blind boundary review and current stage-specific authority.
-
-This review does **not** authorize an empirical candidate. It leaves three theory-level outcomes only:
-
-- materially independent execution-timing theory;
-- instrument mapping after a frozen instrument-specific source and cost-model contract;
-- stop economic translation.
-
-No DEV, VALIDATION or BLACKBOX execution is authorized for a new economic identity by this review alone.
-
-## Historical unfinished-work audit — complete
-
-- `archive/historical_unfinished_work_audit_20260909.md` — aggregate audit and final disposition.
-- `archive/phase2_old_strategy_identity_recovery_closeout_20260909.md` — issue #11 provenance investigation, fail-closed for insufficient exact evidence.
-- `archive/rmr_R1_parent_integrity_selection_holdout_history_anchor_20260909.md` — superseded R1 specialist selection/holdout surface preserved by history and removed from current tree.
-- `archive/rmr_R1_true_fresh_2026Q4_preregistration_retirement_20260909.md` — old future challenge retired unopened; its protocols/runners/tests were removed.
-
-The audit found no historical empirical design that remains silently queued for automatic execution. The retired R1 Q4 protocol must not be resurrected; future newer data, if supplied, requires versioning the current three-role map and a new preregistration under then-current authority.
-
-## Current next research
-
-There is currently **no empirical economic candidate authorized** and no dormant empirical challenge scheduled for automatic execution.
-
-A new economic identity may be opened only after a materially independent payoff/instrument theory is separately preregistered and authorized. Any ETF/futures/options mapping must first freeze an instrument-specific source and cost-model contract covering spread, basis, carry, liquidity, convexity/premium and execution conventions.
-
-Broad R8/R9 indicator discovery remains paused. BLACKBOX query count remains 3; no query #4 exists.
-
-## Core reusable code/data
-
-- `../scripts/run_rmr_stage1_common_probe.py` — causal directional-change engine and original R1/R2 event geometry.
-- `../scripts/run_rmr_R1_reusable_dev_validation.py` and `../scripts/certify_rmr_R1_reusable_blackbox.py` — retained R1 mechanism reproduction path.
-- `../tests/test_reusable_three_role_blackbox.py` — permanent role/leakage/ledger boundary tests.
-- `../data/high_open_dev_2015_2025/` — detailed DEV/VALIDATION historical source.
-- `../archive/data/gap_fill_repeat_2026/csi1000_1m_20260105_to_20260821.parquet` — reusable BLACKBOX physical source; direct research inspection prohibited.
-
-Production authority remains `false`.
+1. `README.md`
+2. `docs/user/cloud_execution_prompt.md`
+3. `docs/user/handoff_prompt.md`
+4. `docs/governance/package_scope.json`
+5. `docs/governance/baseline_receipt.json`
+6. `docs/research/literature.md`
+7. `docs/user/timing_layer2_overnight_gap_ledger_workflow.md`
+8. `docs/user/local_2021_2025_two_head_validation.md`
+9. `docs/research/cloud_session_20260906_local_2021_2025_two_head_receipt_v1.json`
+10. `docs/research/cloud_session_20260906_local_2021_2025_two_head_receipt_v1_errata.json`
+11. `docs/research/direction_head_preanalysis_20260906.md`
+12. `docs/governance/cloud_session_20260906_direction_head_family_v1.json`
+13. `docs/governance/cloud_session_20260906_direction_head_execution_incident_v1.json`
+14. `docs/user/local_direction_head_objective_experiment.md`
+15. `docs/research/cloud_session_20260906_direction_head_dev_receipt_v1.json`
+16. `docs/governance/cloud_session_20260906_direction_head_selected_v1.json`
+17. `docs/research/direction_head_objective_result_20260906.md`
+18. `docs/governance/cloud_session_20260906_direction_2026_fresh_protocol_v1.json`
+19. `scripts/evaluate_local_2026_direction_head.py`
+20. `docs/user/local_2026_direction_fresh_validation.md`
+21. `docs/governance/cloud_session_20260906_public_runner_recovery_v1.json`
+22. `docs/research/cloud_session_20260906_local_2026_direction_fit_freeze_v1.json`
+23. `docs/research/cloud_session_20260906_local_2026_direction_receipt_v1.json`
+24. `docs/governance/local_session_20260906_2026_direction_data_usage.json`
+25. `docs/research/cloud_session_20260906_local_2026_direction_result.md`
+26. `docs/governance/cloud_session_20260906_research_architecture_acceptance_v1.json`
+27. `docs/governance/cloud_session_20260906_production_readiness_review_v1.json`
+28. `docs/research/cloud_session_20260906_research_closeout_v1.md`
+29. `docs/governance/cloud_session_20260906_high_open_recall_research_protocol_v1.json`
+30. `docs/research/high_open_recall_preanalysis_20260906.md`
+31. `scripts/diagnose_high_open_false_negatives_dev.py`
+32. `docs/ops/cloud_local_communication.md`
+33. `docs/research/cloud_session_20260906_local_high_open_recall_diagnostic_receipt_v1.json`
+34. `docs/governance/local_session_20260906_high_open_recall_data_usage.json`
+35. `docs/research/high_open_recall_phase1_adjudication_20260906.md`
+36. `docs/governance/cloud_session_20260906_high_open_recall_phase2_family_v1.json`
+37. `scripts/select_high_open_recall_phase2_dev.py`
+38. `docs/governance/cloud_session_20260906_high_open_recall_phase2_execution_freeze_v1.json`
+39. `docs/research/cloud_session_20260906_local_high_open_recall_phase2_dev_receipt_v1.json`
+40. `docs/governance/local_session_20260906_high_open_recall_phase2_data_usage.json`
+41. `docs/research/high_open_recall_phase2_cloud_review_20260906.md`
+42. `docs/governance/cloud_session_20260906_high_open_rebound_conditioning_protocol_v1.json`
+43. `scripts/diagnose_last_hour_rebound_conditioning_dev.py`
+44. `docs/ops/ohr_04_last_hour_rebound_conditioning_handoff.md`
+45. `docs/research/cloud_session_20260906_local_last_hour_rebound_conditioning_receipt_v1.json`
+46. `docs/governance/local_session_20260906_last_hour_rebound_conditioning_data_usage.json`
+47. `docs/research/high_open_recall_ohr04_cloud_review_20260906.md`
+48. `docs/governance/cloud_session_20260906_offshore_china_price_discovery_protocol_v1.json`
+49. `docs/research/offshore_china_price_discovery_preanalysis_20260906.md`
+50. `scripts/probe_offshore_china_source_quality.py`
+51. `docs/ops/ohr_05_offshore_china_source_admission_handoff.md`
+52. `docs/governance/cloud_session_20260906_offshore_china_source_execution_freeze_v1.json`
+53. `data/high_open_dev_2015_2025/`
+54. `docs/research/cloud_session_20260906_local_offshore_china_source_freeze_v1.json`
+55. `docs/governance/local_session_20260906_offshore_china_source_data_usage.json`
+56. `docs/research/offshore_china_ohr05_cloud_source_review_20260906.md`
+57. `docs/governance/cloud_session_20260906_offshore_china_ohr06_diagnostic_protocol_v1.json`
+58. `scripts/diagnose_offshore_china_price_discovery_dev.py`
+59. `tests/test_offshore_china_ohr06_protocol.py`
+60. `docs/governance/cloud_session_20260906_offshore_china_ohr06_execution_freeze_v1.json`
+61. `docs/ops/ohr_06_offshore_china_price_discovery_handoff.md`
+62. `data/offshore_etf_dev_2015_2025/`
+63. `docs/research/cloud_session_20260906_local_offshore_china_ohr06_diagnostic_receipt_v1.json`
+64. `docs/governance/cloud_session_20260906_offshore_china_ohr06_data_usage.json`
+65. `docs/research/offshore_china_ohr06_cloud_adjudication_20260906.md`
+66. `docs/governance/cloud_session_20260906_offshore_china_ohr07_family_v1.json`
+67. `scripts/select_offshore_china_ohr07_dev.py`
+68. `tests/test_offshore_china_ohr07_protocol.py`
+69. `docs/governance/cloud_session_20260906_offshore_china_ohr07_execution_freeze_v1.json`
+70. `docs/research/cloud_session_20260906_cloud_offshore_china_ohr07_dev_receipt_v1.json`
+71. `docs/governance/cloud_session_20260906_offshore_china_ohr07_data_usage.json`
+72. `docs/research/offshore_china_ohr07_cloud_review_20260906.md`
+73. `docs/governance/cloud_session_20260906_offshore_china_ohr08_frozen_base_overlay_v1.json`
+74. `scripts/select_offshore_china_ohr08_frozen_base_overlay_dev.py`
+75. `tests/test_offshore_china_ohr08_protocol.py`
+76. `docs/governance/cloud_session_20260906_offshore_china_ohr08_execution_freeze_v1.json`
+77. `docs/research/cloud_session_20260906_cloud_offshore_china_ohr08_dev_receipt_v1.json`
+78. `docs/governance/cloud_session_20260906_offshore_china_ohr08_data_usage.json`
+79. `docs/research/offshore_china_price_discovery_route_closeout_20260906.md`
+80. `docs/research/gap_fill_prediction_v2_preanalysis_20260906.md`
+81. `docs/governance/cloud_session_20260906_gap_fill_prediction_v2_protocol_v1.json`
+82. `scripts/build_gap_fill_v2_target_ledger.py`
+83. `tests/test_gap_fill_prediction_v2_protocol.py`
+84. `docs/research/cloud_session_20260906_gap_fill_v2_target_ledger_v1.json`
+85. `docs/governance/cloud_session_20260906_gap_fill_v2_target_data_usage_v1.json`
+86. `docs/governance/cloud_session_20260906_gap_fill_v2_phase1_factor_diagnostic_protocol_v1.json`
+87. `scripts/diagnose_gap_fill_v2_phase1_factors.py`
+88. `tests/test_gap_fill_v2_phase1_factor_diagnostic.py`
+89. `docs/governance/cloud_session_20260906_gap_fill_v2_phase1_execution_freeze_v1.json`
+90. `docs/research/cloud_session_20260906_gap_fill_v2_phase1_factor_diagnostic_receipt_v1.json`
+91. `docs/governance/cloud_session_20260906_gap_fill_v2_phase1_factor_data_usage_v1.json`
+92. `docs/research/gap_fill_v2_phase1_factor_adjudication_20260906.md`
+93. `docs/governance/cloud_session_20260906_gap_fill_v2_phase2_hazard_family_v1.json`
+94. `scripts/select_gap_fill_v2_phase2_hazard_family.py`
+95. `tests/test_gap_fill_v2_phase2_hazard_family.py`
+96. `docs/governance/cloud_session_20260906_gap_fill_v2_phase2_execution_freeze_v1.json`
+97. `docs/research/cloud_session_20260906_gap_fill_v2_phase2_hazard_selection_receipt_v1.json`
+98. `docs/governance/cloud_session_20260906_gap_fill_v2_phase2_hazard_data_usage_v1.json`
+99. `docs/research/gap_fill_v2_phase2_hazard_adjudication_20260906.md`
+100. `docs/governance/cloud_session_20260906_gap_fill_v2_phase2_selected_v1.json`
+101. `docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_protocol_v1.json`
+102. `scripts/fit_gap_fill_v2_selected_dev.py`
+103. `tests/test_gap_fill_v2_final_fit_protocol.py`
+104. `docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_execution_freeze_v1.json`
+105. `docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_freeze_v1.json`
+106. `docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_data_usage_v1.json`
+107. `docs/research/gap_fill_v2_v1_development_closeout_20260906.md`
+108. `data/gap_fill_repeat_2026/`
+109. `docs/ops/gap_fill_v2_2026_repeat_handoff.md`
+110. `docs/governance/cloud_session_20260906_gap_fill_v2_2026_repeat_protocol_v1.json`
+111. `scripts/evaluate_local_gap_fill_v2_2026_repeat.py`
+112. `tests/test_gap_fill_v2_2026_repeat_protocol.py`
+113. `docs/governance/cloud_session_20260906_gap_fill_v2_2026_repeat_execution_freeze_v1.json`
+114. `docs/governance/cloud_session_20260906_gap_fill_v2_2026_repeat_cloud_execution_authorization_v1.json`
+115. `docs/governance/cloud_session_20260906_gap_fill_v2_2026_repeat_execution_incident_v1.json`
+116. `docs/research/cloud_session_20260906_local_gap_fill_v2_2026_repeat_receipt_v1.json`
+117. `docs/governance/local_session_20260906_gap_fill_v2_2026_repeat_data_usage_v1.json`
+118. `docs/research/gap_fill_v2_2026_repeat_cloud_adjudication_20260906.md`
+119. `.github/workflows/gap-fill-v2-2026-repeat-cloud.yml`
+120. `docs/research/gap_fill_v2_true_fresh_preanalysis_20260906.md`
+121. `docs/governance/cloud_session_20260906_gap_fill_v2_true_fresh_protocol_v1.json`
+122. `scripts/evaluate_gap_fill_v2_true_fresh_2026q4.py`
+123. `tests/test_gap_fill_v2_true_fresh_protocol.py`
+124. `docs/governance/cloud_session_20260906_gap_fill_v2_true_fresh_execution_freeze_v1.json`
+125. `docs/governance/gap_fill_v2_true_fresh_state_v1.json`
+126. `.github/workflows/gap-fill-v2-true-fresh-prereg-check.yml`
+127. `docs/research/gap_fill_v2_historical_extension_preanalysis_20260906.md`
+128. `docs/governance/cloud_session_20260906_gap_fill_v2_historical_extension_protocol_v1.json`
+129. `docs/ops/gap_fill_v2_historical_source_inventory_template_v1.json`
+130. `docs/ops/gap_fill_v2_historical_source_inventory_handoff.md`
+131. `tests/test_gap_fill_v2_historical_extension_protocol.py`
+132. `docs/governance/gap_fill_v2_generation_policy_v1.json`
+133. `docs/governance/cloud_session_20260906_gap_fill_v2_historical_extension_execution_freeze_v1.json`
+134. `.github/workflows/gap-fill-v2-historical-extension-prereg-check.yml`

@@ -1,0 +1,33 @@
+name: overnight-2026-direction-runner-check
+
+on:
+  push:
+    paths:
+      - 'scripts/evaluate_local_2026_direction_head.py'
+      - 'scripts/validate_theme_package.py'
+      - 'tests/test_local_2026_direction_receipt.py'
+      - 'docs/governance/cloud_session_20260906_direction_2026_fresh_protocol_v1.json'
+      - 'docs/governance/cloud_session_20260906_direction_head_selected_v1.json'
+      - 'docs/governance/cloud_session_20260906_research_architecture_acceptance_v1.json'
+      - 'docs/governance/cloud_session_20260906_production_readiness_review_v1.json'
+      - 'docs/governance/local_session_20260906_2026_direction_data_usage.json'
+      - 'docs/research/cloud_session_20260906_local_2026_direction_receipt_v1.json'
+      - 'docs/research/cloud_session_20260906_local_2021_2025_two_head_receipt_v1.json'
+      - '.github/workflows/overnight-2026-direction-runner-check.yml'
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install research dependencies
+        run: python -m pip install --upgrade pip pandas pyarrow numpy scikit-learn pytest
+      - name: Validate bounded package and accepted research boundary
+        run: python scripts/validate_theme_package.py
+      - name: Run regression tests
+        run: pytest -q
+      - name: Compile frozen local 2026 runner
+        run: python -m py_compile scripts/evaluate_local_2026_direction_head.py

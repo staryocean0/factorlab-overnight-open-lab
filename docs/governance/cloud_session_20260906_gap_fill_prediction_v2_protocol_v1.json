@@ -1,0 +1,112 @@
+{
+  "schema_id": "overnight_open_gap_fill_prediction_v2_protocol@1.0",
+  "session_date": "2026-09-06",
+  "research_identity": "gap_fill_prediction_v2",
+  "stage": "target_ledger_before_modeling",
+  "objective": "predict whether an observed CSI1000 opening gap is fully filled within 15m, 60m, or EOD, plus secondary fill-ratio and time-to-fill outcomes",
+  "prediction_timestamp": "09:31_China_time_after_open_gap_is_observed",
+  "reference_prices": {
+    "previous_close": "previous_China_trading_day_15:00_close",
+    "current_open": "current_China_trading_day_09:31_open",
+    "gap": "current_open / previous_close - 1"
+  },
+  "full_fill_definition": {
+    "high_open": "post-open low touches_or_crosses previous_close",
+    "low_open": "post-open high touches_or_crosses previous_close"
+  },
+  "frozen_horizons": {
+    "fill_15m": "first_15_one_minute_bars_from_09:31",
+    "fill_60m": "first_60_one_minute_bars_from_09:31",
+    "fill_eod": "through_current_15:00_close"
+  },
+  "nested_event_invariant": "fill_15m <= fill_60m <= fill_eod",
+  "secondary_targets": [
+    "fill_ratio_15m_capped_0_1",
+    "fill_ratio_60m_capped_0_1",
+    "fill_ratio_eod_capped_0_1",
+    "uncapped_favorable_excursion_ratio",
+    "time_to_first_fill_minutes_right_censored"
+  ],
+  "material_gap_cohorts": [
+    "abs_gap_gt_10bp",
+    "abs_gap_gt_30bp"
+  ],
+  "material_gap_rule": "do_not_select_between_10bp_and_30bp_using_development_performance; report_both",
+  "initial_factor_blocks": [
+    "gap_geometry",
+    "frozen_v1_surprise_and_support",
+    "overnight_external_information_support",
+    "prior_china_state",
+    "opening_auction_microstructure_if_source_frozen_before_target_inspection",
+    "cross_sectional_open_breadth_and_concentration_if_source_frozen_before_target_inspection",
+    "calendar_closure_state"
+  ],
+  "high_low_asymmetry": "high_open_and_low_open_must_be_reported_separately_and_may_later_receive_separate_heads_after_preregistration",
+  "timestamp_rules": {
+    "allowed": "information_known_no_later_than_09:31_at_prediction_time",
+    "open_gap_itself": true,
+    "preopen_and_opening_auction_information": "allowed_only_if_timestamp_safe_and_source_frozen_before_target_relationship_inspection",
+    "post_09:31_china_information": false,
+    "future_09:31_bar_high_low_if_not_timestamp_separable": false
+  },
+  "v1_freeze": {
+    "direction": "median_quantile_sign",
+    "direction_spec_sha256": "9b0255fbbf6f0c4059e8779e61cb3d5d4eabeab1ce60aed09377d782f755e465",
+    "magnitude": "abs_frozen_clock_signed_prediction",
+    "rule": "gap_fill_outcomes_must_not_retune_v1_parameters"
+  },
+  "initial_model_architecture": {
+    "type": "discrete_time_fill_hazard",
+    "hazards": [
+      "h15=P(fill_by_15m|I_09:31)",
+      "h60=P(fill_in_15_to_60m|not_filled_by_15m,I_09:31)",
+      "hEOD=P(fill_in_60m_to_EOD|not_filled_by_60m,I_09:31)"
+    ],
+    "cumulative_probability_monotonicity_required": true,
+    "first_family_preference": "low_capacity_interpretable_hazard_heads_after_factor_block_diagnostics"
+  },
+  "primary_evaluation": [
+    "brier_score",
+    "log_loss",
+    "roc_auc",
+    "pr_auc_where_applicable",
+    "calibration_intercept_and_slope",
+    "probability_decile_fill_rate_separation",
+    "year_equal_robustness",
+    "high_open_vs_low_open",
+    "abs_gap_gt_10bp_vs_gt_30bp",
+    "horizon_consistency"
+  ],
+  "trading_return_gate": false,
+  "target_ledger_phase": {
+    "model_fitting_allowed": false,
+    "feature_selection_allowed": false,
+    "threshold_search_allowed": false,
+    "required_outputs": [
+      "exact_target_counts_by_year_sign_horizon",
+      "material_cohort_counts",
+      "fill_rate_by_year_sign_and_cohort",
+      "fill_ratio_distribution",
+      "time_to_fill_distribution",
+      "nested_event_invariant_check",
+      "data_source_hashes"
+    ]
+  },
+  "evidence_boundary": {
+    "development": "2015-01-05_to_2025-12-31",
+    "development_note": "2021-2025_is_already_consumed_and_not_fresh",
+    "repeat_only_reserved": "2026-01-05_to_2026-08-21",
+    "repeat_only_may_not_participate_in_design": true,
+    "true_fresh_reserved": "post_2026-08-21"
+  },
+  "forbidden": [
+    "use_2026_for_target_definition_feature_selection_or_family_design",
+    "retune_v1_on_gap_fill_outcomes",
+    "choose_material_gap_threshold_post_hoc",
+    "use_post_09:31_china_information_in_the_09:31_model",
+    "optimize_trading_return",
+    "call_2021_2025_or_2026_repeat_evidence_fresh",
+    "silently_mix_gap_fill_with_raw_post_open_return_direction"
+  ],
+  "production_authority": false
+}

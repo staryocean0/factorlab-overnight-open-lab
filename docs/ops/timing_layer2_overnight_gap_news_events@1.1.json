@@ -1,0 +1,248 @@
+{
+  "schema_id": "timing_layer2_overnight_gap_news_events@1.1",
+  "parent": "timing_layer2_overnight_gap_news_events@1.0",
+  "parent_ledger": "timing_layer2_overnight_gap_ledger@1.1",
+  "incomplete_by_design": true,
+  "not_a_complete_news_database": true,
+  "not_a_causal_label": true,
+  "not_a_trading_rule": true,
+  "first_session_only": true,
+  "rule": "A discrete public headline counts as news only on the first A-share session where it can appear in the overnight gap. Later high/low opens of the same information are market/trend, not news. Persistence means the information changed direction, so the later gaps are trend transmission.",
+  "authority": {
+    "measurement": true,
+    "strategy_selection": false,
+    "production": false
+  },
+  "events": [
+    {
+      "trading_day": "2015-07-03",
+      "direction": "low_open",
+      "event_id": "csrc_short_probe_20150702",
+      "event": "证监会7月2日晚间宣布严查跨市场操纵与恶意做空。这是该声明落地后的第一个交易日。",
+      "timing": "overnight_public_before_0930",
+      "documentation_level": "widely_documented"
+    },
+    {
+      "trading_day": "2015-07-06",
+      "direction": "high_open",
+      "event_id": "rescue_package_20150704",
+      "event": "周末救市组合拳（暂停IPO、券商出资、证金/汇金/央行支持）落地后的第一个交易日。",
+      "timing": "weekend_or_holiday_public_before_open",
+      "documentation_level": "widely_documented"
+    },
+    {
+      "trading_day": "2015-08-24",
+      "direction": "low_open",
+      "event_id": "black_monday_20150824",
+      "event": "全球黑色星期一/风险厌恶冲击落地后的第一个A股交易日。",
+      "timing": "weekend_or_holiday_public_before_open",
+      "documentation_level": "widely_documented"
+    },
+    {
+      "trading_day": "2016-01-05",
+      "direction": "low_open",
+      "event_id": "circuit_breaker_first_overnight_20160105",
+      "event": "2016-01-04盘中首次熔断之后的第一个隔夜缺口日。01-04隔夜本身是普通开盘。",
+      "timing": "same_morning_public_before_0930",
+      "documentation_level": "widely_documented"
+    },
+    {
+      "trading_day": "2016-02-15",
+      "direction": "low_open",
+      "event_id": "cny_reopen_20160215",
+      "event": "2016春节后首个交易日，假期全球股市/油价暴跌已发生。",
+      "timing": "holiday_reopen",
+      "documentation_level": "widely_documented"
+    },
+    {
+      "trading_day": "2018-03-23",
+      "direction": "low_open",
+      "event_id": "section_301_20180322",
+      "event": "美国301备忘录签署后的第一个A股交易日。",
+      "timing": "overnight_geopolitics",
+      "documentation_level": "widely_documented"
+    },
+    {
+      "trading_day": "2018-10-11",
+      "direction": "low_open",
+      "event_id": "nd_reopen_us_selloff_20181010",
+      "event": "2018国庆后首个交易日，叠加美东10月10日美股暴跌。",
+      "timing": "holiday_reopen",
+      "documentation_level": "widely_documented"
+    },
+    {
+      "trading_day": "2018-12-03",
+      "direction": "high_open",
+      "event_id": "g20_truce_20181201",
+      "event": "G20中美暂停加征新关税90天，周末标题落地后的第一个交易日。",
+      "timing": "weekend_geopolitics",
+      "documentation_level": "widely_documented"
+    },
+    {
+      "trading_day": "2019-05-06",
+      "direction": "low_open",
+      "event_id": "tariff_hike_25pct_20190505",
+      "event": "特朗普5月5日宣布关税从10%提至25%后，五一后的第一个交易日。",
+      "timing": "holiday_reopen",
+      "documentation_level": "widely_documented"
+    },
+    {
+      "trading_day": "2020-02-03",
+      "direction": "low_open",
+      "event_id": "covid_reopen_20200203",
+      "event": "新冠疫情后春节开市的第一个交易日。",
+      "timing": "holiday_reopen",
+      "documentation_level": "widely_documented"
+    },
+    {
+      "trading_day": "2020-02-28",
+      "direction": "low_open",
+      "event_id": "covid_global_riskoff_20200227",
+      "event": "全球疫情扩散、欧美股市重挫后的第一个A股交易日。不是2月3日疫情开市的第N天。",
+      "timing": "overnight_global",
+      "documentation_level": "widely_documented"
+    },
+    {
+      "trading_day": "2020-03-03",
+      "direction": "high_open",
+      "event_id": "fed_emergency_cut_20200303",
+      "event": "美联储紧急降息50bp落地后的第一个A股交易日。",
+      "timing": "overnight_global_policy",
+      "documentation_level": "widely_documented"
+    },
+    {
+      "trading_day": "2020-03-13",
+      "direction": "low_open",
+      "event_id": "us_circuit_breaker_20200312",
+      "event": "美股3月12日熔断后的第一个A股交易日。",
+      "timing": "overnight_global",
+      "documentation_level": "widely_documented"
+    },
+    {
+      "trading_day": "2020-03-24",
+      "direction": "high_open",
+      "event_id": "fed_unlimited_qe_20200323",
+      "event": "美联储无限QE标题落地后的第一个A股交易日。",
+      "timing": "overnight_global_policy",
+      "documentation_level": "widely_documented"
+    },
+    {
+      "trading_day": "2022-11-11",
+      "direction": "high_open",
+      "event_id": "covid_optimization_20_20221110",
+      "event": "11月10日政治局常委会部署优化防控后的第一个交易日。",
+      "timing": "overnight_policy",
+      "documentation_level": "widely_documented"
+    },
+    {
+      "trading_day": "2023-08-28",
+      "direction": "high_open",
+      "event_id": "stamp_tax_cut_20230827",
+      "event": "8月27日宣布印花税减半后的第一个交易日。",
+      "timing": "weekend_policy",
+      "documentation_level": "widely_documented"
+    },
+    {
+      "trading_day": "2024-12-10",
+      "direction": "high_open",
+      "event_id": "politburo_moderately_loose_20241209",
+      "event": "12月9日政治局“适度宽松”定调后的第一个交易日。",
+      "timing": "overnight_policy",
+      "documentation_level": "widely_documented"
+    }
+  ],
+  "removed_from_v1_0_because_follow_through": [
+    {
+      "trading_day": "2015-06-26",
+      "reason": "crash_follow_through_not_discrete_first_session"
+    },
+    {
+      "trading_day": "2015-06-30",
+      "reason": "same_crash_episode_day_n"
+    },
+    {
+      "trading_day": "2015-07-07",
+      "reason": "rescue_package_day_2"
+    },
+    {
+      "trading_day": "2015-07-08",
+      "reason": "rescue_package_day_3"
+    },
+    {
+      "trading_day": "2015-07-13",
+      "reason": "rescue_bounce_follow_through"
+    },
+    {
+      "trading_day": "2015-07-14",
+      "reason": "rescue_bounce_follow_through"
+    },
+    {
+      "trading_day": "2015-07-16",
+      "reason": "same_crash_episode_day_n"
+    },
+    {
+      "trading_day": "2015-07-28",
+      "reason": "same_crash_episode_day_n"
+    },
+    {
+      "trading_day": "2015-08-19",
+      "reason": "same_crash_episode_day_n"
+    },
+    {
+      "trading_day": "2015-08-25",
+      "reason": "black_monday_day_2"
+    },
+    {
+      "trading_day": "2015-08-27",
+      "reason": "black_monday_bounce_follow_through"
+    },
+    {
+      "trading_day": "2015-09-02",
+      "reason": "same_crash_episode_day_n"
+    },
+    {
+      "trading_day": "2015-09-15",
+      "reason": "same_crash_episode_day_n"
+    },
+    {
+      "trading_day": "2015-10-08",
+      "reason": "holiday_reopen_of_existing_regime_not_new_headline"
+    },
+    {
+      "trading_day": "2016-01-07",
+      "reason": "circuit_breaker_day_2"
+    },
+    {
+      "trading_day": "2016-01-14",
+      "reason": "circuit_breaker_week_follow_through"
+    },
+    {
+      "trading_day": "2018-10-25",
+      "reason": "autumn_trade_war_follow_through"
+    },
+    {
+      "trading_day": "2020-02-04",
+      "reason": "covid_reopen_day_2"
+    },
+    {
+      "trading_day": "2020-03-23",
+      "reason": "march_global_crash_follow_through"
+    },
+    {
+      "trading_day": "2020-03-25",
+      "reason": "fed_qe_day_2"
+    },
+    {
+      "trading_day": "2020-10-09",
+      "reason": "holiday_reopen_not_new_headline"
+    },
+    {
+      "trading_day": "2024-09-30",
+      "reason": "stimulus_924_follow_through_not_first_session"
+    },
+    {
+      "trading_day": "2024-10-08",
+      "reason": "stimulus_924_holiday_follow_through"
+    }
+  ]
+}

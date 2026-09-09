@@ -1,0 +1,19 @@
+{
+  "schema_id": "overnight_open_holdout_execution_incident@1.0",
+  "session_date": "2026-09-06",
+  "run_id": 34009974373,
+  "run_commit": "2d32494453d0ceb848115aa1101e414584981bce",
+  "candidate_sha256": "c2df5d9acdd9d970288ae8f990834d8b91495695b4e95bde0b82f88b160da12e",
+  "holdout_window": "2019-01-01_to_2020-12-31",
+  "holdout_consumed": true,
+  "candidate_or_parameter_changed_after_consumption": false,
+  "failure_stage": "comparator_contract_assertion_after_candidate_and_baseline_computation",
+  "failure": "The frozen receipt us_nasdaq_ic did not equal a raw-correlation calculation over all rows with only gap/us_nasdaq nonmissing. The receipt comparator was produced on a different evaluation mask/recipe.",
+  "candidate_metrics_exposed_to_controller": false,
+  "scientific_effect": "The selected candidate remains frozen and was not influenced by holdout results. Any subsequent execution on 2019-2020 is a repeat_audit/recovery, not a new fresh holdout opening.",
+  "allowed_repair": "Remove the invalid comparator equality assumption; retain the frozen receipt us_nasdaq_ic as its own comparator and separately report an explicitly named same-run single-variable comparator. Do not change candidate features, alpha, training interval, or selection rule.",
+  "authority": {
+    "fresh_oos": false,
+    "production_authority": false
+  }
+}

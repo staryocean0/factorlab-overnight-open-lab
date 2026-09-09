@@ -1,0 +1,14 @@
+{
+  "2026_repeat_validation_opened": true,
+  "aggregate_receipt_only": true,
+  "model_refit_performed": false,
+  "parameter_search_performed": false,
+  "post_2026_08_21": "not_loaded_true_fresh_reserved",
+  "production_authority": false,
+  "raw_2026_rows_persisted_in_repo": false,
+  "research_identity": "gap_fill_prediction_v2",
+  "role": "repeat_only_not_fresh",
+  "schema_id": "overnight_open_gap_fill_v2_2026_repeat_data_usage@1.0",
+  "session_date": "2026-09-06",
+  "window": "2026-01-05_to_2026-08-21"
+}

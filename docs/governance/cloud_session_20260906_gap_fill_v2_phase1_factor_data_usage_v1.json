@@ -1,0 +1,10 @@
+{
+  "2026-01-05_to_2026-08-21": "not_loaded_repeat_only_reserved",
+  "development": "2015-01-05_to_2025-12-31_with_2016_to_2025_expanding_year_V1_reference_OOF",
+  "post_2026-08-21": "unread_true_fresh_reserved",
+  "production_authority": false,
+  "raw_rows_newly_persisted": false,
+  "schema_id": "overnight_open_gap_fill_v2_phase1_factor_data_usage@1.0",
+  "session_date": "2026-09-06",
+  "target_use": "diagnostic_only_no_gap_fill_candidate_fit"
+}

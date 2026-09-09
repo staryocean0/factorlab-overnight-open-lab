@@ -1,0 +1,95 @@
+{
+  "schema_id": "overnight_open_high_open_rebound_conditioning_protocol@1.0",
+  "session_date": "2026-09-06",
+  "research_branch": "high_open_recall_successor_v1",
+  "purpose": "diagnose why the last-hour weakness hinge rescues some actual high opens but also creates too many false high-open calls, without designing or ranking a new successor",
+  "parent_phase2_review": "docs/research/high_open_recall_phase2_cloud_review_20260906.md",
+  "fixed_models": {
+    "incumbent": {
+      "name": "median_quantile_sign",
+      "spec_sha256": "9b0255fbbf6f0c4059e8779e61cb3d5d4eabeab1ce60aed09377d782f755e465"
+    },
+    "diagnostic_progression_candidate": {
+      "name": "weakness_last_hour_piecewise",
+      "spec_sha256": "1a37a46c4c66026f6abe33b84a9d7704ab7c7513312ef15b25607dcfa694392d",
+      "status": "rejected_successor_retained_as_progression_material_only"
+    }
+  },
+  "evidence_boundary": {
+    "development": "2015-01-05_to_2025-12-31",
+    "development_oof": "2016_to_2025_expanding_natural_year",
+    "sealed_repeat_blackbox": "2026-01-05_to_2026-08-21",
+    "true_fresh_reserved": "post_2026-08-21"
+  },
+  "diagnostic_question": "Among prediction changes induced by the frozen last-hour weakness hinge, what causal pre-open state distinguishes rescued actual high opens from newly created false high-open calls?",
+  "required_disagreement_morphology": [
+    "incumbent_down_candidate_up_actual_up_rescue",
+    "incumbent_down_candidate_up_actual_down_new_false_high",
+    "incumbent_up_candidate_down_actual_up_lost_high",
+    "incumbent_up_candidate_down_actual_down_repaired_false_high"
+  ],
+  "preregistered_probe_groups": {
+    "weakness_breadth_and_concentration": [
+      "prev_daytime_weakness",
+      "prev_afternoon_weakness",
+      "prev_last_hour_weakness",
+      "last_hour_minus_daytime_weakness",
+      "last_hour_minus_afternoon_weakness",
+      "tail_only_weakness",
+      "tail_with_broad_day_weakness",
+      "tail_with_broad_afternoon_weakness"
+    ],
+    "prior_gap_context": [
+      "prev_gap",
+      "prev_gap_positive",
+      "prev_gap_negative"
+    ],
+    "trend_and_risk_context": [
+      "r1",
+      "r20",
+      "rvol20",
+      "abs_r1"
+    ]
+  },
+  "derived_probe_definitions": {
+    "prev_daytime_weakness": "max(-prev_daytime, 0)",
+    "prev_afternoon_weakness": "max(-prev_afternoon, 0)",
+    "prev_last_hour_weakness": "max(-prev_last_hour, 0)",
+    "last_hour_minus_daytime_weakness": "prev_last_hour_weakness - prev_daytime_weakness",
+    "last_hour_minus_afternoon_weakness": "prev_last_hour_weakness - prev_afternoon_weakness",
+    "tail_only_weakness": "1 if prev_last_hour < 0 and prev_daytime >= 0 else 0",
+    "tail_with_broad_day_weakness": "1 if prev_last_hour < 0 and prev_daytime < 0 else 0",
+    "tail_with_broad_afternoon_weakness": "1 if prev_last_hour < 0 and prev_afternoon < 0 else 0",
+    "prev_gap_positive": "max(prev_gap, 0)",
+    "prev_gap_negative": "max(-prev_gap, 0)"
+  },
+  "required_outputs": [
+    "overall disagreement counts and direction of prediction flips",
+    "added-up precision = rescued high opens / all incumbent-down-to-candidate-up flips",
+    "continuous-probe rescue-vs-new-false-high mean/median/standardized differences",
+    "continuous-probe quartile added-up precision and counts",
+    "binary-state added-up precision and counts",
+    "annual rescue/new-false-high counts and annual sign consistency",
+    "same development source hashes and 2015-2020 reconstruction audit"
+  ],
+  "mechanism_admission_for_any_later_family": {
+    "financial_interpretability_required": true,
+    "must_separate_rescues_from_new_false_highs_not_merely_correlate_with_gap": true,
+    "prefer_natural_sign_or_low_capacity_continuous_state": true,
+    "require_multi_year_support": true,
+    "no_candidate_family_may_be_frozen_until_this_diagnostic_is_reviewed": true
+  },
+  "forbidden": [
+    "2026 data access",
+    "candidate ranking",
+    "parameter search",
+    "threshold search",
+    "quantile search",
+    "class weighting",
+    "new US interaction search",
+    "calendar-specific rules",
+    "trading-return optimization",
+    "opening OHR-03"
+  ],
+  "production_authority": false
+}

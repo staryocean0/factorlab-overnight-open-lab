@@ -1,0 +1,48 @@
+{
+  "authoritative_local_registry_mutation": false,
+  "cloud_result_import_requires_local_controller_review": true,
+  "excluded": [
+    "FactorLab_git_history",
+    "credentials",
+    "2026_and_later_market_rows",
+    "Layer4_execution",
+    "two_wave_theme_code_and_data_mix",
+    "post_2026-08-21_unread_fresh_rows"
+  ],
+  "high_open_dev_pack": {
+    "2026_included": false,
+    "path": "data/high_open_dev_2015_2025",
+    "replaces_frozen_2015_2020_pack": false,
+    "window": "2015-01-05_to_2025-12-31"
+  },
+  "included": [
+    "handoff_prompt",
+    "overnight_gap_ledger_contracts",
+    "session_clock_and_four_layer_boundary",
+    "strategy_slice_rebuild_skill",
+    "literature_factor_notes",
+    "CSI1000_2015_2020_1m_and_PIT_panel",
+    "US_NASDAQ_VIX_through_2020",
+    "frozen_2019_2020_baseline_receipt",
+    "CSI1000_2015_2025_high_open_development_pack_no_2026",
+    "US_offshore_ETF_2015_2025_yahoo_chart_v8_pack_no_2026"
+  ],
+  "offshore_etf_dev_pack": {
+    "2026_included": false,
+    "path": "data/offshore_etf_dev_2015_2025",
+    "replaces_frozen_ohr05_source_identity": false,
+    "sha256": "045cf728977ff72a9fabd236aaf06b7a9df3310ad1f6f487bd594d487cc05ffd",
+    "window": "2015-01-02_to_2025-12-31"
+  },
+  "objective": "predict_next_csi1000_overnight_open_gap_sign_and_magnitude",
+  "observed_repository_visibility_after_high_open_dev_pack_20260906": "private",
+  "observed_repository_visibility_after_local_controller_fix_20260906": "private",
+  "observed_repository_visibility_after_user_restore_public_20260906": "public",
+  "package_role": "temporary_private_cloud_research_repository",
+  "private_repository_required": true,
+  "production_authority": false,
+  "public_runner_exception_closed": false,
+  "schema_id": "overnight_open_cloud_theme_package_scope@1.0",
+  "sibling_workspace_do_not_merge": "staryocean0/factorlab-two-wave-strategy-lab",
+  "source_project": "FactorLab"
+}

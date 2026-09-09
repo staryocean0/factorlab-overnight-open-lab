@@ -1,0 +1,103 @@
+{
+  "schema_id": "overnight_open_offshore_china_ohr06_diagnostic_protocol@1.0",
+  "session_date": "2026-09-06",
+  "research_branch": "offshore_china_price_discovery_successor_v1",
+  "parent_source_review": "docs/research/offshore_china_ohr05_cloud_source_review_20260906.md",
+  "accepted_source": {
+    "provider": "Yahoo Finance chart v8 (query1.finance.yahoo.com)",
+    "provider_id": "yahoo_finance_chart_v8_query1_interval1d_includePrePost_false_2015-01-01_2025-12-31",
+    "source_sha256": "045cf728977ff72a9fabd236aaf06b7a9df3310ad1f6f487bd594d487cc05ffd",
+    "price_convention": "Yahoo chart v8 indicators.quote regular-session OHLC; includePrePost=false; same-session return=close/open-1; adjclose not used",
+    "symbols": ["ASHS", "ASHR", "FXI", "MCHI", "SPY"],
+    "zero_volume_rule": "a zero-volume ETF session is not an informative price-discovery session; any China day whose required intervening US-session inventory contains a zero-volume required-symbol row is excluded from the common diagnostic inventory"
+  },
+  "evidence_boundary": {
+    "development": "2015-01-05_to_2025-12-31",
+    "development_oof": "2016_to_2025_expanding_natural_year",
+    "sealed_repeat_blackbox": "2026-01-05_to_2026-08-21",
+    "true_fresh_reserved": "post_2026-08-21"
+  },
+  "fixed_incumbent": {
+    "name": "median_quantile_sign",
+    "spec_sha256": "9b0255fbbf6f0c4059e8779e61cb3d5d4eabeab1ce60aed09377d782f755e465",
+    "estimator": "StandardScaler + QuantileRegressor(quantile=0.5, alpha=0.0, solver=highs)",
+    "decision": "prediction >= 0"
+  },
+  "causal_clock": {
+    "china_day": "D",
+    "previous_china_day": "P",
+    "included_us_regular_sessions": "US exchange dates s satisfying P <= s < D",
+    "per_session_return": "close_s/open_s - 1",
+    "per_symbol_post_cn_return": "product_s(1+r_s)-1",
+    "zero_completed_us_sessions": "all per-symbol post-CN returns are 0 because no new US regular-session price-discovery interval exists",
+    "multiple_us_sessions": "compound all complete regular-session returns in the interval",
+    "missing_or_zero_volume_required_session": "exclude the China row from the common diagnostic inventory; never fill as zero"
+  },
+  "fixed_source_representations": {
+    "ashs_session": "ASHS post-CN compounded regular-session return",
+    "ashr_session": "ASHR post-CN compounded regular-session return",
+    "ashs_minus_ashr": "ashs_session - ashr_session",
+    "a_share_consensus": "0.5*(ashs_session + ashr_session)",
+    "a_share_specific_vs_spy": "a_share_consensus - spy_session",
+    "broad_china_specific_vs_spy": "0.5*(fxi_session + mchi_session) - spy_session",
+    "china_etf_positive_breadth": "fraction of ASHS/ASHR/FXI/MCHI compounded post-CN returns > 0"
+  },
+  "primary_slice": {
+    "definition": "incumbent_pred_up == false AND prev_last_hour < 0",
+    "question": "within incumbent low-open calls following a weak prior last hour, is offshore-China post-close repricing systematically higher on actual-high-open days than on actual-low-open days?"
+  },
+  "required_diagnostics_per_representation": [
+    "pooled actual-up minus actual-down mean difference",
+    "pooled actual-up minus actual-down median difference",
+    "pooled standardized mean difference",
+    "quartile counts and actual-up share",
+    "annual actual-up minus actual-down mean differences for 2016-2025",
+    "positive annual difference count",
+    "median annual mean difference"
+  ],
+  "supporting_ohr04_disagreement_check": {
+    "role": "supporting only, never a gate because the disagreement set is small",
+    "slice": "incumbent down -> rejected last-hour candidate up",
+    "compare": "rescued actual highs versus newly created false highs"
+  },
+  "representation_mechanism_gate": {
+    "pooled_mean_difference_positive": true,
+    "positive_annual_difference_count_min": 6,
+    "median_annual_difference_positive": true,
+    "top_quartile_actual_up_share_gt_bottom_quartile": true
+  },
+  "china_specific_admission_rule": {
+    "candidate_family_may_be_opened_only_if_at_least_one_china_specific_representation_passes_all_mechanism_gates": true,
+    "china_specific_representations": [
+      "ashs_minus_ashr",
+      "a_share_specific_vs_spy",
+      "broad_china_specific_vs_spy"
+    ],
+    "raw_or_consensus_representations_cannot_alone_open_a_candidate_family": [
+      "ashs_session",
+      "ashr_session",
+      "a_share_consensus",
+      "china_etf_positive_breadth"
+    ],
+    "reason": "US-listed China ETFs can inherit a broad US common factor while the home market is closed; a later successor needs evidence of China-specific or China-style-relative price discovery rather than generic US risk-on"
+  },
+  "if_no_china_specific_representation_passes": "retain incumbent and close this offshore source identity without candidate selection or 2026 blackbox access",
+  "if_china_specific_representation_passes": "cloud controller may preregister a new bounded candidate family in a later phase; OHR-06 itself still performs no model selection",
+  "forbidden": [
+    "changing Yahoo source/provider/source hash",
+    "adding tickers",
+    "changing source representation weights or formulas",
+    "adding ETF thresholds or interactions",
+    "candidate model ranking",
+    "threshold search",
+    "quantile search",
+    "alpha search",
+    "class weighting",
+    "trading-return optimization",
+    "2026 data access",
+    "opening OHR-03",
+    "reading post-2026-08-21 targets"
+  ],
+  "candidate_selection_performed": false,
+  "production_authority": false
+}

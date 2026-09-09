@@ -1,0 +1,25 @@
+name: overnight-direction-head-dev
+
+on:
+  push:
+    paths:
+      - 'scripts/select_direction_head_dev.py'
+      - '.github/workflows/overnight-direction-head-dev.yml'
+      - 'docs/governance/cloud_session_20260906_direction_head_family_v1.json'
+
+jobs:
+  select:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install research dependencies
+        run: python -m pip install --upgrade pip pandas pyarrow numpy scikit-learn pytest
+      - name: Validate bounded package
+        run: python scripts/validate_theme_package.py
+      - name: Run regression tests
+        run: pytest -q
+      - name: Select bounded direction-head candidate on 2015-2020 expanding OOF only
+        run: python scripts/select_direction_head_dev.py

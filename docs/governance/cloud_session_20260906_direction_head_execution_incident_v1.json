@@ -1,0 +1,47 @@
+{
+  "schema_id": "overnight_open_direction_head_execution_incident@1.0",
+  "session_date": "2026-09-06",
+  "experiment": "docs/governance/cloud_session_20260906_direction_head_family_v1.json",
+  "script": "scripts/select_direction_head_dev.py",
+  "workflow": ".github/workflows/overnight-direction-head-dev.yml",
+  "workflow_run_id": 34012509781,
+  "attempts": [
+    {
+      "attempt": 1,
+      "job_id": 101430628473,
+      "conclusion": "failure",
+      "steps_returned_by_github": 0,
+      "decoded_log_available": false
+    },
+    {
+      "attempt": 2,
+      "job_id": 101430747000,
+      "conclusion": "failure",
+      "steps_returned_by_github": 0,
+      "decoded_log_available": false,
+      "rerun_was_identical": true
+    }
+  ],
+  "classification": "infrastructure_gap_before_research_code_execution",
+  "candidate_models_executed": false,
+  "candidate_result_available": false,
+  "scientific_verdict": "none",
+  "research_family_mutated_after_failure": false,
+  "repository_visibility_must_remain": "private",
+  "local_recovery_command": "python scripts/select_direction_head_dev.py",
+  "required_prechecks": [
+    "python scripts/validate_theme_package.py",
+    "pytest -q"
+  ],
+  "forbidden_recovery_changes": [
+    "changing candidate family",
+    "changing features",
+    "changing alpha or C",
+    "changing quantile",
+    "changing probability threshold",
+    "using 2021-2025 for ranking",
+    "making repository public to obtain a runner"
+  ],
+  "fresh_oos": false,
+  "production_authority": false
+}

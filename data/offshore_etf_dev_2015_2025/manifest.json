@@ -1,0 +1,18 @@
+{
+  "schema_id": "overnight_open_offshore_etf_dev_pack@1.0",
+  "role": "user_authorized_cloud_copy_of_frozen_ohr05_source",
+  "provider": "Yahoo Finance chart v8 (query1.finance.yahoo.com)",
+  "provider_id": "yahoo_finance_chart_v8_query1_interval1d_includePrePost_false_2015-01-01_2025-12-31",
+  "price_convention": "Yahoo chart v8 indicators.quote regular-session OHLC; split-adjusted quote, not dividend-adjusted adjclose; includePrePost=false; same-session return = quote.close/quote.open - 1",
+  "path": "data/offshore_etf_dev_2015_2025/offshore_etf_daily.parquet",
+  "rows": 13830,
+  "bytes": 186252,
+  "sha256": "045cf728977ff72a9fabd236aaf06b7a9df3310ad1f6f487bd594d487cc05ffd",
+  "symbols": ["ASHS", "ASHR", "FXI", "MCHI", "SPY"],
+  "min_day": "2015-01-02",
+  "max_day": "2025-12-31",
+  "2026_included": false,
+  "new_source_identity": false,
+  "china_target_included": false,
+  "production_authority": false
+}

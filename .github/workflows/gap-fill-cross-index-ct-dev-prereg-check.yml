@@ -1,0 +1,46 @@
+name: gap-fill-cross-index-ct-dev-prereg-check
+
+on:
+  push:
+    paths:
+      - '.github/workflows/gap-fill-cross-index-ct-dev-prereg-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install test dependencies
+        run: python -m pip install --upgrade pandas pyarrow numpy scipy scikit-learn pytest
+      - name: Verify CT-DEV preregistered blobs
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git hash-object docs/governance/cloud_session_20260906_gap_fill_cross_index_transport_protocol_v1.json)" = "5a74436422939973267a1edc4e4deeb21bf5a05e"
+          test "$(git hash-object scripts/run_gap_fill_cross_index_transport_dev.py)" = "165f75e60c407f4952440dd50c3a38f8fc45c4df"
+          test "$(git hash-object tests/test_gap_fill_cross_index_transport_protocol.py)" = "2bc0784b6b6daa7f3f53cef5767bdd130438244c"
+          test "$(git hash-object docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_freeze_v1.json)" = "eef7a9af6d42ee2faf53dbd16dce0b15ebfd10ed"
+      - name: Compile CT-DEV runner only
+        run: python3 -m py_compile scripts/run_gap_fill_cross_index_transport_dev.py
+      - name: Validate theme package
+        run: python3 scripts/validate_theme_package.py
+      - name: Run full regression tests
+        run: python3 -m pytest -q
+      - name: Assert cross-index outcomes remain unopened
+        shell: bash
+        run: |
+          set -euo pipefail
+          test ! -e docs/research/local_gap_fill_cross_index_transport_dev_receipt_v1.json
+          test ! -e docs/governance/local_gap_fill_cross_index_transport_dev_parameter_freeze_v1.json
+          test ! -e docs/governance/local_gap_fill_cross_index_transport_dev_data_usage_v1.json
+          test ! -e docs/research/local_gap_fill_cross_index_transport_audit_a_receipt_v1.json
+          test ! -e docs/research/local_gap_fill_cross_index_transport_audit_b_receipt_v1.json
+          echo 'CT-DEV preregistration valid; external-index outcomes remain unopened.'

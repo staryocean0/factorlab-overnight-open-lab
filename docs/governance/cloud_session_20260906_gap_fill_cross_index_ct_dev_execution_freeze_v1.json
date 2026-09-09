@@ -1,0 +1,70 @@
+{
+  "schema_id": "overnight_open_gap_fill_cross_index_ct_dev_execution_freeze@1.0",
+  "session_date": "2026-09-06",
+  "research_identity": "gap_fill_cross_index_transport_v1",
+  "status": "frozen_before_any_CSI300_CSI500_CT_DEV_outcome_open",
+  "bound_git_blobs": {
+    "source_receipt": {
+      "path": "docs/research/local_gap_fill_v2_historical_source_inventory_v1.json",
+      "blob_sha": "d1b364b20e6a2bdc6d9836c302258c2fbf16165d"
+    },
+    "source_adjudication": {
+      "path": "docs/research/gap_fill_v2_he00_cloud_source_adjudication_20260906.md",
+      "blob_sha": "ad5a67dc62f84d1f6307c59da7816b7509199eb8"
+    },
+    "protocol": {
+      "path": "docs/governance/cloud_session_20260906_gap_fill_cross_index_transport_protocol_v1.json",
+      "blob_sha": "5a74436422939973267a1edc4e4deeb21bf5a05e"
+    },
+    "runner": {
+      "path": "scripts/run_gap_fill_cross_index_transport_dev.py",
+      "blob_sha": "165f75e60c407f4952440dd50c3a38f8fc45c4df"
+    },
+    "tests": {
+      "path": "tests/test_gap_fill_cross_index_transport_protocol.py",
+      "blob_sha": "2bc0784b6b6daa7f3f53cef5767bdd130438244c"
+    },
+    "csi1000_parameter_artifact": {
+      "path": "docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_freeze_v1.json",
+      "blob_sha": "eef7a9af6d42ee2faf53dbd16dce0b15ebfd10ed",
+      "architecture_sha256": "07810dafbab629f196d04ea1204d90ee68177ce764bb765be560bc1b84261c00",
+      "parameter_bundle_sha256": "07abe29e31ce09b69bd6250b1ce3ebc5af7688b69ed39909feb80e9db882aaa0"
+    }
+  },
+  "admitted_local_source": {
+    "dataset_version": "bars_cn_index_1m_raw_canonical_market_index_baidu_3s_20000714_20260821_factorlab_unified_missing_day_repaired_v8_20260824",
+    "dataset_sha256_from_HE00": "25f4f9f8b67c799ffb1a7b7fdee94b0b21dbbfed1efc54d063264ccb046411f0",
+    "required_environment_variable": "OVERNIGHT_HISTORICAL_INDEX_1M_LAKE"
+  },
+  "authorized_open_now": {
+    "CSI300": "2005-04-08_to_2010-12-31_DEV_only",
+    "CSI500": "2007-01-15_to_2010-12-31_DEV_only"
+  },
+  "sealed": {
+    "CSI300_CSI500_Audit_A_2011_2012": true,
+    "CSI300_CSI500_Audit_B_2013_to_2014_10_16": true,
+    "CSI300_CSI500_supporting_crosscheck_2014_10_17_to_2014_12_31": true,
+    "CSI1000_2026_08_24_to_2026_12_31_true_fresh": true
+  },
+  "transport_modes": {
+    "T1_exact_CSI1000_parameter_transport": "no_refit",
+    "T2_index_specific_same_architecture": "DEV_only_refit_with_expanding_year_OOF"
+  },
+  "target_validity": "common_exact_complete_240_clock_target_days_only_no_forward_fill",
+  "static_preregistration_check": {
+    "github_actions_run_id": 34042791742,
+    "runner_compile": "passed",
+    "theme_validator": "passed",
+    "pytest": "72_passed",
+    "CT_DEV_outputs_present": false,
+    "Audit_A_outputs_present": false,
+    "Audit_B_outputs_present": false
+  },
+  "expected_outputs": [
+    "docs/research/local_gap_fill_cross_index_transport_dev_receipt_v1.json",
+    "docs/governance/local_gap_fill_cross_index_transport_dev_parameter_freeze_v1.json",
+    "docs/governance/local_gap_fill_cross_index_transport_dev_data_usage_v1.json"
+  ],
+  "next_stage": "cloud_review_before_any_Audit_A_open",
+  "production_authority": false
+}

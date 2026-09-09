@@ -1,0 +1,34 @@
+{
+  "schema_id": "overnight_open_posthoc_diagnostic_scope@1.0",
+  "session_date": "2026-09-06",
+  "candidate_sha256": "c2df5d9acdd9d970288ae8f990834d8b91495695b4e95bde0b82f88b160da12e",
+  "evidence_role": "post_hoc_root_cause_only",
+  "holdout_already_consumed": true,
+  "may_select_or_promote_new_parameters": false,
+  "may_change_candidate": false,
+  "questions": [
+    "Is the candidate sign-hit loss concentrated in ordinary opens (abs gap <= 30bp) or in tail high/low opens?",
+    "Are magnitude gains concentrated in the tail high/low opens that the overnight ledger explicitly cares about?",
+    "Do zero-, one-, and multi-US-session clock regimes explain where the candidate differs from the baseline?",
+    "When candidate and baseline disagree on sign, what are the counts and absolute-gap magnitudes of candidate-only wins versus baseline-only wins?",
+    "Does the legacy majority_down comparator mismatch come from exact-zero gap treatment?"
+  ],
+  "fixed_diagnostic_slices": {
+    "ordinary_open": "abs(gap) <= 0.003, inherited from timing_layer2_overnight_gap_ledger@1.2",
+    "tail_open": "abs(gap) > 0.003",
+    "us_clock_regime": ["zero_new_us_session", "one_new_us_session", "multiple_new_us_sessions"],
+    "calendar": ["2019", "2020"],
+    "holiday_reopen": [false, true]
+  },
+  "forbidden": [
+    "threshold_search",
+    "alpha_search",
+    "feature selection",
+    "return optimization",
+    "claiming any post-hoc slice as fresh OOS"
+  ],
+  "authority": {
+    "fresh_oos": false,
+    "production_authority": false
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "schema_id": "overnight_open_high_open_recall_research_protocol@1.0",
+  "session_date": "2026-09-06",
+  "research_branch": "high_open_recall_successor_v1",
+  "research_question": "Why does the accepted Median direction head still miss a large share of actual high-open days, and can a low-capacity causal mechanism improve high-open recall without giving back the existing direction-hit and balanced-accuracy gains?",
+  "parent_architecture": "docs/governance/cloud_session_20260906_research_architecture_acceptance_v1.json",
+  "incumbent_direction": {
+    "name": "median_quantile_sign",
+    "spec": "docs/governance/cloud_session_20260906_direction_head_selected_v1.json",
+    "spec_sha256": "9b0255fbbf6f0c4059e8779e61cb3d5d4eabeab1ce60aed09377d782f755e465"
+  },
+  "evidence_boundary": {
+    "2015-01-05_to_2020-12-31": "development_material",
+    "2021-01-01_to_2025-12-31": "consumed_prior_challenge_reclassified_as_development_material_for_this_new_identity_only",
+    "2026-01-05_to_2026-08-21": "sealed_repeat_blackbox_validation_only",
+    "post_2026-08-21": "reserved_unread_true_fresh_challenge_for_any_integrated_successor"
+  },
+  "2026_blackbox_semantics": {
+    "may_participate_in_diagnostics": false,
+    "may_participate_in_feature_engineering": false,
+    "may_participate_in_candidate_family_design": false,
+    "may_participate_in_candidate_ranking": false,
+    "may_participate_in_threshold_or_loss_selection": false,
+    "may_be_opened_only_after_candidate_identity_is_frozen": true,
+    "role_after_freeze": "repeat_blackbox_reproduction_or_rejection_only",
+    "fresh_oos_authority": false,
+    "reason_not_fresh": "This exact window was already opened in the prior direction-head cycle and its aggregate/monthly results are known; it can remain operationally sealed from the new development process but cannot become scientifically unseen again."
+  },
+  "phase_1_mechanism_diagnosis": {
+    "development_end": "2025-12-31",
+    "prediction_method": "natural-year expanding OOF incumbent Median head; each year is predicted only from prior years",
+    "years_scored": "2016-2025",
+    "forbidden": [
+      "new candidate ranking",
+      "parameter search",
+      "quantile search",
+      "threshold search",
+      "class weighting",
+      "2026 data access",
+      "trading-return optimization"
+    ],
+    "required_diagnostics": [
+      "false-negative share by actual positive-gap magnitude",
+      "false-negative score-margin distance below zero",
+      "annual high-open recall and predicted-up share",
+      "slow opening-regime state from prior-only gap history",
+      "asymmetric positive versus negative US interval transmission",
+      "joint NASDAQ-up and VIX-down risk-on impulse",
+      "prior-China-weakness times positive-US-risk-on catch-up interactions",
+      "US-session-count and holiday-reopen diagnostics",
+      "material-high-open recall for >10bp and >30bp positive gaps"
+    ]
+  },
+  "phase_2_candidate_family_rule": {
+    "candidate_family_must_be_frozen_after_phase_1_and_before_any_2026_blackbox_open": true,
+    "candidate_components_must_map_to_a_phase_1_supported_financial_mechanism": true,
+    "prefer_low_capacity_causal_features_over_threshold_patching": true,
+    "threshold_only_or_quantile_shift_solution": "diagnostic comparator only unless the financial owner explicitly changes asymmetric error utility",
+    "no_calendar_specific_rules": true,
+    "no_2026_tuning": true
+  },
+  "development_selection_principle": {
+    "evaluation": "2016-2025 expanding natural-year OOF only",
+    "primary_improvement_target": "recall_up",
+    "non_sacrifice_constraints": [
+      "direction_hit >= incumbent direction_hit",
+      "balanced_accuracy >= incumbent balanced_accuracy",
+      "recall_down > 0.5"
+    ],
+    "secondary_robustness": [
+      "positive recall_up delta in a majority of affected years",
+      "material-high-open recall for actual gap >10bp",
+      "material-high-open recall for actual gap >30bp",
+      "predicted-up share calibration",
+      "ROC AUC",
+      "paired disagreement counts"
+    ],
+    "trading_return_gate": false
+  },
+  "phase_3_blackbox": {
+    "window": "2026-01-05_to_2026-08-21",
+    "open_once_per_frozen_successor_identity": true,
+    "no_retuning_after_open": true,
+    "may_reject_successor": true,
+    "may_grant_fresh_confirmation": false
+  },
+  "true_fresh_promotion": {
+    "window": "post_2026-08-21",
+    "must_be_unread_until_protocol_and_successor_are_frozen": true,
+    "required_before_any_claim_of_new_fresh_confirmed_integrated_successor": true
+  },
+  "production_authority": false
+}

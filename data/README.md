@@ -1,22 +1,32 @@
-# Data in the current worktree
+# Development data
 
-The active research path uses one retained historical CSI1000 source:
+Only `000852.SH` and supporting US prints through 2020-12-31.
 
-`high_open_dev_2015_2025/1m_official.parquet`
+- `csi1000_open_pit_panel.parquet`: one row per China session being predicted. Target `gap` is that session's overnight open vs previous 15:00 close. All `prev_*`, `r*`, `us_*`, `holiday_reopen`, `weekend` columns are known before 09:31.
+- `1m_official.parquet`: DataHub 1-minute bars 2015-01-05 through 2020-12-31. `timestamp_source_serialized` keeps the original `Z`-wrapped Shanghai clock.
+- `us_nasdaq_vix.parquet`: FRED NASDAQCOM and VIXCLS. Use the last US session strictly before the China trading day.
 
-Its scientific roles are already consumed/frozen:
+No 2021+ rows. Index path, not a tradable fill. Do not resample new wall-clock frequencies.
 
-- 2015–2019: representation-selection development material;
-- 2020–2022: consumed held-forward stability material;
-- 2023–2025: R1 within-program mechanism holdout, now consumed by the frozen no-refit confirmation;
-- none of these periods are scientifically fresh for the next R1 claim.
+## High-open development pack
 
-The next truly fresh R1 challenge is **not present in this file**. Complete 2026Q4 must be separately sourced and admitted under the frozen protocol after the quarter is complete.
+`high_open_dev_2015_2025/` extends the cloud workspace with `000852.SH` rows through
+2025-12-31 so high-open recall development scripts can run without local FactorLab
+absolute paths.
 
-Legacy data packs from closed research lines were removed from the current data surface and remain recoverable from Git commit `21ddcceb79929f5cd318ac5b8aa4579539f70dd7`.
+- 2026-01-05 through 2026-08-21 remains excluded from this development pack.
+- post-2026-08-21 remains excluded.
+- The 2015-2020 files above stay frozen and unmodified.
 
-The one special merged legacy pack from the retired temporary repository is retained once at:
+## Gap-Fill V2 2026 repeat pack
 
-`../archive/data/gap_fill_repeat_2026/`
+`gap_fill_repeat_2026/` is a user-authorized public copy of the frozen
+repeat-only inputs:
 
-It is repeat-only historical material, not current R1 evidence and not production data.
+- annotated panel `2025-10-09` through `2026-08-21` (214 rows; 154 in the
+  2026 validation window)
+- `000852.SH` one-minute bars `2026-01-05` through `2026-08-21` (36960 rows)
+
+This pack is not fresh OOS. Post-2026-08-21 remains excluded. See
+`data/gap_fill_repeat_2026/README.md`.
+

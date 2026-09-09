@@ -1,0 +1,51 @@
+name: overnight-index-series-probe
+
+on:
+  push:
+    paths:
+      - '.github/workflows/overnight-index-series-probe.yml'
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Sparse-clone consumed-through-2025 market index product
+        run: |
+          git clone --depth 1 --filter=blob:none --sparse https://github.com/staryocean0/factorlab-multifactor-stock-lab.git /tmp/multi
+          cd /tmp/multi
+          git sparse-checkout set data/development/cloudridge_index_series.json
+          test -f data/development/cloudridge_index_series.json
+          wc -c data/development/cloudridge_index_series.json
+      - name: Inspect CSI1000 presence and granularity without reading 2026
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('/tmp/multi/data/development/cloudridge_index_series.json')
+          txt=p.read_text(encoding='utf-8')
+          print('TEXT_000852_COUNT', txt.count('000852'))
+          obj=json.loads(txt)
+          print('TOP_TYPE', type(obj).__name__)
+          if isinstance(obj,dict): print('TOP_KEYS', list(obj)[:50])
+          if isinstance(obj,list): print('TOP_LEN', len(obj), 'FIRST_TYPE', type(obj[0]).__name__ if obj else None)
+          hits=[]
+          def walk(x,path='root'):
+              if len(hits)>=20: return
+              if isinstance(x,dict):
+                  joined=' '.join(str(v) for v in x.values() if isinstance(v,(str,int,float)))
+                  if '000852' in joined:
+                      hits.append((path,x))
+                  for k,v in x.items(): walk(v,f'{path}.{k}')
+              elif isinstance(x,list):
+                  for i,v in enumerate(x): walk(v,f'{path}[{i}]')
+          walk(obj)
+          print('HITS', len(hits))
+          for path,x in hits[:10]:
+              print('HIT_PATH', path)
+              print('HIT_KEYS', list(x)[:30])
+              print('HIT', {k:x[k] for k in list(x)[:30] if isinstance(x[k],(str,int,float,bool,type(None)))})
+          PY

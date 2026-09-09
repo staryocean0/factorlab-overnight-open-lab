@@ -1,0 +1,79 @@
+{
+  "schema_id": "overnight_open_two_head_selected_candidate@1.0",
+  "session_date": "2026-09-06",
+  "selection_run_id": 34010421555,
+  "selection_commit": "ef7c277d16fa8b69efa1e283a4e30446d9717b00",
+  "family_preregistration": "docs/governance/cloud_session_20260906_two_head_family_v1.json",
+  "selection_script": "scripts/select_two_head_dev.py",
+  "evidence_role": "post_hoc_architecture_development_selection_not_promotion",
+  "holdout_2019_2020_used_for_this_selection": false,
+  "selected_spec": {
+    "architecture": "two_head_direction_magnitude@1.0",
+    "direction_head": {
+      "alpha": 1.0,
+      "features": [
+        "r1", "r20", "abs_r1", "prev_gap", "overnight_trend_5",
+        "prev_daytime", "prev_last_hour", "prev_afternoon", "rvol20",
+        "weekend", "holiday_reopen", "us_nasdaq", "us_vix_chg"
+      ],
+      "target": "gap",
+      "output": "prediction>=0"
+    },
+    "magnitude_head": {
+      "variant": "abs_frozen_clock_signed_prediction",
+      "alpha": 100.0,
+      "features": [
+        "r1", "r20", "abs_r1", "prev_gap", "overnight_trend_5",
+        "prev_daytime", "prev_last_hour", "prev_afternoon", "rvol20",
+        "weekend", "holiday_reopen", "us_nasdaq_interval", "us_vix_interval",
+        "us_session_count", "us_nasdaq_interval_x_holiday", "us_vix_interval_x_holiday"
+      ],
+      "target": "gap",
+      "transform": "abs(prediction)"
+    },
+    "recombination": "direction_sign * magnitude",
+    "selection_window": "2015-2018_time_ordered_OOF",
+    "eligible_validation": "local_2021_2025_only",
+    "sha256": "76ff94f401eb3a9a9edc1cc462a3d818b49bfc732b93ee0bfc1a7070f92ccb8f"
+  },
+  "development_oof_year_equal": {
+    "baseline": {
+      "mean_direction_hit": 0.6845124163940746,
+      "mean_corr_abs_gap": 0.44394025337141024,
+      "mean_mae_abs_gap": 0.002926026759433814,
+      "mean_rmse_abs_gap": 0.004323073519112022,
+      "worst_year_corr_abs_gap": 0.3850458950333627
+    },
+    "selected": {
+      "mean_direction_hit": 0.6845124163940746,
+      "mean_corr_abs_gap": 0.5266590761362648,
+      "mean_mae_abs_gap": 0.0025905633288842837,
+      "mean_rmse_abs_gap": 0.003834643269751072,
+      "worst_year_corr_abs_gap": 0.429486215550854
+    }
+  },
+  "development_oof_pooled": {
+    "n": 729,
+    "baseline_magnitude": {
+      "corr_abs_gap": 0.46858878957809486,
+      "mae_abs_gap": 0.002923144612107467,
+      "rmse_abs_gap": 0.004514580321527577
+    },
+    "selected_magnitude": {
+      "corr_abs_gap": 0.5725439220242837,
+      "mae_abs_gap": 0.002588478785097886,
+      "rmse_abs_gap": 0.003946591250708014
+    },
+    "baseline_direction_hit": 0.6844993141289437,
+    "selected_direction_hit": 0.6844993141289437,
+    "baseline_signed_ic": 0.4895953716934997,
+    "selected_signed_ic": 0.47943470711203884,
+    "baseline_signed_mae": 0.0036746291601030294,
+    "selected_signed_mae": 0.003307451466625082,
+    "baseline_signed_rmse": 0.005532622373369998,
+    "selected_signed_rmse": 0.005340755303089074
+  },
+  "interpretation": "Direction and magnitude are separate statistical tasks. The selected candidate preserves the frozen baseline direction decision exactly while using the absolute value of the frozen clock-aware signed-gap regressor as the magnitude estimate. It materially improves magnitude correlation and error on 2015-2018 OOF without a direction-hit tradeoff. Because the architecture was motivated after consuming 2019-2020 diagnostics, only local 2021-2025 can provide fresh confirmation.",
+  "fresh_oos": false,
+  "production_authority": false
+}

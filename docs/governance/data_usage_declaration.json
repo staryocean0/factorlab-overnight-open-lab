@@ -1,0 +1,232 @@
+{
+  "development_material": {
+    "start": "2015-01-05",
+    "end": "2020-12-31"
+  },
+  "internal_holdout": {
+    "start": "2019-01-01",
+    "end": "2020-12-31",
+    "note": "used only for the frozen baseline receipt; cloud models may use 2015-2020 as development but must report 2019-2020 holdout separately if they train on 2015-2018"
+  },
+  "unread_in_this_repository": "2026+",
+  "local_fresh_challenge": {
+    "window": "2021-01-01_to_2025-12-31",
+    "role": "opened_once_outside_bounded_repo_after_2015_2020_fit_freeze",
+    "receipt": "docs/research/cloud_session_20260906_local_2021_2025_two_head_receipt_v1.json",
+    "raw_rows_in_this_repository_at_challenge_time": false
+  },
+  "direction_successor_development": {
+    "window": "2015-01-05_to_2020-12-31",
+    "role": "expanding_year_OOF_selection_of_fixed_loss_objective_family",
+    "selected": "median_quantile_sign",
+    "receipt": "docs/research/cloud_session_20260906_direction_head_dev_receipt_v1.json",
+    "fresh_oos": false
+  },
+  "direction_2026_future_challenge": {
+    "window": "2026-01-05_to_2026-08-21",
+    "protocol": "docs/governance/cloud_session_20260906_direction_2026_fresh_protocol_v1.json",
+    "status": "opened_once_after_fit_freeze",
+    "decision": "direction_candidate_2026_robustly_confirmed",
+    "receipt": "docs/research/cloud_session_20260906_local_2026_direction_receipt_v1.json",
+    "raw_rows_in_this_repository": false,
+    "post_2026_08_21": "reserved_unread_for_this_candidate_identity"
+  },
+  "high_open_recall_successor_v1": {
+    "protocol": "docs/governance/cloud_session_20260906_high_open_recall_research_protocol_v1.json",
+    "research_question": "explain_and_reduce_high_open_false_negatives_without_sacrificing_existing_direction_quality",
+    "development_material": "2015-01-05_to_2025-12-31",
+    "development_note": "2021-2025 was already consumed in a prior challenge and is reclassified only as development material for this new identity; it is not fresh evidence",
+    "phase_1": {
+      "status": "completed_cloud_review_accepted",
+      "local_receipt": "docs/research/cloud_session_20260906_local_high_open_recall_diagnostic_receipt_v1.json",
+      "adjudication": "docs/research/high_open_recall_phase1_adjudication_20260906.md",
+      "admitted_mechanism": "prior_china_weakness_nonlinear_rebound",
+      "2026_used": false
+    },
+    "phase_2": {
+      "status": "completed_cloud_review_no_incremental_successor",
+      "family": "docs/governance/cloud_session_20260906_high_open_recall_phase2_family_v1.json",
+      "selector": "scripts/select_high_open_recall_phase2_dev.py",
+      "local_receipt": "docs/research/cloud_session_20260906_local_high_open_recall_phase2_dev_receipt_v1.json",
+      "cloud_review": "docs/research/high_open_recall_phase2_cloud_review_20260906.md",
+      "decision": "retain_incumbent_do_not_open_repeat_blackbox",
+      "selected": null,
+      "diagnostic_progression_material": "weakness_last_hour_piecewise",
+      "development_window": "2015-01-05_to_2025-12-31",
+      "2026_used": false
+    },
+    "rebound_conditioning_diagnostic": {
+      "status": "completed_cloud_review_no_admitted_conditioning_mechanism",
+      "protocol": "docs/governance/cloud_session_20260906_high_open_rebound_conditioning_protocol_v1.json",
+      "runner": "scripts/diagnose_last_hour_rebound_conditioning_dev.py",
+      "local_receipt": "docs/research/cloud_session_20260906_local_last_hour_rebound_conditioning_receipt_v1.json",
+      "cloud_review": "docs/research/high_open_recall_ohr04_cloud_review_20260906.md",
+      "decision": "retain_incumbent_no_new_family_from_existing_domestic_conditioning_probes",
+      "candidate_selection_performed": false,
+      "2026_used": false
+    },
+    "blackbox_repeat_validation": {
+      "window": "2026-01-05_to_2026-08-21",
+      "status": "sealed_no_successor_so_not_opened_for_this_branch",
+      "ohr_03_status": "not_opened",
+      "may_participate_in_design_or_ranking": false,
+      "fresh_oos_authority": false,
+      "reason": "already opened in the prior direction-head cycle and no successor has passed development gates"
+    },
+    "true_fresh_reserved": "post_2026-08-21",
+    "raw_2021_plus_rows_in_repository": true,
+    "raw_2021_2025_rows_in_repository": true,
+    "raw_2026_rows_in_repository": false
+  },
+  "offshore_china_price_discovery_successor_v1": {
+    "protocol": "docs/governance/cloud_session_20260906_offshore_china_price_discovery_protocol_v1.json",
+    "preanalysis": "docs/research/offshore_china_price_discovery_preanalysis_20260906.md",
+    "research_question": "whether post-China-close US-session price discovery in US-listed China and A-share ETFs supplies a stable China-specific rebound-versus-continuation state",
+    "development_material": "2015-01-05_to_2025-12-31",
+    "status": "closed_no_incremental_high_open_successor",
+    "source_admission": {
+      "status": "completed_cloud_review_accepted_yahoo_chart_v8",
+      "runner": "scripts/probe_offshore_china_source_quality.py",
+      "local_receipt": "docs/research/cloud_session_20260906_local_offshore_china_source_freeze_v1.json",
+      "cloud_review": "docs/research/offshore_china_ohr05_cloud_source_review_20260906.md",
+      "provider": "Yahoo Finance chart v8 (query1.finance.yahoo.com)",
+      "source_path": "data/offshore_etf_dev_2015_2025/offshore_etf_daily.parquet",
+      "source_sha256": "045cf728977ff72a9fabd236aaf06b7a9df3310ad1f6f487bd594d487cc05ffd",
+      "required_symbols": ["ASHS", "ASHR", "FXI", "MCHI", "SPY"],
+      "china_target_loaded_during_source_admission": false,
+      "2026_used": false
+    },
+    "ohr06_mechanism_diagnostic": {
+      "status": "completed_cloud_mechanism_supported",
+      "protocol": "docs/governance/cloud_session_20260906_offshore_china_ohr06_diagnostic_protocol_v1.json",
+      "runner": "scripts/diagnose_offshore_china_price_discovery_dev.py",
+      "receipt": "docs/research/cloud_session_20260906_local_offshore_china_ohr06_diagnostic_receipt_v1.json",
+      "adjudication": "docs/research/offshore_china_ohr06_cloud_adjudication_20260906.md",
+      "cloud_run_id": 34025772456,
+      "china_specific_passers": ["broad_china_specific_vs_spy"],
+      "candidate_selection_performed": false,
+      "2026_used": false
+    },
+    "ohr07_joint_refit_candidate": {
+      "status": "completed_rejected",
+      "family": "docs/governance/cloud_session_20260906_offshore_china_ohr07_family_v1.json",
+      "runner": "scripts/select_offshore_china_ohr07_dev.py",
+      "receipt": "docs/research/cloud_session_20260906_cloud_offshore_china_ohr07_dev_receipt_v1.json",
+      "review": "docs/research/offshore_china_ohr07_cloud_review_20260906.md",
+      "cloud_run_id": 34026047565,
+      "selected": null,
+      "decision": "retain_incumbent_close_offshore_route_do_not_open_repeat_blackbox",
+      "2026_used": false
+    },
+    "ohr08_frozen_base_overlay": {
+      "status": "completed_final_candidate_rejected_route_closed",
+      "protocol": "docs/governance/cloud_session_20260906_offshore_china_ohr08_frozen_base_overlay_v1.json",
+      "execution_freeze": "docs/governance/cloud_session_20260906_offshore_china_ohr08_execution_freeze_v1.json",
+      "runner": "scripts/select_offshore_china_ohr08_frozen_base_overlay_dev.py",
+      "receipt": "docs/research/cloud_session_20260906_cloud_offshore_china_ohr08_dev_receipt_v1.json",
+      "cloud_run_id": 34026483074,
+      "selected": null,
+      "decision": "close_offshore_china_route_retain_incumbent_do_not_open_2026",
+      "stage1_exact_incumbent_replay": true,
+      "non_tail_predictions_identical": true,
+      "beta_grid_search_performed": false,
+      "2026_used": false
+    },
+    "closeout": "docs/research/offshore_china_price_discovery_route_closeout_20260906.md",
+    "final_incumbent": "median_quantile_sign",
+    "progression_material_only": "broad_china_specific_vs_spy",
+    "repeat_blackbox": {
+      "window": "2026-01-05_to_2026-08-21",
+      "status": "sealed_route_closed_no_successor",
+      "ohr_03_status": "not_opened",
+      "may_participate_in_source_feature_or_model_design": false,
+      "fresh_oos_authority": false
+    },
+    "true_fresh_reserved": "post_2026-08-21",
+    "raw_external_rows_in_repository": true,
+    "raw_2026_rows_in_repository": false,
+    "production_authority": false
+  },
+  "gap_fill_prediction_v2": {
+    "status": "v2_v1_development_selected_and_parameter_frozen_repeat_not_opened",
+    "research_question": "conditional on the observed CSI1000 09:31 opening gap, predict whether the previous close is fully revisited within 15m, 60m or EOD",
+    "protocol": "docs/governance/cloud_session_20260906_gap_fill_prediction_v2_protocol_v1.json",
+    "development_material": "2015-01-05_to_2025-12-31",
+    "target_ledger": {
+      "status": "completed_cloud_no_model_fitting",
+      "runner": "scripts/build_gap_fill_v2_target_ledger.py",
+      "receipt": "docs/research/cloud_session_20260906_gap_fill_v2_target_ledger_v1.json",
+      "data_usage": "docs/governance/cloud_session_20260906_gap_fill_v2_target_data_usage_v1.json",
+      "valid_target_days": 2670,
+      "2026_used": false
+    },
+    "phase1_factor_diagnostic": {
+      "status": "completed_cloud_adjudicated",
+      "protocol": "docs/governance/cloud_session_20260906_gap_fill_v2_phase1_factor_diagnostic_protocol_v1.json",
+      "execution_freeze": "docs/governance/cloud_session_20260906_gap_fill_v2_phase1_execution_freeze_v1.json",
+      "runner": "scripts/diagnose_gap_fill_v2_phase1_factors.py",
+      "receipt": "docs/research/cloud_session_20260906_gap_fill_v2_phase1_factor_diagnostic_receipt_v1.json",
+      "data_usage": "docs/governance/cloud_session_20260906_gap_fill_v2_phase1_factor_data_usage_v1.json",
+      "adjudication": "docs/research/gap_fill_v2_phase1_factor_adjudication_20260906.md",
+      "cloud_run_id": 34032893251,
+      "common_complete_rows": 2421,
+      "high_rows": 942,
+      "low_rows": 1479,
+      "candidate_selection_performed": false,
+      "gap_fill_model_fitting_performed": false,
+      "2026_used": false
+    },
+    "authorized_first_family_boundary": {
+      "high_gap": ["abs_gap", "abs_gap_over_rvol20", "v1_direction_support", "nasdaq_interval_support", "vix_interval_support", "prior_daytime_alignment", "prior_last_hour_alignment"],
+      "low_gap": ["abs_gap", "abs_gap_over_rvol20", "v1_direction_support", "nasdaq_interval_support", "vix_interval_support"],
+      "excluded_first_family": ["v1_magnitude_surprise", "broad_china_specific_support", "prior_gap_alignment"]
+    },
+    "phase2": {
+      "status": "completed_cloud_selected_geometry_only_both_signs",
+      "family": "docs/governance/cloud_session_20260906_gap_fill_v2_phase2_hazard_family_v1.json",
+      "execution_freeze": "docs/governance/cloud_session_20260906_gap_fill_v2_phase2_execution_freeze_v1.json",
+      "runner": "scripts/select_gap_fill_v2_phase2_hazard_family.py",
+      "receipt": "docs/research/cloud_session_20260906_gap_fill_v2_phase2_hazard_selection_receipt_v1.json",
+      "data_usage": "docs/governance/cloud_session_20260906_gap_fill_v2_phase2_hazard_data_usage_v1.json",
+      "adjudication": "docs/research/gap_fill_v2_phase2_hazard_adjudication_20260906.md",
+      "selected": "docs/governance/cloud_session_20260906_gap_fill_v2_phase2_selected_v1.json",
+      "cloud_run_id": 34033989463,
+      "selected_architecture_sha256": "07810dafbab629f196d04ea1204d90ee68177ce764bb765be560bc1b84261c00",
+      "high_selected": "geometry_only",
+      "high_spec_sha256": "068bb732f992d1e2800489b4e3ac2320bd13ec465e3c23f4b4cc800fe9e45a51",
+      "low_selected": "geometry_only",
+      "low_spec_sha256": "f36f53d24b5f223094c6ad936a9de963365b686a1df474bfdfdc6336a9f53082",
+      "2026_used": false
+    },
+    "final_development_fit": {
+      "status": "completed_parameter_identity_frozen",
+      "protocol": "docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_protocol_v1.json",
+      "execution_freeze": "docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_execution_freeze_v1.json",
+      "runner": "scripts/fit_gap_fill_v2_selected_dev.py",
+      "parameter_freeze": "docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_freeze_v1.json",
+      "data_usage": "docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_data_usage_v1.json",
+      "closeout": "docs/research/gap_fill_v2_v1_development_closeout_20260906.md",
+      "cloud_run_id": 34034618914,
+      "parameter_bundle_sha256": "07abe29e31ce09b69bd6250b1ce3ebc5af7688b69ed39909feb80e9db882aaa0",
+      "geometry_complete_rows": 2650,
+      "high_rows": 1067,
+      "low_rows": 1583,
+      "model_selection_performed": false,
+      "2026_used": false
+    },
+    "repeat_only_reserved": "2026-01-05_to_2026-08-21_unopened",
+    "true_fresh_reserved": "post_2026-08-21",
+    "production_authority": false
+  },
+  "fresh_oos": true,
+  "production_authority": false,
+  "high_open_dev_pack_2015_2025": {
+    "path": "data/high_open_dev_2015_2025",
+    "window": "2015-01-05_to_2025-12-31",
+    "role": "cloud_executable_development_material_for_high_open_recall_successor_v1_and_gap_fill_prediction_v2",
+    "2026-01-05_to_2026-08-21": "not_included_sealed_repeat_blackbox",
+    "post_2026-08-21": "not_included_unread_true_fresh_reserved",
+    "replaces_frozen_2015_2020_pack": false,
+    "production_authority": false
+  }
+}

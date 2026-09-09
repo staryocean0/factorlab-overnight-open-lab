@@ -1,0 +1,663 @@
+# 云端—本地沟通记录
+
+## OHR-01 — 高开漏判机制诊断（开发阶段，不打开 2026）
+
+**状态：云端已复核通过，任务关闭。**
+
+### 目标
+
+解释当前 `median_quantile_sign` 方向头为何仍系统性漏判实际高开，并为下一阶段候选族提供金融机制证据。此任务只做诊断，不选择新模型、不调参数、不调阈值。
+
+### 云端已完成
+
+- 冻结证据边界：`docs/governance/cloud_session_20260906_high_open_recall_research_protocol_v1.json`
+- 完成金融/数学预分析：`docs/research/high_open_recall_preanalysis_20260906.md`
+- 实现开发诊断器：`scripts/diagnose_high_open_false_negatives_dev.py`
+- 诊断器固定使用 2015-01-05 至 2025-12-31，并通过 expanding natural-year OOF 生成 2016–2025 的 incumbent 预测。
+- 诊断器显式禁止加载 2026；不执行 candidate ranking、parameter search、threshold search 或 trading-return optimization。
+
+### 证据边界
+
+- `2015-01-05 .. 2020-12-31`：development material。
+- `2021-01-01 .. 2025-12-31`：上一轮已经消耗，本轮新身份可作为 development material；不得再称 fresh。
+- `2026-01-05 .. 2026-08-21`：**sealed repeat black-box validation only**。本任务严禁读取、加载、诊断或用于任何特征/候选设计。
+- `post-2026-08-21`：继续保持 unread，留作新 integrated successor 的真正 fresh challenge。
+
+注意：因为 2026-01-05..08-21 已在上一轮打开，而且这轮研究动机本身来自已知的 high-open recall 弱点，所以它不能科学上重新变 fresh。后续可以在候选完全冻结后做一次黑箱复核，但只能提供复现/反证权，不能单独授予新的 fresh-OOS authority。
+
+### 本地执行反馈（2026-09-06）
+
+- 本地执行时代码 SHA：`266a5d97df35899e23ca14c88eb4da9b4bfaf969`。
+- `python3 scripts/validate_theme_package.py`：退出码 0。
+- `python3 -m pytest -q`：退出码 0，9 passed。
+- `python3 scripts/diagnose_high_open_false_negatives_dev.py`：退出码 0。
+- 回传 commit：`cfadb9c0d106952a4915c125bf1b6fee4d72e846`。
+- 输出：
+  - `docs/research/cloud_session_20260906_local_high_open_recall_diagnostic_receipt_v1.json`
+  - `docs/governance/local_session_20260906_high_open_recall_data_usage.json`
+- 本地未打开 2026 黑箱；未做候选、参数、quantile、threshold 或收益搜索；未上传原始开发行情或逐日 OOF prediction。
+
+### 云端复核（2026-09-06）
+
+复核结论：**通过**。
+
+完整性检查：
+
+1. `266a5d9..cfadb9c` 之间仅新增/修改 aggregate receipt、data-usage、communication、INDEX；冻结诊断脚本、协议和测试没有在看到结果后被修改。
+2. `development_window.end == 2025-12-31`；`oof_years == [2016..2025]`；`n_oof == 2426`。
+3. `2026_rows_loaded == false`；`2026_blackbox_opened == false`。
+4. `candidate_selection_performed == false`；`parameter_search_performed == false`；`threshold_search_performed == false`；`trading_return_used == false`。
+5. 2015–2020 reconstruction 全字段 max-abs = 0；source hashes 与既有本地源身份一致。
+6. raw development rows 未写入 bounded repo；production authority=false。
+
+机制裁决已写入：`docs/research/high_open_recall_phase1_adjudication_20260906.md`。
+
+核心裁决：
+
+- H1 边界噪声只能解释一部分，不是主因；205/353 个 FN 是 >10bp 高开，87/353 是 >30bp，高开漏判不能靠轻微阈值平移解决。
+- H2 慢 opening regime 状态不稳定，不进入候选族。
+- H3 正向 US risk-on 通道并不缺失：NASDAQ interval Q4 的实际高开 recall 已达约 0.884；剩余错误主要发生在没有强正向 US 信息却仍高开的日子，因此不新增正向 US terms。
+- H4 原预注册的“中国弱势 × US-up”交互不稳定，拒绝。
+- H5 US-session-count / holiday-reopen 不支持作为方向 recall successor。
+- H6 **prior-China-weakness nonlinear rebound** 获得支持：full-day / afternoon / last-hour weakness 在 FN 相对 TP 的差异均为 10/10 年同方向，其中 full-day 与 last-hour 最强。允许用 negative-part piecewise basis 测试负收益侧单独斜率。
+
+OHR-01 到此关闭。2026 黑箱仍未打开。
+
+---
+
+## OHR-02 — 高开漏判 Phase-2 分段弱势候选选择（开发阶段，不打开 2026）
+
+**状态：云端已复核通过，任务关闭。无增量 successor。OHR-03 未打开。**
+
+### 目标
+
+在 Phase-1 唯一获支持的金融机制 `prior_china_weakness_nonlinear_rebound` 上，比较一个严格有界的低容量候选族，判断是否存在能提高 high-open recall、同时不牺牲 incumbent 总体方向质量的 successor。
+
+这一步是 **development selection**，不是 2026 黑箱，也不是 fresh validation。
+
+### 冻结输入
+
+- Phase-1 裁决：`docs/research/high_open_recall_phase1_adjudication_20260906.md`
+- Phase-2 family：`docs/governance/cloud_session_20260906_high_open_recall_phase2_family_v1.json`
+- Selector：`scripts/select_high_open_recall_phase2_dev.py`
+- Incumbent：`median_quantile_sign`，spec SHA256 `9b0255fbbf6f0c4059e8779e61cb3d5d4eabeab1ce60aed09377d782f755e465`
+
+### 冻结数学形式
+
+Estimator 保持不变：
+
+`StandardScaler + QuantileRegressor(quantile=0.5, alpha=0.0, solver=highs)`
+
+Target 保持 `gap`，判定保持 `prediction >= 0`。
+
+原 13 个 direction features 全部保留。唯一允许增加的是：
+
+- `prev_daytime_weakness = max(-prev_daytime, 0)`
+- `prev_afternoon_weakness = max(-prev_afternoon, 0)`
+- `prev_last_hour_weakness = max(-prev_last_hour, 0)`
+
+候选严格只有四个：
+
+1. `weakness_daytime_piecewise`
+2. `weakness_afternoon_piecewise`
+3. `weakness_last_hour_piecewise`
+4. `weakness_three_horizon_piecewise`
+
+不得加入任何其他组合或数据源。
+
+### 冻结开发选择
+
+- 原始开发窗口：2015-01-05..2025-12-31。
+- OOF：2016..2025 expanding natural-year。
+- 每个候选使用与 incumbent 相同 complete-row mask。
+
+候选有资格被选择必须同时满足：
+
+1. pooled `recall_up` 严格高于 incumbent；
+2. pooled `direction_hit >= incumbent`；
+3. pooled `balanced_accuracy >= incumbent`；
+4. pooled `recall_down > 0.5`；
+5. 10 个 OOF 年里至少 6 年 `recall_up` delta > 0；
+6. 年度 `recall_up` delta 中位数 >= 0；
+7. actual gap >10bp 的 high-open recall 不低于 incumbent；
+8. actual gap >30bp 的 high-open recall 不低于 incumbent。
+
+若多个候选通过，依次按 pooled recall_up、balanced accuracy、direction hit 降序，再按 extra feature 数量、名称排序。
+
+如果没有候选通过：保留 incumbent，**不要打开 2026 repeat blackbox**。
+
+如果有候选通过：本地只回传开发 selection receipt；**仍然不要打开 2026**。由云端先复核并冻结 exact successor identity，之后才另立 OHR-03 黑箱协议。
+
+### 本地执行命令
+
+```bash
+python3 scripts/validate_theme_package.py
+python3 -m pytest -q
+python3 scripts/select_high_open_recall_phase2_dev.py
+```
+
+如本地源路径移动，只允许使用已有四个 path override 环境变量；不得修改 family、selector、OOF 年份、gate 或模型语义来适配结果。
+
+### 2026 denylist
+
+OHR-02 期间不得为了候选设计/选择读取或引用：
+
+- `docs/research/cloud_session_20260906_local_2026_direction_receipt_v1.json`
+- `docs/research/cloud_session_20260906_local_2026_direction_result.md`
+- 任何 2026-01-05..2026-08-21 逐日 target/prediction/trade 数据
+- post-2026-08-21 任何 target 或结果材料
+
+治理文件中“2026 已消费/必须封存”的边界信息允许读取；结果内容禁止用于本轮选择。
+
+### 预期输出
+
+Selector 应只新增：
+
+- `docs/research/cloud_session_20260906_local_high_open_recall_phase2_dev_receipt_v1.json`
+- `docs/governance/local_session_20260906_high_open_recall_phase2_data_usage.json`
+
+并在终端打印 `HIGH_OPEN_RECALL_PHASE2_SELECTION_RESULT ...`。
+
+不要提交 2015+ 原始行情、逐日 OOF prediction 或 2026 数据。
+
+### 云端验收条件
+
+至少检查：
+
+1. 本地执行代码 SHA 是本 OHR-02 冻结后的代码版本；
+2. validator / pytest / selector 三条命令均退出 0；
+3. family multiplicity = 4，实际 attempts 恰好 4；
+4. `development_window.end == 2025-12-31`，OOF 只覆盖 2016–2025，`n_oof` 与 incumbent 库存一致；
+5. `2026_rows_loaded == false`、`2026_blackbox_opened == false`；
+6. `parameter_search_performed == false`、`threshold_search_performed == false`、`quantile_search_performed == false`；
+7. same complete-row mask 检查通过；
+8. 每个 attempt 的 eligibility gates、annual recall-up deltas、material >10bp/>30bp recall、paired disagreements 完整；
+9. selected 结果严格由冻结排序规则产生；若无人 eligible，decision 必须是 retain incumbent；
+10. source hashes 完整且 raw rows 未写入 bounded repo；production authority=false。
+
+### 本地完成后回写
+
+在本节末尾追加：执行 commit SHA、三条命令退出码、两个输出路径、四个候选的核心指标/gate、selected/decision、source hashes，以及任何失败或未验证事项。云端复核前不得打开 2026。
+
+### 本地执行反馈（2026-09-06）
+
+- 执行身份：本地 controller；工作目录 `/home/starryocean/桌面/量化/factorlab-overnight-open-lab`。
+- 执行时代码 SHA：`5c734f36f49a80dc46ebdd67b66895740c807b1e`（`Index OHR-02 execution freeze [skip ci]`）。
+- 未设置路径覆盖环境变量；沿用既有本地默认源。
+- 未读取 2026 黑箱结果材料做候选设计或选择；未打开 OHR-03。
+
+| 命令 | 退出码 |
+|---|---|
+| `python3 scripts/validate_theme_package.py` | 0 |
+| `python3 -m pytest -q` | 0（11 passed） |
+| `python3 scripts/select_high_open_recall_phase2_dev.py` | 0 |
+
+输出文件：
+
+- `docs/research/cloud_session_20260906_local_high_open_recall_phase2_dev_receipt_v1.json`
+- `docs/governance/local_session_20260906_high_open_recall_phase2_data_usage.json`
+
+终端摘要：`HIGH_OPEN_RECALL_PHASE2_SELECTION_RESULT` → `eligible_candidate_count=0`，`selected=null`，`decision=retain_incumbent_do_not_open_repeat_blackbox`，`2026_blackbox_opened=false`。
+
+本地对照 OHR-02 验收：
+
+1. 执行代码 SHA 为 OHR-02 冻结后的 `5c734f36`；family/selector blob 与 execution freeze 一致。
+2. validator / pytest / selector 三条命令均退出 0。
+3. family multiplicity = 4，实际 attempts 恰好 4。
+4. `development_window.end == 2025-12-31`；`oof_years == [2016..2025]`；`n_oof == 2426`，与 incumbent / OHR-01 库存逐字段一致。
+5. `2026_rows_loaded == false`，`2026_blackbox_opened == false`。
+6. `parameter_search_performed == false`，`threshold_search_performed == false`，`quantile_search_performed == false`，`trading_return_used == false`。
+7. 2015–2020 reconstruction 全部字段 max-abs 为 `0.0`；same complete-row mask 未触发 runner 失败。
+8. 每个 attempt 含 eligibility gates、年度 `recall_up` delta、material >10bp/>30bp recall、paired disagreements。
+9. 独立重算 4 组门禁与 receipt 完全一致；`eligible_candidate_count == 0`，因此 `selected == null`，decision 必须是 retain incumbent。
+10. `source_hashes` 完整（7 项）；raw rows 未写入 bounded repo；`production_authority == false`。
+
+source hashes：
+
+- `annotated_panel`: `4f093c51add311ade37634a1548a0c22b5f26b3390008d398a36b006c2f8ce69`
+- `datahub_1m_export`: `aeacff04b268c166faac333ec7ab9d840abcd347d82cb3bcee0218d058fc7423`
+- `fred_nasdaq`: `fad2f5f848d0acd4a9c86eebb75bc0d4f8fe18c1c6852bae3bb5c3a3c1a7bf5e`
+- `fred_vix`: `37f565c00b758ebae9ef2144dc102b3a8560b0ce5941baf7bac21210aa9815d6`
+- `incumbent`: `6fe8b600d35c599c55516a10db78e660473d5992c34b52ce471fdf12ab231b95`
+- `family`: `f06c43009de9e0b6844a45392caf740144b74fd9fca08bae904001c44ef2168c`
+- `runner`: `ad171ecdd374ee2bd4543da1f7830754329d1cf0533876b51c17388aaa55d18a`
+
+Incumbent OOF（与 OHR-01 完全相同）：`direction_hit=0.7176422093981863`，`balanced_accuracy=0.7010188647956266`，`recall_up=0.6260593220338984`，`recall_down=0.7759784075573549`，`tp=591`，`fn=353`，`tn=1150`，`fp=332`，`material>10bp recall=0.6600331674958541`，`material>30bp recall=0.7119205298013245`。
+
+四个候选核心指标 / gate（本地独立重算，无人 eligible）：
+
+| 候选 | recall_up | direction_hit | balanced_accuracy | recall_down | pos-year | median Δrecall_up | >10bp | >30bp | eligible |
+|---|---|---|---|---|---|---|---|---|---|
+| `weakness_daytime_piecewise` | 0.62182 | 0.71476 | 0.69789 | 0.77395 | 2/10 | 0.0 | 0.66003 | 0.70861 | 否 |
+| `weakness_afternoon_piecewise` | 0.62288 | 0.71311 | 0.69673 | 0.77058 | 3/10 | 0.0 | 0.66335 | 0.71523 | 否 |
+| `weakness_last_hour_piecewise` | 0.63453 | 0.71434 | 0.69986 | 0.76518 | 5/10 | +0.00459 | 0.66998 | 0.71854 | 否 |
+| `weakness_three_horizon_piecewise` | 0.62712 | 0.71311 | 0.69750 | 0.76788 | 4/10 | 0.0 | 0.66335 | 0.70861 | 否 |
+
+失败门禁摘要：
+
+- `weakness_daytime_piecewise`：recall_up / hit / BA / 6-year / >30bp 未过。
+- `weakness_afternoon_piecewise`：recall_up / hit / BA / 6-year 未过。
+- `weakness_last_hour_piecewise`：pooled recall_up 与 material 10/30bp 提高，但 hit、BA 下降，且仅 5/10 年 Δrecall_up>0。
+- `weakness_three_horizon_piecewise`：pooled recall_up 略升，但 hit / BA / 6-year / >30bp 未过。
+
+`selected`：无。`decision`：`retain_incumbent_do_not_open_repeat_blackbox`。
+
+未验证 / 未做事项：
+
+- 未打开 2026-01-05..2026-08-21 黑箱，也未读取其逐日明细做选择。
+- 未做参数 / 分位 / 阈值搜索或收益优化。
+- 本地不冻结新 successor，不打开 OHR-03。
+- 未上传 2015+ 原始行情或逐日 OOF prediction。
+
+### Codex controller 独立重跑（2026-09-06）
+
+- 执行身份：本地 Codex controller；工作目录 `/home/starryocean/桌面/量化/factorlab-overnight-open-lab`。
+- 重跑时 HEAD：`32e976cfded98463677d2c74b09f33de9c99b761`（已含上一轮本地 selection receipt）。family / selector / tests 相对 OHR-02 冻结提交 `5c734f36f49a80dc46ebdd67b66895740c807b1e` 无 diff。
+- 未设置路径覆盖环境变量；未读取 2026 黑箱逐日结果做候选设计或选择；未打开 OHR-03。
+
+| 命令 | 退出码 |
+|---|---|
+| `python3 scripts/validate_theme_package.py` | 0 |
+| `python3 -m pytest -q` | 0（11 passed） |
+| `python3 scripts/select_high_open_recall_phase2_dev.py` | 0 |
+
+- selector 终端摘要再次为 `eligible_candidate_count=0`，`selected=null`，`decision=retain_incumbent_do_not_open_repeat_blackbox`，`2026_blackbox_opened=false`。
+- 重跑后 receipt / data-usage 相对 `32e976c` 字节级相同：
+  - `docs/research/cloud_session_20260906_local_high_open_recall_phase2_dev_receipt_v1.json` sha256 `6a65180eaef2b1ef38ed5da52504f3f11018b802cc0aee2d7b83328938c113f5`
+  - `docs/governance/local_session_20260906_high_open_recall_phase2_data_usage.json` sha256 `5712a64c18bd9bd5e6ddc60b19280bc21721e0e665c01b45e577ab506b4df56d`
+- 独立重算 4 组 eligibility gates，与 receipt 完全一致；无人 eligible，因此必须保留 `median_quantile_sign`，不得打开 2026。
+- 本附记只确认上一轮本地反馈可复现，不新增候选、不改门禁、不授予 production / fresh-OOS authority。
+
+---
+
+## OHR-04 — last-hour rebound conditioning 诊断（开发阶段，不打开 2026，不选 successor）
+
+**状态：本地已反馈，待云端复核。**
+
+### 目标
+
+解释被拒绝的 progression candidate `weakness_last_hour_piecewise` 为何能救回一部分实际高开，同时又制造过多新的高开误报。此任务只做诊断，不选择新模型、不冻结候选族、不打开 OHR-03 / 2026。
+
+### 冻结输入
+
+- Cloud OHR-02 复核：`docs/research/high_open_recall_phase2_cloud_review_20260906.md`
+- 诊断协议：`docs/governance/cloud_session_20260906_high_open_rebound_conditioning_protocol_v1.json`
+- 诊断器：`scripts/diagnose_last_hour_rebound_conditioning_dev.py`
+- Incumbent：`median_quantile_sign`，spec SHA256 `9b0255fbbf6f0c4059e8779e61cb3d5d4eabeab1ce60aed09377d782f755e465`
+- 诊断用 progression candidate：`weakness_last_hour_piecewise`，spec SHA256 `1a37a46c4c66026f6abe33b84a9d7704ab7c7513312ef15b25607dcfa694392d`（仍为 rejected successor）
+
+### 本地执行反馈（2026-09-06）
+
+- 执行身份：本地 Codex controller；工作目录 `/home/starryocean/桌面/量化/factorlab-overnight-open-lab`。
+- 执行时代码 SHA：`0a1aee02ac082a97e8ce2d310618f52f7600cc9f`（`Index OHR-04 rebound-conditioning handoff [skip ci]`）。
+- 未设置路径覆盖环境变量；沿用既有本地默认源。
+- 未读取 2026-01-05..2026-08-21 黑箱结果；post-2026-08-21 仍 unread；未打开 OHR-03。
+
+| 命令 | 退出码 |
+|---|---|
+| `python3 scripts/validate_theme_package.py` | 0 |
+| `python3 -m pytest -q` | 0（13 passed） |
+| `python3 scripts/diagnose_last_hour_rebound_conditioning_dev.py` | 0 |
+
+输出文件：
+
+- `docs/research/cloud_session_20260906_local_last_hour_rebound_conditioning_receipt_v1.json` sha256 `ad5c5cb280f4c8da3de61aeccffbe16d0f7dc6229d25f0c5497514044cdc5008`
+- `docs/governance/local_session_20260906_last_hour_rebound_conditioning_data_usage.json` sha256 `6956db15c8a9ae083d75f2139fa09b48aea1a8ff8d4e27b878908b0fe1ac8d0e`
+
+终端摘要：`LAST_HOUR_REBOUND_CONDITIONING_RESULT` → `n_oof=2426`，`added_up_total=38`，`added_up_precision=0.42105263157894735`，`2026_blackbox_opened=false`，`candidate_selection_performed=false`。
+
+本地对照 OHR-04 验收：
+
+1. 执行代码 SHA 为 OHR-04 交接提交 `0a1aee02`；protocol / runner / tests 未在看到结果后修改。
+2. validator / pytest / diagnostic 三条命令均退出 0。
+3. `development_window.end == 2025-12-31`；`oof_years == [2016..2025]`；`n_oof == 2426`，与 OHR-02 库存一致。
+4. incumbent / last-hour spec SHA 与冻结身份一致；runner 先 replay OHR-02 指标后才做 conditioning，退出码 0 表示 replay 通过。
+5. disagreement 四类计数与 OHR-02 last-hour paired disagreements 完全对上：rescue+repaired=22，new-false-high+lost-high=30，total=52。
+6. `2026_rows_loaded == false`，`2026_blackbox_opened == false`，`ohr_03_opened == false`。
+7. `candidate_selection_performed == false`，`parameter_search_performed == false`，`threshold_search_performed == false`，`quantile_search_performed == false`，`trading_return_used == false`。
+8. 2015–2020 reconstruction 全部字段 max-abs 为 `0.0`。
+9. 预注册 12 个 continuous probes 与 3 个 binary probes 均有 pooled / annual / quartile 或 state 聚合；receipt 不含 `trading_day` 或逐日 OOF prediction。
+10. `source_hashes` 完整（8 项）；其中 annotated_panel / datahub_1m_export / fred_nasdaq / fred_vix / family / phase2_receipt 与 OHR-02 一致；raw rows 未写入 bounded repo；`production_authority == false`。
+
+source hashes：
+
+- `annotated_panel`: `4f093c51add311ade37634a1548a0c22b5f26b3390008d398a36b006c2f8ce69`
+- `datahub_1m_export`: `aeacff04b268c166faac333ec7ab9d840abcd347d82cb3bcee0218d058fc7423`
+- `fred_nasdaq`: `fad2f5f848d0acd4a9c86eebb75bc0d4f8fe18c1c6852bae3bb5c3a3c1a7bf5e`
+- `fred_vix`: `37f565c00b758ebae9ef2144dc102b3a8560b0ce5941baf7bac21210aa9815d6`
+- `family`: `f06c43009de9e0b6844a45392caf740144b74fd9fca08bae904001c44ef2168c`
+- `phase2_receipt`: `6a65180eaef2b1ef38ed5da52504f3f11018b802cc0aee2d7b83328938c113f5`
+- `protocol`: `22f00dea7b9daa7d49399e6012954c68fe6de31ec02184bdef1357ffafeb0a44`
+- `runner`: `8296eb8f79e430848943475189027c4bc49cff053cbd305354dd6e56083c43a7`
+
+Disagreement morphology：
+
+| 类型 | 计数 |
+|---|---|
+| incumbent down → candidate up, actual up（rescue） | 16 |
+| incumbent down → candidate up, actual down（new false high） | 22 |
+| incumbent up → candidate down, actual up（lost high） | 8 |
+| incumbent up → candidate down, actual down（repaired false high） | 6 |
+| added-up total / precision | 38 / 0.42105 |
+| removed-up total | 14 |
+| total disagreements | 52 |
+
+年度 rescue vs new-false-high：rescue>FP 仅 3/10 年（2019、2020、2024），FP>rescue 5/10 年（2016、2017、2018、2021、2025），平 2/10 年（2022、2023）。
+
+连续探针（rescue mean − false-high mean，标准化；年度差分为正/负年数）：
+
+| probe | std diff | posY | negY |
+|---|---|---|---|
+| `prev_last_hour_weakness` | +0.502 | 4 | 1 |
+| `prev_daytime_weakness` | +0.297 | 2 | 2 |
+| `rvol20` | +0.285 | 3 | 2 |
+| `r20` | +0.228 | 3 | 2 |
+| `prev_afternoon_weakness` | +0.215 | 2 | 3 |
+| `abs_r1` | +0.131 | 2 | 3 |
+| `prev_gap_negative` | +0.090 | 2 | 2 |
+| `prev_gap_positive` | −0.024 | 3 | 2 |
+| `prev_gap` | −0.086 | 3 | 2 |
+| `last_hour_minus_afternoon_weakness` | −0.090 | 4 | 1 |
+| `r1` | −0.203 | 1 | 4 |
+| `last_hour_minus_daytime_weakness` | −0.242 | 3 | 2 |
+
+`prev_last_hour_weakness` 分位：Q1/Q2 added-up precision 均为 0.25（probe mean≈0，16 次翻转里 12 次新误报）；Q3=0.55（20 次，11 rescue / 9 FP）；Q4 n=2。也就是说，hinge 在 last-hour weakness 接近 0 时仍大量改判，而这些改判以新误报为主。
+
+二元状态：
+
+| state | n_added_up | precision | rescue | new FP | state1 better years |
+|---|---|---|---|---|---|
+| `tail_only_weakness=1` | 15 | 0.600 | 9 | 6 | 3/10 |
+| `tail_only_weakness=0` | 23 | 0.304 | 7 | 16 | — |
+| `tail_with_broad_afternoon_weakness=1` | 11 | 0.636 | 7 | 4 | 3/10 |
+| `tail_with_broad_day_weakness=1` | 2 | 1.000 | 2 | 0 | 1/10（样本过少） |
+
+诊断观察（不是候选选择，也不是机制录取）：
+
+- 无条件 last-hour hinge 的 added-up precision 只有 0.42，净效果是多制造误报。
+- 预注册探针里，最能分开 rescue 与 new FP 的是 `prev_last_hour_weakness` 本身（std +0.50，4/10 年同向），且低分位（weakness≈0）误报密集。
+- `tail_only_weakness` / `tail_with_broad_afternoon_weakness` 的 pooled precision 更高，但年度支持弱（各仅 3 年更好），不能单独构成录取。
+- 没有探针达到“稳定多年、干净分开 rescue 与 new false high”的机制录取门槛。本地不冻结任何新 family。
+
+未验证 / 未做事项：
+
+- 未打开 2026-01-05..2026-08-21 黑箱，也未读取其逐日明细。
+- 未做候选 ranking、参数 / 分位 / 阈值搜索、新的 US 交互搜索或收益优化。
+- 未打开 OHR-03，不授予 production / fresh-OOS authority。
+- 未上传 2015+ 原始行情或逐日 OOF prediction。
+
+---
+
+## DATA-PACK-01 — 给云端补 2015–2025 开发包（仍不含 2026）
+
+**状态：本地已推送，等待云端改用该 pack 自行跑开发诊断。**
+
+云端原先只有 2015-01-05..2020-12-31。OHR-01/02/04 需要 2015-01-05..2025-12-31，所以才反复交接本地。缺口本身不大：
+
+- 新增 `000852.SH` 1m 2021-2025：约 9.2MB；整段 2015-2025 1m pack 约 15.5MB
+- 新增 annotated panel 2015-2025：0.20MB（2674 行）
+- FRED NASDAQ/VIX 截到 2025-12-31：约 0.11MB
+- **2026-01-05..2026-08-21 未放入仓库**（154 个交易日 / 约 1.4MB 1m 仍 sealed）
+- post-2026-08-21 仍 unread
+
+现已新增 `data/high_open_dev_2015_2025/`。原 `data/development/` 2015-2020 冻结包未改。本地若仍有 FactorLab/DataHub 绝对路径，则继续用原文件以保持既有 receipt source hash；云端缺这些路径时自动回退到该 pack。
+
+用 pack 对 2015-2020 frozen panel 的 reconstruction max-abs 为 0。不打开 OHR-03，不授予 production / fresh-OOS。
+
+---
+
+## OHR-05 — Offshore-China ETF 源准入（只做源/日历质量，不打开中国目标诊断，不打开 2026）
+
+**状态：本地已反馈，等待云端复核。预测诊断未授权。**
+
+当前冻结身份以仓库内 source-freeze receipt 为准，不是并行草稿里的新浪截断源。`341e25d` / `96d5304` 把沟通写成了新浪缺口源，但同提交的 receipt 实际是 Yahoo chart v8 全覆盖；该沟通不一致现已作废，不构成第二个可选用源。
+
+### 目标
+
+在加载任何 CSI1000 / 中国目标诊断之前，冻结一个开发期-only 日线源身份，并证明 ASHS / ASHR / FXI / MCHI / SPY 的美国 regular-session 日历与价格可被审计。本任务不检验这些 ticker 是否预测 CSI1000 gap。
+
+### 本地源检索（先 DataHub/cache，后单一外部源）
+
+本地已有 cache / DataHub **不能**同时提供这五个 ticker 的 2015–2025 美国 regular-session 日线 `date, symbol, open, close, volume`：
+
+- DataHub live `127.0.0.1:8400` 对 `ASHS` / `ASHR` / `FXI` / `MCHI` / `SPY`（含 `.US`）全部 `instrument_not_found`。
+- 已登记 bars 产品均为 `cn_a` / 中国基金净值等；`repository_assets.v1.json` 与 lake 产品名无美股 ETF 日线。
+- overnight 开发包只有 FRED NASDAQ/VIX，不是五 ticker OHLCV。
+- `~/.cache/datahub` 只有中国 ETF 期权预取；无 yfinance / Yahoo / Stooq 落盘。
+
+因此从**同一个**外部供应商拉取全部五个 ticker。未按预测结果选源，也未按 ticker 拼接供应商。当前单源是 Yahoo Finance chart v8 `query1.finance.yahoo.com`，五 ticker 均成功，`interval=1d`，`includePrePost=false`。
+
+### 冻结身份
+
+- 执行时代码 SHA：`50c8b47be3d0702c713f286f181407a0d8f937d8`（其后可见性提交未改 protocol / runner / tests）
+- provider：`Yahoo Finance chart v8 (query1.finance.yahoo.com)`
+- provider_id：`yahoo_finance_chart_v8_query1_interval1d_includePrePost_false_2015-01-01_2025-12-31`
+- price_convention：`Yahoo chart v8 indicators.quote regular-session OHLC; split-adjusted quote, not dividend-adjusted adjclose; includePrePost=false; same-session return = quote.close/quote.open - 1`
+- 本地源（不入库）：`/home/starryocean/.cache/overnight-open-lab/ohr05_offshore_etf_daily_yahoo_chart_v8_2015_2025.parquet`
+- local source SHA256：`045cf728977ff72a9fabd236aaf06b7a9df3310ad1f6f487bd594d487cc05ffd`
+- 源文件日期 `2015-01-02..2025-12-31`；五 ticker 各 2766 行；无 2026 行。未上传原始行。
+- 窗口内 Yahoo 事件：五 ticker `n_splits=0`；`quote.close` 与 `adjclose` 不一致（存在分红），因此同会话收益只用 quote 开收盘。
+
+### 命令与退出码
+
+| 命令 | 退出码 |
+|---|---|
+| `python3 scripts/validate_theme_package.py` | 0 |
+| `python3 -m pytest -q` | 0（18 passed） |
+| `python3 scripts/probe_offshore_china_source_quality.py` | 0 |
+
+输出文件：
+
+- `docs/research/cloud_session_20260906_local_offshore_china_source_freeze_v1.json` sha256 `34253fa791ce9c5e130008a164b46169acbe8f1593e5738ecad5e441ec1507da`
+- `docs/governance/local_session_20260906_offshore_china_source_data_usage.json` sha256 `66adb2b9685b745bfb831c114eb2d98ef14d94e3f56f2120be49fe839b971aef`
+
+receipt 字段：`predictive_target_loaded=false`，`candidate_selection_performed=false`，`2026_rows_loaded=false`，`2026_blackbox_opened=false`。
+
+### 相对 SPY 的覆盖（SPY 锚点 2766 个 regular session）
+
+| symbol | first | last | present / SPY | missing | coverage | invalid price/vol | zero volume | zero return | session ret min / max |
+|---|---|---|---|---|---|---|---|---|---|
+| SPY | 2015-01-02 | 2025-12-31 | 2766 / 2766 | 0 | 1.000 | 0 / 0 | 0 | 15 | −5.66% / +11.18% |
+| ASHR | 2015-01-02 | 2025-12-31 | 2766 / 2766 | 0 | 1.000 | 0 / 0 | 0 | 88 | −4.86% / +5.11% |
+| ASHS | 2015-01-02 | 2025-12-31 | 2766 / 2766 | 0 | 1.000 | 0 / 0 | 2 | 112 | −14.42% / +6.10% |
+| FXI | 2015-01-02 | 2025-12-31 | 2766 / 2766 | 0 | 1.000 | 0 / 0 | 0 | 49 | −5.67% / +8.53% |
+| MCHI | 2015-01-02 | 2025-12-31 | 2766 / 2766 | 0 | 1.000 | 0 / 0 | 0 | 30 | −5.63% / +7.47% |
+
+`abs_session_return_gt_20pct_rows` 全部为 0。无相对 SPY 的年度覆盖缺口。
+
+ASHS 最大同日回撤是 2015-08-24 的 −14.42%（开 43.07 / 收 36.86，成交量 162200），属价格极端诊断，不是拆分跳空。ASHS 仅有两个零成交日：2016-12-08 与 2022-08-18，两天均为 `open=close`，计入 zero-return。
+
+### 本地对照 OHR-05 验收
+
+1. 执行代码 SHA 为交接前提交 `50c8b47`；protocol / runner / tests 未在看到源质量后修改。
+2. validator / pytest / source probe 三条命令均退出 0。
+3. 源文件与 receipt 均截到 `2025-12-31`；未加载中国目标、annotated panel、CSI1000 gap，也未打开 OHR-03。
+4. `2026_rows_loaded == false`，`2026_blackbox_opened == false`。
+5. 未改固定 ticker 集合，未按 ticker 拼接不同供应商。
+6. 源准入当时 raw ETF 行未入库；用户随后明确要求把同一哈希副本推到云端（见下节）。`production_authority == false`。
+
+### 用户授权：把冻结源推到云端（2026-09-06）
+
+用户原话：`请你推到云端`。这是冻结后的同一 Yahoo 源副本，不是新源身份，也不是 2026 打开。
+
+- 仓库路径：`data/offshore_etf_dev_2015_2025/offshore_etf_daily.parquet`
+- SHA256 与冻结回执相同：`045cf728977ff72a9fabd236aaf06b7a9df3310ad1f6f487bd594d487cc05ffd`
+- 云端探测：`export OVERNIGHT_OFFSHORE_ETF_DAILY=$PWD/data/offshore_etf_dev_2015_2025/offshore_etf_daily.parquet`
+- 日期仍是 `2015-01-02..2025-12-31`；无 2026 行；未加载中国目标。
+
+### 未决测量问题（供云端源复核，不是预测结论）
+
+- 日历完整性已对齐：五 ticker 对 SPY 覆盖均为 1.0，无年度缺口。剩余观察是 ASHS 两个零成交日，以及 ASHS/ASHR 相对更高的 zero-return 计数（薄交易 ETF 的同日开收相等），不是缺失行。
+- 并行草稿曾把新浪截断源写成“唯一齐套源”，并误报 Yahoo 429。该叙述与当前 receipt 不一致，已作废；新浪缺口源不是当前冻结身份。
+- 未打开 2026-01-05..2026-08-21 黑箱，未读取 post-2026-08-21 目标，未做候选 / 参数 / 阈值 / 收益搜索。
+
+---
+
+## DATA-PACK-02 — 用户授权把 Gap-Fill V2 2026 复验包推进公开 overnight-open-lab
+
+**状态：本地已按用户明确要求推入公开仓。冻结评估器 / 协议 / 测试 / 参数未改。尚未运行 V2 2026 repeat evaluator。**
+
+用户原话：`请推进公开 overnight-open-lab`。这是把已经切好的最小 2026 输入包放到云端可见位置，不是 fresh OOS，也不是 production。
+
+仓库路径：
+
+- `data/gap_fill_repeat_2026/annotated_panel_2025Q4_to_20260821.parquet` SHA256 `4619b00670b9443d0c0de7dd8a3a7a2d664a3c8907f28b0f997c9ae737cae216`
+- `data/gap_fill_repeat_2026/csi1000_1m_20260105_to_20260821.parquet` SHA256 `307e48021ef4576c2b364a1309a8b0474d6ab783afee16be41edb975abaa6dcd`
+- `data/gap_fill_repeat_2026/manifest.json`
+
+窗口：
+
+- annotated panel：`2025-10-09..2026-08-21`，214 行，其中 154 行属于 `2026-01-05..2026-08-21`
+- 1min：`2026-01-05..2026-08-21`，36960 行 = 154 日 × 240 分钟
+- post-2026-08-21：0 行
+
+云端执行：
+
+```bash
+export OVERNIGHT_ANNOTATED_PANEL="$PWD/data/gap_fill_repeat_2026/annotated_panel_2025Q4_to_20260821.parquet"
+export OVERNIGHT_DATAHUB_1M="$PWD/data/gap_fill_repeat_2026/csi1000_1m_20260105_to_20260821.parquet"
+python3 scripts/evaluate_local_gap_fill_v2_2026_repeat.py
+```
+
+未改 `scripts/evaluate_local_gap_fill_v2_2026_repeat.py`、repeat protocol、tests 或 final-fit 参数。未把 post-2026-08-21 行写入仓库。`fresh_oos=false`，`production_authority=false`。
+
+---
+
+## CT-DEV — Gap-Fill cross-index transport（仅打开外部指数 DEV，不打开 Audit A/B，不打开 CSI1000 2026Q4）
+
+**状态：本地已反馈，等待云端复核。Audit A 未打开。不授予 production / fresh-OOS。**
+
+### 目标
+
+在冻结的 `gap_fill_cross_index_transport_v1` 身份上，对 CSI300 / CSI500 的 DEV 窗口执行：
+
+- T1：把 CSI1000 V2 v1 参数原样外推，不做拟合；
+- T2：同一 geometry 架构在各指数 DEV 内做 expanding-year OOF，并在 OOF 之后冻一份指数专用全 DEV 参数，供未来 Audit A 使用。
+
+本任务不做候选 ranking、不做 feature / model / C / threshold / calibration / horizon 搜索，也不打开 Audit A/B 或 CSI1000 2026-08-24..2026-12-31。
+
+### 执行身份
+
+- 冻结 runner 执行时 HEAD：`59d9c7b0b8975f5658ab1a6dbf51500a79b9701d`
+- protocol blob：`5a74436422939973267a1edc4e4deeb21bf5a05e`
+- runner blob：`165f75e60c407f4952440dd50c3a38f8fc45c4df`
+- tests blob：`2bc0784b6b6daa7f3f53cef5767bdd130438244c`
+- CSI1000 parameter artifact blob：`eef7a9af6d42ee2faf53dbd16dce0b15ebfd10ed`
+- architecture SHA256：`07810dafbab629f196d04ea1204d90ee68177ce764bb765be560bc1b84261c00`
+- CSI1000 bundle SHA256：`07abe29e31ce09b69bd6250b1ce3ebc5af7688b69ed39909feb80e9db882aaa0`
+
+看到结果后未修改 protocol / runner / tests / CSI1000 参数冻结件。
+
+### 源路径适配（基础设施，不是模型改动）
+
+交接给出的 lake 根目录含 `manifest.json` / `quality_report.json` / `publish_receipt.json`。`pandas.read_parquet` 会把这些 JSON 当 parquet 打开并失败。
+
+本地未改冻结 runner，只把环境变量指到同一 admitted dataset 的 parquet 分区根：
+
+`/home/starryocean/桌面/量化/unified_datahub/.runtime/live/lake/bars/dataset_version=bars_cn_index_1m_raw_canonical_market_index_baidu_3s_20000714_20260821_factorlab_unified_missing_day_repaired_v8_20260824/instrument_type=market_index`
+
+路径仍包含 HE-00 dataset-version 身份。dataset SHA256 仍是 manifest 文件哈希 `25f4f9f8b67c799ffb1a7b7fdee94b0b21dbbfed1efc54d063264ccb046411f0`。`trading_day` 过滤后的 min/max 均落在各自 DEV 窗内；Audit A/B 与 supporting crosscheck 行未进入 target inventory。
+
+### 命令与退出码
+
+| 命令 | 退出码 |
+|---|---|
+| `python3 scripts/validate_theme_package.py` | 0 |
+| `python3 -m pytest -q` | 0（72 passed） |
+| `python3 scripts/run_gap_fill_cross_index_transport_dev.py` | 0 |
+
+### 库存
+
+| 指数 | 加载交易日 | exact-240 | target-valid | high / low | >10bp / >30bp | 窗内 min / max |
+|---|---|---|---|---|---|---|
+| CSI300 / `000300.SH` | 1396 | 1283 | 1113 | 543 / 570 | 868 / 570 | 2005-05-23 / 2010-12-31 |
+| CSI500 / `000905.SH` | 967 | 911 | 799 | 388 / 411 | 660 / 438 | 2007-02-13 / 2010-12-31 |
+
+CSI300 / CSI500 的 loaded days 与 exact-240 与 HE-00 inventory 的 DEV 块完全一致（1396/1283 与 967/911）。target-valid 少于 exact-240，是因为还要求 previous 15:00、正的 `rvol20`，并剔除 zero-gap。
+
+无效原因：
+
+- CSI300：`not_exact_complete_240_clocks=113`，`incomplete_gap_or_rvol20=117`，`zero_gap=53`
+- CSI500：`not_exact_complete_240_clocks=56`，`incomplete_gap_or_rvol20=70`，`zero_gap=42`
+
+### T1 精确参数外推（DEV 描述性证据，无拟合）
+
+等权 integrated Brier / log-loss，以及 15m/60m/EOD ROC-AUC：
+
+| 指数 | 方向 | cohort | n | integrated Brier | integrated log-loss | AUC 15m / 60m / EOD |
+|---|---|---|---|---|---|---|
+| CSI300 | high | all | 543 | 0.175537 | 0.529540 | 0.823 / 0.810 / 0.716 |
+| CSI300 | high | >10bp | 437 | 0.183565 | 0.547909 | 0.793 / 0.808 / 0.698 |
+| CSI300 | high | >30bp | 268 | 0.184054 | 0.547044 | 0.711 / 0.749 / 0.628 |
+| CSI300 | low | all | 570 | 0.188542 | 0.557380 | 0.759 / 0.758 / 0.696 |
+| CSI300 | low | >10bp | 431 | 0.199800 | 0.583357 | 0.733 / 0.719 / 0.672 |
+| CSI300 | low | >30bp | 302 | 0.201281 | 0.587333 | 0.713 / 0.713 / 0.621 |
+| CSI500 | high | all | 388 | 0.175076 | 0.525833 | 0.824 / 0.797 / 0.749 |
+| CSI500 | high | >10bp | 323 | 0.182175 | 0.541462 | 0.814 / 0.782 / 0.732 |
+| CSI500 | high | >30bp | 191 | 0.182838 | 0.538424 | 0.707 / 0.734 / 0.671 |
+| CSI500 | low | all | 411 | 0.167933 | 0.509032 | 0.800 / 0.770 / 0.730 |
+| CSI500 | low | >10bp | 337 | 0.181967 | 0.541476 | 0.786 / 0.740 / 0.709 |
+| CSI500 | low | >30bp | 247 | 0.198895 | 0.579717 | 0.762 / 0.669 / 0.642 |
+
+T1 monotonicity violations = 0。T1 年度摘要已写入 receipt，此处不逐行展开。T1 不是 successor 选择。
+
+### T2 架构外推 expanding-year OOF（开发机制证据）
+
+OOF 年：CSI300 `2007-2010`（n=814）；CSI500 `2009-2010`（n=354）。对照是训练折 empirical stage hazard，再用同一三段公式合成累计概率。
+
+| 指数 | 方向 | cohort | n | T2 Brier | bench Brier | Δ | T2 AUC 15m / 60m / EOD |
+|---|---|---|---|---|---|---|---|
+| CSI300 | high | all | 405 | 0.172946 | 0.236076 | −0.063130 | 0.822 / 0.835 / 0.718 |
+| CSI300 | high | >10bp | 363 | 0.179080 | 0.240270 | −0.061190 | 0.797 / 0.827 / 0.699 |
+| CSI300 | high | >30bp | 240 | 0.183047 | 0.264761 | −0.081713 | 0.738 / 0.768 / 0.609 |
+| CSI300 | low | all | 409 | 0.202764 | 0.228569 | −0.025805 | 0.745 / 0.714 / 0.669 |
+| CSI300 | low | >10bp | 350 | 0.212146 | 0.235612 | −0.023466 | 0.715 / 0.672 / 0.647 |
+| CSI300 | low | >30bp | 283 | 0.223969 | 0.245655 | −0.021686 | 0.628 / 0.598 / 0.578 |
+| CSI500 | high | all | 167 | 0.182081 | 0.235546 | −0.053465 | 0.844 / 0.791 / 0.744 |
+| CSI500 | high | >10bp | 130 | 0.194518 | 0.239581 | −0.045062 | 0.813 / 0.761 / 0.710 |
+| CSI500 | high | >30bp | 69 | 0.193739 | 0.255808 | −0.062069 | 0.561 / 0.664 / 0.581 |
+| CSI500 | low | all | 187 | 0.162749 | 0.198962 | −0.036213 | 0.763 / 0.733 / 0.661 |
+| CSI500 | low | >10bp | 140 | 0.172205 | 0.204638 | −0.032433 | 0.770 / 0.741 / 0.699 |
+| CSI500 | low | >30bp | 89 | 0.206608 | 0.225257 | −0.018648 | 0.705 / 0.624 / 0.547 |
+
+T2 / bench monotonicity violations = 0。
+
+年度 all-gap integrated Brier：T2 在 CSI300 2007 low 差于 empirical benchmark（+0.026029）；其余 CSI300 年×方向以及全部 CSI500 年×方向均为 T2 更好。这是开发对照，不是录取。
+
+### 最终 T2 参数冻结（全 DEV fit，不用于声称 OOF 能力）
+
+- CSI300 bundle SHA256：`87b4bf1c4153bd786189b48e631175e0eaf83a34fc9ca7b96bff8d794c5158eb`
+- CSI500 bundle SHA256：`6cf2966d1ae4c48df2d52ef024c197907d76169ac2672ac0c6dd96e0ddd9a957`
+
+### 回传产物（仅聚合，无原始分钟、无逐日预测）
+
+- `docs/research/local_gap_fill_cross_index_transport_dev_receipt_v1.json` SHA256 `93d71d61ac359ba97f3029d4128fd5ad9454ca263459c48c4642359e5e92e738`
+- `docs/governance/local_gap_fill_cross_index_transport_dev_parameter_freeze_v1.json` SHA256 `0cc74f79d9e9f26d1b9d8d554c96db0207a63d68787cceff1152dd71d26ae992`
+- `docs/governance/local_gap_fill_cross_index_transport_dev_data_usage_v1.json` SHA256 `c84b6df65e039e20e4742b3936de265f15fa255c247b0b3964afb97f3aeaa373`
+
+### 边界确认
+
+- `audit_a_opened=false`
+- `audit_b_opened=false`
+- `supporting_crosscheck_opened=false`
+- `csi1000_post_2026_08_21_outcomes_opened=false`
+- `feature_search_performed=false`
+- `model_class_search_performed=false`
+- `hyperparameter_search_performed=false`
+- `threshold_search_performed=false`
+- `probability_calibration_performed=false`
+- `fresh_oos=false`
+- `production_authority=false`
+- `raw_rows_written_to_repo=false`
+
+### 本地独立复核
+
+用冻结 runner 函数在内存中重放 CSI300/CSI500 的 DEV 构造、T1、T2 OOF 和最终参数 digest：库存完全一致，T1/T2 integrated Brier 最大误差 0，最终 bundle SHA256 一致。未打开 Audit A/B evaluator。
+
+未验证 / 未做事项：
+
+- 未打开 CSI300/CSI500 `2011-01-01..2012-12-31` Audit A、`2013-01-01..2014-10-16` Audit B、`2014-10-17..2014-12-31` supporting crosscheck。
+- 未打开 CSI1000 2026-08-24..2026-12-31 true-fresh，也未读取任何 CSI1000 post-2026-08-21 结果。
+- 未把 T1 或 T2 选为 V2.1 successor，未修改冻结 V2 v1。
+- 未上传原始历史分钟或逐日预测。
+

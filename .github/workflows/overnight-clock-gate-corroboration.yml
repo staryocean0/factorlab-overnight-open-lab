@@ -1,0 +1,25 @@
+name: overnight-clock-gate-corroboration
+
+on:
+  push:
+    paths:
+      - 'scripts/corroborate_clock_gate_dev.py'
+      - '.github/workflows/overnight-clock-gate-corroboration.yml'
+      - 'docs/governance/cloud_session_20260906_clock_gate_hypothesis_v1.json'
+
+jobs:
+  corroborate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install research dependencies
+        run: python -m pip install --upgrade pip pandas pyarrow numpy scikit-learn pytest
+      - name: Validate bounded package
+        run: python scripts/validate_theme_package.py
+      - name: Run regression tests
+        run: pytest -q
+      - name: Corroborate fixed clock-state gate on development OOF only
+        run: python scripts/corroborate_clock_gate_dev.py

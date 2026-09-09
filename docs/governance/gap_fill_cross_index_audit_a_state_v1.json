@@ -1,0 +1,40 @@
+{
+  "schema_id": "overnight_open_gap_fill_cross_index_audit_a_state@1.0",
+  "session_date": "2026-09-07",
+  "research_identity": "gap_fill_cross_index_transport_v1",
+  "current_status": "Audit_A_cloud_review_passed_Audit_B_eligible_but_unopened",
+  "ct_dev_decision": "CT_DEV_cloud_review_passed_architecture_transport_supported",
+  "ct_dev_adjudication": "docs/research/gap_fill_cross_index_ct_dev_cloud_adjudication_20260907.md",
+  "audit_a_protocol": "docs/governance/cloud_session_20260907_gap_fill_cross_index_audit_a_protocol_v1.json",
+  "audit_a_evaluator": "scripts/evaluate_gap_fill_cross_index_audit_a.py",
+  "audit_a_tests": "tests/test_gap_fill_cross_index_audit_a_protocol.py",
+  "audit_a_execution_freeze": "docs/governance/cloud_session_20260907_gap_fill_cross_index_audit_a_execution_freeze_v1.json",
+  "audit_a_handoff": "docs/ops/gap_fill_cross_index_audit_a_handoff.md",
+  "static_check_run_id": 34091306485,
+  "static_check": "evaluator_compile_passed_theme_validator_passed_78_pytests_passed_Audit_A_and_Audit_B_receipts_absent",
+  "audit_a_result_commit": "74798483716040e7d8949ec7381d4f90dcac3430",
+  "audit_a_receipt": "docs/research/local_gap_fill_cross_index_transport_audit_a_receipt_v1.json",
+  "audit_a_data_usage": "docs/governance/local_gap_fill_cross_index_transport_audit_a_data_usage_v1.json",
+  "audit_a_cloud_adjudication": "docs/research/gap_fill_cross_index_audit_a_cloud_adjudication_20260907.md",
+  "audit_a_decision": "CT_AUDIT_A_cloud_review_passed_all_four_heads_Audit_B_eligible",
+  "all_four_T2_heads_sample_sufficient": true,
+  "all_four_T2_heads_pass_all_six_gates": true,
+  "audit_b_eligibility_under_frozen_rule": true,
+  "frozen_T2_bundles": {
+    "CSI300": "87b4bf1c4153bd786189b48e631175e0eaf83a34fc9ca7b96bff8d794c5158eb",
+    "CSI500": "6cf2966d1ae4c48df2d52ef024c197907d76169ac2672ac0c6dd96e0ddd9a957"
+  },
+  "opened": {
+    "CSI300_Audit_A_2011-01-01_to_2012-12-31": true,
+    "CSI500_Audit_A_2011-01-01_to_2012-12-31": true
+  },
+  "sealed": {
+    "Audit_B_2013-01-01_to_2014-10-16": true,
+    "supporting_crosscheck_2014-10-17_to_2014-12-31": true,
+    "CSI1000_2026Q4_true_fresh": true
+  },
+  "next_action": "preregister_and_execution_freeze_Audit_B_before_opening_any_2013_to_2014_10_16_outcome",
+  "audit_a_opened": true,
+  "audit_b_opened": false,
+  "production_authority": false
+}

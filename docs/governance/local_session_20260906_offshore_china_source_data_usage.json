@@ -1,0 +1,13 @@
+{
+  "2026-01-05_to_2026-08-21": "not_loaded_sealed_repeat_blackbox",
+  "china_target_loaded": false,
+  "cloud_pack_path": "data/offshore_etf_dev_2015_2025/offshore_etf_daily.parquet",
+  "cloud_pack_sha256": "045cf728977ff72a9fabd236aaf06b7a9df3310ad1f6f487bd594d487cc05ffd",
+  "external_source_window": "2015-01-01_to_2025-12-31_source_quality_only",
+  "post_2026-08-21": "unread_true_fresh_reserved",
+  "production_authority": false,
+  "raw_rows_persist_authority": "user_explicit_20260906_push_frozen_yahoo_copy",
+  "raw_rows_persisted_in_bounded_repo": true,
+  "schema_id": "overnight_open_local_offshore_china_source_data_usage@1.0",
+  "session_date": "2026-09-06"
+}

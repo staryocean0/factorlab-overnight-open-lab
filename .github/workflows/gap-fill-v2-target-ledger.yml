@@ -1,0 +1,64 @@
+name: gap-fill-v2-target-ledger
+
+on:
+  push:
+    paths:
+      - '.github/workflows/gap-fill-v2-target-ledger.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  ledger:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip pandas pyarrow numpy scikit-learn pytest
+      - name: Validate package
+        run: python3 scripts/validate_theme_package.py
+      - name: Run tests
+        run: python3 -m pytest -q
+      - name: Build frozen V2 target ledger
+        run: python3 scripts/build_gap_fill_v2_target_ledger.py
+      - name: Verify no-model and evidence boundary
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('docs/research/cloud_session_20260906_gap_fill_v2_target_ledger_v1.json')
+          u = Path('docs/governance/cloud_session_20260906_gap_fill_v2_target_data_usage_v1.json')
+          assert p.exists() and u.exists()
+          d = json.loads(p.read_text())
+          assert d['model_fitting_performed'] is False
+          assert d['feature_selection_performed'] is False
+          assert d['threshold_search_performed'] is False
+          assert d['2026_rows_loaded'] is False
+          assert d['nested_event_invariant']['passed'] is True
+          print(json.dumps({
+              'n_valid_target_days': d['n_valid_target_days'],
+              'n_invalid_target_days': d['n_invalid_target_days'],
+              'invalid_reason_counts': d['invalid_reason_counts'],
+              'all_valid': d['summary']['all_valid'],
+              'gt10bp': d['summary']['material']['gt10bp']['all'],
+              'gt30bp': d['summary']['material']['gt30bp']['all'],
+          }, indent=2, sort_keys=True))
+          PY
+      - name: Commit aggregate target ledger
+        run: |
+          git config user.name 'gap-fill-v2-cloud-runner'
+          git config user.email 'gap-fill-v2-cloud-runner@users.noreply.github.com'
+          git add \
+            docs/research/cloud_session_20260906_gap_fill_v2_target_ledger_v1.json \
+            docs/governance/cloud_session_20260906_gap_fill_v2_target_data_usage_v1.json
+          if git diff --cached --quiet; then
+            echo 'No target-ledger changes.'
+          else
+            git commit -m 'Record cloud gap-fill v2 target ledger [skip ci]'
+            git push origin HEAD:main
+          fi

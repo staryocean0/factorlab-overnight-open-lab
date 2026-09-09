@@ -1,0 +1,87 @@
+name: ohr06-offshore-china-cloud-execution
+
+on:
+  push:
+    paths:
+      - '.github/workflows/ohr06-offshore-china-cloud-execution.yml'
+
+permissions:
+  contents: write
+
+# Retriggered after user-authorized frozen OHR-05 source pack commit 0ff42399.
+
+jobs:
+  ohr06:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install research dependencies
+        run: python -m pip install --upgrade pip pandas pyarrow numpy scikit-learn pytest
+      - name: Locate exact OHR-05 frozen Yahoo artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          EXPECTED='045cf728977ff72a9fabd236aaf06b7a9df3310ad1f6f487bd594d487cc05ffd'
+          mapfile -t MATCHES < <(find . -type f -name '*.parquet' -print0 | xargs -0 sha256sum | awk -v h="$EXPECTED" '$1==h {print $2}')
+          if [ "${#MATCHES[@]}" -ne 1 ]; then
+            echo "Expected exactly one parquet with SHA $EXPECTED, found ${#MATCHES[@]}" >&2
+            printf '%s\n' "${MATCHES[@]:-}" >&2
+            exit 41
+          fi
+          SOURCE="${MATCHES[0]}"
+          echo "Frozen source: $SOURCE"
+          sha256sum "$SOURCE"
+          echo "OVERNIGHT_OFFSHORE_ETF_DAILY=$SOURCE" >> "$GITHUB_ENV"
+      - name: Validate theme package
+        run: python3 scripts/validate_theme_package.py
+      - name: Run full regression tests
+        run: python3 -m pytest -q
+      - name: Run frozen OHR-06 mechanism diagnostic
+        run: python3 scripts/diagnose_offshore_china_price_discovery_dev.py
+      - name: Verify OHR-06 outputs and blackbox boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          r = Path('docs/research/cloud_session_20260906_local_offshore_china_ohr06_diagnostic_receipt_v1.json')
+          u = Path('docs/governance/local_session_20260906_offshore_china_ohr06_data_usage.json')
+          assert r.exists() and u.exists()
+          d = json.loads(r.read_text())
+          assert d.get('2026_rows_loaded') is False
+          assert d.get('2026_blackbox_opened') is False
+          assert d.get('candidate_selection_performed') is False
+          assert d.get('parameter_search_performed') is False
+          assert d.get('threshold_search_performed') is False
+          assert d.get('quantile_search_performed') is False
+          print(json.dumps({
+              'decision': d.get('decision'),
+              'china_specific_passers': d.get('china_specific_passers'),
+              'n_incumbent_oof': d.get('n_incumbent_oof'),
+              'n_common_offshore_oof': d.get('n_common_offshore_oof'),
+              'n_primary_slice': d.get('n_primary_slice'),
+              '2026_blackbox_opened': d.get('2026_blackbox_opened'),
+          }, indent=2, sort_keys=True))
+          PY
+      - name: Commit aggregate OHR-06 receipts
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'ohr06-cloud-runner'
+          git config user.email 'ohr06-cloud-runner@users.noreply.github.com'
+          git add \
+            docs/research/cloud_session_20260906_local_offshore_china_ohr06_diagnostic_receipt_v1.json \
+            docs/governance/local_session_20260906_offshore_china_ohr06_data_usage.json
+          if git diff --cached --quiet; then
+            echo 'No receipt changes to commit.'
+          else
+            git commit -m 'Record cloud OHR-06 offshore diagnostic receipts [skip ci]'
+            git push origin HEAD:main
+          fi

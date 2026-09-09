@@ -1,154 +1,147 @@
-# AGENTS.md — repository operating rules
+# Overnight Open Lab
 
-## 1. One canonical repository
+Codex/cloud research workspace for one bounded overnight-open research task. Do
+not mix with the two-wave Layer 3 theme.
 
-`staryocean0/factorlab-overnight-open-lab` is the only active repository for this project.
+Follow `.codex/skills/strategy-slice-rebuild/SKILL.md` for any model change.
+The repository currently contains a 2015-2025 China high-open development pack,
+the exact frozen 2015-2025 Yahoo offshore-ETF development artifact, and a
+user-authorized Gap-Fill V2 2026 repeat pack in
+`data/gap_fill_repeat_2026/`. Post-2026-08-21 China market rows remain absent.
+The repository is currently public while
+`docs/governance/package_scope.json` still records the earlier private-repository
+requirement; treat that as an explicit governance mismatch and do not silently
+change visibility or pretend the earlier contract never existed.
 
-## 2. Current authority
+The prior V1 two-head architecture remains intact. The accepted direction
+incumbent is `median_quantile_sign`; the accepted magnitude component is
+`abs_frozen_clock_signed_prediction`. The direction head was robustly confirmed
+on 2026-01-05 through 2026-08-21 in its earlier research cycle. Those receipts
+remain immutable. Production authority is false.
 
-Read in this order:
+A second prediction identity, `gap_fill_prediction_v2`, is now **development
+selected, parameter-frozen, and robustly repeat-confirmed**. It asks, after the
+CSI1000 09:31 gap is observed, for the probability that the previous 15:00 close
+is revisited within 15 trading minutes, 60 trading minutes, or EOD. High and low
+gaps use separate three-stage discrete-time hazard heads. Phase-2 selected
+`geometry_only` for both signs, using exactly `abs_gap` and
+`abs_gap_over_rvol20`. The selected architecture SHA256 is
+`07810dafbab629f196d04ea1204d90ee68177ce764bb765be560bc1b84261c00`.
+The final 2015-2025 parameter bundle is frozen at SHA256
+`07abe29e31ce09b69bd6250b1ce3ebc5af7688b69ed39909feb80e9db882aaa0`.
+See `docs/research/gap_fill_v2_v1_development_closeout_20260906.md`,
+`docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_freeze_v1.json`,
+and `docs/research/gap_fill_v2_2026_repeat_cloud_adjudication_20260906.md`.
+Do not add the rejected Phase-1 support variables back into V2 v1, retune the
+geometry heads, introduce a gap-size gate, calibrate probabilities, select a
+binary threshold, or use trading return on consumed evidence.
 
-1. `CONTINUE_HERE.md`
-2. `docs/governance/reusable_three_role_data_policy_v1.json`
-3. `docs/governance/reversal_mean_reversion_program_state_v1.json`
-4. `docs/research/rmr_payoff_object_instrument_theory_review_v1.md`
-5. `docs/INDEX.md`
+For `gap_fill_prediction_v2`, the exact 2026-01-05 through 2026-08-21 repeat
+window has now been opened once under the frozen repeat protocol and **both high
+and low heads passed all 6/6 preregistered repeat gates**. The decision is
+`gap_fill_v2_2026_repeat_robustly_confirmed`. This is repeat-only evidence and
+must never be called scientifically fresh because that calendar window had
+already been opened in the older direction-head cycle. The repeat result cannot
+be used to modify V2 features, parameters, thresholds, calibration, horizons or
+gates.
 
-Historical `next_action` fields never override these files.
+The first scientifically fresh V2 challenge is now **preregistered and execution-
+frozen but unopened**. Its only authorized target window is the complete calendar
+block `2026-08-24 .. 2026-12-31`; partial-window scoring is forbidden and
+`scripts/evaluate_gap_fill_v2_true_fresh_2026q4.py` must refuse execution before
+China date `2027-01-01`. The fresh protocol is
+`docs/governance/cloud_session_20260906_gap_fill_v2_true_fresh_protocol_v1.json`
+and the execution freeze is
+`docs/governance/cloud_session_20260906_gap_fill_v2_true_fresh_execution_freeze_v1.json`.
+The six scientific gates are identical to the repeat protocol. Per-sign sample
+sufficiency is frozen at >=25 all-gap rows, >=20 >10bp rows, and >=12 >30bp rows.
+Do not inspect any post-2026-08-21 fill outcome, model score or partial fresh
+receipt before the complete block is available. See
+`docs/governance/gap_fill_v2_true_fresh_state_v1.json`.
 
-## 3. Reusable three-role data governance
+**Freezing V2 v1 does not freeze the research program.** A distinct historical-
+extension identity, `gap_fill_v2_historical_extension_v1`, is active now and may
+produce V2.1 or later successors using newly admitted historical data. The
+current HE-00 stage is metadata/provenance only; do not inspect new historical
+fill outcomes until source admission. Fixed same-index partitions are HE_DEV
+`2005-01-01..2010-12-31`, HE_AUDIT_A `2011-01-01..2012-12-31`, HE_AUDIT_B
+`2013-01-01..2014-10-16`, and supporting post-publication cross-check
+`2014-10-17..2014-12-31`. Audit dates must not slide after outcomes are seen.
+Pre-2014-10-17 CSI1000 history must be labeled as vendor backfill,
+constituent-reconstruction, or unknown provenance rather than presumed live.
+See `docs/governance/gap_fill_v2_generation_policy_v1.json` and
+`docs/governance/cloud_session_20260906_gap_fill_v2_historical_extension_protocol_v1.json`.
+V2.1 may use newly admitted historical data and consumed evidence as development
+context, but it must have a new model identity and its own sealed audit evidence;
+it may not alter V2 v1 and inherit V2 v1's evidence labels. CSI300/CSI500 may be
+inventoried now, but any outcome-based cross-index transport test requires a
+separate preregistered protocol.
 
-### DEV
+The bounded `high_open_recall_successor_v1` branch has finished without an
+incremental successor. OHR-02 and OHR-04 both retained
+`median_quantile_sign`; OHR-03 was never opened. Do not continue by slicing the
+same domestic weakness variables, tuning thresholds, or reusing those failed
+runtime routes.
 
-`2015-01-05 .. 2020-12-31`
+The `offshore_china_price_discovery_successor_v1` identity is also **closed**.
+OHR-05 admitted one exact Yahoo chart-v8 source, OHR-06 found genuine mechanism
+evidence only for `broad_china_specific_vs_spy`, OHR-07 rejected a one-feature
+joint-refit candidate, and OHR-08 rejected the final one-parameter frozen-base
+residual overlay under the preregistered high-open-successor gates. See
+`docs/research/offshore_china_price_discovery_route_closeout_20260906.md`.
+The offshore signal may be cited only as progression/mechanism material for this
+identity; do not rescue it post hoc by changing beta, thresholds, weights,
+tickers, interactions or the loss objective on the consumed 2015-2025 window.
+Any future use for confidence, abstention, calibration or false-positive control
+requires a new preregistered objective and research identity.
 
-Full development/diagnostic access.
+For the completed high-open and offshore identities, 2015-2025 is consumed
+development material. The exact 2026-01-05 through 2026-08-21 window remains
+sealed from diagnosis, feature engineering, candidate-family design, ranking,
+loss/threshold choice and all other development; no successor passed a gate that
+would justify opening their repeat-blackbox stage. That window can never become
+scientifically fresh again. Post-2026-08-21 remains the true unread fresh
+challenge for those separate identities. Same-morning China information remains
+forbidden for V1. For V2, the 09:31 observed gap is allowed by definition but
+post-09:31 China information is forbidden at prediction time. Do not mutate any
+FactorLab live registry.
 
-### VALIDATION
+## 云端—本地交接协议（默认不生效）
 
-`2021-01-01 .. 2025-12-31`
+### 生效条件
 
-Reusable detailed validation for separately frozen low-capacity identities. Do not open VALIDATION for an identity that failed its preregistered DEV gate.
+Protocol 1 与 Protocol 2 **默认不生效**。只有在当前任务中被明确告知“你和云端协作”时才生效。同等表述包括“按云端交接协议执行”、“这是云端与本地协作”。
 
-### BLACKBOX
+把一项任务发到某个云端主题仓库、并要求该云端会话继续执行，也视为已经明确告知**该云端会话**启用本协议。
 
-`2026-01-05 .. 2026-08-21`
+### 不生效的情况
 
-Reusable certification only. Public output is limited to `PASS / FAIL / INSUFFICIENT`.
+正常情况下，许多任务由本地发起、在本地执行。即使本协议已经写进 `AGENTS.md`，只要当前任务没有上述明确告知，本协议就不生效：
 
-Never release exact BLACKBOX metrics, counts, dates, subperiods, regimes, event examples, probabilities, feature attribution or failure analysis. Hidden BLACKBOX behavior may never justify a feature, threshold, scale, rule, instrument or model change.
+- 按普通本地任务继续工作，不要去写交接文档、等待云端，或把步骤发到 GitHub Actions；
+- 不要因为本文存在，就把本地任务改写成云端协作任务；
+- 未生效时，下面 Protocol 1 / Protocol 2 没有运行时效力。
 
-Current completed BLACKBOX query count is exactly **3**. There is no query #4.
+本协议即使生效，也只改变执行地点和沟通方式，不扩大训练、数据搬迁、金融验收或生产权限。
 
-## 4. Certified mechanisms
+### Protocol 1：云端缺数据时的文档交接与本地反馈
 
-### R1
+适用于已激活协作后的计算、测试和证据检查。某一步因云端缺少所需数据而无法执行时，云端 AI 必须将该步骤写入 [云端—本地沟通文档](docs/ops/cloud_local_communication.md)，并在当次回复中明确告知用户任务编号、阻断原因、文档路径和需要本地大模型完成的事项，由用户安排本地大模型接手。不能只说“等待数据”、静默跳过，或默认要求把全部原始数据搬到云端。若沟通文档尚不存在，在首次交接时创建，不要为此先搬数据。
 
-`rmr_cross_scale_pullback_parent_integrity_v2`
+交接只需一份可执行记录：任务目标与所需结论、代码分支/提交、已完成和未执行的步骤、缺失的最小数据及口径、执行命令或实施步骤、预期输出和验收条件。尚无可用执行器时如实写明需要本地实现的部分，不把拟议命令写成已经可以运行。已有同一任务记录则复用，历史大清单用链接定位，不反复复制或索取同一批文件。
 
-Trend-like intact-parent pullback recovery. BLACKBOX query #1 `a9ba75c39e675ae6be17`: `PASS`.
+本地大模型完成后，在同一沟通记录中反馈实际代码版本、数据范围与必要身份摘要、命令与退出码、结果及产物位置、失败或未验证事项；大数据和大产物留在本地，只回传必要的小报告或可访问的文档。无法直接回写仓库时，由用户转交文档供云端归档；没有本地执行通道时，云端不得声称已经自动派发或执行。
 
-### R2
+云端收到反馈后先读取并复核，区分“本地已反馈”与“云端已复核”，注明复核范围和结论后继续下游工作。不能把本地报告称为云端独立全量复验，也不能将未执行或失败项改写为通过。等待本地反馈期间，继续不依赖该缺失数据的独立工作。
 
-`rmr_range_boundary_parent_integrity_v2`
+### Protocol 2：计算执行位置与工作流优先级
 
-Range-like intact-parent boundary re-entry. BLACKBOX query #3 `a7e7f0208512aa7c1f31`: `PASS`.
+**仅在本协议已生效时：** 云端 AI 在当前会话中直接执行 → 请求本地大模型执行 → 最后才考虑 GitHub Actions。本顺序适用于已有及后续云端工作流；工作流列出的命令说明要做什么，不意味着默认交给 Actions。未生效时不要按此顺序改写本地任务。
 
-R1 and R2 are complementary state-restoration mechanisms, not generic interchangeable signals and not one automatically shared scalar axis.
+先按每个步骤检查数据、工具、依赖和资源。能用当前云端会话实际可用的 Python、终端等工具完成的计算、测试、静态检查和小规模验证，优先自己运行并保存真实结果，不能因已有 CI 配置就外包给 Actions。写了代码、给出命令或推测结果都不等于实际执行。
 
-### R5-C
+云端确实无法完成时，将该步骤按 Protocol 1 写入沟通文档，请本地大模型在其数据/算力环境执行；若已知云端缺少必要数据，可直接交接，不要求先进行注定失败的试跑。只有前两种方式不适用，且 Actions 能取得所需输入、具有可用额度并处于用户授权的资源范围内，才把 Actions 作为最后选择，并记录理由。无需为了走完顺序重复失败尝试或增加逐步审批。
 
-`rmr_event_density_state_reversal_v2` passed detailed VALIDATION but BLACKBOX query #2 `4fa9bfa2ec38f16cd65f` returned `FAIL`. The identity is closed and may not be rescued from hidden-period behavior.
+用户告知 Actions 无可用额度期间，不主动派发、重跑或用反复 push 试探额度。发布前检查相关触发条件，对适用的 push/pull_request 提交使用 `[skip ci]` 等跳过标记，避免仅为保存文档触发计算；其他触发类型需另行确认，不能假定标记通用。不伪造绿色检查、不擅自移除合并保护。额度恢复也不改变上述优先级。
 
-## 5. Closed synthesis and economic identities
-
-### Unified parent-state router v1
-
-`rmr_unified_parent_normal_state_router_v1` is closed at VALIDATION. Do not create router v2 by lane-specific scaling, axis-weight tuning, interaction search or automatic rescue.
-
-The historical router branch is behind `main` and has no commits ahead; treat it as history only, not as an active merge target.
-
-### Existing simple economic translation
-
-No tested trading implementation is certified.
-
-- R1 economic v1/v2/v3 failed detailed VALIDATION before BLACKBOX.
-- R2 economic v1 failed detailed VALIDATION before BLACKBOX.
-- R1_A and R2 simple index-level execution were closed by the completed mechanism-to-execution diagnostic.
-- probability-filter rescue is closed because frozen restoration probability is not a monotonic realized-return score.
-
-### R1_B temporal impulse completion v1
-
-`rmr_R1B_temporal_impulse_completion_v1` is **closed on DEV**.
-
-The single preregistered temporal candidate used:
-
-- certified R1_B S2-inside-S3 events only;
-- unchanged next-bar entry;
-- first subsequent parent-aligned S2 **confirmation close** as causal temporal completion;
-- original S3 failure boundary;
-- fixed 10bp cost;
-- inherited 1200-bar safety cap;
-- no probability filter or parameter search.
-
-DEV result:
-
-- mean net `+10.59bp`;
-- mean improvement over structural baseline `+11.87bp`;
-- positive mean-net years `5/6`;
-- median net **`-32.11bp`**;
-- win rate `37.10%`.
-
-The preregistered positive-median gate failed. Therefore:
-
-- identity decision = `DEV_CLOSE`;
-- VALIDATION must remain unopened;
-- do not delete or weaken the failed gate after the result;
-- do not exit at the unobservable S2 extreme;
-- do not add a probability filter to isolate right-tail events;
-- do not choose 30/60/120/240 bars;
-- do not tune entry, stop, target, cost, scale, year, regime or time of day;
-- no automatic temporal v2 or R1 economic v4.
-
-## 6. Current research boundary
-
-`docs/research/rmr_payoff_object_instrument_theory_review_v1.md` is a completed results-blind boundary review and is now part of the authority chain.
-
-There is currently **no empirical economic candidate authorized**.
-
-The review permits only theory-level consideration of:
-
-- a materially independent causal execution-timing theory;
-- instrument mapping after an instrument-specific source and cost-model contract is frozen;
-- stopping economic translation if no independent payoff theory is established.
-
-The review itself authorizes no DEV, VALIDATION or BLACKBOX execution.
-
-Before any ETF/futures/options empirical study, freeze an instrument-specific source and cost-model contract covering relevant spread, basis, carry, liquidity, convexity/premium and execution conventions. Do not infer instrument viability from index-level price paths alone.
-
-Broad R8/R9 indicator generation remains paused.
-
-## 7. BLACKBOX and final-fit rules
-
-No current economic research has BLACKBOX authority. Query #4 is neither scheduled nor authorized.
-
-A future candidate may reach BLACKBOX only after its own explicitly authorized DEV/VALIDATION process and a separate governance decision. BLACKBOX may never participate in fitting, threshold selection, scale selection, timing selection, instrument selection or strategy rescue.
-
-## 8. Optional future data
-
-Do not wait for future data. Continue only work authorized by current authority. If newer data is later supplied, version the three-role map forward rather than declaring existing history consumed.
-
-## 9. Repository hygiene
-
-- Keep current authority concise and non-duplicative.
-- Keep BLACKBOX receipts low-bandwidth.
-- Do not copy BLACKBOX detail into docs, logs, charts or issues.
-- Remove completed Actions workflows after bounded execution.
-- Remove completed runners/tests/protocols/preanalysis from the current surface when no longer active; preserve them through execution commits plus compact history anchors.
-- Keep decisive adjudications and compact receipts on the current surface.
-- Do not create a second active repository.
-- After substantial work, synchronize canonical `main` by fast-forward when the research branch is clean and a descendant of `main`.
-
-Current `main` already has no diagnostic/router one-time runner or dedicated completed workflow surface; preserve the closeout through adjudications, receipts, anchors and Git history rather than reintroducing implementation files.
-
-Production authority remains `false`.
+报告每一步的实际执行地点、已完成/未执行状态和证据位置。缺数据或额度不会自动否定策略，也不构成让无关步骤停工的理由；恢复后仅补执行仍必要的未完成步骤，不重复运行已具有适用证据的计算。

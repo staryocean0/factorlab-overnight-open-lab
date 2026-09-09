@@ -1,133 +1,62 @@
-# FactorLab Reversal / Mean-Reversion Research
+# FactorLab Overnight Open Lab
 
-This is the single canonical repository for the project.
+Bounded cloud workspace for one task: predict the next CSI1000 overnight open
+(high open vs low open, and gap size). It is not the two-wave Layer 3 theme and
+must not be merged into `factorlab-two-wave-strategy-lab`.
 
-## Permanent data model
+The package contract requires a private repository. The repository is currently
+public only because the private-repository GitHub Actions quota/runner path was
+unavailable and a public runner was needed to execute already-frozen research
+workflows. See
+`docs/governance/cloud_session_20260906_public_runner_recovery_v1.json`.
+Restore private visibility after public-runner-only checks are complete before
+treating the package as fully compliant with its confidentiality contract.
 
-- **DEV** `2015-01-05 .. 2020-12-31` — reusable full development and diagnosis.
-- **VALIDATION** `2021-01-01 .. 2025-12-31` — reusable detailed validation and diagnosis.
-- **BLACKBOX** `2026-01-05 .. 2026-08-21` — reusable low-bandwidth certification only.
+The package is a research minimum set: clock/gap contracts, 2015-2020 CSI1000
+bars, PIT US prints, frozen model identities, and research receipts. It does not
+contain raw 2021+ market rows, FactorLab git history, credentials, or Layer 4
+execution.
 
-BLACKBOX output is restricted to `PASS / FAIL / INSUFFICIENT`. Repeated queries are not independent OOS samples. Exact hidden metrics, counts, dates, subperiods, events, probabilities, attribution and failure examples must never be released.
+## Start here
 
-## Certified statistical mechanisms
+```bash
+python -m pip install -e .
+python scripts/validate_theme_package.py
+pytest -q
+```
 
-### R1 — trend-parent pullback recovery
+Then follow [`docs/user/cloud_execution_prompt.md`](docs/user/cloud_execution_prompt.md).
 
-`rmr_cross_scale_pullback_parent_integrity_v2`
+## Scientific status
 
-- detailed VALIDATION: PASS;
-- BLACKBOX query #1: `PASS`;
-- final bundle: `41072c78a6e657aec01d7da95d9c00bff23ff01829ada6afe256d7c254107fcb`.
+The current prediction-model research cycle is closed for the accepted identity.
 
-### R2 — range-parent boundary re-entry
+- **Magnitude head:** `abs_frozen_clock_signed_prediction` is fresh-OOS confirmed on 2021-2025.
+- **Direction head:** `median_quantile_sign` is robustly fresh-OOS confirmed against Ridge on 2026-01-05 through 2026-08-21.
+- Accepted status: `component_confirmed_incumbent_research_architecture`.
+- Direction and magnitude remain separate primary tasks; no stronger joint-fresh full-model claim is made.
+- All opened data through 2026-08-21 are consumed for these identities and must not be reused for retuning.
+- Post-2026-08-21 remains unread for the integrated identity.
 
-`rmr_range_boundary_parent_integrity_v2`
+Direction candidate spec SHA256:
+`9b0255fbbf6f0c4059e8779e61cb3d5d4eabeab1ce60aed09377d782f755e465`.
 
-- detailed VALIDATION: PASS on both co-primary cells;
-- BLACKBOX query #3: `PASS`;
-- final bundle: `08d28cc1f145247cc755cea70b26cfb75a53941db8df0f0a0f640c268ae5f0d1`.
+Direction fresh receipt:
+`docs/research/cloud_session_20260906_local_2026_direction_receipt_v1.json`.
 
-R1 and R2 are complementary parent-normal-state mechanisms, not interchangeable scalar signals.
+Research acceptance:
+`docs/governance/cloud_session_20260906_research_architecture_acceptance_v1.json`.
 
-### R5-C — closed
+## Production boundary
 
-`rmr_event_density_state_reversal_v2` passed detailed VALIDATION but BLACKBOX query #2 returned `FAIL`. No hidden-period detail was released and same-identity rescue is prohibited.
+Production authority is `false`.
 
-## Closed synthesis and economic work
+The next step is **not model retuning or unconstrained return optimization**. A
+financial decision-use contract must first define the tradable instrument,
+signal/decision time, order and fill semantics, post-signal economic target,
+costs, risk constraints, and the mapping from direction/magnitude outputs to an
+action. The CSI1000 index level is not itself a tradable fill, and an order
+filled at the open cannot retroactively capture the previous-close-to-open gap.
 
-### Unified parent-state router v1
-
-`rmr_unified_parent_normal_state_router_v1` closed at VALIDATION. After a pure scale-identity implementation fix, both R2 cells worsened; the tested common standardized state-consistency axis is not supported. No BLACKBOX query occurred.
-
-The historical router branch has no commits ahead of `main`; it is history only and is not an active merge target.
-
-### Mechanism → execution diagnostic
-
-`rmr_mechanism_to_execution_diagnostic_v1` completed on DEV+VALIDATION only. It showed:
-
-- payoff geometry is the primary bridge failure;
-- next-minute delay and boundary overshoot are secondary;
-- restoration probability is not a monotonic realized-return score;
-- R2 directional markouts deteriorate with horizon;
-- R1_B alone showed a delayed positive markout term structure, motivating one separate temporal theory test.
-
-No BLACKBOX source was opened; the ledger remained at 3 queries. The completed diagnostic/router one-time implementation surface is already absent from current `main`; decisive receipts, adjudications, history anchors and Git history preserve reproducibility.
-
-### R1_B temporal impulse completion v1 — closed on DEV
-
-`rmr_R1B_temporal_impulse_completion_v1` was the single results-blind temporal identity authorized after the diagnostic.
-
-Theory: after a certified R1_B `S2-inside-S3` pullback confirmation, treat the next complete parent-aligned S2 impulse as the temporal economic object. Entry remained the next observed 1m close. Exit was the **causal confirmation close** of the first subsequent parent-aligned S2 wave, unless the original S3 structural failure boundary was crossed first. S2/S3 thresholds, 10bp cost and the inherited 1200-bar safety horizon were unchanged.
-
-DEV-only result on `682` tradeable events:
-
-- candidate mean net: **+10.59bp**;
-- candidate minus structural baseline mean net: **+11.87bp**;
-- positive candidate mean-net years: **5 / 6**;
-- candidate median net: **-32.11bp**;
-- candidate win rate: **37.10%**.
-
-The preregistered DEV gate required positive median net. That gate failed, so the identity is **closed on DEV**. VALIDATION was never opened.
-
-Interpretation: the temporal object captures a positive right-tail component, but not a broad typical-event translation. The result may not be rescued by removing the median gate, exiting at the unobservable S2 extreme, choosing a fixed horizon, adding a probability filter, or tuning entry/stop/target/cost/scale/year/regime.
-
-Evidence:
-
-- `docs/research/rmr_R1B_temporal_execution_theory_program_review_20260908.md`
-- `docs/research/rmr_R1B_temporal_impulse_completion_DEV_adjudication_20260908.md`
-- `docs/research/rmr_R1B_temporal_impulse_completion_DEV_decisive_receipt_20260908.json`
-- `docs/archive/rmr_R1B_temporal_impulse_completion_v1_history_anchor_20260908.md`
-
-## Current economic status
-
-No trading implementation is certified.
-
-Closed without BLACKBOX:
-
-- R1 economic v1/v2/v3;
-- R2 economic v1;
-- unified router v1;
-- R1_B temporal impulse completion v1.
-
-No automatic R1 economic v4, R2 economic v2, router v2, temporal v2, probability-filter rescue, or horizon/entry/stop/cost/scale tuning is authorized.
-
-## Payoff-object / instrument-theory review
-
-`docs/research/rmr_payoff_object_instrument_theory_review_v1.md` is complete and is now part of the authority chain.
-
-It is a results-blind boundary review, not an empirical candidate. It authorizes no DEV, VALIDATION or BLACKBOX execution.
-
-The only theory-level paths left open are:
-
-- a materially independent causal execution-timing theory;
-- instrument mapping after an instrument-specific source and cost-model contract is frozen;
-- stop economic translation if no independent payoff theory is established.
-
-## Exact next stage
-
-There is currently **no empirical economic candidate authorized**.
-
-A new economic identity may be opened only after a materially independent payoff/instrument theory is separately preregistered and explicitly authorized. Any ETF/futures/options study requires an instrument-specific data-source and cost-model contract covering spread, basis, carry, liquidity, convexity/premium and execution conventions before DEV can be opened.
-
-Broad R8/R9 indicator discovery remains paused.
-
-## BLACKBOX ledger
-
-Completed reusable BLACKBOX queries remain exactly:
-
-1. R1 parent integrity — `PASS`;
-2. R5-C event density — `FAIL`;
-3. R2 range integrity — `PASS`.
-
-**No query #4 exists or is authorized.**
-
-## Read first
-
-1. `CONTINUE_HERE.md`
-2. `docs/governance/reusable_three_role_data_policy_v1.json`
-3. `docs/governance/reversal_mean_reversion_program_state_v1.json`
-4. `docs/research/rmr_payoff_object_instrument_theory_review_v1.md`
-5. `docs/INDEX.md`
-
-Production authority remains `false`.
+See `docs/governance/cloud_session_20260906_production_readiness_review_v1.json`
+and `docs/research/cloud_session_20260906_research_closeout_v1.md`.

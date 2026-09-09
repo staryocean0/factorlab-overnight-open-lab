@@ -1,0 +1,135 @@
+{
+  "schema_id": "overnight_open_offshore_china_price_discovery_protocol@1.0",
+  "session_date": "2026-09-06",
+  "research_branch": "offshore_china_price_discovery_successor_v1",
+  "parent_direction_incumbent": {
+    "name": "median_quantile_sign",
+    "spec_sha256": "9b0255fbbf6f0c4059e8779e61cb3d5d4eabeab1ce60aed09377d782f755e465"
+  },
+  "parent_high_open_research": {
+    "ohr04_review": "docs/research/high_open_recall_ohr04_cloud_review_20260906.md",
+    "status": "no_incremental_successor_beyond_incumbent_after_rebound_conditioning_diagnostic",
+    "motivation": "existing domestic weakness variables reveal a rebound channel but do not stably distinguish rebound demand from weakness continuation"
+  },
+  "research_question": "Does US-session price discovery in China-focused US-listed ETFs, observed after the prior China close and before the next China open, contain a stable China-specific state that distinguishes rebound demand from weakness continuation and can later justify a bounded direction-successor family?",
+  "evidence_boundary": {
+    "development": "2015-01-05_to_2025-12-31",
+    "development_oof": "2016_to_2025_expanding_natural_year",
+    "sealed_repeat_blackbox": "2026-01-05_to_2026-08-21",
+    "true_fresh_reserved": "post_2026-08-21"
+  },
+  "hard_causality": {
+    "same_morning_china_information": "forbidden",
+    "china_linked_instruments_trading_during_the_same_china_morning": "forbidden",
+    "admitted_external_window": "US regular trading sessions that begin after the previous China 15:00 close and finish before the current China 09:31 open",
+    "no_future_or_post_open_marks": true
+  },
+  "source_universe": {
+    "ASHS": {
+      "role": "small_mid_cap_A_share_offshore_price_discovery",
+      "underlying": "CSI 500 China A-Shares",
+      "inception_before_development_start": true
+    },
+    "ASHR": {
+      "role": "large_mid_cap_A_share_offshore_price_discovery",
+      "underlying": "CSI 300 China A-Shares",
+      "inception_before_development_start": true
+    },
+    "FXI": {
+      "role": "broad_large_cap_China_offshore_control",
+      "underlying": "FTSE China 50"
+    },
+    "MCHI": {
+      "role": "broad_China_offshore_control",
+      "underlying": "MSCI China"
+    },
+    "SPY": {
+      "role": "US_market_common_factor_control",
+      "underlying": "S&P 500"
+    }
+  },
+  "required_market_fields": [
+    "US trading date",
+    "symbol",
+    "regular-session open",
+    "regular-session close",
+    "regular-session volume"
+  ],
+  "source_provenance_rule": {
+    "provider_must_be_frozen_before_target_diagnostics": true,
+    "raw_or_same-day-consistent_OHLC_required": true,
+    "provider_and_local_file_hashes_must_be_recorded": true,
+    "raw_external_rows_must_not_be_committed_to_bounded_repo": true,
+    "do_not_choose_between_data_vendors_by_predictive_result": true
+  },
+  "clock_feature_definition": {
+    "name": "post_china_close_US_regular_session_compound_return",
+    "for_china_day_D_with_previous_china_day_P": "identify SPY US regular sessions with US trading date >= P and < D; for each source symbol compound each available same-session close/open return across exactly those completed sessions",
+    "formula": "product(close_s/open_s for completed US regular sessions s between P close and D open) - 1",
+    "zero_completed_US_sessions": 0.0,
+    "multi_US_sessions": "compound same-session open-to-close returns; deliberately exclude US close-to-next-open gaps from this new state so the feature measures regular-session price discovery while the existing clock model retains cumulative close-to-close shock information",
+    "calendar_anchor": "SPY US session inventory",
+    "missing_source_row_when_SPY_session_exists": "fail_or_mark_incomplete; never silently treat as zero"
+  },
+  "preregistered_source_representations": {
+    "ashs_session": "ASHS post-China-close US-session compound return",
+    "ashr_session": "ASHR post-China-close US-session compound return",
+    "ashs_minus_ashr": "ASHS session return minus ASHR session return; small/mid A-share relative state",
+    "a_share_consensus": "0.5 * (ASHS session return + ASHR session return)",
+    "a_share_specific_vs_spy": "a_share_consensus - SPY session return",
+    "broad_china_specific_vs_spy": "0.5 * (FXI session return + MCHI session return) - SPY session return",
+    "china_etf_positive_breadth": "fraction of ASHS, ASHR, FXI and MCHI session returns strictly above zero"
+  },
+  "phase_1_source_quality": {
+    "must_report": [
+      "coverage by symbol and year",
+      "missing rows relative to SPY session calendar",
+      "nonpositive or invalid open/close rows",
+      "zero-volume share",
+      "zero-return share",
+      "extreme same-session return diagnostics",
+      "zero/one/multiple completed US-session interval counts"
+    ],
+    "no_predictive_source_can_be_admitted_if_calendar_or_price_integrity_is_unresolved": true
+  },
+  "phase_2_development_diagnostic": {
+    "models": "incumbent Median head only plus the previously rejected weakness_last_hour_piecewise replay for disagreement morphology; no new candidate model is fit",
+    "target_slices": [
+      "incumbent predicted-down rows with prior last-hour weakness",
+      "OHR-04 incumbent-down_to_last-hour-candidate-up flips"
+    ],
+    "required_for_each_source_representation": [
+      "pooled actual-up vs actual-down mean and median within incumbent-predicted-down prior-tail-weakness rows",
+      "quartile actual-high-open share and counts in that slice",
+      "annual actual-up-minus-actual-down mean difference sign inventory for 2016-2025",
+      "OHR-04 rescued-high vs new-false-high mean/median/standardized difference",
+      "OHR-04 quartile added-up precision where sample permits"
+    ]
+  },
+  "source_mechanism_admission_rule": {
+    "expected_direction": "larger positive China-specific offshore state should favor next-China-open high versus low",
+    "required": [
+      "source quality passes",
+      "pooled actual-up-minus-actual-down source difference is positive in the incumbent-predicted-down prior-tail-weakness slice",
+      "annual difference is positive in at least 6 of 10 OOF years",
+      "median annual difference is positive",
+      "top source quartile actual-high-open share exceeds bottom quartile",
+      "the result is financially interpretable as China-specific post-close price discovery rather than only US common-market exposure"
+    ],
+    "ohr04_rescue_vs_new_false_high": "supporting diagnostic, not a hard gate because the disagreement sample is small",
+    "if_none_admitted": "retain incumbent and report information-source admission failure; do not open 2026",
+    "if_one_or_more_admitted": "freeze a separate bounded candidate family before any repeat-blackbox access"
+  },
+  "forbidden": [
+    "2026 data access during source admission",
+    "post-2026-08-21 target access",
+    "same-morning China prices, news, futures, ETFs or FX used as predictors",
+    "provider shopping based on target results",
+    "feature thresholds selected from target outcomes",
+    "candidate model ranking in this source-admission phase",
+    "quantile, alpha, threshold or class-weight search",
+    "trading-return optimization",
+    "opening OHR-03"
+  ],
+  "production_authority": false
+}

@@ -1,0 +1,20 @@
+{
+  "aggregate_outputs_only": true,
+  "feature_history_only": {
+    "2010-10-01_to_2010-12-31": true
+  },
+  "opened": {
+    "CSI300_Audit_A_2011-01-01_to_2012-12-31": true,
+    "CSI500_Audit_A_2011-01-01_to_2012-12-31": true
+  },
+  "production_authority": false,
+  "raw_rows_written_to_repo": false,
+  "research_identity": "gap_fill_cross_index_transport_v1",
+  "schema_id": "overnight_open_gap_fill_cross_index_audit_a_data_usage@1.0",
+  "sealed": {
+    "Audit_B_2013-01-01_to_2014-10-16": true,
+    "CSI1000_2026Q4_true_fresh": true,
+    "supporting_crosscheck_2014-10-17_to_2014-12-31": true
+  },
+  "session_date": "2026-09-07"
+}

@@ -1,0 +1,129 @@
+{
+  "schema_id": "overnight_open_gap_fill_v21_regime_diagnostic_protocol@1.0",
+  "session_date": "2026-09-07",
+  "research_identity": "gap_fill_v2_1_regime_conditioned_successor",
+  "stage": "V21_RD1_consumed_evidence_mechanism_diagnostic_before_successor_family",
+  "parent_failure_adjudication": "docs/research/gap_fill_cross_index_audit_b_cloud_adjudication_20260907.md",
+  "parent_failure_decision": "CT_AUDIT_B_final_backward_external_not_confirmed",
+  "old_identity_must_not_be_rewritten": "gap_fill_cross_index_transport_v1",
+  "frozen_base_architecture": {
+    "features": ["abs_gap", "abs_gap_over_rvol20"],
+    "CSI300_bundle_sha256": "87b4bf1c4153bd786189b48e631175e0eaf83a34fc9ca7b96bff8d794c5158eb",
+    "CSI500_bundle_sha256": "6cf2966d1ae4c48df2d52ef024c197907d76169ac2672ac0c6dd96e0ddd9a957",
+    "external_parameter_artifact": "docs/governance/local_gap_fill_cross_index_transport_dev_parameter_freeze_v1.json",
+    "external_parameter_artifact_sha256": "0cc74f79d9e9f26d1b9d8d554c96db0207a63d68787cceff1152dd71d26ae992"
+  },
+  "admitted_source": {
+    "dataset_version": "bars_cn_index_1m_raw_canonical_market_index_baidu_3s_20000714_20260821_factorlab_unified_missing_day_repaired_v8_20260824",
+    "dataset_sha256": "25f4f9f8b67c799ffb1a7b7fdee94b0b21dbbfed1efc54d063264ccb046411f0",
+    "required_environment_variable": "OVERNIGHT_HISTORICAL_INDEX_1M_LAKE"
+  },
+  "outcome_bearing_consumed_windows_only": {
+    "Audit_A": {"start": "2011-01-01", "end": "2012-12-31"},
+    "Audit_B": {"start": "2013-01-01", "end": "2014-10-16"}
+  },
+  "forbidden_outcome_windows": [
+    "CSI300_or_CSI500_2014-10-17_to_2014-12-31_supporting_crosscheck",
+    "CSI300_or_CSI500_2015-01-01_and_later_any_OHLC_gap_fill_or_model_score",
+    "CSI1000_post_2026-08-21_any_outcome_or_score"
+  ],
+  "timing_contract": {
+    "current_target_09_31_open_allowed": true,
+    "other_broad_index_current_09_31_open_allowed": true,
+    "post_09_31_current_day_information_allowed": false,
+    "all_prior_day_features_must_be_lagged": true
+  },
+  "primary_cell": {
+    "index": "CSI500",
+    "sign": "high",
+    "cohort": "abs_gap_gt_10bp",
+    "horizons": ["fill_15m", "fill_60m"]
+  },
+  "secondary_contrast": {
+    "index": "CSI300",
+    "sign": "high",
+    "cohort": "abs_gap_gt_10bp",
+    "horizons": ["fill_15m", "fill_60m"]
+  },
+  "probes": [
+    {
+      "id": "P1_common_gap_support",
+      "formula": "sign(gap_i)*gap_j/rvol20_j",
+      "expected_beta_sign": "negative",
+      "mechanism": "same-direction normalized broad-index gap supports common information repricing and should reduce fill"
+    },
+    {
+      "id": "P2_relative_gap_excess",
+      "formula": "sign(gap_i)*(gap_i-gap_j)/rvol20_i",
+      "expected_beta_sign": "positive",
+      "mechanism": "target-specific gap excess is more consistent with opening overshoot and should increase fill"
+    },
+    {
+      "id": "P3_trend20_alignment",
+      "formula": "sign(gap_i)*(close_i_tminus1/close_i_tminus21-1)",
+      "expected_beta_sign": "negative",
+      "mechanism": "gap aligned with prior 20-session trend has continuation support and should reduce fill"
+    },
+    {
+      "id": "P4_prior_daytime_alignment",
+      "formula": "sign(gap_i)*(close_i_tminus1_1500/open_i_tminus1_0931-1)",
+      "expected_beta_sign": "negative",
+      "mechanism": "gap aligned with prior session daytime direction has continuation support and should reduce fill"
+    },
+    {
+      "id": "P5_relative_momentum5_alignment",
+      "formula": "sign(gap_i)*[(close_i_tminus1/close_i_tminus6-1)-(close_j_tminus1/close_j_tminus6-1)]",
+      "expected_beta_sign": "negative",
+      "mechanism": "same-direction recent relative momentum supports persistent relative repricing and should reduce fill"
+    }
+  ],
+  "diagnostic_model": {
+    "form": "logit(p_state)=logit(p_base)+beta*z_probe",
+    "beta_dimension": 1,
+    "base_probability_source": "frozen_index_specific_T2_bundle",
+    "probe_standardization": "within_evaluated_cell_mean0_std1_population",
+    "optimizer": "scipy_optimize_minimize_scalar_bounded",
+    "beta_bounds": [-6.0, 6.0],
+    "minimum_cell_rows": 20,
+    "calibration_layer_authority": false,
+    "candidate_model_authority": false
+  },
+  "mechanism_admission_rule": {
+    "pooled_primary_expected_sign_both_horizons": true,
+    "pooled_primary_logloss_improves_both_horizons": true,
+    "audit_b_primary_expected_sign_both_horizons": true,
+    "audit_b_primary_logloss_improves_at_least_one_of_two": true,
+    "audit_a_primary_expected_sign_at_least_one_of_two": true,
+    "csi300_high_contrast_not_contradicted_both_horizons": true,
+    "all_required": true
+  },
+  "future_external_partitions_frozen_before_outcome_open": {
+    "V21_DEV": {"start": "2015-01-01", "end": "2018-12-31"},
+    "V21_AUDIT_A": {"start": "2019-01-01", "end": "2021-12-31"},
+    "V21_AUDIT_B": {"start": "2022-01-01", "end": "2024-12-31"},
+    "V21_EXTERNAL_RESERVE": {"start": "2025-01-01", "end": "2026-08-21"}
+  },
+  "future_partition_inventory": {
+    "allowed_columns": ["symbol", "trading_day", "timestamp"],
+    "allowed_outputs": ["trading_day_count", "exact_240_day_count", "min_day", "max_day", "missing_calendar_or_clock_counts"],
+    "OHLC_read_allowed": false,
+    "gap_or_fill_target_construction_allowed": false,
+    "model_scoring_allowed": false
+  },
+  "forbidden_after_RD1_open": [
+    "add_new_RD1_probe",
+    "flip_failed_probe_sign",
+    "rescue_failed_probe_with_ratio_or_interaction",
+    "change_primary_cell_or_horizons",
+    "open_2014Q4_supporting_crosscheck",
+    "open_V21_DEV_outcomes_before_cloud_freezes_successor_family",
+    "fit_trading_strategy_or_return_gate",
+    "modify_frozen_V2_v1_or_cross_index_v1_evidence_labels"
+  ],
+  "required_outputs": [
+    "docs/research/local_gap_fill_v21_regime_diagnostic_receipt_v1.json",
+    "docs/governance/local_gap_fill_v21_regime_diagnostic_data_usage_v1.json"
+  ],
+  "fresh_oos": false,
+  "production_authority": false
+}

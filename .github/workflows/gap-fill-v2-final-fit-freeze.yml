@@ -1,0 +1,128 @@
+name: gap-fill-v2-final-fit-freeze
+
+on:
+  push:
+    paths:
+      - '.github/workflows/gap-fill-v2-final-fit-freeze.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install \
+            numpy==2.4.6 \
+            pandas==3.0.5 \
+            scipy==1.17.1 \
+            scikit-learn==1.9.0 \
+            pyarrow==25.0.1 \
+            pytest==9.1.1
+      - name: Verify frozen code and governance identities
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git hash-object docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_protocol_v1.json)" = "f3e6f9e15ca12492353aeef2b23717ae47ee497e"
+          test "$(git hash-object docs/governance/cloud_session_20260906_gap_fill_v2_phase2_selected_v1.json)" = "17599d3f77861febf373b2ea05cd16131ceac5e8"
+          test "$(git hash-object scripts/fit_gap_fill_v2_selected_dev.py)" = "9ad8b4dbd4202e0c81f45ae8724afc1a531a364d"
+          test "$(git hash-object tests/test_gap_fill_v2_final_fit_protocol.py)" = "c1cb4af7d61e2fb0b98de1de9805599a24206822"
+          test "$(git hash-object docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_execution_freeze_v1.json)" = "31f0c528ae0c6b9aa34c380283cd3ea98dfd520d"
+      - name: Verify frozen data identities
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo 'f2587a528a517052016b646b58c734569b64a87766ff096575f353587e46aed1  data/high_open_dev_2015_2025/annotated_panel.parquet' | sha256sum -c -
+          echo '11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce  data/high_open_dev_2015_2025/1m_official.parquet' | sha256sum -c -
+      - name: Validate package
+        run: python3 scripts/validate_theme_package.py
+      - name: Run regression tests
+        run: python3 -m pytest -q
+      - name: Run deterministic final development fit
+        run: python3 scripts/fit_gap_fill_v2_selected_dev.py
+      - name: Verify final parameter freeze
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_freeze_v1.json')
+          u = Path('docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_data_usage_v1.json')
+          assert p.exists() and u.exists()
+          d = json.loads(p.read_text())
+          assert d['selected_architecture_sha256'] == '07810dafbab629f196d04ea1204d90ee68177ce764bb765be560bc1b84261c00'
+          assert d['final_fit_status'] == 'completed_parameter_identity_frozen'
+          assert d['model_selection_performed'] is False
+          assert d['hyperparameter_search_performed'] is False
+          assert d['threshold_search_performed'] is False
+          assert d['probability_calibration_performed'] is False
+          assert d['2026_rows_loaded'] is False
+          assert d['2026_repeat_validation_opened'] is False
+          b = d['parameter_bundle']
+          assert b['features'] == ['abs_gap', 'abs_gap_over_rvol20']
+          assert b['library_versions'] == {
+              'python': b['library_versions']['python'],
+              'numpy': '2.4.6',
+              'pandas': '3.0.5',
+              'scipy': '1.17.1',
+              'scikit_learn': '1.9.0',
+              'pyarrow': '25.0.1',
+          }
+          assert b['library_versions']['python'].startswith('3.11.')
+          assert set(b['heads']) == {'high', 'low'}
+          for sign in ['high', 'low']:
+              h = b['heads'][sign]
+              assert h['features'] == ['abs_gap', 'abs_gap_over_rvol20']
+              assert set(h['stages']) == {'15m', '60m', 'eod'}
+              for stage in ['15m', '60m', 'eod']:
+                  s = h['stages'][stage]
+                  assert s['n_train_risk'] > 0
+                  assert 0 < s['event_count'] < s['n_train_risk']
+                  assert len(s['scaler']['mean']) == 2
+                  assert len(s['scaler']['scale']) == 2
+                  assert len(s['logistic']['coef']) == 2
+                  assert len(s['logistic']['classes']) == 2
+          print(json.dumps({
+              'parameter_bundle_sha256': d['parameter_bundle_sha256'],
+              'inventory': b['inventory'],
+              'head_counts': {
+                  sign: {
+                      'n_sign_rows': b['heads'][sign]['n_sign_rows'],
+                      'stages': {
+                          stage: {
+                              'n_train_risk': b['heads'][sign]['stages'][stage]['n_train_risk'],
+                              'event_count': b['heads'][sign]['stages'][stage]['event_count'],
+                          }
+                          for stage in ['15m', '60m', 'eod']
+                      },
+                  }
+                  for sign in ['high', 'low']
+              },
+              '2026_rows_loaded': d['2026_rows_loaded'],
+          }, indent=2, sort_keys=True))
+          PY
+      - name: Commit parameter freeze artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'gap-fill-v2-final-fit-cloud-runner'
+          git config user.email 'gap-fill-v2-final-fit-cloud-runner@users.noreply.github.com'
+          git add \
+            docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_freeze_v1.json \
+            docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_data_usage_v1.json
+          if git diff --cached --quiet; then
+            echo 'No final-fit artifact changes.'
+          else
+            git commit -m 'Record cloud gap-fill V2 final parameter freeze [skip ci]'
+            git push origin HEAD:main
+          fi
