@@ -134,3 +134,34 @@
 132. `docs/governance/gap_fill_v2_generation_policy_v1.json`
 133. `docs/governance/cloud_session_20260906_gap_fill_v2_historical_extension_execution_freeze_v1.json`
 134. `.github/workflows/gap-fill-v2-historical-extension-prereg-check.yml`
+
+## V2 historical extension, cross-index transport, and V2.1 continuation
+
+The following later Overnight-native lineage remains current evidence after the 2026-09-09 scope restoration. Generic RMR history is not part of this index.
+
+- `docs/research/gap_fill_v2_he00_cloud_source_adjudication_20260906.md` — HE-00 source/provenance adjudication; pre-2014 CSI1000 unavailable, CSI300/CSI500 admitted for separate transport research.
+- `docs/governance/cloud_session_20260906_gap_fill_cross_index_transport_protocol_v1.json`
+- `docs/research/gap_fill_cross_index_ct_dev_cloud_adjudication_20260907.md` — CT-DEV passed architecture transport.
+- `docs/research/gap_fill_cross_index_audit_a_cloud_adjudication_20260907.md` — sealed Audit A passed all four heads.
+- `docs/research/gap_fill_cross_index_audit_b_cloud_adjudication_20260907.md` — final backward robust confirmation failed only in the CSI500-high material-gap state; no rescue under that identity.
+- `docs/research/gap_fill_v21_rd1_cloud_adjudication_20260907.md` — only `P2_relative_gap_excess` admitted for bounded V2.1 family design.
+- `docs/governance/cloud_session_20260907_gap_fill_v21_candidate_family_v1.json`
+- `docs/research/gap_fill_v21_candidate_family_preanalysis_20260907.md`
+- `scripts/v21_p2_overlay.py`
+- `docs/governance/cloud_session_20260907_gap_fill_v21_evaluation_kernel_contract_v1.json`
+- `scripts/v21_evaluation_kernel.py`
+- `docs/governance/cloud_session_20260907_gap_fill_v21_future_audit_source_admission_v1.json`
+- `scripts/v21_session_complete_239_gate.py`
+- `docs/research/local_gap_fill_v21_future_audit_source_admission_receipt_v1.json`
+- `docs/research/local_gap_fill_v21_dev_metadata_admission_receipt_v1.json`
+- `docs/research/gap_fill_v21_sa1_sa2_cloud_adjudication_20260908.md`
+- `docs/governance/cloud_session_20260908_gap_fill_v21_dev_open_authorization_v1.json`
+- `docs/governance/cloud_session_20260908_gap_fill_v21_dev_execution_freeze_v1.json`
+- `docs/ops/gap_fill_v21_dev_selection_execution_handoff.md`
+- `scripts/run_gap_fill_v21_dev_selection.py`
+- `scripts/run_gap_fill_v21_dev_selection_authorized.py`
+- `docs/research/local_gap_fill_v21_dev_selection_receipt_v1.json` — restored byte-identical legitimate DEV result.
+- `docs/governance/local_gap_fill_v21_dev_data_usage_v1.json` — restored byte-identical data-usage evidence.
+- `docs/research/gap_fill_v21_dev_cloud_adjudication_20260909.md` — final decision `V21_DEV_no_P2_successor`; frozen yearly sample gate is insufficient in 2017, so Audit A remains sealed.
+- `docs/governance/gap_fill_v21_state_v1.json` — current V2.1 authority; P2 family closed at DEV, no parameter freeze, no Audit A/B opening.
+- `docs/governance/repository_scope_restoration_20260909.md` — Overnight-only scope and provenance of the restored legitimate V21 result.
