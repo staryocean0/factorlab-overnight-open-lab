@@ -60,22 +60,50 @@ receipt before the complete block is available. See
 `docs/governance/gap_fill_v2_true_fresh_state_v1.json`.
 
 **Freezing V2 v1 does not freeze the research program.** A distinct historical-
-extension identity, `gap_fill_v2_historical_extension_v1`, is active now and may
-produce V2.1 or later successors using newly admitted historical data. The
-current HE-00 stage is metadata/provenance only; do not inspect new historical
-fill outcomes until source admission. Fixed same-index partitions are HE_DEV
-`2005-01-01..2010-12-31`, HE_AUDIT_A `2011-01-01..2012-12-31`, HE_AUDIT_B
-`2013-01-01..2014-10-16`, and supporting post-publication cross-check
-`2014-10-17..2014-12-31`. Audit dates must not slide after outcomes are seen.
-Pre-2014-10-17 CSI1000 history must be labeled as vendor backfill,
-constituent-reconstruction, or unknown provenance rather than presumed live.
-See `docs/governance/gap_fill_v2_generation_policy_v1.json` and
-`docs/governance/cloud_session_20260906_gap_fill_v2_historical_extension_protocol_v1.json`.
-V2.1 may use newly admitted historical data and consumed evidence as development
-context, but it must have a new model identity and its own sealed audit evidence;
-it may not alter V2 v1 and inherit V2 v1's evidence labels. CSI300/CSI500 may be
-inventoried now, but any outcome-based cross-index transport test requires a
-separate preregistered protocol.
+extension identity, `gap_fill_v2_historical_extension_v1`, admitted historical
+source/provenance and led to the bounded V2.1 successor research line. Same-index
+pre-2014 CSI1000 blocks were unavailable under the admitted source, so the route
+used preregistered CSI300/CSI500 cross-index development/audits instead. V2.1
+preserves V2 v1 immutability and cannot inherit V2 v1 evidence labels.
+
+The cross-index transport architecture passed CT-DEV and Audit A but failed the
+stronger final Audit-B rule in the CSI500 high material-gap state. The new
+`gap_fill_v2_1_regime_conditioned_successor` then ran a consumed-evidence RD1
+mechanism diagnostic. Only
+`P2_relative_gap_excess = sign(gap_i) * (gap_i-gap_j) / rvol20_i` was admitted
+for bounded family design.
+
+The V21 P2 successor family is now **closed at DEV without a successor**. A
+legitimate local execution completed the frozen 2015-2018 CSI300/CSI500
+expanding-OOF ladder and was recovered after the 2026-09-09 repository-scope
+restoration. The authoritative decision is `V21_DEV_no_P2_successor`.
+
+Frozen primary sample counts for CSI500-high `abs_gap > 10bp` were:
+
+- 2016: `68`;
+- 2017: `15`;
+- 2018: `52`;
+- pooled: `135`.
+
+The preregistered rule requires >=20 in **each** validation year and >=60 pooled.
+Because 2017 has only 15 rows, all three frozen candidates are
+`evidence_insufficient`, selected candidate is `null`, and no V21 parameter
+freeze exists. Do **not** lower the yearly minimum, change the >10bp threshold,
+move/extend DEV dates, pool away 2017, add/reorder candidates, or open Audit A as
+a rescue. Audit A/B, V21 external reserve, 2014Q4 support, and CSI1000
+post-2026-08-21 remain sealed for this V2.1 family.
+
+Current V21 evidence:
+
+- `docs/research/local_gap_fill_v21_dev_selection_receipt_v1.json`;
+- `docs/governance/local_gap_fill_v21_dev_data_usage_v1.json`;
+- `docs/research/gap_fill_v21_dev_cloud_adjudication_20260909.md`;
+- `docs/governance/gap_fill_v21_state_v1.json`.
+
+Do not rerun the consumed V21 DEV experiment merely because the full HE-00 v8
+parquet is local-only and absent from this cloud checkout. Any materially
+different continuation needs a new independently preregistered Overnight
+identity.
 
 The bounded `high_open_recall_successor_v1` branch has finished without an
 incremental successor. OHR-02 and OHR-04 both retained
