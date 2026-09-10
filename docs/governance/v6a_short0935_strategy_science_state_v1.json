@@ -1,0 +1,28 @@
+{
+  "schema_id": "overnight_v6a_short0935_strategy_science_state@1.0",
+  "session_date": "2026-09-10",
+  "research_identity": "overnight_v6a_short0935_to_close_v1",
+  "current_status": "decision_use_contract_frozen_strategy_science_DEV_authorized_pending_local_execution",
+  "decision_use_contract": "docs/governance/v6a_short0935_financial_decision_use_contract_v1.json",
+  "strategy_science_protocol": "docs/governance/v6a_short0935_strategy_science_protocol_v1.json",
+  "runner": "scripts/run_v6a_short0935_strategy_science_dev.py",
+  "one_command_runner": "scripts/run_v6a_short0935_strategy_science_dev.sh",
+  "prediction_baseline": "V6A_plus_ordinary_A50_preauction_closure",
+  "execution_summary": {
+    "research_underlier": "CSI1000 index 000852.SH synthetic proxy",
+    "side": "short_only",
+    "signal": "V6A signed-gap prediction > 0",
+    "entry": "09:35 one-minute close",
+    "exit": "15:00 one-minute close",
+    "entry_cost": 0.0001,
+    "exit_cost": 0.0001,
+    "round_trip_cost": 0.0002
+  },
+  "DEV_window": "2019-01-01..2020-12-31",
+  "DEV_result": null,
+  "DEV_receipt": "docs/research/local_v6a_short0935_strategy_science_dev_receipt_v1.json",
+  "reusable_BLACKBOX_2021_2025_opened_for_this_strategy_identity": false,
+  "reusable_BLACKBOX_query_authorized_now": false,
+  "condition_for_blackbox": "DEV_PASS",
+  "production_authority": false
+}
