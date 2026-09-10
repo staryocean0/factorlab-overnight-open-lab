@@ -43,7 +43,7 @@ The current prediction-model research cycle is closed for the accepted identity.
 - **Direction head:** `median_quantile_sign` is robustly fresh-OOS confirmed against Ridge on 2026-01-05 through 2026-08-21.
 - Accepted status: `component_confirmed_incumbent_research_architecture`.
 - Direction and magnitude remain separate primary tasks; no stronger joint-fresh full-model claim is made.
-- All opened data through 2026-08-21 are consumed for these identities and must not be reused for retuning.
+- Opened intervals may not be reused as fresh evidence for identities they have already informed. Under the current reusable-BLACKBOX policy, 2021-2025 may still be queried for a separately frozen identity without becoming a new independent OOS sample.
 - Post-2026-08-21 remains unread for the integrated identity.
 
 Direction candidate spec SHA256:
@@ -54,6 +54,35 @@ Direction fresh receipt:
 
 Research acceptance:
 `docs/governance/cloud_session_20260906_research_architecture_acceptance_v1.json`.
+
+## Scientific status — V6A global-spillover baseline
+
+The frozen single-head signed-gap candidate
+`V6A_plus_ordinary_A50_preauction_closure` completed one reusable 2021-2025
+BLACKBOX query and returned **PASS**. The BLACKBOX released no detailed metrics,
+year/quarter breakdowns, event rows, sample counts, attribution or failure clues.
+
+A separate baseline replacement review is complete:
+
+**V6A is now the current research baseline for the global-spillover single-head
+signed-gap lineage, replacing V5A in that scope only.**
+
+This does **not** replace the repository-wide accepted two-head architecture
+(`median_quantile_sign` + `abs_frozen_clock_signed_prediction`), does not replace
+its direction or magnitude heads, and does not create a trading or production
+baseline.
+
+Authority:
+
+- `docs/governance/global_spillover_current_baseline_v1.json`;
+- `docs/governance/global_spillover_v6a_baseline_replacement_review_20260910.json`;
+- `docs/governance/global_spillover_v6a_blackbox_state_v1.json`;
+- `docs/research/local_v6a_reusable_blackbox_receipt_v1.json`;
+- `docs/governance/overnight_reusable_blackbox_query_ledger_v1.json`.
+
+The 2021-2025 BLACKBOX remains reusable for other separately frozen identities,
+but reuse does not create a new independent OOS sample and hidden BLACKBOX
+behavior may not be used to tune a successor.
 
 ## Scientific status — Gap-Fill V2
 
@@ -128,6 +157,10 @@ post-signal economic target, costs, risk constraints, and the mapping from
 direction/magnitude outputs to an action. The CSI1000 index level is not itself a
 tradable fill, and an order filled at the open cannot retroactively capture the
 previous-close-to-open gap.
+
+The V6A global-spillover baseline promotion is a prediction-research baseline
+change only. It grants no account, execution, routing, registry or production
+authority.
 
 For the closed V2.1 P2 family, do not open its Audit A/B blocks or rescue the
 frozen DEV insufficiency by changing thresholds, years, model classes, candidate
