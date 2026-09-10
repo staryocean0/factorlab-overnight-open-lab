@@ -1,0 +1,20 @@
+{
+  "schema_id": "overnight_global_spillover_current_baseline@1.0",
+  "session_date": "2026-09-10",
+  "scope": "global_spillover_single_head_signed_gap_research_only",
+  "current_baseline": {
+    "identity": "V6A_plus_ordinary_A50_preauction_closure",
+    "model": "StandardScaler + Ridge(alpha=1.0)",
+    "training_period": "2015-01-01..2018-12-31",
+    "ordinary_A50_cutoff": "09:14:59",
+    "holiday_A50_cutoff": "09:24:59",
+    "source_contract": "same-contract SGX FTSE China A50 + frozen U.S. complete clock + HKMA cross",
+    "blackbox_query_id": "8d367381811d7907e2ac",
+    "blackbox_decision": "PASS",
+    "review": "docs/governance/global_spillover_v6a_baseline_replacement_review_20260910.json"
+  },
+  "superseded_baseline_for_this_scope": "V5A_plus_A50_closure / V5A_common_sample_comparator",
+  "repository_wide_prediction_architecture_unchanged": true,
+  "repository_wide_prediction_architecture": "median_quantile_sign + abs_frozen_clock_signed_prediction",
+  "production_authority": false
+}
