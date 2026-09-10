@@ -1,0 +1,61 @@
+{
+  "schema_id": "overnight_v6a_base_panel_reconstruction_contract@1.0",
+  "session_date": "2026-09-10",
+  "research_identity": "V6A_plus_ordinary_A50_preauction_closure",
+  "purpose": "Mechanically reconstruct the frozen CSI1000 base-feature panel before opening the 2021-2025 reusable BLACKBOX.",
+  "scientific_change": false,
+  "formula_authority": {
+    "script": "scripts/evaluate_local_2021_2025_two_head.py",
+    "status": "existing_pre_blackbox_reconstruction_logic",
+    "development_parity_oracle": "data/development/csi1000_open_pit_panel.parquet",
+    "development_us_oracle": "data/development/us_nasdaq_vix.parquet"
+  },
+  "raw_inputs": {
+    "annotated_panel": "data/high_open_dev_2015_2025/annotated_panel.parquet",
+    "minute_bars": "data/high_open_dev_2015_2025/1m_official.parquet",
+    "fred_nasdaq": "data/high_open_dev_2015_2025/fred_nasdaq.csv",
+    "fred_vix": "data/high_open_dev_2015_2025/fred_vix.csv"
+  },
+  "required_output_columns": [
+    "trading_day",
+    "gap",
+    "r1",
+    "r20",
+    "abs_r1",
+    "prev_gap",
+    "overnight_trend_5",
+    "prev_daytime",
+    "prev_last_hour",
+    "prev_afternoon",
+    "rvol20",
+    "weekend",
+    "holiday_reopen",
+    "us_nasdaq",
+    "us_vix_chg"
+  ],
+  "development_parity_gate": {
+    "window": "2015-01-05..2020-12-31",
+    "trading_day_inventory": "exact",
+    "nan_masks": "exact",
+    "numeric_tolerance": 0.0,
+    "must_pass_before_2021_2025_panel_is_materialized": true
+  },
+  "blackbox_boundary": {
+    "window": "2021-01-01..2025-12-31",
+    "role": "reusable_blackbox_validation",
+    "temporary_reconstructed_panel_may_exist_only_during_local_execution": true,
+    "temporary_panel_must_not_be_committed": true,
+    "public_output": ["PASS", "FAIL", "INSUFFICIENT"],
+    "no_detail_release": true,
+    "ledger_entry_only_after_actual_query": true
+  },
+  "prohibitions": [
+    "no_formula_changes",
+    "no_feature_changes",
+    "no_blackbox_based_reconstruction_adjustment",
+    "no_tolerance_relaxation_after_parity_failure",
+    "no_persisted_2021_2025_feature_rows",
+    "no_blackbox_detail_output"
+  ],
+  "production_authority": false
+}
