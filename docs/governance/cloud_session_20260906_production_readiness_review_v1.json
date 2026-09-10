@@ -1,39 +1,48 @@
 {
-  "schema_id": "overnight_open_production_readiness_review@1.0",
-  "session_date": "2026-09-06",
+  "schema_id": "overnight_open_production_readiness_review@1.1",
+  "session_date": "2026-09-10",
   "research_architecture": "docs/governance/cloud_session_20260906_research_architecture_acceptance_v1.json",
   "research_architecture_status": "component_confirmed_incumbent_research_architecture",
-  "review_decision": "blocked_before_strategy_account_audit_missing_financial_decision_use_contract",
+  "review_decision": "financial_decision_use_contract_frozen_strategy_science_opened_as_index_level_research_proxy",
   "predictive_model_failure": false,
-  "reason": [
-    "The research target is the CSI1000 index open gap, not a directly executable fill.",
-    "The index level 000852.SH is not itself a tradable instrument price.",
-    "A prediction of the opening gap does not by itself define a realizable PnL path; an order filled at the open cannot retroactively capture the already-realized previous-close-to-open gap.",
-    "The US overnight features are causally available before the China open, but the financial action that consumes the prediction still needs an explicit tradable instrument, decision time, order/fill rule and post-signal economic objective.",
-    "Account or return optimization before those semantics are frozen would answer a different financial question and could feed trading outcomes back into the already-accepted prediction model."
-  ],
-  "required_contract_before_strategy_science_acceptance": {
-    "tradable_instrument": "required",
-    "signal_availability_timestamp": "required",
-    "decision_timestamp": "required",
-    "order_submission_window": "required",
-    "fill_price_convention": "required",
-    "position_entry_and_exit_semantics": "required",
-    "economic_target_after_signal": "required",
-    "transaction_cost_and_slippage_model": "required",
-    "benchmark_or_no_action_comparator": "required",
-    "risk_and_exposure_constraints": "required",
-    "mapping_from_direction_and_magnitude_outputs_to_decision": "required"
+  "decision_use_contract": "docs/governance/v6a_short0935_financial_decision_use_contract_v1.json",
+  "strategy_identity": "overnight_v6a_short0935_to_close_v1",
+  "contract_resolution": {
+    "underlier": "CSI1000 index 000852.SH",
+    "tradability_claim": false,
+    "research_proxy_only": true,
+    "signal_source": "V6A_plus_ordinary_A50_preauction_closure",
+    "signal_rule": "short only when frozen V6A signed-gap prediction > 0",
+    "signal_available_by": "09:15",
+    "decision_and_entry": "09:35 one-minute close",
+    "exit": "15:00 one-minute close",
+    "side": "short_only",
+    "entry_cost": 0.0001,
+    "exit_cost": 0.0001,
+    "round_trip_cost": 0.0002,
+    "future_options_mapping": "separate future instrument-mapping identity only"
+  },
+  "best_execution_interpretation": "No extra slippage beyond the fixed 1bp per side cost. Do not use intrabar high/low or any future best price; fills are deterministic timestamped index-price proxies.",
+  "strategy_science": {
+    "status": "DEV_authorized_pending_local_execution",
+    "protocol": "docs/governance/v6a_short0935_strategy_science_protocol_v1.json",
+    "state": "docs/governance/v6a_short0935_strategy_science_state_v1.json",
+    "runner": "scripts/run_v6a_short0935_strategy_science_dev.sh",
+    "detailed_window": "2019-01-01..2020-12-31",
+    "reusable_BLACKBOX_2021_2025_open_now": false,
+    "condition_for_BLACKBOX": "DEV_PASS"
   },
   "hard_constraints": [
-    "Do not use index level as a fictitious tradable fill.",
-    "Do not optimize total trading return to retune the frozen direction or magnitude heads.",
-    "Do not reuse 2021-2025 or 2026-01-05_to_2026-08-21 as fresh model evidence.",
-    "Do not open post-2026-08-21 for an integrated challenge before its protocol is frozen.",
-    "Do not grant production authority from component prediction validation alone."
+    "The cash index remains a synthetic research PnL proxy and must not be represented as a directly executable short instrument.",
+    "Do not count the previous-close-to-open gap itself as strategy PnL; entry begins only at 09:35.",
+    "Do not optimize total trading return to retune the frozen V6A predictor.",
+    "Do not change threshold, entry time, exit time, costs, side, leverage, stops or targets after seeing strategy-science outcomes.",
+    "Do not open 2021-2025 strategy outcomes for this identity unless the frozen 2019-2020 DEV gates pass.",
+    "Do not grant production authority from an index-proxy strategy result.",
+    "Any future option implementation requires a separate instrument-specific contract."
   ],
-  "strategy_science_acceptance_status": "not_opened",
+  "strategy_science_acceptance_status": "opened_pending_DEV_result",
   "post_training_account_audit_status": "not_opened",
   "production_authority": false,
-  "next_action": "financial_owner_freezes_decision_use_contract_then_run_outcome_neutral_strategy_science_acceptance"
+  "next_action": "run the frozen 2019-2020 V6A 09:35 short-side strategy-science DEV once; if and only if DEV_PASS, preregister a separate low-bandwidth 2021-2025 reusable BLACKBOX query for this strategy identity"
 }
