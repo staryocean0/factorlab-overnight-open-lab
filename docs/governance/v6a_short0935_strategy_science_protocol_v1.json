@@ -1,0 +1,82 @@
+{
+  "schema_id": "overnight_v6a_short0935_strategy_science_protocol@1.0",
+  "session_date": "2026-09-10",
+  "research_identity": "overnight_v6a_short0935_to_close_v1",
+  "decision_use_contract": "docs/governance/v6a_short0935_financial_decision_use_contract_v1.json",
+  "objective": "Test whether the already-frozen V6A positive signed-gap signal has economically positive same-day short-side value after 09:35 under a fixed index-level research proxy.",
+  "predictor": {
+    "candidate": "V6A_plus_ordinary_A50_preauction_closure",
+    "parent_comparator": "V5A_common_sample_comparator",
+    "fit_window": "2015-01-01..2018-12-31",
+    "model": "StandardScaler + Ridge(alpha=1.0)",
+    "candidate_threshold": 0.0,
+    "comparator_threshold": 0.0,
+    "refit_or_retune": false
+  },
+  "strategy_science_window": {
+    "start": "2019-01-01",
+    "end": "2020-12-31",
+    "role": "detailed_consumed_historical_strategy_science_holdout",
+    "may_release_details": true,
+    "is_fresh_model_evidence": false
+  },
+  "execution": {
+    "instrument_proxy": "CSI1000 index 000852.SH",
+    "entry_clock": "09:35",
+    "entry_price": "09:35 one-minute close",
+    "exit_clock": "15:00",
+    "exit_price": "15:00 one-minute close",
+    "side": "short_only",
+    "position_rule": "enter one-unit short iff frozen signed-gap prediction > 0; else flat",
+    "entry_cost": 0.0001,
+    "exit_cost": 0.0001,
+    "round_trip_cost": 0.0002,
+    "gross_return": "(entry_price-exit_price)/entry_price",
+    "net_return": "gross_return-0.0002"
+  },
+  "comparators": {
+    "V5A_mapped_strategy": "same zero-threshold short-only 09:35-to-15:00 rule with identical costs",
+    "always_short": "short every eligible day from 09:35 to 15:00 with identical costs",
+    "no_action": "zero return"
+  },
+  "sample_sufficiency": {
+    "candidate_trades_pooled_min": 100,
+    "candidate_trades_each_year_min": 40,
+    "required_years": [2019, 2020]
+  },
+  "progression_gates": {
+    "all_required": true,
+    "gates": [
+      "candidate_trade_sample_sufficiency_pass",
+      "candidate_pooled_mean_net_return_gt_0",
+      "candidate_pooled_median_net_return_gt_0",
+      "candidate_pooled_mean_net_return_gt_V5A_mapped_strategy_mean_net_return",
+      "candidate_positive_mean_net_return_in_both_2019_and_2020"
+    ]
+  },
+  "decision_enum": ["DEV_PASS", "DEV_CLOSE", "DEV_INSUFFICIENT"],
+  "decision_semantics": {
+    "DEV_PASS": "all frozen sample and economic gates pass; a separate 2021-2025 reusable BLACKBOX protocol may then be written without changing this strategy identity",
+    "DEV_CLOSE": "sample is sufficient but one or more frozen economic gates fail; do not rescue this identity by changing threshold, time, costs, side, exit, sizing, stop/target or predictor",
+    "DEV_INSUFFICIENT": "the frozen 2019-2020 execution sample cannot satisfy preregistered sufficiency without changing the identity"
+  },
+  "blackbox": {
+    "window": "2021-01-01..2025-12-31",
+    "open_now": false,
+    "query_authorized_now": false,
+    "condition_for_future_query": "DEV_PASS only",
+    "future_public_output": "PASS_FAIL_INSUFFICIENT_only"
+  },
+  "hard_constraints": [
+    "no 2021-2025 strategy outcome access before DEV_PASS",
+    "no post-hoc threshold search",
+    "no entry or exit time search",
+    "no long-side addition",
+    "no cost search",
+    "no leverage or sizing search",
+    "no stop-loss or take-profit search",
+    "no predictor retraining or feature changes",
+    "no production claim"
+  ],
+  "production_authority": false
+}
