@@ -143,7 +143,6 @@ def linear_diag(frame: pd.DataFrame, target: str) -> dict:
     rb = r2(y, db @ bb)
     rc = r2(y, dc @ bc)
 
-    # Standardized coefficient for the increment only.
     z = x[[*BASELINE_CONTROLS, "opening_surprise_rvol", target]].copy()
     for col in z.columns:
         sd = float(z[col].std(ddof=0))
@@ -246,16 +245,16 @@ def main() -> int:
             "ordinary_a50": sha256(args.ordinary_a50),
             "protocol": sha256(args.protocol),
         },
-        "target_rows_after_2020_loaded": false,
-        "reusable_blackbox_2021_2025_opened": false,
-        "candidate_family_search": false,
-        "threshold_search": false,
-        "trend_bucket_search": false,
-        "horizon_search": false,
-        "trading_return_optimization": false,
-        "auto_promotion": false,
-        "main_agent_review_required": true,
-        "production_authority": false,
+        "target_rows_after_2020_loaded": False,
+        "reusable_blackbox_2021_2025_opened": False,
+        "candidate_family_search": False,
+        "threshold_search": False,
+        "trend_bucket_search": False,
+        "horizon_search": False,
+        "trading_return_optimization": False,
+        "auto_promotion": False,
+        "main_agent_review_required": True,
+        "production_authority": False,
     }
     args.receipt_out.parent.mkdir(parents=True, exist_ok=True)
     args.receipt_out.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n", encoding="utf-8")
