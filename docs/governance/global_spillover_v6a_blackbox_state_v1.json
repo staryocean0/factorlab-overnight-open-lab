@@ -1,8 +1,8 @@
 {
-  "schema_id": "overnight_global_spillover_v6a_blackbox_state@1.2",
+  "schema_id": "overnight_global_spillover_v6a_blackbox_state@1.3",
   "session_date": "2026-09-10",
   "research_identity": "V6A_plus_ordinary_A50_preauction_closure",
-  "current_status": "BLACKBOX_protocol_frozen_controller_ready_source_admitted_query_not_opened",
+  "current_status": "BLACKBOX_protocol_frozen_source_admitted_parity_gated_panel_builder_ready_query_not_opened",
   "blackbox_window": "2021-01-01..2025-12-31",
   "blackbox_role": "reusable_blackbox_validation",
   "query_count": 0,
@@ -18,10 +18,21 @@
     "source_admission": "docs/governance/global_spillover_v6a_source_admission_20260910.json",
     "source_pack": "data/v6a_external_sources_2015_2025/manifest.json"
   },
+  "execution_incident": {
+    "first_inrepo_attempt": "STOPPED_BEFORE_RECEIPT",
+    "blackbox_query_created": false,
+    "ledger_changed": false,
+    "cause": "data/high_open_dev_2015_2025/annotated_panel.parquet_is_raw_annotation_panel_not_V6A_base_feature_panel",
+    "resolution": "reuse_existing_evaluate_local_2021_2025_two_head_reconstruction_logic_with_exact_2015_2020_parity_gate",
+    "reconstruction_contract": "docs/governance/v6a_base_panel_reconstruction_contract_20260910.json",
+    "builder": "scripts/build_v6a_frozen_base_panel.py",
+    "wrapper": "scripts/run_v6a_reusable_blackbox_inrepo.sh",
+    "temporary_2021_2025_panel_committed": false
+  },
   "blocker_is_scientific_failure": false,
   "ledger_entry_created": false,
   "public_output_restricted_to": ["PASS", "FAIL", "INSUFFICIENT"],
   "details_release_authorized": false,
-  "next_action": "execute the frozen local controller with the admitted in-repository pack; commit only the compact three-state receipt; then append exactly one ledger entry after receipt verification",
+  "next_action": "git pull and rerun scripts/run_v6a_reusable_blackbox_inrepo.sh locally; the wrapper must pass exact 2015-2020 reconstruction parity before opening the reusable BLACKBOX; commit only the compact receipt if a three-state decision is produced",
   "production_authority": false
 }
