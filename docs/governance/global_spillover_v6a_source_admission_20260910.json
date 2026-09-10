@@ -1,0 +1,43 @@
+{
+  "schema_id": "overnight_global_spillover_v6a_source_admission@1.0",
+  "session_date": "2026-09-10",
+  "research_identity": "V6A_plus_ordinary_A50_preauction_closure",
+  "decision": "SOURCE_PASS",
+  "blackbox_opened": false,
+  "blackbox_query_created": false,
+  "source_pack": "data/v6a_external_sources_2015_2025/manifest.json",
+  "source_commit": "cb025535838c8ead15d30b53f6f7c5f43f0c2692",
+  "basis": {
+    "A50_raw_provider": "Singapore Exchange official ZIP archives",
+    "A50_export_semantics": "same-contract event endpoints",
+    "ordinary_cutoff": "09:14:59",
+    "holiday_cutoff": "09:24:59",
+    "future_volume_or_oi_selection": false,
+    "mid_window_roll": false,
+    "forward_fill_or_interpolation": false,
+    "continuous_or_cfd_substitute": false,
+    "HKMA_source": "official HKMA USD/HKD and CNY/HKD cross",
+    "controller_columns_match_manifest": true,
+    "manifest_contains_archive_keys_and_archive_sha256_fields": true,
+    "source_assertions_present": true
+  },
+  "admitted_files": {
+    "ordinary": {
+      "path": "data/v6a_external_sources_2015_2025/sgx_a50_ordinary_preauction_endpoints.parquet",
+      "bytes": 465381,
+      "declared_sha256": "1c47f64f512e1d257b2eb5d114398773baacaf545d1098e25fd2c702bd9c6d22"
+    },
+    "holiday": {
+      "path": "data/v6a_external_sources_2015_2025/sgx_a50_holiday_endpoints.parquet",
+      "bytes": 21838,
+      "declared_sha256": "3a0790a90a2873786814556e5875b10d676a9c66a1efa2a571200ede0ad85b2c"
+    },
+    "hkma": {
+      "path": "data/v6a_external_sources_2015_2025/hkma_usdcny_cross.parquet",
+      "bytes": 89181,
+      "declared_sha256": "49e0ccdc230f90096c58177d2cde3999e06082e36683306c692a97a6c9eea530"
+    }
+  },
+  "next_action": "execute the already-frozen reusable BLACKBOX controller locally using only the admitted in-repository sources; release only PASS/FAIL/INSUFFICIENT",
+  "production_authority": false
+}
