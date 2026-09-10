@@ -51,7 +51,14 @@ def corr(a: np.ndarray, b: np.ndarray) -> float:
 
 def read_fred(path: Path, value_name: str) -> pd.DataFrame:
     x = pd.read_csv(path)
-    date_col = "DATE" if "DATE" in x.columns else "date"
+    if "DATE" in x.columns:
+        date_col = "DATE"
+    elif "date" in x.columns:
+        date_col = "date"
+    elif "observation_date" in x.columns:
+        date_col = "observation_date"
+    else:
+        raise RuntimeError(f"cannot resolve FRED date column in {path}")
     if value_name not in x.columns:
         candidates = [c for c in x.columns if c != date_col]
         if len(candidates) != 1:
@@ -267,13 +274,13 @@ def main() -> int:
         "query_id": query_id,
         "candidate": query_payload["candidate"],
         "decision": decision,
-        "public_detail_release": false,
-        "internal_metrics_persisted": false,
-        "blackbox_reusable_after_query": true,
-        "blackbox_consumed": false,
+        "public_detail_release": False,
+        "internal_metrics_persisted": False,
+        "blackbox_reusable_after_query": True,
+        "blackbox_consumed": False,
         "protocol_sha256": protocol_sha,
         "source_manifest_sha256": source_manifest_sha,
-        "production_authority": false,
+        "production_authority": False,
     }
     args.receipt_out.parent.mkdir(parents=True, exist_ok=True)
     args.receipt_out.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n", encoding="utf-8")
