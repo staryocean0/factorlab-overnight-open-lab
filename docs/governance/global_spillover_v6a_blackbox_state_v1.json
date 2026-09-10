@@ -1,8 +1,8 @@
 {
-  "schema_id": "overnight_global_spillover_v6a_blackbox_state@1.1",
-  "session_date": "2026-09-09",
+  "schema_id": "overnight_global_spillover_v6a_blackbox_state@1.2",
+  "session_date": "2026-09-10",
   "research_identity": "V6A_plus_ordinary_A50_preauction_closure",
-  "current_status": "BLACKBOX_protocol_frozen_controller_ready_query_not_opened_source_blocked_after_six_repository_audit",
+  "current_status": "BLACKBOX_protocol_frozen_controller_ready_source_admitted_query_not_opened",
   "blackbox_window": "2021-01-01..2025-12-31",
   "blackbox_role": "reusable_blackbox_validation",
   "query_count": 0,
@@ -11,17 +11,17 @@
   "source_status": {
     "CSI1000_2015_2025_available_in_repository": true,
     "FRED_2014_2025_available_in_repository": true,
-    "HKMA_2021_2025_available_to_current_cloud_runtime": false,
-    "SGX_A50_same_contract_endpoints_2021_2025_available_to_current_cloud_runtime": false,
-    "six_factorlab_repositories_audited": true,
-    "valid_cross_repository_source_found": false,
-    "cross_repository_audit": "docs/governance/v6a_six_repository_source_audit_20260909.md",
-    "cloud_network_can_fetch_links_sgx_com": false
+    "HKMA_2014_2025_in_repository": true,
+    "SGX_A50_same_contract_endpoints_2015_2025_in_repository": true,
+    "A50_raw_provider": "Singapore Exchange official ZIP archives",
+    "source_admission_decision": "SOURCE_PASS",
+    "source_admission": "docs/governance/global_spillover_v6a_source_admission_20260910.json",
+    "source_pack": "data/v6a_external_sources_2015_2025/manifest.json"
   },
   "blocker_is_scientific_failure": false,
   "ledger_entry_created": false,
   "public_output_restricted_to": ["PASS", "FAIL", "INSUFFICIENT"],
   "details_release_authorized": false,
-  "next_action": "obtain an authoritative frozen-semantics 2021-2025 HKMA and SGX A50 endpoint source outside the six GitHub repositories, then execute the already-frozen low-bandwidth controller and append exactly one ledger entry only after actual execution",
+  "next_action": "execute the frozen local controller with the admitted in-repository pack; commit only the compact three-state receipt; then append exactly one ledger entry after receipt verification",
   "production_authority": false
 }
