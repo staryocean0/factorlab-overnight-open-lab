@@ -1,8 +1,8 @@
 {
-  "schema_id": "overnight_global_spillover_v6a_blackbox_state@1.5",
+  "schema_id": "overnight_global_spillover_v6a_blackbox_state@1.6",
   "session_date": "2026-09-10",
   "research_identity": "V6A_plus_ordinary_A50_preauction_closure",
-  "current_status": "BLACKBOX_PASS_eligible_for_separate_baseline_replacement_review",
+  "current_status": "BLACKBOX_PASS_global_spillover_research_baseline_promoted",
   "blackbox_window": "2021-01-01..2025-12-31",
   "blackbox_role": "reusable_blackbox_validation",
   "completed_query_count": 1,
@@ -59,8 +59,20 @@
   "ledger_entry_created": true,
   "public_output_restricted_to": ["PASS", "FAIL", "INSUFFICIENT"],
   "details_release_authorized": false,
-  "baseline_replacement": false,
-  "eligible_for_separate_baseline_replacement_review": true,
-  "next_action": "conduct a separate baseline replacement review under the frozen V6A PASS evidence; do not reopen or decompose the 2021-2025 BLACKBOX and do not use hidden BLACKBOX behavior to tune the candidate",
+  "baseline_replacement_review": {
+    "status": "complete",
+    "decision": "PROMOTE_AS_GLOBAL_SPILLOVER_RESEARCH_BASELINE_ONLY",
+    "review": "docs/governance/global_spillover_v6a_baseline_replacement_review_20260910.json",
+    "current_baseline_pointer": "docs/governance/global_spillover_current_baseline_v1.json",
+    "replaced_baseline_for_this_scope": "V5A_plus_A50_closure / V5A_common_sample_comparator",
+    "repository_wide_incumbent_architecture_replaced": false,
+    "direction_head_replaced": false,
+    "magnitude_head_replaced": false,
+    "production_baseline_replaced": false
+  },
+  "baseline_replacement": true,
+  "baseline_replacement_scope": "global_spillover_single_head_signed_gap_research_only",
+  "eligible_for_separate_baseline_replacement_review": false,
+  "next_action": "for any future global-spillover successor use V6A as the frozen comparator and preregister a materially new identity before any empirical query; repository-wide two-head architecture and production boundary remain unchanged",
   "production_authority": false
 }
