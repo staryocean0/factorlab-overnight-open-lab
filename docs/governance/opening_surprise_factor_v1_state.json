@@ -1,0 +1,22 @@
+{
+  "schema_id": "overnight_opening_surprise_factor_state@1.0",
+  "session_date": "2026-09-10",
+  "research_identity": "overnight_open_surprise_factor_v1",
+  "program": "docs/governance/overnight_factor_product_program_v1.md",
+  "registry": "docs/governance/overnight_factor_product_registry_v1.json",
+  "current_status": "mechanism_diagnostic_frozen_pending_local_2019_2020_execution",
+  "protocol": "docs/governance/opening_surprise_factor_v1_protocol.json",
+  "preanalysis": "docs/research/opening_surprise_factor_preanalysis_20260910.md",
+  "runner": "scripts/diagnose_opening_surprise_factor_dev.py",
+  "one_command_runner": "scripts/run_opening_surprise_factor_dev.sh",
+  "upstream_prediction_identity": "V6A_plus_ordinary_A50_preauction_closure",
+  "development_window": "2019-01-01..2020-12-31",
+  "development_result": null,
+  "development_receipt": "docs/research/local_opening_surprise_factor_dev_diagnostic_v1.json",
+  "reusable_BLACKBOX_2021_2025_opened_for_this_identity": false,
+  "reusable_BLACKBOX_query_authorized_now": false,
+  "trend_bucket_authority": false,
+  "strategy_backtest_authorized_now": false,
+  "next_action": "execute the frozen 2019-2020 information diagnostic locally; cloud main agent reviews detailed development evidence before any bounded factor-family or reusable-BLACKBOX protocol is created",
+  "production_authority": false
+}
