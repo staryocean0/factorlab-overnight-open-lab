@@ -1,0 +1,70 @@
+{
+  "schema_id": "overnight_v6a_short0935_financial_decision_use_contract@1.0",
+  "session_date": "2026-09-10",
+  "research_identity": "overnight_v6a_short0935_to_close_v1",
+  "prediction_source": "V6A_plus_ordinary_A50_preauction_closure",
+  "research_scope": "strategy-science research proxy only; Overnight/Open bucket",
+  "instrument": {
+    "research_underlier": "CSI1000 index 000852.SH",
+    "is_directly_tradable": false,
+    "interpretation": "index-level synthetic execution proxy only; no claim that the cash index itself can be shorted or filled",
+    "future_instrument_mapping": "options may replace the proxy only under a separate instrument-mapping contract; not part of this identity"
+  },
+  "signal": {
+    "available_by": "09:15 China/Singapore time under the frozen V6A source clock",
+    "mapping": "short only when frozen V6A signed-gap prediction > 0; otherwise no position",
+    "threshold": 0.0,
+    "threshold_search": false,
+    "magnitude_sizing": false
+  },
+  "execution": {
+    "decision_time": "09:35",
+    "entry_time": "09:35",
+    "entry_price_proxy": "000852.SH 09:35 one-minute close",
+    "exit_time": "15:00",
+    "exit_price_proxy": "000852.SH 15:00 one-minute close",
+    "side": "short_only",
+    "notional": 1.0,
+    "overnight_position": false,
+    "intraday_high_low_best_price_usage": false,
+    "best_execution_interpretation": "no additional slippage beyond the separately stated transaction-cost charge; do not use bar high/low or any future within-bar best price"
+  },
+  "pnl": {
+    "gross_return": "(entry_price - exit_price) / entry_price",
+    "entry_cost": 0.0001,
+    "exit_cost": 0.0001,
+    "round_trip_cost": 0.0002,
+    "net_return": "gross_return - 0.0002"
+  },
+  "economic_target": "positive same-day net short return from 09:35 to 15:00 conditional on a frozen positive V6A signed-gap prediction",
+  "comparators": [
+    "V5A mapped through the exact same zero-threshold 09:35-to-15:00 short-only rule",
+    "unconditional 09:35-to-15:00 short on every otherwise eligible day",
+    "no-action zero-return comparator"
+  ],
+  "risk_constraints": {
+    "max_gross_notional": 1.0,
+    "single_position_only": true,
+    "no_leverage_search": true,
+    "no_stop_loss": true,
+    "no_take_profit": true,
+    "no_intraday_reentry": true,
+    "flat_by_15_00": true
+  },
+  "evidence_roles": {
+    "predictor_fit": "2015-01-01..2018-12-31 frozen V6A training window",
+    "strategy_science_detailed_evaluation": "2019-01-01..2020-12-31 consumed historical holdout; allowed for detailed strategy-science diagnosis because this execution mapping was frozen later and is not fresh model evidence",
+    "reusable_BLACKBOX": "2021-01-01..2025-12-31; do not open for this strategy identity unless the 2019-2020 preregistered strategy-science gates pass"
+  },
+  "hard_constraints": [
+    "do not claim cash-index tradability",
+    "do not use the already-realized previous-close-to-open gap as PnL",
+    "do not use any price before 09:35 as the strategy fill",
+    "do not use bar high/low as best execution",
+    "do not tune signal threshold, entry time, exit time, costs, position size, stops, targets or model parameters from strategy outcomes",
+    "do not alter V6A predictor identity",
+    "do not open 2021-2025 BLACKBOX before strategy-science progression gates pass",
+    "production_authority remains false"
+  ],
+  "production_authority": false
+}
