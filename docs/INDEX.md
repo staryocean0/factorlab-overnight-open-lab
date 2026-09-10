@@ -63,7 +63,7 @@
 61. `docs/ops/ohr_06_offshore_china_price_discovery_handoff.md`
 62. `data/offshore_etf_dev_2015_2025/`
 63. `docs/research/cloud_session_20260906_local_offshore_china_ohr06_diagnostic_receipt_v1.json`
-64. `docs/governance/cloud_session_20260906_offshore_china_ohr06_data_usage.json`
+64. `docs/governance/local_session_20260906_offshore_china_ohr06_data_usage.json`
 65. `docs/research/offshore_china_ohr06_cloud_adjudication_20260906.md`
 66. `docs/governance/cloud_session_20260906_offshore_china_ohr07_family_v1.json`
 67. `scripts/select_offshore_china_ohr07_dev.py`
@@ -165,3 +165,22 @@ The following later Overnight-native lineage remains current evidence after the 
 - `docs/research/gap_fill_v21_dev_cloud_adjudication_20260909.md` — final decision `V21_DEV_no_P2_successor`; frozen yearly sample gate is insufficient in 2017, so Audit A remains sealed.
 - `docs/governance/gap_fill_v21_state_v1.json` — current V2.1 authority; P2 family closed at DEV, no parameter freeze, no Audit A/B opening.
 - `docs/governance/repository_scope_restoration_20260909.md` — Overnight-only scope and provenance of the restored legitimate V21 result.
+
+## V6A global-spillover baseline replacement
+
+The frozen `V6A_plus_ordinary_A50_preauction_closure` identity completed reusable BLACKBOX query `8d367381811d7907e2ac` on 2021-2025 and returned `PASS` without releasing hidden details.
+
+Baseline replacement review decision:
+
+`PROMOTE_AS_GLOBAL_SPILLOVER_RESEARCH_BASELINE_ONLY`
+
+Current authority:
+
+- `docs/governance/global_spillover_current_baseline_v1.json` — current global-spillover single-head signed-gap baseline is V6A; V5A is the superseded parent comparator for this scope.
+- `docs/governance/global_spillover_v6a_baseline_replacement_review_20260910.json` — machine-readable scope and decision.
+- `docs/research/v6a_baseline_replacement_review_20260910.md` — human-readable adjudication.
+- `docs/governance/global_spillover_v6a_blackbox_state_v1.json` — V6A state after promotion.
+- `docs/research/local_v6a_reusable_blackbox_receipt_v1.json` — compact PASS receipt.
+- `docs/governance/overnight_reusable_blackbox_query_ledger_v1.json` — reusable BLACKBOX ledger; query count remains 1.
+
+This promotion does not replace the repository-wide accepted two-head architecture (`median_quantile_sign` + `abs_frozen_clock_signed_prediction`), does not grant trading or production authority, and does not authorize decomposition of the 2021-2025 BLACKBOX.
