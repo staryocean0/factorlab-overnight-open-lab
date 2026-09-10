@@ -1,0 +1,13 @@
+{
+  "blackbox_consumed": false,
+  "blackbox_reusable_after_query": true,
+  "candidate": "V6A_plus_ordinary_A50_preauction_closure",
+  "decision": "PASS",
+  "internal_metrics_persisted": false,
+  "production_authority": false,
+  "protocol_sha256": "d7637e0573b6e1bb7f3c3e4349f8c578ffbb4740142af8e5c102c260111572f2",
+  "public_detail_release": false,
+  "query_id": "8d367381811d7907e2ac",
+  "schema_id": "overnight_v6a_reusable_blackbox_receipt@1.0",
+  "source_manifest_sha256": "dd245fda995d9452f9dd85abd763a351bcd6a432a4f5801a384511b50a84f00d"
+}
