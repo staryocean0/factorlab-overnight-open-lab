@@ -1,9 +1,27 @@
 {
-  "schema_id": "overnight_reusable_blackbox_query_ledger@1.0",
-  "session_date": "2026-09-09",
+  "schema_id": "overnight_reusable_blackbox_query_ledger@1.1",
+  "session_date": "2026-09-10",
   "blackbox_window": "2021-01-01..2025-12-31",
-  "query_count": 0,
-  "queries": [],
+  "query_count": 1,
+  "queries": [
+    {
+      "ordinal": 1,
+      "query_id": "8d367381811d7907e2ac",
+      "research_identity": "V6A_plus_ordinary_A50_preauction_closure",
+      "comparator": "V5A_common_sample_comparator",
+      "decision": "PASS",
+      "receipt": "docs/research/local_v6a_reusable_blackbox_receipt_v1.json",
+      "receipt_commit": "518111fddbbd9cd113afcf5eb4bd43acb6d6c484",
+      "protocol_sha256": "d7637e0573b6e1bb7f3c3e4349f8c578ffbb4740142af8e5c102c260111572f2",
+      "source_manifest_sha256": "dd245fda995d9452f9dd85abd763a351bcd6a432a4f5801a384511b50a84f00d",
+      "public_detail_release": false,
+      "technical_retry_counted_as_separate_query": false,
+      "blackbox_reusable_after_query": true,
+      "blackbox_consumed_as_one_time_data": false,
+      "production_authority": false
+    }
+  ],
   "append_only": true,
+  "reuse_does_not_create_independent_oos": true,
   "production_authority": false
 }
