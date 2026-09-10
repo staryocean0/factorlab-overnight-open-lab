@@ -1,0 +1,84 @@
+{
+  "schema_id": "overnight_opening_surprise_factor_protocol@1.0",
+  "session_date": "2026-09-10",
+  "research_identity": "overnight_open_surprise_factor_v1",
+  "program": "docs/governance/overnight_factor_product_program_v1.md",
+  "registry": "docs/governance/overnight_factor_product_registry_v1.json",
+  "phase": "mechanism_diagnostic",
+  "purpose": "Test whether the post-open residual between observed CSI1000 opening gap and frozen V6A expected gap adds short-horizon information beyond raw gap and simple causal context.",
+  "upstream_prediction_identity": "V6A_plus_ordinary_A50_preauction_closure",
+  "upstream_baseline_authority": "docs/governance/global_spillover_current_baseline_v1.json",
+  "fit_window": "2015-01-01..2018-12-31",
+  "development_window": "2019-01-01..2020-12-31",
+  "forbidden_windows": [
+    "2021-01-01..2025-12-31 detailed rows / years / quarters / events",
+    "2026 and later outcomes"
+  ],
+  "factor_definitions": {
+    "expected_gap": "frozen V6A signed-gap prediction",
+    "observed_gap": "CSI1000 09:31 open / previous China 15:00 close - 1 under the existing Overnight contract",
+    "opening_surprise": "observed_gap - expected_gap",
+    "observed_gap_rvol": "observed_gap / rvol20",
+    "opening_surprise_rvol": "opening_surprise / rvol20",
+    "trend20_rvol": "r20 / (sqrt(20) * rvol20)"
+  },
+  "complete_case": {
+    "rvol20_must_be_finite": true,
+    "rvol20_must_be_positive": true,
+    "epsilon_floor": false
+  },
+  "availability": {
+    "opening_surprise_available_after": "09:31 opening observation",
+    "downstream_reference_clock": "09:35",
+    "pre_open_trading_authority": false
+  },
+  "short_horizon_information_targets": [
+    {
+      "id": "ret_0935_0950",
+      "start_clock": "09:35",
+      "end_clock": "09:50"
+    },
+    {
+      "id": "ret_0935_1005",
+      "start_clock": "09:35",
+      "end_clock": "10:05"
+    },
+    {
+      "id": "ret_0935_1035",
+      "start_clock": "09:35",
+      "end_clock": "10:35"
+    }
+  ],
+  "baseline_controls": [
+    "observed_gap_rvol",
+    "trend20_rvol",
+    "r1",
+    "prev_daytime",
+    "holiday_reopen"
+  ],
+  "candidate_increment": ["opening_surprise_rvol"],
+  "diagnostics": [
+    "pooled_partial_correlation",
+    "2019_partial_correlation",
+    "2020_partial_correlation",
+    "baseline_r2",
+    "candidate_r2",
+    "delta_r2",
+    "standardized_surprise_coefficient",
+    "complete_case_count",
+    "positive_vs_negative_surprise_future_return_means"
+  ],
+  "auto_promotion": false,
+  "main_agent_review_required": true,
+  "candidate_family_search": false,
+  "threshold_search": false,
+  "trend_bucket_search": false,
+  "horizon_search": false,
+  "trading_return_optimization": false,
+  "position_sizing": false,
+  "cost_model_used": false,
+  "reusable_blackbox_2021_2025_open_authorized": false,
+  "condition_for_later_blackbox": "main-agent adjudication supports the base Opening Surprise coordinate and a separate aggregate-lockbox protocol is frozen first",
+  "downstream_strategy_authority": false,
+  "production_authority": false
+}
