@@ -1,14 +1,19 @@
 {
-  "schema_id": "overnight_global_spillover_v6a_blackbox_state@1.4",
+  "schema_id": "overnight_global_spillover_v6a_blackbox_state@1.5",
   "session_date": "2026-09-10",
   "research_identity": "V6A_plus_ordinary_A50_preauction_closure",
-  "current_status": "BLACKBOX_opened_same_frozen_query_result_not_released_receipt_serialization_retry_pending",
+  "current_status": "BLACKBOX_PASS_eligible_for_separate_baseline_replacement_review",
   "blackbox_window": "2021-01-01..2025-12-31",
   "blackbox_role": "reusable_blackbox_validation",
-  "completed_query_count": 0,
+  "completed_query_count": 1,
+  "query_id": "8d367381811d7907e2ac",
   "query_opened": true,
-  "result": null,
-  "result_released": false,
+  "result": "PASS",
+  "result_released": true,
+  "receipt": "docs/research/local_v6a_reusable_blackbox_receipt_v1.json",
+  "receipt_commit": "518111fddbbd9cd113afcf5eb4bd43acb6d6c484",
+  "cloud_adjudication": "docs/research/v6a_reusable_blackbox_cloud_adjudication_20260910.md",
+  "ledger": "docs/governance/overnight_reusable_blackbox_query_ledger_v1.json",
   "source_status": {
     "CSI1000_2015_2025_available_in_repository": true,
     "FRED_2014_2025_available_in_repository": true,
@@ -25,7 +30,6 @@
       "stage": "pre_evaluation",
       "outcome_rows_opened": false,
       "receipt_written": false,
-      "ledger_changed": false,
       "cause": "wrong_inrepo_panel_path_missing_frozen_V6A_features",
       "resolution": "parity_gated_reconstruction_builder_added"
     },
@@ -34,19 +38,29 @@
       "stage": "post_evaluation_pre_receipt",
       "outcome_rows_opened": true,
       "receipt_written": false,
-      "ledger_changed": false,
       "public_result_released": false,
       "cause": "Python receipt literal used JSON-style false/true names causing NameError after decision computation",
       "resolution": "controller fixed to Python False/True and FRED observation_date compatibility added",
-      "retry_semantics": "rerun the exact same frozen query only; no candidate, feature, gate, cutoff, model or source changes"
+      "retry_semantics": "same logical frozen query only"
+    },
+    {
+      "attempt": 3,
+      "stage": "completed",
+      "receipt_written": true,
+      "public_result_released": true,
+      "logical_query_identity_changed": false,
+      "technical_retry_counted_as_separate_query": false
     }
   ],
   "blackbox_reusable": true,
   "blackbox_consumed_as_one_time_data": false,
-  "logical_query_identity_changed": false,
-  "ledger_entry_created": false,
+  "reuse_does_not_create_independent_oos": true,
+  "blackbox_behavior_may_design_successor": false,
+  "ledger_entry_created": true,
   "public_output_restricted_to": ["PASS", "FAIL", "INSUFFICIENT"],
   "details_release_authorized": false,
-  "next_action": "git pull and rerun scripts/run_v6a_reusable_blackbox_inrepo.sh locally as a technical retry of the same frozen V6A query; commit only the compact receipt if produced; do not inspect or report detailed BLACKBOX metrics and do not edit the ledger locally",
+  "baseline_replacement": false,
+  "eligible_for_separate_baseline_replacement_review": true,
+  "next_action": "conduct a separate baseline replacement review under the frozen V6A PASS evidence; do not reopen or decompose the 2021-2025 BLACKBOX and do not use hidden BLACKBOX behavior to tune the candidate",
   "production_authority": false
 }
