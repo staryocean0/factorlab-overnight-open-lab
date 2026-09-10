@@ -30,3 +30,10 @@ repeat-only inputs:
 This pack is not fresh OOS. Post-2026-08-21 remains excluded. See
 `data/gap_fill_repeat_2026/README.md`.
 
+## V6A external sources pack
+
+`v6a_external_sources_2015_2025/` is the frozen-column HKMA + SGX A50
+same-contract endpoint pack assembled for the V6A reusable BLACKBOX controller.
+It concatenates the historical 2015-2020 overnight pack with DataHub 2021-2025
+research products. It does not open BLACKBOX outcomes. Production authority is
+false. See `data/v6a_external_sources_2015_2025/README.md`.

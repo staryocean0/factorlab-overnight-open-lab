@@ -1,0 +1,9 @@
+{
+  "assertions": {
+    "same_contract_all_events": true,
+    "no_future_volume_or_oi_selection": true,
+    "no_mid_window_roll": true,
+    "no_forward_fill_or_interpolation": true,
+    "blackbox_not_used_for_fit_or_rule_selection": true
+  }
+}

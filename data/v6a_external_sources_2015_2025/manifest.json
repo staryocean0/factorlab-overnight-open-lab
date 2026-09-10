@@ -1,0 +1,142 @@
+{
+  "schema_id": "overnight_v6a_external_sources_2015_2025@1.0",
+  "session_date": "2026-09-10",
+  "purpose": "Supply frozen-column HKMA and SGX A50 same-contract endpoint files for the already-frozen V6A reusable BLACKBOX controller. This pack does not open BLACKBOX outcomes.",
+  "production_authority": false,
+  "blackbox_opened": false,
+  "blackbox_consumed": false,
+  "window": {
+    "start": "2015-01-01",
+    "end": "2025-12-31"
+  },
+  "products": [
+    {
+      "path": "data/v6a_external_sources_2015_2025/sgx_a50_ordinary_preauction_endpoints.parquet",
+      "rows": 2473,
+      "bytes": 465381,
+      "sha256": "1c47f64f512e1d257b2eb5d114398773baacaf545d1098e25fd2c702bd9c6d22",
+      "min_day": "2015-01-06",
+      "max_day": "2025-12-30",
+      "columns": [
+        "trading_day",
+        "previous_china_day",
+        "contract",
+        "delivery_year",
+        "delivery_month",
+        "start_time",
+        "start_price",
+        "target_end_time",
+        "target_end_price",
+        "a50_ordinary_preauction_closure_return",
+        "previous_archive_key",
+        "previous_archive_sha256",
+        "target_archive_key",
+        "target_archive_sha256"
+      ]
+    },
+    {
+      "path": "data/v6a_external_sources_2015_2025/sgx_a50_holiday_endpoints.parquet",
+      "rows": 63,
+      "bytes": 21838,
+      "sha256": "3a0790a90a2873786814556e5875b10d676a9c66a1efa2a571200ede0ad85b2c",
+      "min_day": "2015-09-07",
+      "max_day": "2025-10-09",
+      "columns": [
+        "trading_day",
+        "previous_china_day",
+        "contract",
+        "delivery_year",
+        "delivery_month",
+        "start_time",
+        "start_price",
+        "target_end_time",
+        "target_end_price",
+        "a50_holiday_closure_return",
+        "previous_archive_key",
+        "previous_archive_sha256",
+        "target_archive_key",
+        "target_archive_sha256"
+      ]
+    },
+    {
+      "path": "data/v6a_external_sources_2015_2025/hkma_usdcny_cross.parquet",
+      "rows": 3539,
+      "bytes": 89181,
+      "sha256": "49e0ccdc230f90096c58177d2cde3999e06082e36683306c692a97a6c9eea530",
+      "min_day": "2014-01-02",
+      "max_day": "2025-12-31",
+      "columns": [
+        "date",
+        "usd_hkd",
+        "cny_hkd",
+        "usdcny_hk"
+      ]
+    }
+  ],
+  "frozen_controller_columns": {
+    "ordinary": [
+      "trading_day",
+      "a50_ordinary_preauction_closure_return",
+      "target_end_time"
+    ],
+    "holiday": [
+      "trading_day",
+      "a50_holiday_closure_return",
+      "target_end_time"
+    ],
+    "hkma": [
+      "date",
+      "usdcny_hk"
+    ]
+  },
+  "semantics": {
+    "same_contract_required": true,
+    "ordinary_target_cutoff": "09:14:59",
+    "holiday_target_cutoff": "09:24:59",
+    "holiday_reopen": "CN-A calendar gap_days >= 4",
+    "future_volume_or_oi_selection": false,
+    "mid_window_roll": false,
+    "forward_fill_or_interpolation": false,
+    "continuous_or_cfd_forbidden": true,
+    "bis_eer_forbidden": true
+  },
+  "assembly": {
+    "historical_2015_2020": {
+      "repository": "staryocean0/factorlab-overnight-open-lab",
+      "branch": "codex/overnight-next-explained-20260905",
+      "ordinary": "data/development/sgx_a50_ordinary_preauction_endpoints.parquet",
+      "holiday": "data/development/sgx_a50_holiday_endpoints.parquet",
+      "hkma": "data/development/hkma_usdcny_cross.parquet",
+      "rows": {
+        "ordinary": 1352,
+        "holiday": 32,
+        "hkma": 2068
+      }
+    },
+    "datahub_2021_2025": {
+      "repository": "unified_datahub",
+      "ordinary_holiday_dataset_version": "sgx_ftse_china_a50_same_contract_endpoints_20210104_20251231_v1_20260910",
+      "hkma_dataset_version": "hkma_usdcny_cross_official_20210102_20251231_v1_20260910",
+      "rows": {
+        "ordinary": 1121,
+        "holiday": 31,
+        "hkma": 1471
+      },
+      "notes": "Lake generic column closure_return was renamed to the frozen V6A attach_a50 names. No CHA50CFD continuous series and no BIS EER were used."
+    }
+  },
+  "assertions": {
+    "same_contract_all_events": true,
+    "no_future_volume_or_oi_selection": true,
+    "no_mid_window_roll": true,
+    "no_forward_fill_or_interpolation": true,
+    "blackbox_not_used_for_fit_or_rule_selection": true
+  },
+  "controller_usage": {
+    "script": "scripts/run_v6a_reusable_blackbox_local.py",
+    "ordinary": "data/v6a_external_sources_2015_2025/sgx_a50_ordinary_preauction_endpoints.parquet",
+    "holiday": "data/v6a_external_sources_2015_2025/sgx_a50_holiday_endpoints.parquet",
+    "hkma": "data/v6a_external_sources_2015_2025/hkma_usdcny_cross.parquet",
+    "do_not_open_from_datahub": true
+  }
+}
