@@ -60,6 +60,7 @@
     "support_event": "coefficient>0"
   },
   "joint_decision_rule": "PASS only if sufficiency and all scientific gates pass for all three frozen horizons; otherwise FAIL, except insufficiency produces INSUFFICIENT",
+  "query_id_contract": "sha256(research_identity + '|' + protocol_sha256 + '|' + source_dataset_sha256)[:20]",
   "public_output_allowed": ["PASS", "FAIL", "INSUFFICIENT"],
   "public_detail_release": false,
   "persist_hidden_metrics": false,
