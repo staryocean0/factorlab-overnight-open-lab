@@ -1,48 +1,39 @@
 {
-  "schema_id": "overnight_open_production_readiness_review@1.1",
-  "session_date": "2026-09-10",
+  "schema_id": "overnight_open_production_readiness_review@1.2",
+  "session_date": "2026-09-11",
   "research_architecture": "docs/governance/cloud_session_20260906_research_architecture_acceptance_v1.json",
   "research_architecture_status": "component_confirmed_incumbent_research_architecture",
-  "review_decision": "financial_decision_use_contract_frozen_strategy_science_opened_as_index_level_research_proxy",
+  "review_decision": "standalone_full_day_strategy_route_closed_factor_product_program_active",
   "predictive_model_failure": false,
-  "decision_use_contract": "docs/governance/v6a_short0935_financial_decision_use_contract_v1.json",
-  "strategy_identity": "overnight_v6a_short0935_to_close_v1",
-  "contract_resolution": {
-    "underlier": "CSI1000 index 000852.SH",
-    "tradability_claim": false,
-    "research_proxy_only": true,
-    "signal_source": "V6A_plus_ordinary_A50_preauction_closure",
-    "signal_rule": "short only when frozen V6A signed-gap prediction > 0",
-    "signal_available_by": "09:15",
-    "decision_and_entry": "09:35 one-minute close",
-    "exit": "15:00 one-minute close",
-    "side": "short_only",
-    "entry_cost": 0.0001,
-    "exit_cost": 0.0001,
-    "round_trip_cost": 0.0002,
-    "future_options_mapping": "separate future instrument-mapping identity only"
+  "superseded_strategy_route": {
+    "identity": "overnight_v6a_short0935_to_close_v1",
+    "status": "CLOSED_BEFORE_DEV_execution_objective_mismatch",
+    "reason": "The 09:35-to-15:00 index return is dominated by post-open information outside the Overnight model's causal scope, so it is not an appropriate primary economic test of the Overnight signal.",
+    "archived_root": "archive/v6a_short0935_to_close_20260910/",
+    "DEV_executed": false,
+    "reusable_BLACKBOX_2021_2025_opened_for_strategy_identity": false
   },
-  "best_execution_interpretation": "No extra slippage beyond the fixed 1bp per side cost. Do not use intrabar high/low or any future best price; fills are deterministic timestamped index-price proxies.",
-  "strategy_science": {
-    "status": "DEV_authorized_pending_local_execution",
-    "protocol": "docs/governance/v6a_short0935_strategy_science_protocol_v1.json",
-    "state": "docs/governance/v6a_short0935_strategy_science_state_v1.json",
-    "runner": "scripts/run_v6a_short0935_strategy_science_dev.sh",
-    "detailed_window": "2019-01-01..2020-12-31",
-    "reusable_BLACKBOX_2021_2025_open_now": false,
-    "condition_for_BLACKBOX": "DEV_PASS"
+  "current_program": {
+    "role": "overnight_open_factor_product_laboratory_and_downstream_factor_adapter",
+    "program": "docs/governance/overnight_factor_product_program_v1.md",
+    "registry": "docs/governance/overnight_factor_product_registry_v1.json",
+    "active_research_identity": "overnight_open_surprise_factor_v1",
+    "active_state": "docs/governance/opening_surprise_factor_v1_state.json",
+    "active_handoff": "docs/ops/opening_surprise_factor_dev_handoff_20260910.md",
+    "active_runner": "scripts/run_opening_surprise_factor_dev.sh"
   },
+  "current_economic_question": "Measure and package incremental Overnight/open information that downstream timing, stock-selection and risk systems can consume, rather than forcing the predictor to explain unrelated full-day returns.",
   "hard_constraints": [
-    "The cash index remains a synthetic research PnL proxy and must not be represented as a directly executable short instrument.",
-    "Do not count the previous-close-to-open gap itself as strategy PnL; entry begins only at 09:35.",
-    "Do not optimize total trading return to retune the frozen V6A predictor.",
-    "Do not change threshold, entry time, exit time, costs, side, leverage, stops or targets after seeing strategy-science outcomes.",
-    "Do not open 2021-2025 strategy outcomes for this identity unless the frozen 2019-2020 DEV gates pass.",
-    "Do not grant production authority from an index-proxy strategy result.",
-    "Any future option implementation requires a separate instrument-specific contract."
+    "Do not represent the CSI1000 cash index as a directly executable short instrument.",
+    "Do not revive the archived 09:35-to-close strategy route without a new result-free research identity.",
+    "Do not use downstream strategy return to define or retune an upstream Overnight factor.",
+    "Do not reopen or decompose the completed V6A 2021-2025 BLACKBOX for factor design.",
+    "For overnight_open_surprise_factor_v1, detailed outcome use is currently limited to 2019-2020 development material.",
+    "Do not open a new 2021-2025 reusable BLACKBOX for an adapter identity until its factor definition and gates are frozen.",
+    "Do not grant production authority from factor diagnostics or index-proxy research."
   ],
-  "strategy_science_acceptance_status": "opened_pending_DEV_result",
+  "strategy_science_acceptance_status": "not_active_for_current_factor_product_phase",
   "post_training_account_audit_status": "not_opened",
   "production_authority": false,
-  "next_action": "run the frozen 2019-2020 V6A 09:35 short-side strategy-science DEV once; if and only if DEV_PASS, preregister a separate low-bandwidth 2021-2025 reusable BLACKBOX query for this strategy identity"
+  "next_action": "execute and cloud-review the frozen 2019-2020 Opening Surprise information diagnostic; only then decide whether to freeze a bounded factor family or context interaction"
 }
