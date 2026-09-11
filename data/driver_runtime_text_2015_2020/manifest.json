@@ -1,0 +1,114 @@
+{
+  "a50_integrity": {
+    "forward_fill_or_interpolation": false,
+    "future_volume_or_oi_selection": false,
+    "holiday_cutoff_lt_092500": true,
+    "mid_window_roll": false,
+    "mode_selected_from_holiday_reopen_only": true,
+    "ordinary_cutoff_lt_091500": true
+  },
+  "blackbox_opened": false,
+  "columns": [
+    "trading_day",
+    "holiday_reopen",
+    "a50_channel_mode",
+    "a50_channel_return",
+    "a50_target_end_time",
+    "hkma_usdcny_closure_return"
+  ],
+  "hkma_integrity": {
+    "forward_fill_or_interpolation": false,
+    "start_observation_at_or_before_previous_china_day": true,
+    "target_date_leakage": false,
+    "target_observation_strictly_before_china_trading_day": true
+  },
+  "instrument": "000852.SH",
+  "outputs": {
+    "2015": {
+      "bytes": 13126,
+      "max_day": "2015-12-31",
+      "min_day": "2015-01-05",
+      "path": "data/driver_runtime_text_2015_2020/driver_external_2015.csv",
+      "rows": 244,
+      "sha256": "e3f666b3d1c4c982ef8076bc2ec77dacc2a76caf5e0f96a9847a43166ab3cbce"
+    },
+    "2016": {
+      "bytes": 13043,
+      "max_day": "2016-12-30",
+      "min_day": "2016-01-04",
+      "path": "data/driver_runtime_text_2015_2020/driver_external_2016.csv",
+      "rows": 244,
+      "sha256": "ab43aa6dc560f246f196fe3433840934ee2fee84b05d907ac3465c89f27b063e"
+    },
+    "2017": {
+      "bytes": 13092,
+      "max_day": "2017-12-29",
+      "min_day": "2017-01-03",
+      "path": "data/driver_runtime_text_2015_2020/driver_external_2017.csv",
+      "rows": 244,
+      "sha256": "f69b4641ef77471239213db9526f7eea9a36d67182ca40ec6d088919cf1b3d69"
+    },
+    "2018": {
+      "bytes": 13216,
+      "max_day": "2018-12-28",
+      "min_day": "2018-01-02",
+      "path": "data/driver_runtime_text_2015_2020/driver_external_2018.csv",
+      "rows": 243,
+      "sha256": "93443a8c802b0b763697656803fae701ee7fc9516fd8e8dea34c48c1c581eec6"
+    },
+    "2019": {
+      "bytes": 13296,
+      "max_day": "2019-12-31",
+      "min_day": "2019-01-02",
+      "path": "data/driver_runtime_text_2015_2020/driver_external_2019.csv",
+      "rows": 244,
+      "sha256": "d718032c211447b7f8c827e726170fa08d828d2234cf19f241e15dc516aab517"
+    },
+    "2020": {
+      "bytes": 13261,
+      "max_day": "2020-12-31",
+      "min_day": "2020-01-02",
+      "path": "data/driver_runtime_text_2015_2020/driver_external_2020.csv",
+      "rows": 243,
+      "sha256": "b72f704ae0513af5d960a7ab70e6e29464f72d9b84957b9db9598572d82842a1"
+    }
+  },
+  "production_authority": false,
+  "published_window": "2015-01-05..2020-12-31",
+  "purpose": "connector_readable_causal_A50_HKMA_driver_carrier_for_open_development_only",
+  "schema_id": "overnight_driver_runtime_text_2015_2020@1.0",
+  "session_date": "2026-09-12",
+  "source_files": {
+    "external_manifest": {
+      "path": "data/v6a_external_sources_2015_2025/manifest.json",
+      "sha256": "dd245fda995d9452f9dd85abd763a351bcd6a432a4f5801a384511b50a84f00d"
+    },
+    "hkma": {
+      "path": "data/v6a_external_sources_2015_2025/hkma_usdcny_cross.parquet",
+      "sha256": "49e0ccdc230f90096c58177d2cde3999e06082e36683306c692a97a6c9eea530"
+    },
+    "holiday_a50": {
+      "path": "data/v6a_external_sources_2015_2025/sgx_a50_holiday_endpoints.parquet",
+      "sha256": "3a0790a90a2873786814556e5875b10d676a9c66a1efa2a571200ede0ad85b2c"
+    },
+    "ordinary_a50": {
+      "path": "data/v6a_external_sources_2015_2025/sgx_a50_ordinary_preauction_endpoints.parquet",
+      "sha256": "1c47f64f512e1d257b2eb5d114398773baacaf545d1098e25fd2c702bd9c6d22"
+    }
+  },
+  "transform": {
+    "2021_2025_row_level_text_generated": false,
+    "feature_selection_from_outcomes": false,
+    "forward_fill_or_interpolation": false,
+    "row_filter_to_open_development_only": true,
+    "same_contract_A50_semantics": true,
+    "scientific_change": false
+  },
+  "withheld_years": [
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ]
+}

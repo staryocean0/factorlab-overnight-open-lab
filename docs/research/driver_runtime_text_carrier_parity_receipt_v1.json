@@ -1,0 +1,17 @@
+{
+  "2021_2025_blackbox_opened": false,
+  "2021_2025_text_shards_generated": false,
+  "a50_clock_integrity": "PASS",
+  "hkma_causal_timing_integrity": "PASS",
+  "output_manifest": {
+    "path": "data/driver_runtime_text_2015_2020/manifest.json",
+    "sha256": "b061f5e61259a1e3a624e76ad8950ac3c71635fa9653b9ac16113cd47df648bc"
+  },
+  "production_authority": false,
+  "published_window": "2015-01-05..2020-12-31",
+  "schema_id": "overnight_driver_runtime_text_carrier_receipt@1.0",
+  "scientific_change": false,
+  "session_date": "2026-09-12",
+  "source_manifest_assertions_pass": true,
+  "target_rows_after_2020_loaded": false
+}
