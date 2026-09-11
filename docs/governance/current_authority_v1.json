@@ -1,5 +1,5 @@
 {
-  "schema_id": "overnight_open_current_authority@1.1",
+  "schema_id": "overnight_open_current_authority@1.2",
   "session_date": "2026-09-11",
   "repository_role": "overnight_open_factor_product_laboratory_and_downstream_factor_adapter",
   "program": "docs/governance/overnight_factor_product_program_v1.md",
@@ -35,7 +35,8 @@
   "archive": {
     "root": "archive/",
     "closed_V6A_strategy": "archive/v6a_short0935_to_close_20260910/",
-    "completed_V6A_BLACKBOX_entrypoint": "archive/v6a_reusable_blackbox_completed_20260910/"
+    "completed_V6A_BLACKBOX_entrypoint": "archive/v6a_reusable_blackbox_completed_20260910/",
+    "completed_Opening_Surprise_entrypoint": "archive/opening_surprise_completed_20260911/"
   },
   "hard_rules": [
     "Do not revive archived executable entrypoints as active work.",
