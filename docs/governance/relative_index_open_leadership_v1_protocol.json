@@ -1,0 +1,69 @@
+{
+  "schema_id": "overnight_relative_index_open_leadership_protocol@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_relative_size_open_leadership_v1",
+  "product_family": "OFP-D1_relative_index_open",
+  "phase": "mechanism_diagnostic",
+  "source_admission": "docs/governance/relative_index_open_leadership_source_admission_20260912.json",
+  "preanalysis": "docs/research/relative_index_open_leadership_preanalysis_20260912.md",
+  "development_window": "2015-01-05..2020-12-31",
+  "carrier_warmup_start": "2014-10-17",
+  "candidate_increment": ["size_open_leadership"],
+  "definitions": {
+    "gap_i": "open_0931_i / previous_close_1500_i - 1",
+    "r1_i": "previous_close_1500_i / close_1500_two_trading_days_ago_i - 1",
+    "rvol20_i": "std(daily_close_return_i.shift(1), window=20, min_periods=20)",
+    "gap_rvol_i": "gap_i / rvol20_i",
+    "size_open_leadership": "gap_rvol_CSI1000 - gap_rvol_CSI300",
+    "common_open_component": "0.5 * (gap_rvol_CSI1000 + gap_rvol_CSI300)",
+    "relative_r1": "r1_CSI1000 - r1_CSI300",
+    "relative_log_rvol": "log(rvol20_CSI1000) - log(rvol20_CSI300)"
+  },
+  "candidate_indices": ["CSI1000", "CSI300"],
+  "inventory_only_indices": ["CSI500"],
+  "baseline_controls": ["common_open_component", "relative_r1", "relative_log_rvol"],
+  "targets": [
+    "relative_ret_0935_0950",
+    "relative_ret_0935_1005",
+    "relative_ret_0935_1035"
+  ],
+  "target_definitions": {
+    "relative_ret_0935_0950": "(close_0950_CSI1000/close_0935_CSI1000-1) - (close_0950_CSI300/close_0935_CSI300-1)",
+    "relative_ret_0935_1005": "(close_1005_CSI1000/close_0935_CSI1000-1) - (close_1005_CSI300/close_0935_CSI300-1)",
+    "relative_ret_0935_1035": "(close_1035_CSI1000/close_0935_CSI1000-1) - (close_1035_CSI300/close_0935_CSI300-1)"
+  },
+  "diagnostics": ["partial_correlation_after_baseline_residualization", "baseline_r2", "candidate_r2", "delta_r2", "standardized_candidate_coefficient", "complete_case_count"],
+  "progression_gate": {
+    "pooled_partial_corr_and_standardized_coefficient_same_sign": true,
+    "minimum_annual_coefficient_same_sign_count": 4,
+    "annual_coefficient_year_count": 6,
+    "annual_median_coefficient_same_sign_as_pooled": true,
+    "pooled_delta_r2_positive": true,
+    "minimum_annual_positive_delta_r2_count": 4,
+    "minimum_complete_case_count_each_year": 150,
+    "multiple_passing_horizons": "retain_jointly_no_posthoc_unique_winner"
+  },
+  "relationship_to_closed_v21_p2": {
+    "independent_new_identity": true,
+    "P2_formula_imported": false,
+    "P2_CSI500_route_imported": false,
+    "P2_gap_threshold_imported": false,
+    "P2_gap_fill_target_imported": false,
+    "P2_beta_logic_imported": false
+  },
+  "forbidden_searches": {
+    "CSI500_candidate_substitution": true,
+    "pairwise_index_search": true,
+    "gap_threshold_search": true,
+    "gap_sign_bucket_search": true,
+    "quantile_bucket_search": true,
+    "alternate_volatility_window_search": true,
+    "alternate_open_clock_search": true,
+    "alternate_horizon_search": true,
+    "strategy_return_optimization": true
+  },
+  "reusable_blackbox_2021_2025_open_authorized": false,
+  "post_2020_detailed_rows_authorized": false,
+  "auto_promotion": false,
+  "production_authority": false
+}
