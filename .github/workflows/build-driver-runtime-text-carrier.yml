@@ -1,0 +1,46 @@
+name: build-driver-runtime-text-carrier
+
+on:
+  push:
+    paths:
+      - '.github/workflows/build-driver-runtime-text-carrier.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install --quiet pandas numpy pyarrow
+      - name: Build bounded 2015-2020 carrier
+        run: |
+          python scripts/build_driver_runtime_text_carrier.py \
+            --factor-runtime-root data/runtime_text_2015_2025 \
+            --source-manifest data/v6a_external_sources_2015_2025/manifest.json \
+            --ordinary-a50 data/v6a_external_sources_2015_2025/sgx_a50_ordinary_preauction_endpoints.parquet \
+            --holiday-a50 data/v6a_external_sources_2015_2025/sgx_a50_holiday_endpoints.parquet \
+            --hkma data/v6a_external_sources_2015_2025/hkma_usdcny_cross.parquet \
+            --out-dir data/driver_runtime_text_2015_2020 \
+            --receipt-out docs/research/driver_runtime_text_carrier_parity_receipt_v1.json
+      - name: Verify evidence boundary
+        run: |
+          test ! -e data/driver_runtime_text_2015_2020/driver_external_2021.csv
+          grep -q '"2021_2025_text_shards_generated": false' docs/research/driver_runtime_text_carrier_parity_receipt_v1.json
+          grep -q '"2021_2025_blackbox_opened": false' docs/research/driver_runtime_text_carrier_parity_receipt_v1.json
+      - name: Commit carrier
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/driver_runtime_text_2015_2020 docs/research/driver_runtime_text_carrier_parity_receipt_v1.json
+          git commit -m 'Materialize 2015-2020 driver runtime text carrier [skip ci]'
+          git push
