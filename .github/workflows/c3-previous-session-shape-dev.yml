@@ -1,0 +1,64 @@
+name: c3-previous-session-shape-dev
+
+on:
+  push:
+    paths:
+      - '.github/workflows/c3-previous-session-shape-dev.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install minimal dependencies
+        run: python -m pip install --disable-pip-version-check numpy pandas
+
+      - name: Run frozen C3 2015-2020 diagnostic
+        run: |
+          python scripts/diagnose_previous_session_shape_dev.py \
+            --runtime-root data/runtime_text_2015_2025 \
+            --protocol docs/governance/previous_china_session_shape_v1_protocol.json \
+            --receipt-out docs/research/cloud_previous_session_shape_dev_diagnostic_v1.json
+
+      - name: Verify compact execution boundary
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('docs/research/cloud_previous_session_shape_dev_diagnostic_v1.json')
+          r = json.loads(p.read_text())
+          assert r['development_window'] == '2015-01-05..2020-12-31'
+          assert r['target_rows_after_2020_loaded'] is False
+          assert r['reusable_blackbox_2021_2025_opened'] is False
+          assert r['candidate_family_search'] is False
+          assert r['prev_afternoon_search'] is False
+          assert r['alternate_session_window_search'] is False
+          assert r['threshold_search'] is False
+          assert r['bucket_search'] is False
+          assert r['horizon_search'] is False
+          assert r['trading_return_optimization'] is False
+          assert r['production_authority'] is False
+          print('C3_DEV_BOUNDARY_VERIFIED')
+          PY
+
+      - name: Commit C3 development receipt
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research/cloud_previous_session_shape_dev_diagnostic_v1.json
+          git diff --cached --quiet && { echo 'receipt not generated'; exit 1; }
+          git commit -m 'Record C3 six-year development diagnostic [skip ci]'
+          git push origin HEAD:main
