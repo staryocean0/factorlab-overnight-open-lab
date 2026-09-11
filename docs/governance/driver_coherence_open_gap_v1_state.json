@@ -1,0 +1,19 @@
+{
+  "schema_id": "overnight_driver_coherence_open_gap_state@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_driver_coherence_open_gap_v1",
+  "parent_development_identity": "overnight_driver_coherence_v1",
+  "product_family": "OFP-B4_driver_agreement_disagreement",
+  "current_status": "reusable_BLACKBOX_protocol_frozen_query_unopened",
+  "protocol": "docs/governance/driver_coherence_open_gap_blackbox_protocol_v1.json",
+  "parent_development_authority": "docs/research/driver_agreement_disagreement_dev_cloud_adjudication_20260912.md",
+  "candidate_factor": "driver_coherence",
+  "target": "opening_gap_rvol",
+  "blackbox_window": "2021-01-01..2025-12-31",
+  "blackbox_query_opened": false,
+  "blackbox_result": null,
+  "ledger_entry_created": false,
+  "public_detail_release": false,
+  "strategy_backtest_authorized": false,
+  "production_authority": false
+}
