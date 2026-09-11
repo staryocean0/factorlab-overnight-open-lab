@@ -1,0 +1,23 @@
+{
+  "schema_id": "overnight_relative_index_open_leadership_state@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_relative_size_open_leadership_v1",
+  "product_family": "OFP-D1_relative_index_open",
+  "current_status": "source_and_identity_frozen_pending_local_carrier_materialization",
+  "source_admission": "docs/governance/relative_index_open_leadership_source_admission_20260912.json",
+  "preanalysis": "docs/research/relative_index_open_leadership_preanalysis_20260912.md",
+  "protocol": "docs/governance/relative_index_open_leadership_v1_protocol.json",
+  "development_window": "2015-01-05..2020-12-31",
+  "expected_carrier": "data/relative_index_runtime_text_2015_2020/",
+  "expected_carrier_receipt": "docs/research/relative_index_runtime_text_carrier_parity_receipt_v1.json",
+  "candidate": "gap_rvol_CSI1000 - gap_rvol_CSI300",
+  "candidate_indices": ["CSI1000", "CSI300"],
+  "CSI500_role": "carrier_inventory_only_not_candidate",
+  "blackbox_2021_2025_opened": false,
+  "blackbox_authorized": false,
+  "development_execution_authorized_before_carrier_acceptance": false,
+  "local_scientific_diagnostic_authorized": false,
+  "strategy_backtest_authorized": false,
+  "next_action": "local environment mechanically materializes and pushes the frozen 2015-2020 three-index runtime text carrier and parity receipt only; cloud main agent then accepts the carrier and executes the preregistered six-year development diagnostic",
+  "production_authority": false
+}
