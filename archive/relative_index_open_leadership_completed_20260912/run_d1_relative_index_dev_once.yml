@@ -1,0 +1,39 @@
+# one-shot trigger: 2026-09-12
+name: One-shot D1 relative-index development
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/run_d1_relative_index_dev_once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  run-d1-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install minimal dependencies
+        run: python -m pip install --disable-pip-version-check numpy pandas
+      - name: Verify frozen boundary and run D1 development
+        run: |
+          test ! -e docs/research/cloud_relative_index_open_leadership_dev_diagnostic_v1.json
+          python scripts/run_relative_index_open_leadership_dev_cloud.py
+      - name: Commit development receipt only
+        run: |
+          git status --short
+          test -f docs/research/cloud_relative_index_open_leadership_dev_diagnostic_v1.json
+          EXTRA="$(git status --short | grep -v '^?? docs/research/cloud_relative_index_open_leadership_dev_diagnostic_v1.json$' || true)"
+          test -z "$EXTRA"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/research/cloud_relative_index_open_leadership_dev_diagnostic_v1.json
+          git commit -m "Record D1 six-year development diagnostic [skip ci]"
+          git push
