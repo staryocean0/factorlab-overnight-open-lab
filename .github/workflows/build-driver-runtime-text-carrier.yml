@@ -44,3 +44,5 @@ jobs:
           git add data/driver_runtime_text_2015_2020 docs/research/driver_runtime_text_carrier_parity_receipt_v1.json
           git commit -m 'Materialize 2015-2020 driver runtime text carrier [skip ci]'
           git push
+
+# Retry marker: parquet timestamp filters use typed timestamps.
