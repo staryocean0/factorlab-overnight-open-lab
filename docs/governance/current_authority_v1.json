@@ -1,23 +1,23 @@
 {
-  "schema_id": "overnight_open_current_authority@1.6",
+  "schema_id": "overnight_open_current_authority@1.7",
   "session_date": "2026-09-12",
   "repository_role": "overnight_open_factor_product_laboratory_and_downstream_factor_adapter",
   "program": "docs/governance/overnight_factor_product_program_v1.md",
   "registry": "docs/governance/overnight_factor_product_registry_v1.json",
-  "active_research": {
+  "active_research": null,
+  "recent_completed_research": {
     "identity": "overnight_previous_session_last_hour_conditioned_open_state_v1",
-    "status": "mechanism_diagnostic_frozen_cloud_execution_pending",
     "product_family": "OFP-C3_previous_china_session_shape_x_OFP-A2_observed_open_geometry",
-    "preanalysis": "docs/research/previous_china_session_shape_preanalysis_20260912.md",
-    "protocol": "docs/governance/previous_china_session_shape_v1_protocol.json",
-    "state": "docs/governance/previous_china_session_shape_v1_state.json",
-    "development_window": "2015-01-05..2020-12-31",
-    "development_carrier": "data/runtime_text_2015_2025/",
-    "candidate": "(prev_last_hour / rvol20) * (gap / rvol20)",
-    "targets": ["09:35_to_09:50", "09:35_to_10:05", "09:35_to_10:35"],
+    "status": "DEV_progression_supported_30m_and_60m_shared_continuous_coordinate",
+    "development_receipt": "docs/research/cloud_previous_session_shape_dev_diagnostic_v1.json",
+    "cloud_adjudication": "docs/research/previous_china_session_shape_dev_cloud_adjudication_20260912.md",
+    "retained_coordinate": "(prev_last_hour / rvol20) * (gap / rvol20)",
+    "retained_targets": ["09:35_to_10:05", "09:35_to_10:35"],
+    "rejected_target": "09:35_to_09:50",
     "blackbox_2021_2025_opened": false,
     "blackbox_authorized": false,
-    "strategy_backtest_authorized": false
+    "unique_30m_or_60m_winner_authorized": false,
+    "production_authority": false
   },
   "deferred_frozen_research": {
     "identity": "overnight_volatility_conditioned_open_state_60m_v1",
@@ -27,7 +27,13 @@
     "state": "docs/governance/volatility_conditioned_open_state_60m_state_v1.json",
     "blackbox_query_opened": false,
     "ledger_entry_created": false,
-    "reason": "2021-2025 detailed BLACKBOX rows remain sealed; current cloud work proceeds only on already-opened 2015-2020 development carrier. Do not run the local BLACKBOX unless authority is explicitly reactivated."
+    "reason": "2021-2025 detailed BLACKBOX rows remain sealed; do not run the local BLACKBOX unless authority is explicitly reactivated."
+  },
+  "waiting_validation_research": {
+    "identity": "overnight_previous_session_last_hour_conditioned_open_state_v1",
+    "status": "DEV_progression_material_only_30m_60m_shared_coordinate",
+    "blackbox_authorized": false,
+    "successor_requirement": "a separately frozen joint 30m+60m successor identity and result-free reusable BLACKBOX protocol; do not choose a single horizon post hoc"
   },
   "validated_products": {
     "repository_wide_next_open_architecture": "median_quantile_sign + abs_frozen_clock_signed_prediction",
@@ -45,6 +51,8 @@
     "C1_15m_BLACKBOX": "completed_PASS_query_2",
     "C2_multi_horizon_DEV_parent": "closed_after_DEV_progression_supported_60m_only",
     "C2_60m_BLACKBOX": "frozen_unopened_deferred_no_query_3",
+    "C3_multi_horizon_DEV_parent": "closed_after_DEV_progression_supported_30m_and_60m_shared_coordinate",
+    "C3_successor_BLACKBOX": "not_yet_frozen_not_authorized",
     "B4_driver_agreement": "scientifically_next_but_cloud_carrier_pending_for_A50_HKMA_sources",
     "V6A_0935_to_close_strategy": "archived_closed_before_DEV_objective_mismatch",
     "V21_P2_successor": "closed_at_DEV_no_successor_evidence_insufficient",
@@ -64,13 +72,15 @@
     "Do not revive archived executable entrypoints as active work.",
     "Do not decompose completed reusable BLACKBOX queries.",
     "Do not use downstream strategy PnL to tune upstream factor definitions.",
-    "Do not execute the deferred C2 60m BLACKBOX while this authority points to C3 development.",
-    "C3 uses exactly one last-hour continuous interaction; do not rescue with prev_afternoon, alternate session windows, thresholds, buckets, or post-hoc horizons.",
-    "C1 validated trend_gap_interaction remains a C3 baseline control.",
+    "Do not execute the deferred C2 60m BLACKBOX unless authority is explicitly reactivated.",
+    "C3 15m failed its preregistered annual-sign stability rule and may not be revived under the parent identity.",
+    "C3 30m and 60m are shared DEV progression material; do not select a unique horizon winner post hoc.",
+    "Do not rescue C3 with prev_afternoon, alternate session windows, thresholds, buckets, or post-hoc horizons.",
+    "Do not open a C3 2021-2025 reusable BLACKBOX under the parent identity; a separately frozen successor identity and protocol are required.",
     "Do not expose or materialize 2021-2025 row-level BLACKBOX text shards.",
     "Do not open post-2026-08-21 outcomes except under their separately frozen protocol.",
     "Production authority remains false."
   ],
-  "next_action": "cloud main agent executes and adjudicates the frozen OFP-C3 2015-2020 mechanism diagnostic from the parity-validated runtime text carrier; no local execution is currently requested",
+  "next_action": "prepare a connector-readable causal 2015-2020 A50/HKMA driver carrier for OFP-B4 driver-agreement development without opening any 2021-2025 BLACKBOX; C3 30m+60m successor validation remains separately governed and not yet authorized",
   "production_authority": false
 }

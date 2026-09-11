@@ -1,19 +1,33 @@
 {
-  "schema_id": "overnight_previous_china_session_shape_state@1.0",
+  "schema_id": "overnight_previous_china_session_shape_state@1.1",
   "session_date": "2026-09-12",
   "research_identity": "overnight_previous_session_last_hour_conditioned_open_state_v1",
   "product_family": "OFP-C3_previous_china_session_shape_x_OFP-A2_observed_open_geometry",
-  "current_status": "mechanism_diagnostic_frozen_cloud_execution_pending",
+  "current_status": "closed_after_DEV_progression_supported_30m_and_60m_shared_continuous_coordinate",
   "preanalysis": "docs/research/previous_china_session_shape_preanalysis_20260912.md",
   "protocol": "docs/governance/previous_china_session_shape_v1_protocol.json",
+  "development_receipt": "docs/research/cloud_previous_session_shape_dev_diagnostic_v1.json",
+  "cloud_adjudication": "docs/research/previous_china_session_shape_dev_cloud_adjudication_20260912.md",
   "development_window": "2015-01-05..2020-12-31",
   "development_carrier": "data/runtime_text_2015_2025/",
   "candidate": "(prev_last_hour / rvol20) * (gap / rvol20)",
+  "development_result": "C3_DEV_PROGRESS_30M_AND_60M_SHARED_CONTINUOUS_COORDINATE",
+  "retained_progression_horizons": [
+    "ret_0935_1005",
+    "ret_0935_1035"
+  ],
+  "rejected_horizons": [
+    "ret_0935_0950"
+  ],
+  "unique_30m_or_60m_winner_authorized": false,
   "blackbox_2021_2025_opened": false,
   "blackbox_authorized": false,
+  "successor_blackbox_requires_separate_identity_and_protocol": true,
   "strategy_backtest_authorized": false,
   "threshold_search_authorized": false,
   "bucket_search_authorized": false,
-  "next_action": "cloud main agent executes the frozen 2015-2020 mechanism diagnostic from the parity-validated runtime text carrier and adjudicates without opening 2021-2025",
+  "prev_afternoon_rescue_authorized": false,
+  "alternate_session_window_search_authorized": false,
+  "next_action": "retain 30m+60m C3 as DEV progression material only; any reusable BLACKBOX requires a separate joint successor identity and result-free protocol, while B4 driver-agreement research remains scientifically next once its connector-readable causal carrier is ready",
   "production_authority": false
 }

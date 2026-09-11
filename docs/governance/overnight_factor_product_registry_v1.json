@@ -1,5 +1,5 @@
 {
-  "schema_id": "overnight_factor_product_registry@1.5",
+  "schema_id": "overnight_factor_product_registry@1.6",
   "session_date": "2026-09-12",
   "program": "docs/governance/overnight_factor_product_program_v1.md",
   "repository_role": "overnight_open_factor_product_laboratory_and_downstream_factor_adapter",
@@ -65,7 +65,7 @@
       "name": "driver_agreement_disagreement",
       "status": "planned_research_cloud_carrier_pending_for_A50_HKMA_sources",
       "availability": "pre_open",
-      "execution_order_note": "retains priority after current context work; cloud execution waits for connector-readable causal driver carrier and does not justify opening any BLACKBOX",
+      "execution_order_note": "retains scientific priority after C3 development; cloud execution waits for connector-readable causal driver carrier and does not justify opening any BLACKBOX",
       "consumer_roles": ["timing_filter", "risk", "confidence"]
     },
     {
@@ -105,14 +105,20 @@
     {
       "product_id": "OFP-C3",
       "name": "previous_china_session_shape",
-      "status": "active_cloud_DEV_last_hour_continuous_interaction_frozen",
+      "status": "DEV_progression_supported_30m_60m_shared_continuous_coordinate_BLACKBOX_not_authorized",
       "availability": "pre_open_coordinate_plus_post_open_adapter_view",
       "research_identity": "overnight_previous_session_last_hour_conditioned_open_state_v1",
       "preanalysis": "docs/research/previous_china_session_shape_preanalysis_20260912.md",
       "protocol": "docs/governance/previous_china_session_shape_v1_protocol.json",
       "state": "docs/governance/previous_china_session_shape_v1_state.json",
-      "active_interaction": "(prev_last_hour / rvol20) * (gap / rvol20)",
-      "development_window": "2015-01-05..2020-12-31",
+      "development_receipt": "docs/research/cloud_previous_session_shape_dev_diagnostic_v1.json",
+      "development_authority": "docs/research/previous_china_session_shape_dev_cloud_adjudication_20260912.md",
+      "retained_interaction": "(prev_last_hour / rvol20) * (gap / rvol20)",
+      "retained_targets": ["09:35_to_10:05", "09:35_to_10:35"],
+      "rejected_target": "09:35_to_09:50",
+      "unique_30m_or_60m_winner_authority": false,
+      "blackbox_authorized": false,
+      "successor_blackbox_requires_separate_identity": true,
       "consumer_roles": ["timing", "rebound_continuation_context"],
       "categorical_session_shape_authority": false
     },
@@ -135,10 +141,11 @@
     {"product_id": "OFP-E2", "name": "stock_selection_adapter", "status": "downstream_after_upstream_factor_freeze", "consumer_roles": ["stock_selection"]},
     {"product_id": "OFP-E3", "name": "portfolio_risk_adapter", "status": "downstream_after_upstream_factor_freeze", "consumer_roles": ["portfolio_risk"]}
   ],
-  "active_research_identity": "overnight_previous_session_last_hour_conditioned_open_state_v1",
+  "active_research_identity": null,
   "deferred_frozen_identity": "overnight_volatility_conditioned_open_state_60m_v1",
-  "next_research_identity_after_active": "driver_agreement_disagreement",
-  "execution_order_reason": "B4 remains scientifically next but requires a connector-readable A50/HKMA driver carrier; C3 is executed first because its result-free identity is fully supported by the already-admitted 2015-2020 runtime text carrier. This is an infrastructure ordering decision, not an outcome-derived candidate choice.",
+  "waiting_validation_identity": "overnight_previous_session_last_hour_conditioned_open_state_v1",
+  "next_research_identity": "driver_agreement_disagreement",
+  "next_research_blocker": "connector-readable causal A50/HKMA driver carrier not yet prepared for B4 development",
   "cartesian_feature_factory_forbidden": true,
   "downstream_strategy_return_may_define_upstream_factor": false,
   "production_authority": false
