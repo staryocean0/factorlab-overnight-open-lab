@@ -1,0 +1,25 @@
+{
+  "schema_id": "overnight_relative_index_open_leadership_joint_blackbox_state@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_relative_size_open_leadership_joint_15m_30m_60m_v1",
+  "parent_development_identity": "overnight_relative_size_open_leadership_v1",
+  "product_family": "OFP-D1_relative_index_open",
+  "status": "BLACKBOX_protocol_frozen_query_unopened",
+  "protocol": "docs/governance/relative_index_open_leadership_joint_blackbox_protocol_v1.json",
+  "retained_coordinate": "gap_rvol_CSI1000 - gap_rvol_CSI300",
+  "retained_targets": [
+    "relative_ret_0935_0950",
+    "relative_ret_0935_1005",
+    "relative_ret_0935_1035"
+  ],
+  "joint_horizon_identity": true,
+  "unique_horizon_winner_authority": false,
+  "candidate_indices": ["CSI1000", "CSI300"],
+  "CSI500_candidate_authority": false,
+  "validation_window": "2021-01-01..2025-12-31",
+  "blackbox_query_opened": false,
+  "ledger_entry_created": false,
+  "local_execution_role": "mechanical_frozen_controller_only_if_cloud_cannot_access_admitted_three_index_source",
+  "public_detail_release": false,
+  "production_authority": false
+}
