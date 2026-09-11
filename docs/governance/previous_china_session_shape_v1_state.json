@@ -1,0 +1,19 @@
+{
+  "schema_id": "overnight_previous_china_session_shape_state@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_previous_session_last_hour_conditioned_open_state_v1",
+  "product_family": "OFP-C3_previous_china_session_shape_x_OFP-A2_observed_open_geometry",
+  "current_status": "mechanism_diagnostic_frozen_cloud_execution_pending",
+  "preanalysis": "docs/research/previous_china_session_shape_preanalysis_20260912.md",
+  "protocol": "docs/governance/previous_china_session_shape_v1_protocol.json",
+  "development_window": "2015-01-05..2020-12-31",
+  "development_carrier": "data/runtime_text_2015_2025/",
+  "candidate": "(prev_last_hour / rvol20) * (gap / rvol20)",
+  "blackbox_2021_2025_opened": false,
+  "blackbox_authorized": false,
+  "strategy_backtest_authorized": false,
+  "threshold_search_authorized": false,
+  "bucket_search_authorized": false,
+  "next_action": "cloud main agent executes the frozen 2015-2020 mechanism diagnostic from the parity-validated runtime text carrier and adjudicates without opening 2021-2025",
+  "production_authority": false
+}
