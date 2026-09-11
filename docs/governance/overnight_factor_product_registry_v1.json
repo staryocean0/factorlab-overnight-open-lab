@@ -1,6 +1,6 @@
 {
-  "schema_id": "overnight_factor_product_registry@1.0",
-  "session_date": "2026-09-10",
+  "schema_id": "overnight_factor_product_registry@1.1",
+  "session_date": "2026-09-11",
   "program": "docs/governance/overnight_factor_product_program_v1.md",
   "repository_role": "overnight_open_factor_product_laboratory_and_downstream_factor_adapter",
   "products": [
@@ -25,10 +25,13 @@
     {
       "product_id": "OFP-A3",
       "name": "opening_surprise_residual",
-      "status": "research_active_next",
+      "status": "closed_after_DEV_no_standalone_product_promotion_stability_failure",
       "availability": "after_open_observation",
       "research_identity": "overnight_open_surprise_factor_v1",
-      "consumer_roles": ["timing_filter", "continuation_reversal_filter", "stock_selection_overlay", "risk"]
+      "authority": "docs/research/opening_surprise_factor_cloud_adjudication_20260911.md",
+      "blackbox_authorized": false,
+      "rescue_search_authorized": false,
+      "consumer_roles": ["historical_negative_evidence"]
     },
     {
       "product_id": "OFP-A4",
@@ -70,8 +73,10 @@
     {
       "product_id": "OFP-C1",
       "name": "prior_trend_context",
-      "status": "planned_research_continuous_first",
-      "availability": "pre_open",
+      "status": "research_active_continuous_interaction",
+      "availability": "pre_open_coordinate_plus_post_open_adapter_view",
+      "research_identity": "overnight_trend_conditioned_open_state_v1",
+      "active_interaction": "trend20_rvol * observed_gap_rvol",
       "consumer_roles": ["timing", "regime_conditioning", "stock_selection_overlay"],
       "categorical_up_range_down_authority": false
     },
@@ -123,9 +128,8 @@
       "consumer_roles": ["portfolio_risk"]
     }
   ],
-  "active_research_identity": "overnight_open_surprise_factor_v1",
+  "active_research_identity": "overnight_trend_conditioned_open_state_v1",
   "next_context_order_after_active_identity": [
-    "prior_trend_context_x_core_opening_state",
     "prior_volatility_context_x_core_opening_state",
     "driver_agreement_disagreement",
     "relative_index_opening_leadership",
