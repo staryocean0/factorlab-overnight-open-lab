@@ -1,0 +1,160 @@
+{
+  "CSI500_role": "carrier_inventory_only_not_candidate",
+  "D1_v1_candidate_indices": [
+    "CSI1000",
+    "CSI300"
+  ],
+  "columns": [
+    "index_name",
+    "symbol",
+    "trading_day",
+    "open_0931",
+    "close_0935",
+    "close_0950",
+    "close_1005",
+    "close_1035",
+    "close_1500",
+    "prev_close_1500",
+    "r1",
+    "rvol20",
+    "gap",
+    "gap_rvol",
+    "required_clocks_complete"
+  ],
+  "csi1000_reference_parity": {
+    "gap": {
+      "comparable_rows": 1460,
+      "max_abs_diff_on_comparable_rows": 1.0061396160665481e-16,
+      "reference_finite_carrier_missing_rows": 1,
+      "status": "PASS",
+      "tolerance": 1e-12
+    },
+    "rvol20": {
+      "comparable_rows": 1441,
+      "max_abs_diff_on_comparable_rows": 1.0061396160665481e-16,
+      "reference_finite_carrier_missing_rows": 0,
+      "status": "PASS",
+      "tolerance": 1e-12
+    },
+    "trading_day_inventory_exact": true
+  },
+  "exact_clocks": [
+    "09:31",
+    "09:35",
+    "09:50",
+    "10:05",
+    "10:35",
+    "15:00"
+  ],
+  "indices": {
+    "CSI1000": "000852.SH",
+    "CSI300": "000300.SH",
+    "CSI500": "000905.SH"
+  },
+  "outputs": {
+    "2015": {
+      "bytes": 174914,
+      "max_day": "2015-12-31",
+      "min_day": "2015-01-05",
+      "path": "data/relative_index_runtime_text_2015_2020/relative_index_open_carrier_2015.csv",
+      "rows": 732,
+      "sha256": "f5001c5e20521d53161fd555c089192c13cf9d6ca7c236d3b61210724f2c4356",
+      "symbols": [
+        "000300.SH",
+        "000852.SH",
+        "000905.SH"
+      ]
+    },
+    "2016": {
+      "bytes": 178234,
+      "max_day": "2016-12-30",
+      "min_day": "2016-01-04",
+      "path": "data/relative_index_runtime_text_2015_2020/relative_index_open_carrier_2016.csv",
+      "rows": 732,
+      "sha256": "52bdfb75684176ddddf542616b8958438b253d51bf739597048c73795044c875",
+      "symbols": [
+        "000300.SH",
+        "000852.SH",
+        "000905.SH"
+      ]
+    },
+    "2017": {
+      "bytes": 177931,
+      "max_day": "2017-12-29",
+      "min_day": "2017-01-03",
+      "path": "data/relative_index_runtime_text_2015_2020/relative_index_open_carrier_2017.csv",
+      "rows": 732,
+      "sha256": "8b50afb9de6c6e5f15dca3f914822d62a0ae19ed9c8dff3be2dcf01e1f1b59a0",
+      "symbols": [
+        "000300.SH",
+        "000852.SH",
+        "000905.SH"
+      ]
+    },
+    "2018": {
+      "bytes": 176562,
+      "max_day": "2018-12-28",
+      "min_day": "2018-01-02",
+      "path": "data/relative_index_runtime_text_2015_2020/relative_index_open_carrier_2018.csv",
+      "rows": 729,
+      "sha256": "1b3fc08303f13864cf008ae07139fffc7452373ab83df1df5335685b4fc5fa73",
+      "symbols": [
+        "000300.SH",
+        "000852.SH",
+        "000905.SH"
+      ]
+    },
+    "2019": {
+      "bytes": 176421,
+      "max_day": "2019-12-31",
+      "min_day": "2019-01-02",
+      "path": "data/relative_index_runtime_text_2015_2020/relative_index_open_carrier_2019.csv",
+      "rows": 732,
+      "sha256": "f949e381c09aff3fa5e11d101540414adfa5c668a3c9897e77b61b58e8caa7f8",
+      "symbols": [
+        "000300.SH",
+        "000852.SH",
+        "000905.SH"
+      ]
+    },
+    "2020": {
+      "bytes": 176628,
+      "max_day": "2020-12-31",
+      "min_day": "2020-01-02",
+      "path": "data/relative_index_runtime_text_2015_2020/relative_index_open_carrier_2020.csv",
+      "rows": 729,
+      "sha256": "61f8bf761c125fb7fff4259becad35c44d5174902d709cb88daaca488a50360c",
+      "symbols": [
+        "000300.SH",
+        "000852.SH",
+        "000905.SH"
+      ]
+    }
+  },
+  "production_authority": false,
+  "published_window": "2015-01-05..2020-12-31",
+  "purpose": "connector_readable_three_index_exact_clock_carrier_for_D1_open_development_only",
+  "schema_id": "overnight_relative_index_runtime_text_2015_2020@1.0",
+  "session_date": "2026-09-12",
+  "source_dataset_admitted_sha256": "25f4f9f8b67c799ffb1a7b7fdee94b0b21dbbfed1efc54d063264ccb046411f0",
+  "source_dataset_version": "bars_cn_index_1m_raw_canonical_market_index_baidu_3s_20000714_20260821_factorlab_unified_missing_day_repaired_v8_20260824",
+  "source_path": "/home/starryocean/\u684c\u9762/\u91cf\u5316/unified_datahub/.runtime/live/lake/bars/dataset_version=bars_cn_index_1m_raw_canonical_market_index_baidu_3s_20000714_20260821_factorlab_unified_missing_day_repaired_v8_20260824/instrument_type=market_index",
+  "transform": {
+    "2021_2025_row_level_text_generated": false,
+    "backward_fill": false,
+    "exact_clock_only": true,
+    "forward_fill": false,
+    "nearest_clock_substitution": false,
+    "outcome_analysis": false,
+    "resampling": false,
+    "scientific_change": false
+  },
+  "warmup_start": "2014-10-17",
+  "withheld_years": [
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ]
+}

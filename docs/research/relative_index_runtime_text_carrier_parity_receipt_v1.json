@@ -1,0 +1,47 @@
+{
+  "2021_2025_blackbox_opened": false,
+  "2021_2025_text_shards_generated": false,
+  "CSI500_candidate_search": false,
+  "D1_outcome_diagnostic_performed": false,
+  "P2_rescue_performed": false,
+  "candidate_family_search": false,
+  "csi1000_reference_parity": {
+    "gap": {
+      "comparable_rows": 1460,
+      "max_abs_diff_on_comparable_rows": 1.0061396160665481e-16,
+      "reference_finite_carrier_missing_rows": 1,
+      "status": "PASS",
+      "tolerance": 1e-12
+    },
+    "rvol20": {
+      "comparable_rows": 1441,
+      "max_abs_diff_on_comparable_rows": 1.0061396160665481e-16,
+      "reference_finite_carrier_missing_rows": 0,
+      "status": "PASS",
+      "tolerance": 1e-12
+    },
+    "trading_day_inventory_exact": true
+  },
+  "exact_clock_only": true,
+  "output_manifest": {
+    "path": "data/relative_index_runtime_text_2015_2020/manifest.json",
+    "sha256": "837d621cc4100baefb210465567c1ba142672baef83af6ea7fc6e38280fa5f10"
+  },
+  "production_authority": false,
+  "protocol": {
+    "path": "docs/governance/relative_index_open_leadership_v1_protocol.json",
+    "sha256": "3b5fd2629c0736a05cc41e0f97d6de494a81cfb78492b0ad0b09b309a5404b88"
+  },
+  "published_window": "2015-01-05..2020-12-31",
+  "research_identity": "overnight_relative_size_open_leadership_v1",
+  "schema_id": "overnight_relative_index_runtime_text_carrier_receipt@1.0",
+  "scientific_change": false,
+  "session_date": "2026-09-12",
+  "source_admission": {
+    "path": "docs/governance/relative_index_open_leadership_source_admission_20260912.json",
+    "sha256": "78fb57ab228a08ae52b4ad6ecf85be56c85372c3d3d39dabea60e50463191792"
+  },
+  "source_dataset_admitted_sha256": "25f4f9f8b67c799ffb1a7b7fdee94b0b21dbbfed1efc54d063264ccb046411f0",
+  "source_dataset_version": "bars_cn_index_1m_raw_canonical_market_index_baidu_3s_20000714_20260821_factorlab_unified_missing_day_repaired_v8_20260824",
+  "target_rows_after_2020_loaded": false
+}
