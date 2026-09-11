@@ -1,0 +1,20 @@
+{
+  "blackbox_window": "2021-01-01..2025-12-31",
+  "candidate": "driver_coherence",
+  "comparator": "same_OLS_baseline_without_driver_coherence",
+  "counts_persisted": false,
+  "decision": "PASS",
+  "failure_attribution_persisted": false,
+  "internal_metrics_persisted": false,
+  "production_authority": false,
+  "protocol_sha256": "445c9ffa9171200042902988996605e267f46376ebd49bceee0cf8eb2959a349",
+  "public_detail_release": false,
+  "query_id": "33ccb040dd0d1822f3b6",
+  "reconstruction_contract_sha256": "2c497f403959daa39819518b6352fa32ae0a0e4029e1d54dae1811762c770598",
+  "research_identity": "overnight_driver_coherence_open_gap_v1",
+  "reuse_is_independent_oos": false,
+  "schema_id": "overnight_driver_coherence_open_gap_blackbox_receipt@1.0",
+  "session_date": "2026-09-12",
+  "source_manifest_sha256": "dd245fda995d9452f9dd85abd763a351bcd6a432a4f5801a384511b50a84f00d",
+  "yearly_results_persisted": false
+}
