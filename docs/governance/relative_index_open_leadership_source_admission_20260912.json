@@ -1,0 +1,62 @@
+{
+  "schema_id": "overnight_relative_index_open_leadership_source_admission@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_relative_size_open_leadership_v1",
+  "product_family": "OFP-D1_relative_index_open",
+  "decision": "SOURCE_ADMITTED_FOR_2015_2020_DEVELOPMENT_CARRIER_ONLY",
+  "canonical_source": {
+    "provider": "Unified DataHub / Baidu Netdisk exact 3s archive + TDX overlap repair",
+    "dataset_version": "bars_cn_index_1m_raw_canonical_market_index_baidu_3s_20000714_20260821_factorlab_unified_missing_day_repaired_v8_20260824",
+    "sha256": "25f4f9f8b67c799ffb1a7b7fdee94b0b21dbbfed1efc54d063264ccb046411f0",
+    "frequency": "1m",
+    "price_space": "raw_index_level",
+    "bar_timestamp_semantics": "end_label_1m",
+    "silent_minute_carry_forward": false,
+    "historical_environment_variable": "OVERNIGHT_HISTORICAL_INDEX_1M_LAKE"
+  },
+  "source_inventory_authority": "docs/research/local_gap_fill_v2_historical_source_inventory_v1.json",
+  "symbols": {
+    "CSI1000": {
+      "canonical_symbol": "000852.SH",
+      "provenance_class": "contemporaneous_live_index",
+      "inventory_min_day": "2014-10-17",
+      "inventory_max_day": "2026-08-21"
+    },
+    "CSI300": {
+      "canonical_symbol": "000300.SH",
+      "provenance_class": "contemporaneous_live_index",
+      "inventory_min_day": "2005-04-08",
+      "inventory_max_day": "2026-08-21"
+    },
+    "CSI500": {
+      "canonical_symbol": "000905.SH",
+      "historical_alias": "399905.csv",
+      "provenance_class": "contemporaneous_live_index",
+      "role_in_v1": "carrier_inventory_only_not_candidate"
+    }
+  },
+  "admitted_development_window": "2015-01-05..2020-12-31",
+  "carrier_warmup_start": "2014-10-17",
+  "required_exact_clocks": ["09:31", "09:35", "09:50", "10:05", "10:35", "15:00"],
+  "source_rules": {
+    "exact_clock_only": true,
+    "nearest_clock_substitution": false,
+    "forward_fill": false,
+    "backward_fill": false,
+    "resampling": false,
+    "previous_close_must_be_previous_observed_trading_day_1500": true,
+    "post_2020_rows_may_be_materialized_as_text": false
+  },
+  "relationship_to_closed_v21_p2": {
+    "independent_new_identity": true,
+    "reuse_P2_relative_gap_excess_formula": false,
+    "reuse_CSI500_stage_specific_P2_route": false,
+    "reuse_gap_threshold": false,
+    "reuse_gap_fill_targets": false,
+    "reuse_P2_beta_or_successor_logic": false,
+    "closed_identity_authority": "docs/governance/cloud_session_20260907_gap_fill_v21_p2_overlay_design_intent_v1.json"
+  },
+  "outcome_inspection_performed_for_this_admission": false,
+  "blackbox_2021_2025_opened": false,
+  "production_authority": false
+}
