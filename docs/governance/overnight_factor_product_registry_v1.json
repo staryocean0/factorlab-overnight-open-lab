@@ -1,6 +1,6 @@
 {
-  "schema_id": "overnight_factor_product_registry@1.4",
-  "session_date": "2026-09-11",
+  "schema_id": "overnight_factor_product_registry@1.5",
+  "session_date": "2026-09-12",
   "program": "docs/governance/overnight_factor_product_program_v1.md",
   "repository_role": "overnight_open_factor_product_laboratory_and_downstream_factor_adapter",
   "products": [
@@ -9,10 +9,7 @@
       "name": "expected_open_state",
       "status": "active_confirmed_components",
       "availability": "pre_open",
-      "authorities": [
-        "docs/governance/cloud_session_20260906_research_architecture_acceptance_v1.json",
-        "docs/governance/global_spillover_current_baseline_v1.json"
-      ],
+      "authorities": ["docs/governance/cloud_session_20260906_research_architecture_acceptance_v1.json", "docs/governance/global_spillover_current_baseline_v1.json"],
       "consumer_roles": ["timing", "stock_selection_overlay", "portfolio_risk", "future_instrument_mapping"]
     },
     {
@@ -66,8 +63,9 @@
     {
       "product_id": "OFP-B4",
       "name": "driver_agreement_disagreement",
-      "status": "planned_research",
+      "status": "planned_research_cloud_carrier_pending_for_A50_HKMA_sources",
       "availability": "pre_open",
+      "execution_order_note": "retains priority after current context work; cloud execution waits for connector-readable causal driver carrier and does not justify opening any BLACKBOX",
       "consumer_roles": ["timing_filter", "risk", "confidence"]
     },
     {
@@ -89,15 +87,16 @@
     {
       "product_id": "OFP-C2",
       "name": "prior_volatility_context",
-      "status": "60m_continuous_candidate_DEV_supported_reusable_BLACKBOX_pending",
+      "status": "60m_continuous_candidate_DEV_supported_BLACKBOX_frozen_unopened_deferred",
       "availability": "pre_open_coordinate_plus_post_open_adapter_view",
       "research_identity": "overnight_volatility_conditioned_open_state_60m_v1",
       "parent_development_identity": "overnight_volatility_conditioned_open_state_v1",
       "development_receipt": "docs/research/cloud_volatility_conditioned_open_state_dev_diagnostic_v1.json",
       "development_authority": "docs/research/volatility_conditioned_open_state_dev_cloud_adjudication_20260911.md",
       "blackbox_protocol": "docs/governance/volatility_conditioned_open_state_60m_blackbox_protocol_v1.json",
-      "active_interaction": "observed_gap_rvol * log(rvol20)",
-      "active_target": "09:35_to_10:35_return",
+      "frozen_interaction": "observed_gap_rvol * log(rvol20)",
+      "frozen_target": "09:35_to_10:35_return",
+      "blackbox_query_opened": false,
       "validated_C1_baseline_control": "trend20_rvol * observed_gap_rvol",
       "consumer_roles": ["risk", "timing", "normalization", "stock_selection_overlay"],
       "categorical_high_low_vol_authority": false,
@@ -106,9 +105,16 @@
     {
       "product_id": "OFP-C3",
       "name": "previous_china_session_shape",
-      "status": "planned_coordinate_product",
-      "availability": "pre_open",
-      "consumer_roles": ["timing", "rebound_continuation_context"]
+      "status": "active_cloud_DEV_last_hour_continuous_interaction_frozen",
+      "availability": "pre_open_coordinate_plus_post_open_adapter_view",
+      "research_identity": "overnight_previous_session_last_hour_conditioned_open_state_v1",
+      "preanalysis": "docs/research/previous_china_session_shape_preanalysis_20260912.md",
+      "protocol": "docs/governance/previous_china_session_shape_v1_protocol.json",
+      "state": "docs/governance/previous_china_session_shape_v1_state.json",
+      "active_interaction": "(prev_last_hour / rvol20) * (gap / rvol20)",
+      "development_window": "2015-01-05..2020-12-31",
+      "consumer_roles": ["timing", "rebound_continuation_context"],
+      "categorical_session_shape_authority": false
     },
     {
       "product_id": "OFP-C4",
@@ -125,32 +131,14 @@
       "consumer_roles": ["index_timing", "size_style_rotation", "stock_selection_overlay"],
       "must_not_rescue_closed_v21_identity": true
     },
-    {
-      "product_id": "OFP-E1",
-      "name": "timing_adapter",
-      "status": "downstream_after_upstream_factor_freeze",
-      "consumer_roles": ["timing"]
-    },
-    {
-      "product_id": "OFP-E2",
-      "name": "stock_selection_adapter",
-      "status": "downstream_after_upstream_factor_freeze",
-      "consumer_roles": ["stock_selection"]
-    },
-    {
-      "product_id": "OFP-E3",
-      "name": "portfolio_risk_adapter",
-      "status": "downstream_after_upstream_factor_freeze",
-      "consumer_roles": ["portfolio_risk"]
-    }
+    {"product_id": "OFP-E1", "name": "timing_adapter", "status": "downstream_after_upstream_factor_freeze", "consumer_roles": ["timing"]},
+    {"product_id": "OFP-E2", "name": "stock_selection_adapter", "status": "downstream_after_upstream_factor_freeze", "consumer_roles": ["stock_selection"]},
+    {"product_id": "OFP-E3", "name": "portfolio_risk_adapter", "status": "downstream_after_upstream_factor_freeze", "consumer_roles": ["portfolio_risk"]}
   ],
-  "active_research_identity": "overnight_volatility_conditioned_open_state_60m_v1",
+  "active_research_identity": "overnight_previous_session_last_hour_conditioned_open_state_v1",
+  "deferred_frozen_identity": "overnight_volatility_conditioned_open_state_60m_v1",
   "next_research_identity_after_active": "driver_agreement_disagreement",
-  "next_context_order_after_active_identity": [
-    "driver_agreement_disagreement",
-    "relative_index_opening_leadership",
-    "downstream_consumer_adapter_tests"
-  ],
+  "execution_order_reason": "B4 remains scientifically next but requires a connector-readable A50/HKMA driver carrier; C3 is executed first because its result-free identity is fully supported by the already-admitted 2015-2020 runtime text carrier. This is an infrastructure ordering decision, not an outcome-derived candidate choice.",
   "cartesian_feature_factory_forbidden": true,
   "downstream_strategy_return_may_define_upstream_factor": false,
   "production_authority": false
