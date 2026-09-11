@@ -1,39 +1,63 @@
-# Development data
+# Overnight data surfaces
 
-Only `000852.SH` and supporting US prints through 2020-12-31.
+This directory contains bounded research packs with different evidence roles.
+Do not infer scientific freshness from file dates or physical availability.
 
-- `csi1000_open_pit_panel.parquet`: one row per China session being predicted. Target `gap` is that session's overnight open vs previous 15:00 close. All `prev_*`, `r*`, `us_*`, `holiday_reopen`, `weekend` columns are known before 09:31.
-- `1m_official.parquet`: DataHub 1-minute bars 2015-01-05 through 2020-12-31. `timestamp_source_serialized` keeps the original `Z`-wrapped Shanghai clock.
-- `us_nasdaq_vix.parquet`: FRED NASDAQCOM and VIXCLS. Use the last US session strictly before the China trading day.
+Current package-level boundaries are governed by:
 
-No 2021+ rows. Index path, not a tradable fill. Do not resample new wall-clock frequencies.
+`docs/governance/package_scope.json`
 
-## High-open development pack
+## `development/`
 
-`high_open_dev_2015_2025/` extends the cloud workspace with `000852.SH` rows through
-2025-12-31 so high-open recall development scripts can run without local FactorLab
-absolute paths.
+Frozen 2015-2020 core Overnight development material:
 
-- 2026-01-05 through 2026-08-21 remains excluded from this development pack.
-- post-2026-08-21 remains excluded.
-- The 2015-2020 files above stay frozen and unmodified.
+- `csi1000_open_pit_panel.parquet`
+- `1m_official.parquet`
+- `us_nasdaq_vix.parquet`
 
-## Gap-Fill V2 2026 repeat pack
+This pack supplies the historical frozen V6A base panel used for exact parity and
+reconstruction checks.
 
-`gap_fill_repeat_2026/` is a user-authorized public copy of the frozen
-repeat-only inputs:
+## `high_open_dev_2015_2025/`
 
-- annotated panel `2025-10-09` through `2026-08-21` (214 rows; 154 in the
-  2026 validation window)
-- `000852.SH` one-minute bars `2026-01-05` through `2026-08-21` (36960 rows)
+CSI1000 development carrier through 2025-12-31 plus FRED NASDAQ/VIX histories.
 
-This pack is not fresh OOS. Post-2026-08-21 remains excluded. See
-`data/gap_fill_repeat_2026/README.md`.
+It is used by several historical development identities and by the active
+Opening Surprise diagnostic, whose runner explicitly filters detailed target use
+to 2019-2020.
 
-## V6A external sources pack
+Physical presence of 2021-2025 rows does **not** authorize detailed use for every
+identity.
 
-`v6a_external_sources_2015_2025/` is the frozen-column HKMA + SGX A50
-same-contract endpoint pack assembled for the V6A reusable BLACKBOX controller.
-It concatenates the historical 2015-2020 overnight pack with DataHub 2021-2025
-research products. It does not open BLACKBOX outcomes. Production authority is
-false. See `data/v6a_external_sources_2015_2025/README.md`.
+## `offshore_etf_dev_2015_2025/`
+
+Bounded Yahoo chart-v8 offshore ETF development artifact retained for the closed
+offshore-China research lineage. Do not treat that closed lineage as active merely
+because the data pack remains present.
+
+## `v6a_external_sources_2015_2025/`
+
+Admitted HKMA + SGX FTSE China A50 same-contract source pack used by the frozen
+V6A lineage and current factor research.
+
+The SGX source preserves frozen same-contract/cutoff semantics. Continuous/CFD
+substitutes are not interchangeable.
+
+## `gap_fill_repeat_2026/`
+
+User-authorized repeat-only Gap-Fill V2 inputs through 2026-08-21.
+
+This is **not fresh OOS**. It exists to preserve/replay the frozen repeat identity.
+The true-fresh Gap-Fill V2 block is separately governed and post-2026-08-21
+outcomes are not present here.
+
+## Evidence discipline
+
+- data availability is not outcome authority;
+- read the active identity's protocol/state before loading a pack;
+- do not call an opened interval fresh again for the same identity;
+- reusable BLACKBOX governance may permit a separately frozen aggregate query,
+  but never grants unrestricted detailed inspection;
+- do not commit local-only large sources unless a specific source-admission step
+  authorizes a bounded repo copy;
+- production authority is false.
