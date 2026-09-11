@@ -1,0 +1,283 @@
+{
+  "2021_2025_blackbox_opened": false,
+  "CSI500_candidate_search": false,
+  "alternate_horizon_search": false,
+  "auto_promotion": false,
+  "baseline_controls": [
+    "common_open_component",
+    "relative_r1",
+    "relative_log_rvol"
+  ],
+  "candidate": "gap_rvol_CSI1000 - gap_rvol_CSI300",
+  "carrier_file_integrity": {
+    "2015": {
+      "rows": 732,
+      "sha256": "f5001c5e20521d53161fd555c089192c13cf9d6ca7c236d3b61210724f2c4356"
+    },
+    "2016": {
+      "rows": 732,
+      "sha256": "52bdfb75684176ddddf542616b8958438b253d51bf739597048c73795044c875"
+    },
+    "2017": {
+      "rows": 732,
+      "sha256": "8b50afb9de6c6e5f15dca3f914822d62a0ae19ed9c8dff3be2dcf01e1f1b59a0"
+    },
+    "2018": {
+      "rows": 729,
+      "sha256": "1b3fc08303f13864cf008ae07139fffc7452373ab83df1df5335685b4fc5fa73"
+    },
+    "2019": {
+      "rows": 732,
+      "sha256": "f949e381c09aff3fa5e11d101540414adfa5c668a3c9897e77b61b58e8caa7f8"
+    },
+    "2020": {
+      "rows": 729,
+      "sha256": "61f8bf761c125fb7fff4259becad35c44d5174902d709cb88daaca488a50360c"
+    }
+  },
+  "carrier_manifest": {
+    "path": "data/relative_index_runtime_text_2015_2020/manifest.json",
+    "sha256": "837d621cc4100baefb210465567c1ba142672baef83af6ea7fc6e38280fa5f10"
+  },
+  "development_window": "2015-01-05..2020-12-31",
+  "multiple_passing_horizons_rule": "retain_jointly_no_posthoc_unique_winner",
+  "pairwise_index_search": false,
+  "post_2020_detailed_rows_loaded": false,
+  "product_family": "OFP-D1_relative_index_open",
+  "production_authority": false,
+  "protocol": {
+    "path": "docs/governance/relative_index_open_leadership_v1_protocol.json",
+    "sha256": "3b5fd2629c0736a05cc41e0f97d6de494a81cfb78492b0ad0b09b309a5404b88"
+  },
+  "research_identity": "overnight_relative_size_open_leadership_v1",
+  "results": {
+    "relative_ret_0935_0950": {
+      "annual": {
+        "2015": {
+          "baseline_r2": 0.0067272844497520135,
+          "candidate_r2": 0.029452006820160803,
+          "complete_case_count": 244,
+          "delta_r2": 0.02272472237040879,
+          "partial_correlation_after_baseline_residualization": 0.15125684594562114,
+          "standardized_candidate_coefficient": 0.16720291162344278
+        },
+        "2016": {
+          "baseline_r2": 0.08114037744525615,
+          "candidate_r2": 0.08418488640070998,
+          "complete_case_count": 243,
+          "delta_r2": 0.0030445089554538285,
+          "partial_correlation_after_baseline_residualization": 0.05756175730574205,
+          "standardized_candidate_coefficient": 0.056541529338782114
+        },
+        "2017": {
+          "baseline_r2": 0.06204811296707746,
+          "candidate_r2": 0.08127554346044075,
+          "complete_case_count": 244,
+          "delta_r2": 0.019227430493363284,
+          "partial_correlation_after_baseline_residualization": 0.14317603929953837,
+          "standardized_candidate_coefficient": 0.31019451718867597
+        },
+        "2018": {
+          "baseline_r2": 0.023753440580574492,
+          "candidate_r2": 0.027841102889533786,
+          "complete_case_count": 243,
+          "delta_r2": 0.0040876623089592945,
+          "partial_correlation_after_baseline_residualization": 0.0647079657763644,
+          "standardized_candidate_coefficient": 0.08188712135116714
+        },
+        "2019": {
+          "baseline_r2": 0.010932810675084781,
+          "candidate_r2": 0.01796891474965978,
+          "complete_case_count": 244,
+          "delta_r2": 0.007036104074575,
+          "partial_correlation_after_baseline_residualization": 0.08434381283929544,
+          "standardized_candidate_coefficient": 0.1030917627023557
+        },
+        "2020": {
+          "baseline_r2": 0.0035308748815537916,
+          "candidate_r2": 0.010122186864683802,
+          "complete_case_count": 242,
+          "delta_r2": 0.00659131198313001,
+          "partial_correlation_after_baseline_residualization": 0.08133060645673422,
+          "standardized_candidate_coefficient": 0.08328965906806551
+        }
+      },
+      "pooled": {
+        "baseline_r2": 0.010962613255123488,
+        "candidate_r2": 0.016496428313738765,
+        "complete_case_count": 1460,
+        "delta_r2": 0.005533815058615277,
+        "partial_correlation_after_baseline_residualization": 0.07480075235014566,
+        "standardized_candidate_coefficient": 0.083251034216728
+      },
+      "progression_gate_components": {
+        "all_preregistered_progression_gates_pass": true,
+        "annual_coefficient_same_sign_count": 6,
+        "annual_coefficient_same_sign_count_pass": true,
+        "annual_median_coefficient": 0.09319071088521061,
+        "annual_median_coefficient_same_sign_as_pooled": true,
+        "annual_positive_delta_r2_count": 6,
+        "annual_positive_delta_r2_count_pass": true,
+        "minimum_complete_case_count_each_year_observed": 242,
+        "minimum_complete_case_count_each_year_pass": true,
+        "pooled_delta_r2_positive": true,
+        "pooled_partial_corr_and_standardized_coefficient_same_sign": true
+      }
+    },
+    "relative_ret_0935_1005": {
+      "annual": {
+        "2015": {
+          "baseline_r2": 0.008020866588270392,
+          "candidate_r2": 0.014239919649427613,
+          "complete_case_count": 244,
+          "delta_r2": 0.00621905306115722,
+          "partial_correlation_after_baseline_residualization": 0.07917915501936616,
+          "standardized_candidate_coefficient": 0.08746950602727824
+        },
+        "2016": {
+          "baseline_r2": 0.08447353052883266,
+          "candidate_r2": 0.09384844787277802,
+          "complete_case_count": 243,
+          "delta_r2": 0.009374917343945355,
+          "partial_correlation_after_baseline_residualization": 0.10119248735016327,
+          "standardized_candidate_coefficient": 0.09921849768321281
+        },
+        "2017": {
+          "baseline_r2": 0.04287585393261317,
+          "candidate_r2": 0.05793529365958783,
+          "complete_case_count": 244,
+          "delta_r2": 0.015059439726974655,
+          "partial_correlation_after_baseline_residualization": 0.12543544388040548,
+          "standardized_candidate_coefficient": 0.2745224710884265
+        },
+        "2018": {
+          "baseline_r2": 0.02618854207594934,
+          "candidate_r2": 0.04648406137045147,
+          "complete_case_count": 242,
+          "delta_r2": 0.02029551929450213,
+          "partial_correlation_after_baseline_residualization": 0.1443652422263635,
+          "standardized_candidate_coefficient": 0.18267947288837344
+        },
+        "2019": {
+          "baseline_r2": 0.007609110230555216,
+          "candidate_r2": 0.017878878401138443,
+          "complete_case_count": 244,
+          "delta_r2": 0.010269768170583227,
+          "partial_correlation_after_baseline_residualization": 0.10172763209921298,
+          "standardized_candidate_coefficient": 0.12454840151025415
+        },
+        "2020": {
+          "baseline_r2": 0.006670942938382662,
+          "candidate_r2": 0.010195395530203877,
+          "complete_case_count": 242,
+          "delta_r2": 0.0035244525918212144,
+          "partial_correlation_after_baseline_residualization": 0.0595661137780996,
+          "standardized_candidate_coefficient": 0.060904725026306915
+        }
+      },
+      "pooled": {
+        "baseline_r2": 0.010260377194970971,
+        "candidate_r2": 0.015240867475319164,
+        "complete_case_count": 1459,
+        "delta_r2": 0.004980490280348193,
+        "partial_correlation_after_baseline_residualization": 0.07093744954232052,
+        "standardized_candidate_coefficient": 0.07892911898790761
+      },
+      "progression_gate_components": {
+        "all_preregistered_progression_gates_pass": true,
+        "annual_coefficient_same_sign_count": 6,
+        "annual_coefficient_same_sign_count_pass": true,
+        "annual_median_coefficient": 0.11188344959673348,
+        "annual_median_coefficient_same_sign_as_pooled": true,
+        "annual_positive_delta_r2_count": 6,
+        "annual_positive_delta_r2_count_pass": true,
+        "minimum_complete_case_count_each_year_observed": 242,
+        "minimum_complete_case_count_each_year_pass": true,
+        "pooled_delta_r2_positive": true,
+        "pooled_partial_corr_and_standardized_coefficient_same_sign": true
+      }
+    },
+    "relative_ret_0935_1035": {
+      "annual": {
+        "2015": {
+          "baseline_r2": 0.01628682706363971,
+          "candidate_r2": 0.01906650785529429,
+          "complete_case_count": 244,
+          "delta_r2": 0.002779680791654582,
+          "partial_correlation_after_baseline_residualization": 0.05315733740444672,
+          "standardized_candidate_coefficient": 0.058477931980414934
+        },
+        "2016": {
+          "baseline_r2": 0.09720731050030318,
+          "candidate_r2": 0.09721512935675958,
+          "complete_case_count": 243,
+          "delta_r2": 7.81885645639857e-06,
+          "partial_correlation_after_baseline_residualization": -0.0029429142184123017,
+          "standardized_candidate_coefficient": -0.0028653689027392758
+        },
+        "2017": {
+          "baseline_r2": 0.02695353080361751,
+          "candidate_r2": 0.04900762857565899,
+          "complete_case_count": 244,
+          "delta_r2": 0.02205409777204148,
+          "partial_correlation_after_baseline_residualization": 0.15054899380326864,
+          "standardized_candidate_coefficient": 0.33221416037496865
+        },
+        "2018": {
+          "baseline_r2": 0.08855488066489703,
+          "candidate_r2": 0.11995756567682392,
+          "complete_case_count": 242,
+          "delta_r2": 0.03140268501192689,
+          "partial_correlation_after_baseline_residualization": 0.1856171626058925,
+          "standardized_candidate_coefficient": 0.22684103838458253
+        },
+        "2019": {
+          "baseline_r2": 0.0020720561719975716,
+          "candidate_r2": 0.011579850400098457,
+          "complete_case_count": 244,
+          "delta_r2": 0.009507794228100885,
+          "partial_correlation_after_baseline_residualization": 0.09760909700174296,
+          "standardized_candidate_coefficient": 0.11983887545868564
+        },
+        "2020": {
+          "baseline_r2": 0.012501581327619138,
+          "candidate_r2": 0.012821728537004029,
+          "complete_case_count": 242,
+          "delta_r2": 0.00032014720938489116,
+          "partial_correlation_after_baseline_residualization": 0.018005560942732302,
+          "standardized_candidate_coefficient": 0.018356082903946986
+        }
+      },
+      "pooled": {
+        "baseline_r2": 0.0115001088772686,
+        "candidate_r2": 0.013804947879512808,
+        "complete_case_count": 1459,
+        "delta_r2": 0.002304839002244208,
+        "partial_correlation_after_baseline_residualization": 0.04828719570132659,
+        "standardized_candidate_coefficient": 0.05372289667178318
+      },
+      "progression_gate_components": {
+        "all_preregistered_progression_gates_pass": true,
+        "annual_coefficient_same_sign_count": 5,
+        "annual_coefficient_same_sign_count_pass": true,
+        "annual_median_coefficient": 0.08915840371955029,
+        "annual_median_coefficient_same_sign_as_pooled": true,
+        "annual_positive_delta_r2_count": 6,
+        "annual_positive_delta_r2_count_pass": true,
+        "minimum_complete_case_count_each_year_observed": 242,
+        "minimum_complete_case_count_each_year_pass": true,
+        "pooled_delta_r2_positive": true,
+        "pooled_partial_corr_and_standardized_coefficient_same_sign": true
+      }
+    }
+  },
+  "schema_id": "overnight_relative_index_open_leadership_dev_diagnostic@1.0",
+  "session_date": "2026-09-12",
+  "strategy_return_optimization": false,
+  "targets": [
+    "relative_ret_0935_0950",
+    "relative_ret_0935_1005",
+    "relative_ret_0935_1035"
+  ],
+  "threshold_search": false
+}
