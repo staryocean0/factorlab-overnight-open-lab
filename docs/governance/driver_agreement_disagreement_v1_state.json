@@ -1,0 +1,22 @@
+{
+  "schema_id": "overnight_driver_agreement_disagreement_state@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_driver_coherence_v1",
+  "product_family": "OFP-B4_driver_agreement_disagreement",
+  "current_status": "mechanism_diagnostic_frozen_cloud_execution_pending",
+  "preanalysis": "docs/research/driver_agreement_disagreement_preanalysis_20260912.md",
+  "protocol": "docs/governance/driver_agreement_disagreement_v1_protocol.json",
+  "development_window": "2015-01-05..2020-12-31",
+  "factor_runtime_root": "data/runtime_text_2015_2025",
+  "driver_runtime_root": "data/driver_runtime_text_2015_2020",
+  "candidate": "driver_coherence",
+  "target": "opening_gap_rvol",
+  "blackbox_2021_2025_opened": false,
+  "blackbox_authorized": false,
+  "strategy_backtest_authorized": false,
+  "threshold_search_authorized": false,
+  "bucket_search_authorized": false,
+  "driver_weight_search_authorized": false,
+  "next_action": "cloud main agent executes the frozen 2015-2020 B4 mechanism diagnostic and adjudicates without opening 2021-2025",
+  "production_authority": false
+}
