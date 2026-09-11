@@ -1,0 +1,129 @@
+{
+  "auto_promotion": false,
+  "baseline_controls": [
+    "observed_gap_rvol",
+    "trend20_rvol",
+    "r1",
+    "prev_daytime",
+    "holiday_reopen"
+  ],
+  "candidate_family_search": false,
+  "development_window": "2019-01-01..2020-12-31",
+  "diagnostics": {
+    "by_year": {
+      "2019": {
+        "ret_0935_0950": {
+          "baseline_r2": 0.05829198913245326,
+          "candidate_r2": 0.06468540047641591,
+          "delta_r2": 0.006393411343962652,
+          "n": 244,
+          "partial_corr": -0.08239639126483747,
+          "standardized_interaction_coefficient": -0.08199406691519956,
+          "status": "ok"
+        },
+        "ret_0935_1005": {
+          "baseline_r2": 0.06548278765812487,
+          "candidate_r2": 0.07562122389650394,
+          "delta_r2": 0.010138436238379067,
+          "n": 244,
+          "partial_corr": -0.10415780874113065,
+          "standardized_interaction_coefficient": -0.1032527414679014,
+          "status": "ok"
+        },
+        "ret_0935_1035": {
+          "baseline_r2": 0.04191165253863327,
+          "candidate_r2": 0.06287004660034867,
+          "delta_r2": 0.020958394061715402,
+          "n": 244,
+          "partial_corr": -0.14790274071624485,
+          "standardized_interaction_coefficient": -0.14845509431458523,
+          "status": "ok"
+        }
+      },
+      "2020": {
+        "ret_0935_0950": {
+          "baseline_r2": 0.02464592346644734,
+          "candidate_r2": 0.026052159316008683,
+          "delta_r2": 0.0014062358495613436,
+          "n": 243,
+          "partial_corr": -0.037970641192856196,
+          "standardized_interaction_coefficient": -0.04810112322300619,
+          "status": "ok"
+        },
+        "ret_0935_1005": {
+          "baseline_r2": 0.04685458951316934,
+          "candidate_r2": 0.04889234303110401,
+          "delta_r2": 0.0020377535179346706,
+          "n": 243,
+          "partial_corr": 0.0462377023859615,
+          "standardized_interaction_coefficient": 0.05790311939345041,
+          "status": "ok"
+        },
+        "ret_0935_1035": {
+          "baseline_r2": 0.026342756409725387,
+          "candidate_r2": 0.03613503216329228,
+          "delta_r2": 0.009792275753566893,
+          "n": 243,
+          "partial_corr": 0.10028564402356963,
+          "standardized_interaction_coefficient": 0.1269310733647722,
+          "status": "ok"
+        }
+      }
+    },
+    "pooled": {
+      "ret_0935_0950": {
+        "baseline_r2": 0.029430602769924263,
+        "candidate_r2": 0.034776403261511546,
+        "delta_r2": 0.0053458004915872825,
+        "n": 487,
+        "partial_corr": -0.07421523663146203,
+        "standardized_interaction_coefficient": -0.07671582778696517,
+        "status": "ok"
+      },
+      "ret_0935_1005": {
+        "baseline_r2": 0.04376290073140032,
+        "candidate_r2": 0.044865702175071354,
+        "delta_r2": 0.001102801443671031,
+        "n": 487,
+        "partial_corr": -0.03395985822157105,
+        "standardized_interaction_coefficient": -0.03484394064396598,
+        "status": "ok"
+      },
+      "ret_0935_1035": {
+        "baseline_r2": 0.023159372479080287,
+        "candidate_r2": 0.026488301821870563,
+        "delta_r2": 0.0033289293427902766,
+        "n": 487,
+        "partial_corr": -0.0583768197289181,
+        "standardized_interaction_coefficient": -0.060538393353727134,
+        "status": "ok"
+      }
+    }
+  },
+  "factor": "trend_gap_interaction",
+  "horizon_search": false,
+  "horizons": [
+    "ret_0935_0950",
+    "ret_0935_1005",
+    "ret_0935_1035"
+  ],
+  "main_agent_review_required": true,
+  "opening_surprise_rescue_performed": false,
+  "phase": "mechanism_diagnostic",
+  "product_family": "OFP-C1_prior_trend_context_x_OFP-A2_observed_open_geometry",
+  "production_authority": false,
+  "research_identity": "overnight_trend_conditioned_open_state_v1",
+  "reusable_blackbox_2021_2025_opened": false,
+  "schema_id": "overnight_trend_conditioned_open_state_dev_diagnostic@1.0",
+  "session_date": "2026-09-11",
+  "source_hashes": {
+    "base_panel": "d409fd5c2d75497b31e7e6e4f663298c3e22a7bacdacf4cb562671c6b1bc7631",
+    "minute_bars": "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce",
+    "protocol": "4f902f2653cfbb7ae494ea2492ab1c6d9386f28f32bb3d57bfbc9764835c3a1c"
+  },
+  "target_rows_after_2020_loaded": false,
+  "threshold_search": false,
+  "trading_return_optimization": false,
+  "trend_bucket_search": false,
+  "volatility_bucket_search": false
+}
