@@ -131,6 +131,7 @@ Read:
 Main packs:
 
 - `data/development/` — frozen 2015-2020 core pack plus bounded connector-readable 2019-2020 text carrier
+- `data/runtime_text_2015_2025/` — yearly connector-readable runtime carrier; only 2015-2020 shards are published. Not a new scientific dataset and not a 2021-2025 BLACKBOX export.
 - `data/high_open_dev_2015_2025/` — CSI1000 carrier through 2025; detailed 2021-2025 use remains BLACKBOX-governed where applicable
 - `data/offshore_etf_dev_2015_2025/` — bounded offshore ETF pack
 - `data/v6a_external_sources_2015_2025/` — HKMA + SGX A50 admitted pack

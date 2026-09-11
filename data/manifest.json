@@ -31,5 +31,12 @@
       "min_day": "2014-01-03",
       "max_day": "2020-12-31"
     }
-  ]
+  ],
+  "runtime_text_pack": {
+    "path": "data/runtime_text_2015_2025/",
+    "manifest": "data/runtime_text_2015_2025/manifest.json",
+    "published_window": "2015-01-05..2020-12-31",
+    "post_2020_rows_included": false,
+    "role": "connector_readable_runtime_carrier_not_new_scientific_authority"
+  }
 }

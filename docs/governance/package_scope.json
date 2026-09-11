@@ -1,6 +1,6 @@
 {
   "schema_id": "overnight_open_cloud_theme_package_scope@1.1",
-  "session_date": "2026-09-11",
+  "session_date": "2026-09-12",
   "source_project": "FactorLab",
   "repository_role": "overnight_open_factor_product_laboratory_and_downstream_factor_adapter",
   "objective": "research, validate and package Overnight/Open information products for downstream timing, stock-selection and risk systems",
@@ -11,6 +11,7 @@
     "Opening_Surprise_active_factor_research",
     "Gap_Fill_V2_and_historical_transport_lineage",
     "CSI1000_2015_2020_frozen_development_pack",
+    "CSI1000_2015_2020_runtime_text_carrier",
     "CSI1000_2015_2025_high_open_development_pack",
     "US_offshore_ETF_2015_2025_development_pack",
     "V6A_HKMA_and_SGX_A50_2015_2025_source_pack",
@@ -36,7 +37,8 @@
     "high_open_dev_2015_2025": "data/high_open_dev_2015_2025",
     "offshore_etf_dev_2015_2025": "data/offshore_etf_dev_2015_2025",
     "v6a_external_sources_2015_2025": "data/v6a_external_sources_2015_2025",
-    "gap_fill_repeat_2026": "data/gap_fill_repeat_2026"
+    "gap_fill_repeat_2026": "data/gap_fill_repeat_2026",
+    "runtime_text_2015_2025": "data/runtime_text_2015_2025"
   },
   "active_authority": {
     "program": "docs/governance/overnight_factor_product_program_v1.md",

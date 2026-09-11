@@ -46,6 +46,14 @@
     "role": "connector-readable carrier for the already-opened 2019-2020 development interval",
     "does_not_open_2021_2025_BLACKBOX_details": true
   },
+  "runtime_text_pack": {
+    "path": "data/runtime_text_2015_2025/",
+    "published_window": "2015-01-05..2020-12-31",
+    "role": "connector-readable yearly runtime carrier for already-opened development rows",
+    "does_not_open_2021_2025_BLACKBOX_details": true,
+    "not_new_scientific_authority": true,
+    "parity_receipt": "docs/research/runtime_text_carrier_parity_receipt_v1.json"
+  },
   "archive": {
     "root": "archive/",
     "closed_V6A_strategy": "archive/v6a_short0935_to_close_20260910/",
