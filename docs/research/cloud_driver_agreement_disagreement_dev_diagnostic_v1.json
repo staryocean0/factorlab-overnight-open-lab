@@ -1,0 +1,192 @@
+{
+  "alternate_normalization_search": false,
+  "alternate_target_search": false,
+  "auto_promotion": false,
+  "baseline_controls": [
+    "r1",
+    "r20",
+    "abs_r1",
+    "prev_gap",
+    "overnight_trend_5",
+    "prev_daytime",
+    "prev_last_hour",
+    "prev_afternoon",
+    "log_rvol20",
+    "weekend",
+    "holiday_reopen",
+    "global_risk_z",
+    "china_offshore_z",
+    "fx_cny_z"
+  ],
+  "bucket_search": false,
+  "channel_drop_add_search": false,
+  "cost_model_used": false,
+  "development_window": "2015-01-05..2020-12-31",
+  "diagnostics": {
+    "by_year": {
+      "2015": {
+        "baseline_r2": 0.612757038592236,
+        "candidate_r2": 0.6156495217382317,
+        "delta_r2": 0.0028924831459957723,
+        "n": 188,
+        "partial_corr": -0.08642584853891658,
+        "standardized_driver_coherence_coefficient": -0.08372487485255468,
+        "status": "ok"
+      },
+      "2016": {
+        "baseline_r2": 0.6332270413042083,
+        "candidate_r2": 0.6605927519877353,
+        "delta_r2": 0.027365710683527,
+        "n": 230,
+        "partial_corr": -0.27315220536835744,
+        "standardized_driver_coherence_coefficient": -0.2527534302206936,
+        "status": "ok"
+      },
+      "2017": {
+        "baseline_r2": 0.6068863391068151,
+        "candidate_r2": 0.6447849050434468,
+        "delta_r2": 0.037898565936631656,
+        "n": 232,
+        "partial_corr": -0.3104933623544569,
+        "standardized_driver_coherence_coefficient": -0.29223740422882627,
+        "status": "ok"
+      },
+      "2018": {
+        "baseline_r2": 0.6061322095963202,
+        "candidate_r2": 0.6088106982597118,
+        "delta_r2": 0.0026784886633915983,
+        "n": 230,
+        "partial_corr": -0.08246500183123331,
+        "standardized_driver_coherence_coefficient": -0.07728086433409476,
+        "status": "ok"
+      },
+      "2019": {
+        "baseline_r2": 0.6720280460996355,
+        "candidate_r2": 0.6831596732799667,
+        "delta_r2": 0.011131627180331227,
+        "n": 230,
+        "partial_corr": -0.18423026325692238,
+        "standardized_driver_coherence_coefficient": -0.161297260320934,
+        "status": "ok"
+      },
+      "2020": {
+        "baseline_r2": 0.5196324124054761,
+        "candidate_r2": 0.52002082137635,
+        "delta_r2": 0.00038840897087388804,
+        "n": 231,
+        "partial_corr": -0.02843529760658546,
+        "standardized_driver_coherence_coefficient": -0.030503892065807375,
+        "status": "ok"
+      }
+    },
+    "pooled": {
+      "baseline_r2": 0.49134467768119816,
+      "candidate_r2": 0.49648691067618544,
+      "delta_r2": 0.005142232994987284,
+      "n": 1341,
+      "partial_corr": -0.10054583352935811,
+      "standardized_driver_coherence_coefficient": -0.10512716086106608,
+      "status": "ok"
+    }
+  },
+  "driver_carrier_receipt": {
+    "path": "docs/research/driver_runtime_text_carrier_parity_receipt_v1.json",
+    "sha256": "d320580ae7e4543ade17c5ef734cb9d31f0fc7986735829418925df5624c6d3c"
+  },
+  "driver_runtime_manifest": {
+    "path": "data/driver_runtime_text_2015_2020/manifest.json",
+    "sha256": "b061f5e61259a1e3a624e76ad8950ac3c71635fa9653b9ac16113cd47df648bc"
+  },
+  "driver_weight_search": false,
+  "factor": "driver_coherence",
+  "factor_runtime_manifest": {
+    "path": "data/runtime_text_2015_2025/manifest.json",
+    "sha256": "10f7e5eada195541ae83fe14b7138e6a1ced939b7e278f811e7fb08c4147bb13"
+  },
+  "main_agent_review_required": true,
+  "normalization": {
+    "method": "lagged_trailing_RMS",
+    "min_periods": 20,
+    "shift": 1,
+    "window": 60
+  },
+  "pairwise_agreement_search": false,
+  "phase": "mechanism_diagnostic",
+  "post_open_horizon_search": false,
+  "product_family": "OFP-B4_driver_agreement_disagreement",
+  "production_authority": false,
+  "protocol": {
+    "path": "docs/governance/driver_agreement_disagreement_v1_protocol.json",
+    "sha256": "d05b14c72632b50bcf8d37b02f6d31c43fa79e4769b195cb93592cfe70d6a305"
+  },
+  "research_identity": "overnight_driver_coherence_v1",
+  "reusable_blackbox_2021_2025_opened": false,
+  "schema_id": "overnight_driver_agreement_disagreement_dev_diagnostic@1.0",
+  "session_date": "2026-09-12",
+  "source_hashes": {
+    "2015": {
+      "driver_external": {
+        "path": "data/driver_runtime_text_2015_2020/driver_external_2015.csv",
+        "sha256": "e3f666b3d1c4c982ef8076bc2ec77dacc2a76caf5e0f96a9847a43166ab3cbce"
+      },
+      "factor_panel": {
+        "path": "data/runtime_text_2015_2025/factor_panel_2015.csv",
+        "sha256": "6463091e0a4f536717a148144c8566f35b73c62e05694e1c73226024b80326af"
+      }
+    },
+    "2016": {
+      "driver_external": {
+        "path": "data/driver_runtime_text_2015_2020/driver_external_2016.csv",
+        "sha256": "ab43aa6dc560f246f196fe3433840934ee2fee84b05d907ac3465c89f27b063e"
+      },
+      "factor_panel": {
+        "path": "data/runtime_text_2015_2025/factor_panel_2016.csv",
+        "sha256": "f1c0abd8dfd6dd40f91c0b8c93ba6f3c4cf685efd0b04832e0e80d74a6c99f51"
+      }
+    },
+    "2017": {
+      "driver_external": {
+        "path": "data/driver_runtime_text_2015_2020/driver_external_2017.csv",
+        "sha256": "f69b4641ef77471239213db9526f7eea9a36d67182ca40ec6d088919cf1b3d69"
+      },
+      "factor_panel": {
+        "path": "data/runtime_text_2015_2025/factor_panel_2017.csv",
+        "sha256": "395bf508ef6595474dd9f17282aa2d740bc93e342afa81401c9b05d3cf66e247"
+      }
+    },
+    "2018": {
+      "driver_external": {
+        "path": "data/driver_runtime_text_2015_2020/driver_external_2018.csv",
+        "sha256": "93443a8c802b0b763697656803fae701ee7fc9516fd8e8dea34c48c1c581eec6"
+      },
+      "factor_panel": {
+        "path": "data/runtime_text_2015_2025/factor_panel_2018.csv",
+        "sha256": "2fa36707c38e9e312fb87a13787bf4126e2b275b5881b89b884d852b7874abdb"
+      }
+    },
+    "2019": {
+      "driver_external": {
+        "path": "data/driver_runtime_text_2015_2020/driver_external_2019.csv",
+        "sha256": "d718032c211447b7f8c827e726170fa08d828d2234cf19f241e15dc516aab517"
+      },
+      "factor_panel": {
+        "path": "data/runtime_text_2015_2025/factor_panel_2019.csv",
+        "sha256": "c183709b84e08225346242690089d8dc90edc4b4114bb0e731691241d91029be"
+      }
+    },
+    "2020": {
+      "driver_external": {
+        "path": "data/driver_runtime_text_2015_2020/driver_external_2020.csv",
+        "sha256": "b72f704ae0513af5d960a7ab70e6e29464f72d9b84957b9db9598572d82842a1"
+      },
+      "factor_panel": {
+        "path": "data/runtime_text_2015_2025/factor_panel_2020.csv",
+        "sha256": "8b15f82b78b6026f5fa48207fd7a15f0a5b0e6a79f1d41501d6a5c6c79730923"
+      }
+    }
+  },
+  "target": "opening_gap_rvol",
+  "target_rows_after_2020_loaded": false,
+  "threshold_search": false,
+  "trading_return_optimization": false
+}
