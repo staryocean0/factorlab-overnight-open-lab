@@ -1,175 +1,236 @@
-# Overnight Open Lab
+# Overnight Open Lab — agent instructions
 
-Codex/cloud research workspace for one bounded overnight-open research task. Do
-not mix with the two-wave Layer 3 theme.
+This repository is the **Overnight/Open factor-product laboratory and downstream
+factor adapter** for FactorLab.
 
-Follow `.codex/skills/strategy-slice-rebuild/SKILL.md` for any model change.
-The repository currently contains a 2015-2025 China high-open development pack,
-the exact frozen 2015-2025 Yahoo offshore-ETF development artifact, and a
-user-authorized Gap-Fill V2 2026 repeat pack in
-`data/gap_fill_repeat_2026/`. Post-2026-08-21 China market rows remain absent.
-The repository is currently public while
-`docs/governance/package_scope.json` still records the earlier private-repository
-requirement; treat that as an explicit governance mismatch and do not silently
-change visibility or pretend the earlier contract never existed.
+Before doing anything substantial, read:
 
-The prior V1 two-head architecture remains intact. The accepted direction
-incumbent is `median_quantile_sign`; the accepted magnitude component is
-`abs_frozen_clock_signed_prediction`. The direction head was robustly confirmed
-on 2026-01-05 through 2026-08-21 in its earlier research cycle. Those receipts
-remain immutable. Production authority is false.
+1. `docs/governance/current_authority_v1.json`
+2. `docs/governance/overnight_factor_product_registry_v1.json`
+3. the active identity's state + protocol
 
-A second prediction identity, `gap_fill_prediction_v2`, is now **development
-selected, parameter-frozen, and robustly repeat-confirmed**. It asks, after the
-CSI1000 09:31 gap is observed, for the probability that the previous 15:00 close
-is revisited within 15 trading minutes, 60 trading minutes, or EOD. High and low
-gaps use separate three-stage discrete-time hazard heads. Phase-2 selected
-`geometry_only` for both signs, using exactly `abs_gap` and
-`abs_gap_over_rvol20`. The selected architecture SHA256 is
-`07810dafbab629f196d04ea1204d90ee68177ce764bb765be560bc1b84261c00`.
-The final 2015-2025 parameter bundle is frozen at SHA256
-`07abe29e31ce09b69bd6250b1ce3ebc5af7688b69ed39909feb80e9db882aaa0`.
-See `docs/research/gap_fill_v2_v1_development_closeout_20260906.md`,
-`docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_freeze_v1.json`,
-and `docs/research/gap_fill_v2_2026_repeat_cloud_adjudication_20260906.md`.
-Do not add the rejected Phase-1 support variables back into V2 v1, retune the
-geometry heads, introduce a gap-size gate, calibrate probabilities, select a
-binary threshold, or use trading return on consumed evidence.
+For any model, factor-family, routing, strategy, robustness, account, or
+cross-period change, also read and follow:
 
-For `gap_fill_prediction_v2`, the exact 2026-01-05 through 2026-08-21 repeat
-window has now been opened once under the frozen repeat protocol and **both high
-and low heads passed all 6/6 preregistered repeat gates**. The decision is
-`gap_fill_v2_2026_repeat_robustly_confirmed`. This is repeat-only evidence and
-must never be called scientifically fresh because that calendar window had
-already been opened in the older direction-head cycle. The repeat result cannot
-be used to modify V2 features, parameters, thresholds, calibration, horizons or
-gates.
+`.codex/skills/strategy-slice-rebuild/SKILL.md`
 
-The first scientifically fresh V2 challenge is now **preregistered and execution-
-frozen but unopened**. Its only authorized target window is the complete calendar
-block `2026-08-24 .. 2026-12-31`; partial-window scoring is forbidden and
-`scripts/evaluate_gap_fill_v2_true_fresh_2026q4.py` must refuse execution before
-China date `2027-01-01`. The fresh protocol is
-`docs/governance/cloud_session_20260906_gap_fill_v2_true_fresh_protocol_v1.json`
-and the execution freeze is
-`docs/governance/cloud_session_20260906_gap_fill_v2_true_fresh_execution_freeze_v1.json`.
-The six scientific gates are identical to the repeat protocol. Per-sign sample
-sufficiency is frozen at >=25 all-gap rows, >=20 >10bp rows, and >=12 >30bp rows.
-Do not inspect any post-2026-08-21 fill outcome, model score or partial fresh
-receipt before the complete block is available. See
-`docs/governance/gap_fill_v2_true_fresh_state_v1.json`.
+## 1. Scope
 
-**Freezing V2 v1 does not freeze the research program.** A distinct historical-
-extension identity, `gap_fill_v2_historical_extension_v1`, admitted historical
-source/provenance and led to the bounded V2.1 successor research line. Same-index
-pre-2014 CSI1000 blocks were unavailable under the admitted source, so the route
-used preregistered CSI300/CSI500 cross-index development/audits instead. V2.1
-preserves V2 v1 immutability and cannot inherit V2 v1 evidence labels.
+In scope:
 
-The cross-index transport architecture passed CT-DEV and Audit A but failed the
-stronger final Audit-B rule in the CSI500 high material-gap state. The new
-`gap_fill_v2_1_regime_conditioned_successor` then ran a consumed-evidence RD1
-mechanism diagnostic. Only
-`P2_relative_gap_excess = sign(gap_i) * (gap_i-gap_j) / rvol20_i` was admitted
-for bounded family design.
+- CSI1000 / related-index Overnight and opening-state research;
+- expected opening direction and magnitude;
+- observed opening-gap geometry;
+- opening surprise / residual information;
+- gap-fill hazards;
+- global / offshore-China / FX Overnight drivers;
+- causal trend/volatility/session-shape context;
+- relative-index opening leadership under a new preregistered identity;
+- frozen factor adapters for timing, stock-selection, execution, and risk.
 
-The V21 P2 successor family is now **closed at DEV without a successor**. A
-legitimate local execution completed the frozen 2015-2018 CSI300/CSI500
-expanding-OOF ladder and was recovered after the 2026-09-09 repository-scope
-restoration. The authoritative decision is `V21_DEV_no_P2_successor`.
+Out of scope:
 
-Frozen primary sample counts for CSI500-high `abs_gap > 10bp` were:
+- generic reversal / RMR / parent-trend strategies;
+- broad HighVol routing unrelated to Overnight/Open;
+- two-wave strategy logic;
+- using downstream strategy PnL to tune upstream factor definitions;
+- pretending the CSI1000 cash index is directly shortable;
+- live registry mutation or production deployment.
 
-- 2016: `68`;
-- 2017: `15`;
-- 2018: `52`;
-- pooled: `135`.
+Production authority is false.
 
-The preregistered rule requires >=20 in **each** validation year and >=60 pooled.
-Because 2017 has only 15 rows, all three frozen candidates are
-`evidence_insufficient`, selected candidate is `null`, and no V21 parameter
-freeze exists. Do **not** lower the yearly minimum, change the >10bp threshold,
-move/extend DEV dates, pool away 2017, add/reorder candidates, or open Audit A as
-a rescue. Audit A/B, V21 external reserve, 2014Q4 support, and CSI1000
-post-2026-08-21 remain sealed for this V2.1 family.
+## 2. Current active task
 
-Current V21 evidence:
+The only active research identity is:
 
-- `docs/research/local_gap_fill_v21_dev_selection_receipt_v1.json`;
-- `docs/governance/local_gap_fill_v21_dev_data_usage_v1.json`;
-- `docs/research/gap_fill_v21_dev_cloud_adjudication_20260909.md`;
-- `docs/governance/gap_fill_v21_state_v1.json`.
+`overnight_open_surprise_factor_v1`
 
-Do not rerun the consumed V21 DEV experiment merely because the full HE-00 v8
-parquet is local-only and absent from this cloud checkout. Any materially
-different continuation needs a new independently preregistered Overnight
-identity.
+Current status:
 
-The bounded `high_open_recall_successor_v1` branch has finished without an
-incremental successor. OHR-02 and OHR-04 both retained
-`median_quantile_sign`; OHR-03 was never opened. Do not continue by slicing the
-same domestic weakness variables, tuning thresholds, or reusing those failed
-runtime routes.
+`mechanism_diagnostic_frozen_pending_local_2019_2020_execution`
 
-The `offshore_china_price_discovery_successor_v1` identity is also **closed**.
-OHR-05 admitted one exact Yahoo chart-v8 source, OHR-06 found genuine mechanism
-evidence only for `broad_china_specific_vs_spy`, OHR-07 rejected a one-feature
-joint-refit candidate, and OHR-08 rejected the final one-parameter frozen-base
-residual overlay under the preregistered high-open-successor gates. See
-`docs/research/offshore_china_price_discovery_route_closeout_20260906.md`.
-The offshore signal may be cited only as progression/mechanism material for this
-identity; do not rescue it post hoc by changing beta, thresholds, weights,
-tickers, interactions or the loss objective on the consumed 2015-2025 window.
-Any future use for confidence, abstention, calibration or false-positive control
-requires a new preregistered objective and research identity.
+Authority:
 
-For the completed high-open and offshore identities, 2015-2025 is consumed
-development material. The exact 2026-01-05 through 2026-08-21 window remains
-sealed from diagnosis, feature engineering, candidate-family design, ranking,
-loss/threshold choice and all other development; no successor passed a gate that
-would justify opening their repeat-blackbox stage. That window can never become
-scientifically fresh again. Post-2026-08-21 remains the true unread fresh
-challenge for those separate identities. Same-morning China information remains
-forbidden for V1. For V2, the 09:31 observed gap is allowed by definition but
-post-09:31 China information is forbidden at prediction time. Do not mutate any
-FactorLab live registry.
+- protocol: `docs/governance/opening_surprise_factor_v1_protocol.json`
+- state: `docs/governance/opening_surprise_factor_v1_state.json`
+- preanalysis: `docs/research/opening_surprise_factor_preanalysis_20260910.md`
+- handoff: `docs/ops/opening_surprise_factor_dev_handoff_20260910.md`
+- runner: `scripts/run_opening_surprise_factor_dev.sh`
 
-## 云端—本地交接协议（默认不生效）
+Current scientific question:
 
-### 生效条件
+`opening_surprise_rvol = (observed_gap - frozen_V6A_expected_gap) / rvol20`
 
-Protocol 1 与 Protocol 2 **默认不生效**。只有在当前任务中被明确告知“你和云端协作”时才生效。同等表述包括“按云端交接协议执行”、“这是云端与本地协作”。
+Does this coordinate add short-horizon post-open information beyond raw gap and
+simple causal context?
 
-把一项任务发到某个云端主题仓库、并要求该云端会话继续执行，也视为已经明确告知**该云端会话**启用本协议。
+Detailed outcomes are currently authorized only for `2019-01-01..2020-12-31`.
+For this identity:
 
-### 不生效的情况
+- do not read detailed 2021-2025 outcomes;
+- do not read 2026 outcomes;
+- do not run trading-return optimization;
+- do not invent trend buckets or thresholds;
+- do not open a reusable BLACKBOX until cloud review freezes a later protocol.
 
-正常情况下，许多任务由本地发起、在本地执行。即使本协议已经写进 `AGENTS.md`，只要当前任务没有上述明确告知，本协议就不生效：
+## 3. Product-shelf rule
 
-- 按普通本地任务继续工作，不要去写交接文档、等待云端，或把步骤发到 GitHub Actions；
-- 不要因为本文存在，就把本地任务改写成云端协作任务；
-- 未生效时，下面 Protocol 1 / Protocol 2 没有运行时效力。
+This repo is not a Cartesian feature factory.
 
-本协议即使生效，也只改变执行地点和沟通方式，不扩大训练、数据搬迁、金融验收或生产权限。
+Prefer reusable coordinates with clear economic meaning and causal availability:
 
-### Protocol 1：云端缺数据时的文档交接与本地反馈
+- expected open;
+- observed gap;
+- opening surprise;
+- gap-fill probability;
+- driver attribution;
+- trend / volatility / session-shape context;
+- relative-index opening state.
 
-适用于已激活协作后的计算、测试和证据检查。某一步因云端缺少所需数据而无法执行时，云端 AI 必须将该步骤写入 [云端—本地沟通文档](docs/ops/cloud_local_communication.md)，并在当次回复中明确告知用户任务编号、阻断原因、文档路径和需要本地大模型完成的事项，由用户安排本地大模型接手。不能只说“等待数据”、静默跳过，或默认要求把全部原始数据搬到云端。若沟通文档尚不存在，在首次交接时创建，不要为此先搬数据。
+A categorical interaction such as `uptrend × high-open` is not automatically a
+product. First prove that the base continuous coordinate adds information. Then
+freeze a bounded context family before looking at new outcomes.
 
-交接只需一份可执行记录：任务目标与所需结论、代码分支/提交、已完成和未执行的步骤、缺失的最小数据及口径、执行命令或实施步骤、预期输出和验收条件。尚无可用执行器时如实写明需要本地实现的部分，不把拟议命令写成已经可以运行。已有同一任务记录则复用，历史大清单用链接定位，不反复复制或索取同一批文件。
+Downstream strategy performance may validate a frozen adapter, but may not teach
+or retune the upstream factor.
 
-本地大模型完成后，在同一沟通记录中反馈实际代码版本、数据范围与必要身份摘要、命令与退出码、结果及产物位置、失败或未验证事项；大数据和大产物留在本地，只回传必要的小报告或可访问的文档。无法直接回写仓库时，由用户转交文档供云端归档；没有本地执行通道时，云端不得声称已经自动派发或执行。
+## 4. Stable authority that must not be casually reopened
 
-云端收到反馈后先读取并复核，区分“本地已反馈”与“云端已复核”，注明复核范围和结论后继续下游工作。不能把本地报告称为云端独立全量复验，也不能将未执行或失败项改写为通过。等待本地反馈期间，继续不依赖该缺失数据的独立工作。
+### Next-open architecture
 
-### Protocol 2：计算执行位置与工作流优先级
+Repository-wide accepted architecture remains:
 
-**仅在本协议已生效时：** 云端 AI 在当前会话中直接执行 → 请求本地大模型执行 → 最后才考虑 GitHub Actions。本顺序适用于已有及后续云端工作流；工作流列出的命令说明要做什么，不意味着默认交给 Actions。未生效时不要按此顺序改写本地任务。
+`median_quantile_sign + abs_frozen_clock_signed_prediction`
 
-先按每个步骤检查数据、工具、依赖和资源。能用当前云端会话实际可用的 Python、终端等工具完成的计算、测试、静态检查和小规模验证，优先自己运行并保存真实结果，不能因已有 CI 配置就外包给 Actions。写了代码、给出命令或推测结果都不等于实际执行。
+### Global-spillover lineage
 
-云端确实无法完成时，将该步骤按 Protocol 1 写入沟通文档，请本地大模型在其数据/算力环境执行；若已知云端缺少必要数据，可直接交接，不要求先进行注定失败的试跑。只有前两种方式不适用，且 Actions 能取得所需输入、具有可用额度并处于用户授权的资源范围内，才把 Actions 作为最后选择，并记录理由。无需为了走完顺序重复失败尝试或增加逐步审批。
+Current single-head signed-gap baseline:
 
-用户告知 Actions 无可用额度期间，不主动派发、重跑或用反复 push 试探额度。发布前检查相关触发条件，对适用的 push/pull_request 提交使用 `[skip ci]` 等跳过标记，避免仅为保存文档触发计算；其他触发类型需另行确认，不能假定标记通用。不伪造绿色检查、不擅自移除合并保护。额度恢复也不改变上述优先级。
+`V6A_plus_ordinary_A50_preauction_closure`
 
-报告每一步的实际执行地点、已完成/未执行状态和证据位置。缺数据或额度不会自动否定策略，也不构成让无关步骤停工的理由；恢复后仅补执行仍必要的未完成步骤，不重复运行已具有适用证据的计算。
+Its one reusable 2021-2025 BLACKBOX query returned `PASS`. Do not decompose that
+BLACKBOX or use hidden behavior to design a successor.
+
+The V6A controller library remains active because current factor research imports
+its frozen causal feature/source functions. The completed one-command execution
+entrypoint itself has been archived.
+
+### Gap-Fill V2
+
+Frozen and repeat-confirmed. 2026-01-05..2026-08-21 is repeat-only, not fresh.
+True-fresh `2026-08-24..2026-12-31` remains sealed until the complete block and
+protocol date gate permit execution.
+
+### V2.1 P2
+
+Closed at DEV with no successor due the frozen per-year sample sufficiency rule.
+Do not rescue by changing years, thresholds, candidate order, model class, or
+opening sealed Audit A/B outcomes.
+
+## 5. BLACKBOX policy
+
+`2021-01-01..2025-12-31` is a **reusable aggregate BLACKBOX**, not a one-time
+physical consumable.
+
+Rules:
+
+- each identity must be fully frozen before a query;
+- public output is whatever that identity preregisters, typically a low-bandwidth
+  aggregate state;
+- do not release hidden years, quarters, events, trade rows, or failure clues when
+  the protocol forbids them;
+- reuse never creates a new independent OOS sample;
+- a failed technical execution does not authorize changing the scientific query;
+- record actual completed logical queries in the append-only ledger.
+
+Authority:
+
+`docs/governance/overnight_reusable_blackbox_policy_v1.json`
+
+## 6. Archive semantics
+
+Read `archive/README.md`.
+
+Archived files are provenance, not active execution surfaces. In particular:
+
+- `archive/v6a_short0935_to_close_20260910/` is closed before DEV;
+- `archive/v6a_reusable_blackbox_completed_20260910/` contains a completed
+  execution wrapper/handoff.
+
+Do not revive archived scripts by merely moving or copying them back. A revival
+requires a new result-free protocol and identity.
+
+Historical handoffs still under `docs/ops/` are not automatically active. Read
+`docs/ops/README.md` first.
+
+## 7. Data / causal timing
+
+- Signal views may use causal pre-open / observed-open information only according
+  to the identity contract.
+- Never use post-target data to define a pre-target factor.
+- SGX A50 frozen semantics require same-contract handling and frozen cutoffs;
+  continuous/CFD substitutes are not interchangeable.
+- Do not fabricate missing clocks or forward-fill source events when the protocol
+  forbids it.
+- Do not resample new wall-clock products in FactorLab when DataHub clock products
+  are required by the project contract.
+- Index prices may be used as research targets/coordinates, not fictitious live
+  fills unless an explicit research-proxy contract says so.
+
+## 8. GitHub / execution discipline
+
+- Re-read current HEAD and target files immediately before writes.
+- No force push.
+- Use `[skip ci]` for documentation/governance commits when applicable.
+- Do not rerun GitHub Actions merely to save documentation; Actions are last
+  resort while quota is constrained.
+- Never claim an execution happened unless an actual runner produced and persisted
+  the expected receipt.
+- Keep raw/large data boundaries explicit.
+- Preserve historical bytes/digests rather than rewriting old evidence to match
+  current files.
+
+## 9. Cloud-local collaboration protocol
+
+This protocol is active when the user sends work to this cloud repository and
+asks this cloud session to continue.
+
+Execution priority:
+
+1. execute directly in the current cloud session when the required data/tools are
+   genuinely available;
+2. if cloud lacks local-only data or binary execution access, write a minimal,
+   executable handoff and ask the local model to run it;
+3. GitHub Actions are last resort.
+
+When handing off locally:
+
+- give one bounded task, exact command, evidence boundary, expected output, and
+  forbidden actions;
+- do not ask the local model to redesign formulas after seeing errors/results;
+- local large data stays local unless a bounded repo copy is explicitly admitted;
+- local model should commit only the requested small receipt/evidence with
+  `[skip ci]`;
+- cloud must re-read and independently adjudicate the returned receipt before
+  opening any downstream gate.
+
+The active local task is already documented at:
+
+`docs/ops/opening_surprise_factor_dev_handoff_20260910.md`
+
+## 10. Current next action
+
+Local controller runs exactly:
+
+```bash
+git pull
+bash scripts/run_opening_surprise_factor_dev.sh
+```
+
+Expected output:
+
+`docs/research/local_opening_surprise_factor_dev_diagnostic_v1.json`
+
+After that output is committed, cloud reviews the 2019-2020 diagnostic and decides
+whether Opening Surprise deserves a bounded factor family. Do not jump ahead to
+trend buckets, downstream backtests, or a new BLACKBOX query.
