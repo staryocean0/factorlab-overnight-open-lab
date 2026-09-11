@@ -13,6 +13,19 @@ It is **not**:
 
 Even after these files can be read by a cloud connector, every research identity must still obey its own protocol, state file, and reusable BLACKBOX policy. Reading this pack does not open 2021-2025 detailed evidence, does not authorize factor admission, and does not change production authority.
 
+## Why this pack exists
+
+Cloud GitHub connectors cannot stably hand complete bytes of the large binary parquet files to the compute environment. This pack is the smallest necessary **text** projection of already-frozen development material:
+
+- row filter by calendar year
+- column filter of already-materialized causal fields
+- exact-clock pivot of already-stored one-minute closes
+- CSV serialization
+
+No values are recomputed. No clocks are nearest-matched. No forward/back fill is applied. Missing exact clocks stay missing.
+
+The original parquet files remain the provenance sources and must not be deleted.
+
 ## What is committed here
 
 The committed shards cover only the already-opened development window:
@@ -26,7 +39,35 @@ Each year has:
 - `factor_panel_YYYY.csv` — one row per `trading_day`, sorted ascending, dates as `YYYY-MM-DD`
 - `opening_clocks_YYYY.csv` — exact clocks `09:35`, `09:50`, `10:05`, `10:35` in wide form
 
-`abs_r1`, `us_nasdaq`, and `us_vix_chg` are included because the frozen reconstruction contract already requires those existing causal fields. No new feature was computed.
+Factor-panel columns:
+
+```text
+trading_day
+gap
+r1
+r20
+rvol20
+prev_daytime
+prev_last_hour
+prev_afternoon
+holiday_reopen
+weekend
+prev_gap
+overnight_trend_5
+abs_r1
+us_nasdaq
+us_vix_chg
+```
+
+`abs_r1`, `us_nasdaq`, and `us_vix_chg` are included because the frozen reconstruction contract already requires those existing causal fields. They are copied, not recalculated. No new feature was computed.
+
+Opening-clock wide schema:
+
+```text
+trading_day,close_0935,close_0950,close_1005,close_1035
+```
+
+Exact clocks only. Instrument: `000852.SH`. A missing `09:35` stays missing. `09:34` is never substituted.
 
 ## What this pack is not allowed to contain
 
@@ -46,8 +87,24 @@ Do not infer BLACKBOX sample counts, dates, targets, or scores from the absence 
 
 `annotated_panel.parquet` does not contain reconstructed columns such as `r1` / `r20` / `rvol20`. This carrier therefore slices the already-frozen development panel. It does not rerun rolling formulas.
 
-Clock extraction is exact-clock only. A missing `09:35` stays missing. `09:34` is never substituted.
-
-Original parquet files remain the provenance sources. This text pack does not replace them.
-
 See `manifest.json` for SHA256 lineage and `docs/research/runtime_text_carrier_parity_receipt_v1.json` for the data-engineering parity receipt.
+
+## Rebuild
+
+```bash
+python3 scripts/build_runtime_text_carrier.py \
+  --annotated-panel data/high_open_dev_2015_2025/annotated_panel.parquet \
+  --minute-bars data/high_open_dev_2015_2025/1m_official.parquet \
+  --out-dir data/runtime_text_2015_2025
+```
+
+Optional bounds:
+
+```text
+--start-year 2015
+--end-year 2025
+```
+
+`--end-year 2025` does **not** publish 2021-2025 text shards. The script withholds that window by default.
+
+`production_authority=false`.
