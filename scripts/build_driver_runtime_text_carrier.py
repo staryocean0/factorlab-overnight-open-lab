@@ -18,6 +18,8 @@ import pandas as pd
 
 DEV_START = pd.Timestamp("2015-01-05")
 DEV_END = pd.Timestamp("2020-12-31")
+A50_SOURCE_START = pd.Timestamp("2015-01-01")
+HKMA_SOURCE_START = pd.Timestamp("2014-01-01")
 YEARS = tuple(range(2015, 2021))
 
 
@@ -52,7 +54,7 @@ def load_a50(path: Path, value_col: str) -> pd.DataFrame:
     x = pd.read_parquet(
         path,
         columns=cols,
-        filters=[("trading_day", ">=", "2015-01-01"), ("trading_day", "<=", "2020-12-31")],
+        filters=[("trading_day", ">=", A50_SOURCE_START), ("trading_day", "<=", DEV_END)],
     ).copy()
     x["trading_day"] = pd.to_datetime(x["trading_day"], errors="raise").dt.normalize()
     x[value_col] = pd.to_numeric(x[value_col], errors="coerce")
@@ -102,7 +104,7 @@ def attach_hkma(days: pd.DataFrame, hkma_path: Path) -> tuple[pd.DataFrame, dict
     x = pd.read_parquet(
         hkma_path,
         columns=["date", "usdcny_hk"],
-        filters=[("date", ">=", "2014-01-01"), ("date", "<=", "2020-12-31")],
+        filters=[("date", ">=", HKMA_SOURCE_START), ("date", "<=", DEV_END)],
     ).copy()
     x["date"] = pd.to_datetime(x["date"], errors="raise").dt.normalize()
     x["usdcny_hk"] = pd.to_numeric(x["usdcny_hk"], errors="coerce")
