@@ -42,18 +42,10 @@ def sha256(path: Path) -> str:
     return h.hexdigest()
 
 
-def load_short_horizon_returns(path: Path) -> pd.DataFrame:
-    bars = pd.read_parquet(
-        path,
-        filters=[
-            ("symbol", "==", SYMBOL),
-            ("trading_day", ">=", "2019-01-01"),
-            ("trading_day", "<=", "2020-12-31"),
-        ],
-        columns=["trading_day", "timestamp", "close"],
-    ).copy()
+def short_horizon_returns_from_clocks(bars: pd.DataFrame) -> pd.DataFrame:
+    bars = bars.copy()
     bars["trading_day"] = bars["trading_day"].astype(str)
-    bars["clock"] = bars["timestamp"].astype(str).str.slice(11, 16)
+    bars["clock"] = bars["clock"].astype(str)
     bars = bars.loc[bars["clock"].isin(CLOCKS)].copy()
     bars["close"] = pd.to_numeric(bars["close"], errors="coerce")
     wide = bars.pivot_table(index="trading_day", columns="clock", values="close", aggfunc="last")
@@ -65,6 +57,72 @@ def load_short_horizon_returns(path: Path) -> pd.DataFrame:
             raise RuntimeError(f"{end_clock} target clock missing from development minute data")
         out[name] = (wide[end_clock] / wide["09:35"] - 1.0).to_numpy()
     return out.reset_index(drop=True)
+
+
+def load_short_horizon_returns(path: Path) -> pd.DataFrame:
+    bars = pd.read_parquet(
+        path,
+        filters=[
+            ("symbol", "==", SYMBOL),
+            ("trading_day", ">=", "2019-01-01"),
+            ("trading_day", "<=", "2020-12-31"),
+        ],
+        columns=["trading_day", "timestamp", "close"],
+    ).copy()
+    bars["clock"] = bars["timestamp"].astype(str).str.slice(11, 16)
+    return short_horizon_returns_from_clocks(bars)
+
+
+def load_dev_pack_paths(dev_pack_dir: Path) -> tuple[Path, Path, Path]:
+    manifest_path = dev_pack_dir / "manifest.json"
+    if not manifest_path.is_file():
+        raise RuntimeError(f"missing dev pack manifest: {manifest_path}")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if manifest.get("research_identity") != "overnight_trend_conditioned_open_state_v1":
+        raise RuntimeError("wrong research identity in dev pack manifest")
+    files = manifest.get("files") or {}
+    base_panel_csv = dev_pack_dir / str(files.get("base_panel_csv", "base_panel_2019_2020.csv"))
+    minute_clocks_csv = dev_pack_dir / str(files.get("minute_clocks_csv", "minute_clocks_2019_2020.csv"))
+    for path in (base_panel_csv, minute_clocks_csv):
+        if not path.is_file():
+            raise RuntimeError(f"missing dev pack file: {path}")
+    return manifest_path, base_panel_csv, minute_clocks_csv
+
+
+def load_short_horizon_returns_csv(path: Path) -> pd.DataFrame:
+    bars = pd.read_csv(path)
+    required = {"trading_day", "clock", "close"}
+    missing = required.difference(bars.columns)
+    if missing:
+        raise RuntimeError(f"minute dev pack missing columns: {sorted(missing)}")
+    return short_horizon_returns_from_clocks(bars)
+
+
+def load_dev_panel_from_csv(path: Path) -> pd.DataFrame:
+    panel = pd.read_csv(path)
+    required = {"trading_day", "gap", "r20", "rvol20", "r1", "prev_daytime", "holiday_reopen"}
+    missing = required.difference(panel.columns)
+    if missing:
+        raise RuntimeError(f"base dev pack missing columns: {sorted(missing)}")
+    panel["trading_day"] = pd.to_datetime(panel["trading_day"], errors="raise").dt.normalize()
+    if panel["trading_day"].max() > DEV_END:
+        raise RuntimeError("base panel contains rows after the authorized 2020 development boundary")
+    return panel.loc[panel["trading_day"].between(DEV_START, DEV_END)].copy()
+
+
+def build_dev_frame(panel: pd.DataFrame, future: pd.DataFrame) -> pd.DataFrame:
+    dev = panel.copy()
+    dev["observed_gap"] = pd.to_numeric(dev["gap"], errors="coerce")
+    dev["rvol20"] = pd.to_numeric(dev["rvol20"], errors="coerce")
+    valid_rvol = np.isfinite(dev["rvol20"]) & dev["rvol20"].gt(0)
+    dev = dev.loc[valid_rvol].copy()
+    dev["observed_gap_rvol"] = dev["observed_gap"] / dev["rvol20"]
+    dev["trend20_rvol"] = pd.to_numeric(dev["r20"], errors="coerce") / (np.sqrt(20.0) * dev["rvol20"])
+    dev["trend_gap_interaction"] = dev["observed_gap_rvol"] * dev["trend20_rvol"]
+    dev["trading_day"] = dev["trading_day"].dt.strftime("%Y-%m-%d")
+    dev = dev.merge(future, on="trading_day", how="inner", validate="one_to_one")
+    dev["year"] = pd.to_datetime(dev["trading_day"]).dt.year
+    return dev
 
 
 def residualize(y: np.ndarray, x: np.ndarray) -> np.ndarray:
@@ -130,8 +188,9 @@ def linear_diag(frame: pd.DataFrame, target: str) -> dict:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--base-panel", type=Path, required=True)
-    ap.add_argument("--minute-bars", type=Path, required=True)
+    ap.add_argument("--base-panel", type=Path)
+    ap.add_argument("--minute-bars", type=Path)
+    ap.add_argument("--dev-pack-dir", type=Path)
     ap.add_argument("--protocol", type=Path, required=True)
     ap.add_argument("--receipt-out", type=Path, required=True)
     args = ap.parse_args()
@@ -140,24 +199,34 @@ def main() -> int:
     if protocol.get("research_identity") != "overnight_trend_conditioned_open_state_v1":
         raise RuntimeError("wrong trend-conditioned opening-state protocol")
 
-    panel = pd.read_parquet(args.base_panel).copy()
-    panel["trading_day"] = pd.to_datetime(panel["trading_day"], errors="raise").dt.normalize()
-    if panel["trading_day"].max() > DEV_END:
-        raise RuntimeError("base panel contains rows after the authorized 2020 development boundary")
+    if args.dev_pack_dir is not None:
+        if args.base_panel is not None or args.minute_bars is not None:
+            raise RuntimeError("use either --dev-pack-dir or parquet inputs, not both")
+        manifest_path, base_panel_csv, minute_clocks_csv = load_dev_pack_paths(args.dev_pack_dir)
+        panel = load_dev_panel_from_csv(base_panel_csv)
+        future = load_short_horizon_returns_csv(minute_clocks_csv)
+        source_hashes = {
+            "base_panel": sha256(base_panel_csv),
+            "minute_bars": sha256(minute_clocks_csv),
+            "protocol": sha256(args.protocol),
+            "dev_pack_manifest": sha256(manifest_path),
+        }
+    else:
+        if args.base_panel is None or args.minute_bars is None:
+            raise RuntimeError("parquet mode requires --base-panel and --minute-bars")
+        panel = pd.read_parquet(args.base_panel).copy()
+        panel["trading_day"] = pd.to_datetime(panel["trading_day"], errors="raise").dt.normalize()
+        if panel["trading_day"].max() > DEV_END:
+            raise RuntimeError("base panel contains rows after the authorized 2020 development boundary")
+        panel = panel.loc[panel["trading_day"].between(DEV_START, DEV_END)].copy()
+        future = load_short_horizon_returns(args.minute_bars)
+        source_hashes = {
+            "base_panel": sha256(args.base_panel),
+            "minute_bars": sha256(args.minute_bars),
+            "protocol": sha256(args.protocol),
+        }
 
-    dev = panel.loc[panel["trading_day"].between(DEV_START, DEV_END)].copy()
-    dev["observed_gap"] = pd.to_numeric(dev["gap"], errors="coerce")
-    dev["rvol20"] = pd.to_numeric(dev["rvol20"], errors="coerce")
-    valid_rvol = np.isfinite(dev["rvol20"]) & dev["rvol20"].gt(0)
-    dev = dev.loc[valid_rvol].copy()
-    dev["observed_gap_rvol"] = dev["observed_gap"] / dev["rvol20"]
-    dev["trend20_rvol"] = pd.to_numeric(dev["r20"], errors="coerce") / (np.sqrt(20.0) * dev["rvol20"])
-    dev["trend_gap_interaction"] = dev["observed_gap_rvol"] * dev["trend20_rvol"]
-    dev["trading_day"] = dev["trading_day"].dt.strftime("%Y-%m-%d")
-
-    future = load_short_horizon_returns(args.minute_bars)
-    dev = dev.merge(future, on="trading_day", how="inner", validate="one_to_one")
-    dev["year"] = pd.to_datetime(dev["trading_day"]).dt.year
+    dev = build_dev_frame(panel, future)
 
     result = {"pooled": {}, "by_year": {"2019": {}, "2020": {}}}
     for horizon in HORIZONS:
@@ -176,11 +245,7 @@ def main() -> int:
         "baseline_controls": BASELINE_CONTROLS,
         "horizons": list(HORIZONS),
         "diagnostics": result,
-        "source_hashes": {
-            "base_panel": sha256(args.base_panel),
-            "minute_bars": sha256(args.minute_bars),
-            "protocol": sha256(args.protocol),
-        },
+        "source_hashes": source_hashes,
         "target_rows_after_2020_loaded": False,
         "reusable_blackbox_2021_2025_opened": False,
         "candidate_family_search": False,

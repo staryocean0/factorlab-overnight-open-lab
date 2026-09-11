@@ -1,0 +1,29 @@
+{
+  "clocks": [
+    "09:35",
+    "09:50",
+    "10:05",
+    "10:35"
+  ],
+  "dev_pack_file_hashes": {
+    "base_panel_csv": "dce8c3874cabd648cb7d1f9f383159a5493a42d7e67adf9a65f0b9e39924eb0c",
+    "manifest": "9bb0787ae9b7302851586e97dcaa0dac2662eaab41914016b977a0de1ee8eda2",
+    "minute_clocks_csv": "e151560929e71785a62c47b55fa9108b15055db54c521b80bbe66be09a5c16d6"
+  },
+  "development_window": "2019-01-01..2020-12-31",
+  "files": {
+    "base_panel_csv": "base_panel_2019_2020.csv",
+    "minute_clocks_csv": "minute_clocks_2019_2020.csv"
+  },
+  "research_identity": "overnight_trend_conditioned_open_state_v1",
+  "row_counts": {
+    "base_panel": 487,
+    "minute_clocks": 1948
+  },
+  "schema_id": "trend_open_state_dev_pack@1.0",
+  "source_parquet_hashes": {
+    "base_panel": "d409fd5c2d75497b31e7e6e4f663298c3e22a7bacdacf4cb562671c6b1bc7631",
+    "minute_bars": "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce"
+  },
+  "symbol": "000852.SH"
+}
