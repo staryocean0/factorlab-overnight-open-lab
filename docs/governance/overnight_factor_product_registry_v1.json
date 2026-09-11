@@ -1,5 +1,5 @@
 {
-  "schema_id": "overnight_factor_product_registry@1.3",
+  "schema_id": "overnight_factor_product_registry@1.4",
   "session_date": "2026-09-11",
   "program": "docs/governance/overnight_factor_product_program_v1.md",
   "repository_role": "overnight_open_factor_product_laboratory_and_downstream_factor_adapter",
@@ -89,9 +89,19 @@
     {
       "product_id": "OFP-C2",
       "name": "prior_volatility_context",
-      "status": "next_planned_research_continuous_first",
+      "status": "60m_continuous_candidate_DEV_supported_reusable_BLACKBOX_pending",
       "availability": "pre_open_coordinate_plus_post_open_adapter_view",
-      "consumer_roles": ["risk", "timing", "normalization"]
+      "research_identity": "overnight_volatility_conditioned_open_state_60m_v1",
+      "parent_development_identity": "overnight_volatility_conditioned_open_state_v1",
+      "development_receipt": "docs/research/cloud_volatility_conditioned_open_state_dev_diagnostic_v1.json",
+      "development_authority": "docs/research/volatility_conditioned_open_state_dev_cloud_adjudication_20260911.md",
+      "blackbox_protocol": "docs/governance/volatility_conditioned_open_state_60m_blackbox_protocol_v1.json",
+      "active_interaction": "observed_gap_rvol * log(rvol20)",
+      "active_target": "09:35_to_10:35_return",
+      "validated_C1_baseline_control": "trend20_rvol * observed_gap_rvol",
+      "consumer_roles": ["risk", "timing", "normalization", "stock_selection_overlay"],
+      "categorical_high_low_vol_authority": false,
+      "categorical_adapter_requires_separate_identity": true
     },
     {
       "product_id": "OFP-C3",
@@ -134,10 +144,9 @@
       "consumer_roles": ["portfolio_risk"]
     }
   ],
-  "active_research_identity": null,
-  "next_research_identity": "prior_volatility_context_x_core_opening_state",
-  "next_context_order": [
-    "prior_volatility_context_x_core_opening_state",
+  "active_research_identity": "overnight_volatility_conditioned_open_state_60m_v1",
+  "next_research_identity_after_active": "driver_agreement_disagreement",
+  "next_context_order_after_active_identity": [
     "driver_agreement_disagreement",
     "relative_index_opening_leadership",
     "downstream_consumer_adapter_tests"
