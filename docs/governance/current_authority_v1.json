@@ -1,10 +1,32 @@
 {
-  "schema_id": "overnight_open_current_authority@1.8",
+  "schema_id": "overnight_open_current_authority@1.9",
   "session_date": "2026-09-12",
   "repository_role": "overnight_open_factor_product_laboratory_and_downstream_factor_adapter",
   "program": "docs/governance/overnight_factor_product_program_v1.md",
   "registry": "docs/governance/overnight_factor_product_registry_v1.json",
-  "active_research": null,
+  "active_research": {
+    "identity": "overnight_relative_size_open_leadership_v1",
+    "product_family": "OFP-D1_relative_index_open",
+    "status": "source_and_identity_frozen_pending_local_carrier_materialization",
+    "source_admission": "docs/governance/relative_index_open_leadership_source_admission_20260912.json",
+    "preanalysis": "docs/research/relative_index_open_leadership_preanalysis_20260912.md",
+    "protocol": "docs/governance/relative_index_open_leadership_v1_protocol.json",
+    "state": "docs/governance/relative_index_open_leadership_v1_state.json",
+    "carrier_builder": "scripts/build_relative_index_runtime_text_carrier.py",
+    "local_handoff": "docs/ops/relative_index_runtime_text_carrier_handoff_20260912.md",
+    "development_window": "2015-01-05..2020-12-31",
+    "expected_carrier": "data/relative_index_runtime_text_2015_2020/",
+    "expected_carrier_receipt": "docs/research/relative_index_runtime_text_carrier_parity_receipt_v1.json",
+    "candidate": "gap_rvol_CSI1000 - gap_rvol_CSI300",
+    "candidate_indices": ["CSI1000", "CSI300"],
+    "CSI500_role": "carrier_inventory_only_not_candidate",
+    "targets": ["relative_ret_0935_0950", "relative_ret_0935_1005", "relative_ret_0935_1035"],
+    "development_execution_authorized_before_carrier_acceptance": false,
+    "local_scientific_diagnostic_authorized": false,
+    "blackbox_2021_2025_opened": false,
+    "blackbox_authorized": false,
+    "production_authority": false
+  },
   "recent_completed_research": {
     "identity": "overnight_driver_coherence_open_gap_v1",
     "parent_development_identity": "overnight_driver_coherence_v1",
@@ -81,6 +103,13 @@
       "carrier_receipt": "docs/research/driver_runtime_text_carrier_parity_receipt_v1.json",
       "A50_clock_integrity": "PASS",
       "HKMA_causal_timing_integrity": "PASS"
+    },
+    "relative_index_open_development": {
+      "path": "data/relative_index_runtime_text_2015_2020/",
+      "status": "pending_local_materialization",
+      "published_window": "2015-01-05..2020-12-31",
+      "source": "Unified DataHub admitted three-index canonical 1m lake",
+      "does_not_open_2021_2025_BLACKBOX_details": true
     }
   },
   "hard_rules": [
@@ -93,11 +122,14 @@
     "C3 30m and 60m are shared DEV progression material; do not select a unique horizon winner post hoc.",
     "Do not rescue C3 with prev_afternoon, alternate session windows, thresholds, buckets, or post-hoc horizons.",
     "Do not open a C3 2021-2025 reusable BLACKBOX under the parent identity; a separately frozen successor identity and protocol are required.",
-    "OFP-D1 relative-index research must be a new independent identity and must not rescue the closed V2.1 P2 identity.",
+    "D1 is the independent identity overnight_relative_size_open_leadership_v1 and must not import or rescue the closed V2.1 P2 relative-gap-excess family.",
+    "D1 v1 candidate uses CSI1000 versus CSI300 only; CSI500 is carrier inventory-only and may not be substituted after outcomes are seen.",
+    "Do not execute D1 outcome diagnostics before the frozen relative-index carrier is materialized, pushed, and accepted by the cloud main agent.",
+    "Local D1 work is mechanical carrier materialization only; no local regression, horizon selection, thresholding, or scientific adjudication is authorized.",
     "Do not expose or materialize 2021-2025 row-level BLACKBOX text shards.",
     "Do not open post-2026-08-21 outcomes except under their separately frozen protocol.",
     "Production authority remains false."
   ],
-  "next_action": "audit connector-readable 2015-2020 CSI300/CSI500/CSI1000 source inventory for a new OFP-D1 relative-index opening leadership identity; freeze the mathematical identity before inspecting its outcomes and do not reuse the closed V2.1 P2 identity",
+  "next_action": "local environment mechanically materializes and pushes data/relative_index_runtime_text_2015_2020 plus docs/research/relative_index_runtime_text_carrier_parity_receipt_v1.json using the frozen builder; after push, cloud main agent accepts the carrier and executes the preregistered 2015-2020 D1 six-year development diagnostic",
   "production_authority": false
 }
