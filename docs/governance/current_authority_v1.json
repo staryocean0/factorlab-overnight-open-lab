@@ -1,0 +1,49 @@
+{
+  "schema_id": "overnight_open_current_authority@1.0",
+  "session_date": "2026-09-11",
+  "repository_role": "overnight_open_factor_product_laboratory_and_downstream_factor_adapter",
+  "program": "docs/governance/overnight_factor_product_program_v1.md",
+  "registry": "docs/governance/overnight_factor_product_registry_v1.json",
+  "active_research": {
+    "identity": "overnight_open_surprise_factor_v1",
+    "status": "mechanism_diagnostic_frozen_pending_local_2019_2020_execution",
+    "protocol": "docs/governance/opening_surprise_factor_v1_protocol.json",
+    "state": "docs/governance/opening_surprise_factor_v1_state.json",
+    "preanalysis": "docs/research/opening_surprise_factor_preanalysis_20260910.md",
+    "handoff": "docs/ops/opening_surprise_factor_dev_handoff_20260910.md",
+    "runner": "scripts/run_opening_surprise_factor_dev.sh",
+    "expected_output": "docs/research/local_opening_surprise_factor_dev_diagnostic_v1.json",
+    "detailed_window": "2019-01-01..2020-12-31",
+    "reusable_BLACKBOX_2021_2025_opened": false,
+    "strategy_backtest_authorized": false,
+    "trend_bucket_search_authorized": false
+  },
+  "stable_products": {
+    "repository_wide_next_open_architecture": "median_quantile_sign + abs_frozen_clock_signed_prediction",
+    "global_spillover_baseline": "V6A_plus_ordinary_A50_preauction_closure",
+    "V6A_BLACKBOX": "PASS",
+    "V6A_BLACKBOX_query_id": "8d367381811d7907e2ac",
+    "Gap_Fill_V2": "frozen_repeat_confirmed_true_fresh_pending"
+  },
+  "closed_or_waiting": {
+    "V6A_0935_to_close_strategy": "archived_closed_before_DEV_objective_mismatch",
+    "V21_P2_successor": "closed_at_DEV_no_successor_evidence_insufficient",
+    "Gap_Fill_V2_true_fresh": "wait_for_complete_2026_08_24_to_2026_12_31_and_protocol_date_gate"
+  },
+  "archive": {
+    "root": "archive/",
+    "closed_V6A_strategy": "archive/v6a_short0935_to_close_20260910/",
+    "completed_V6A_BLACKBOX_entrypoint": "archive/v6a_reusable_blackbox_completed_20260910/"
+  },
+  "hard_rules": [
+    "Do not revive archived executable entrypoints as active work.",
+    "Do not decompose the completed V6A 2021-2025 BLACKBOX.",
+    "Do not use downstream strategy PnL to tune upstream factor definitions.",
+    "Do not create Cartesian regime buckets before the base coordinate shows incremental information.",
+    "Do not open 2021-2025 detailed outcomes for opening_surprise_factor_v1.",
+    "Do not open post-2026-08-21 outcomes except under their separately frozen protocol.",
+    "Production authority remains false."
+  ],
+  "next_action": "local controller runs `bash scripts/run_opening_surprise_factor_dev.sh`, commits only the frozen 2019-2020 diagnostic receipt with [skip ci], then cloud reviews before any next factor family is created",
+  "production_authority": false
+}
