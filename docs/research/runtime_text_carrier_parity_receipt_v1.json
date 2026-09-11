@@ -1,0 +1,283 @@
+{
+  "schema_id": "overnight_runtime_text_carrier_parity_receipt@1.0",
+  "purpose": "data_engineering_parity_only",
+  "scientific_change": false,
+  "transform": {
+    "scientific_change": false,
+    "row_filter_only": true,
+    "column_filter_only": true,
+    "exact_clock_filter_only": true,
+    "forward_fill": false,
+    "backward_fill": false,
+    "resampling": false,
+    "feature_engineering": false,
+    "nearest_clock_match": false
+  },
+  "instrument": "000852.SH",
+  "source_hashes": {
+    "annotated_panel": "f2587a528a517052016b646b58c734569b64a87766ff096575f353587e46aed1",
+    "minute_bars": "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce",
+    "frozen_development_panel": "d409fd5c2d75497b31e7e6e4f663298c3e22a7bacdacf4cb562671c6b1bc7631"
+  },
+  "output_hashes": {
+    "manifest": "10f7e5eada195541ae83fe14b7138e6a1ced939b7e278f811e7fb08c4147bb13",
+    "factor_panel": {
+      "2015": "6463091e0a4f536717a148144c8566f35b73c62e05694e1c73226024b80326af",
+      "2016": "f1c0abd8dfd6dd40f91c0b8c93ba6f3c4cf685efd0b04832e0e80d74a6c99f51",
+      "2017": "395bf508ef6595474dd9f17282aa2d740bc93e342afa81401c9b05d3cf66e247",
+      "2018": "2fa36707c38e9e312fb87a13787bf4126e2b275b5881b89b884d852b7874abdb",
+      "2019": "c183709b84e08225346242690089d8dc90edc4b4114bb0e731691241d91029be",
+      "2020": "8b15f82b78b6026f5fa48207fd7a15f0a5b0e6a79f1d41501d6a5c6c79730923"
+    },
+    "opening_clocks": {
+      "2015": "30ff8c6d7b4ce69220d311c35e06b28bae3a8e4478c0224e0bb700fdc1147efa",
+      "2016": "7a4c0862be864dde63d90eb08466ad98d3c57daa2d05c874c5bc8acfaa059856",
+      "2017": "55605da083dc0d212e50cc1e82f4f85574daacfbd400588f6265dd4fd8b65cef",
+      "2018": "570f88b4604eab5887c8cc29d510e89d061c383e9afa803c179ab34548db7a42",
+      "2019": "8f6d3d420ea78ff1b86224c0dcf61c85a24506de78aa6f9106710c1493f7628a",
+      "2020": "689986dd671b2acebee190ff684f327d3e934d90ca3346015e75ee9af9854d0e"
+    }
+  },
+  "row_inventories": {
+    "factor_panel": {
+      "2015": {
+        "row_count": 244,
+        "min_day": "2015-01-05",
+        "max_day": "2015-12-31"
+      },
+      "2016": {
+        "row_count": 244,
+        "min_day": "2016-01-04",
+        "max_day": "2016-12-30"
+      },
+      "2017": {
+        "row_count": 244,
+        "min_day": "2017-01-03",
+        "max_day": "2017-12-29"
+      },
+      "2018": {
+        "row_count": 243,
+        "min_day": "2018-01-02",
+        "max_day": "2018-12-28"
+      },
+      "2019": {
+        "row_count": 244,
+        "min_day": "2019-01-02",
+        "max_day": "2019-12-31"
+      },
+      "2020": {
+        "row_count": 243,
+        "min_day": "2020-01-02",
+        "max_day": "2020-12-31"
+      }
+    },
+    "opening_clocks": {
+      "2015": {
+        "row_count": 244,
+        "min_day": "2015-01-05",
+        "max_day": "2015-12-31"
+      },
+      "2016": {
+        "row_count": 244,
+        "min_day": "2016-01-04",
+        "max_day": "2016-12-30"
+      },
+      "2017": {
+        "row_count": 244,
+        "min_day": "2017-01-03",
+        "max_day": "2017-12-29"
+      },
+      "2018": {
+        "row_count": 243,
+        "min_day": "2018-01-02",
+        "max_day": "2018-12-28"
+      },
+      "2019": {
+        "row_count": 244,
+        "min_day": "2019-01-02",
+        "max_day": "2019-12-31"
+      },
+      "2020": {
+        "row_count": 243,
+        "min_day": "2020-01-02",
+        "max_day": "2020-12-31"
+      }
+    }
+  },
+  "clock_inventories": {
+    "clocks": [
+      "09:35",
+      "09:50",
+      "10:05",
+      "10:35"
+    ],
+    "columns": [
+      "close_0935",
+      "close_0950",
+      "close_1005",
+      "close_1035"
+    ],
+    "exact_clock_only": true
+  },
+  "factor_panel_parity_2015_2020": {
+    "window": "2015-01-05..2020-12-31",
+    "status": "PASS",
+    "row_count": 1462,
+    "min_day": "2015-01-05",
+    "max_day": "2020-12-31",
+    "columns": [
+      {
+        "column": "gap",
+        "nan_mask": "exact",
+        "max_abs_diff": 1.0061396160665481e-16,
+        "nonzero_diff_count": 1418
+      },
+      {
+        "column": "r1",
+        "nan_mask": "exact",
+        "max_abs_diff": 1.0061396160665481e-16,
+        "nonzero_diff_count": 1436
+      },
+      {
+        "column": "r20",
+        "nan_mask": "exact",
+        "max_abs_diff": 1.1102230246251565e-16,
+        "nonzero_diff_count": 1332
+      },
+      {
+        "column": "rvol20",
+        "nan_mask": "exact",
+        "max_abs_diff": 1.0061396160665481e-16,
+        "nonzero_diff_count": 1419
+      },
+      {
+        "column": "prev_daytime",
+        "nan_mask": "exact",
+        "max_abs_diff": 1.0061396160665481e-16,
+        "nonzero_diff_count": 1436
+      },
+      {
+        "column": "prev_last_hour",
+        "nan_mask": "exact",
+        "max_abs_diff": 1.0061396160665481e-16,
+        "nonzero_diff_count": 1436
+      },
+      {
+        "column": "prev_afternoon",
+        "nan_mask": "exact",
+        "max_abs_diff": 1.0061396160665481e-16,
+        "nonzero_diff_count": 1437
+      },
+      {
+        "column": "holiday_reopen",
+        "nan_mask": "exact",
+        "max_abs_diff": 0.0,
+        "nonzero_diff_count": 0
+      },
+      {
+        "column": "weekend",
+        "nan_mask": "exact",
+        "max_abs_diff": 0.0,
+        "nonzero_diff_count": 0
+      },
+      {
+        "column": "prev_gap",
+        "nan_mask": "exact",
+        "max_abs_diff": 1.0061396160665481e-16,
+        "nonzero_diff_count": 1417
+      },
+      {
+        "column": "overnight_trend_5",
+        "nan_mask": "exact",
+        "max_abs_diff": 9.974659986866641e-17,
+        "nonzero_diff_count": 1409
+      },
+      {
+        "column": "abs_r1",
+        "nan_mask": "exact",
+        "max_abs_diff": 1.0061396160665481e-16,
+        "nonzero_diff_count": 1436
+      },
+      {
+        "column": "us_nasdaq",
+        "nan_mask": "exact",
+        "max_abs_diff": 1.0061396160665481e-16,
+        "nonzero_diff_count": 1438
+      },
+      {
+        "column": "us_vix_chg",
+        "nan_mask": "exact",
+        "max_abs_diff": 1.1102230246251565e-16,
+        "nonzero_diff_count": 1361
+      }
+    ]
+  },
+  "clock_parity_2019_2020": {
+    "window": "2019-01-01..2020-12-31",
+    "status": "PASS",
+    "row_count": 487,
+    "clocks": [
+      "09:35",
+      "09:50",
+      "10:05",
+      "10:35"
+    ],
+    "reference_csv": "data/development/trend_open_state_dev_pack_2019_2020/minute_clocks_2019_2020.csv",
+    "columns": [
+      {
+        "column": "source:close_0935",
+        "nan_mask": "exact",
+        "max_abs_diff": 9.094947017729282e-13,
+        "nonzero_diff_count": 3
+      },
+      {
+        "column": "devpack:close_0935",
+        "nan_mask": "exact",
+        "max_abs_diff": 9.094947017729282e-13,
+        "nonzero_diff_count": 3
+      },
+      {
+        "column": "source:close_0950",
+        "nan_mask": "exact",
+        "max_abs_diff": 9.094947017729282e-13,
+        "nonzero_diff_count": 2
+      },
+      {
+        "column": "devpack:close_0950",
+        "nan_mask": "exact",
+        "max_abs_diff": 9.094947017729282e-13,
+        "nonzero_diff_count": 2
+      },
+      {
+        "column": "source:close_1005",
+        "nan_mask": "exact",
+        "max_abs_diff": 9.094947017729282e-13,
+        "nonzero_diff_count": 6
+      },
+      {
+        "column": "devpack:close_1005",
+        "nan_mask": "exact",
+        "max_abs_diff": 9.094947017729282e-13,
+        "nonzero_diff_count": 6
+      },
+      {
+        "column": "source:close_1035",
+        "nan_mask": "exact",
+        "max_abs_diff": 9.094947017729282e-13,
+        "nonzero_diff_count": 5
+      },
+      {
+        "column": "devpack:close_1035",
+        "nan_mask": "exact",
+        "max_abs_diff": 9.094947017729282e-13,
+        "nonzero_diff_count": 5
+      }
+    ]
+  },
+  "blackbox_window_text_shards": {
+    "generated": false,
+    "committed": false,
+    "reason": "overnight_reusable_blackbox_policy_v1 and current_authority forbid public 2021-2025 detailed text rows"
+  },
+  "production_authority": false
+}

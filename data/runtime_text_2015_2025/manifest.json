@@ -1,0 +1,200 @@
+{
+  "schema_id": "overnight_runtime_text_carrier@1.0",
+  "instrument": "000852.SH",
+  "purpose": "cloud_readable_minimal_runtime_carrier",
+  "source_files": {
+    "annotated_panel": {
+      "path": "data/high_open_dev_2015_2025/annotated_panel.parquet",
+      "sha256": "f2587a528a517052016b646b58c734569b64a87766ff096575f353587e46aed1"
+    },
+    "minute_bars": {
+      "path": "data/high_open_dev_2015_2025/1m_official.parquet",
+      "sha256": "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce"
+    },
+    "frozen_development_panel": {
+      "path": "data/development/csi1000_open_pit_panel.parquet",
+      "sha256": "d409fd5c2d75497b31e7e6e4f663298c3e22a7bacdacf4cb562671c6b1bc7631",
+      "role": "already_materialized_2015_2020_feature_authority_no_recompute"
+    }
+  },
+  "transform": {
+    "scientific_change": false,
+    "row_filter_only": true,
+    "column_filter_only": true,
+    "exact_clock_filter_only": true,
+    "forward_fill": false,
+    "backward_fill": false,
+    "resampling": false,
+    "feature_engineering": false,
+    "nearest_clock_match": false
+  },
+  "factor_panel_columns": [
+    "trading_day",
+    "gap",
+    "r1",
+    "r20",
+    "rvol20",
+    "prev_daytime",
+    "prev_last_hour",
+    "prev_afternoon",
+    "holiday_reopen",
+    "weekend",
+    "prev_gap",
+    "overnight_trend_5",
+    "abs_r1",
+    "us_nasdaq",
+    "us_vix_chg"
+  ],
+  "clock_columns": [
+    "close_0935",
+    "close_0950",
+    "close_1005",
+    "close_1035"
+  ],
+  "clocks": [
+    "09:35",
+    "09:50",
+    "10:05",
+    "10:35"
+  ],
+  "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020
+  ],
+  "supported_year_window": [
+    2015,
+    2025
+  ],
+  "published_year_window": [
+    2015,
+    2020
+  ],
+  "withheld_years": [
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "withhold_reason": "2021-2025 row-level text would convert reusable BLACKBOX detailed rows into a public CSV pack and 2021-2025 factor values are not already materialized without reconstruction",
+  "outputs": {
+    "factor_panel": {
+      "2015": {
+        "path": "data/runtime_text_2015_2025/factor_panel_2015.csv",
+        "sha256": "6463091e0a4f536717a148144c8566f35b73c62e05694e1c73226024b80326af",
+        "row_count": 244,
+        "min_day": "2015-01-05",
+        "max_day": "2015-12-31",
+        "bytes": 66262,
+        "source_parquet_sha256": "d409fd5c2d75497b31e7e6e4f663298c3e22a7bacdacf4cb562671c6b1bc7631"
+      },
+      "2016": {
+        "path": "data/runtime_text_2015_2025/factor_panel_2016.csv",
+        "sha256": "f1c0abd8dfd6dd40f91c0b8c93ba6f3c4cf685efd0b04832e0e80d74a6c99f51",
+        "row_count": 244,
+        "min_day": "2016-01-04",
+        "max_day": "2016-12-30",
+        "bytes": 68395,
+        "source_parquet_sha256": "d409fd5c2d75497b31e7e6e4f663298c3e22a7bacdacf4cb562671c6b1bc7631"
+      },
+      "2017": {
+        "path": "data/runtime_text_2015_2025/factor_panel_2017.csv",
+        "sha256": "395bf508ef6595474dd9f17282aa2d740bc93e342afa81401c9b05d3cf66e247",
+        "row_count": 244,
+        "min_day": "2017-01-03",
+        "max_day": "2017-12-29",
+        "bytes": 69023,
+        "source_parquet_sha256": "d409fd5c2d75497b31e7e6e4f663298c3e22a7bacdacf4cb562671c6b1bc7631"
+      },
+      "2018": {
+        "path": "data/runtime_text_2015_2025/factor_panel_2018.csv",
+        "sha256": "2fa36707c38e9e312fb87a13787bf4126e2b275b5881b89b884d852b7874abdb",
+        "row_count": 243,
+        "min_day": "2018-01-02",
+        "max_day": "2018-12-28",
+        "bytes": 68063,
+        "source_parquet_sha256": "d409fd5c2d75497b31e7e6e4f663298c3e22a7bacdacf4cb562671c6b1bc7631"
+      },
+      "2019": {
+        "path": "data/runtime_text_2015_2025/factor_panel_2019.csv",
+        "sha256": "c183709b84e08225346242690089d8dc90edc4b4114bb0e731691241d91029be",
+        "row_count": 244,
+        "min_day": "2019-01-02",
+        "max_day": "2019-12-31",
+        "bytes": 68342,
+        "source_parquet_sha256": "d409fd5c2d75497b31e7e6e4f663298c3e22a7bacdacf4cb562671c6b1bc7631"
+      },
+      "2020": {
+        "path": "data/runtime_text_2015_2025/factor_panel_2020.csv",
+        "sha256": "8b15f82b78b6026f5fa48207fd7a15f0a5b0e6a79f1d41501d6a5c6c79730923",
+        "row_count": 243,
+        "min_day": "2020-01-02",
+        "max_day": "2020-12-31",
+        "bytes": 67718,
+        "source_parquet_sha256": "d409fd5c2d75497b31e7e6e4f663298c3e22a7bacdacf4cb562671c6b1bc7631"
+      }
+    },
+    "opening_clocks": {
+      "2015": {
+        "path": "data/runtime_text_2015_2025/opening_clocks_2015.csv",
+        "sha256": "30ff8c6d7b4ce69220d311c35e06b28bae3a8e4478c0224e0bb700fdc1147efa",
+        "row_count": 244,
+        "min_day": "2015-01-05",
+        "max_day": "2015-12-31",
+        "bytes": 18984,
+        "source_parquet_sha256": "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce"
+      },
+      "2016": {
+        "path": "data/runtime_text_2015_2025/opening_clocks_2016.csv",
+        "sha256": "7a4c0862be864dde63d90eb08466ad98d3c57daa2d05c874c5bc8acfaa059856",
+        "row_count": 244,
+        "min_day": "2016-01-04",
+        "max_day": "2016-12-30",
+        "bytes": 20624,
+        "source_parquet_sha256": "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce"
+      },
+      "2017": {
+        "path": "data/runtime_text_2015_2025/opening_clocks_2017.csv",
+        "sha256": "55605da083dc0d212e50cc1e82f4f85574daacfbd400588f6265dd4fd8b65cef",
+        "row_count": 244,
+        "min_day": "2017-01-03",
+        "max_day": "2017-12-29",
+        "bytes": 20011,
+        "source_parquet_sha256": "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce"
+      },
+      "2018": {
+        "path": "data/runtime_text_2015_2025/opening_clocks_2018.csv",
+        "sha256": "570f88b4604eab5887c8cc29d510e89d061c383e9afa803c179ab34548db7a42",
+        "row_count": 243,
+        "min_day": "2018-01-02",
+        "max_day": "2018-12-28",
+        "bytes": 19989,
+        "source_parquet_sha256": "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce"
+      },
+      "2019": {
+        "path": "data/runtime_text_2015_2025/opening_clocks_2019.csv",
+        "sha256": "8f6d3d420ea78ff1b86224c0dcf61c85a24506de78aa6f9106710c1493f7628a",
+        "row_count": 244,
+        "min_day": "2019-01-02",
+        "max_day": "2019-12-31",
+        "bytes": 19786,
+        "source_parquet_sha256": "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce"
+      },
+      "2020": {
+        "path": "data/runtime_text_2015_2025/opening_clocks_2020.csv",
+        "sha256": "689986dd671b2acebee190ff684f327d3e934d90ca3346015e75ee9af9854d0e",
+        "row_count": 243,
+        "min_day": "2020-01-02",
+        "max_day": "2020-12-31",
+        "bytes": 19786,
+        "source_parquet_sha256": "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce"
+      }
+    }
+  },
+  "evidence_role": "connector_readable_runtime_carrier_not_new_scientific_authority",
+  "production_authority": false
+}

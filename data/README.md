@@ -22,6 +22,12 @@ It also contains the bounded connector-readable text carrier:
 
 That CSV pack contains only the already-opened 2019-2020 development slice and is bound to the original parquet sources by SHA256 lineage. It may be used for cloud development diagnostics such as C1/C2 without changing the evidence boundary.
 
+## `runtime_text_2015_2025/`
+
+Connector-readable runtime carrier for the already-open **2015-2020** development interval. It is a year-split text projection of the frozen factor panel plus exact opening clocks (`09:35`, `09:50`, `10:05`, `10:35`). It is not a new scientific dataset, not a new factor authority, and not a 2021-2025 BLACKBOX export.
+
+Physical/textual accessibility does not by itself grant evidence authority.
+
 ## `high_open_dev_2015_2025/`
 
 CSI1000 carrier through 2025-12-31 plus FRED NASDAQ/VIX histories.
