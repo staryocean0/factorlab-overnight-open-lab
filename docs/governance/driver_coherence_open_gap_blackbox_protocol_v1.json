@@ -1,0 +1,100 @@
+{
+  "schema_id": "overnight_driver_coherence_open_gap_blackbox_protocol@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_driver_coherence_open_gap_v1",
+  "parent_development_identity": "overnight_driver_coherence_v1",
+  "product_family": "OFP-B4_driver_agreement_disagreement",
+  "parent_development_authority": "docs/research/driver_agreement_disagreement_dev_cloud_adjudication_20260912.md",
+  "candidate_factor": "driver_coherence",
+  "candidate_formula": "(global_risk_z + china_offshore_z + fx_cny_z) / (abs(global_risk_z) + abs(china_offshore_z) + abs(fx_cny_z))",
+  "normalization": {
+    "method": "lagged_trailing_RMS",
+    "window_china_trading_days": 60,
+    "minimum_prior_valid_observations": 20,
+    "current_observation_excluded": true,
+    "nasdaq_risk_z": "us_nasdaq / rms60_prev(us_nasdaq)",
+    "vix_risk_z": "-us_vix_chg / rms60_prev(us_vix_chg)",
+    "global_risk_z": "0.5 * (nasdaq_risk_z + vix_risk_z)",
+    "china_offshore_z": "a50_channel_return / rms60_prev(a50_channel_return)",
+    "fx_cny_z": "-hkma_usdcny_closure_return / rms60_prev(hkma_usdcny_closure_return)"
+  },
+  "target": "opening_gap_rvol",
+  "target_formula": "gap / rvol20",
+  "baseline_controls": [
+    "r1",
+    "r20",
+    "abs_r1",
+    "prev_gap",
+    "overnight_trend_5",
+    "prev_daytime",
+    "prev_last_hour",
+    "prev_afternoon",
+    "log_rvol20",
+    "weekend",
+    "holiday_reopen",
+    "global_risk_z",
+    "china_offshore_z",
+    "fx_cny_z"
+  ],
+  "candidate_increment": ["driver_coherence"],
+  "fit_window": "2015-01-05..2020-12-31",
+  "blackbox_window": "2021-01-01..2025-12-31",
+  "fit_method": {
+    "model": "ordinary_least_squares_with_intercept",
+    "same_complete_case_train_sample_for_baseline_and_candidate": true,
+    "same_complete_case_blackbox_sample_for_baseline_and_candidate": true,
+    "retuning_inside_blackbox": false
+  },
+  "source_contract": {
+    "panel_reconstruction_contract": "docs/governance/v6a_base_panel_reconstruction_contract_20260910.json",
+    "external_source_manifest": "data/v6a_external_sources_2015_2025/manifest.json",
+    "same_contract_A50_required": true,
+    "ordinary_A50_cutoff": "<09:15:00",
+    "holiday_A50_cutoff": "<09:25:00",
+    "HKMA_target_observation_strictly_before_china_trading_day": true,
+    "forward_fill_or_interpolation": false
+  },
+  "sufficiency_gates": {
+    "development_complete_cases_minimum": 900,
+    "blackbox_complete_cases_minimum": 900,
+    "blackbox_complete_case_coverage_minimum": 0.85,
+    "ordinary_A50_coverage_minimum": 0.90,
+    "source_integrity_required": true
+  },
+  "pass_gates": {
+    "candidate_blackbox_sse_strictly_below_baseline": true,
+    "candidate_blackbox_r2_strictly_above_baseline": true,
+    "candidate_blackbox_ic_not_below_baseline": true,
+    "candidate_blackbox_sign_accuracy_not_below_baseline_minus": 0.005,
+    "minimum_natural_years_candidate_sse_below_baseline": 3,
+    "minimum_natural_years_candidate_ic_not_below_baseline": 3,
+    "pooled_blackbox_partial_correlation_must_match_DEV_negative_sign": true,
+    "minimum_natural_years_partial_correlation_matching_DEV_negative_sign": 3
+  },
+  "decision_logic": {
+    "INSUFFICIENT": "any source/timing/sufficiency gate fails",
+    "PASS": "all pass_gates hold after sufficiency passes",
+    "FAIL": "sufficiency passes but at least one pass gate fails"
+  },
+  "public_output_contract": {
+    "allowed_decisions": ["PASS", "FAIL", "INSUFFICIENT"],
+    "hidden_metrics_may_be_persisted": false,
+    "yearly_results_may_be_persisted": false,
+    "quarterly_results_may_be_persisted": false,
+    "counts_may_be_persisted": false,
+    "dates_or_events_may_be_persisted": false,
+    "failure_attribution_may_be_persisted": false,
+    "public_detail_release": false
+  },
+  "reuse_policy": {
+    "same_2021_2025_physical_window_is_reusable": true,
+    "reuse_creates_independent_OOS": false,
+    "hidden_behavior_may_design_successor": false
+  },
+  "threshold_search_authorized": false,
+  "driver_weight_search_authorized": false,
+  "alternate_normalization_search_authorized": false,
+  "alternate_target_search_authorized": false,
+  "strategy_backtest_authorized": false,
+  "production_authority": false
+}
