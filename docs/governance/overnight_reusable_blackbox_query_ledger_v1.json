@@ -1,8 +1,8 @@
 {
-  "schema_id": "overnight_reusable_blackbox_query_ledger@1.1",
-  "session_date": "2026-09-10",
+  "schema_id": "overnight_reusable_blackbox_query_ledger@1.2",
+  "session_date": "2026-09-11",
   "blackbox_window": "2021-01-01..2025-12-31",
-  "query_count": 1,
+  "query_count": 2,
   "queries": [
     {
       "ordinal": 1,
@@ -18,6 +18,25 @@
       "technical_retry_counted_as_separate_query": false,
       "blackbox_reusable_after_query": true,
       "blackbox_consumed_as_one_time_data": false,
+      "production_authority": false
+    },
+    {
+      "ordinal": 2,
+      "query_id": "5a27b953276382e473c0",
+      "research_identity": "overnight_trend_conditioned_open_state_15m_v1",
+      "comparator": "same_controls_without_trend_gap_interaction",
+      "decision": "PASS",
+      "receipt": "docs/research/local_trend_conditioned_open_state_15m_blackbox_receipt_v1.json",
+      "receipt_commit": "61899e85ba92c4ea2718c3ce513c49c402661bc0",
+      "protocol_sha256": "2c8d54a15da228f1025558b7b6bbb287a2cedcbd480761174c441d520739db2c",
+      "source_manifest_sha256": "7e17d6b9d8ea147b4320cd8b495e56989f973fef3c5e26ad1fe4cb9d01c4cdb5",
+      "reconstruction_contract_sha256": "2c497f403959daa39819518b6352fa32ae0a0e4029e1d54dae1811762c770598",
+      "public_detail_release": false,
+      "internal_metrics_persisted": false,
+      "technical_retry_counted_as_separate_query": false,
+      "blackbox_reusable_after_query": true,
+      "blackbox_consumed_as_one_time_data": false,
+      "reuse_is_independent_oos": false,
       "production_authority": false
     }
   ],
