@@ -1,0 +1,78 @@
+{
+  "schema_id": "overnight_volatility_conditioned_open_state_protocol@1.0",
+  "session_date": "2026-09-11",
+  "research_identity": "overnight_volatility_conditioned_open_state_v1",
+  "program": "docs/governance/overnight_factor_product_program_v1.md",
+  "registry": "docs/governance/overnight_factor_product_registry_v1.json",
+  "product_family": "OFP-C2_prior_volatility_context_x_OFP-A2_observed_open_geometry",
+  "phase": "mechanism_diagnostic",
+  "purpose": "Test whether continuous pre-open realized-volatility context changes the short-horizon meaning of the observed CSI1000 opening gap after controlling for the validated C1 trend-conditioned interaction.",
+  "development_window": "2019-01-01..2020-12-31",
+  "development_text_pack": "data/development/trend_open_state_dev_pack_2019_2020/",
+  "forbidden_windows": [
+    "2021-01-01..2025-12-31 detailed rows / years / quarters / events for this identity",
+    "2026 and later outcomes"
+  ],
+  "factor_definitions": {
+    "observed_gap_rvol": "observed_gap / rvol20",
+    "trend20_rvol": "r20 / (sqrt(20) * rvol20)",
+    "trend_gap_interaction": "observed_gap_rvol * trend20_rvol",
+    "log_rvol20": "log(rvol20)",
+    "vol_gap_interaction": "observed_gap_rvol * log_rvol20"
+  },
+  "complete_case": {
+    "rvol20_must_be_finite": true,
+    "rvol20_must_be_positive": true,
+    "epsilon_floor": false
+  },
+  "availability": {
+    "rvol20": "pre_open",
+    "log_rvol20": "pre_open",
+    "observed_gap_rvol": "after 09:31 opening observation",
+    "vol_gap_interaction": "after 09:31 opening observation",
+    "downstream_reference_clock": "09:35"
+  },
+  "short_horizon_information_targets": [
+    {"id": "ret_0935_0950", "start_clock": "09:35", "end_clock": "09:50"},
+    {"id": "ret_0935_1005", "start_clock": "09:35", "end_clock": "10:05"},
+    {"id": "ret_0935_1035", "start_clock": "09:35", "end_clock": "10:35"}
+  ],
+  "baseline_controls": [
+    "observed_gap_rvol",
+    "log_rvol20",
+    "trend20_rvol",
+    "trend_gap_interaction",
+    "r1",
+    "prev_daytime",
+    "holiday_reopen"
+  ],
+  "candidate_increment": ["vol_gap_interaction"],
+  "diagnostics": [
+    "pooled_partial_correlation",
+    "2019_partial_correlation",
+    "2020_partial_correlation",
+    "baseline_r2",
+    "candidate_r2",
+    "delta_r2",
+    "standardized_interaction_coefficient",
+    "complete_case_count"
+  ],
+  "relationship_to_C1": "C1 is a validated baseline control; C2 must show incremental volatility-conditioning information beyond observed gap, volatility level, trend level and the validated trend x gap interaction.",
+  "auto_promotion": false,
+  "main_agent_review_required": true,
+  "candidate_family_search": false,
+  "volatility_bucket_search": false,
+  "threshold_search": false,
+  "alternate_volatility_lookback_search": false,
+  "horizon_search": false,
+  "trend_bucket_search": false,
+  "opening_surprise_rescue": false,
+  "trading_return_optimization": false,
+  "position_sizing": false,
+  "cost_model_used": false,
+  "reusable_blackbox_2021_2025_open_authorized": false,
+  "condition_for_later_blackbox": "main-agent adjudication supports a stable continuous volatility x opening-gap coordinate and a separate aggregate-lockbox protocol is frozen first",
+  "categorical_high_low_vol_authority": false,
+  "downstream_strategy_authority": false,
+  "production_authority": false
+}
