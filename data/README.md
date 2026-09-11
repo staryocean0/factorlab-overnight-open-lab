@@ -24,6 +24,12 @@ That CSV pack contains only the already-opened 2019-2020 development slice and i
 
 ## `runtime_text_2015_2025/`
 
+Connector-readable yearly CSV carrier for cloud development execution. The intended technical window is 2015-2025, but only 2015-2020 text shards are materialized. This is a runtime carrier, not a new scientific dataset, fresh OOS, factor authority, or production dataset.
+
+Physical/textual accessibility does not by itself grant evidence authority. Do not add 2021-2025 row-level CSV shards.
+
+## `runtime_text_2015_2025/`
+
 Connector-readable runtime carrier for the already-open **2015-2020** development interval. It is a year-split text projection of the frozen factor panel plus exact opening clocks (`09:35`, `09:50`, `10:05`, `10:35`). It is not a new scientific dataset, not a new factor authority, and not a 2021-2025 BLACKBOX export.
 
 Physical/textual accessibility does not by itself grant evidence authority.

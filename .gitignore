@@ -5,3 +5,15 @@ __pycache__/
 .ruff_cache/
 *.egg-info/
 *.log
+
+# Reusable BLACKBOX row-level text shards must never be committed.
+data/runtime_text_2015_2025/factor_panel_2021.csv
+data/runtime_text_2015_2025/factor_panel_2022.csv
+data/runtime_text_2015_2025/factor_panel_2023.csv
+data/runtime_text_2015_2025/factor_panel_2024.csv
+data/runtime_text_2015_2025/factor_panel_2025.csv
+data/runtime_text_2015_2025/opening_clocks_2021.csv
+data/runtime_text_2015_2025/opening_clocks_2022.csv
+data/runtime_text_2015_2025/opening_clocks_2023.csv
+data/runtime_text_2015_2025/opening_clocks_2024.csv
+data/runtime_text_2015_2025/opening_clocks_2025.csv

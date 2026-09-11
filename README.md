@@ -116,4 +116,6 @@ Its completed reusable 2021-2025 BLACKBOX decision is `PASS`; hidden details rem
 
 The connector-readable CSV carrier under `data/development/trend_open_state_dev_pack_2019_2020/` is limited to the already-opened 2019-2020 development interval. It does not expose the reusable 2021-2025 BLACKBOX.
 
+The yearly runtime text pack under `data/runtime_text_2015_2025/` is also connector-readable, but only 2015-2020 shards are present. It does not replace parquet provenance and does not open the reusable 2021-2025 BLACKBOX.
+
 Read `data/README.md` and `docs/governance/package_scope.json` for data boundaries. Historical files are not automatically active; `docs/governance/current_authority_v1.json` is the canonical execution pointer.

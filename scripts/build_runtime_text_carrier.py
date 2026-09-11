@@ -135,8 +135,13 @@ def load_frozen_factor_panel(path: Path) -> pd.DataFrame:
     return out
 
 
-def load_annotated_days(path: Path) -> pd.DataFrame:
-    frame = pd.read_parquet(path, columns=["symbol", "trading_day"])
+def load_annotated_days(path: Path, start: str | None = None, end: str | None = None) -> pd.DataFrame:
+    filters: list[tuple[str, str, str]] = [("symbol", "==", INSTRUMENT)]
+    if start is not None:
+        filters.append(("trading_day", ">=", start))
+    if end is not None:
+        filters.append(("trading_day", "<=", end))
+    frame = pd.read_parquet(path, columns=["symbol", "trading_day"], filters=filters)
     frame = frame.loc[frame["symbol"].astype(str) == INSTRUMENT, ["trading_day"]].copy()
     frame["trading_day"] = normalize_trading_day(frame["trading_day"])
     frame = frame.sort_values("trading_day", kind="mergesort").reset_index(drop=True)
@@ -145,11 +150,23 @@ def load_annotated_days(path: Path) -> pd.DataFrame:
 
 
 def extract_exact_clocks(path: Path, days: pd.Series) -> pd.DataFrame:
-    bars = pd.read_parquet(path, columns=["symbol", "trading_day", "timestamp", "close"])
+    spine_days = pd.Series(days.astype(str).drop_duplicates().sort_values().to_numpy())
+    if spine_days.empty:
+        raise RuntimeError("exact-clock extraction requires a trading_day spine")
+    bars = pd.read_parquet(
+        path,
+        columns=["symbol", "trading_day", "timestamp", "close"],
+        filters=[
+            ("symbol", "==", INSTRUMENT),
+            ("trading_day", ">=", str(spine_days.min())),
+            ("trading_day", "<=", str(spine_days.max())),
+        ],
+    )
     bars = bars.loc[bars["symbol"].astype(str) == INSTRUMENT].copy()
     if bars.empty:
         raise RuntimeError(f"minute bars contain no rows for {INSTRUMENT}")
     bars["trading_day"] = normalize_trading_day(bars["trading_day"])
+    bars = bars.loc[bars["trading_day"].isin(set(spine_days))].copy()
     timestamps = bars["timestamp"].astype(str)
     if not timestamps.str.match(TIMESTAMP_PREFIX_RE).all():
         raise RuntimeError("unexpected minute timestamp format; refusing implicit clock inference")
@@ -325,7 +342,7 @@ def main() -> int:
     if not years:
         raise RuntimeError("no publishable years remain after BLACKBOX withhold")
 
-    annotated_days = load_annotated_days(args.annotated_panel)
+    annotated_days = load_annotated_days(args.annotated_panel, start=PARITY_START, end=PARITY_END)
     frozen = load_frozen_factor_panel(args.frozen_panel)
     frozen = frozen.loc[frozen["trading_day"].between(PARITY_START, PARITY_END)].reset_index(drop=True)
     annotated_dev = annotated_days.loc[annotated_days["trading_day"].between(PARITY_START, PARITY_END)].reset_index(drop=True)
