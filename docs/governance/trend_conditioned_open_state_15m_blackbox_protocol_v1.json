@@ -1,0 +1,84 @@
+{
+  "schema_id": "overnight_trend_conditioned_open_state_15m_blackbox_protocol@1.0",
+  "session_date": "2026-09-11",
+  "research_identity": "overnight_trend_conditioned_open_state_15m_v1",
+  "parent_development_identity": "overnight_trend_conditioned_open_state_v1",
+  "parent_adjudication": "docs/research/trend_conditioned_open_state_dev_cloud_adjudication_20260911.md",
+  "product_family": "OFP-C1_prior_trend_context_x_OFP-A2_observed_open_geometry",
+  "blackbox_policy": "docs/governance/overnight_reusable_blackbox_policy_v1.json",
+  "blackbox_window": "2021-01-01..2025-12-31",
+  "data_role": "reusable_blackbox_validation",
+  "factor_definitions": {
+    "observed_gap_rvol": "observed_gap / rvol20",
+    "trend20_rvol": "r20 / (sqrt(20) * rvol20)",
+    "trend_gap_interaction": "observed_gap_rvol * trend20_rvol"
+  },
+  "target": {
+    "id": "ret_0935_0950",
+    "start_clock": "09:35",
+    "end_clock": "09:50"
+  },
+  "baseline_controls": [
+    "observed_gap_rvol",
+    "trend20_rvol",
+    "r1",
+    "prev_daytime",
+    "holiday_reopen"
+  ],
+  "candidate_increment": ["trend_gap_interaction"],
+  "complete_case": {
+    "rvol20_must_be_finite": true,
+    "rvol20_must_be_positive": true,
+    "epsilon_floor": false
+  },
+  "internal_sufficiency_gates": {
+    "pooled_complete_cases_min": 600,
+    "each_calendar_year_complete_cases_min": 100
+  },
+  "internal_scientific_gates": {
+    "pooled_partial_correlation": "< 0",
+    "pooled_standardized_interaction_coefficient": "< 0",
+    "negative_calendar_year_coefficient_count_min": 4,
+    "calendar_year_count": 5,
+    "median_calendar_year_coefficient": "< 0",
+    "moving_block_bootstrap": {
+      "block_length_trading_days": 20,
+      "resamples": 1000,
+      "seed": 20260911,
+      "negative_coefficient_support_min": 0.90
+    }
+  },
+  "decision_rule": {
+    "INSUFFICIENT": "any frozen sufficiency gate fails before scientific adjudication",
+    "PASS": "all frozen scientific gates pass after sufficiency passes",
+    "FAIL": "sufficiency passes and one or more scientific gates fail"
+  },
+  "public_output_enum": ["PASS", "FAIL", "INSUFFICIENT"],
+  "public_detail_release": false,
+  "forbidden_public_outputs": [
+    "exact_metrics",
+    "sample_counts",
+    "year_or_quarter_breakdowns",
+    "calendar_year_signs",
+    "dates_or_event_rows",
+    "bootstrap_statistics",
+    "subgroup_or_regime_breakdowns",
+    "failure_examples",
+    "internal_gate_details"
+  ],
+  "source_manifest": "data/high_open_dev_2015_2025/manifest.json",
+  "base_manifest": "data/manifest.json",
+  "reconstruction_contract": "docs/governance/v6a_base_panel_reconstruction_contract_20260910.json",
+  "temporary_reconstructed_panel_must_not_be_committed": true,
+  "categorical_up_range_down_authority": false,
+  "trend_bucket_search_authorized": false,
+  "threshold_search_authorized": false,
+  "alternate_horizon_search_authorized": false,
+  "alternate_lookback_search_authorized": false,
+  "volatility_conditioning_authorized": false,
+  "trading_return_optimization_authorized": false,
+  "blackbox_behavior_may_design_successor": false,
+  "blackbox_reusable_after_query": true,
+  "reuse_does_not_create_independent_oos": true,
+  "production_authority": false
+}
