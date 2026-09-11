@@ -1,0 +1,76 @@
+{
+  "schema_id": "overnight_previous_china_session_shape_protocol@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_previous_session_last_hour_conditioned_open_state_v1",
+  "program": "docs/governance/overnight_factor_product_program_v1.md",
+  "product_family": "OFP-C3_previous_china_session_shape_x_OFP-A2_observed_open_geometry",
+  "phase": "mechanism_diagnostic",
+  "development_window": "2015-01-05..2020-12-31",
+  "development_carrier": "data/runtime_text_2015_2025/",
+  "development_carrier_parity_receipt": "docs/research/runtime_text_carrier_parity_receipt_v1.json",
+  "forbidden_windows": [
+    "2021-01-01..2025-12-31 detailed rows / years / quarters / events",
+    "2026 and later outcomes"
+  ],
+  "factor_definitions": {
+    "observed_gap_rvol": "gap / rvol20",
+    "last_hour_rvol": "prev_last_hour / rvol20",
+    "trend20_rvol": "r20 / (sqrt(20) * rvol20)",
+    "trend_gap_interaction": "observed_gap_rvol * trend20_rvol",
+    "log_rvol20": "log(rvol20)",
+    "last_hour_gap_interaction": "last_hour_rvol * observed_gap_rvol"
+  },
+  "complete_case": {
+    "rvol20_must_be_finite": true,
+    "rvol20_must_be_positive": true,
+    "epsilon_floor": false
+  },
+  "targets": [
+    {"id": "ret_0935_0950", "start_clock": "09:35", "end_clock": "09:50"},
+    {"id": "ret_0935_1005", "start_clock": "09:35", "end_clock": "10:05"},
+    {"id": "ret_0935_1035", "start_clock": "09:35", "end_clock": "10:35"}
+  ],
+  "baseline_controls": [
+    "observed_gap_rvol",
+    "last_hour_rvol",
+    "prev_daytime",
+    "trend20_rvol",
+    "trend_gap_interaction",
+    "log_rvol20",
+    "r1",
+    "holiday_reopen"
+  ],
+  "candidate_increment": ["last_hour_gap_interaction"],
+  "diagnostics": [
+    "pooled_partial_correlation",
+    "annual_partial_correlation_2015_2020",
+    "baseline_r2",
+    "candidate_r2",
+    "delta_r2",
+    "standardized_interaction_coefficient",
+    "complete_case_count"
+  ],
+  "development_progression_rule": {
+    "pooled_partial_corr_and_standardized_coefficient_same_sign": true,
+    "annual_standardized_coefficient_matches_pooled_sign_min": 4,
+    "annual_year_count": 6,
+    "median_annual_standardized_coefficient_matches_pooled_sign": true,
+    "pooled_delta_r2_positive": true,
+    "annual_delta_r2_positive_count_min": 4
+  },
+  "relationship_to_C1": "validated C1 trend_gap_interaction is a baseline control",
+  "relationship_to_C2": "C2 60m BLACKBOX remains frozen but unopened; its interaction is not imported into C3 design or baseline",
+  "auto_promotion": false,
+  "main_agent_review_required": true,
+  "candidate_family_search": false,
+  "prev_afternoon_search": false,
+  "alternate_session_window_search": false,
+  "threshold_search": false,
+  "bucket_search": false,
+  "horizon_search": false,
+  "trading_return_optimization": false,
+  "cost_model_used": false,
+  "reusable_blackbox_2021_2025_open_authorized": false,
+  "downstream_strategy_authority": false,
+  "production_authority": false
+}
