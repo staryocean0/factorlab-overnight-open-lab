@@ -1,5 +1,5 @@
 {
-  "schema_id": "overnight_factor_product_registry@1.6",
+  "schema_id": "overnight_factor_product_registry@1.7",
   "session_date": "2026-09-12",
   "program": "docs/governance/overnight_factor_product_program_v1.md",
   "repository_role": "overnight_open_factor_product_laboratory_and_downstream_factor_adapter",
@@ -63,10 +63,23 @@
     {
       "product_id": "OFP-B4",
       "name": "driver_agreement_disagreement",
-      "status": "planned_research_cloud_carrier_pending_for_A50_HKMA_sources",
+      "status": "validated_BLACKBOX_PASS_continuous_driver_coherence_factor_product",
       "availability": "pre_open",
-      "execution_order_note": "retains scientific priority after C3 development; cloud execution waits for connector-readable causal driver carrier and does not justify opening any BLACKBOX",
-      "consumer_roles": ["timing_filter", "risk", "confidence"]
+      "research_identity": "overnight_driver_coherence_open_gap_v1",
+      "parent_development_identity": "overnight_driver_coherence_v1",
+      "development_receipt": "docs/research/cloud_driver_agreement_disagreement_dev_diagnostic_v1.json",
+      "development_authority": "docs/research/driver_agreement_disagreement_dev_cloud_adjudication_20260912.md",
+      "blackbox_protocol": "docs/governance/driver_coherence_open_gap_blackbox_protocol_v1.json",
+      "blackbox_receipt": "docs/research/local_driver_coherence_open_gap_blackbox_receipt_v1.json",
+      "blackbox_authority": "docs/research/driver_coherence_open_gap_blackbox_cloud_adjudication_20260912.md",
+      "blackbox_query_id": "33ccb040dd0d1822f3b6",
+      "validated_coordinate": "driver_coherence",
+      "validated_formula": "(global_risk_z + china_offshore_z + fx_cny_z) / (abs(global_risk_z) + abs(china_offshore_z) + abs(fx_cny_z))",
+      "validated_target": "opening_gap_rvol",
+      "driver_runtime_carrier": "data/driver_runtime_text_2015_2020/",
+      "consumer_roles": ["timing_filter", "risk", "confidence"],
+      "categorical_agreement_disagreement_authority": false,
+      "alternate_driver_weight_authority": false
     },
     {
       "product_id": "OFP-C1",
@@ -144,8 +157,8 @@
   "active_research_identity": null,
   "deferred_frozen_identity": "overnight_volatility_conditioned_open_state_60m_v1",
   "waiting_validation_identity": "overnight_previous_session_last_hour_conditioned_open_state_v1",
-  "next_research_identity": "driver_agreement_disagreement",
-  "next_research_blocker": "connector-readable causal A50/HKMA driver carrier not yet prepared for B4 development",
+  "next_research_identity": "relative_index_opening_leadership",
+  "next_research_note": "OFP-D1 requires a new independent identity and a source/inventory audit; it must not rescue or reuse the closed V2.1 P2 identity.",
   "cartesian_feature_factory_forbidden": true,
   "downstream_strategy_return_may_define_upstream_factor": false,
   "production_authority": false
