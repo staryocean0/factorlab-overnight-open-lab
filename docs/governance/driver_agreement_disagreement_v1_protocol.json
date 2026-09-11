@@ -1,0 +1,104 @@
+{
+  "schema_id": "overnight_driver_agreement_disagreement_protocol@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_driver_coherence_v1",
+  "product_family": "OFP-B4_driver_agreement_disagreement",
+  "phase": "mechanism_diagnostic",
+  "availability": "pre_open_before_frozen_A50_cutoff",
+  "development_window": "2015-01-05..2020-12-31",
+  "factor_runtime_root": "data/runtime_text_2015_2025",
+  "driver_runtime_root": "data/driver_runtime_text_2015_2020",
+  "target": "opening_gap_rvol",
+  "target_formula": "gap / rvol20",
+  "normalization": {
+    "method": "lagged_trailing_RMS",
+    "window_china_trading_days": 60,
+    "minimum_prior_valid_observations": 20,
+    "current_observation_excluded": true,
+    "formula": "sqrt(mean(x^2 over previous up-to-60 valid observations))",
+    "mean_subtraction": false,
+    "winsorization": false,
+    "clipping": false,
+    "outcome_derived_scaling": false
+  },
+  "channel_coordinates": {
+    "nasdaq_risk_z": "us_nasdaq / rms60_prev(us_nasdaq)",
+    "vix_risk_z": "-us_vix_chg / rms60_prev(us_vix_chg)",
+    "global_risk_z": "0.5 * (nasdaq_risk_z + vix_risk_z)",
+    "china_offshore_z": "a50_channel_return / rms60_prev(a50_channel_return)",
+    "fx_cny_z": "-hkma_usdcny_closure_return / rms60_prev(hkma_usdcny_closure_return)"
+  },
+  "candidate_increment": [
+    "driver_coherence"
+  ],
+  "candidate_formula": "(global_risk_z + china_offshore_z + fx_cny_z) / (abs(global_risk_z) + abs(china_offshore_z) + abs(fx_cny_z))",
+  "candidate_zero_denominator_behavior": "missing",
+  "baseline_controls": [
+    "r1",
+    "r20",
+    "abs_r1",
+    "prev_gap",
+    "overnight_trend_5",
+    "prev_daytime",
+    "prev_last_hour",
+    "prev_afternoon",
+    "log_rvol20",
+    "weekend",
+    "holiday_reopen",
+    "global_risk_z",
+    "china_offshore_z",
+    "fx_cny_z"
+  ],
+  "diagnostics": [
+    "partial_correlation_after_baseline_residualization",
+    "baseline_r2",
+    "candidate_r2",
+    "delta_r2",
+    "standardized_driver_coherence_coefficient",
+    "complete_case_count"
+  ],
+  "count_sufficiency": {
+    "minimum_each_natural_year": 150,
+    "minimum_pooled": 900
+  },
+  "development_progression_rule": {
+    "pooled_partial_corr_and_standardized_coefficient_same_nonzero_sign": true,
+    "minimum_annual_standardized_coefficients_sharing_pooled_sign": 4,
+    "annual_median_standardized_coefficient_must_share_pooled_sign": true,
+    "pooled_delta_r2_must_be_positive": true,
+    "minimum_annual_positive_delta_r2": 4,
+    "auto_product_promotion": false
+  },
+  "source_authorities": {
+    "program": "docs/governance/overnight_factor_product_program_v1.md",
+    "v6a_external_source_manifest": "data/v6a_external_sources_2015_2025/manifest.json",
+    "driver_text_carrier_manifest": "data/driver_runtime_text_2015_2020/manifest.json",
+    "driver_text_carrier_receipt": "docs/research/driver_runtime_text_carrier_parity_receipt_v1.json",
+    "preanalysis": "docs/research/driver_agreement_disagreement_preanalysis_20260912.md"
+  },
+  "evidence_boundaries": {
+    "detailed_2015_2020_allowed": true,
+    "detailed_2021_2025_allowed": false,
+    "reusable_blackbox_2021_2025_open_authorized": false,
+    "post_2020_text_shards_allowed": false,
+    "post_2026_08_21_outcomes_allowed": false
+  },
+  "search_prohibitions": {
+    "alternate_normalization_window_search": true,
+    "alternate_scale_family_search": true,
+    "driver_weight_search": true,
+    "channel_drop_add_search": true,
+    "pairwise_agreement_search": true,
+    "threshold_search": true,
+    "bucket_search": true,
+    "alternate_target_search": true,
+    "post_open_horizon_search": true,
+    "opening_surprise_rescue": true,
+    "trading_return_optimization": true,
+    "cost_or_position_sizing_search": true
+  },
+  "blackbox_2021_2025_opened": false,
+  "blackbox_authorized": false,
+  "strategy_backtest_authorized": false,
+  "production_authority": false
+}
