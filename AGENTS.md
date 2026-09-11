@@ -6,19 +6,19 @@ Before doing anything substantial, read:
 
 1. `docs/governance/current_authority_v1.json`
 2. `docs/governance/overnight_factor_product_registry_v1.json`
-3. the active identity's state + protocol
+3. the active identity state + protocol
 4. `docs/ops/README.md`
 
-For any model, factor-family, routing, strategy, robustness, account, or cross-period change, also follow:
+For any model, factor-family, routing, strategy, robustness, account, or cross-period change, also follow `.codex/skills/strategy-slice-rebuild/SKILL.md`.
 
-`.codex/skills/strategy-slice-rebuild/SKILL.md`
+`production_authority=false`.
 
 ## Scope
 
 In scope:
 
 - expected and observed China opening state;
-- opening-gap normalization and short-horizon residual information;
+- gap normalization and short-horizon opening information;
 - Gap-Fill hazards;
 - global / offshore-China / FX Overnight drivers;
 - causal trend/volatility/session-shape context;
@@ -34,27 +34,25 @@ Out of scope:
 - pretending the CSI1000 cash index is directly executable/shortable;
 - live registry mutation or production deployment.
 
-`production_authority=false`.
-
 ## Current active task
 
 The only active research identity is:
 
-`overnight_trend_conditioned_open_state_v1`
+`overnight_trend_conditioned_open_state_15m_v1`
 
 Status:
 
-`mechanism_diagnostic_frozen_pending_local_2019_2020_execution`
+`frozen_reusable_BLACKBOX_authorized_pending_local_execution`
 
 Authority:
 
-- protocol: `docs/governance/trend_conditioned_open_state_v1_protocol.json`
-- state: `docs/governance/trend_conditioned_open_state_v1_state.json`
-- preanalysis: `docs/research/trend_conditioned_open_state_preanalysis_20260911.md`
-- handoff: `docs/ops/trend_conditioned_open_state_dev_handoff_20260911.md`
-- runner: `scripts/run_trend_conditioned_open_state_dev.sh`
+- state: `docs/governance/trend_conditioned_open_state_15m_state_v1.json`
+- protocol: `docs/governance/trend_conditioned_open_state_15m_blackbox_protocol_v1.json`
+- handoff: `docs/ops/trend_conditioned_open_state_15m_blackbox_handoff_20260911.md`
+- runner: `scripts/run_trend_conditioned_open_state_15m_blackbox.sh`
+- reusable BLACKBOX policy: `docs/governance/overnight_reusable_blackbox_policy_v1.json`
 
-Frozen continuous coordinates:
+Frozen factor:
 
 ```text
 observed_gap_rvol = observed_gap / rvol20
@@ -62,20 +60,39 @@ trend20_rvol = r20 / (sqrt(20) * rvol20)
 trend_gap_interaction = observed_gap_rvol * trend20_rvol
 ```
 
-The baseline already includes `observed_gap_rvol` and `trend20_rvol`. The candidate adds exactly the interaction term.
+Frozen target:
 
-Detailed outcomes are authorized only for `2019-01-01..2020-12-31`.
+`09:35 -> 09:50`
 
-For this identity:
+The parent 2019-2020 DEV identity is complete and closed for selection. Cloud adjudication retained only this separately frozen 15-minute successor.
 
-- do not read detailed 2021-2025 outcomes;
-- do not read 2026 outcomes;
-- do not run trading-return optimization;
-- do not search `up/range/down` thresholds or trend quantile buckets;
-- do not search alternate trend lookbacks or target horizons;
-- do not add volatility conditioning;
-- do not add Opening Surprise terms as a rescue;
-- do not open a reusable BLACKBOX until cloud review freezes a later protocol.
+During the active BLACKBOX query:
+
+- public output must be exactly `PASS`, `FAIL`, or `INSUFFICIENT`;
+- do not expose exact metrics, counts, years, quarters, dates/events, yearly signs, bootstrap statistics, subgroup results, or internal gate details;
+- do not search alternate horizons;
+- do not create `up/range/down` thresholds or trend quantile buckets;
+- do not change the trend lookback or normalization;
+- do not add volatility conditioning or Opening Surprise terms;
+- do not use downstream strategy returns;
+- do not edit the reusable BLACKBOX ledger locally;
+- do not persist temporary reconstructed 2021-2025 factor rows.
+
+## Completed C1 DEV parent
+
+Parent identity:
+
+`overnight_trend_conditioned_open_state_v1`
+
+Cloud decision:
+
+`C1_DEV_PROGRESS_15M_CONTINUOUS_COORDINATE_ONLY`
+
+The 15-minute coefficient direction was stable across 2019 and 2020. The 30/60-minute coefficient directions were not stable and must not be revived as alternative choices after the fact.
+
+Adjudication:
+
+`docs/research/trend_conditioned_open_state_dev_cloud_adjudication_20260911.md`
 
 ## Closed Opening Surprise identity
 
@@ -85,72 +102,30 @@ Decision:
 
 `NO_STANDALONE_OPENING_SURPRISE_PRODUCT_PROMOTION_STABILITY_FAILURE`
 
-The coefficient changed sign between 2019 and 2020 at all three frozen horizons and pooled incremental information was very small. No 2021-2025 BLACKBOX was opened.
-
-Do not rescue A3 by changing thresholds, horizons, signs, tails, buckets, or interactions. Its execution entrypoint is archived under `archive/opening_surprise_completed_20260911/`.
+No 2021-2025 BLACKBOX was opened for A3. Do not rescue it by changing thresholds, horizons, signs, tails, buckets, or interactions.
 
 ## Product-shelf rule
 
-This repo is not a Cartesian feature factory.
-
-Prefer reusable causal coordinates with clear meaning:
-
-- expected open;
-- observed gap;
-- gap-fill probability;
-- driver attribution;
-- trend / volatility / session-shape context;
-- relative-index opening state.
-
-Continuous coordinates come before categorical views. A label such as `uptrend × high-open` is not automatically a factor product; thresholds must be frozen before the evidence used to judge them is opened.
+This repo is not a Cartesian feature factory. Prefer reusable causal coordinates with clear meaning. Continuous coordinates come before categorical adapter views. A label such as `uptrend × high-open` is not automatically a factor product; thresholds require a separately frozen identity and evidence boundary.
 
 Downstream strategy performance may validate a frozen adapter but may not teach or retune the upstream factor.
 
 ## Stable authority that must not be casually reopened
 
-### Next-open architecture
-
-Repository-wide accepted architecture:
+Repository-wide accepted next-open architecture:
 
 `median_quantile_sign + abs_frozen_clock_signed_prediction`
 
-### Global-spillover lineage
-
-Current single-head signed-gap baseline:
+Current global-spillover single-head baseline:
 
 `V6A_plus_ordinary_A50_preauction_closure`
 
-Its one reusable 2021-2025 BLACKBOX query returned `PASS`. Do not decompose hidden BLACKBOX behavior or use it to design a successor.
+Its completed reusable 2021-2025 BLACKBOX query returned `PASS`. Do not decompose that BLACKBOX or use hidden behavior to design a successor.
 
-### Gap-Fill V2
+Gap-Fill V2 remains frozen/repeat-confirmed, with its complete 2026-08-24..2026-12-31 true-fresh block separately gated.
 
-Frozen and repeat-confirmed. The complete `2026-08-24..2026-12-31` block remains the separately gated true-fresh challenge.
+V21 P2 is closed at DEV with no successor; do not rescue its frozen insufficiency or open sealed audits.
 
-### V2.1 P2
+## Archive / execution rule
 
-Closed at DEV with no successor because its frozen yearly sample gate was insufficient. Do not rescue it or open sealed audits.
-
-## Evidence / data rules
-
-Physical data presence does not grant evidence authority. Read the active state/protocol first.
-
-- 2021-2025 may be reusable aggregate BLACKBOX for separately frozen identities, but reuse is not a new independent OOS sample.
-- Detailed hidden BLACKBOX rows/years/quarters/events remain forbidden unless a protocol explicitly grants detailed development use.
-- Post-2026-08-21 outcomes remain sealed wherever current protocols require.
-- Do not substitute continuous A50/CFD/ETF proxies for the frozen same-contract SGX source identity.
-
-## Cloud-local collaboration
-
-When the user activates cloud-local collaboration, execution priority is:
-
-1. current cloud session if data/tools are available;
-2. local model through a minimal executable handoff;
-3. GitHub Actions only as a last resort and only when quota/authorization allow it.
-
-Do not dispatch Actions while the user has said quota is unavailable. Use `[skip ci]` for documentation/code commits where applicable.
-
-Local execution must not mutate authority/registry/BLACKBOX ledgers unless the handoff explicitly authorizes it. The cloud main agent reviews receipts and performs adjudication.
-
-## Archive
-
-Archived executables are provenance, not active work. Read `archive/README.md` and never run an archived entrypoint unless a new result-free protocol explicitly revives it.
+`docs/governance/current_authority_v1.json` is the only canonical pointer for active execution. Do not run an old handoff or script merely because it remains in Git. Archived entrypoints must not be revived without a new result-free protocol.
