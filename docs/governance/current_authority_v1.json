@@ -1,22 +1,23 @@
 {
-  "schema_id": "overnight_open_current_authority@1.0",
+  "schema_id": "overnight_open_current_authority@1.1",
   "session_date": "2026-09-11",
   "repository_role": "overnight_open_factor_product_laboratory_and_downstream_factor_adapter",
   "program": "docs/governance/overnight_factor_product_program_v1.md",
   "registry": "docs/governance/overnight_factor_product_registry_v1.json",
   "active_research": {
-    "identity": "overnight_open_surprise_factor_v1",
+    "identity": "overnight_trend_conditioned_open_state_v1",
     "status": "mechanism_diagnostic_frozen_pending_local_2019_2020_execution",
-    "protocol": "docs/governance/opening_surprise_factor_v1_protocol.json",
-    "state": "docs/governance/opening_surprise_factor_v1_state.json",
-    "preanalysis": "docs/research/opening_surprise_factor_preanalysis_20260910.md",
-    "handoff": "docs/ops/opening_surprise_factor_dev_handoff_20260910.md",
-    "runner": "scripts/run_opening_surprise_factor_dev.sh",
-    "expected_output": "docs/research/local_opening_surprise_factor_dev_diagnostic_v1.json",
+    "product_family": "OFP-C1_prior_trend_context_x_OFP-A2_observed_open_geometry",
+    "protocol": "docs/governance/trend_conditioned_open_state_v1_protocol.json",
+    "state": "docs/governance/trend_conditioned_open_state_v1_state.json",
+    "preanalysis": "docs/research/trend_conditioned_open_state_preanalysis_20260911.md",
+    "handoff": "docs/ops/trend_conditioned_open_state_dev_handoff_20260911.md",
+    "runner": "scripts/run_trend_conditioned_open_state_dev.sh",
+    "expected_output": "docs/research/local_trend_conditioned_open_state_dev_diagnostic_v1.json",
     "detailed_window": "2019-01-01..2020-12-31",
     "reusable_BLACKBOX_2021_2025_opened": false,
     "strategy_backtest_authorized": false,
-    "trend_bucket_search_authorized": false
+    "categorical_trend_bucket_search_authorized": false
   },
   "stable_products": {
     "repository_wide_next_open_architecture": "median_quantile_sign + abs_frozen_clock_signed_prediction",
@@ -26,6 +27,7 @@
     "Gap_Fill_V2": "frozen_repeat_confirmed_true_fresh_pending"
   },
   "closed_or_waiting": {
+    "Opening_Surprise_A3": "closed_after_DEV_no_standalone_product_promotion_stability_failure",
     "V6A_0935_to_close_strategy": "archived_closed_before_DEV_objective_mismatch",
     "V21_P2_successor": "closed_at_DEV_no_successor_evidence_insufficient",
     "Gap_Fill_V2_true_fresh": "wait_for_complete_2026_08_24_to_2026_12_31_and_protocol_date_gate"
@@ -39,11 +41,12 @@
     "Do not revive archived executable entrypoints as active work.",
     "Do not decompose the completed V6A 2021-2025 BLACKBOX.",
     "Do not use downstream strategy PnL to tune upstream factor definitions.",
-    "Do not create Cartesian regime buckets before the base coordinate shows incremental information.",
-    "Do not open 2021-2025 detailed outcomes for opening_surprise_factor_v1.",
+    "Do not rescue the closed Opening Surprise identity by post-hoc thresholds, horizons, buckets, or interactions.",
+    "The active C1 experiment must remain continuous: trend20_rvol x observed_gap_rvol; no up/range/down thresholds are authorized.",
+    "Do not open 2021-2025 detailed outcomes for the active trend-conditioned identity.",
     "Do not open post-2026-08-21 outcomes except under their separately frozen protocol.",
     "Production authority remains false."
   ],
-  "next_action": "local controller runs `bash scripts/run_opening_surprise_factor_dev.sh`, commits only the frozen 2019-2020 diagnostic receipt with [skip ci], then cloud reviews before any next factor family is created",
+  "next_action": "local controller runs `bash scripts/run_trend_conditioned_open_state_dev.sh`, commits only the frozen 2019-2020 diagnostic receipt with [skip ci], then cloud reviews before any categorical adapter view or BLACKBOX is created",
   "production_authority": false
 }
