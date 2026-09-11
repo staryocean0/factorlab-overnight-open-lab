@@ -1,128 +1,211 @@
 # FactorLab Overnight Open Lab
 
-Bounded cloud workspace for Overnight/Open factor research on the CSI1000 opening state. It is not the two-wave Layer 3 theme and must not be merged into `factorlab-two-wave-strategy-lab`.
+This repository is the **Overnight/Open factor-product laboratory** for FactorLab.
+Its job is not to force one Overnight predictor into a standalone all-day trading
+strategy. Its job is to research, validate, and package information about the
+next China open so downstream timing, stock-selection, execution, and risk
+systems can consume it as a causal factor adapter.
 
-The package contract requires a private repository. The repository is currently public only because the private-repository GitHub Actions quota/runner path was unavailable and a public runner was needed to execute already-frozen research workflows. See `docs/governance/cloud_session_20260906_public_runner_recovery_v1.json`. Restore private visibility after public-runner-only checks are complete before treating the package as fully compliant with its confidentiality contract.
-
-## Repository scope
-
-This repository is **Overnight/Open only**. Generic reversal / mean-reversion, parent-trend pullback, range re-entry, HighVol routing, and broad RMR payoff research are out of scope here. See `docs/governance/repository_scope_restoration_20260909.md`.
-
-## Program direction — factor products and adapters
-
-The primary objective is now to build a **deep Overnight/Open factor-product shelf** for downstream timing, stock-selection, portfolio-risk, and future instrument-mapping systems. The repository should not force every useful Overnight signal into a standalone full-day trading strategy.
-
-The economic layers are separated:
-
-1. predict / describe the opening state;
-2. measure short-horizon residual information after the opening is observed;
-3. expose frozen factor products to downstream strategies through thin adapters;
-4. let the consuming strategy test its own PnL without feeding that PnL back into the upstream factor definition.
-
-Current shelf structure:
-
-- expected opening direction / signed gap / magnitude;
-- observed opening geometry and volatility-normalized gap;
-- opening surprise / residual versus the frozen expected gap;
-- Gap-Fill hazard probabilities;
-- global-risk / China-specific-offshore / FX driver coordinates;
-- trend, volatility, prior-session-shape and calendar context;
-- relative-index opening leadership;
-- timing, stock-selection and portfolio-risk adapters.
-
-Do not create an uncontrolled Cartesian product of regime buckets. Continuous causal coordinates come first; any `uptrend / range / downtrend` thresholds or other categorical states require their own result-free freeze and validation.
-
-Program authority:
-
-- `docs/governance/overnight_factor_product_program_v1.md`;
-- `docs/governance/overnight_factor_product_registry_v1.json`.
-
-The first active new factor identity is **`overnight_open_surprise_factor_v1`**. It asks whether
-
-`(observed_gap - frozen_V6A_expected_gap) / rvol20`
-
-adds information about the first 15/30/60 minutes after a 09:35 reference beyond the raw opening gap and simple causal context. This is an information diagnostic, not a trading backtest. Detailed development is limited to 2019-2020; the 2021-2025 reusable BLACKBOX remains closed for this identity until a later separately frozen aggregate protocol authorizes it.
-
-The previously proposed `overnight_v6a_short0935_to_close_v1` route was closed **before DEV execution** because judging an Overnight predictor by the full 09:35-to-15:00 index return confounds the opening signal with post-open information outside the model's causal scope.
+This repository is **Overnight/Open only**. Generic reversal / mean-reversion,
+parent-trend pullback, broad HighVol routing, two-wave strategy logic, and
+unrelated RMR research do not belong here.
 
 ## Start here
 
+The single current authority is:
+
+`docs/governance/current_authority_v1.json`
+
+Then read:
+
+- factor-product program: `docs/governance/overnight_factor_product_program_v1.md`
+- product registry: `docs/governance/overnight_factor_product_registry_v1.json`
+- current active state: `docs/governance/opening_surprise_factor_v1_state.json`
+- active local handoff: `docs/ops/opening_surprise_factor_dev_handoff_20260910.md`
+
+For any model or strategy change, follow:
+
+`.codex/skills/strategy-slice-rebuild/SKILL.md`
+
+`production_authority=false`.
+
+## Current active research — Opening Surprise
+
+The active identity is:
+
+`overnight_open_surprise_factor_v1`
+
+The factor asks whether the part of the observed open that was **not already
+expected by the frozen Overnight model** contains independent short-horizon
+information:
+
+`opening_surprise_rvol = (observed_gap - frozen_V6A_expected_gap) / rvol20`
+
+The current phase is a **2019-2020 information diagnostic**, not a trading
+backtest. It tests incremental information at fixed short post-open horizons
+after controlling for raw gap and simple causal context.
+
+Current execution command:
+
 ```bash
-python -m pip install -e .
-python scripts/validate_theme_package.py
-pytest -q
+git pull
+bash scripts/run_opening_surprise_factor_dev.sh
 ```
 
-Then follow [`docs/user/cloud_execution_prompt.md`](docs/user/cloud_execution_prompt.md).
+Expected output:
 
-## Scientific status — next-open prediction
+`docs/research/local_opening_surprise_factor_dev_diagnostic_v1.json`
 
-The current prediction-model research cycle is closed for the accepted identity.
+For this identity:
 
-- **Magnitude head:** `abs_frozen_clock_signed_prediction` is fresh-OOS confirmed on 2021-2025.
-- **Direction head:** `median_quantile_sign` is robustly fresh-OOS confirmed against Ridge on 2026-01-05 through 2026-08-21.
-- Accepted status: `component_confirmed_incumbent_research_architecture`.
-- Direction and magnitude remain separate primary tasks; no stronger joint-fresh full-model claim is made.
-- Opened intervals may not be reused as fresh evidence for identities they have already informed. Under the current reusable-BLACKBOX policy, 2021-2025 may still be queried for a separately frozen identity without becoming a new independent OOS sample.
-- Post-2026-08-21 remains unread for the integrated identity.
+- detailed development outcomes allowed now: `2019-01-01 .. 2020-12-31` only;
+- 2021-2025 detailed outcomes: **not opened**;
+- trend-bucket search: **not authorized**;
+- strategy PnL optimization: **not authorized**;
+- 2021-2025 reusable BLACKBOX query: **not authorized yet**.
 
-Direction candidate spec SHA256: `9b0255fbbf6f0c4059e8779e61cb3d5d4eabeab1ce60aed09377d782f755e465`.
+Cloud review must happen before any bounded factor family or context interaction
+is created.
 
-Research acceptance: `docs/governance/cloud_session_20260906_research_architecture_acceptance_v1.json`.
+## Product shelf
 
-## Scientific status — V6A global-spillover baseline
+The repository is being organized as a factor shelf rather than a Cartesian
+feature factory. Current product families include:
 
-The frozen single-head signed-gap candidate `V6A_plus_ordinary_A50_preauction_closure` completed one reusable 2021-2025 BLACKBOX query and returned **PASS**. The BLACKBOX released no detailed metrics, year/quarter breakdowns, event rows, sample counts, attribution or failure clues.
+- **Expected open state** — expected high/low open and opening-gap magnitude;
+- **Observed open geometry** — actual gap sign/size normalized by volatility;
+- **Opening surprise / residual** — actual open relative to what Overnight
+  information already implied;
+- **Gap-fill hazard** — probability the previous close is revisited after the
+  opening gap is observed;
+- **Overnight driver coordinates** — global-risk, China-specific offshore, FX,
+  and driver agreement/disagreement;
+- **Context coordinates** — prior trend, prior volatility, previous-session
+  shape, and calendar closure state;
+- **Relative-index opening leadership** — future separately preregistered work;
+- **Downstream adapters** — timing, stock-selection, and portfolio-risk
+  interfaces after upstream factors are frozen.
 
-A separate baseline replacement review is complete:
+Do not automatically multiply these coordinates into dozens of regime buckets.
+A context interaction must earn its place by adding information beyond the base
+Overnight coordinate.
 
-**V6A is now the current research baseline for the global-spillover single-head signed-gap lineage, replacing V5A in that scope only.**
+## Stable prediction authority
 
-This does **not** replace the repository-wide accepted two-head architecture (`median_quantile_sign` + `abs_frozen_clock_signed_prediction`), does not replace its direction or magnitude heads, and does not create a trading or production baseline.
+### Repository-wide next-open architecture
+
+The accepted component-confirmed architecture remains:
+
+- direction: `median_quantile_sign`;
+- magnitude: `abs_frozen_clock_signed_prediction`.
+
+This architecture is not replaced by the V6A single-head lineage.
 
 Authority:
 
-- `docs/governance/global_spillover_current_baseline_v1.json`;
-- `docs/governance/global_spillover_v6a_baseline_replacement_review_20260910.json`;
-- `docs/governance/global_spillover_v6a_blackbox_state_v1.json`;
-- `docs/research/local_v6a_reusable_blackbox_receipt_v1.json`;
-- `docs/governance/overnight_reusable_blackbox_query_ledger_v1.json`.
+`docs/governance/cloud_session_20260906_research_architecture_acceptance_v1.json`
 
-The 2021-2025 BLACKBOX remains reusable for other separately frozen identities, but reuse does not create a new independent OOS sample and hidden BLACKBOX behavior may not be used to tune a successor.
+### V6A global-spillover baseline
 
-## Scientific status — Gap-Fill V2
+`V6A_plus_ordinary_A50_preauction_closure` completed one reusable 2021-2025
+BLACKBOX query and returned `PASS` without releasing hidden year/quarter/event
+or metric details.
 
-`gap_fill_prediction_v2` predicts, after the CSI1000 09:31 opening gap is observed, the probability that the previous 15:00 close is revisited by 15m, 60m, or EOD. The frozen V2 v1 uses only `abs_gap` and `abs_gap_over_rvol20`, with separate high/low three-stage hazard heads.
+V6A is now the current research baseline for the **global-spillover single-head
+signed-gap lineage only**.
 
-- selected architecture SHA256: `07810dafbab629f196d04ea1204d90ee68177ce764bb765be560bc1b84261c00`;
-- final parameter bundle SHA256: `07abe29e31ce09b69bd6250b1ce3ebc5af7688b69ed39909feb80e9db882aaa0`;
-- 2026-01-05 through 2026-08-21 repeat-only validation: both high and low heads passed all 6/6 frozen gates;
-- that 2026 block is repeat-only, not scientifically fresh;
-- the first true-fresh V2 challenge remains the complete `2026-08-24 .. 2026-12-31` block and must not be partially opened or scored before its frozen protocol permits execution.
+Authority:
 
-See `docs/research/gap_fill_v2_v1_development_closeout_20260906.md`, `docs/research/gap_fill_v2_2026_repeat_cloud_adjudication_20260906.md`, and `docs/governance/gap_fill_v2_true_fresh_state_v1.json`.
+- `docs/governance/global_spillover_current_baseline_v1.json`
+- `docs/governance/global_spillover_v6a_baseline_replacement_review_20260910.json`
+- `docs/governance/global_spillover_v6a_blackbox_state_v1.json`
+- `docs/research/local_v6a_reusable_blackbox_receipt_v1.json`
+- `docs/governance/overnight_reusable_blackbox_query_ledger_v1.json`
 
-## Scientific status — Gap-Fill V2.1 P2 successor
+The 2021-2025 BLACKBOX is reusable for another separately frozen identity, but
+reuse is not a new independent OOS sample and hidden BLACKBOX behavior may not
+be used for design or retuning.
 
-The V21 P2 successor family is closed at DEV with authoritative decision **`V21_DEV_no_P2_successor`**. All three frozen candidates were `evidence_insufficient` because the CSI500-high `abs_gap > 10bp` validation count for 2017 was 15, below the preregistered per-year minimum of 20. No threshold/date relaxation, pooling rescue, candidate addition, or Audit-A opening is allowed.
+## Gap-Fill products
 
-- selected candidate: `null`;
-- parameter freeze written: `false`;
-- V21 Audit A/B: sealed / unauthorized;
-- V21 external reserve: sealed;
-- CSI1000 post-2026-08-21 outcomes: sealed;
-- production authority: `false`.
+### Gap-Fill V2
 
-Evidence: `docs/research/local_gap_fill_v21_dev_selection_receipt_v1.json`, `docs/research/gap_fill_v21_dev_cloud_adjudication_20260909.md`, and `docs/governance/gap_fill_v21_state_v1.json`.
+The frozen `gap_fill_prediction_v2` predicts whether the previous 15:00 close is
+revisited after the 09:31 gap is observed. It uses `abs_gap` and
+`abs_gap_over_rvol20` with separate high/low three-stage hazard heads.
 
-## Production and downstream boundary
+The 2026-01-05..2026-08-21 evaluation is repeat-only evidence. The first
+true-fresh block is the complete `2026-08-24..2026-12-31` window and remains
+sealed under its protocol/date gate.
 
-Production authority is `false`.
+Current state:
 
-Upstream factor research must remain separate from downstream strategy monetization. Do not tune factor definitions, regime thresholds, horizons, or source rules using a consuming strategy's return. Once an upstream factor is frozen, a downstream timing/stock-selection/risk repository may preregister a thin adapter and test whether that factor improves its own complete policy.
+`docs/governance/gap_fill_v2_true_fresh_state_v1.json`
 
-The CSI1000 index level remains a research underlier rather than a fictitious executable fill. A future option/futures/ETF implementation requires a separate instrument-mapping and execution contract.
+### V2.1 P2 successor
 
-The closed 09:35-to-15:00 standalone short route is historical negative design evidence only; do not revive it as the default economic objective.
+The V21 P2 successor family is closed at DEV with no successor because the
+frozen per-year sample gate was insufficient. Do not rescue it by changing the
+sample threshold, gap threshold, dates, candidate order, model class, or by
+opening its sealed audits.
 
-For the closed V2.1 P2 family, do not open its Audit A/B blocks or rescue the frozen DEV insufficiency by changing thresholds, years, model classes, candidate order, or sample gates. Any new V2.1-style continuation requires a separately motivated and preregistered Overnight identity.
+Current state:
+
+`docs/governance/gap_fill_v21_state_v1.json`
+
+## Data surfaces
+
+Current bounded data packs are documented in `data/README.md` and
+`docs/governance/package_scope.json`.
+
+Important boundaries:
+
+- `data/development/` — frozen 2015-2020 core development material;
+- `data/high_open_dev_2015_2025/` — CSI1000 development carrier through 2025;
+- `data/offshore_etf_dev_2015_2025/` — bounded offshore ETF development pack;
+- `data/v6a_external_sources_2015_2025/` — admitted HKMA + SGX A50 source pack;
+- `data/gap_fill_repeat_2026/` — user-authorized repeat-only data through
+  2026-08-21, not fresh evidence.
+
+Post-2026-08-21 outcomes remain sealed wherever current protocols require.
+
+## Closed and archived work
+
+Closed/completed executable entrypoints that could confuse future agents are
+moved under `archive/` while preserving their exact historical bytes.
+
+Notably:
+
+- `archive/v6a_short0935_to_close_20260910/` — the attempted standalone
+  09:35-to-close route, closed **before DEV** because the objective was outside
+  the Overnight model's causal scope;
+- `archive/v6a_reusable_blackbox_completed_20260910/` — completed V6A BLACKBOX
+  one-command entrypoint/handoff. The underlying frozen controller library is
+  retained because current factor research imports it.
+
+See `archive/README.md`.
+
+Historical handoffs that remain under `docs/ops/` are not automatically active.
+See `docs/ops/README.md` before executing any of them.
+
+## Research discipline
+
+- Do not use downstream trading return to define or retune an upstream factor.
+- Do not decompose a BLACKBOX after it has been admitted as aggregate-only.
+- Do not create trend/volatility/category buckets before the base coordinate
+  demonstrates incremental information.
+- Do not substitute unrelated instruments or continuous proxies for frozen
+  source identities.
+- Do not rerun consumed historical experiments merely because their local raw
+  source is absent from the cloud checkout.
+- Do not mutate any live FactorLab registry from this repository.
+- Production authority remains false until a separate instrument/account
+  contract and production review explicitly grant it.
+
+## Repository visibility
+
+The original package contract required a private repository. The repository is
+currently public because of an earlier public-runner recovery path. This is an
+explicit governance mismatch recorded in `docs/governance/package_scope.json`;
+do not silently rewrite history or claim the original confidentiality contract
+never existed.
