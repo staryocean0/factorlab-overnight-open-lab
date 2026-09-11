@@ -1,0 +1,138 @@
+{
+  "schema_id": "overnight_volatility_conditioned_open_state_dev_diagnostic@1.0",
+  "session_date": "2026-09-11",
+  "research_identity": "overnight_volatility_conditioned_open_state_v1",
+  "phase": "mechanism_diagnostic",
+  "development_window": "2019-01-01..2020-12-31",
+  "product_family": "OFP-C2_prior_volatility_context_x_OFP-A2_observed_open_geometry",
+  "factor": "vol_gap_interaction",
+  "baseline_controls": [
+    "observed_gap_rvol",
+    "log_rvol20",
+    "trend20_rvol",
+    "trend_gap_interaction",
+    "r1",
+    "prev_daytime",
+    "holiday_reopen"
+  ],
+  "horizons": [
+    "ret_0935_0950",
+    "ret_0935_1005",
+    "ret_0935_1035"
+  ],
+  "diagnostics": {
+    "pooled": {
+      "ret_0935_0950": {
+        "n": 487,
+        "status": "ok",
+        "partial_corr": -0.018303258619036315,
+        "baseline_r2": 0.034929468901311544,
+        "candidate_r2": 0.035252776481296655,
+        "delta_r2": 0.0003233075799851104,
+        "standardized_interaction_coefficient": -0.2679626613441139
+      },
+      "ret_0935_1005": {
+        "n": 487,
+        "status": "ok",
+        "partial_corr": -0.07406341395347493,
+        "baseline_r2": 0.046914595353099164,
+        "candidate_r2": 0.05214263982081524,
+        "delta_r2": 0.005228044467716075,
+        "standardized_interaction_coefficient": -1.077546388037864
+      },
+      "ret_0935_1035": {
+        "n": 487,
+        "status": "ok",
+        "partial_corr": -0.12325759106882284,
+        "baseline_r2": 0.02709358495158065,
+        "candidate_r2": 0.04187440121307773,
+        "delta_r2": 0.014780816261497076,
+        "standardized_interaction_coefficient": -1.8118220812109433
+      }
+    },
+    "by_year": {
+      "2019": {
+        "ret_0935_0950": {
+          "n": 244,
+          "status": "ok",
+          "partial_corr": 0.08734073258017196,
+          "baseline_r2": 0.06494964676884118,
+          "candidate_r2": 0.07208258821935387,
+          "delta_r2": 0.0071329414505126865,
+          "standardized_interaction_coefficient": 1.4536658719798257
+        },
+        "ret_0935_1005": {
+          "n": 244,
+          "status": "ok",
+          "partial_corr": -0.031283651995571725,
+          "baseline_r2": 0.07641555053173543,
+          "candidate_r2": 0.07731943204532654,
+          "delta_r2": 0.0009038815135911094,
+          "standardized_interaction_coefficient": -0.5174710010160154
+        },
+        "ret_0935_1035": {
+          "n": 244,
+          "status": "ok",
+          "partial_corr": -0.09530487288197284,
+          "baseline_r2": 0.06287206185950855,
+          "candidate_r2": 0.07138401253500437,
+          "delta_r2": 0.008511950675495816,
+          "standardized_interaction_coefficient": -1.58797921659342
+        }
+      },
+      "2020": {
+        "ret_0935_0950": {
+          "n": 243,
+          "status": "ok",
+          "partial_corr": -0.09425720383885028,
+          "baseline_r2": 0.02605697459026035,
+          "candidate_r2": 0.034709893947199255,
+          "delta_r2": 0.008652919356938904,
+          "standardized_interaction_coefficient": -1.532947249657754
+        },
+        "ret_0935_1005": {
+          "n": 243,
+          "status": "ok",
+          "partial_corr": -0.0832040171749924,
+          "baseline_r2": 0.04965131178441262,
+          "candidate_r2": 0.056230488771368825,
+          "delta_r2": 0.006579176986956203,
+          "standardized_interaction_coefficient": -1.3366929799892435
+        },
+        "ret_0935_1035": {
+          "n": 243,
+          "status": "ok",
+          "partial_corr": -0.09567035128348508,
+          "baseline_r2": 0.036743555536465466,
+          "candidate_r2": 0.04556006464394502,
+          "delta_r2": 0.008816509107479553,
+          "standardized_interaction_coefficient": -1.5473701428390316
+        }
+      }
+    }
+  },
+  "source_hashes": {
+    "base_panel_csv": "dce8c3874cabd648cb7d1f9f383159a5493a42d7e67adf9a65f0b9e39924eb0c",
+    "minute_clocks_csv": "e151560929e71785a62c47b55fa9108b15055db54c521b80bbe66be09a5c16d6",
+    "dev_pack_manifest": "9bb0787ae9b7302851586e97dcaa0dac2662eaab41914016b977a0de1ee8eda2",
+    "protocol": "dc51eaa26eee6cb48edc9e83195caeb67d13557667d04c5254409493fa833797"
+  },
+  "source_parquet_hashes": {
+    "base_panel": "d409fd5c2d75497b31e7e6e4f663298c3e22a7bacdacf4cb562671c6b1bc7631",
+    "minute_bars": "11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce"
+  },
+  "execution_note": "Cloud text bridge reproduced the prior C1 2019-2020 diagnostics to machine-negligible numerical tolerance before C2 evaluation.",
+  "target_rows_after_2020_loaded": false,
+  "reusable_blackbox_2021_2025_opened": false,
+  "candidate_family_search": false,
+  "volatility_bucket_search": false,
+  "threshold_search": false,
+  "alternate_volatility_lookback_search": false,
+  "horizon_search": false,
+  "trend_bucket_search": false,
+  "trading_return_optimization": false,
+  "opening_surprise_rescue_performed": false,
+  "auto_promotion": false,
+  "main_agent_review_required": true,
+  "production_authority": false
+}
