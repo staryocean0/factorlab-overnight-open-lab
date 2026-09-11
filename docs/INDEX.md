@@ -12,25 +12,52 @@ Read these first:
 4. `README.md`
 5. `AGENTS.md`
 
-## 2. Active research — Trend-conditioned opening state
+## 2. Active research — C1 15m trend-conditioned opening state
 
 Identity:
 
+`overnight_trend_conditioned_open_state_15m_v1`
+
+- state: `docs/governance/trend_conditioned_open_state_15m_state_v1.json`
+- BLACKBOX protocol: `docs/governance/trend_conditioned_open_state_15m_blackbox_protocol_v1.json`
+- controller: `scripts/run_trend_conditioned_open_state_15m_blackbox_local.py`
+- one-command runner: `scripts/run_trend_conditioned_open_state_15m_blackbox.sh`
+- local handoff: `docs/ops/trend_conditioned_open_state_15m_blackbox_handoff_20260911.md`
+- expected compact receipt: `docs/research/local_trend_conditioned_open_state_15m_blackbox_receipt_v1.json`
+- reusable BLACKBOX policy: `docs/governance/overnight_reusable_blackbox_policy_v1.json`
+- query ledger: `docs/governance/overnight_reusable_blackbox_query_ledger_v1.json`
+
+Public scientific output is restricted to `PASS / FAIL / INSUFFICIENT`.
+
+Frozen factor:
+
+`trend20_rvol * observed_gap_rvol`
+
+Frozen target:
+
+`09:35 -> 09:50`
+
+No categorical trend buckets, alternate horizons/lookbacks, volatility conditioning, strategy PnL, or detailed 2021-2025 output are authorized.
+
+## 3. Completed C1 DEV parent
+
+Parent identity:
+
 `overnight_trend_conditioned_open_state_v1`
 
-- state: `docs/governance/trend_conditioned_open_state_v1_state.json`
-- protocol: `docs/governance/trend_conditioned_open_state_v1_protocol.json`
-- preanalysis: `docs/research/trend_conditioned_open_state_preanalysis_20260911.md`
-- runner: `scripts/diagnose_trend_conditioned_open_state_dev.py`
-- one-command runner: `scripts/run_trend_conditioned_open_state_dev.sh`
-- local handoff: `docs/ops/trend_conditioned_open_state_dev_handoff_20260911.md`
-- expected receipt: `docs/research/local_trend_conditioned_open_state_dev_diagnostic_v1.json`
+Decision:
 
-Detailed evidence boundary: `2019-01-01..2020-12-31` only.
+`C1_DEV_PROGRESS_15M_CONTINUOUS_COORDINATE_ONLY`
 
-No categorical trend buckets, alternate lookbacks/horizons, Opening Surprise rescue terms, strategy PnL, detailed 2021-2025 outcomes, or 2026 outcomes are authorized.
+Evidence:
 
-## 3. Recently closed — Opening Surprise
+- local receipt: `docs/research/local_trend_conditioned_open_state_dev_diagnostic_v1.json`
+- cloud adjudication: `docs/research/trend_conditioned_open_state_dev_cloud_adjudication_20260911.md`
+- parent state: `docs/governance/trend_conditioned_open_state_v1_state.json`
+
+The 15-minute interaction direction was stable across 2019 and 2020; 30/60-minute directions were not stable and are not promoted.
+
+## 4. Closed Opening Surprise
 
 Identity:
 
@@ -42,17 +69,15 @@ Decision:
 
 Evidence:
 
-- local receipt: `docs/research/local_opening_surprise_factor_dev_diagnostic_v1.json`
-- cloud adjudication: `docs/research/opening_surprise_factor_cloud_adjudication_20260911.md`
-- state: `docs/governance/opening_surprise_factor_v1_state.json`
+- `docs/research/local_opening_surprise_factor_dev_diagnostic_v1.json`
+- `docs/research/opening_surprise_factor_cloud_adjudication_20260911.md`
+- `docs/governance/opening_surprise_factor_v1_state.json`
 
-No 2021-2025 BLACKBOX was opened for A3. Execution entrypoints are archived under `archive/opening_surprise_completed_20260911/`.
+No 2021-2025 BLACKBOX was opened for A3.
 
-## 4. Stable next-open prediction authority
+## 5. Stable next-open prediction authority
 
-### Repository-wide two-head architecture
-
-Accepted architecture:
+Repository-wide architecture:
 
 `median_quantile_sign + abs_frozen_clock_signed_prediction`
 
@@ -62,9 +87,7 @@ Key authority:
 - `docs/governance/cloud_session_20260906_direction_head_selected_v1.json`
 - `docs/governance/cloud_session_20260906_two_head_selected_v1.json`
 
-### V6A global-spillover baseline
-
-Current single-head signed-gap baseline:
+Global-spillover single-head baseline:
 
 `V6A_plus_ordinary_A50_preauction_closure`
 
@@ -75,30 +98,20 @@ Key authority:
 - `docs/governance/global_spillover_current_baseline_v1.json`
 - `docs/governance/global_spillover_v6a_blackbox_state_v1.json`
 - `docs/research/local_v6a_reusable_blackbox_receipt_v1.json`
-- `docs/governance/overnight_reusable_blackbox_policy_v1.json`
-- `docs/governance/overnight_reusable_blackbox_query_ledger_v1.json`
 - `docs/governance/global_spillover_v6a_source_admission_20260910.json`
 
-## 5. Gap-Fill product line
+## 6. Gap-Fill product line
 
-### Gap-Fill V2
+Gap-Fill V2 remains frozen/repeat-confirmed. The complete `2026-08-24..2026-12-31` block is its separately gated true-fresh challenge.
 
-- development closeout: `docs/research/gap_fill_v2_v1_development_closeout_20260906.md`
-- repeat adjudication: `docs/research/gap_fill_v2_2026_repeat_cloud_adjudication_20260906.md`
-- true-fresh state: `docs/governance/gap_fill_v2_true_fresh_state_v1.json`
-- true-fresh protocol: `docs/governance/cloud_session_20260906_gap_fill_v2_true_fresh_protocol_v1.json`
+V21 P2 remains closed at DEV with no successor because the frozen per-year sample gate was insufficient.
 
-2026-01-05..2026-08-21 is repeat-only. The complete 2026-08-24..2026-12-31 block remains the separately gated true-fresh challenge.
+Key state files:
 
-### V2.1 P2 successor
+- `docs/governance/gap_fill_v2_true_fresh_state_v1.json`
+- `docs/governance/gap_fill_v21_state_v1.json`
 
-Current state:
-
-`docs/governance/gap_fill_v21_state_v1.json`
-
-Closed at DEV with no successor because the frozen per-year sample gate was insufficient. Do not rescue it or open sealed audits.
-
-## 6. Data surfaces
+## 7. Data surfaces
 
 Read:
 
@@ -115,35 +128,12 @@ Main packs:
 
 Physical data presence does not grant evidence authority.
 
-## 7. Operations
+## 8. Operations and archive
 
 Read `docs/ops/README.md` before executing any handoff.
 
-Current active handoff:
+Active handoff:
 
-`docs/ops/trend_conditioned_open_state_dev_handoff_20260911.md`
+`docs/ops/trend_conditioned_open_state_15m_blackbox_handoff_20260911.md`
 
-## 8. Archive
-
-Read `archive/README.md`.
-
-Current groups:
-
-- `archive/v6a_short0935_to_close_20260910/`
-- `archive/v6a_reusable_blackbox_completed_20260910/`
-- `archive/opening_surprise_completed_20260911/`
-
-Archived executable files are provenance, not active work.
-
-## 9. Historical closed research retained in place
-
-Useful historical families that are not current execution tasks include:
-
-- high-open recall OHR-01..04;
-- offshore China price-discovery OHR-05..08;
-- clock-gate / early holdout investigations;
-- Gap-Fill V2 development internals;
-- cross-index transport internals;
-- V21 diagnostic / candidate-family internals.
-
-Do not rerun them merely because their scripts, receipts, or handoffs remain in repository history.
+Closed/completed executable entrypoints may be retained under `archive/`. Historical files elsewhere are not automatically active. `docs/governance/current_authority_v1.json` is the canonical pointer.
