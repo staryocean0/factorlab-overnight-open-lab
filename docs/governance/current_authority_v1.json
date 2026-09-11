@@ -1,26 +1,33 @@
 {
-  "schema_id": "overnight_open_current_authority@1.5",
-  "session_date": "2026-09-11",
+  "schema_id": "overnight_open_current_authority@1.6",
+  "session_date": "2026-09-12",
   "repository_role": "overnight_open_factor_product_laboratory_and_downstream_factor_adapter",
   "program": "docs/governance/overnight_factor_product_program_v1.md",
   "registry": "docs/governance/overnight_factor_product_registry_v1.json",
   "active_research": {
+    "identity": "overnight_previous_session_last_hour_conditioned_open_state_v1",
+    "status": "mechanism_diagnostic_frozen_cloud_execution_pending",
+    "product_family": "OFP-C3_previous_china_session_shape_x_OFP-A2_observed_open_geometry",
+    "preanalysis": "docs/research/previous_china_session_shape_preanalysis_20260912.md",
+    "protocol": "docs/governance/previous_china_session_shape_v1_protocol.json",
+    "state": "docs/governance/previous_china_session_shape_v1_state.json",
+    "development_window": "2015-01-05..2020-12-31",
+    "development_carrier": "data/runtime_text_2015_2025/",
+    "candidate": "(prev_last_hour / rvol20) * (gap / rvol20)",
+    "targets": ["09:35_to_09:50", "09:35_to_10:05", "09:35_to_10:35"],
+    "blackbox_2021_2025_opened": false,
+    "blackbox_authorized": false,
+    "strategy_backtest_authorized": false
+  },
+  "deferred_frozen_research": {
     "identity": "overnight_volatility_conditioned_open_state_60m_v1",
-    "status": "frozen_reusable_BLACKBOX_authorized_pending_local_execution",
     "product_family": "OFP-C2_prior_volatility_context_x_OFP-A2_observed_open_geometry",
-    "parent_development_identity": "overnight_volatility_conditioned_open_state_v1",
-    "parent_development_receipt": "docs/research/cloud_volatility_conditioned_open_state_dev_diagnostic_v1.json",
-    "parent_adjudication": "docs/research/volatility_conditioned_open_state_dev_cloud_adjudication_20260911.md",
+    "status": "BLACKBOX_protocol_frozen_but_query_unopened_execution_deferred",
     "protocol": "docs/governance/volatility_conditioned_open_state_60m_blackbox_protocol_v1.json",
     "state": "docs/governance/volatility_conditioned_open_state_60m_state_v1.json",
-    "handoff": "docs/ops/volatility_conditioned_open_state_60m_blackbox_handoff_20260911.md",
-    "runner": "scripts/run_volatility_conditioned_open_state_60m_blackbox.sh",
-    "expected_output": "docs/research/local_volatility_conditioned_open_state_60m_blackbox_receipt_v1.json",
-    "blackbox_window": "2021-01-01..2025-12-31",
     "blackbox_query_opened": false,
-    "public_output": ["PASS", "FAIL", "INSUFFICIENT"],
-    "categorical_volatility_bucket_search_authorized": false,
-    "strategy_backtest_authorized": false
+    "ledger_entry_created": false,
+    "reason": "2021-2025 detailed BLACKBOX rows remain sealed; current cloud work proceeds only on already-opened 2015-2020 development carrier. Do not run the local BLACKBOX unless authority is explicitly reactivated."
   },
   "validated_products": {
     "repository_wide_next_open_architecture": "median_quantile_sign + abs_frozen_clock_signed_prediction",
@@ -37,14 +44,11 @@
     "C1_multi_horizon_DEV_parent": "closed_after_DEV_progression_supported_15m_only",
     "C1_15m_BLACKBOX": "completed_PASS_query_2",
     "C2_multi_horizon_DEV_parent": "closed_after_DEV_progression_supported_60m_only",
+    "C2_60m_BLACKBOX": "frozen_unopened_deferred_no_query_3",
+    "B4_driver_agreement": "scientifically_next_but_cloud_carrier_pending_for_A50_HKMA_sources",
     "V6A_0935_to_close_strategy": "archived_closed_before_DEV_objective_mismatch",
     "V21_P2_successor": "closed_at_DEV_no_successor_evidence_insufficient",
     "Gap_Fill_V2_true_fresh": "wait_for_complete_2026_08_24_to_2026_12_31_and_protocol_date_gate"
-  },
-  "development_text_pack": {
-    "path": "data/development/trend_open_state_dev_pack_2019_2020/",
-    "role": "connector-readable carrier for the already-opened 2019-2020 development interval",
-    "does_not_open_2021_2025_BLACKBOX_details": true
   },
   "runtime_text_pack": {
     "path": "data/runtime_text_2015_2025/",
@@ -52,27 +56,21 @@
     "role": "connector-readable yearly runtime carrier for already-opened development rows",
     "does_not_open_2021_2025_BLACKBOX_details": true,
     "not_new_scientific_authority": true,
-    "parity_receipt": "docs/research/runtime_text_carrier_parity_receipt_v1.json"
-  },
-  "archive": {
-    "root": "archive/",
-    "closed_V6A_strategy": "archive/v6a_short0935_to_close_20260910/",
-    "completed_V6A_BLACKBOX_entrypoint": "archive/v6a_reusable_blackbox_completed_20260910/",
-    "completed_Opening_Surprise_entrypoint": "archive/opening_surprise_completed_20260911/"
+    "parity_receipt": "docs/research/runtime_text_carrier_parity_receipt_v1.json",
+    "factor_panel_parity": "PASS",
+    "clock_parity": "PASS"
   },
   "hard_rules": [
     "Do not revive archived executable entrypoints as active work.",
     "Do not decompose completed reusable BLACKBOX queries.",
     "Do not use downstream strategy PnL to tune upstream factor definitions.",
-    "C1 authority is limited to its validated continuous interaction and 09:35->09:50 target.",
-    "C2 active validation is limited to observed_gap_rvol * log(rvol20) and the fixed 09:35->10:35 target.",
-    "C2 baseline must retain the validated C1 trend_gap_interaction control.",
-    "Do not create high-vol/low-vol thresholds, volatility quantile buckets, alternate volatility lookbacks or alternate horizons before C2 60m BLACKBOX adjudication.",
-    "Do not expose 2021-2025 detailed metrics, counts, years, quarters, events, bootstrap statistics or failure clues from reusable BLACKBOX queries.",
-    "Do not convert the 2021-2025 BLACKBOX detailed rows into a public text/CSV pack.",
+    "Do not execute the deferred C2 60m BLACKBOX while this authority points to C3 development.",
+    "C3 uses exactly one last-hour continuous interaction; do not rescue with prev_afternoon, alternate session windows, thresholds, buckets, or post-hoc horizons.",
+    "C1 validated trend_gap_interaction remains a C3 baseline control.",
+    "Do not expose or materialize 2021-2025 row-level BLACKBOX text shards.",
     "Do not open post-2026-08-21 outcomes except under their separately frozen protocol.",
     "Production authority remains false."
   ],
-  "next_action": "local controller runs `bash scripts/run_volatility_conditioned_open_state_60m_blackbox.sh`, commits only the compact BLACKBOX receipt with [skip ci], then cloud verifies and appends exactly one ledger entry if valid",
+  "next_action": "cloud main agent executes and adjudicates the frozen OFP-C3 2015-2020 mechanism diagnostic from the parity-validated runtime text carrier; no local execution is currently requested",
   "production_authority": false
 }
