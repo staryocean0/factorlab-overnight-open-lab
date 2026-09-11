@@ -1,48 +1,54 @@
 {
+  "schema_id": "overnight_open_cloud_theme_package_scope@1.1",
+  "session_date": "2026-09-11",
+  "source_project": "FactorLab",
+  "repository_role": "overnight_open_factor_product_laboratory_and_downstream_factor_adapter",
+  "objective": "research, validate and package Overnight/Open information products for downstream timing, stock-selection and risk systems",
+  "sibling_workspace_do_not_merge": "staryocean0/factorlab-two-wave-strategy-lab",
+  "included": [
+    "overnight_open_prediction_authority_and_receipts",
+    "V6A_global_spillover_baseline_and_reusable_BLACKBOX_governance",
+    "Opening_Surprise_active_factor_research",
+    "Gap_Fill_V2_and_historical_transport_lineage",
+    "CSI1000_2015_2020_frozen_development_pack",
+    "CSI1000_2015_2025_high_open_development_pack",
+    "US_offshore_ETF_2015_2025_development_pack",
+    "V6A_HKMA_and_SGX_A50_2015_2025_source_pack",
+    "Gap_Fill_V2_2026_repeat_only_pack_through_2026_08_21",
+    "strategy_slice_rebuild_skill_and_clock_contracts",
+    "historical_evidence_and_archived_closed_routes"
+  ],
+  "excluded": [
+    "credentials",
+    "unrelated_two_wave_or_RMR_strategy_code",
+    "Layer4_live_execution_authority",
+    "post_2026_08_21_unread_market_outcomes",
+    "production_registry_mutation"
+  ],
+  "evidence_boundaries": {
+    "opening_surprise_active_identity_detailed_DEV": "2019-01-01..2020-12-31 only",
+    "V6A_reusable_BLACKBOX": "2021-01-01..2025-12-31 completed once for V6A; reusable only for separately frozen identities and never a new independent OOS sample",
+    "Gap_Fill_V2_repeat": "2026-01-05..2026-08-21 repeat-only, not fresh",
+    "post_2026_08_21": "sealed/unread where current protocols require"
+  },
+  "data_packs": {
+    "development_2015_2020": "data/development",
+    "high_open_dev_2015_2025": "data/high_open_dev_2015_2025",
+    "offshore_etf_dev_2015_2025": "data/offshore_etf_dev_2015_2025",
+    "v6a_external_sources_2015_2025": "data/v6a_external_sources_2015_2025",
+    "gap_fill_repeat_2026": "data/gap_fill_repeat_2026"
+  },
+  "active_authority": {
+    "program": "docs/governance/overnight_factor_product_program_v1.md",
+    "registry": "docs/governance/overnight_factor_product_registry_v1.json",
+    "active_identity": "overnight_open_surprise_factor_v1",
+    "active_state": "docs/governance/opening_surprise_factor_v1_state.json"
+  },
+  "archive_root": "archive/",
   "authoritative_local_registry_mutation": false,
   "cloud_result_import_requires_local_controller_review": true,
-  "excluded": [
-    "FactorLab_git_history",
-    "credentials",
-    "2026_and_later_market_rows",
-    "Layer4_execution",
-    "two_wave_theme_code_and_data_mix",
-    "post_2026-08-21_unread_fresh_rows"
-  ],
-  "high_open_dev_pack": {
-    "2026_included": false,
-    "path": "data/high_open_dev_2015_2025",
-    "replaces_frozen_2015_2020_pack": false,
-    "window": "2015-01-05_to_2025-12-31"
-  },
-  "included": [
-    "handoff_prompt",
-    "overnight_gap_ledger_contracts",
-    "session_clock_and_four_layer_boundary",
-    "strategy_slice_rebuild_skill",
-    "literature_factor_notes",
-    "CSI1000_2015_2020_1m_and_PIT_panel",
-    "US_NASDAQ_VIX_through_2020",
-    "frozen_2019_2020_baseline_receipt",
-    "CSI1000_2015_2025_high_open_development_pack_no_2026",
-    "US_offshore_ETF_2015_2025_yahoo_chart_v8_pack_no_2026"
-  ],
-  "offshore_etf_dev_pack": {
-    "2026_included": false,
-    "path": "data/offshore_etf_dev_2015_2025",
-    "replaces_frozen_ohr05_source_identity": false,
-    "sha256": "045cf728977ff72a9fabd236aaf06b7a9df3310ad1f6f487bd594d487cc05ffd",
-    "window": "2015-01-02_to_2025-12-31"
-  },
-  "objective": "predict_next_csi1000_overnight_open_gap_sign_and_magnitude",
-  "observed_repository_visibility_after_high_open_dev_pack_20260906": "private",
-  "observed_repository_visibility_after_local_controller_fix_20260906": "private",
-  "observed_repository_visibility_after_user_restore_public_20260906": "public",
-  "package_role": "temporary_private_cloud_research_repository",
-  "private_repository_required": true,
-  "production_authority": false,
-  "public_runner_exception_closed": false,
-  "schema_id": "overnight_open_cloud_theme_package_scope@1.0",
-  "sibling_workspace_do_not_merge": "staryocean0/factorlab-two-wave-strategy-lab",
-  "source_project": "FactorLab"
+  "private_repository_required_by_original_package_contract": true,
+  "observed_repository_visibility": "public",
+  "visibility_mismatch_must_not_be_silently_rewritten": true,
+  "production_authority": false
 }
