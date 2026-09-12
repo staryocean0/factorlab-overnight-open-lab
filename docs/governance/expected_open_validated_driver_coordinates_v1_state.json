@@ -1,0 +1,20 @@
+{
+  "schema_id": "overnight_expected_open_validated_driver_coordinates_state@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_expected_open_validated_driver_coordinates_v1",
+  "product_family": "OFP-A1_expected_open_state",
+  "status": "result_free_preregistered_pending_cloud_development_execution",
+  "preanalysis": "docs/research/expected_open_validated_driver_coordinates_v1_preanalysis_20260912.md",
+  "protocol": "docs/governance/expected_open_validated_driver_coordinates_v1_protocol.json",
+  "comparator": "V6A_model_refit_on_candidate_common_sample",
+  "candidate": "V6A_plus_validated_B1_B2_coordinates",
+  "target": "gap",
+  "training_window": "2015-01-05..2018-12-31",
+  "development_evaluation_window": "2019-01-01..2020-12-31",
+  "outcome_opened": false,
+  "development_receipt": null,
+  "development_decision": null,
+  "future_2021_2025_blackbox_authorized": false,
+  "blackbox_query_created": false,
+  "production_authority": false
+}
