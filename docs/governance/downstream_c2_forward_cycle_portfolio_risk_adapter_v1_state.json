@@ -1,0 +1,22 @@
+{
+  "schema_id": "overnight_downstream_c2_forward_cycle_portfolio_risk_adapter_state@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_c2_forward_cycle_portfolio_risk_abstention_v1",
+  "product_family": "OFP-E3_portfolio_risk_adapter",
+  "status": "result_free_preregistered_pending_development_execution",
+  "preanalysis": "docs/research/downstream_c2_forward_cycle_portfolio_risk_adapter_v1_preanalysis_20260912.md",
+  "protocol": "docs/governance/downstream_c2_forward_cycle_portfolio_risk_adapter_v1_protocol.json",
+  "consumer_repository": "staryocean0/factorlab-multifactor-stock-lab",
+  "consumer_commit": "af2e478aaff5c8ef7f753424b57fd2d19019f248",
+  "consumer_strategy_id": "REAKA_D5_H20_R5_CURRENT_GENERATION_V1",
+  "candidate": "C2_zero_boundary_whole_portfolio_abstention_over_next_D5_cycle",
+  "development_window": "2015-01-05..2020-12-31",
+  "outcome_opened": false,
+  "development_receipt": null,
+  "development_decision": null,
+  "future_2021_2025_validation_authorized": false,
+  "account_execution_backtest_authorized": false,
+  "validated_product_authority": false,
+  "production_authority": false,
+  "next_action": "cloud main agent executes frozen six-year forward-cycle portfolio utility/risk diagnostic for both consumer clocks"
+}
