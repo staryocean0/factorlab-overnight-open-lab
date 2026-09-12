@@ -1,0 +1,94 @@
+{
+  "schema_id": "overnight_previous_session_last_hour_conditioned_open_state_joint_blackbox_protocol@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_previous_session_last_hour_conditioned_open_state_joint_30m_60m_v1",
+  "parent_development_identity": "overnight_previous_session_last_hour_conditioned_open_state_v1",
+  "product_family": "OFP-C3_previous_china_session_shape_x_OFP-A2_observed_open_geometry",
+  "validation_window": "2021-01-01..2025-12-31",
+  "validation_mode": "reusable_compact_BLACKBOX",
+  "source_dataset": {
+    "dataset_version": "bars_cn_index_1m_raw_canonical_market_index_baidu_3s_20000714_20260821_factorlab_unified_missing_day_repaired_v8_20260824",
+    "sha256": "25f4f9f8b67c799ffb1a7b7fdee94b0b21dbbfed1efc54d063264ccb046411f0",
+    "instrument": "000852.SH",
+    "warmup_start": "2020-11-01",
+    "read_end": "2025-12-31"
+  },
+  "exact_clocks_required": ["09:31", "09:35", "10:05", "10:35", "14:00", "15:00"],
+  "definitions": {
+    "gap": "open_0931 / previous_close_1500 - 1",
+    "r1": "close_1500.shift(1) / close_1500.shift(2) - 1",
+    "r20": "close_1500.shift(1) / close_1500.shift(21) - 1",
+    "rvol20": "std(close_1500.pct_change().shift(1), window=20, min_periods=20)",
+    "prev_daytime": "(close_1500 / open_0931 - 1).shift(1)",
+    "prev_last_hour": "(close_1500 / close_1400 - 1).shift(1)",
+    "holiday_reopen": "1 if calendar_days_since_previous_trading_day >= 4 else 0",
+    "observed_gap_rvol": "gap / rvol20",
+    "last_hour_rvol": "prev_last_hour / rvol20",
+    "trend20_rvol": "r20 / (sqrt(20) * rvol20)",
+    "trend_gap_interaction": "observed_gap_rvol * trend20_rvol",
+    "log_rvol20": "log(rvol20)",
+    "last_hour_gap_interaction": "last_hour_rvol * observed_gap_rvol"
+  },
+  "baseline_controls": [
+    "observed_gap_rvol",
+    "last_hour_rvol",
+    "prev_daytime",
+    "trend20_rvol",
+    "trend_gap_interaction",
+    "log_rvol20",
+    "r1",
+    "holiday_reopen"
+  ],
+  "candidate_increment": ["last_hour_gap_interaction"],
+  "frozen_direction": "positive",
+  "targets": [
+    {"id": "ret_0935_1005", "start_clock": "09:35", "end_clock": "10:05"},
+    {"id": "ret_0935_1035", "start_clock": "09:35", "end_clock": "10:35"}
+  ],
+  "sufficiency_gates": {
+    "minimum_pooled_complete_cases_each_horizon": 600,
+    "minimum_complete_cases_each_calendar_year_each_horizon": 100
+  },
+  "scientific_gates_each_horizon": {
+    "pooled_partial_correlation": ">0",
+    "pooled_standardized_candidate_coefficient": ">0",
+    "pooled_delta_r2": ">0",
+    "minimum_positive_calendar_year_coefficients": 4,
+    "calendar_year_count": 5,
+    "median_calendar_year_coefficient": ">0",
+    "moving_block_bootstrap_positive_coefficient_support": ">=0.90"
+  },
+  "moving_block_bootstrap": {
+    "block_length_trading_days": 20,
+    "resamples": 1000,
+    "seed": 20260912,
+    "statistic": "standardized_candidate_coefficient",
+    "support_event": "coefficient>0"
+  },
+  "joint_decision_rule": "PASS only if sufficiency and all scientific gates pass for both frozen 30m and 60m horizons; otherwise FAIL, except insufficiency produces INSUFFICIENT",
+  "query_id_contract": "sha256(research_identity + '|' + protocol_sha256 + '|' + source_dataset_sha256)[:20]",
+  "public_output_allowed": ["PASS", "FAIL", "INSUFFICIENT"],
+  "public_detail_release": false,
+  "persist_hidden_metrics": false,
+  "persist_calendar_year_results": false,
+  "persist_bootstrap_results": false,
+  "forbidden_actions": [
+    "15m revival",
+    "unique 30m or 60m winner selection",
+    "prev_afternoon rescue",
+    "alternate session window search",
+    "gap threshold search",
+    "sign or quantile bucket search",
+    "alternate clock search",
+    "alternate volatility window search",
+    "strategy return optimization",
+    "hidden BLACKBOX attribution or rescue"
+  ],
+  "relationship_to_C1": "validated C1 trend_gap_interaction remains a frozen baseline control",
+  "relationship_to_C2": "deferred C2 60m BLACKBOX remains unopened and is not imported",
+  "relationship_to_D1": "D1 query 4 behavior is not a design input",
+  "same_2021_2025_period_reuse_is_independent_oos": false,
+  "blackbox_reusable_after_query": true,
+  "blackbox_consumed": false,
+  "production_authority": false
+}
