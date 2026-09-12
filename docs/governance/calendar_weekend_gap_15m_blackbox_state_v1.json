@@ -1,0 +1,21 @@
+{
+  "schema_id": "overnight_calendar_weekend_gap_15m_blackbox_state@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_weekend_gap_conditioned_open_state_15m_blackbox_v1",
+  "parent_development_identity": "overnight_weekend_gap_conditioned_open_state_15m_v1",
+  "product_family": "OFP-C4_calendar_closure_context_x_OFP-A2_observed_open_geometry",
+  "status": "BLACKBOX_protocol_frozen_query_unopened_pending_cloud_execution",
+  "protocol": "docs/governance/calendar_weekend_gap_15m_blackbox_protocol_v1.json",
+  "parent_development_receipt": "docs/research/cloud_calendar_weekend_gap_context_v1_dev_diagnostic.json",
+  "parent_development_authority": "docs/research/calendar_weekend_gap_context_v1_dev_cloud_adjudication_20260912.md",
+  "candidate": "weekend_gap_interaction",
+  "target": "ret_0935_0950",
+  "frozen_expected_sign": "positive",
+  "validation_window": "2021-01-01..2025-12-31",
+  "blackbox_query_opened": false,
+  "ledger_entry_created": false,
+  "expected_next_ledger_ordinal": 11,
+  "public_detail_release": false,
+  "validated_product_authority": false,
+  "production_authority": false
+}
