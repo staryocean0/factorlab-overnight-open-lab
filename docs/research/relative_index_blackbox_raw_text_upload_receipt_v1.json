@@ -1,0 +1,92 @@
+{
+  "2026_rows_loaded": false,
+  "BLACKBOX_controller_run": false,
+  "BLACKBOX_decision_generated": false,
+  "CSI500_loaded": false,
+  "D1_regression_run": false,
+  "clock_semantics": {
+    "close_0935": "09:35 bar close",
+    "close_0950": "09:50 bar close",
+    "close_1005": "10:05 bar close",
+    "close_1035": "10:35 bar close",
+    "close_1500": "15:00 bar close",
+    "open_0931": "09:31 bar open"
+  },
+  "csv_outputs": {
+    "relative_index_raw_clocks_2020_warmup.csv": {
+      "max_day": "2020-12-31",
+      "min_day": "2020-11-02",
+      "rows": 88,
+      "sha256": "ad868dbc097ba63deac8d8fef2efaa69a9dda9373032857e416a1ab9d67e7378"
+    },
+    "relative_index_raw_clocks_2021.csv": {
+      "max_day": "2021-12-31",
+      "min_day": "2021-01-04",
+      "rows": 486,
+      "sha256": "cef3d2affffdad9a7df6e4952c0a3bad48be1fff9c88387daa42806a5619bc09"
+    },
+    "relative_index_raw_clocks_2022.csv": {
+      "max_day": "2022-12-30",
+      "min_day": "2022-01-04",
+      "rows": 484,
+      "sha256": "7a83a3461c7793b8b94b96a12402b3f0950203ec7be3af1aaef62f535f4d54ee"
+    },
+    "relative_index_raw_clocks_2023.csv": {
+      "max_day": "2023-12-29",
+      "min_day": "2023-01-03",
+      "rows": 484,
+      "sha256": "3d83f39421e6bce218753db372f6cce4ca6f739c744e024670e33137ab26d700"
+    },
+    "relative_index_raw_clocks_2024.csv": {
+      "max_day": "2024-12-31",
+      "min_day": "2024-01-02",
+      "rows": 484,
+      "sha256": "e6d369384e17e73766a7606caa328bb155d8527a9c9765319199ec653fbbf253"
+    },
+    "relative_index_raw_clocks_2025.csv": {
+      "max_day": "2025-12-31",
+      "min_day": "2025-01-02",
+      "rows": 486,
+      "sha256": "699d98171c15af8ff579ad8b6cd468cbe0052bc4274b6568fa555083f18e0507"
+    }
+  },
+  "exact_clock_extraction": "PASS",
+  "exact_clocks": [
+    "09:31",
+    "09:35",
+    "09:50",
+    "10:05",
+    "10:35",
+    "15:00"
+  ],
+  "execution_start_HEAD": "534af73e8284da43be7e61704746456a92402da2",
+  "feature_engineering_performed": false,
+  "governance_files_modified": false,
+  "output_carrier_root": "data/relative_index_blackbox_raw_text_2020_2025/",
+  "output_manifest": {
+    "path": "data/relative_index_blackbox_raw_text_2020_2025/manifest.json",
+    "sha256": "cd200ae7ef10758144270bc5bf9446462705b4c0fee03856809dc72879847612"
+  },
+  "production_authority": false,
+  "purpose": "pure_data_engineering_receipt_for_cloud_D1_joint_BLACKBOX_raw_carrier_upload",
+  "query_4_created": false,
+  "read_window": {
+    "end": "2025-12-31",
+    "start": "2020-11-01"
+  },
+  "research_identity": "overnight_relative_size_open_leadership_joint_15m_30m_60m_v1",
+  "schema_id": "overnight_relative_index_blackbox_raw_text_upload_receipt@1.0",
+  "scientific_diagnostic_performed": false,
+  "session_date": "2026-09-12",
+  "source_identity": {
+    "dataset_version": "bars_cn_index_1m_raw_canonical_market_index_baidu_3s_20000714_20260821_factorlab_unified_missing_day_repaired_v8_20260824",
+    "manifest_sha256": "25f4f9f8b67c799ffb1a7b7fdee94b0b21dbbfed1efc54d063264ccb046411f0",
+    "parquet_partition": "instrument_type=market_index"
+  },
+  "symbols": {
+    "CSI1000": "000852.SH",
+    "CSI300": "000300.SH"
+  },
+  "target_engineering_performed": false,
+  "total_rows": 2512
+}
