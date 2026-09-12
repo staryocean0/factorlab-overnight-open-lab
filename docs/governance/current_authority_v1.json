@@ -1,5 +1,5 @@
 {
-  "schema_id": "overnight_open_current_authority@1.16",
+  "schema_id": "overnight_open_current_authority@1.17",
   "session_date": "2026-09-12",
   "repository_role": "overnight_open_factor_product_laboratory_and_downstream_factor_adapter",
   "program": "docs/governance/overnight_factor_product_program_v1.md",
@@ -26,6 +26,21 @@
     "validated_product_authority": false,
     "account_or_strategy_authority": false,
     "rescue_search_authorized": false,
+    "production_authority": false
+  },
+  "recent_downstream_admission": {
+    "product_family": "OFP-E2_stock_selection_adapter",
+    "status": "blocked_consumer_contract_gap_no_candidate_opened",
+    "state": "docs/governance/downstream_stock_selection_adapter_consumer_admission_state_v1.json",
+    "audit": "docs/research/downstream_stock_selection_adapter_consumer_admission_audit_20260912.md",
+    "audited_consumer_repository": "staryocean0/factorlab-multifactor-stock-lab",
+    "audited_consumer_main_head": "af2e478aaff5c8ef7f753424b57fd2d19019f248",
+    "audited_consumer_status": "stage4_machine_evidence_waiting_user_financial_review",
+    "consumer_strategy_admitted": false,
+    "candidate_identity_frozen": false,
+    "outcome_opened": false,
+    "blackbox_query_created": false,
+    "scientific_failure_claimed": false,
     "production_authority": false
   },
   "previous_completed_research": {
@@ -72,10 +87,10 @@
     "B4_driver_coherence_BLACKBOX": "completed_PASS_query_3",
     "D1_joint_successor_BLACKBOX": "completed_FAIL_query_4_no_validated_product",
     "E1_timing_adapter_validation": "completed_FAIL_query_6_no_validated_product",
+    "E2_stock_selection_adapter": "blocked_consumer_contract_gap_no_candidate_opened",
+    "E3_portfolio_risk_adapter": "deferred_requires_separate_result_free_identity_and_explicit_frozen_consumer_contract",
     "V21_P2_successor": "closed_at_DEV_no_successor_evidence_insufficient",
-    "Gap_Fill_V2_true_fresh": "wait_for_complete_2026_08_24_to_2026_12_31_and_protocol_date_gate",
-    "E2_stock_selection_adapter": "deferred_requires_separate_result_free_identity_and_explicit_frozen_consumer_strategy",
-    "E3_portfolio_risk_adapter": "deferred_requires_separate_result_free_identity_and_explicit_frozen_consumer_contract"
+    "Gap_Fill_V2_true_fresh": "wait_for_complete_2026_08_24_to_2026_12_31_and_protocol_date_gate"
   },
   "downstream_adapter_boundary": "docs/governance/downstream_adapter_research_boundary_v1.json",
   "strategy_slice_rebuild_boundary": {
@@ -92,13 +107,15 @@
     "Do not use downstream strategy PnL to tune upstream factors or a successor adapter definition.",
     "Do not execute deferred C2 60m BLACKBOX unless explicitly reactivated.",
     "Any new downstream adapter must be a separately preregistered result-free identity motivated independently of hidden BLACKBOX behavior.",
-    "E2 stock-selection work requires an explicitly named frozen consumer strategy and may only scale/abstain it; this repository may not manufacture stock-specific alpha from market-level factors.",
-    "E3 portfolio-risk work requires an explicitly named frozen consumer/account contract.",
+    "E2 may begin only after an explicitly named consumer repository exposes a current authority-bearing frozen stock-selection strategy/score identity and frozen selection/account contract suitable for a scale-or-abstain overlay.",
+    "Do not treat unfinished Stage4 multifactor evidence, a factor score, or the presence of generic SSA/account templates as a frozen executable consumer strategy.",
+    "E2 consumer-contract gap is not a scientific failure of Overnight factors and authorizes no candidate search.",
+    "E3 portfolio-risk work requires an explicitly named frozen consumer/account contract and is not automatically opened merely because E2 is blocked.",
     "Any executable consumer still requires applicable Strategy Slice Rebuild, Strategy Science Acceptance and post-training account audit; factor-utility evidence is not a substitute.",
     "Reuse of 2021-2025 is not independent OOS.",
     "Do not open post-2026-08-21 outcomes except under separately frozen protocol.",
     "Production authority remains false."
   ],
-  "next_action": "no automatic E1 rescue is authorized. The next downstream research step, if pursued, must start with a new result-free E2 stock-selection or E3 portfolio-risk identity bound to an explicitly named frozen consumer strategy/account contract; otherwise remain idle. Do not infer a consumer or strategy from E1 failure behavior.",
+  "next_action": "remain idle on E2 until a consumer repository publishes an authority-bearing frozen stock-selection strategy plus frozen selection/account contract. When that trigger exists, run a fresh consumer-admission audit and preregister a new E2 scale-or-abstain identity before opening any consumer returns. Do not infer or construct the missing consumer inside the Overnight/Open repository, and do not auto-open E3 as a workaround.",
   "production_authority": false
 }
