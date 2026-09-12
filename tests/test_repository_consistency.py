@@ -101,3 +101,14 @@ def test_default_test_barrier_blocks_real_data_paths(name):
 def test_default_test_barrier_blocks_network():
     with pytest.raises(RuntimeError, match='maintenance_network_forbidden'):
         socket.getaddrinfo('example.com',443)
+
+
+def test_exact_v6a_legacy_schema_uses_candidate_identity():
+    r = {'schema_id':'overnight_v6a_reusable_blackbox_receipt@1.0','candidate':'frozen_v6a'}
+    assert qa.receipt_identity(r) == 'frozen_v6a'
+
+def test_modern_receipt_requires_research_identity():
+    assert qa.receipt_identity({'schema_id':'modern@1.0','candidate':'wrong'}) is None
+
+def test_modern_identity_does_not_fall_back_to_candidate():
+    assert qa.receipt_identity({'schema_id':'modern@1.0','candidate':'wrong','research_identity':'correct'}) == 'correct'

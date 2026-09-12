@@ -28,6 +28,12 @@ def canonical_hash(obj: Any) -> str:
     return hashlib.sha256(json.dumps(obj, sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode()).hexdigest()
 
 
+def receipt_identity(receipt: dict) -> str | None:
+    """Only the exact original V6A schema uses candidate as its identity field."""
+    if receipt.get('schema_id') == 'overnight_v6a_reusable_blackbox_receipt@1.0':
+        return receipt.get('candidate')
+    return receipt.get('research_identity')
+
 def ledger_errors(ledger: dict, authority: dict, registry: dict) -> list[str]:
     errors: list[str] = []
     queries = ledger.get('queries', [])
@@ -176,11 +182,24 @@ def check(root: Path = ROOT) -> dict:
     if len(ledger['queries']) < prefix['count'] or canonical_hash(ledger['queries'][:prefix['count']]) != prefix['queries_sha256']:
         errors.append('append-only BLACKBOX history changed')
     by_id = {q['query_id']: q for q in ledger['queries']}
+    if (a.get('active_research') or {}).get('identity') != registry.get('active_research_identity'):
+        errors.append('authority/registry active identity mismatch')
+    registry_products = {p['product_id']: p for p in registry['products']}
+    for component in catalog['validated_components']:
+        cid = component['component_id']
+        if cid != 'V6A':
+            product = registry_products.get(cid, {})
+            if product.get('research_identity') != component['research_identity'] or product.get('blackbox_query_id') != component['query_id'] or not product.get('status', '').startswith('validated_BLACKBOX_PASS'):
+                errors.append('registry/component identity or status mismatch: ' + cid)
+        for test_path in component['tests']:
+            if test_path not in declared or not (root/test_path).is_file():
+                errors.append('missing component regression binding: ' + test_path)
     for q in ledger['queries']:
         try:
             receipt = load(root, q['receipt'])
             for key in ['query_id', 'decision', 'research_identity', 'protocol_sha256']:
-                if receipt.get(key) != q.get(key):
+                actual = receipt_identity(receipt) if key == 'research_identity' else receipt.get(key)
+                if actual != q.get(key):
                     errors.append(f'ledger/receipt mismatch #{q["ordinal"]}: {key}')
         except (OSError, ValueError, KeyError) as exc:
             errors.append(f'invalid receipt #{q.get("ordinal")}: {exc}')
