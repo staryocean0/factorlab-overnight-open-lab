@@ -1,0 +1,324 @@
+{
+  "2021_2025_scientific_rows_opened": false,
+  "account_PnL_backtest_opened": false,
+  "adapter_rule": "active iff c2_direction_score >= 0",
+  "blackbox_query_created": false,
+  "candidate_attempt_count": 1,
+  "clock_selection": false,
+  "consumer": {
+    "consumer_contract": "docs/ops/reaka_current_k1_account_ledgers@1.5.json",
+    "consumer_parameter_mutation_authorized": false,
+    "decision_clocks": [
+      "14:30",
+      "14:45"
+    ],
+    "model": "d8-h8-K1-r0_fit_prefix_successor_incumbent",
+    "ranking_mutation_authorized": false,
+    "repository": "staryocean0/factorlab-multifactor-stock-lab",
+    "selection_decision_carrier": "output/factor-rotation/reaka_current_k1_account_ledgers_v1_2011_2026/formal/selection_opportunity_decision_summary.csv",
+    "selection_decision_carrier_blob_sha": "8ad23f84d6664cb6e870e1667cbd4d06682a3626",
+    "selection_policy": "N30_equal_backfill_unconstrained",
+    "source_commit": "af2e478aaff5c8ef7f753424b57fd2d19019f248",
+    "strategy_id": "REAKA_D5_H20_R5_CURRENT_GENERATION_V1",
+    "topn_mutation_authorized": false
+  },
+  "decision": "E2V2_DEV_INSUFFICIENT",
+  "development_window": "2015-01-05..2020-12-31",
+  "diagnostics": {
+    "14:30": {
+      "by_year": {
+        "2015": {
+          "active_coverage": 0.5111111111111111,
+          "active_decision_count": 23,
+          "candidate_mean_selected_h20_return": 0.007933769521650043,
+          "candidate_mean_selection_gap": -0.4355266456964336,
+          "comparator_mean_selected_h20_return": 0.04767108332724324,
+          "comparator_mean_selection_gap": -0.4142022020904293,
+          "complete_decision_count": 45,
+          "delta_selected_h20_return": -0.0397373138055932,
+          "delta_selection_gap": -0.02132444360600433,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2016": {
+          "active_coverage": 0.40816326530612246,
+          "active_decision_count": 20,
+          "candidate_mean_selected_h20_return": -0.007813171307806618,
+          "candidate_mean_selection_gap": -0.27403608791323814,
+          "comparator_mean_selected_h20_return": -0.0002691610051923673,
+          "comparator_mean_selection_gap": -0.27740345261382404,
+          "complete_decision_count": 49,
+          "delta_selected_h20_return": -0.007544010302614251,
+          "delta_selection_gap": 0.0033673647005859064,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2017": {
+          "active_coverage": 0.12244897959183673,
+          "active_decision_count": 6,
+          "candidate_mean_selected_h20_return": -0.02092134927642603,
+          "candidate_mean_selection_gap": -0.3285948605205719,
+          "comparator_mean_selected_h20_return": -0.009737057989430713,
+          "comparator_mean_selection_gap": -0.30100476707395885,
+          "complete_decision_count": 49,
+          "delta_selected_h20_return": -0.011184291286995317,
+          "delta_selection_gap": -0.027590093446613062,
+          "sufficiency_active_pass": false,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": false
+        },
+        "2018": {
+          "active_coverage": 0.2916666666666667,
+          "active_decision_count": 14,
+          "candidate_mean_selected_h20_return": -0.01730883635219618,
+          "candidate_mean_selection_gap": -0.32790510576414084,
+          "comparator_mean_selected_h20_return": -0.03351544025869319,
+          "comparator_mean_selection_gap": -0.34038646728565086,
+          "complete_decision_count": 48,
+          "delta_selected_h20_return": 0.016206603906497013,
+          "delta_selection_gap": 0.012481361521510026,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2019": {
+          "active_coverage": 0.46938775510204084,
+          "active_decision_count": 23,
+          "candidate_mean_selected_h20_return": 0.0070141252418284075,
+          "candidate_mean_selection_gap": -0.47603557827933646,
+          "comparator_mean_selected_h20_return": 0.029512198290819937,
+          "comparator_mean_selection_gap": -0.4913744277744852,
+          "complete_decision_count": 49,
+          "delta_selected_h20_return": -0.02249807304899153,
+          "delta_selection_gap": 0.015338849495148743,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2020": {
+          "active_coverage": 0.4489795918367347,
+          "active_decision_count": 22,
+          "candidate_mean_selected_h20_return": 0.010138033191382014,
+          "candidate_mean_selection_gap": -0.6311504168673067,
+          "comparator_mean_selected_h20_return": 0.006993745493031563,
+          "comparator_mean_selection_gap": -0.644547975474573,
+          "complete_decision_count": 49,
+          "delta_selected_h20_return": 0.003144287698350451,
+          "delta_selection_gap": 0.013397558607266324,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        }
+      },
+      "gates": {
+        "all_annual_sufficiency_pass": false,
+        "annual_selection_gap_delta_not_worse_than_tolerance_count": 4,
+        "median_annual_selected_return_delta": -0.009364150794804784,
+        "median_annual_selected_return_delta_nonnegative": false,
+        "minimum_annual_selection_gap_count_pass": true,
+        "minimum_positive_annual_selected_return_delta_count_pass": false,
+        "pooled_selected_return_delta_positive": false,
+        "pooled_selection_gap_delta_not_worse_than_tolerance": false,
+        "positive_annual_selected_return_delta_count": 2
+      },
+      "pooled": {
+        "active_coverage": 0.3737024221453287,
+        "active_decision_count": 108,
+        "candidate_mean_selected_h20_return": 0.00039558406504604856,
+        "candidate_mean_selection_gap": -0.4342055807834225,
+        "comparator_mean_selected_h20_return": 0.006349287653913026,
+        "comparator_mean_selection_gap": -0.41169498286396455,
+        "complete_decision_count": 289,
+        "delta_selected_h20_return": -0.005953703588866977,
+        "delta_selection_gap": -0.02251059791945792,
+        "sufficiency_active_pass": true,
+        "sufficiency_complete_pass": true,
+        "sufficiency_pass": true
+      },
+      "progression_pass": false
+    },
+    "14:45": {
+      "by_year": {
+        "2015": {
+          "active_coverage": 0.5111111111111111,
+          "active_decision_count": 23,
+          "candidate_mean_selected_h20_return": 0.004266797825905963,
+          "candidate_mean_selection_gap": -0.43476352913970934,
+          "comparator_mean_selected_h20_return": 0.04899863468937049,
+          "comparator_mean_selection_gap": -0.4128649010073785,
+          "complete_decision_count": 45,
+          "delta_selected_h20_return": -0.044731836863464526,
+          "delta_selection_gap": -0.021898628132330844,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2016": {
+          "active_coverage": 0.40816326530612246,
+          "active_decision_count": 20,
+          "candidate_mean_selected_h20_return": -0.007979010019325616,
+          "candidate_mean_selection_gap": -0.2751680840316422,
+          "comparator_mean_selected_h20_return": -0.0012662476200499487,
+          "comparator_mean_selection_gap": -0.27771353154596445,
+          "complete_decision_count": 49,
+          "delta_selected_h20_return": -0.006712762399275667,
+          "delta_selection_gap": 0.00254544751432223,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2017": {
+          "active_coverage": 0.12244897959183673,
+          "active_decision_count": 6,
+          "candidate_mean_selected_h20_return": -0.022498979372797698,
+          "candidate_mean_selection_gap": -0.32629891679707795,
+          "comparator_mean_selected_h20_return": -0.008788844842956644,
+          "comparator_mean_selection_gap": -0.29877973240575145,
+          "complete_decision_count": 49,
+          "delta_selected_h20_return": -0.013710134529841054,
+          "delta_selection_gap": -0.0275191843913265,
+          "sufficiency_active_pass": false,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": false
+        },
+        "2018": {
+          "active_coverage": 0.2916666666666667,
+          "active_decision_count": 14,
+          "candidate_mean_selected_h20_return": -0.017031229193349783,
+          "candidate_mean_selection_gap": -0.3272766336404529,
+          "comparator_mean_selected_h20_return": -0.03328705517543149,
+          "comparator_mean_selection_gap": -0.33987455460281657,
+          "complete_decision_count": 48,
+          "delta_selected_h20_return": 0.01625582598208171,
+          "delta_selection_gap": 0.012597920962363673,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2019": {
+          "active_coverage": 0.46938775510204084,
+          "active_decision_count": 23,
+          "candidate_mean_selected_h20_return": 0.00638023512863285,
+          "candidate_mean_selection_gap": -0.47615983656778893,
+          "comparator_mean_selected_h20_return": 0.026737091383961673,
+          "comparator_mean_selection_gap": -0.4932305368467967,
+          "complete_decision_count": 49,
+          "delta_selected_h20_return": -0.020356856255328824,
+          "delta_selection_gap": 0.017070700279007756,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2020": {
+          "active_coverage": 0.4489795918367347,
+          "active_decision_count": 22,
+          "candidate_mean_selected_h20_return": 0.01269113830174416,
+          "candidate_mean_selection_gap": -0.624109808647916,
+          "comparator_mean_selected_h20_return": 0.00807748649351135,
+          "comparator_mean_selection_gap": -0.6389793312234799,
+          "complete_decision_count": 49,
+          "delta_selected_h20_return": 0.00461365180823281,
+          "delta_selection_gap": 0.014869522575563954,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        }
+      },
+      "gates": {
+        "all_annual_sufficiency_pass": false,
+        "annual_selection_gap_delta_not_worse_than_tolerance_count": 4,
+        "median_annual_selected_return_delta": -0.01021144846455836,
+        "median_annual_selected_return_delta_nonnegative": false,
+        "minimum_annual_selection_gap_count_pass": true,
+        "minimum_positive_annual_selected_return_delta_count_pass": false,
+        "pooled_selected_return_delta_positive": false,
+        "pooled_selection_gap_delta_not_worse_than_tolerance": false,
+        "positive_annual_selected_return_delta_count": 2
+      },
+      "pooled": {
+        "active_coverage": 0.3737024221453287,
+        "active_decision_count": 108,
+        "candidate_mean_selected_h20_return": -8.263411793917748e-05,
+        "candidate_mean_selection_gap": -0.4326359375361876,
+        "comparator_mean_selected_h20_return": 0.0062988743872311945,
+        "comparator_mean_selection_gap": -0.4104475869735116,
+        "complete_decision_count": 289,
+        "delta_selected_h20_return": -0.006381508505170372,
+        "delta_selection_gap": -0.02218835056267604,
+        "sufficiency_active_pass": true,
+        "sufficiency_complete_pass": true,
+        "sufficiency_pass": true
+      },
+      "progression_pass": false
+    }
+  },
+  "joint_clock_progression_pass": false,
+  "ledger_query_count_at_execution": 11,
+  "magnitude_bucket_search": false,
+  "maximum_authority_if_progressed": "retrospective_E2_selection_quality_adapter_candidate_only",
+  "phase": "retrospective_selection_quality_diagnostic",
+  "product_family": "OFP-E2_stock_selection_adapter",
+  "production_authority": false,
+  "protocol": {
+    "path": "docs/governance/downstream_c2_stock_selection_risk_adapter_v1_protocol.json",
+    "sha256": "b817385b5f51d482d3ce1e65908204333e12971f205df79404c204548dcc5c8c"
+  },
+  "ranking_mutation": false,
+  "research_identity": "overnight_c2_stock_selection_risk_abstention_adapter_v1",
+  "schema_id": "overnight_downstream_c2_stock_selection_risk_adapter_dev_diagnostic@1.0",
+  "session_date": "2026-09-12",
+  "source_integrity": {
+    "C2": {
+      "factor_manifest": {
+        "path": "data/runtime_text_2015_2025/manifest.json",
+        "sha256": "10f7e5eada195541ae83fe14b7138e6a1ced939b7e278f811e7fb08c4147bb13"
+      },
+      "factor_shards": {
+        "2015": {
+          "path": "data/runtime_text_2015_2025/factor_panel_2015.csv",
+          "sha256": "6463091e0a4f536717a148144c8566f35b73c62e05694e1c73226024b80326af"
+        },
+        "2016": {
+          "path": "data/runtime_text_2015_2025/factor_panel_2016.csv",
+          "sha256": "f1c0abd8dfd6dd40f91c0b8c93ba6f3c4cf685efd0b04832e0e80d74a6c99f51"
+        },
+        "2017": {
+          "path": "data/runtime_text_2015_2025/factor_panel_2017.csv",
+          "sha256": "395bf508ef6595474dd9f17282aa2d740bc93e342afa81401c9b05d3cf66e247"
+        },
+        "2018": {
+          "path": "data/runtime_text_2015_2025/factor_panel_2018.csv",
+          "sha256": "2fa36707c38e9e312fb87a13787bf4126e2b275b5881b89b884d852b7874abdb"
+        },
+        "2019": {
+          "path": "data/runtime_text_2015_2025/factor_panel_2019.csv",
+          "sha256": "c183709b84e08225346242690089d8dc90edc4b4114bb0e731691241d91029be"
+        },
+        "2020": {
+          "path": "data/runtime_text_2015_2025/factor_panel_2020.csv",
+          "sha256": "8b15f82b78b6026f5fa48207fd7a15f0a5b0e6a79f1d41501d6a5c6c79730923"
+        }
+      }
+    },
+    "consumer": {
+      "blob_sha": "8ad23f84d6664cb6e870e1667cbd4d06682a3626",
+      "development_rows_materialized_only": true,
+      "first_post2020_row_used_only_as_stream_stop_sentinel": true,
+      "path": "output/factor-rotation/reaka_current_k1_account_ledgers_v1_2011_2026/formal/selection_opportunity_decision_summary.csv",
+      "post2020_values_parsed_for_science": false,
+      "repository": "staryocean0/factorlab-multifactor-stock-lab",
+      "source_commit": "af2e478aaff5c8ef7f753424b57fd2d19019f248"
+    }
+  },
+  "state_at_execution": {
+    "path": "docs/governance/downstream_c2_stock_selection_risk_adapter_v1_state.json",
+    "sha256": "6aa4db681f2799904c96c877eb82d4fc39928dabe8d1230ad5feaecdbcecc516"
+  },
+  "strategy_execution_opened": false,
+  "threshold_search": false,
+  "topn_mutation": false,
+  "upstream_add_drop_search": false,
+  "validated_C2_query_id": "a1068de9321c04632aad"
+}
