@@ -1,5 +1,5 @@
 {
-  "schema_id": "overnight_factor_product_registry@1.13",
+  "schema_id": "overnight_factor_product_registry@1.14",
   "session_date": "2026-09-12",
   "program": "docs/governance/overnight_factor_product_program_v1.md",
   "repository_role": "overnight_open_factor_product_laboratory_and_downstream_factor_adapter",
@@ -287,19 +287,28 @@
     {
       "product_id": "OFP-E2",
       "name": "stock_selection_adapter",
-      "status": "latest_v2_DEV_INSUFFICIENT_closed_no_successor",
+      "status": "latest_v3_DEV_NO_PROGRESS_closed_no_successor",
       "consumer_roles": [
         "stock_selection"
       ],
-      "latest_identity": "overnight_c2_stock_selection_risk_abstention_adapter_v1",
-      "latest_decision": "E2V2_DEV_INSUFFICIENT",
-      "latest_state": "docs/governance/downstream_c2_stock_selection_risk_adapter_v1_state.json",
-      "latest_adjudication": "docs/research/downstream_c2_stock_selection_risk_adapter_v1_dev_cloud_adjudication_20260912.md",
+      "latest_identity": "overnight_b2_stock_selection_offshore_risk_abstention_adapter_v1",
+      "latest_decision": "E2V3_DEV_NO_PROGRESS",
+      "latest_state": "docs/governance/downstream_b2_stock_selection_offshore_risk_adapter_v1_state.json",
+      "latest_adjudication": "docs/research/downstream_b2_stock_selection_offshore_risk_adapter_v1_dev_cloud_adjudication_20260912.md",
       "consumer_repository": "staryocean0/factorlab-multifactor-stock-lab",
       "consumer_strategy_id": "REAKA_D5_H20_R5_CURRENT_GENERATION_V1",
       "prior_identity": "overnight_b4_stock_selection_abstention_adapter_v1",
       "prior_status": "DEV_NO_PROGRESS_closed_no_successor",
-      "successor_authorized": false
+      "successor_authorized": false,
+      "latest_upstream_product": "OFP-B2",
+      "latest_upstream_query_id": "608e037b0d24724b097b",
+      "latest_consumer_repository": "staryocean0/factorlab-multifactor-stock-lab",
+      "latest_consumer_strategy_id": "REAKA_D5_H20_R5_CURRENT_GENERATION_V1",
+      "previous_latest_identity": "overnight_c2_stock_selection_risk_abstention_adapter_v1",
+      "previous_latest_status": "latest_v2_DEV_INSUFFICIENT_closed_no_successor",
+      "future_2021_2025_validation_authorized": false,
+      "blackbox_query_created": false,
+      "production_authority": false
     },
     {
       "product_id": "OFP-E3",
@@ -326,7 +335,7 @@
   "deferred_frozen_identity": null,
   "waiting_validation_identity": null,
   "next_research_identity": null,
-  "next_research_note": "No outcome-bearing successor is automatically authorized after E3v2 query 12 FAIL. Maintain the validated shelf; wait for a separately motivated result-free identity or the frozen Gap-Fill V2 true-fresh date gate.",
+  "next_research_note": "E2v3 B2 adapter closed DEV_NO_PROGRESS. No outcome-bearing successor is automatically authorized; maintain the validated shelf or wait for a separately motivated result-free identity / frozen Gap-Fill V2 true-fresh date gate.",
   "cartesian_feature_factory_forbidden": true,
   "downstream_strategy_return_may_define_upstream_factor": false,
   "production_authority": false,
