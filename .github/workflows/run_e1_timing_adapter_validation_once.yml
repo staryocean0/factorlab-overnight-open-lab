@@ -1,0 +1,60 @@
+name: One-shot E1 timing adapter reusable validation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/run_e1_timing_adapter_validation_once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  run-e1-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install frozen runtime dependencies
+        run: python -m pip install --disable-pip-version-check numpy pandas pyarrow scikit-learn
+      - name: Reconstruct frozen panel and run compact E1 validation
+        run: |
+          set -euo pipefail
+          test ! -e docs/research/local_downstream_timing_adapter_validation_v1_blackbox_receipt.json
+          TMP="$(mktemp -d)"
+          trap 'rm -rf "$TMP"' EXIT
+          python scripts/build_v6a_frozen_base_panel.py \
+            --raw-panel data/high_open_dev_2015_2025/annotated_panel.parquet \
+            --minute-bars data/high_open_dev_2015_2025/1m_official.parquet \
+            --nasdaq data/high_open_dev_2015_2025/fred_nasdaq.csv \
+            --vix data/high_open_dev_2015_2025/fred_vix.csv \
+            --frozen-panel data/development/csi1000_open_pit_panel.parquet \
+            --panel-out "$TMP/panel_2015_2025.parquet" \
+            --nasdaq-normalized-out "$TMP/fred_nasdaq.csv" \
+            --vix-normalized-out "$TMP/fred_vix.csv"
+          python scripts/run_downstream_timing_adapter_validation_v1_blackbox.py \
+            --panel "$TMP/panel_2015_2025.parquet" \
+            --minute-bars data/high_open_dev_2015_2025/1m_official.parquet \
+            --hkma data/v6a_external_sources_2015_2025/hkma_usdcny_cross.parquet \
+            --holiday-a50 data/v6a_external_sources_2015_2025/sgx_a50_holiday_endpoints.parquet \
+            --ordinary-a50 data/v6a_external_sources_2015_2025/sgx_a50_ordinary_preauction_endpoints.parquet \
+            --high-open-source-manifest data/high_open_dev_2015_2025/manifest.json \
+            --external-source-manifest data/v6a_external_sources_2015_2025/manifest.json \
+            --reconstruction-contract docs/governance/v6a_base_panel_reconstruction_contract_20260910.json \
+            --protocol docs/governance/downstream_timing_adapter_validation_v1_blackbox_protocol.json \
+            --receipt-out docs/research/local_downstream_timing_adapter_validation_v1_blackbox_receipt.json
+      - name: Commit compact E1 validation receipt only
+        run: |
+          git status --short
+          test -f docs/research/local_downstream_timing_adapter_validation_v1_blackbox_receipt.json
+          EXTRA="$(git status --short | grep -v '^?? docs/research/local_downstream_timing_adapter_validation_v1_blackbox_receipt.json$' || true)"
+          test -z "$EXTRA"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/research/local_downstream_timing_adapter_validation_v1_blackbox_receipt.json
+          git commit -m "Record E1 reusable validation receipt [skip ci]"
+          git push
