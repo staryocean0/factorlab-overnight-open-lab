@@ -1,9 +1,9 @@
 {
-  "schema_id": "overnight_downstream_b1_forward_cycle_portfolio_risk_adapter_state@1.0",
+  "schema_id": "overnight_downstream_b1_forward_cycle_portfolio_risk_adapter_state@1.1",
   "session_date": "2026-09-12",
   "research_identity": "overnight_b1_forward_cycle_portfolio_risk_abstention_v1",
   "product_family": "OFP-E3_portfolio_risk_adapter",
-  "status": "result_free_preregistered_pending_development_execution",
+  "status": "DEV_progression_retrospective_portfolio_risk_candidate_waiting_separate_validation_identity",
   "preanalysis": "docs/research/downstream_b1_forward_cycle_portfolio_risk_adapter_v1_preanalysis_20260912.md",
   "protocol": "docs/governance/downstream_b1_forward_cycle_portfolio_risk_adapter_v1_protocol.json",
   "consumer_repository": "staryocean0/factorlab-multifactor-stock-lab",
@@ -11,12 +11,14 @@
   "consumer_strategy_id": "REAKA_D5_H20_R5_CURRENT_GENERATION_V1",
   "candidate": "B1_zero_boundary_whole_portfolio_abstention_over_next_D5_cycle",
   "development_window": "2015-01-05..2020-12-31",
-  "outcome_opened": false,
-  "development_receipt": null,
-  "development_decision": null,
+  "outcome_opened": true,
+  "development_receipt": "docs/research/cloud_downstream_b1_forward_cycle_portfolio_risk_adapter_v1_dev_diagnostic.json",
+  "development_adjudication": "docs/research/downstream_b1_forward_cycle_portfolio_risk_adapter_v1_dev_cloud_adjudication_20260912.md",
+  "development_decision": "E3V2_DEV_PROGRESS_RETROSPECTIVE_PORTFOLIO_RISK_ADAPTER_CANDIDATE",
   "future_2021_2025_validation_authorized": false,
+  "successor_requires_separate_result_free_identity": true,
   "account_execution_backtest_authorized": false,
   "validated_product_authority": false,
   "production_authority": false,
-  "next_action": "cloud main agent executes frozen six-year forward-cycle portfolio utility/risk diagnostic for both consumer clocks"
+  "next_action": "freeze a separate compact reusable validation identity before opening 2021-2025"
 }
