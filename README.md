@@ -16,11 +16,15 @@ Read in this order:
 
 Historical runners, README text, archived protocols, or prior research plans do **not** reopen a closed identity.
 
+## Latest completed research — E3v3
+
+`overnight_c2_forward_cycle_portfolio_risk_abstention_v1` closed as **`E3V3_DEV_INSUFFICIENT`**. Both frozen clocks have only 6 C2-active decisions in 2017 versus the preregistered minimum of 8, so no reusable validation, query #13, rescue, or successor is authorized. Validated upstream C2 remains valid; reusable BLACKBOX ledger count remains **12**.
+
 ## Current authority — 2026-09-12
 
 There is currently **no active outcome-bearing research identity**.
 
-The latest completed downstream line is:
+A previously completed downstream line is:
 
 `overnight_b2_stock_selection_offshore_risk_abstention_adapter_v1`
 

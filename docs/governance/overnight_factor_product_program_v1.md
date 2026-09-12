@@ -80,6 +80,11 @@ Downstream adapter closures do **not** invalidate their upstream factor products
 
 ## Latest downstream evidence
 
+### E3v3 — C2 forward-cycle portfolio-risk adapter
+
+The frozen C2 zero-boundary whole-portfolio abstention adapter closed as `E3V3_DEV_INSUFFICIENT`. Both 14:30 and 14:45 clocks have only 6 candidate-active decisions in 2017, below the frozen minimum of 8. Because sufficiency fails, incomplete-surface utility/downside statistics cannot authorize progression, rejection, rescue, or successor design. No 2021-2025 validation was opened, no BLACKBOX query was created, and the ledger remains 12. Validated upstream C2 remains authoritative.
+
+
 ### E2v3 — B2 stock-selection offshore-risk adapter
 
 The frozen consumer was `REAKA_D5_H20_R5_CURRENT_GENERATION_V1` / `N30_equal_backfill_unconstrained` with 14:30 and 14:45 clocks jointly. The upstream coordinate was validated B2 `china_offshore_z`; the only semantic boundary was zero.
@@ -128,7 +133,7 @@ The Gap-Fill V2 true-fresh evaluation remains date-gated until the complete `202
 
 There is currently **no active outcome-bearing research identity**.
 
-The latest completed identity is `overnight_b2_stock_selection_offshore_risk_abstention_adapter_v1`, closed as `E2V3_DEV_NO_PROGRESS` with no reusable Validation successor, no account-PnL backtest, no new BLACKBOX query, and no production authority.
+The latest completed identity is `overnight_c2_forward_cycle_portfolio_risk_abstention_v1`, closed as `E3V3_DEV_INSUFFICIENT` with no reusable Validation successor, no account-execution backtest, no new BLACKBOX query, and no production authority.
 
 No additional outcome-bearing research is automatically authorized. The repository should maintain the validated shelf until either:
 
