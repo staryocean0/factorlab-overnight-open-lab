@@ -1,0 +1,18 @@
+{
+  "schema_id": "overnight_fx_cny_driver_state@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_fx_cny_driver_v1",
+  "product_family": "OFP-B3_fx_macro_overnight_driver",
+  "status": "result_free_preregistered_waiting_after_B2_execution_order",
+  "preanalysis": "docs/research/fx_cny_driver_v1_preanalysis_20260912.md",
+  "protocol": "docs/governance/fx_cny_driver_v1_protocol.json",
+  "candidate": "fx_cny_z",
+  "target": "opening_gap_rvol",
+  "development_window": "2015-01-05..2020-12-31",
+  "outcome_opened": false,
+  "development_receipt": null,
+  "development_decision": null,
+  "future_2021_2025_blackbox_authorized": false,
+  "blackbox_query_created": false,
+  "production_authority": false
+}
