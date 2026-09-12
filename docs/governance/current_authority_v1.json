@@ -1,5 +1,5 @@
 {
-  "schema_id": "overnight_open_current_authority@1.18",
+  "schema_id": "overnight_open_current_authority@1.19",
   "session_date": "2026-09-12",
   "repository_role": "overnight_open_factor_product_laboratory_and_downstream_factor_adapter",
   "program": "docs/governance/overnight_factor_product_program_v1.md",
@@ -13,46 +13,45 @@
     "production_authority": false
   },
   "active_research": {
-    "identity": "overnight_b4_stock_selection_abstention_adapter_v1",
-    "product_family": "OFP-E2_stock_selection_adapter",
-    "status": "result_free_preregistered_pending_cloud_development_execution",
-    "preanalysis": "docs/research/downstream_stock_selection_adapter_v1_preanalysis_20260912.md",
-    "protocol": "docs/governance/downstream_stock_selection_adapter_v1_protocol.json",
-    "state": "docs/governance/downstream_stock_selection_adapter_v1_state.json",
+    "identity": "overnight_c1_intraday_portfolio_risk_abstention_v1",
+    "product_family": "OFP-E3_portfolio_risk_adapter",
+    "status": "result_free_preregistered_pending_minimal_intraday_price_carrier",
+    "preanalysis": "docs/research/downstream_portfolio_risk_adapter_v1_preanalysis_20260912.md",
+    "protocol": "docs/governance/downstream_portfolio_risk_adapter_v1_protocol.json",
+    "state": "docs/governance/downstream_portfolio_risk_adapter_v1_state.json",
     "consumer_repository": "staryocean0/factorlab-multifactor-stock-lab",
     "consumer_source_commit": "af2e478aaff5c8ef7f753424b57fd2d19019f248",
     "consumer_strategy_id": "REAKA_D5_H20_R5_CURRENT_GENERATION_V1",
-    "consumer_model": "d8-h8-K1-r0_fit_prefix_successor_incumbent",
-    "consumer_selection_policy": "N30_equal_backfill_unconstrained",
-    "consumer_contract": "docs/ops/reaka_current_k1_account_ledgers@1.5.json",
-    "consumer_decision_clocks": ["14:30", "14:45"],
-    "upstream_product": "validated_B4_driver_coherence_only",
-    "adapter_rule": "active iff driver_coherence >= 0; otherwise abstain in selection-quality diagnostic",
+    "consumer_account_snapshot_available_in_cloud": true,
+    "upstream_product": "validated_C1_15m_only",
+    "candidate_rule": "portfolio exposure is zero over 09:35-09:50 iff c1_action < 0; otherwise one",
     "development_window": "2015-01-05..2020-12-31",
+    "missing_data": "held-symbol exact-clock QFQ signal-price carrier: previous-day 15:00, current-day 09:35 and 09:50",
     "outcome_opened": false,
-    "account_PnL_backtest_authorized": false,
-    "strategy_execution_authorized": false,
+    "account_execution_authorized": false,
+    "strategy_mutation_authorized": false,
     "future_2021_2025_validation_authorized": false,
     "production_authority": false
   },
   "recent_completed_research": {
-    "identity": "overnight_c1_b4_timing_confidence_adapter_validation_v1",
-    "parent_development_identity": "overnight_c1_b4_timing_confidence_adapter_v1",
-    "product_family": "OFP-E1_timing_adapter",
-    "status": "BLACKBOX_FAIL_closed_no_validated_E1_product",
-    "development_decision": "E1_DEV_PROGRESS_RETROSPECTIVE_FACTOR_UTILITY_ADAPTER_CANDIDATE",
-    "blackbox_result": "FAIL",
-    "blackbox_query_id": "1d8e01c69f555a7d721c",
-    "blackbox_ledger_ordinal": 6,
-    "validated_product_authority": false,
-    "rescue_search_authorized": false,
-    "production_authority": false
-  },
-  "superseded_downstream_admission": {
-    "state": "docs/governance/downstream_stock_selection_adapter_consumer_admission_state_v1.json",
-    "old_status": "blocked_consumer_contract_gap_no_candidate_opened",
-    "superseded_reason": "subsequent cloud audit found the immutable current consumer identity and completed account/selection contract at factorlab-multifactor-stock-lab docs/ops/reaka_current_k1_account_ledgers@1.5.json; the user also explicitly delegated scientific authority to the cloud main agent",
-    "consumer_strategy_now_admitted_for_selection_quality_diagnostic": true
+    "E2": {
+      "identity": "overnight_b4_stock_selection_abstention_adapter_v1",
+      "product_family": "OFP-E2_stock_selection_adapter",
+      "status": "DEV_NO_PROGRESS_closed_no_successor",
+      "development_decision": "E2_DEV_NO_PROGRESS",
+      "development_receipt": "docs/research/cloud_downstream_stock_selection_adapter_v1_dev_diagnostic.json",
+      "development_authority": "docs/research/downstream_stock_selection_adapter_v1_dev_cloud_adjudication_20260912.md",
+      "successor_authorized": false,
+      "rescue_search_authorized": false,
+      "blackbox_query_created": false,
+      "production_authority": false
+    },
+    "E1": {
+      "identity": "overnight_c1_b4_timing_confidence_adapter_validation_v1",
+      "status": "BLACKBOX_FAIL_closed_no_validated_E1_product",
+      "blackbox_query_id": "1d8e01c69f555a7d721c",
+      "blackbox_ledger_ordinal": 6
+    }
   },
   "deferred_frozen_research": {
     "identity": "overnight_volatility_conditioned_open_state_60m_v1",
@@ -67,27 +66,19 @@
     "B4_driver_coherence": "PASS_validated_continuous_factor_product",
     "Gap_Fill_V2": "frozen_repeat_confirmed_true_fresh_pending"
   },
-  "closed_or_waiting": {
-    "C2_60m_BLACKBOX": "frozen_unopened_deferred",
-    "C3_joint_successor_BLACKBOX": "completed_FAIL_query_5_no_validated_product",
-    "D1_joint_successor_BLACKBOX": "completed_FAIL_query_4_no_validated_product",
-    "E1_timing_adapter_validation": "completed_FAIL_query_6_no_validated_product",
-    "E3_portfolio_risk_adapter": "not_opened_while_E2_active",
-    "Gap_Fill_V2_true_fresh": "wait_for_complete_2026_08_24_to_2026_12_31_and_protocol_date_gate"
-  },
   "blackbox_ledger_query_count": 6,
   "hard_rules": [
     "Do not decompose completed reusable BLACKBOX queries or use hidden behavior to design successors.",
-    "Do not use downstream strategy PnL to tune upstream factor definitions.",
-    "E2 v1 uses only validated B4 driver_coherence at the semantic zero boundary and may not mutate consumer rankings or Top30 membership.",
-    "E2 v1 is selection-quality diagnostic only; account PnL, executed cash overlay, costs and strategy promotion remain closed under this identity.",
-    "Both 14:30 and 14:45 consumer variants must pass jointly; do not select a winner after outcomes.",
-    "Do not search nonzero B4 thresholds, magnitude buckets, quantiles, weights or add other upstream products under E2 v1.",
+    "E2 v1 is closed with DEV_NO_PROGRESS; do not rescue it with thresholds, buckets, alternate clocks or extra upstream products.",
+    "E3 v1 is independently motivated by validated C1's exact 09:35-09:50 horizon and uses C1 only.",
+    "E3 v1 is portfolio-utility/risk diagnostic only; no executed trades, costs, account-path mutation or strategy promotion under this identity.",
+    "Both 14:30 and 14:45 frozen consumer accounts must pass jointly; no post-result clock selection.",
+    "Do not search nonzero C1 thresholds, magnitude buckets, alternate horizons or additional upstream products under E3 v1.",
     "Do not execute deferred C2 60m BLACKBOX unless explicitly reactivated by the cloud main agent under a new current-authority revision.",
     "Reuse of 2021-2025 is not independent OOS.",
     "Do not open post-2026-08-21 outcomes except under separately frozen protocol.",
     "Production authority remains false."
   ],
-  "next_action": "cloud main agent executes the frozen E2 2015-2020 joint 14:30/14:45 selection-quality diagnostic by reconstructing B4 from admitted development carriers and joining the immutable consumer decision-summary file at consumer commit af2e478aaff5c8ef7f753424b57fd2d19019f248; ask the user only if concrete source data required for execution is unavailable to cloud",
+  "next_action": "obtain only the minimal 2015-2020 held-symbol QFQ exact-clock carrier required by the frozen E3 protocol; after upload, cloud main agent performs all parity checks, portfolio reconstruction, diagnostics and adjudication without further research-choice consultation",
   "production_authority": false
 }
