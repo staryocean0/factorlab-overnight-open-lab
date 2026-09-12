@@ -1,0 +1,139 @@
+{
+  "2021_2025_rows_opened": false,
+  "additional_upstream_search": false,
+  "alternate_horizon_search": false,
+  "bucket_search": false,
+  "candidate": "weekend_gap_interaction",
+  "candidate_attempt_count": 1,
+  "decision": "C4_DEV_PROGRESS_WEEKEND_GAP_15M_CONTINUOUS_INTERACTION",
+  "development_window": "2015-01-05..2020-12-31",
+  "diagnostics": {
+    "by_year": {
+      "2015": {
+        "baseline_r2": 0.0926823028078615,
+        "candidate_r2": 0.09383362043723953,
+        "delta_r2": 0.0011513176293780347,
+        "n": 223,
+        "partial_corr": -0.03562196613726345,
+        "standardized_candidate_coefficient": -0.04220576829468486,
+        "status": "ok",
+        "weekend_n": 41
+      },
+      "2016": {
+        "baseline_r2": 0.19541621989460278,
+        "candidate_r2": 0.2104796444926289,
+        "delta_r2": 0.01506342459802612,
+        "n": 243,
+        "partial_corr": 0.13682839172953304,
+        "standardized_candidate_coefficient": 0.17143197687174644,
+        "status": "ok",
+        "weekend_n": 43
+      },
+      "2017": {
+        "baseline_r2": 0.14898785222816036,
+        "candidate_r2": 0.34754550666220074,
+        "delta_r2": 0.1985576544340404,
+        "n": 244,
+        "partial_corr": 0.48303148199732177,
+        "standardized_candidate_coefficient": 0.5815577848115759,
+        "status": "ok",
+        "weekend_n": 45
+      },
+      "2018": {
+        "baseline_r2": 0.15927871422118955,
+        "candidate_r2": 0.17454001445486034,
+        "delta_r2": 0.015261300233670783,
+        "n": 243,
+        "partial_corr": 0.13473168663297366,
+        "standardized_candidate_coefficient": 0.13670247020512077,
+        "status": "ok",
+        "weekend_n": 44
+      },
+      "2019": {
+        "baseline_r2": 0.06584898602689926,
+        "candidate_r2": 0.06627221382445037,
+        "delta_r2": 0.00042322779755110673,
+        "n": 244,
+        "partial_corr": 0.021285239805052116,
+        "standardized_candidate_coefficient": 0.02477713715894357,
+        "status": "ok",
+        "weekend_n": 45
+      },
+      "2020": {
+        "baseline_r2": 0.02608374288171078,
+        "candidate_r2": 0.035253487088314994,
+        "delta_r2": 0.009169744206604213,
+        "n": 243,
+        "partial_corr": 0.09703263001197847,
+        "standardized_candidate_coefficient": 0.10888525964426916,
+        "status": "ok",
+        "weekend_n": 46
+      }
+    },
+    "pooled": {
+      "baseline_r2": 0.050908041159087314,
+      "candidate_r2": 0.055230760243514476,
+      "delta_r2": 0.004322719084427162,
+      "n": 1440,
+      "partial_corr": 0.06748765839762183,
+      "standardized_candidate_coefficient": 0.0742245615438638,
+      "status": "ok",
+      "weekend_n": 264
+    }
+  },
+  "holiday_replacement_search": false,
+  "product_family": "OFP-C4_calendar_closure_context_x_OFP-A2_observed_open_geometry",
+  "production_authority": false,
+  "progression_gate_components": {
+    "all_sufficiency_pass": true,
+    "annual_coefficient_matching_pooled_sign_count": 5,
+    "annual_coefficient_matching_pooled_sign_min_pass": true,
+    "annual_positive_delta_r2_count": 6,
+    "annual_positive_delta_r2_min_pass": true,
+    "median_annual_coefficient": 0.12279386492469496,
+    "median_annual_coefficient_matches_pooled_sign": true,
+    "pooled_delta_r2_positive": true,
+    "pooled_partial_corr_and_coefficient_same_nonzero_sign": true,
+    "pooled_sign": 1
+  },
+  "protocol": {
+    "path": "docs/governance/calendar_weekend_gap_context_v1_protocol.json",
+    "sha256": "095ee7ea535d2704e3d833984bd41dd1396a3bfa202b87d491197d64eb06a850"
+  },
+  "research_identity": "overnight_weekend_gap_conditioned_open_state_15m_v1",
+  "reusable_blackbox_query_created": false,
+  "schema_id": "overnight_calendar_weekend_gap_context_dev_diagnostic@1.0",
+  "session_date": "2026-09-12",
+  "source_integrity": {
+    "runtime_manifest_sha256": "10f7e5eada195541ae83fe14b7138e6a1ced939b7e278f811e7fb08c4147bb13",
+    "year_shards": {
+      "2015": {
+        "clocks_sha256": "30ff8c6d7b4ce69220d311c35e06b28bae3a8e4478c0224e0bb700fdc1147efa",
+        "factor_sha256": "6463091e0a4f536717a148144c8566f35b73c62e05694e1c73226024b80326af"
+      },
+      "2016": {
+        "clocks_sha256": "7a4c0862be864dde63d90eb08466ad98d3c57daa2d05c874c5bc8acfaa059856",
+        "factor_sha256": "f1c0abd8dfd6dd40f91c0b8c93ba6f3c4cf685efd0b04832e0e80d74a6c99f51"
+      },
+      "2017": {
+        "clocks_sha256": "55605da083dc0d212e50cc1e82f4f85574daacfbd400588f6265dd4fd8b65cef",
+        "factor_sha256": "395bf508ef6595474dd9f17282aa2d740bc93e342afa81401c9b05d3cf66e247"
+      },
+      "2018": {
+        "clocks_sha256": "570f88b4604eab5887c8cc29d510e89d061c383e9afa803c179ab34548db7a42",
+        "factor_sha256": "2fa36707c38e9e312fb87a13787bf4126e2b275b5881b89b884d852b7874abdb"
+      },
+      "2019": {
+        "clocks_sha256": "8f6d3d420ea78ff1b86224c0dcf61c85a24506de78aa6f9106710c1493f7628a",
+        "factor_sha256": "c183709b84e08225346242690089d8dc90edc4b4114bb0e731691241d91029be"
+      },
+      "2020": {
+        "clocks_sha256": "689986dd671b2acebee190ff684f327d3e934d90ca3346015e75ee9af9854d0e",
+        "factor_sha256": "8b15f82b78b6026f5fa48207fd7a15f0a5b0e6a79f1d41501d6a5c6c79730923"
+      }
+    }
+  },
+  "target": "ret_0935_0950",
+  "threshold_search": false,
+  "weekday_search": false
+}
