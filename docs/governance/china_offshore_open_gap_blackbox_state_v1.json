@@ -1,0 +1,20 @@
+{
+  "schema_id": "overnight_china_offshore_open_gap_blackbox_state@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_china_offshore_open_gap_v1",
+  "parent_development_identity": "overnight_china_offshore_driver_v1",
+  "product_family": "OFP-B2_china_specific_offshore_driver",
+  "status": "BLACKBOX_protocol_frozen_query_unopened_pending_cloud_execution",
+  "protocol": "docs/governance/china_offshore_open_gap_blackbox_protocol_v1.json",
+  "parent_development_receipt": "docs/research/cloud_china_offshore_driver_v1_dev_diagnostic.json",
+  "parent_development_authority": "docs/research/china_offshore_driver_v1_dev_cloud_adjudication_20260912.md",
+  "candidate": "china_offshore_z",
+  "target": "opening_gap_rvol",
+  "validation_window": "2021-01-01..2025-12-31",
+  "blackbox_query_opened": false,
+  "ledger_entry_created": false,
+  "expected_next_ledger_ordinal": 9,
+  "public_detail_release": false,
+  "validated_product_authority": false,
+  "production_authority": false
+}
