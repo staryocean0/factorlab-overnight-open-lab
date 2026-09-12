@@ -14,6 +14,8 @@
     "decision_clocks": ["14:30", "14:45"],
     "consumer_contract": "docs/ops/reaka_current_k1_account_ledgers@1.5.json",
     "selection_decision_carrier": "output/factor-rotation/reaka_current_k1_account_ledgers_v1_2011_2026/formal/selection_opportunity_decision_summary.csv",
+    "selection_decision_carrier_blob_sha": "8ad23f84d6664cb6e870e1667cbd4d06682a3626",
+    "development_line_range_in_carrier": [358, 943],
     "ranking_mutation_authorized": false,
     "topn_mutation_authorized": false,
     "consumer_parameter_mutation_authorized": false
