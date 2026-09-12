@@ -1,0 +1,318 @@
+{
+  "2021_2025_scientific_rows_opened": false,
+  "account_PnL_backtest_opened": false,
+  "adapter_rule": "active iff china_offshore_z >= 0",
+  "blackbox_query_created": false,
+  "candidate_attempt_count": 1,
+  "clock_selection": false,
+  "consumer": {
+    "consumer_parameter_mutation_authorized": false,
+    "decision_clocks": [
+      "14:30",
+      "14:45"
+    ],
+    "model": "d8-h8-K1-r0_fit_prefix_successor_incumbent",
+    "ranking_mutation_authorized": false,
+    "repository": "staryocean0/factorlab-multifactor-stock-lab",
+    "selection_decision_carrier": "output/factor-rotation/reaka_current_k1_account_ledgers_v1_2011_2026/formal/selection_opportunity_decision_summary.csv",
+    "selection_decision_carrier_blob_sha": "8ad23f84d6664cb6e870e1667cbd4d06682a3626",
+    "selection_policy": "N30_equal_backfill_unconstrained",
+    "source_commit": "af2e478aaff5c8ef7f753424b57fd2d19019f248",
+    "strategy_id": "REAKA_D5_H20_R5_CURRENT_GENERATION_V1",
+    "topn_mutation_authorized": false
+  },
+  "decision": "E2V3_DEV_NO_PROGRESS",
+  "development_window": "2015-01-05..2020-12-31",
+  "diagnostics": {
+    "14:30": {
+      "by_year": {
+        "2015": {
+          "active_coverage": 0.6904761904761905,
+          "active_decision_count": 29,
+          "candidate_mean_selected_h20_return": 0.0405954335390606,
+          "candidate_mean_selection_gap": -0.4178317996422935,
+          "comparator_mean_selected_h20_return": 0.045065587167864594,
+          "comparator_mean_selection_gap": -0.41481666307044357,
+          "complete_decision_count": 42,
+          "delta_selected_h20_return": -0.0044701536288039925,
+          "delta_selection_gap": -0.00301513657184993,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2016": {
+          "active_coverage": 0.6530612244897959,
+          "active_decision_count": 32,
+          "candidate_mean_selected_h20_return": 0.005141600925297991,
+          "candidate_mean_selection_gap": -0.2768885893922394,
+          "comparator_mean_selected_h20_return": -0.0002691610051923673,
+          "comparator_mean_selection_gap": -0.27740345261382404,
+          "complete_decision_count": 49,
+          "delta_selected_h20_return": 0.0054107619304903576,
+          "delta_selection_gap": 0.0005148632215846161,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2017": {
+          "active_coverage": 0.5333333333333333,
+          "active_decision_count": 24,
+          "candidate_mean_selected_h20_return": -0.009892086830196847,
+          "candidate_mean_selection_gap": -0.2901097041636083,
+          "comparator_mean_selected_h20_return": -0.007306045465297661,
+          "comparator_mean_selection_gap": -0.2904207530553045,
+          "complete_decision_count": 45,
+          "delta_selected_h20_return": -0.0025860413648991854,
+          "delta_selection_gap": 0.0003110488916961973,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2018": {
+          "active_coverage": 0.5,
+          "active_decision_count": 24,
+          "candidate_mean_selected_h20_return": -0.022778761667789096,
+          "candidate_mean_selection_gap": -0.3504822166008013,
+          "comparator_mean_selected_h20_return": -0.03351544025869319,
+          "comparator_mean_selection_gap": -0.34038646728565086,
+          "complete_decision_count": 48,
+          "delta_selected_h20_return": 0.010736678590904096,
+          "delta_selection_gap": -0.010095749315150448,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2019": {
+          "active_coverage": 0.717391304347826,
+          "active_decision_count": 33,
+          "candidate_mean_selected_h20_return": 0.016085377404660792,
+          "candidate_mean_selection_gap": -0.47133829120287285,
+          "comparator_mean_selected_h20_return": 0.018099424827889288,
+          "comparator_mean_selection_gap": -0.4742030517339343,
+          "complete_decision_count": 46,
+          "delta_selected_h20_return": -0.0020140474232284954,
+          "delta_selection_gap": 0.002864760531061439,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2020": {
+          "active_coverage": 0.5652173913043478,
+          "active_decision_count": 26,
+          "candidate_mean_selected_h20_return": 0.024784318470499937,
+          "candidate_mean_selection_gap": -0.6833342263543319,
+          "comparator_mean_selected_h20_return": 0.010484749273672966,
+          "comparator_mean_selection_gap": -0.6499668711297454,
+          "complete_decision_count": 46,
+          "delta_selected_h20_return": 0.014299569196826971,
+          "delta_selection_gap": -0.03336735522458656,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        }
+      },
+      "gates": {
+        "all_annual_sufficiency_pass": true,
+        "annual_selection_gap_delta_not_worse_than_tolerance_count": 3,
+        "median_annual_selected_return_delta": 0.001698357253630931,
+        "median_annual_selected_return_delta_nonnegative": true,
+        "minimum_annual_selection_gap_count_pass": false,
+        "minimum_positive_annual_selected_return_delta_count_pass": false,
+        "pooled_selected_return_delta_positive": true,
+        "pooled_selection_gap_delta_not_worse_than_tolerance": false,
+        "positive_annual_selected_return_delta_count": 3
+      },
+      "pooled": {
+        "active_coverage": 0.6086956521739131,
+        "active_decision_count": 168,
+        "candidate_mean_selected_h20_return": 0.010314929600460923,
+        "candidate_mean_selection_gap": -0.4147179562109014,
+        "comparator_mean_selected_h20_return": 0.004554074645333635,
+        "comparator_mean_selection_gap": -0.4062839485361059,
+        "complete_decision_count": 276,
+        "delta_selected_h20_return": 0.005760854955127288,
+        "delta_selection_gap": -0.008434007674795518,
+        "sufficiency_active_pass": true,
+        "sufficiency_complete_pass": true,
+        "sufficiency_pass": true
+      },
+      "progression_pass": false
+    },
+    "14:45": {
+      "by_year": {
+        "2015": {
+          "active_coverage": 0.6904761904761905,
+          "active_decision_count": 29,
+          "candidate_mean_selected_h20_return": 0.04275850233459167,
+          "candidate_mean_selection_gap": -0.4137962916491163,
+          "comparator_mean_selected_h20_return": 0.04673650828414085,
+          "comparator_mean_selection_gap": -0.41299227686138723,
+          "complete_decision_count": 42,
+          "delta_selected_h20_return": -0.003978005949549182,
+          "delta_selection_gap": -0.0008040147877290682,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2016": {
+          "active_coverage": 0.6530612244897959,
+          "active_decision_count": 32,
+          "candidate_mean_selected_h20_return": 0.004090519669418235,
+          "candidate_mean_selection_gap": -0.27654395857818326,
+          "comparator_mean_selected_h20_return": -0.0012662476200499487,
+          "comparator_mean_selection_gap": -0.27771353154596445,
+          "complete_decision_count": 49,
+          "delta_selected_h20_return": 0.005356767289468184,
+          "delta_selection_gap": 0.0011695729677811961,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2017": {
+          "active_coverage": 0.5333333333333333,
+          "active_decision_count": 24,
+          "candidate_mean_selected_h20_return": -0.009207202632234167,
+          "candidate_mean_selection_gap": -0.2889186817135691,
+          "comparator_mean_selected_h20_return": -0.006359399031144217,
+          "comparator_mean_selection_gap": -0.28836544494544847,
+          "complete_decision_count": 45,
+          "delta_selected_h20_return": -0.00284780360108995,
+          "delta_selection_gap": -0.0005532367681206352,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2018": {
+          "active_coverage": 0.5,
+          "active_decision_count": 24,
+          "candidate_mean_selected_h20_return": -0.022800737678330806,
+          "candidate_mean_selection_gap": -0.3494905763235894,
+          "comparator_mean_selected_h20_return": -0.03328705517543149,
+          "comparator_mean_selection_gap": -0.33987455460281657,
+          "complete_decision_count": 48,
+          "delta_selected_h20_return": 0.010486317497100685,
+          "delta_selection_gap": -0.009616021720772805,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2019": {
+          "active_coverage": 0.717391304347826,
+          "active_decision_count": 33,
+          "candidate_mean_selected_h20_return": 0.015690000016211788,
+          "candidate_mean_selection_gap": -0.471461374546516,
+          "comparator_mean_selected_h20_return": 0.016874190061679926,
+          "comparator_mean_selection_gap": -0.475290553020908,
+          "complete_decision_count": 46,
+          "delta_selected_h20_return": -0.0011841900454681378,
+          "delta_selection_gap": 0.0038291784743920143,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2020": {
+          "active_coverage": 0.5652173913043478,
+          "active_decision_count": 26,
+          "candidate_mean_selected_h20_return": 0.026966020487618644,
+          "candidate_mean_selection_gap": -0.6775772655468022,
+          "comparator_mean_selected_h20_return": 0.011395700061020702,
+          "comparator_mean_selection_gap": -0.6442727891566529,
+          "complete_decision_count": 46,
+          "delta_selected_h20_return": 0.015570320426597941,
+          "delta_selection_gap": -0.03330447639014933,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        }
+      },
+      "gates": {
+        "all_annual_sufficiency_pass": true,
+        "annual_selection_gap_delta_not_worse_than_tolerance_count": 4,
+        "median_annual_selected_return_delta": 0.002086288622000023,
+        "median_annual_selected_return_delta_nonnegative": true,
+        "minimum_annual_selection_gap_count_pass": true,
+        "minimum_positive_annual_selected_return_delta_count_pass": false,
+        "pooled_selected_return_delta_positive": true,
+        "pooled_selection_gap_delta_not_worse_than_tolerance": false,
+        "positive_annual_selected_return_delta_count": 3
+      },
+      "pooled": {
+        "active_coverage": 0.6086956521739131,
+        "active_decision_count": 168,
+        "candidate_mean_selected_h20_return": 0.010842792636214621,
+        "candidate_mean_selection_gap": -0.4127771166039877,
+        "comparator_mean_selected_h20_return": 0.004773009258599623,
+        "comparator_mean_selection_gap": -0.404869478469488,
+        "complete_decision_count": 276,
+        "delta_selected_h20_return": 0.006069783377614998,
+        "delta_selection_gap": -0.007907638134499684,
+        "sufficiency_active_pass": true,
+        "sufficiency_complete_pass": true,
+        "sufficiency_pass": true
+      },
+      "progression_pass": false
+    }
+  },
+  "joint_clock_progression_pass": false,
+  "ledger_query_count_at_execution": 12,
+  "magnitude_bucket_search": false,
+  "maximum_authority_if_progressed": "retrospective_E2_selection_quality_adapter_candidate_only",
+  "ordinary_holiday_split_search": false,
+  "phase": "retrospective_selection_quality_diagnostic",
+  "product_family": "OFP-E2_stock_selection_adapter",
+  "production_authority": false,
+  "protocol": {
+    "path": "docs/governance/downstream_b2_stock_selection_offshore_risk_adapter_v1_protocol.json",
+    "sha256": "9b11b7ec4492cddd6cb07ce255c66f11b8d5ace4efd3522e8f52435858651063"
+  },
+  "ranking_mutation": false,
+  "research_identity": "overnight_b2_stock_selection_offshore_risk_abstention_adapter_v1",
+  "schema_id": "overnight_downstream_b2_stock_selection_offshore_risk_adapter_dev_diagnostic@1.0",
+  "session_date": "2026-09-12",
+  "source_integrity": {
+    "B2": {
+      "driver_manifest_sha256": "b061f5e61259a1e3a624e76ad8950ac3c71635fa9653b9ac16113cd47df648bc",
+      "driver_shards": {
+        "2015": {
+          "path": "data/driver_runtime_text_2015_2020/driver_external_2015.csv",
+          "sha256": "e3f666b3d1c4c982ef8076bc2ec77dacc2a76caf5e0f96a9847a43166ab3cbce"
+        },
+        "2016": {
+          "path": "data/driver_runtime_text_2015_2020/driver_external_2016.csv",
+          "sha256": "ab43aa6dc560f246f196fe3433840934ee2fee84b05d907ac3465c89f27b063e"
+        },
+        "2017": {
+          "path": "data/driver_runtime_text_2015_2020/driver_external_2017.csv",
+          "sha256": "f69b4641ef77471239213db9526f7eea9a36d67182ca40ec6d088919cf1b3d69"
+        },
+        "2018": {
+          "path": "data/driver_runtime_text_2015_2020/driver_external_2018.csv",
+          "sha256": "93443a8c802b0b763697656803fae701ee7fc9516fd8e8dea34c48c1c581eec6"
+        },
+        "2019": {
+          "path": "data/driver_runtime_text_2015_2020/driver_external_2019.csv",
+          "sha256": "d718032c211447b7f8c827e726170fa08d828d2234cf19f241e15dc516aab517"
+        },
+        "2020": {
+          "path": "data/driver_runtime_text_2015_2020/driver_external_2020.csv",
+          "sha256": "b72f704ae0513af5d960a7ab70e6e29464f72d9b84957b9db9598572d82842a1"
+        }
+      }
+    },
+    "consumer": {
+      "blob_sha": "8ad23f84d6664cb6e870e1667cbd4d06682a3626",
+      "path": "output/factor-rotation/reaka_current_k1_account_ledgers_v1_2011_2026/formal/selection_opportunity_decision_summary.csv",
+      "post2020_scientific_rows_parsed": false,
+      "repository": "staryocean0/factorlab-multifactor-stock-lab",
+      "source_commit": "af2e478aaff5c8ef7f753424b57fd2d19019f248"
+    }
+  },
+  "state_at_execution": {
+    "path": "docs/governance/downstream_b2_stock_selection_offshore_risk_adapter_v1_state.json",
+    "sha256": "dfdfac5ff08619f07cc7859039b91c6dce3d4063eb7a87513110735088e92474"
+  },
+  "threshold_search": false,
+  "topn_mutation": false,
+  "upstream_add_drop_search": false,
+  "validated_B2_query_id": "608e037b0d24724b097b"
+}
