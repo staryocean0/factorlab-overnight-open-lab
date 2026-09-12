@@ -1,0 +1,20 @@
+{
+  "schema_id": "overnight_global_risk_driver_state@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_global_risk_driver_v1",
+  "product_family": "OFP-B1_global_risk_driver",
+  "status": "result_free_preregistered_pending_cloud_development_execution",
+  "preanalysis": "docs/research/global_risk_driver_v1_preanalysis_20260912.md",
+  "protocol": "docs/governance/global_risk_driver_v1_protocol.json",
+  "candidate": "global_risk_z",
+  "target": "opening_gap_rvol",
+  "development_window": "2015-01-05..2020-12-31",
+  "outcome_opened": false,
+  "development_receipt": null,
+  "development_decision": null,
+  "future_2021_2025_blackbox_authorized": false,
+  "blackbox_query_created": false,
+  "strategy_or_account_backtest_authorized": false,
+  "production_authority": false,
+  "next_action": "cloud main agent executes the frozen six-year B1 mechanism diagnostic using existing connector-readable 2015-2020 factor/driver carriers"
+}
