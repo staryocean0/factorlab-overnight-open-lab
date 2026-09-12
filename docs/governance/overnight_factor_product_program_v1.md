@@ -1,250 +1,140 @@
 # Overnight Factor Product Program v1
 
-Date: 2026-09-10
+Date: 2026-09-12
 
 ## Program identity
 
-This repository is no longer governed as a project whose main objective is to force one standalone Overnight trading strategy. Its primary role is now:
+This repository is governed as an **Overnight/Open factor-product laboratory and downstream factor adapter**, not as a project that must force one standalone all-day Overnight trading strategy.
 
-**an Overnight/Open factor-product laboratory and factor adapter for downstream timing, stock-selection, portfolio-risk, and execution-aware research systems.**
+Its job is to turn causal information around the next China open into small, versioned, reusable factor products with explicit availability clocks, mathematical definitions, evidence labels, provenance, and consumer-facing semantics.
 
-The repository's job is to turn deeply researched opening information into small, causal, reusable factor products with explicit availability clocks, evidence labels, provenance, and consumer-facing semantics.
+A downstream timing, stock-selection, execution, or portfolio-risk system may consume one or more products. A useful factor does not need to be monetizable as an isolated strategy.
 
-A downstream strategy may consume one or more products. This repository does not assume that every useful factor must be monetizable as an isolated strategy.
+`docs/governance/current_authority_v1.json` is the canonical execution pointer. This program file defines stable architecture and current shelf state; it does not by itself authorize opening evidence.
 
-## Why this direction
+`production_authority=false`.
 
-The next-open model explains information that becomes realized at the opening. Once the market has opened, most of the same-day path to 15:00 is driven by additional information outside the Overnight model's causal scope. Therefore a 09:35-to-close standalone strategy is not an appropriate universal test of the Overnight research program.
+## Research layers
 
 The economic questions are separated into three layers:
 
-1. **Opening-state information:** what state will / did the market open into?
-2. **Short-horizon residual information:** after the opening state is known, what residual continuation / reversal / fill information remains?
-3. **Downstream adapter utility:** can a timing, stock-selection, or risk system improve decisions by conditioning on the Overnight factor products?
+1. **Opening-state information** — what state will or did the market open into?
+2. **Short-horizon residual information** — after the opening state is known, what continuation, reversal, or fill information remains?
+3. **Downstream adapter utility** — can a frozen timing, stock-selection, or risk consumer improve decisions by conditioning on an authority-bearing Overnight factor product?
 
-The first two layers belong primarily in this repository. Strategy-specific PnL optimization belongs in the consuming strategy's repository after the factor identity is frozen.
+The first two layers belong primarily in this repository. Strategy-specific alpha or account-PnL optimization belongs to a separately frozen consumer contract and may not redefine an upstream factor after outcomes are opened.
 
-## Product-design rule
+## Product-design rules
 
-Do not create an unlimited Cartesian product of labels such as trend × volatility × gap sign × holiday × instrument × regime.
+Do not create an unlimited Cartesian product of trend × volatility × gap sign × calendar × instrument × regime labels.
 
-A product is admitted only when it satisfies all of the following:
+A factor product or adapter is admitted only when it has:
 
-- it has a clear causal availability timestamp;
-- it captures information that is not trivially reproducible from a single raw price field, or it standardizes raw information into a validated reusable contract;
-- it has a bounded mathematical definition;
-- it has a consumer-facing interpretation;
-- it can be validated without tuning against downstream strategy returns;
-- it has an evidence boundary and a versioned authority file;
-- any categorical regime or bucket threshold is frozen before the evidence used to adjudicate it is opened.
+- a clear causal availability timestamp;
+- a bounded mathematical identity;
+- a frozen evidence boundary before adjudication;
+- an explicit comparator and consumer-facing interpretation;
+- reproducible source lineage;
+- low enough dimensionality to interpret;
+- a versioned state / protocol / authority chain;
+- no downstream-return tuning of the upstream factor definition.
 
-Continuous coordinates are preferred over arbitrary buckets. Buckets may be added later as separately validated adapter views.
+Continuous coordinates are preferred over arbitrary buckets. Any categorical view, threshold, magnitude bucket, alternate horizon, sign flip, reweighting, or consumer mutation requires its own result-free motivation and frozen identity before the relevant outcome evidence is opened.
 
 ## Product shelf
 
 ### Shelf A — Core Overnight/Open state
 
-These are the highest-authority products and should remain small in number.
-
-#### OFP-A1 — Expected Open State
-
-Availability: pre-open, no later than the frozen source cutoff.
-
-Core fields:
-
-- expected high/low-open direction;
-- expected signed opening gap;
-- expected gap magnitude;
-- model/source identity and confidence-quality flags.
-
-Current evidence sources include the accepted two-head architecture and the confirmed V6A global-spillover baseline. These are not interchangeable claims; each product field must point to its exact authority.
-
-Consumer use: pre-open exposure preparation, entry filtering, opening-risk budgeting, option/instrument selection in a downstream system.
-
-#### OFP-A2 — Observed Open Geometry
-
-Availability: after the frozen opening observation clock.
-
-Core fields:
-
-- observed signed gap;
-- absolute gap;
-- gap normalized by trailing realized volatility;
-- high-open / low-open sign;
-- material-gap flags only when thresholds are already frozen by an authority.
-
-Consumer use: normalize the opening shock so different volatility regimes and instruments can be compared.
-
-#### OFP-A3 — Opening Surprise / Residual
-
-Availability: once the observed opening gap is known.
-
-Core idea:
-
-`opening_surprise = observed_gap - expected_gap`
-
-Normalized form:
-
-`opening_surprise_rvol = opening_surprise / rvol20`
-
-This distinguishes an expected high open from an unexpectedly strong high open, and an expected low open from an unexpectedly weak low open.
-
-This is the first new product family to research after this program reset because it directly leverages information unique to the Overnight model rather than merely rebucketing a raw gap.
-
-Consumer use: 09:31+ timing filters, chase/avoid decisions, short-horizon continuation/reversal conditioning, stock-selection risk overlays.
-
-#### OFP-A4 — Gap-Fill Hazard
-
-Availability: after the opening gap is observed.
-
-Current product family: frozen Gap-Fill V2 v1 high/low hazard probabilities at 15m / 60m / EOD, with its existing evidence labels and true-fresh boundary unchanged.
-
-Consumer use: distinguish opening shocks with high reversion/fill risk from shocks more likely to persist.
+- **OFP-A1 Expected Open State** — confirmed components remain available under their exact authorities.
+- **OFP-A2 Observed Open Geometry** — foundational post-open normalization coordinate.
+- **OFP-A3 Opening Surprise / Residual** — Development closed after stability failure; no standalone validated A3 product and no automatic rescue.
+- **OFP-A4 Gap-Fill Hazard** — frozen/repeat-confirmed Gap-Fill V2 family; true-fresh evaluation remains separately date-gated.
 
 ### Shelf B — Driver / attribution coordinates
 
-These factors answer *why* the market is opening this way. They are not permission to inspect hidden BLACKBOX details.
-
-#### OFP-B1 — Global Risk Driver
-
-Candidate coordinates include frozen causal U.S. session information such as NASDAQ and VIX complete-clock terms.
-
-#### OFP-B2 — China-Specific Offshore Driver
-
-Candidate coordinates include the same-contract SGX FTSE China A50 closure / pre-auction information already used by the confirmed V6A baseline.
-
-#### OFP-B3 — FX / Macro Overnight Driver
-
-Candidate coordinates include frozen HKMA-derived USD/CNY cross information where causally available.
-
-#### OFP-B4 — Driver Agreement / Disagreement
-
-Planned product: a low-capacity measure of whether global-risk, China-specific offshore, and FX channels point in the same or opposing directions.
-
-Consumer use: distinguish broad global risk-on/risk-off opens from China-specific opens and mixed-driver opens.
-
-No driver-contribution decomposition of the 2021-2025 V6A BLACKBOX is authorized. Any new driver-agreement product must be developed on admissible development evidence with a result-free preregistration.
+- **OFP-B1 Global Risk Driver** — validated reusable continuous factor product; BLACKBOX PASS.
+- **OFP-B2 China-Specific Offshore Driver** — validated reusable continuous factor product; BLACKBOX PASS.
+- **OFP-B3 FX / Macro Overnight Driver** — BLACKBOX FAIL; no validated B3 product and no hidden-behavior rescue.
+- **OFP-B4 Driver Coherence** — validated reusable continuous factor product; BLACKBOX PASS. Categorical agreement/disagreement views or alternate weights are not implied by the continuous product authority.
 
 ### Shelf C — Context coordinates
 
-Context factors describe the state in which the opening event occurs. They should be composable with Shelf A rather than multiplied into a large hard-coded regime table.
-
-#### OFP-C1 — Prior Trend Context
-
-Preferred initial representation: continuous trailing trend coordinate based on already-causal pre-open information, e.g. the existing `r20` / volatility-normalized trend family.
-
-Possible categorical views such as `uptrend / range / downtrend` are **not yet authoritative**. Their thresholds must be independently frozen and validated before publication as a product.
-
-#### OFP-C2 — Prior Volatility Context
-
-Continuous pre-open realized-volatility state, based on causal trailing volatility such as `rvol20` and any later admitted normalization.
-
-#### OFP-C3 — Previous China Session Shape
-
-Existing causal coordinates such as prior full-day, afternoon, and last-hour returns may describe whether the mainland market entered the overnight interval from strength, weakness, or late-session reversal.
-
-#### OFP-C4 — Calendar / Closure Context
-
-Weekend, holiday-reopen, and long-closure state. This is already important because the information set accumulated while mainland markets are closed changes with closure length.
+- **OFP-C1 Prior Trend Context** — validated reusable 15-minute continuous factor product; BLACKBOX PASS.
+- **OFP-C2 Prior Volatility Context** — validated reusable 60-minute continuous factor product; BLACKBOX PASS.
+- **OFP-C3 Previous China Session Shape** — Development progression existed, but the reusable joint BLACKBOX successor failed; no validated C3 product.
+- **OFP-C4 Calendar / Closure Context** — the frozen weekend-gap candidate failed reusable BLACKBOX validation; no validated C4 product from that identity.
 
 ### Shelf D — Relative / cross-index opening state
 
-#### OFP-D1 — Relative Index Open
-
-Planned coordinates compare the opening state across broad Chinese index families, for example CSI1000 versus CSI300 / CSI500, without treating the earlier V2.1 P2 failure as permission to rescue that closed identity.
-
-Potential fields:
-
-- relative expected gap;
-- relative observed gap;
-- relative surprise;
-- small-cap versus large-cap opening leadership.
-
-Consumer use: index timing, size/style rotation, stock-selection beta and style overlays.
-
-Any new cross-index factor product must be a new independent identity and must respect the sealed V2.1 Audit blocks.
+- **OFP-D1 Relative Index Open** — Development progression existed, but the frozen joint reusable BLACKBOX successor failed; no validated D1 product and no rescue of the closed identity.
 
 ### Shelf E — Consumer adapters
 
-These are thin mappings, not new alpha models.
+These are thin mappings over frozen upstream products and frozen consumer contracts. They are not permission to invent a new strategy in this repository.
 
-#### OFP-E1 — Timing Adapter
+- **OFP-E1 Timing Adapter** — prior v1 reusable BLACKBOX failed. The later C1/C2 zero-boundary agreement adapter `overnight_c1_c2_timing_agreement_adapter_v1` closed at Development with `E1V2_DEV_NO_PROGRESS`. No successor is authorized from that result.
+- **OFP-E2 Stock-Selection Adapter** — v1 B4 adapter closed `DEV_NO_PROGRESS`; v2 C2 adapter closed `DEV_INSUFFICIENT`; latest v3 B2 offshore-risk adapter `overnight_b2_stock_selection_offshore_risk_abstention_adapter_v1` closed `E2V3_DEV_NO_PROGRESS`. No reusable validation successor is authorized from v3.
+- **OFP-E3 Portfolio / Risk Adapter** — v1 closed `DEV_INSUFFICIENT`. The later B1 forward-cycle adapter progressed in Development, but its separately frozen reusable validation `overnight_b1_forward_cycle_portfolio_risk_abstention_validation_v1` returned BLACKBOX `FAIL` as query #12, so no validated E3v2 product exists.
 
-Possible outputs:
+Downstream adapter closures do **not** invalidate their upstream factor products.
 
-- risk-on / risk-off context;
-- chase-allowed / chase-caution score;
-- opening exposure multiplier;
-- delay/abstain flag.
+## Latest downstream evidence
 
-The exact mapping belongs to a downstream timing strategy once the upstream factor is frozen.
+### E2v3 — B2 stock-selection offshore-risk adapter
 
-#### OFP-E2 — Stock-Selection Adapter
+The frozen consumer was `REAKA_D5_H20_R5_CURRENT_GENERATION_V1` / `N30_equal_backfill_unconstrained` with 14:30 and 14:45 clocks jointly. The upstream coordinate was validated B2 `china_offshore_z`; the only semantic boundary was zero.
 
-Possible use:
+Development window: `2015-01-05..2020-12-31`.
 
-- market-beta exposure scaling;
-- small-cap / large-cap style overlay;
-- broad-market opening-shock filter;
-- cross-sectional strategy abstention or risk-budget adjustment.
+Result: `E2V3_DEV_NO_PROGRESS`.
 
-This repository does **not** claim that a market-level opening factor is itself stock-specific alpha.
+Both clocks satisfied all annual sufficiency gates, but neither satisfied the complete frozen progression contract. No 2021-2025 scientific rows were opened for E2v3, no account-PnL backtest was opened, and no BLACKBOX query was created. The reusable BLACKBOX ledger therefore remains at 12.
 
-#### OFP-E3 — Portfolio / Risk Adapter
+### E3v2 — B1 portfolio-risk adapter
 
-Possible use:
+The exact frozen B1 whole-portfolio abstention adapter progressed in Development, then entered a separately frozen compact reusable validation over 2021-2025.
 
-- opening gross/net exposure scaling;
-- hedge urgency;
-- opening execution-risk classification;
-- gap-fill risk awareness.
+Public result: `FAIL`.
+
+Query: #12, `ce859f9c94f281b0ec49`.
+
+The compact receipt intentionally persists no internal metrics, annual results, counts, bootstrap support, or failure attribution. The FAIL closes only the downstream adapter identity; validated upstream B1 remains authoritative.
 
 ## Validation hierarchy
 
-A factor product should be evaluated in the following order:
+A factor product or adapter should be evaluated in this order:
 
 1. causal timing and source closure;
 2. exact mathematical identity and reproducibility;
-3. incremental information versus the simpler parent factor;
-4. stability across independent development slices / years where available;
-5. low-dimensionality and interpretability;
-6. reusable BLACKBOX confirmation only after the factor identity is frozen;
-7. downstream strategy PnL only in a separately frozen consumer-adapter experiment.
+3. consumer/source admission when applicable;
+4. incremental information versus the simpler frozen comparator;
+5. sufficiency and stability across preregistered Development slices;
+6. reusable BLACKBOX confirmation only after a successor identity is independently authorized and frozen;
+7. account or strategy PnL only under a separately frozen consumer/account contract.
 
-Do not use downstream strategy returns to tune the upstream factor definition.
+If a preregistered sufficiency gate fails, downstream utility values from the incomplete surface are diagnostic only and cannot be used to select, reject, tune, or rescue the candidate.
 
 ## Evidence policy
 
-The existing 2021-2025 V6A dataset remains a reusable aggregate BLACKBOX under its current policy. It may test a separately frozen factor identity, but:
+The reusable BLACKBOX ledger currently contains **12** opened logical queries.
 
-- its detailed rows / years / quarters must not be exposed through the BLACKBOX interface;
-- reuse does not create a new independent OOS sample;
-- its hidden behavior may not be used to design the next factor version.
+Completed reusable BLACKBOX queries remain sealed at their allowed public decision surfaces. Hidden rows, years, quarters, residuals, bootstrap support, failure attribution, or behavior may not be used to design successors. Reusing 2021-2025 does not create an independent OOS sample.
 
-Existing Gap-Fill and V2.1 evidence boundaries remain unchanged.
+Do not open post-2026-08-21 outcomes except under a separately frozen protocol.
 
-## Immediate research priority
+The Gap-Fill V2 true-fresh evaluation remains date-gated until the complete `2026-08-24..2026-12-31` block exists and the already-frozen protocol permits evaluation.
 
-The next active research identity is:
+## Current program state
 
-`overnight_open_surprise_factor_v1`
+There is currently **no active outcome-bearing research identity**.
 
-Reason:
+The latest completed identity is `overnight_b2_stock_selection_offshore_risk_abstention_adapter_v1`, closed as `E2V3_DEV_NO_PROGRESS` with no reusable Validation successor, no account-PnL backtest, no new BLACKBOX query, and no production authority.
 
-- it uses the unique value of the Overnight model directly;
-- it is available immediately after the opening observation;
-- it has obvious utility for timing and stock-selection filters;
-- it avoids pretending that the entire 09:35-to-close return should be explained by Overnight information;
-- it creates a natural base onto which trend, volatility, driver, calendar, and cross-index context can later be attached one bounded adapter at a time.
+No additional outcome-bearing research is automatically authorized. The repository should maintain the validated shelf until either:
 
-After Opening Surprise is adjudicated, the next preferred context research order is:
+1. a separately motivated, result-free identity is frozen under cloud-main research authority; or
+2. the already-frozen Gap-Fill V2 true-fresh protocol reaches its date gate.
 
-1. trend context × core opening state;
-2. volatility context × core opening state;
-3. driver agreement/disagreement;
-4. relative-index opening leadership;
-5. downstream timing / stock-selection adapter tests.
-
-This order is a roadmap, not authority to open evidence without a separate preregistration.
+The cloud main agent owns research authority and should request the user only for a concrete missing-data dependency or when the user explicitly asks for status.
 
 `production_authority=false`.
