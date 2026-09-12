@@ -1,0 +1,147 @@
+{
+  "2021_2025_rows_opened": false,
+  "alternate_target_search": false,
+  "baseline_controls": [
+    "r1",
+    "r20",
+    "abs_r1",
+    "prev_gap",
+    "overnight_trend_5",
+    "prev_daytime",
+    "prev_last_hour",
+    "prev_afternoon",
+    "log_rvol20",
+    "weekend",
+    "holiday_reopen"
+  ],
+  "bucket_search": false,
+  "candidate": "fx_cny_z",
+  "candidate_attempt_count": 1,
+  "channel_add_drop_search": false,
+  "decision": "B3_DEV_PROGRESS_CONTINUOUS_COORDINATE",
+  "development_window": "2015-01-05..2020-12-31",
+  "diagnostics": {
+    "by_year": {
+      "2015": {
+        "baseline_r2": 0.3409329311238135,
+        "candidate_r2": 0.3423536063842917,
+        "delta_r2": 0.001420675260478177,
+        "n": 203,
+        "partial_corr": 0.046428280844881396,
+        "standardized_candidate_coefficient": 0.04087330096800115,
+        "status": "ok"
+      },
+      "2016": {
+        "baseline_r2": 0.14494791182666322,
+        "candidate_r2": 0.1453201234151701,
+        "delta_r2": 0.00037221158850686553,
+        "n": 242,
+        "partial_corr": -0.020864052133540586,
+        "standardized_candidate_coefficient": -0.01971336806969215,
+        "status": "ok"
+      },
+      "2017": {
+        "baseline_r2": 0.36949910160426613,
+        "candidate_r2": 0.3734885601021749,
+        "delta_r2": 0.003989458497908771,
+        "n": 244,
+        "partial_corr": 0.07954522614810282,
+        "standardized_candidate_coefficient": 0.06477262652567184,
+        "status": "ok"
+      },
+      "2018": {
+        "baseline_r2": 0.05938653532031901,
+        "candidate_r2": 0.060722601420264755,
+        "delta_r2": 0.001336066099945743,
+        "n": 243,
+        "partial_corr": 0.037688458678339004,
+        "standardized_candidate_coefficient": 0.037761990719377025,
+        "status": "ok"
+      },
+      "2019": {
+        "baseline_r2": 0.061410209721323716,
+        "candidate_r2": 0.11058639434414308,
+        "delta_r2": 0.04917618462281936,
+        "n": 244,
+        "partial_corr": 0.22889668466820284,
+        "standardized_candidate_coefficient": 0.23199455422929427,
+        "status": "ok"
+      },
+      "2020": {
+        "baseline_r2": 0.17813414940372319,
+        "candidate_r2": 0.36022003806731406,
+        "delta_r2": 0.18208588866359088,
+        "n": 243,
+        "partial_corr": 0.4706929324205101,
+        "standardized_candidate_coefficient": 0.4340081088879995,
+        "status": "ok"
+      }
+    },
+    "pooled": {
+      "baseline_r2": 0.05869570247848399,
+      "candidate_r2": 0.08833740831163273,
+      "delta_r2": 0.029641705833148735,
+      "n": 1419,
+      "partial_corr": 0.17745431973714856,
+      "standardized_candidate_coefficient": 0.17345972478945582,
+      "status": "ok"
+    }
+  },
+  "normalization_search": false,
+  "product_family": "OFP-B3_fx_macro_overnight_driver",
+  "production_authority": false,
+  "progression_gate_components": {
+    "all_sufficiency_pass": true,
+    "median_annual_coefficient": 0.052822963746836496,
+    "median_annual_coefficient_positive": true,
+    "minimum_positive_annual_coefficient_count_pass": true,
+    "minimum_positive_annual_delta_r2_count_pass": true,
+    "pooled_delta_r2_positive": true,
+    "pooled_partial_corr_positive": true,
+    "pooled_standardized_coefficient_positive": true,
+    "positive_annual_coefficient_count": 5,
+    "positive_annual_delta_r2_count": 6
+  },
+  "protocol": {
+    "path": "docs/governance/fx_cny_driver_v1_protocol.json",
+    "sha256": "f3de4b52747fd49452327d21581eba574f641e0e28d2c0d13d003f1d21eb9c89"
+  },
+  "research_identity": "overnight_fx_cny_driver_v1",
+  "reusable_blackbox_query_created": false,
+  "schema_id": "overnight_single_external_driver_dev_diagnostic@1.0",
+  "session_date": "2026-09-12",
+  "source_integrity": {
+    "driver_manifest_sha256": "b061f5e61259a1e3a624e76ad8950ac3c71635fa9653b9ac16113cd47df648bc",
+    "driver_receipt_sha256": "d320580ae7e4543ade17c5ef734cb9d31f0fc7986735829418925df5624c6d3c",
+    "factor_manifest_sha256": "10f7e5eada195541ae83fe14b7138e6a1ced939b7e278f811e7fb08c4147bb13",
+    "year_shards": {
+      "2015": {
+        "driver_external_sha256": "e3f666b3d1c4c982ef8076bc2ec77dacc2a76caf5e0f96a9847a43166ab3cbce",
+        "factor_panel_sha256": "6463091e0a4f536717a148144c8566f35b73c62e05694e1c73226024b80326af"
+      },
+      "2016": {
+        "driver_external_sha256": "ab43aa6dc560f246f196fe3433840934ee2fee84b05d907ac3465c89f27b063e",
+        "factor_panel_sha256": "f1c0abd8dfd6dd40f91c0b8c93ba6f3c4cf685efd0b04832e0e80d74a6c99f51"
+      },
+      "2017": {
+        "driver_external_sha256": "f69b4641ef77471239213db9526f7eea9a36d67182ca40ec6d088919cf1b3d69",
+        "factor_panel_sha256": "395bf508ef6595474dd9f17282aa2d740bc93e342afa81401c9b05d3cf66e247"
+      },
+      "2018": {
+        "driver_external_sha256": "93443a8c802b0b763697656803fae701ee7fc9516fd8e8dea34c48c1c581eec6",
+        "factor_panel_sha256": "2fa36707c38e9e312fb87a13787bf4126e2b275b5881b89b884d852b7874abdb"
+      },
+      "2019": {
+        "driver_external_sha256": "d718032c211447b7f8c827e726170fa08d828d2234cf19f241e15dc516aab517",
+        "factor_panel_sha256": "c183709b84e08225346242690089d8dc90edc4b4114bb0e731691241d91029be"
+      },
+      "2020": {
+        "driver_external_sha256": "b72f704ae0513af5d960a7ab70e6e29464f72d9b84957b9db9598572d82842a1",
+        "factor_panel_sha256": "8b15f82b78b6026f5fa48207fd7a15f0a5b0e6a79f1d41501d6a5c6c79730923"
+      }
+    }
+  },
+  "strategy_PnL_optimization": false,
+  "target": "opening_gap_rvol",
+  "threshold_search": false
+}
