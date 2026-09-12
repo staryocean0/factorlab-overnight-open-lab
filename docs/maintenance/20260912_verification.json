@@ -1,0 +1,6 @@
+{
+  "status": "PENDING_ACTUAL_QA",
+  "baseline_commit": "0e28a6285745552a665d5b1cba11c9da73fbacd7",
+  "maintenance_only": true,
+  "production_authority": false
+}
