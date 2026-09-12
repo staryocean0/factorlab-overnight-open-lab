@@ -1,5 +1,5 @@
 {
-  "schema_id": "overnight_open_current_authority@1.19",
+  "schema_id": "overnight_open_current_authority@1.20",
   "session_date": "2026-09-12",
   "repository_role": "overnight_open_factor_product_laboratory_and_downstream_factor_adapter",
   "program": "docs/governance/overnight_factor_product_program_v1.md",
@@ -13,36 +13,42 @@
     "production_authority": false
   },
   "active_research": {
-    "identity": "overnight_c1_intraday_portfolio_risk_abstention_v1",
-    "product_family": "OFP-E3_portfolio_risk_adapter",
-    "status": "result_free_preregistered_pending_minimal_intraday_price_carrier",
-    "preanalysis": "docs/research/downstream_portfolio_risk_adapter_v1_preanalysis_20260912.md",
-    "protocol": "docs/governance/downstream_portfolio_risk_adapter_v1_protocol.json",
-    "state": "docs/governance/downstream_portfolio_risk_adapter_v1_state.json",
-    "consumer_repository": "staryocean0/factorlab-multifactor-stock-lab",
-    "consumer_source_commit": "af2e478aaff5c8ef7f753424b57fd2d19019f248",
-    "consumer_strategy_id": "REAKA_D5_H20_R5_CURRENT_GENERATION_V1",
-    "consumer_account_snapshot_available_in_cloud": true,
-    "upstream_product": "validated_C1_15m_only",
-    "candidate_rule": "portfolio exposure is zero over 09:35-09:50 iff c1_action < 0; otherwise one",
-    "development_window": "2015-01-05..2020-12-31",
-    "missing_data": "held-symbol exact-clock QFQ signal-price carrier: previous-day 15:00, current-day 09:35 and 09:50",
-    "outcome_opened": false,
-    "account_execution_authorized": false,
-    "strategy_mutation_authorized": false,
-    "future_2021_2025_validation_authorized": false,
+    "identity": "overnight_volatility_conditioned_open_state_60m_v1",
+    "product_family": "OFP-C2_prior_volatility_context_x_OFP-A2_observed_open_geometry",
+    "status": "reusable_BLACKBOX_protocol_frozen_query_unopened_cloud_execution_authorized",
+    "protocol": "docs/governance/volatility_conditioned_open_state_60m_blackbox_protocol_v1.json",
+    "state": "docs/governance/volatility_conditioned_open_state_60m_state_v1.json",
+    "parent_development_receipt": "docs/research/cloud_volatility_conditioned_open_state_dev_diagnostic_v1.json",
+    "parent_adjudication": "docs/research/volatility_conditioned_open_state_dev_cloud_adjudication_20260911.md",
+    "candidate": "observed_gap_rvol * log(rvol20)",
+    "target": "09:35_to_10:35_return",
+    "validated_C1_baseline_control": "trend20_rvol * observed_gap_rvol",
+    "blackbox_window": "2021-01-01..2025-12-31",
+    "blackbox_query_opened": false,
+    "ledger_entry_created": false,
+    "expected_next_ledger_ordinal": 7,
+    "public_detail_release": false,
+    "strategy_backtest_authorized": false,
     "production_authority": false
   },
   "recent_completed_research": {
+    "E3": {
+      "identity": "overnight_c1_intraday_portfolio_risk_abstention_v1",
+      "status": "DEV_INSUFFICIENT_closed_no_successor",
+      "development_decision": "E3_DEV_INSUFFICIENT",
+      "development_receipt": "docs/research/cloud_downstream_portfolio_risk_adapter_v1_dev_diagnostic.json",
+      "development_authority": "docs/research/downstream_portfolio_risk_adapter_v1_dev_cloud_adjudication_20260912.md",
+      "successor_authorized": false,
+      "blackbox_query_created": false,
+      "production_authority": false
+    },
     "E2": {
       "identity": "overnight_b4_stock_selection_abstention_adapter_v1",
-      "product_family": "OFP-E2_stock_selection_adapter",
       "status": "DEV_NO_PROGRESS_closed_no_successor",
       "development_decision": "E2_DEV_NO_PROGRESS",
       "development_receipt": "docs/research/cloud_downstream_stock_selection_adapter_v1_dev_diagnostic.json",
       "development_authority": "docs/research/downstream_stock_selection_adapter_v1_dev_cloud_adjudication_20260912.md",
       "successor_authorized": false,
-      "rescue_search_authorized": false,
       "blackbox_query_created": false,
       "production_authority": false
     },
@@ -50,15 +56,9 @@
       "identity": "overnight_c1_b4_timing_confidence_adapter_validation_v1",
       "status": "BLACKBOX_FAIL_closed_no_validated_E1_product",
       "blackbox_query_id": "1d8e01c69f555a7d721c",
-      "blackbox_ledger_ordinal": 6
+      "blackbox_ledger_ordinal": 6,
+      "production_authority": false
     }
-  },
-  "deferred_frozen_research": {
-    "identity": "overnight_volatility_conditioned_open_state_60m_v1",
-    "product_family": "OFP-C2_prior_volatility_context_x_OFP-A2_observed_open_geometry",
-    "status": "BLACKBOX_protocol_frozen_but_query_unopened_execution_deferred",
-    "blackbox_query_opened": false,
-    "ledger_entry_created": false
   },
   "validated_products": {
     "V6A_global_spillover": "PASS",
@@ -66,19 +66,31 @@
     "B4_driver_coherence": "PASS_validated_continuous_factor_product",
     "Gap_Fill_V2": "frozen_repeat_confirmed_true_fresh_pending"
   },
+  "closed_or_waiting": {
+    "Opening_Surprise_A3": "closed_after_DEV_no_standalone_product_promotion_stability_failure",
+    "C1_15m_BLACKBOX": "completed_PASS_query_2",
+    "C3_joint_successor_BLACKBOX": "completed_FAIL_query_5_no_validated_product",
+    "B4_driver_coherence_BLACKBOX": "completed_PASS_query_3",
+    "D1_joint_successor_BLACKBOX": "completed_FAIL_query_4_no_validated_product",
+    "E1_timing_adapter_validation": "completed_FAIL_query_6_no_validated_product",
+    "E2_stock_selection_adapter": "DEV_NO_PROGRESS_closed_no_successor",
+    "E3_portfolio_risk_adapter": "DEV_INSUFFICIENT_closed_no_successor",
+    "V21_P2_successor": "closed_at_DEV_no_successor_evidence_insufficient",
+    "Gap_Fill_V2_true_fresh": "wait_for_complete_2026_08_24_to_2026_12_31_and_protocol_date_gate"
+  },
   "blackbox_ledger_query_count": 6,
   "hard_rules": [
     "Do not decompose completed reusable BLACKBOX queries or use hidden behavior to design successors.",
-    "E2 v1 is closed with DEV_NO_PROGRESS; do not rescue it with thresholds, buckets, alternate clocks or extra upstream products.",
-    "E3 v1 is independently motivated by validated C1's exact 09:35-09:50 horizon and uses C1 only.",
-    "E3 v1 is portfolio-utility/risk diagnostic only; no executed trades, costs, account-path mutation or strategy promotion under this identity.",
-    "Both 14:30 and 14:45 frozen consumer accounts must pass jointly; no post-result clock selection.",
-    "Do not search nonzero C1 thresholds, magnitude buckets, alternate horizons or additional upstream products under E3 v1.",
-    "Do not execute deferred C2 60m BLACKBOX unless explicitly reactivated by the cloud main agent under a new current-authority revision.",
+    "E1 v1 is closed after BLACKBOX FAIL; no threshold, weight, horizon or upstream-product rescue is authorized.",
+    "E2 v1 is closed with DEV_NO_PROGRESS; no rescue search is authorized.",
+    "E3 v1 is closed with DEV_INSUFFICIENT; do not repair exact-clock missingness, add stale-price fills, change exact clocks or relax complete-case rules under that identity.",
+    "C2 reactivation does not change the already-frozen protocol, candidate, target, controls or BLACKBOX gates.",
+    "Do not search volatility thresholds/buckets, alternate volatility windows or alternate horizons from C2 BLACKBOX behavior.",
+    "C2 BLACKBOX public output is compact PASS/FAIL/INSUFFICIENT only; do not persist or expose hidden metrics, counts, years, bootstrap statistics or failure attribution.",
     "Reuse of 2021-2025 is not independent OOS.",
     "Do not open post-2026-08-21 outcomes except under separately frozen protocol.",
     "Production authority remains false."
   ],
-  "next_action": "obtain only the minimal 2015-2020 held-symbol QFQ exact-clock carrier required by the frozen E3 protocol; after upload, cloud main agent performs all parity checks, portfolio reconstruction, diagnostics and adjudication without further research-choice consultation",
+  "next_action": "cloud main agent executes the already-frozen C2 60m compact reusable BLACKBOX using the parity-gated 2015-2025 reconstruction path, verifies provenance, registers exactly one logical query #7 only after a valid compact receipt is produced, and adjudicates without user consultation unless concrete missing data blocks execution",
   "production_authority": false
 }
