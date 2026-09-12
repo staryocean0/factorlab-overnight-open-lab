@@ -2,11 +2,11 @@
 
 This repository is the **Overnight/Open factor-product laboratory and downstream factor adapter** for FactorLab.
 
-Before doing anything substantial, read:
+Before doing anything substantial, read in this order:
 
 1. `docs/governance/current_authority_v1.json`
 2. `docs/governance/overnight_factor_product_registry_v1.json`
-3. the active identity's state + protocol
+3. the active identity's state + protocol, if `active_research` is non-null
 4. `docs/ops/README.md`
 
 For any model, factor-family, routing, strategy, robustness, account, or cross-period change, also follow `.codex/skills/strategy-slice-rebuild/SKILL.md`.
@@ -15,84 +15,58 @@ For any model, factor-family, routing, strategy, robustness, account, or cross-p
 
 ## Scope
 
-In scope: expected/observed China opening state, gap normalization, Gap-Fill hazards, global/offshore/FX Overnight drivers, causal trend/volatility/session-shape context, relative-index opening leadership, and frozen downstream adapters.
+In scope: expected/observed China opening state, gap normalization, Gap-Fill hazards, global/offshore/FX Overnight drivers, causal trend/volatility/session-shape context, relative-index opening leadership, and separately frozen downstream adapters.
 
-Out of scope: generic reversal/RMR, broad HighVol routing unrelated to Overnight/Open, two-wave logic, using downstream PnL to tune upstream factors, pretending the cash index is directly shortable, or production deployment.
+Out of scope: generic reversal/RMR, broad HighVol routing unrelated to Overnight/Open, two-wave logic, using downstream PnL to tune upstream factors, pretending the cash index is directly tradable, manufacturing stock-specific alpha from market-level factors, or production deployment.
 
-## Current active task
+## Current execution state
 
-The only active research identity is:
+There is **no active research identity** after the completed E1 reusable validation.
 
-`overnight_volatility_conditioned_open_state_60m_v1`
+Most recent completed identity:
 
-Status:
+`overnight_c1_b4_timing_confidence_adapter_validation_v1`
 
-`frozen_reusable_BLACKBOX_authorized_pending_local_execution`
+Result:
 
-Authority:
+`BLACKBOX_FAIL_closed_no_validated_E1_product`
 
-- state: `docs/governance/volatility_conditioned_open_state_60m_state_v1.json`
-- protocol: `docs/governance/volatility_conditioned_open_state_60m_blackbox_protocol_v1.json`
-- parent DEV adjudication: `docs/research/volatility_conditioned_open_state_dev_cloud_adjudication_20260911.md`
-- handoff: `docs/ops/volatility_conditioned_open_state_60m_blackbox_handoff_20260911.md`
-- runner: `scripts/run_volatility_conditioned_open_state_60m_blackbox.sh`
-- reusable BLACKBOX policy: `docs/governance/overnight_reusable_blackbox_policy_v1.json`
+Authority surfaces:
 
-Frozen C2 factor:
+- development protocol: `docs/governance/downstream_timing_adapter_v1_protocol.json`
+- development state: `docs/governance/downstream_timing_adapter_v1_state.json`
+- development receipt: `docs/research/cloud_downstream_timing_adapter_v1_dev_diagnostic.json`
+- development adjudication: `docs/research/downstream_timing_adapter_v1_dev_cloud_adjudication_20260912.md`
+- validation protocol: `docs/governance/downstream_timing_adapter_validation_v1_blackbox_protocol.json`
+- validation state: `docs/governance/downstream_timing_adapter_validation_v1_state.json`
+- compact receipt: `docs/research/local_downstream_timing_adapter_validation_v1_blackbox_receipt.json`
+- validation adjudication: `docs/research/downstream_timing_adapter_validation_v1_blackbox_cloud_adjudication_20260912.md`
+- reusable BLACKBOX ledger: `docs/governance/overnight_reusable_blackbox_query_ledger_v1.json`
 
-```text
-observed_gap_rvol = observed_gap / rvol20
-trend20_rvol = r20 / (sqrt(20) * rvol20)
-trend_gap_interaction = observed_gap_rvol * trend20_rvol
-log_rvol20 = log(rvol20)
-vol_gap_interaction = observed_gap_rvol * log_rvol20
-```
+The E1 parent development result remains retrospective evidence only: the exact C1-direction + B4-zero-boundary-abstention adapter improved factor utility versus the C1-only comparator in 2015-2020, but the separately frozen 2021-2025 validation returned `FAIL`. Do not inspect hidden validation attribution and do not rescue this identity with thresholds, magnitude buckets, fitted weights, alternate horizons, alternate sign conventions, or extra upstream products.
 
-The baseline includes both main effects and the validated C1 `trend_gap_interaction`.
+## Reusable BLACKBOX ledger
 
-Frozen target:
+The ledger currently contains **6** logical queries. Relevant validated shelf products remain:
 
-`09:35 -> 10:35`
+- V6A global-spillover baseline — `PASS`;
+- C1 15m continuous trend-conditioned open-state coordinate — `PASS`;
+- B4 continuous driver-coherence coordinate — `PASS`.
 
-The parent 2019-2020 C2 DEV identity is complete. Cloud adjudication authorized only this separately frozen 60-minute successor. The 15-minute C2 effect failed stability; the 30-minute effect was too weak/uneven for progression.
+Closed validation identities include D1 query 4 `FAIL`, C3 query 5 `FAIL`, and E1 query 6 `FAIL`. Detailed hidden behavior from any reusable BLACKBOX may not design or rescue later identities. Reuse of the same 2021-2025 physical block is not independent OOS.
 
-During the active BLACKBOX query:
+## Deferred C2
 
-- public output must be exactly `PASS`, `FAIL`, or `INSUFFICIENT`;
-- do not expose exact metrics, counts, years, quarters, dates/events, yearly signs, bootstrap statistics, subgroup results, or internal gate details;
-- do not create high/low-volatility thresholds or quantile buckets;
-- do not change the 20-day volatility lookback, gap normalization, target horizon, or controls;
-- do not remove the validated C1 control;
-- do not add Opening Surprise terms;
-- do not use downstream strategy returns;
-- do not edit the reusable BLACKBOX ledger locally;
-- do not persist or publish reconstructed 2021-2025 factor/target rows or convert them into a CSV text pack.
+`overnight_volatility_conditioned_open_state_60m_v1` remains frozen but **unopened and deferred**. Do not execute it unless `docs/governance/current_authority_v1.json` explicitly reactivates it.
 
-## Validated C1 product
+## Downstream adapter boundary
 
-`overnight_trend_conditioned_open_state_15m_v1` is already validated by reusable BLACKBOX `PASS` and is a shelf product only at the continuous 09:35→09:50 identity.
+`docs/governance/downstream_adapter_research_boundary_v1.json` governs E1/E2/E3 work.
 
-Do not infer authority for `up/range/down × high/low open` buckets from C1. A categorical consumer view requires a separate result-free threshold identity.
-
-## Completed C2 DEV parent
-
-Parent identity:
-
-`overnight_volatility_conditioned_open_state_v1`
-
-Cloud decision:
-
-`C2_DEV_PROGRESS_60M_CONTINUOUS_COORDINATE_ONLY`
-
-Do not rerun the parent DEV to select another horizon, volatility threshold, or lookback.
-
-## Closed Opening Surprise identity
-
-`overnight_open_surprise_factor_v1` is closed after DEV stability failure. No 2021-2025 BLACKBOX was opened. Do not rescue it by changing thresholds, horizons, signs, tails, buckets, or interactions.
-
-## Product-shelf rule
-
-This repo is not a Cartesian feature factory. Prefer reusable causal coordinates with clear meaning. Continuous coordinates come before categorical adapter views. Downstream strategy performance may validate a frozen adapter but may not teach or retune the upstream factor.
+- E1 failed reusable validation; no validated E1 timing-adapter product exists.
+- E2 stock-selection work requires a new result-free identity bound to an explicitly named frozen consumer strategy. It may only scale or abstain that consumer strategy and may not become stock-specific alpha in this repository.
+- E3 portfolio/risk work requires a new result-free identity bound to an explicitly named frozen consumer/account contract.
+- Factor-utility evidence never substitutes for Strategy Slice Rebuild, Strategy Science Acceptance, post-training account audit, execution/cost validation, or production authorization.
 
 ## Stable authority that must not be casually reopened
 
@@ -100,14 +74,20 @@ Repository-wide accepted next-open architecture:
 
 `median_quantile_sign + abs_frozen_clock_signed_prediction`
 
-Current global-spillover single-head baseline:
+Global-spillover baseline:
 
 `V6A_plus_ordinary_A50_preauction_closure`
 
-Its completed reusable 2021-2025 BLACKBOX query returned `PASS`. Do not decompose that BLACKBOX or use hidden behavior to design a successor.
+Validated C1 product:
 
-Gap-Fill V2 remains frozen/repeat-confirmed, with its complete 2026-08-24..2026-12-31 true-fresh block separately gated. V21 P2 is closed at DEV with no successor.
+`overnight_trend_conditioned_open_state_15m_v1`
+
+Validated B4 product:
+
+`overnight_driver_coherence_open_gap_v1`
+
+Gap-Fill V2 remains frozen/repeat-confirmed, with its complete 2026-08-24..2026-12-31 true-fresh block separately gated. V2.1 P2 is closed at DEV with no successor.
 
 ## Execution rule
 
-`docs/governance/current_authority_v1.json` is the canonical pointer for active execution. Do not run an old handoff or script merely because it remains in Git.
+`docs/governance/current_authority_v1.json` is the canonical execution pointer. Do not run an old handoff, workflow, controller, or script merely because it remains in Git. When `active_research` is null, do not invent a successor from historical results; any new adapter/research identity must be independently motivated and result-free preregistered first.
