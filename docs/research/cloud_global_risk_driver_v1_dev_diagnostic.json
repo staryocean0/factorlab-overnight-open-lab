@@ -1,0 +1,158 @@
+{
+  "2021_2025_rows_opened": false,
+  "alternate_target_search": false,
+  "baseline_controls": [
+    "r1",
+    "r20",
+    "abs_r1",
+    "prev_gap",
+    "overnight_trend_5",
+    "prev_daytime",
+    "prev_last_hour",
+    "prev_afternoon",
+    "log_rvol20",
+    "weekend",
+    "holiday_reopen"
+  ],
+  "bucket_search": false,
+  "candidate": "global_risk_z",
+  "candidate_attempt_count": 1,
+  "channel_add_drop_search": false,
+  "decision": "B1_DEV_PROGRESS_GLOBAL_RISK_CONTINUOUS_COORDINATE",
+  "development_window": "2015-01-05..2020-12-31",
+  "diagnostics": {
+    "by_year": {
+      "2015": {
+        "baseline_r2": 0.3409329311238135,
+        "candidate_r2": 0.4238957417601854,
+        "delta_r2": 0.0829628106363719,
+        "n": 203,
+        "partial_corr": 0.35479453555815615,
+        "standardized_global_risk_z_coefficient": 0.30423708743488054,
+        "status": "ok"
+      },
+      "2016": {
+        "baseline_r2": 0.14494791182666322,
+        "candidate_r2": 0.3904921382238842,
+        "delta_r2": 0.24554422639722095,
+        "n": 242,
+        "partial_corr": 0.535881269365322,
+        "standardized_global_risk_z_coefficient": 0.5025515469844636,
+        "status": "ok"
+      },
+      "2017": {
+        "baseline_r2": 0.36949910160426613,
+        "candidate_r2": 0.4851392075739498,
+        "delta_r2": 0.11564010596968366,
+        "n": 244,
+        "partial_corr": 0.42826381916122447,
+        "standardized_global_risk_z_coefficient": 0.3509799280383836,
+        "status": "ok"
+      },
+      "2018": {
+        "baseline_r2": 0.05938653532031901,
+        "candidate_r2": 0.38940666034463056,
+        "delta_r2": 0.33002012502431155,
+        "n": 243,
+        "partial_corr": 0.5923312104487631,
+        "standardized_global_risk_z_coefficient": 0.5852194024056031,
+        "status": "ok"
+      },
+      "2019": {
+        "baseline_r2": 0.0603885917893896,
+        "candidate_r2": 0.362010450045939,
+        "delta_r2": 0.3016218582565494,
+        "n": 242,
+        "partial_corr": 0.5665748142641224,
+        "standardized_global_risk_z_coefficient": 0.5673998537481201,
+        "status": "ok"
+      },
+      "2020": {
+        "baseline_r2": 0.17813414940372319,
+        "candidate_r2": 0.42544431627844415,
+        "delta_r2": 0.24731016687472096,
+        "n": 243,
+        "partial_corr": 0.5485554289364951,
+        "standardized_global_risk_z_coefficient": 0.5340819522691438,
+        "status": "ok"
+      }
+    },
+    "pooled": {
+      "baseline_r2": 0.05851510362543044,
+      "candidate_r2": 0.2743110583314603,
+      "delta_r2": 0.21579595470602986,
+      "n": 1417,
+      "partial_corr": 0.4787568170109766,
+      "standardized_global_risk_z_coefficient": 0.4704831150947745,
+      "status": "ok"
+    }
+  },
+  "normalization": {
+    "current_observation_excluded": true,
+    "method": "lagged_trailing_RMS",
+    "min_periods": 20,
+    "shift": 1,
+    "window": 60
+  },
+  "normalization_search": false,
+  "phase": "mechanism_diagnostic",
+  "product_family": "OFP-B1_global_risk_driver",
+  "production_authority": false,
+  "progression_gate_components": {
+    "all_sufficiency_pass": true,
+    "median_annual_coefficient": 0.5183167496268037,
+    "median_annual_coefficient_positive": true,
+    "minimum_positive_annual_coefficient_count_pass": true,
+    "minimum_positive_annual_delta_r2_count_pass": true,
+    "pooled_delta_r2_positive": true,
+    "pooled_partial_corr_positive": true,
+    "pooled_standardized_coefficient_positive": true,
+    "positive_annual_coefficient_count": 6,
+    "positive_annual_delta_r2_count": 6
+  },
+  "protocol": {
+    "path": "docs/governance/global_risk_driver_v1_protocol.json",
+    "sha256": "3ff3655bb2b8e3f3a2bb7374c7f0599e2387a0f0e650916e97efef0b17406e82"
+  },
+  "research_identity": "overnight_global_risk_driver_v1",
+  "reusable_blackbox_query_created": false,
+  "schema_id": "overnight_global_risk_driver_dev_diagnostic@1.0",
+  "session_date": "2026-09-12",
+  "source_integrity": {
+    "factor_shards": {
+      "2015": {
+        "path": "data/runtime_text_2015_2025/factor_panel_2015.csv",
+        "sha256": "6463091e0a4f536717a148144c8566f35b73c62e05694e1c73226024b80326af"
+      },
+      "2016": {
+        "path": "data/runtime_text_2015_2025/factor_panel_2016.csv",
+        "sha256": "f1c0abd8dfd6dd40f91c0b8c93ba6f3c4cf685efd0b04832e0e80d74a6c99f51"
+      },
+      "2017": {
+        "path": "data/runtime_text_2015_2025/factor_panel_2017.csv",
+        "sha256": "395bf508ef6595474dd9f17282aa2d740bc93e342afa81401c9b05d3cf66e247"
+      },
+      "2018": {
+        "path": "data/runtime_text_2015_2025/factor_panel_2018.csv",
+        "sha256": "2fa36707c38e9e312fb87a13787bf4126e2b275b5881b89b884d852b7874abdb"
+      },
+      "2019": {
+        "path": "data/runtime_text_2015_2025/factor_panel_2019.csv",
+        "sha256": "c183709b84e08225346242690089d8dc90edc4b4114bb0e731691241d91029be"
+      },
+      "2020": {
+        "path": "data/runtime_text_2015_2025/factor_panel_2020.csv",
+        "sha256": "8b15f82b78b6026f5fa48207fd7a15f0a5b0e6a79f1d41501d6a5c6c79730923"
+      }
+    },
+    "manifest_sha256": "10f7e5eada195541ae83fe14b7138e6a1ced939b7e278f811e7fb08c4147bb13"
+  },
+  "state_at_execution": {
+    "path": "docs/governance/global_risk_driver_v1_state.json",
+    "sha256": "b7a946f628f739291c8ea4f19bb362483dfba0e2b2355e16f33486cc61c0c980"
+  },
+  "strategy_PnL_optimization": false,
+  "target": "opening_gap_rvol",
+  "threshold_search": false,
+  "weight_search": false
+}
