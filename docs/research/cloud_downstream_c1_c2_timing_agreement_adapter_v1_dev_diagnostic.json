@@ -1,0 +1,215 @@
+{
+  "2021_2025_detailed_rows_opened": false,
+  "account_backtest_opened": false,
+  "alternate_horizon_search": false,
+  "candidate": "C2_zero_boundary_agreement_abstention_overlay_on_C1_direction",
+  "candidate_attempt_count": 1,
+  "comparator": "C1_direction_without_C2_abstention",
+  "cost_model_used": false,
+  "decision": "E1V2_DEV_NO_PROGRESS",
+  "development_window": "2015-01-05..2020-12-31",
+  "diagnostics": {
+    "by_year": {
+      "2015": {
+        "candidate_active_day_count": 60,
+        "candidate_active_hit_rate": 0.45,
+        "candidate_coverage": 0.26905829596412556,
+        "comparator_active_day_count": 223,
+        "comparator_hit_rate": 0.47085201793721976,
+        "complete_case_count": 223,
+        "delta_mean_signed_utility": 0.00030631914500983605,
+        "mean_candidate_signed_utility": -0.00032352098904894007,
+        "mean_comparator_signed_utility": -0.0006298401340587761,
+        "sufficiency_candidate_active_days_pass": true,
+        "sufficiency_complete_cases_pass": true,
+        "sufficiency_pass": true
+      },
+      "2016": {
+        "candidate_active_day_count": 120,
+        "candidate_active_hit_rate": 0.4583333333333333,
+        "candidate_coverage": 0.49382716049382713,
+        "comparator_active_day_count": 243,
+        "comparator_hit_rate": 0.4732510288065844,
+        "complete_case_count": 243,
+        "delta_mean_signed_utility": 0.00020852338813177348,
+        "mean_candidate_signed_utility": -0.00043025842463717453,
+        "mean_comparator_signed_utility": -0.000638781812768948,
+        "sufficiency_candidate_active_days_pass": true,
+        "sufficiency_complete_cases_pass": true,
+        "sufficiency_pass": true
+      },
+      "2017": {
+        "candidate_active_day_count": 155,
+        "candidate_active_hit_rate": 0.5096774193548387,
+        "candidate_coverage": 0.6352459016393442,
+        "comparator_active_day_count": 244,
+        "comparator_hit_rate": 0.4959016393442623,
+        "complete_case_count": 244,
+        "delta_mean_signed_utility": 4.081887371064786e-05,
+        "mean_candidate_signed_utility": 0.0003349591830774993,
+        "mean_comparator_signed_utility": 0.00029414030936685144,
+        "sufficiency_candidate_active_days_pass": true,
+        "sufficiency_complete_cases_pass": true,
+        "sufficiency_pass": true
+      },
+      "2018": {
+        "candidate_active_day_count": 175,
+        "candidate_active_hit_rate": 0.42857142857142855,
+        "candidate_coverage": 0.720164609053498,
+        "comparator_active_day_count": 243,
+        "comparator_hit_rate": 0.48148148148148145,
+        "complete_case_count": 243,
+        "delta_mean_signed_utility": -0.00015282659993180915,
+        "mean_candidate_signed_utility": -0.0004061889726081941,
+        "mean_comparator_signed_utility": -0.00025336237267638496,
+        "sufficiency_candidate_active_days_pass": true,
+        "sufficiency_complete_cases_pass": true,
+        "sufficiency_pass": true
+      },
+      "2019": {
+        "candidate_active_day_count": 119,
+        "candidate_active_hit_rate": 0.5126050420168067,
+        "candidate_coverage": 0.48770491803278687,
+        "comparator_active_day_count": 244,
+        "comparator_hit_rate": 0.5204918032786885,
+        "complete_case_count": 244,
+        "delta_mean_signed_utility": -0.0001788030350826009,
+        "mean_candidate_signed_utility": 0.00010180091760350755,
+        "mean_comparator_signed_utility": 0.0002806039526861084,
+        "sufficiency_candidate_active_days_pass": true,
+        "sufficiency_complete_cases_pass": true,
+        "sufficiency_pass": true
+      },
+      "2020": {
+        "candidate_active_day_count": 103,
+        "candidate_active_hit_rate": 0.5436893203883495,
+        "candidate_coverage": 0.42386831275720166,
+        "comparator_active_day_count": 242,
+        "comparator_hit_rate": 0.5,
+        "complete_case_count": 243,
+        "delta_mean_signed_utility": -3.46011114795722e-05,
+        "mean_candidate_signed_utility": 0.00039761956025502633,
+        "mean_comparator_signed_utility": 0.00043222067173459853,
+        "sufficiency_candidate_active_days_pass": true,
+        "sufficiency_complete_cases_pass": true,
+        "sufficiency_pass": true
+      }
+    },
+    "pooled": {
+      "candidate_active_day_count": 732,
+      "candidate_active_hit_rate": 0.4822404371584699,
+      "candidate_coverage": 0.5083333333333333,
+      "comparator_active_day_count": 1439,
+      "comparator_hit_rate": 0.4906184850590688,
+      "complete_case_count": 1440,
+      "delta_mean_signed_utility": 2.7616169031591798e-05,
+      "mean_candidate_signed_utility": -5.01464447086119e-05,
+      "mean_comparator_signed_utility": -7.77626137402037e-05,
+      "sufficiency_candidate_active_days_pass": true,
+      "sufficiency_complete_cases_pass": true,
+      "sufficiency_pass": true
+    }
+  },
+  "ledger_query_count_at_execution": 11,
+  "maximum_authority_if_progressed": "retrospective_factor_utility_adapter_candidate_only",
+  "phase": "retrospective_factor_utility_diagnostic",
+  "product_family": "OFP-E1_timing_adapter",
+  "production_authority": false,
+  "progression_gate_components": {
+    "all_annual_sufficiency_pass": true,
+    "median_annual_delta": 3.1088811155378297e-06,
+    "median_annual_delta_nonnegative": true,
+    "minimum_positive_annual_delta_count_pass": false,
+    "pooled_delta_mean_signed_utility_positive": true,
+    "positive_annual_delta_count": 3
+  },
+  "protocol": {
+    "path": "docs/governance/downstream_c1_c2_timing_agreement_adapter_v1_protocol.json",
+    "sha256": "0341983b83ee7e9f0b1064d921515850eca8c9d7ea2199242552799b2b28f5e2"
+  },
+  "research_identity": "overnight_c1_c2_timing_agreement_adapter_v1",
+  "reusable_blackbox_query_created": false,
+  "schema_id": "overnight_downstream_c1_c2_timing_agreement_adapter_dev_diagnostic@1.0",
+  "session_date": "2026-09-12",
+  "source_integrity": {
+    "factor_manifest": {
+      "path": "data/runtime_text_2015_2025/manifest.json",
+      "sha256": "10f7e5eada195541ae83fe14b7138e6a1ced939b7e278f811e7fb08c4147bb13"
+    },
+    "year_shards": {
+      "2015": {
+        "factor_panel": {
+          "path": "data/runtime_text_2015_2025/factor_panel_2015.csv",
+          "sha256": "6463091e0a4f536717a148144c8566f35b73c62e05694e1c73226024b80326af"
+        },
+        "opening_clocks": {
+          "path": "data/runtime_text_2015_2025/opening_clocks_2015.csv",
+          "sha256": "30ff8c6d7b4ce69220d311c35e06b28bae3a8e4478c0224e0bb700fdc1147efa"
+        }
+      },
+      "2016": {
+        "factor_panel": {
+          "path": "data/runtime_text_2015_2025/factor_panel_2016.csv",
+          "sha256": "f1c0abd8dfd6dd40f91c0b8c93ba6f3c4cf685efd0b04832e0e80d74a6c99f51"
+        },
+        "opening_clocks": {
+          "path": "data/runtime_text_2015_2025/opening_clocks_2016.csv",
+          "sha256": "7a4c0862be864dde63d90eb08466ad98d3c57daa2d05c874c5bc8acfaa059856"
+        }
+      },
+      "2017": {
+        "factor_panel": {
+          "path": "data/runtime_text_2015_2025/factor_panel_2017.csv",
+          "sha256": "395bf508ef6595474dd9f17282aa2d740bc93e342afa81401c9b05d3cf66e247"
+        },
+        "opening_clocks": {
+          "path": "data/runtime_text_2015_2025/opening_clocks_2017.csv",
+          "sha256": "55605da083dc0d212e50cc1e82f4f85574daacfbd400588f6265dd4fd8b65cef"
+        }
+      },
+      "2018": {
+        "factor_panel": {
+          "path": "data/runtime_text_2015_2025/factor_panel_2018.csv",
+          "sha256": "2fa36707c38e9e312fb87a13787bf4126e2b275b5881b89b884d852b7874abdb"
+        },
+        "opening_clocks": {
+          "path": "data/runtime_text_2015_2025/opening_clocks_2018.csv",
+          "sha256": "570f88b4604eab5887c8cc29d510e89d061c383e9afa803c179ab34548db7a42"
+        }
+      },
+      "2019": {
+        "factor_panel": {
+          "path": "data/runtime_text_2015_2025/factor_panel_2019.csv",
+          "sha256": "c183709b84e08225346242690089d8dc90edc4b4114bb0e731691241d91029be"
+        },
+        "opening_clocks": {
+          "path": "data/runtime_text_2015_2025/opening_clocks_2019.csv",
+          "sha256": "8f6d3d420ea78ff1b86224c0dcf61c85a24506de78aa6f9106710c1493f7628a"
+        }
+      },
+      "2020": {
+        "factor_panel": {
+          "path": "data/runtime_text_2015_2025/factor_panel_2020.csv",
+          "sha256": "8b15f82b78b6026f5fa48207fd7a15f0a5b0e6a79f1d41501d6a5c6c79730923"
+        },
+        "opening_clocks": {
+          "path": "data/runtime_text_2015_2025/opening_clocks_2020.csv",
+          "sha256": "689986dd671b2acebee190ff684f327d3e934d90ca3346015e75ee9af9854d0e"
+        }
+      }
+    }
+  },
+  "state_at_execution": {
+    "path": "docs/governance/downstream_c1_c2_timing_agreement_adapter_v1_state.json",
+    "sha256": "767acc1c11f7b16eb82bfa61263642a3c608efe4ce1f09d9b4ea127891a02570"
+  },
+  "strategy_PnL_optimization": false,
+  "target": "ret_0935_0950",
+  "threshold_search": false,
+  "upstream_add_drop_search": false,
+  "validated_upstream_query_ids": {
+    "C1": "5a27b953276382e473c0",
+    "C2": "a1068de9321c04632aad"
+  },
+  "weight_search": false
+}
