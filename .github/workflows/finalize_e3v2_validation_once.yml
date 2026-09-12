@@ -1,4 +1,4 @@
-name: One-shot finalize E3v2 reusable BLACKBOX closure
+name: One-shot sync authority after E3v2 closure
 
 on:
   push:
@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 jobs:
-  finalize-e3v2:
+  sync-authority:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,244 +19,176 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Register query 12 and close E3v2
+      - name: Reconcile authority and registry
         run: |
           set -euo pipefail
           python - <<'PY'
           import json
           from pathlib import Path
 
-          RECEIPT_PATH = Path('docs/research/local_downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_blackbox_receipt.json')
-          RECEIPT_COMMIT = 'f9b26dc16969df650a1bf489c58024009437dc6e'
-          ADJ_PATH = Path('docs/research/downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_blackbox_cloud_adjudication_20260912.md')
-          STATE_PATH = Path('docs/governance/downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_state.json')
-          LEDGER_PATH = Path('docs/governance/overnight_reusable_blackbox_query_ledger_v1.json')
-          AUTH_PATH = Path('docs/governance/current_authority_v1.json')
-          REGISTRY_PATH = Path('docs/governance/overnight_factor_product_registry_v1.json')
-          README_PATH = Path('README.md')
-          PROGRAM_PATH = Path('docs/governance/overnight_factor_product_program_v1.md')
+          LEDGER = Path('docs/governance/overnight_reusable_blackbox_query_ledger_v1.json')
+          STATE = Path('docs/governance/downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_state.json')
+          AUTH = Path('docs/governance/current_authority_v1.json')
+          REG = Path('docs/governance/overnight_factor_product_registry_v1.json')
 
-          def load(path):
-              return json.loads(path.read_text(encoding='utf-8'))
+          def load(p):
+              return json.loads(p.read_text(encoding='utf-8'))
 
-          def dump(path, obj):
-              path.write_text(json.dumps(obj, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          def dump(p, x):
+              p.write_text(json.dumps(x, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
 
-          def bump_schema(s):
-              if '@' not in s:
-                  return s
-              base, ver = s.rsplit('@', 1)
-              parts = ver.split('.')
-              if len(parts) == 2 and all(p.isdigit() for p in parts):
-                  return f'{base}@{parts[0]}.{int(parts[1])+1}'
-              return s
+          ledger = load(LEDGER)
+          state = load(STATE)
+          q12 = next((q for q in ledger.get('queries', []) if int(q.get('ordinal', -1)) == 12), None)
+          assert ledger.get('query_count') == 12
+          assert q12 is not None
+          assert q12.get('query_id') == 'ce859f9c94f281b0ec49'
+          assert q12.get('decision') == 'FAIL'
+          assert q12.get('research_identity') == 'overnight_b1_forward_cycle_portfolio_risk_abstention_validation_v1'
+          assert state.get('blackbox_query_id') == q12['query_id']
+          assert state.get('blackbox_result') == 'FAIL'
+          assert state.get('validated_product_authority') is False
+          assert state.get('production_authority') is False
 
-          receipt = load(RECEIPT_PATH)
-          assert receipt['research_identity'] == 'overnight_b1_forward_cycle_portfolio_risk_abstention_validation_v1'
-          assert receipt['decision'] == 'FAIL'
-          assert receipt['query_id'] == 'ce859f9c94f281b0ec49'
-          for key in ['public_detail_release','internal_metrics_persisted','calendar_year_results_persisted','counts_persisted','bootstrap_results_persisted','failure_attribution_persisted','account_results_persisted','account_execution_authority_if_PASS','production_authority']:
-              assert receipt[key] is False, key
-
-          ledger = load(LEDGER_PATH)
-          assert ledger['query_count'] == 11
-          assert len(ledger['queries']) == 11
-          assert [int(q['ordinal']) for q in ledger['queries']] == list(range(1, 12))
-          assert all(q.get('query_id') != receipt['query_id'] for q in ledger['queries'])
-          ledger['schema_id'] = bump_schema(ledger['schema_id'])
-          ledger['query_count'] = 12
-          ledger['queries'].append({
-              'ordinal': 12,
-              'query_id': receipt['query_id'],
-              'research_identity': receipt['research_identity'],
-              'comparator': 'same_frozen_REAKA_D5_H20_R5_consumer_portfolio_with_constant_exposure_1',
-              'decision': 'FAIL',
-              'receipt': str(RECEIPT_PATH),
-              'receipt_commit': RECEIPT_COMMIT,
-              'protocol_sha256': receipt['protocol_sha256'],
-              'high_open_source_manifest_sha256': receipt['high_open_source_manifest_sha256'],
-              'reconstruction_contract_sha256': receipt['reconstruction_contract_sha256'],
-              'consumer_repository': receipt['consumer_repository'],
-              'consumer_commit': receipt['consumer_commit'],
-              'consumer_daily_sha256': receipt['consumer_daily_sha256'],
-              'upstream_B1_query_id': receipt['upstream_B1_query_id'],
-              'public_detail_release': False,
-              'internal_metrics_persisted': False,
-              'yearly_results_persisted': False,
-              'counts_persisted': False,
-              'bootstrap_results_persisted': False,
-              'failure_attribution_persisted': False,
-              'account_results_persisted': False,
-              'technical_retry_counted_as_separate_query': False,
-              'blackbox_reusable_after_query': True,
-              'blackbox_consumed_as_one_time_data': False,
-              'reuse_is_independent_oos': False,
-              'production_authority': False,
-          })
-          dump(LEDGER_PATH, ledger)
-
-          adj_lines = [
-              '# E3v2 B1 forward-cycle portfolio-risk reusable BLACKBOX adjudication — 2026-09-12',
-              '',
-              '## Frozen identity',
-              '',
-              '- research identity: `overnight_b1_forward_cycle_portfolio_risk_abstention_validation_v1`',
-              '- parent Development identity: `overnight_b1_forward_cycle_portfolio_risk_abstention_v1`',
-              '- product family: `OFP-E3_portfolio_risk_adapter`',
-              '- consumer: frozen `REAKA_D5_H20_R5_CURRENT_GENERATION_V1` / `N30_equal_backfill_unconstrained`, with 14:30 and 14:45 clocks evaluated jointly',
-              '- upstream authority: validated B1 `overnight_global_risk_open_gap_v1`, query `6b0b6899f94fd8353a34`',
-              '- adapter: whole-portfolio exposure = 1 iff frozen `global_risk_z >= 0`, otherwise abstain; zero free parameters',
-              '- target: five trading-day compounded account return strictly after each decision date',
-              '- reusable validation window: `2021-01-01..2025-12-31`',
-              '',
-              '## Public BLACKBOX result',
-              '',
-              '**`FAIL`**',
-              '',
-              '- query ordinal: **12**',
-              '- query id: `ce859f9c94f281b0ec49`',
-              '- compact receipt: `docs/research/local_downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_blackbox_receipt.json`',
-              '- receipt commit: `f9b26dc16969df650a1bf489c58024009437dc6e`',
-              '',
-              'The receipt intentionally persists no internal metrics, calendar-year results, counts, bootstrap results, or failure attribution. Those surfaces are not authority and must not be reconstructed from the reusable BLACKBOX.',
-              '',
-              '## Adjudication',
-              '',
-              'The Development progression **did not survive** the frozen reusable validation. Therefore this identity is closed as:',
-              '',
-              '`BLACKBOX_FAIL_closed_no_validated_E3_product`',
-              '',
-              "This is a failure of the exact downstream E3 adapter contract only. It is **not** evidence that validated upstream B1 failed, and it does not revoke B1's existing continuous-factor authority.",
-              '',
-              'No account-execution backtest, executable strategy authority, or production authority is created. No threshold search, magnitude bucket search, clock selection, target change, consumer mutation, B1 reweighting, hidden-result failure analysis, or automatic successor is authorized from this result.',
-              '',
-              '## Final authority',
-              '',
-              '- validated E3 product authority: `false`',
-              '- successor authorized: `false`',
-              '- rescue search authorized: `false`',
-              '- account execution authority: `false`',
-              '- production authority: `false`',
-              '- reusable BLACKBOX ledger query count after registration: `12`',
-              '',
-          ]
-          assert not ADJ_PATH.exists()
-          ADJ_PATH.write_text('\n'.join(adj_lines), encoding='utf-8')
-
-          state = load(STATE_PATH)
-          assert state['research_identity'] == receipt['research_identity']
-          assert state['expected_next_ledger_ordinal'] == 12
-          state['schema_id'] = bump_schema(state['schema_id'])
-          state.update({
-              'status': 'BLACKBOX_FAIL_closed_no_validated_E3_product',
-              'blackbox_query_opened': True,
-              'ledger_entry_created': True,
-              'blackbox_ledger_ordinal': 12,
-              'blackbox_query_id': receipt['query_id'],
-              'blackbox_decision': 'FAIL',
-              'blackbox_receipt': str(RECEIPT_PATH),
-              'blackbox_receipt_commit': RECEIPT_COMMIT,
-              'blackbox_adjudication': str(ADJ_PATH),
-              'blackbox_reusable_after_query': True,
-              'same_period_reuse_is_independent_oos': False,
-              'validated_product_authority': False,
-              'successor_authorized': False,
-              'rescue_search_authorized': False,
-              'account_execution_authority': False,
-              'production_authority': False,
-          })
-          dump(STATE_PATH, state)
-
-          auth = load(AUTH_PATH)
-          assert auth['schema_id'] == 'overnight_open_current_authority@1.30'
-          assert auth.get('active_research', {}).get('identity') == receipt['research_identity']
+          auth = load(AUTH)
+          assert auth.get('schema_id') == 'overnight_open_current_authority@1.30'
+          assert auth.get('active_research', {}).get('identity') == q12['research_identity']
           auth['schema_id'] = 'overnight_open_current_authority@1.31'
           auth['active_research'] = None
-          recent_down = auth.setdefault('recent_downstream_research', {})
-          if 'E3v2_parent' in recent_down:
-              recent_down['E3v2_parent']['status'] = 'DEV_progression_closed_by_reusable_BLACKBOX_FAIL'
-          recent_down['E3v2_validation'] = {
-              'identity': receipt['research_identity'],
-              'status': 'BLACKBOX_FAIL_closed_no_validated_E3_product',
+          rd = auth.setdefault('recent_downstream_research', {})
+          if 'E3v2_parent' in rd:
+              rd['E3v2_parent']['status'] = 'DEV_progression_closed_by_reusable_BLACKBOX_FAIL'
+          rd['E3v2_validation'] = {
+              'identity': q12['research_identity'],
+              'status': 'BLACKBOX_FAIL_closed_no_validated_E3v2_product',
               'decision': 'FAIL',
-              'blackbox_query_id': receipt['query_id'],
+              'blackbox_query_id': q12['query_id'],
               'blackbox_ledger_ordinal': 12,
               'validated_product_authority': False,
               'account_execution_authority': False,
-              'production_authority': False,
+              'production_authority': False
           }
           auth.setdefault('recent_completed_research', {})['E3_v2'] = {
-              'identity': receipt['research_identity'],
-              'status': 'BLACKBOX_FAIL_closed_no_validated_E3_product',
-              'blackbox_query_id': receipt['query_id'],
-              'blackbox_ledger_ordinal': 12,
+              'identity': q12['research_identity'],
+              'status': 'BLACKBOX_FAIL_closed_no_validated_E3v2_product',
+              'blackbox_query_id': q12['query_id'],
+              'blackbox_ledger_ordinal': 12
           }
           auth.setdefault('closed_or_waiting', {})['E3_v2_B1_forward_cycle_portfolio_risk_adapter'] = 'completed_FAIL_query_12_no_validated_product'
           auth['blackbox_ledger_query_count'] = 12
-          hard = auth.setdefault('hard_rules', [])
-          for item in [
+          hard = [x for x in auth.get('hard_rules', []) if not x.startswith('E3v2 validation must ') and not x.startswith('A PASS for E3v2 ')]
+          additions = [
               'E3v2 reusable query 12 is FAIL; no hidden-behavior diagnosis, threshold search, magnitude bucket search, clock selection, B1 reweighting, target change, consumer mutation, or automatic rescue is authorized.',
-              'E3v2 BLACKBOX FAIL is an adapter-contract result only and does not revoke validated upstream B1 authority.',
-          ]:
-              if item not in hard:
-                  hard.append(item)
+              'E3v2 BLACKBOX FAIL is an adapter-contract result only and does not revoke validated upstream B1 authority.'
+          ]
+          for x in additions:
+              if x not in hard:
+                  hard.append(x)
+          auth['hard_rules'] = hard
           auth['next_action'] = 'No additional outcome-bearing research is automatically authorized. Maintain the validated shelf and wait for a separately motivated result-free identity or the already-frozen Gap-Fill V2 true-fresh date gate. Cloud main remains research authority and should request the user only for a concrete missing-data dependency.'
           auth['production_authority'] = False
-          dump(AUTH_PATH, auth)
+          dump(AUTH, auth)
 
-          registry = load(REGISTRY_PATH)
-          registry['schema_id'] = bump_schema(registry['schema_id'])
-          e3 = next((p for p in registry.get('products', []) if p.get('product_id') == 'OFP-E3'), None)
-          assert e3 is not None
-          e3.update({
-              'name': 'portfolio_risk_adapter',
-              'status': 'latest_v2_BLACKBOX_FAIL_closed_no_validated_E3_product',
-              'latest_identity': receipt['research_identity'],
+          reg = load(REG)
+          assert reg.get('schema_id') == 'overnight_factor_product_registry@1.12'
+          reg['schema_id'] = 'overnight_factor_product_registry@1.13'
+          products = {p['product_id']: p for p in reg.get('products', [])}
+
+          products['OFP-B1'].update({
+              'status': 'validated_BLACKBOX_PASS_continuous_factor_product',
+              'research_identity': 'overnight_global_risk_open_gap_v1',
+              'blackbox_query_id': '6b0b6899f94fd8353a34',
+              'blackbox_ledger_ordinal': 8,
+              'validated_product_authority': True
+          })
+          products['OFP-B2'].update({
+              'status': 'validated_BLACKBOX_PASS_continuous_factor_product',
+              'research_identity': 'overnight_china_offshore_open_gap_v1',
+              'blackbox_query_id': '608e037b0d24724b097b',
+              'blackbox_ledger_ordinal': 9,
+              'validated_product_authority': True
+          })
+          products['OFP-B3'].update({
+              'status': 'closed_after_BLACKBOX_FAIL_no_validated_B3_product',
+              'research_identity': 'overnight_fx_cny_open_gap_v1',
+              'blackbox_query_id': '34699d9d9b3ca36d1a6d',
+              'blackbox_ledger_ordinal': 10,
+              'validated_product_authority': False,
+              'rescue_search_authorized': False
+          })
+          products['OFP-C2'].update({
+              'status': 'validated_BLACKBOX_PASS_60m_continuous_factor_product',
+              'blackbox_query_id': 'a1068de9321c04632aad',
+              'blackbox_ledger_ordinal': 7,
+              'blackbox_query_opened': True,
+              'validated_product_authority': True,
+              'validated_interaction': 'observed_gap_rvol * log(rvol20)',
+              'validated_target': '09:35_to_10:35_return'
+          })
+          products['OFP-C4'].update({
+              'status': 'closed_after_BLACKBOX_FAIL_no_validated_C4_product',
+              'research_identity': 'overnight_weekend_gap_conditioned_open_state_15m_blackbox_v1',
+              'blackbox_query_id': '85335f9aaae24c263cf6',
+              'blackbox_ledger_ordinal': 11,
+              'validated_product_authority': False,
+              'rescue_search_authorized': False,
+              'consumer_roles': ['historical_negative_evidence']
+          })
+          products['OFP-E1'].update({
+              'status': 'latest_v2_DEV_NO_PROGRESS_closed_no_successor',
+              'latest_identity': 'overnight_c1_c2_timing_agreement_adapter_v1',
+              'latest_decision': 'E1V2_DEV_NO_PROGRESS',
+              'latest_state': 'docs/governance/downstream_c1_c2_timing_agreement_adapter_v1_state.json',
+              'latest_adjudication': 'docs/research/downstream_c1_c2_timing_agreement_adapter_v1_dev_cloud_adjudication_20260912.md',
+              'prior_identity': 'overnight_c1_b4_timing_confidence_adapter_validation_v1',
+              'prior_status': 'BLACKBOX_FAIL_closed_no_validated_E1_product',
+              'successor_authorized': False
+          })
+          products['OFP-E2'].update({
+              'status': 'latest_v2_DEV_INSUFFICIENT_closed_no_successor',
+              'latest_identity': 'overnight_c2_stock_selection_risk_abstention_adapter_v1',
+              'latest_decision': 'E2V2_DEV_INSUFFICIENT',
+              'latest_state': 'docs/governance/downstream_c2_stock_selection_risk_adapter_v1_state.json',
+              'latest_adjudication': 'docs/research/downstream_c2_stock_selection_risk_adapter_v1_dev_cloud_adjudication_20260912.md',
+              'consumer_repository': 'staryocean0/factorlab-multifactor-stock-lab',
+              'consumer_strategy_id': 'REAKA_D5_H20_R5_CURRENT_GENERATION_V1',
+              'prior_identity': 'overnight_b4_stock_selection_abstention_adapter_v1',
+              'prior_status': 'DEV_NO_PROGRESS_closed_no_successor',
+              'successor_authorized': False
+          })
+          products['OFP-E3'].update({
+              'status': 'latest_v2_BLACKBOX_FAIL_closed_no_validated_E3v2_product',
+              'latest_identity': q12['research_identity'],
               'latest_parent_development_identity': 'overnight_b1_forward_cycle_portfolio_risk_abstention_v1',
               'latest_decision': 'FAIL',
-              'latest_state': str(STATE_PATH),
-              'latest_adjudication': str(ADJ_PATH),
-              'blackbox_query_id': receipt['query_id'],
+              'latest_state': str(STATE),
+              'latest_adjudication': 'docs/research/downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_blackbox_cloud_adjudication_20260912.md',
+              'blackbox_query_id': q12['query_id'],
               'blackbox_ledger_ordinal': 12,
               'validated_product_authority': False,
               'successor_authorized': False,
               'account_execution_authority': False,
-              'production_authority': False,
+              'production_authority': False
           })
-          registry['active_research_identity'] = None
-          registry['active_research_status'] = None
-          registry['waiting_validation_identity'] = None
-          registry['next_research_identity'] = None
-          registry['blackbox_ledger_query_count'] = 12
-          registry['next_research_note'] = 'No outcome-bearing successor is automatically authorized after E3v2 query 12 FAIL. Maintain the validated shelf; wait for a separately motivated result-free identity or the frozen Gap-Fill V2 true-fresh date gate.'
-          registry['production_authority'] = False
-          dump(REGISTRY_PATH, registry)
+          reg['active_research_identity'] = None
+          reg['active_research_status'] = None
+          reg['deferred_frozen_identity'] = None
+          reg['waiting_validation_identity'] = None
+          reg['next_research_identity'] = None
+          reg['next_research_note'] = 'No outcome-bearing successor is automatically authorized after E3v2 query 12 FAIL. Maintain the validated shelf; wait for a separately motivated result-free identity or the frozen Gap-Fill V2 true-fresh date gate.'
+          reg['blackbox_ledger_query_count'] = 12
+          reg['production_authority'] = False
+          dump(REG, reg)
 
-          marker = '<!-- CURRENT-CLOSURE-20260912-E3V2 -->'
-          closure = marker + '\n## Current closure — E3v2 reusable validation\n\nAs of 2026-09-12 there is **no active outcome-bearing research identity**. `overnight_b1_forward_cycle_portfolio_risk_abstention_validation_v1` returned sealed reusable BLACKBOX **FAIL** as query **#12** (`ce859f9c94f281b0ec49`) and is closed with no validated E3 product, no successor, no account-execution authority, and no production authority. Validated upstream B1 remains valid. `docs/governance/current_authority_v1.json` is canonical.\n\n'
-          for path in [README_PATH, PROGRAM_PATH]:
-              text = path.read_text(encoding='utf-8')
-              if marker not in text:
-                  lines = text.splitlines(keepends=True)
-                  lines.insert(1 if lines else 0, '\n' + closure)
-                  path.write_text(''.join(lines), encoding='utf-8')
-
-          print(json.dumps({'decision':'FAIL','query_id':receipt['query_id'],'ledger_query_count':ledger['query_count'],'production_authority':False}, sort_keys=True))
+          print(json.dumps({'authority':'1.31','ledger':12,'e3v2':'FAIL','active_research':None,'production_authority':False}, sort_keys=True))
           PY
-      - name: Commit governance closure only
+      - name: Commit synchronized governance pointers
         run: |
           set -euo pipefail
           git status --short
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            docs/governance/overnight_reusable_blackbox_query_ledger_v1.json \
-            docs/governance/downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_state.json \
-            docs/governance/current_authority_v1.json \
-            docs/governance/overnight_factor_product_registry_v1.json \
-            docs/governance/overnight_factor_product_program_v1.md \
-            docs/research/downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_blackbox_cloud_adjudication_20260912.md \
-            README.md
-          git diff --cached --quiet && { echo 'No closure changes staged'; exit 1; }
-          git commit -m "Register query 12 and close E3v2 reusable validation [skip ci]"
+          git add docs/governance/current_authority_v1.json docs/governance/overnight_factor_product_registry_v1.json
+          git diff --cached --quiet && { echo 'No governance changes staged'; exit 1; }
+          git commit -m "Synchronize authority after E3v2 query 12 closure [skip ci]"
           git push
