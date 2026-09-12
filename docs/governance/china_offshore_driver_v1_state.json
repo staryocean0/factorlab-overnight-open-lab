@@ -1,0 +1,18 @@
+{
+  "schema_id": "overnight_china_offshore_driver_state@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_china_offshore_driver_v1",
+  "product_family": "OFP-B2_china_specific_offshore_driver",
+  "status": "result_free_preregistered_pending_cloud_development_execution",
+  "preanalysis": "docs/research/china_offshore_driver_v1_preanalysis_20260912.md",
+  "protocol": "docs/governance/china_offshore_driver_v1_protocol.json",
+  "candidate": "china_offshore_z",
+  "target": "opening_gap_rvol",
+  "development_window": "2015-01-05..2020-12-31",
+  "outcome_opened": false,
+  "development_receipt": null,
+  "development_decision": null,
+  "future_2021_2025_blackbox_authorized": false,
+  "blackbox_query_created": false,
+  "production_authority": false
+}
