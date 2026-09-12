@@ -1,0 +1,239 @@
+name: One-shot finalize E3v3 C2 portfolio-risk DEV closure
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/finalize_e3v3_c2_portfolio_risk_adapter_once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  finalize-e3v3:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Close E3v3 from frozen Development receipt
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          RECEIPT = Path('docs/research/cloud_downstream_c2_forward_cycle_portfolio_risk_adapter_v1_dev_diagnostic.json')
+          ADJ = Path('docs/research/downstream_c2_forward_cycle_portfolio_risk_adapter_v1_dev_cloud_adjudication_20260912.md')
+          STATE = Path('docs/governance/downstream_c2_forward_cycle_portfolio_risk_adapter_v1_state.json')
+          AUTH = Path('docs/governance/current_authority_v1.json')
+          REG = Path('docs/governance/overnight_factor_product_registry_v1.json')
+          LEDGER = Path('docs/governance/overnight_reusable_blackbox_query_ledger_v1.json')
+          README = Path('README.md')
+          PROGRAM = Path('docs/governance/overnight_factor_product_program_v1.md')
+
+          def load(p):
+              return json.loads(p.read_text(encoding='utf-8'))
+
+          def dump(p, obj):
+              p.write_text(json.dumps(obj, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          r = load(RECEIPT)
+          assert r['research_identity'] == 'overnight_c2_forward_cycle_portfolio_risk_abstention_v1'
+          assert r['decision'] == 'E3V3_DEV_INSUFFICIENT'
+          assert r['joint_clock_progression_pass'] is False
+          assert r['2021_2025_scientific_rows_opened'] is False
+          assert r['account_execution_backtest_opened'] is False
+          assert r['blackbox_query_created'] is False
+          assert r['candidate_attempt_count'] == 1
+          for clock in ['14:30', '14:45']:
+              assert r['diagnostics'][clock]['by_year']['2017']['active_decision_count'] == 6
+              assert r['diagnostics'][clock]['by_year']['2017']['sufficiency_active_pass'] is False
+              assert r['diagnostics'][clock]['gates']['all_annual_sufficiency_pass'] is False
+              assert r['diagnostics'][clock]['progression_pass'] is False
+
+          ledger = load(LEDGER)
+          assert ledger['query_count'] == 12
+
+          adj_lines = [
+              '# OFP-E3 v3 C2 forward-cycle portfolio-risk adapter — Development adjudication',
+              '',
+              'Date: 2026-09-12',
+              '',
+              'Research identity: `overnight_c2_forward_cycle_portfolio_risk_abstention_v1`',
+              '',
+              '## Frozen identity',
+              '',
+              '- consumer: pinned `REAKA_D5_H20_R5_CURRENT_GENERATION_V1` at commit `af2e478aaff5c8ef7f753424b57fd2d19019f248`;',
+              '- account policy: `N30_equal_backfill_unconstrained`;',
+              '- consumer clocks: 14:30 and 14:45 jointly;',
+              '- upstream: validated C2 `vol_gap_interaction`, reusable BLACKBOX query `a1068de9321c04632aad`;',
+              '- frozen risk-on score: `-vol_gap_interaction`;',
+              '- candidate exposure: 1 iff `c2_risk_on_score >= 0`, else 0;',
+              '- target: five trading-day compounded account return strictly after each frozen decision date;',
+              '- development window: `2015-01-05..2020-12-31`;',
+              '- no threshold, bucket, sign, horizon, target, clock, consumer, cost/fill, or upstream-product search.',
+              '',
+              '## Development result',
+              '',
+              '**`E3V3_DEV_INSUFFICIENT`**',
+              '',
+              'The preregistered annual sufficiency contract fails for both consumer clocks because calendar year 2017 contains only **6 candidate-active decisions** for each clock, below the frozen minimum of 8.',
+              '',
+              'Because the sufficiency gate fails, pooled and annual utility/downside statistics on the incomplete Development surface are diagnostic only. They do not authorize progression adjudication, candidate rejection, threshold/sign changes, clock selection, rescue, or successor design.',
+              '',
+              '## Authority consequence',
+              '',
+              '- no reusable 2021-2025 validation successor;',
+              '- no new reusable BLACKBOX query; ledger remains 12;',
+              '- no account-execution backtest;',
+              '- no validated E3v3 product;',
+              '- no threshold/bucket/sign/clock rescue;',
+              '- validated upstream C2 remains valid;',
+              '- `production_authority=false`.',
+              '',
+              'This is an insufficiency result for the exact downstream adapter contract, not a failure of validated C2.'
+          ]
+          assert not ADJ.exists()
+          ADJ.write_text('\n'.join(adj_lines) + '\n', encoding='utf-8')
+
+          state = load(STATE)
+          assert state['schema_id'] == 'overnight_downstream_c2_forward_cycle_portfolio_risk_adapter_state@1.0'
+          assert state['status'] == 'result_free_preregistered_pending_development_execution'
+          state['schema_id'] = 'overnight_downstream_c2_forward_cycle_portfolio_risk_adapter_state@1.1'
+          state['status'] = 'DEV_INSUFFICIENT_closed_no_successor'
+          state['outcome_opened'] = True
+          state['development_receipt'] = str(RECEIPT)
+          state['development_adjudication'] = str(ADJ)
+          state['development_decision'] = r['decision']
+          state['joint_clock_progression_pass'] = False
+          state['sufficiency_failure'] = {'year': 2017, 'active_decision_count_each_clock': 6, 'minimum_required': 8}
+          state['future_2021_2025_validation_authorized'] = False
+          state['blackbox_query_created'] = False
+          state['blackbox_ledger_query_count_after'] = 12
+          state['account_execution_backtest_authorized'] = False
+          state['validated_product_authority'] = False
+          state['successor_authorized'] = False
+          state['rescue_search_authorized'] = False
+          state['production_authority'] = False
+          state['next_action'] = 'closed; insufficient Development support forbids automatic validation, rescue, or successor under this identity'
+          dump(STATE, state)
+
+          auth = load(AUTH)
+          assert auth['schema_id'] == 'overnight_open_current_authority@1.32'
+          assert auth['blackbox_ledger_query_count'] == 12
+          auth['schema_id'] = 'overnight_open_current_authority@1.33'
+          auth['active_research'] = None
+          rd = auth.setdefault('recent_downstream_research', {})
+          rd['E3v3'] = {
+              'identity': r['research_identity'],
+              'status': 'DEV_INSUFFICIENT_closed_no_successor',
+              'decision': r['decision'],
+              'development_receipt': str(RECEIPT),
+              'development_adjudication': str(ADJ),
+              'sufficiency_failure': '2017_active_decisions_6_below_minimum_8_for_both_clocks',
+              'future_2021_2025_validation_authorized': False,
+              'blackbox_query_created': False,
+              'production_authority': False
+          }
+          auth.setdefault('recent_completed_research', {})['E3_v3'] = {
+              'identity': r['research_identity'],
+              'status': 'DEV_INSUFFICIENT_closed_no_successor'
+          }
+          auth.setdefault('closed_or_waiting', {})['E3_v3_C2_forward_cycle_portfolio_risk_adapter'] = 'DEV_INSUFFICIENT_closed_no_successor'
+          hard = auth.setdefault('hard_rules', [])
+          for rule in [
+              'E3v3 C2 portfolio-risk adapter is DEV_INSUFFICIENT because 2017 has only six active decisions per frozen clock; incomplete-surface utility/downside statistics do not authorize candidate rejection, threshold/sign changes, clock selection, rescue, or successor design.',
+              'E3v3 DEV_INSUFFICIENT is an adapter-contract result only and does not revoke validated upstream C2 authority.'
+          ]:
+              if rule not in hard:
+                  hard.append(rule)
+          auth['blackbox_ledger_query_count'] = 12
+          auth['next_action'] = 'No additional outcome-bearing research is automatically authorized. Maintain the validated shelf and wait for a separately motivated result-free identity or the already-frozen Gap-Fill V2 true-fresh date gate. Cloud main remains research authority.'
+          auth['production_authority'] = False
+          dump(AUTH, auth)
+
+          reg = load(REG)
+          assert reg['schema_id'] == 'overnight_factor_product_registry@1.14'
+          reg['schema_id'] = 'overnight_factor_product_registry@1.15'
+          e3 = next(p for p in reg['products'] if p['product_id'] == 'OFP-E3')
+          prev_identity = e3.get('latest_identity')
+          prev_status = e3.get('status')
+          e3.update({
+              'status': 'latest_v3_DEV_INSUFFICIENT_closed_no_successor',
+              'latest_identity': r['research_identity'],
+              'latest_decision': r['decision'],
+              'latest_state': str(STATE),
+              'latest_adjudication': str(ADJ),
+              'latest_upstream_product': 'OFP-C2',
+              'latest_upstream_query_id': 'a1068de9321c04632aad',
+              'latest_consumer_repository': 'staryocean0/factorlab-multifactor-stock-lab',
+              'latest_consumer_strategy_id': 'REAKA_D5_H20_R5_CURRENT_GENERATION_V1',
+              'previous_latest_identity': prev_identity,
+              'previous_latest_status': prev_status,
+              'sufficiency_failure': '2017_active_decisions_6_below_minimum_8_for_both_clocks',
+              'successor_authorized': False,
+              'future_2021_2025_validation_authorized': False,
+              'blackbox_query_created': False,
+              'validated_product_authority': False,
+              'account_execution_authority': False,
+              'production_authority': False
+          })
+          reg['active_research_identity'] = None
+          reg['active_research_status'] = None
+          reg['waiting_validation_identity'] = None
+          reg['next_research_identity'] = None
+          reg['next_research_note'] = 'E3v3 C2 portfolio-risk adapter closed DEV_INSUFFICIENT. No automatic successor or rescue; maintain the validated shelf or wait for a separately motivated result-free identity / frozen Gap-Fill V2 true-fresh date gate.'
+          reg['blackbox_ledger_query_count'] = 12
+          reg['production_authority'] = False
+          dump(REG, reg)
+
+          readme = README.read_text(encoding='utf-8')
+          if '## Latest completed research — E3v3' not in readme:
+              marker = '## Current authority — 2026-09-12\n'
+              note = ('## Latest completed research — E3v3\n\n'
+                      '`overnight_c2_forward_cycle_portfolio_risk_abstention_v1` closed as **`E3V3_DEV_INSUFFICIENT`**. '
+                      'Both frozen clocks have only 6 C2-active decisions in 2017 versus the preregistered minimum of 8, so no reusable validation, query #13, rescue, or successor is authorized. '
+                      'Validated upstream C2 remains valid; reusable BLACKBOX ledger count remains **12**.\n\n')
+              readme = readme.replace(marker, note + marker, 1)
+              readme = readme.replace('The latest completed downstream line is:', 'A previously completed downstream line is:', 1)
+              README.write_text(readme, encoding='utf-8')
+
+          program = PROGRAM.read_text(encoding='utf-8')
+          if '### E3v3 — C2 forward-cycle portfolio-risk adapter' not in program:
+              marker = '## Latest downstream evidence\n'
+              note = ('## Latest downstream evidence\n\n'
+                      '### E3v3 — C2 forward-cycle portfolio-risk adapter\n\n'
+                      'The frozen C2 zero-boundary whole-portfolio abstention adapter closed as `E3V3_DEV_INSUFFICIENT`. '
+                      'Both 14:30 and 14:45 clocks have only 6 candidate-active decisions in 2017, below the frozen minimum of 8. '
+                      'Because sufficiency fails, incomplete-surface utility/downside statistics cannot authorize progression, rejection, rescue, or successor design. '
+                      'No 2021-2025 validation was opened, no BLACKBOX query was created, and the ledger remains 12. Validated upstream C2 remains authoritative.\n\n')
+              program = program.replace(marker, note, 1)
+              program = program.replace('The latest completed identity is `overnight_b2_stock_selection_offshore_risk_abstention_adapter_v1`, closed as `E2V3_DEV_NO_PROGRESS` with no reusable Validation successor, no account-PnL backtest, no new BLACKBOX query, and no production authority.',
+                                        'The latest completed identity is `overnight_c2_forward_cycle_portfolio_risk_abstention_v1`, closed as `E3V3_DEV_INSUFFICIENT` with no reusable Validation successor, no account-execution backtest, no new BLACKBOX query, and no production authority.', 1)
+              PROGRAM.write_text(program, encoding='utf-8')
+
+          print(json.dumps({'E3v3': r['decision'], 'ledger': 12, 'active_research': None, 'production_authority': False}, sort_keys=True))
+          PY
+      - name: Commit closure and remove one-shot workflows
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          rm -f .github/workflows/run_e3v3_c2_forward_cycle_portfolio_risk_adapter_dev_once.yml
+          rm -f .github/workflows/finalize_e3v3_c2_portfolio_risk_adapter_once.yml
+          git add -A \
+            docs/research/downstream_c2_forward_cycle_portfolio_risk_adapter_v1_dev_cloud_adjudication_20260912.md \
+            docs/governance/downstream_c2_forward_cycle_portfolio_risk_adapter_v1_state.json \
+            docs/governance/current_authority_v1.json \
+            docs/governance/overnight_factor_product_registry_v1.json \
+            docs/governance/overnight_factor_product_program_v1.md \
+            README.md \
+            .github/workflows/run_e3v3_c2_forward_cycle_portfolio_risk_adapter_dev_once.yml \
+            .github/workflows/finalize_e3v3_c2_portfolio_risk_adapter_once.yml
+          git commit -m "Close E3v3 C2 portfolio-risk adapter DEV_INSUFFICIENT [skip ci]"
+          git pull --rebase origin main
+          git push
