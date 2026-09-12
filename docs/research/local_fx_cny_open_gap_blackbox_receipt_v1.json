@@ -1,0 +1,22 @@
+{
+  "blackbox_consumed": false,
+  "blackbox_reusable_after_query": true,
+  "bootstrap_results_persisted": false,
+  "comparator": "same_domestic_baseline_without_fx_cny_z",
+  "counts_persisted": false,
+  "decision": "FAIL",
+  "external_source_manifest_sha256": "dd245fda995d9452f9dd85abd763a351bcd6a432a4f5801a384511b50a84f00d",
+  "failure_attribution_persisted": false,
+  "high_open_source_manifest_sha256": "7e17d6b9d8ea147b4320cd8b495e56989f973fef3c5e26ad1fe4cb9d01c4cdb5",
+  "internal_metrics_persisted": false,
+  "parent_development_identity": "overnight_fx_cny_driver_v1",
+  "production_authority": false,
+  "protocol_sha256": "caf1ce7700c16a758592fda24c6b0b5765bbf5628d24934e571bdd25a7ff38b9",
+  "public_detail_release": false,
+  "query_id": "34699d9d9b3ca36d1a6d",
+  "reconstruction_contract_sha256": "2c497f403959daa39819518b6352fa32ae0a0e4029e1d54dae1811762c770598",
+  "research_identity": "overnight_fx_cny_open_gap_v1",
+  "reuse_is_independent_oos": false,
+  "schema_id": "overnight_single_external_driver_blackbox_receipt@1.0",
+  "yearly_results_persisted": false
+}
