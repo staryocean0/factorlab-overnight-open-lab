@@ -1,0 +1,92 @@
+{
+  "schema_id": "overnight_downstream_b1_forward_cycle_portfolio_risk_adapter_reusable_blackbox_protocol@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_b1_forward_cycle_portfolio_risk_abstention_validation_v1",
+  "parent_development_identity": "overnight_b1_forward_cycle_portfolio_risk_abstention_v1",
+  "product_family": "OFP-E3_portfolio_risk_adapter",
+  "phase": "reusable_compact_validation",
+  "parent_development_receipt": "docs/research/cloud_downstream_b1_forward_cycle_portfolio_risk_adapter_v1_dev_diagnostic.json",
+  "parent_development_adjudication": "docs/research/downstream_b1_forward_cycle_portfolio_risk_adapter_v1_dev_cloud_adjudication_20260912.md",
+  "consumer": {
+    "repository": "staryocean0/factorlab-multifactor-stock-lab",
+    "source_commit": "af2e478aaff5c8ef7f753424b57fd2d19019f248",
+    "strategy_id": "REAKA_D5_H20_R5_CURRENT_GENERATION_V1",
+    "model": "d8-h8-K1-r0_fit_prefix_successor_incumbent",
+    "account_policy": "N30_equal_backfill_unconstrained",
+    "variants": ["14:30", "14:45"],
+    "replay_segment": "2021_2026",
+    "daily_carrier": "output/factor-rotation/reaka_current_k1_account_ledgers_v1_2011_2026/formal/account_snapshot/portfolio_daily.parquet",
+    "daily_carrier_sha256": "8f6be84836d7839642e3cf722639887be339fa3f660c274b16d7c0a2b56ae1a5",
+    "account_mutation_authorized": false
+  },
+  "upstream": {
+    "research_identity": "overnight_global_risk_open_gap_v1",
+    "validated_query_id": "6b0b6899f94fd8353a34",
+    "coordinate": "global_risk_z",
+    "formula": "0.5 * (us_nasdaq / lagged_rms60_prev(us_nasdaq) - us_vix_chg / lagged_rms60_prev(us_vix_chg))",
+    "normalization": "lagged trailing RMS 60 China trading days, minimum 20 observations, current observation excluded",
+    "expected_direction": "positive"
+  },
+  "adapter": {
+    "comparator_exposure": 1.0,
+    "candidate_exposure_rule": "1 if global_risk_z >= 0 else 0",
+    "semantic_boundary": 0.0,
+    "free_parameters": 0,
+    "threshold_search": false,
+    "magnitude_bucket_search": false,
+    "clock_selection": false
+  },
+  "target": {
+    "id": "forward_5_account_return",
+    "formula": "product(1 + daily_return for the five trading days strictly after decision date) - 1",
+    "decision_day_return_included": false,
+    "future_window_length_trading_days": 5,
+    "2026_rows_may_complete_2025_target": false
+  },
+  "validation_window": "2021-01-01..2025-12-31",
+  "calendar_years": [2021, 2022, 2023, 2024, 2025],
+  "sufficiency_gates_each_clock_year": {
+    "minimum_complete_decisions": 20,
+    "minimum_active_decisions": 8
+  },
+  "pass_gates_each_clock": {
+    "pooled_mean_utility_delta": ">0",
+    "minimum_positive_calendar_year_mean_utility_delta_count": 3,
+    "median_calendar_year_mean_utility_delta": ">=0",
+    "pooled_downside_mean_delta": ">=0",
+    "minimum_nonnegative_calendar_year_downside_mean_delta_count": 3,
+    "moving_block_bootstrap_positive_mean_utility_delta_support": ">=0.90"
+  },
+  "moving_block_bootstrap": {
+    "ordering": "decision_date",
+    "block_length_decisions": 4,
+    "repetitions": 1000,
+    "seed": 20260912,
+    "statistic": "pooled mean(candidate_utility - comparator_utility)"
+  },
+  "joint_clock_rule": "PASS only if both 14:30 and 14:45 pass every sufficiency/pass gate; INSUFFICIENT if either clock fails sufficiency; otherwise FAIL",
+  "public_decision_enum": ["PASS", "FAIL", "INSUFFICIENT"],
+  "public_detail_release": false,
+  "persist_internal_metrics": false,
+  "persist_counts": false,
+  "persist_calendar_year_results": false,
+  "persist_bootstrap_results": false,
+  "persist_failure_attribution": false,
+  "authority_if_PASS": "validated_E3_portfolio_risk_adapter_contract_only",
+  "account_execution_authority_if_PASS": false,
+  "production_authority": false,
+  "same_period_reuse_is_independent_oos": false,
+  "query_id_contract": "first20hex_sha256(canonical_json({identity,protocol_sha256,high_open_source_manifest_sha256,reconstruction_contract_sha256,consumer_commit,consumer_daily_sha256,validation_window}))",
+  "forbidden_actions": [
+    "search nonzero B1 thresholds",
+    "search magnitude buckets",
+    "change NASDAQ/VIX weights or RMS window",
+    "change target length or include decision-day return",
+    "select one clock after outcome",
+    "mutate consumer account/model/policy",
+    "add upstream products",
+    "persist hidden metrics/counts/year/bootstrap/failure clues",
+    "treat 2021-2025 reuse as independent OOS",
+    "claim executable strategy or production authority"
+  ]
+}
