@@ -1,5 +1,5 @@
 {
-  "schema_id": "overnight_open_current_authority@1.22",
+  "schema_id": "overnight_open_current_authority@1.23",
   "session_date": "2026-09-12",
   "repository_role": "overnight_open_factor_product_laboratory_and_downstream_factor_adapter",
   "program": "docs/governance/overnight_factor_product_program_v1.md",
@@ -13,41 +13,41 @@
     "production_authority": false
   },
   "active_research": {
-    "identity": "overnight_global_risk_open_gap_v1",
-    "parent_development_identity": "overnight_global_risk_driver_v1",
-    "product_family": "OFP-B1_global_risk_driver",
-    "status": "reusable_BLACKBOX_protocol_frozen_query_unopened_pending_cloud_execution",
-    "development_receipt": "docs/research/cloud_global_risk_driver_v1_dev_diagnostic.json",
-    "development_authority": "docs/research/global_risk_driver_v1_dev_cloud_adjudication_20260912.md",
-    "blackbox_protocol": "docs/governance/global_risk_open_gap_blackbox_protocol_v1.json",
-    "blackbox_state": "docs/governance/global_risk_open_gap_blackbox_state_v1.json",
-    "blackbox_controller": "scripts/run_global_risk_open_gap_blackbox.py",
-    "candidate": "global_risk_z",
+    "identity": "overnight_china_offshore_driver_v1",
+    "product_family": "OFP-B2_china_specific_offshore_driver",
+    "status": "result_free_preregistered_pending_cloud_development_execution",
+    "preanalysis": "docs/research/china_offshore_driver_v1_preanalysis_20260912.md",
+    "protocol": "docs/governance/china_offshore_driver_v1_protocol.json",
+    "state": "docs/governance/china_offshore_driver_v1_state.json",
+    "candidate": "china_offshore_z",
     "target": "opening_gap_rvol",
-    "validation_window": "2021-01-01..2025-12-31",
-    "blackbox_query_opened": false,
-    "ledger_entry_created": false,
-    "expected_next_ledger_ordinal": 8,
-    "public_detail_release": false,
+    "development_window": "2015-01-05..2020-12-31",
+    "outcome_opened": false,
+    "future_2021_2025_blackbox_authorized": false,
     "production_authority": false
   },
+  "pre_registered_next_research": {
+    "identity": "overnight_fx_cny_driver_v1",
+    "product_family": "OFP-B3_fx_macro_overnight_driver",
+    "status": "result_free_preregistered_waiting_after_B2_execution_order",
+    "protocol": "docs/governance/fx_cny_driver_v1_protocol.json",
+    "state": "docs/governance/fx_cny_driver_v1_state.json",
+    "outcome_opened": false
+  },
   "recent_completed_research": {
-    "B1_DEV": {
-      "identity": "overnight_global_risk_driver_v1",
-      "status": "DEV_progression_supported_waiting_separate_validation_identity",
-      "development_decision": "B1_DEV_PROGRESS_GLOBAL_RISK_CONTINUOUS_COORDINATE",
-      "development_receipt": "docs/research/cloud_global_risk_driver_v1_dev_diagnostic.json",
-      "development_authority": "docs/research/global_risk_driver_v1_dev_cloud_adjudication_20260912.md",
-      "production_authority": false
+    "B1": {
+      "identity": "overnight_global_risk_open_gap_v1",
+      "status": "BLACKBOX_PASS_validated_continuous_B1_global_risk_factor_product",
+      "blackbox_query_id": "6b0b6899f94fd8353a34",
+      "blackbox_ledger_ordinal": 8,
+      "validated_product_authority": true
     },
     "C2": {
       "identity": "overnight_volatility_conditioned_open_state_60m_v1",
       "status": "BLACKBOX_PASS_validated_continuous_C2_60m_factor_product",
-      "blackbox_result": "PASS",
       "blackbox_query_id": "a1068de9321c04632aad",
       "blackbox_ledger_ordinal": 7,
-      "validated_product_authority": true,
-      "production_authority": false
+      "validated_product_authority": true
     },
     "E3": {"identity": "overnight_c1_intraday_portfolio_risk_abstention_v1", "status": "DEV_INSUFFICIENT_closed_no_successor"},
     "E2": {"identity": "overnight_b4_stock_selection_abstention_adapter_v1", "status": "DEV_NO_PROGRESS_closed_no_successor"},
@@ -55,21 +55,21 @@
   },
   "validated_products": {
     "V6A_global_spillover": "PASS",
+    "B1_global_risk_driver": "PASS_validated_continuous_factor_product",
     "C1_15m_trend_conditioned_open_state": "PASS_validated_continuous_factor_product",
     "C2_60m_volatility_conditioned_open_state": "PASS_validated_continuous_factor_product",
     "B4_driver_coherence": "PASS_validated_continuous_factor_product",
     "Gap_Fill_V2": "frozen_repeat_confirmed_true_fresh_pending"
   },
-  "blackbox_ledger_query_count": 7,
+  "blackbox_ledger_query_count": 8,
   "hard_rules": [
     "Do not decompose completed reusable BLACKBOX queries or use hidden behavior to design successors.",
-    "B1 validation preserves the frozen global_risk_z coordinate, target, domestic baseline, normalization and positive sign hypothesis.",
-    "Do not add A50, FX, B4 coherence, thresholds, buckets, alternate weights, alternate normalization or alternate targets under B1 validation.",
-    "B1 validation public output is compact PASS/FAIL/INSUFFICIENT only; do not persist or expose hidden metrics, counts, years, bootstrap statistics or failure attribution.",
+    "B2 v1 uses only the frozen same-contract A50 china_offshore_z coordinate and domestic baseline; B1, B3 and B4 coherence may not be added under this identity.",
+    "Do not change A50 causal clock, same-contract semantics, RMS normalization, target, baseline, sign hypothesis or progression gates after outcomes.",
+    "B3 identity was frozen before B2 outcomes and may not be redesigned using B2 behavior.",
     "Reuse of 2021-2025 is not independent OOS.",
-    "Do not open post-2026-08-21 outcomes except under separately frozen protocol.",
     "Production authority remains false."
   ],
-  "next_action": "cloud main agent executes exactly one compact B1 reusable BLACKBOX query using the parity-gated 2015-2025 reconstruction path, verifies provenance, registers query #8 only after a valid compact receipt, and adjudicates without user consultation unless concrete missing data blocks execution",
+  "next_action": "cloud main agent executes and adjudicates the frozen 2015-2020 B2 China-offshore mechanism diagnostic; if progression is supported, freeze a separate compact reusable validation identity before any 2021-2025 B2 query, then proceed to the already-preregistered B3 identity",
   "production_authority": false
 }
