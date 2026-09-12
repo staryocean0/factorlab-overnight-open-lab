@@ -1,0 +1,259 @@
+{
+  "2021_2025_detailed_rows_opened": false,
+  "account_backtest_opened": false,
+  "alternate_horizon_search": false,
+  "candidate": "C1_direction_with_B4_zero_boundary_abstention",
+  "candidate_attempt_count": 1,
+  "cash_index_direct_tradability_claim": false,
+  "comparator": "C1_direction_without_B4_abstention",
+  "cost_model_used": false,
+  "decision": "E1_DEV_PROGRESS_RETROSPECTIVE_FACTOR_UTILITY_ADAPTER_CANDIDATE",
+  "development_window": "2015-01-05..2020-12-31",
+  "diagnostics": {
+    "by_year": {
+      "2015": {
+        "candidate_active_day_count": 126,
+        "candidate_active_hit_rate": 0.48412698412698413,
+        "candidate_coverage": 0.6702127659574468,
+        "comparator_active_day_count": 188,
+        "comparator_hit_rate": 0.48936170212765956,
+        "complete_case_count": 188,
+        "delta_mean_signed_utility": 0.00030136706351284665,
+        "mean_candidate_signed_utility": -0.0002744185620453467,
+        "mean_comparator_signed_utility": -0.0005757856255581933,
+        "sufficiency_candidate_active_days_pass": true,
+        "sufficiency_complete_cases_pass": true,
+        "sufficiency_pass": true
+      },
+      "2016": {
+        "candidate_active_day_count": 149,
+        "candidate_active_hit_rate": 0.5167785234899329,
+        "candidate_coverage": 0.645021645021645,
+        "comparator_active_day_count": 231,
+        "comparator_hit_rate": 0.4675324675324675,
+        "complete_case_count": 231,
+        "delta_mean_signed_utility": 0.0003894144808723652,
+        "mean_candidate_signed_utility": -0.0005443388487403811,
+        "mean_comparator_signed_utility": -0.0009337533296127463,
+        "sufficiency_candidate_active_days_pass": true,
+        "sufficiency_complete_cases_pass": true,
+        "sufficiency_pass": true
+      },
+      "2017": {
+        "candidate_active_day_count": 113,
+        "candidate_active_hit_rate": 0.504424778761062,
+        "candidate_coverage": 0.4870689655172414,
+        "comparator_active_day_count": 232,
+        "comparator_hit_rate": 0.4956896551724138,
+        "complete_case_count": 232,
+        "delta_mean_signed_utility": -0.0002599603932627396,
+        "mean_candidate_signed_utility": 5.2090494223623084e-05,
+        "mean_comparator_signed_utility": 0.0003120508874863627,
+        "sufficiency_candidate_active_days_pass": true,
+        "sufficiency_complete_cases_pass": true,
+        "sufficiency_pass": true
+      },
+      "2018": {
+        "candidate_active_day_count": 144,
+        "candidate_active_hit_rate": 0.4652777777777778,
+        "candidate_coverage": 0.6260869565217392,
+        "comparator_active_day_count": 230,
+        "comparator_hit_rate": 0.4826086956521739,
+        "complete_case_count": 230,
+        "delta_mean_signed_utility": 6.496665474598027e-05,
+        "mean_candidate_signed_utility": -0.00016429784780236137,
+        "mean_comparator_signed_utility": -0.00022926450254834164,
+        "sufficiency_candidate_active_days_pass": true,
+        "sufficiency_complete_cases_pass": true,
+        "sufficiency_pass": true
+      },
+      "2019": {
+        "candidate_active_day_count": 161,
+        "candidate_active_hit_rate": 0.5217391304347826,
+        "candidate_coverage": 0.7,
+        "comparator_active_day_count": 230,
+        "comparator_hit_rate": 0.5260869565217391,
+        "complete_case_count": 230,
+        "delta_mean_signed_utility": -7.653380826851965e-05,
+        "mean_candidate_signed_utility": 0.00025680498756363023,
+        "mean_comparator_signed_utility": 0.0003333387958321499,
+        "sufficiency_candidate_active_days_pass": true,
+        "sufficiency_complete_cases_pass": true,
+        "sufficiency_pass": true
+      },
+      "2020": {
+        "candidate_active_day_count": 165,
+        "candidate_active_hit_rate": 0.509090909090909,
+        "candidate_coverage": 0.7142857142857143,
+        "comparator_active_day_count": 230,
+        "comparator_hit_rate": 0.5,
+        "complete_case_count": 231,
+        "delta_mean_signed_utility": 8.32933741110295e-05,
+        "mean_candidate_signed_utility": 0.0004953589823176792,
+        "mean_comparator_signed_utility": 0.00041206560820664974,
+        "sufficiency_candidate_active_days_pass": true,
+        "sufficiency_complete_cases_pass": true,
+        "sufficiency_pass": true
+      }
+    },
+    "pooled": {
+      "candidate_active_day_count": 858,
+      "candidate_active_hit_rate": 0.5011655011655012,
+      "candidate_coverage": 0.639344262295082,
+      "comparator_active_day_count": 1341,
+      "comparator_hit_rate": 0.4936614466815809,
+      "complete_case_count": 1342,
+      "delta_mean_signed_utility": 7.666264224622928e-05,
+      "mean_candidate_signed_utility": -2.2014457528462697e-05,
+      "mean_comparator_signed_utility": -9.867709977469197e-05,
+      "sufficiency_candidate_active_days_pass": true,
+      "sufficiency_complete_cases_pass": true,
+      "sufficiency_pass": true
+    }
+  },
+  "maximum_authority_if_progressed": "retrospective_factor_utility_adapter_candidate_only",
+  "phase": "retrospective_factor_utility_diagnostic",
+  "product_family": "OFP-E1_timing_adapter",
+  "production_authority": false,
+  "progression_gate_components": {
+    "all_annual_sufficiency_pass": true,
+    "median_annual_delta": 7.413001442850488e-05,
+    "median_annual_delta_nonnegative": true,
+    "minimum_positive_annual_delta_count_pass": true,
+    "pooled_delta_mean_signed_utility_positive": true,
+    "positive_annual_delta_count": 4
+  },
+  "protocol": {
+    "path": "docs/governance/downstream_timing_adapter_v1_protocol.json",
+    "sha256": "28b2961fe690f1d2c98af944cb2b45ab370e88fdb1aad1688d665f046c413c6d"
+  },
+  "research_identity": "overnight_c1_b4_timing_confidence_adapter_v1",
+  "reusable_blackbox_query_created": false,
+  "schema_id": "overnight_downstream_timing_adapter_dev_diagnostic@1.0",
+  "session_date": "2026-09-12",
+  "source_integrity": {
+    "driver_carrier_receipt": {
+      "path": "docs/research/driver_runtime_text_carrier_parity_receipt_v1.json",
+      "sha256": "d320580ae7e4543ade17c5ef734cb9d31f0fc7986735829418925df5624c6d3c"
+    },
+    "driver_manifest": {
+      "path": "data/driver_runtime_text_2015_2020/manifest.json",
+      "sha256": "b061f5e61259a1e3a624e76ad8950ac3c71635fa9653b9ac16113cd47df648bc"
+    },
+    "factor_driver_source_hashes": {
+      "2015": {
+        "driver_external": {
+          "path": "/home/runner/work/factorlab-overnight-open-lab/factorlab-overnight-open-lab/data/driver_runtime_text_2015_2020/driver_external_2015.csv",
+          "sha256": "e3f666b3d1c4c982ef8076bc2ec77dacc2a76caf5e0f96a9847a43166ab3cbce"
+        },
+        "factor_panel": {
+          "path": "/home/runner/work/factorlab-overnight-open-lab/factorlab-overnight-open-lab/data/runtime_text_2015_2025/factor_panel_2015.csv",
+          "sha256": "6463091e0a4f536717a148144c8566f35b73c62e05694e1c73226024b80326af"
+        }
+      },
+      "2016": {
+        "driver_external": {
+          "path": "/home/runner/work/factorlab-overnight-open-lab/factorlab-overnight-open-lab/data/driver_runtime_text_2015_2020/driver_external_2016.csv",
+          "sha256": "ab43aa6dc560f246f196fe3433840934ee2fee84b05d907ac3465c89f27b063e"
+        },
+        "factor_panel": {
+          "path": "/home/runner/work/factorlab-overnight-open-lab/factorlab-overnight-open-lab/data/runtime_text_2015_2025/factor_panel_2016.csv",
+          "sha256": "f1c0abd8dfd6dd40f91c0b8c93ba6f3c4cf685efd0b04832e0e80d74a6c99f51"
+        }
+      },
+      "2017": {
+        "driver_external": {
+          "path": "/home/runner/work/factorlab-overnight-open-lab/factorlab-overnight-open-lab/data/driver_runtime_text_2015_2020/driver_external_2017.csv",
+          "sha256": "f69b4641ef77471239213db9526f7eea9a36d67182ca40ec6d088919cf1b3d69"
+        },
+        "factor_panel": {
+          "path": "/home/runner/work/factorlab-overnight-open-lab/factorlab-overnight-open-lab/data/runtime_text_2015_2025/factor_panel_2017.csv",
+          "sha256": "395bf508ef6595474dd9f17282aa2d740bc93e342afa81401c9b05d3cf66e247"
+        }
+      },
+      "2018": {
+        "driver_external": {
+          "path": "/home/runner/work/factorlab-overnight-open-lab/factorlab-overnight-open-lab/data/driver_runtime_text_2015_2020/driver_external_2018.csv",
+          "sha256": "93443a8c802b0b763697656803fae701ee7fc9516fd8e8dea34c48c1c581eec6"
+        },
+        "factor_panel": {
+          "path": "/home/runner/work/factorlab-overnight-open-lab/factorlab-overnight-open-lab/data/runtime_text_2015_2025/factor_panel_2018.csv",
+          "sha256": "2fa36707c38e9e312fb87a13787bf4126e2b275b5881b89b884d852b7874abdb"
+        }
+      },
+      "2019": {
+        "driver_external": {
+          "path": "/home/runner/work/factorlab-overnight-open-lab/factorlab-overnight-open-lab/data/driver_runtime_text_2015_2020/driver_external_2019.csv",
+          "sha256": "d718032c211447b7f8c827e726170fa08d828d2234cf19f241e15dc516aab517"
+        },
+        "factor_panel": {
+          "path": "/home/runner/work/factorlab-overnight-open-lab/factorlab-overnight-open-lab/data/runtime_text_2015_2025/factor_panel_2019.csv",
+          "sha256": "c183709b84e08225346242690089d8dc90edc4b4114bb0e731691241d91029be"
+        }
+      },
+      "2020": {
+        "driver_external": {
+          "path": "/home/runner/work/factorlab-overnight-open-lab/factorlab-overnight-open-lab/data/driver_runtime_text_2015_2020/driver_external_2020.csv",
+          "sha256": "b72f704ae0513af5d960a7ab70e6e29464f72d9b84957b9db9598572d82842a1"
+        },
+        "factor_panel": {
+          "path": "/home/runner/work/factorlab-overnight-open-lab/factorlab-overnight-open-lab/data/runtime_text_2015_2025/factor_panel_2020.csv",
+          "sha256": "8b15f82b78b6026f5fa48207fd7a15f0a5b0e6a79f1d41501d6a5c6c79730923"
+        }
+      }
+    },
+    "factor_manifest": {
+      "path": "data/runtime_text_2015_2025/manifest.json",
+      "sha256": "10f7e5eada195541ae83fe14b7138e6a1ced939b7e278f811e7fb08c4147bb13"
+    },
+    "merged_max_day": "2020-12-31",
+    "merged_min_day_after_upstream_warmup": "2015-02-03",
+    "opening_clock_hashes": {
+      "2015": {
+        "path": "data/runtime_text_2015_2025/opening_clocks_2015.csv",
+        "sha256": "30ff8c6d7b4ce69220d311c35e06b28bae3a8e4478c0224e0bb700fdc1147efa"
+      },
+      "2016": {
+        "path": "data/runtime_text_2015_2025/opening_clocks_2016.csv",
+        "sha256": "7a4c0862be864dde63d90eb08466ad98d3c57daa2d05c874c5bc8acfaa059856"
+      },
+      "2017": {
+        "path": "data/runtime_text_2015_2025/opening_clocks_2017.csv",
+        "sha256": "55605da083dc0d212e50cc1e82f4f85574daacfbd400588f6265dd4fd8b65cef"
+      },
+      "2018": {
+        "path": "data/runtime_text_2015_2025/opening_clocks_2018.csv",
+        "sha256": "570f88b4604eab5887c8cc29d510e89d061c383e9afa803c179ab34548db7a42"
+      },
+      "2019": {
+        "path": "data/runtime_text_2015_2025/opening_clocks_2019.csv",
+        "sha256": "8f6d3d420ea78ff1b86224c0dcf61c85a24506de78aa6f9106710c1493f7628a"
+      },
+      "2020": {
+        "path": "data/runtime_text_2015_2025/opening_clocks_2020.csv",
+        "sha256": "689986dd671b2acebee190ff684f327d3e934d90ca3346015e75ee9af9854d0e"
+      }
+    },
+    "upstream_B4_implementation": {
+      "path": "scripts/diagnose_driver_agreement_disagreement_dev.py",
+      "sha256": "5c40881a27d466437533002df3d46450c2e52d6bc94d773a4c71d8b57ccba80e"
+    }
+  },
+  "state_at_execution": {
+    "path": "docs/governance/downstream_timing_adapter_v1_state.json",
+    "sha256": "9ae989b784c268e89b6e5433b31a6b55efba9dad14671309a61d5e5ab8099c25"
+  },
+  "stock_selection_backtest_opened": false,
+  "strategy_PnL_optimization": false,
+  "target": "ret_0935_0950",
+  "technical_retry_count": 1,
+  "technical_retry_counted_as_scientific_attempt": false,
+  "technical_retry_reason": "initial runner incorrectly required the post-upstream-warmup merged frame to begin exactly on the raw development start; no receipt or scientific outcome was produced",
+  "threshold_search": false,
+  "upstream_add_drop_search": false,
+  "validated_upstream_query_ids": {
+    "B4": "33ccb040dd0d1822f3b6",
+    "C1": "5a27b953276382e473c0"
+  },
+  "weight_search": false
+}
