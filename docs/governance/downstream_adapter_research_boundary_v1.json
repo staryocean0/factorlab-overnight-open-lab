@@ -1,0 +1,57 @@
+{
+  "schema_id": "overnight_downstream_adapter_research_boundary@1.0",
+  "session_date": "2026-09-12",
+  "repository_role": "upstream_factor_product_laboratory_plus_thin_downstream_adapter_research",
+  "authority_bearing_upstream_allowlist": [
+    "OFP-A1 accepted next-open architecture / V6A baseline under exact field authority",
+    "OFP-A2 observed_open_geometry foundational coordinate",
+    "OFP-C1 validated 15m continuous trend_gap_interaction",
+    "OFP-B4 validated continuous driver_coherence",
+    "OFP-A4 only under its existing evidence label; no new fresh claim"
+  ],
+  "explicit_denylist": [
+    "OFP-A3 Opening Surprise closed identity",
+    "OFP-C2 deferred unopened BLACKBOX behavior",
+    "OFP-C3 DEV-only historical progression and query-5 FAIL behavior",
+    "OFP-D1 DEV-only historical progression and query-4 FAIL behavior",
+    "V2.1 P2 closed family",
+    "hidden behavior or failure attribution from any reusable BLACKBOX query"
+  ],
+  "E1_timing_adapter": {
+    "first_identity": "overnight_c1_b4_timing_confidence_adapter_v1",
+    "scope": "thin causal factor-to-action mapping only",
+    "may_create_direction": "only from already-authorized C1 direction semantics",
+    "may_abstain_or_scale": true,
+    "may_tune_upstream_factors": false,
+    "may_claim_executable_PnL": false,
+    "may_claim_production": false
+  },
+  "E2_stock_selection_adapter": {
+    "status": "deferred_requires_separate_result_free_identity",
+    "allowed_future_role": "scale or abstain an already-frozen downstream stock-selection strategy using market-level Overnight/Open context",
+    "forbidden_role": "create stock-specific ranking alpha inside this repository",
+    "required_future_freezes": [
+      "consumer strategy identity and common root",
+      "stock universe",
+      "signal/fill clocks and T+1 semantics",
+      "cost model",
+      "adapter mapping",
+      "evidence roles and annual session atlas",
+      "strategy science acceptance contract",
+      "post-training account audit contract"
+    ]
+  },
+  "E3_portfolio_risk_adapter": {
+    "status": "deferred_requires_separate_result_free_identity",
+    "allowed_future_role": "exposure/risk-budget overlay on a frozen consumer portfolio",
+    "upstream_factor_retuning_from_portfolio_PnL": false
+  },
+  "strategy_science_boundary": {
+    "factor_utility_diagnostic_may_precede_account_stage": true,
+    "factor_utility_pass_grants_account_authority": false,
+    "current_2009_2020_strategy_slice_claim_possible_for_CSI1000_based_adapter": false,
+    "reason": "authority-bearing CSI1000 history starts 2014-10-17",
+    "do_not_weaken_strategy_slice_rebuild_skill": true
+  },
+  "production_authority": false
+}
