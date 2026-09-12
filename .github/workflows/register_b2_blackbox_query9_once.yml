@@ -1,0 +1,42 @@
+name: Register B2 reusable BLACKBOX query 9
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/register_b2_blackbox_query9_once.yml']
+permissions:
+  contents: write
+jobs:
+  register:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - name: Append verified B2 ledger entry
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, pathlib
+          lp=pathlib.Path('docs/governance/overnight_reusable_blackbox_query_ledger_v1.json')
+          rp=pathlib.Path('docs/research/local_china_offshore_open_gap_blackbox_receipt_v1.json')
+          l=json.loads(lp.read_text()); r=json.loads(rp.read_text())
+          assert l['query_count']==8 and len(l['queries'])==8
+          assert r['query_id']=='608e037b0d24724b097b' and r['decision']=='PASS'
+          assert all(r[k] is False for k in ['public_detail_release','internal_metrics_persisted','yearly_results_persisted','counts_persisted','bootstrap_results_persisted','failure_attribution_persisted'])
+          l['schema_id']='overnight_reusable_blackbox_query_ledger@1.6'; l['query_count']=9
+          l['queries'].append({
+            'ordinal':9,'query_id':r['query_id'],'research_identity':r['research_identity'],'comparator':r['comparator'],'decision':r['decision'],
+            'receipt':'docs/research/local_china_offshore_open_gap_blackbox_receipt_v1.json','receipt_commit':'90ebeefb9a8177f9df7ba9f4984211de93003a80',
+            'protocol_sha256':r['protocol_sha256'],'high_open_source_manifest_sha256':r['high_open_source_manifest_sha256'],'external_source_manifest_sha256':r['external_source_manifest_sha256'],'reconstruction_contract_sha256':r['reconstruction_contract_sha256'],
+            'public_detail_release':False,'internal_metrics_persisted':False,'yearly_results_persisted':False,'counts_persisted':False,'bootstrap_results_persisted':False,'failure_attribution_persisted':False,'technical_retry_counted_as_separate_query':False,'blackbox_reusable_after_query':True,'blackbox_consumed_as_one_time_data':False,'reuse_is_independent_oos':False,'production_authority':False})
+          lp.write_text(json.dumps(l,indent=2)+'\n')
+          PY
+      - name: Commit ledger only
+        run: |
+          set -euo pipefail
+          EXTRA="$(git status --short | grep -v '^ M docs/governance/overnight_reusable_blackbox_query_ledger_v1.json$' || true)"; test -z "$EXTRA"
+          git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/governance/overnight_reusable_blackbox_query_ledger_v1.json
+          git commit -m "Register B2 reusable BLACKBOX query 9 PASS [skip ci]"
+          git push
