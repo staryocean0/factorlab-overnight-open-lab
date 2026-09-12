@@ -1,0 +1,107 @@
+{
+  "schema_id": "overnight_downstream_timing_adapter_reusable_blackbox_protocol@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_c1_b4_timing_confidence_adapter_validation_v1",
+  "parent_development_identity": "overnight_c1_b4_timing_confidence_adapter_v1",
+  "product_family": "OFP-E1_timing_adapter",
+  "validation_mode": "reusable_compact_BLACKBOX",
+  "validation_window": "2021-01-01..2025-12-31",
+  "parent_development_receipt": "docs/research/cloud_downstream_timing_adapter_v1_dev_diagnostic.json",
+  "parent_development_authority": "docs/research/downstream_timing_adapter_v1_dev_cloud_adjudication_20260912.md",
+  "upstream_authorities": {
+    "C1_query_id": "5a27b953276382e473c0",
+    "C1_identity": "overnight_trend_conditioned_open_state_15m_v1",
+    "B4_query_id": "33ccb040dd0d1822f3b6",
+    "B4_identity": "overnight_driver_coherence_open_gap_v1"
+  },
+  "source_contract": {
+    "high_open_source_manifest": "data/high_open_dev_2015_2025/manifest.json",
+    "external_source_manifest": "data/v6a_external_sources_2015_2025/manifest.json",
+    "panel_reconstruction_contract": "docs/governance/v6a_base_panel_reconstruction_contract_20260910.json",
+    "raw_panel": "data/high_open_dev_2015_2025/annotated_panel.parquet",
+    "minute_bars": "data/high_open_dev_2015_2025/1m_official.parquet",
+    "frozen_development_panel": "data/development/csi1000_open_pit_panel.parquet",
+    "exact_target_clocks": ["09:35", "09:50"],
+    "instrument": "000852.SH",
+    "reconstruct_2015_2020_before_validation": true,
+    "2019_2020_target_clock_parity_required": true,
+    "forward_fill_or_interpolation": false,
+    "nearest_clock_substitution": false
+  },
+  "definitions": {
+    "observed_gap_rvol": "gap / rvol20",
+    "trend20_rvol": "r20 / (sqrt(20) * rvol20)",
+    "trend_gap_interaction": "observed_gap_rvol * trend20_rvol",
+    "c1_direction_score": "-trend_gap_interaction",
+    "c1_action": "sign(c1_direction_score)",
+    "gap_sign": "sign(observed_gap_rvol)",
+    "driver_alignment": "driver_coherence * gap_sign",
+    "comparator_action": "c1_action",
+    "candidate_action": "c1_action if driver_alignment >= 0 else 0",
+    "target": "close_0950 / close_0935 - 1",
+    "comparator_signed_utility": "comparator_action * target",
+    "candidate_signed_utility": "candidate_action * target",
+    "delta_signed_utility": "candidate_signed_utility - comparator_signed_utility"
+  },
+  "candidate_family": {
+    "attempt_count": 1,
+    "free_parameters": 0,
+    "fitted_weights": false,
+    "threshold_search": false,
+    "only_boundary": 0
+  },
+  "sufficiency_gates": {
+    "minimum_pooled_complete_cases": 900,
+    "minimum_complete_cases_each_calendar_year": 150,
+    "minimum_candidate_active_days_each_calendar_year": 30
+  },
+  "scientific_gates": {
+    "pooled_mean_delta_signed_utility": ">0",
+    "minimum_positive_calendar_year_delta_count": 3,
+    "calendar_year_count": 5,
+    "median_calendar_year_delta": ">=0",
+    "moving_block_bootstrap_positive_delta_support": ">=0.90"
+  },
+  "moving_block_bootstrap": {
+    "block_length_trading_days": 20,
+    "resamples": 1000,
+    "seed": 20260912,
+    "statistic": "mean_delta_signed_utility",
+    "support_event": "statistic>0"
+  },
+  "decision_logic": {
+    "INSUFFICIENT": "any frozen source/parity/sufficiency gate fails",
+    "PASS": "all scientific gates pass after sufficiency passes",
+    "FAIL": "sufficiency passes but at least one scientific gate fails"
+  },
+  "query_id_contract": "sha256(research_identity + '|' + protocol_sha256 + '|' + high_open_source_manifest_sha256 + '|' + external_source_manifest_sha256 + '|' + reconstruction_contract_sha256)[:20]",
+  "public_output_allowed": ["PASS", "FAIL", "INSUFFICIENT"],
+  "public_detail_release": false,
+  "persist_hidden_metrics": false,
+  "persist_calendar_year_results": false,
+  "persist_bootstrap_results": false,
+  "persist_counts": false,
+  "persist_failure_attribution": false,
+  "authority_if_PASS": "validated_E1_factor_utility_adapter_contract_only",
+  "account_or_strategy_authority_if_PASS": false,
+  "strategy_slice_rebuild_completion_if_PASS": false,
+  "strategy_science_acceptance_if_PASS": false,
+  "post_training_account_audit_if_PASS": false,
+  "forbidden_actions": [
+    "fit C1 or B4 weights",
+    "search nonzero driver-alignment thresholds",
+    "search B4 magnitude thresholds or quantiles",
+    "change C1 sign convention",
+    "search alternate target horizons",
+    "import A1 A4 C2 C3 or D1",
+    "use hidden BLACKBOX behavior to tune or rescue the adapter",
+    "optimize strategy PnL costs fills instruments or position sizing",
+    "claim stock-specific alpha",
+    "claim cash-index direct tradability",
+    "grant production authority"
+  ],
+  "same_2021_2025_period_reuse_is_independent_OOS": false,
+  "blackbox_reusable_after_query": true,
+  "blackbox_consumed": false,
+  "production_authority": false
+}
