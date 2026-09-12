@@ -1,0 +1,30 @@
+{
+  "blackbox_consumed": false,
+  "blackbox_reusable_after_query": true,
+  "bootstrap_results_persisted": false,
+  "calendar_year_results_persisted": false,
+  "decision": "FAIL",
+  "execution_channel": "cloud_github_actions_from_minimal_raw_text_carrier",
+  "failure_attribution_persisted": false,
+  "internal_metrics_persisted": false,
+  "joint_horizons": [
+    "15m",
+    "30m",
+    "60m"
+  ],
+  "parent_development_identity": "overnight_relative_size_open_leadership_v1",
+  "product_family": "OFP-D1_relative_index_open",
+  "production_authority": false,
+  "protocol_sha256": "4064410ccec2e3ec38d4f0bdd67e791f5fa45d6d47040f260987caade29f7282",
+  "public_detail_release": false,
+  "query_id": "30a1a98fe0a4cf7f7aa7",
+  "raw_carrier_manifest_sha256": "cd200ae7ef10758144270bc5bf9446462705b4c0fee03856809dc72879847612",
+  "raw_clock_2020_overlap_parity": "PASS",
+  "raw_upload_receipt_sha256": "e5a7ea8fdedc437f3d3fc40d97b5a0164d23a35bcb5d0742d0284d68c78ec0cc",
+  "research_identity": "overnight_relative_size_open_leadership_joint_15m_30m_60m_v1",
+  "same_period_reuse_is_independent_oos": false,
+  "schema_id": "overnight_relative_index_open_leadership_joint_blackbox_receipt@1.0",
+  "session_date": "2026-09-12",
+  "source_dataset_sha256": "25f4f9f8b67c799ffb1a7b7fdee94b0b21dbbfed1efc54d063264ccb046411f0",
+  "validation_window": "2021-01-01..2025-12-31"
+}
