@@ -1,0 +1,356 @@
+{
+  "2021_2025_scientific_rows_opened": false,
+  "account_execution_backtest_opened": false,
+  "adapter_rule": "candidate_exposure = 1 iff c2_risk_on_score >= 0 else 0",
+  "blackbox_query_created": false,
+  "candidate_attempt_count": 1,
+  "clock_selection": false,
+  "consumer": {
+    "account_mutation_authorized": false,
+    "account_policy": "N30_equal_backfill_unconstrained",
+    "consumer_parameter_mutation_authorized": false,
+    "daily_carrier": "output/factor-rotation/reaka_current_k1_account_ledgers_v1_2011_2026/formal/account_snapshot/portfolio_daily.parquet",
+    "daily_carrier_sha256": "8f6be84836d7839642e3cf722639887be339fa3f660c274b16d7c0a2b56ae1a5",
+    "model": "d8-h8-K1-r0_fit_prefix_successor_incumbent",
+    "replay_segment": "2011_2020",
+    "repository": "staryocean0/factorlab-multifactor-stock-lab",
+    "source_commit": "af2e478aaff5c8ef7f753424b57fd2d19019f248",
+    "strategy_id": "REAKA_D5_H20_R5_CURRENT_GENERATION_V1",
+    "variants": [
+      "14:30",
+      "14:45"
+    ]
+  },
+  "consumer_mutation": false,
+  "cost_or_fill_model_used": false,
+  "decision": "E3V3_DEV_INSUFFICIENT",
+  "development_window": "2015-01-05..2020-12-31",
+  "diagnostics": {
+    "14:30": {
+      "by_year": {
+        "2015": {
+          "active_coverage": 0.5111111111111111,
+          "active_decision_count": 23,
+          "candidate_downside_mean": -0.009974463373924405,
+          "candidate_mean_utility": 0.008844210731187368,
+          "candidate_positive_cycle_rate": 0.3333333333333333,
+          "comparator_downside_mean": -0.027505955193397102,
+          "comparator_mean_utility": 0.009801763024100015,
+          "comparator_positive_cycle_rate": 0.5777777777777777,
+          "complete_decision_count": 45,
+          "delta_downside_mean": 0.017531491819472698,
+          "delta_mean_utility": -0.0009575522929126477,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2016": {
+          "active_coverage": 0.40816326530612246,
+          "active_decision_count": 20,
+          "candidate_downside_mean": -0.009450174444274628,
+          "candidate_mean_utility": -0.0023707875727670786,
+          "candidate_positive_cycle_rate": 0.24489795918367346,
+          "comparator_downside_mean": -0.016719340523247247,
+          "comparator_mean_utility": -0.002408095920293044,
+          "comparator_positive_cycle_rate": 0.5714285714285714,
+          "complete_decision_count": 49,
+          "delta_downside_mean": 0.007269166078972619,
+          "delta_mean_utility": 3.7308347525965256e-05,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2017": {
+          "active_coverage": 0.12244897959183673,
+          "active_decision_count": 6,
+          "candidate_downside_mean": -0.00020741301157295105,
+          "candidate_mean_utility": 0.0023373958271580273,
+          "candidate_positive_cycle_rate": 0.10204081632653061,
+          "comparator_downside_mean": -0.013886248282321767,
+          "comparator_mean_utility": -0.004813145287694283,
+          "comparator_positive_cycle_rate": 0.5102040816326531,
+          "complete_decision_count": 49,
+          "delta_downside_mean": 0.013678835270748816,
+          "delta_mean_utility": 0.00715054111485231,
+          "sufficiency_active_pass": false,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": false
+        },
+        "2018": {
+          "active_coverage": 0.2916666666666667,
+          "active_decision_count": 14,
+          "candidate_downside_mean": -0.004219325518850713,
+          "candidate_mean_utility": 6.994756010990366e-05,
+          "candidate_positive_cycle_rate": 0.14583333333333334,
+          "comparator_downside_mean": -0.02186341126621603,
+          "comparator_mean_utility": -0.010899976366545968,
+          "comparator_positive_cycle_rate": 0.3333333333333333,
+          "complete_decision_count": 48,
+          "delta_downside_mean": 0.01764408574736532,
+          "delta_mean_utility": 0.010969923926655871,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2019": {
+          "active_coverage": 0.46938775510204084,
+          "active_decision_count": 23,
+          "candidate_downside_mean": -0.007155038818696751,
+          "candidate_mean_utility": -0.001418056073335794,
+          "candidate_positive_cycle_rate": 0.24489795918367346,
+          "comparator_downside_mean": -0.013750157534780216,
+          "comparator_mean_utility": 0.008544878173533105,
+          "comparator_positive_cycle_rate": 0.5714285714285714,
+          "complete_decision_count": 49,
+          "delta_downside_mean": 0.006595118716083465,
+          "delta_mean_utility": -0.0099629342468689,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2020": {
+          "active_coverage": 0.4375,
+          "active_decision_count": 21,
+          "candidate_downside_mean": -0.00866447400518155,
+          "candidate_mean_utility": -0.002427477745149421,
+          "candidate_positive_cycle_rate": 0.16666666666666666,
+          "comparator_downside_mean": -0.014866577101304032,
+          "comparator_mean_utility": 0.002267984093068489,
+          "comparator_positive_cycle_rate": 0.4791666666666667,
+          "complete_decision_count": 48,
+          "delta_downside_mean": 0.006202103096122482,
+          "delta_mean_utility": -0.00469546183821791,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        }
+      },
+      "gates": {
+        "all_annual_sufficiency_pass": false,
+        "median_annual_mean_utility_delta": -0.0004601219726933412,
+        "median_annual_mean_utility_delta_nonnegative": false,
+        "minimum_nonnegative_annual_downside_mean_delta_count_pass": true,
+        "minimum_positive_annual_mean_utility_delta_count_pass": false,
+        "nonnegative_annual_downside_mean_delta_count": 6,
+        "pooled_downside_mean_delta_nonnegative": true,
+        "pooled_mean_utility_delta_positive": true,
+        "positive_annual_mean_utility_delta_count": 3
+      },
+      "pooled": {
+        "active_coverage": 0.3715277777777778,
+        "active_decision_count": 107,
+        "candidate_downside_mean": -0.006566291376502844,
+        "candidate_mean_utility": 0.0007420385100459627,
+        "candidate_positive_cycle_rate": 0.2048611111111111,
+        "comparator_downside_mean": -0.017966107625072725,
+        "comparator_mean_utility": 0.0003180622162129335,
+        "comparator_positive_cycle_rate": 0.5069444444444444,
+        "complete_decision_count": 288,
+        "delta_downside_mean": 0.01139981624856988,
+        "delta_mean_utility": 0.0004239762938330292,
+        "sufficiency_active_pass": true,
+        "sufficiency_complete_pass": true,
+        "sufficiency_pass": true
+      },
+      "progression_pass": false
+    },
+    "14:45": {
+      "by_year": {
+        "2015": {
+          "active_coverage": 0.5111111111111111,
+          "active_decision_count": 23,
+          "candidate_downside_mean": -0.009863624044129795,
+          "candidate_mean_utility": 0.008577155861651793,
+          "candidate_positive_cycle_rate": 0.3333333333333333,
+          "comparator_downside_mean": -0.026779591788540884,
+          "comparator_mean_utility": 0.00984384233185437,
+          "comparator_positive_cycle_rate": 0.6,
+          "complete_decision_count": 45,
+          "delta_downside_mean": 0.01691596774441109,
+          "delta_mean_utility": -0.0012666864702025778,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2016": {
+          "active_coverage": 0.40816326530612246,
+          "active_decision_count": 20,
+          "candidate_downside_mean": -0.009372118185278165,
+          "candidate_mean_utility": -0.0023942597789539857,
+          "candidate_positive_cycle_rate": 0.2653061224489796,
+          "comparator_downside_mean": -0.016796996472813963,
+          "comparator_mean_utility": -0.0026045514152640515,
+          "comparator_positive_cycle_rate": 0.5918367346938775,
+          "complete_decision_count": 49,
+          "delta_downside_mean": 0.007424878287535798,
+          "delta_mean_utility": 0.00021029163631006587,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2017": {
+          "active_coverage": 0.12244897959183673,
+          "active_decision_count": 6,
+          "candidate_downside_mean": -8.926207782393362e-05,
+          "candidate_mean_utility": 0.002684325353944792,
+          "candidate_positive_cycle_rate": 0.10204081632653061,
+          "comparator_downside_mean": -0.013111024937255501,
+          "comparator_mean_utility": -0.004321833615032729,
+          "comparator_positive_cycle_rate": 0.5102040816326531,
+          "complete_decision_count": 49,
+          "delta_downside_mean": 0.013021762859431567,
+          "delta_mean_utility": 0.007006158968977522,
+          "sufficiency_active_pass": false,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": false
+        },
+        "2018": {
+          "active_coverage": 0.2916666666666667,
+          "active_decision_count": 14,
+          "candidate_downside_mean": -0.004273385880615726,
+          "candidate_mean_utility": 0.0003948599858971923,
+          "candidate_positive_cycle_rate": 0.16666666666666666,
+          "comparator_downside_mean": -0.02229971622098865,
+          "comparator_mean_utility": -0.0109477446483301,
+          "comparator_positive_cycle_rate": 0.3541666666666667,
+          "complete_decision_count": 48,
+          "delta_downside_mean": 0.018026330340372924,
+          "delta_mean_utility": 0.011342604634227293,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2019": {
+          "active_coverage": 0.46938775510204084,
+          "active_decision_count": 23,
+          "candidate_downside_mean": -0.006862526355176527,
+          "candidate_mean_utility": -0.0013540907535535864,
+          "candidate_positive_cycle_rate": 0.24489795918367346,
+          "comparator_downside_mean": -0.013546179979164494,
+          "comparator_mean_utility": 0.008353745117914224,
+          "comparator_positive_cycle_rate": 0.5714285714285714,
+          "complete_decision_count": 49,
+          "delta_downside_mean": 0.0066836536239879675,
+          "delta_mean_utility": -0.00970783587146781,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2020": {
+          "active_coverage": 0.4375,
+          "active_decision_count": 21,
+          "candidate_downside_mean": -0.00897877637185021,
+          "candidate_mean_utility": -0.0025290126637737436,
+          "candidate_positive_cycle_rate": 0.1875,
+          "comparator_downside_mean": -0.015149662888457137,
+          "comparator_mean_utility": 0.0021383007381643887,
+          "comparator_positive_cycle_rate": 0.5208333333333334,
+          "complete_decision_count": 48,
+          "delta_downside_mean": 0.006170886516606928,
+          "delta_mean_utility": -0.004667313401938132,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        }
+      },
+      "gates": {
+        "all_annual_sufficiency_pass": false,
+        "median_annual_mean_utility_delta": -0.000528197416946256,
+        "median_annual_mean_utility_delta_nonnegative": false,
+        "minimum_nonnegative_annual_downside_mean_delta_count_pass": true,
+        "minimum_positive_annual_mean_utility_delta_count_pass": false,
+        "nonnegative_annual_downside_mean_delta_count": 6,
+        "pooled_downside_mean_delta_nonnegative": true,
+        "pooled_mean_utility_delta_positive": true,
+        "positive_annual_mean_utility_delta_count": 3
+      },
+      "pooled": {
+        "active_coverage": 0.3715277777777778,
+        "active_decision_count": 107,
+        "candidate_downside_mean": -0.006527216299999508,
+        "candidate_mean_utility": 0.0008034564287731943,
+        "candidate_positive_cycle_rate": 0.2152777777777778,
+        "comparator_downside_mean": -0.01781912394378542,
+        "comparator_mean_utility": 0.0003127091720095391,
+        "comparator_positive_cycle_rate": 0.5243055555555556,
+        "complete_decision_count": 288,
+        "delta_downside_mean": 0.011291907643785914,
+        "delta_mean_utility": 0.0004907472567636552,
+        "sufficiency_active_pass": true,
+        "sufficiency_complete_pass": true,
+        "sufficiency_pass": true
+      },
+      "progression_pass": false
+    }
+  },
+  "joint_clock_progression_pass": false,
+  "ledger_query_count_at_execution": 12,
+  "magnitude_bucket_search": false,
+  "maximum_authority_if_progressed": "retrospective_E3_portfolio_risk_adapter_candidate_only",
+  "phase": "retrospective_account_overlay_utility_risk_diagnostic",
+  "product_family": "OFP-E3_portfolio_risk_adapter",
+  "production_authority": false,
+  "protocol": {
+    "path": "docs/governance/downstream_c2_forward_cycle_portfolio_risk_adapter_v1_protocol.json",
+    "sha256": "5cefd89f4cda897580a25d80ce82ec4be15f5d773d05e32ba207b36014637906"
+  },
+  "research_identity": "overnight_c2_forward_cycle_portfolio_risk_abstention_v1",
+  "schema_id": "overnight_downstream_c2_forward_cycle_portfolio_risk_adapter_dev_diagnostic@1.0",
+  "session_date": "2026-09-12",
+  "source_integrity": {
+    "C2": {
+      "factor_manifest": {
+        "path": "data/runtime_text_2015_2025/manifest.json",
+        "sha256": "10f7e5eada195541ae83fe14b7138e6a1ced939b7e278f811e7fb08c4147bb13"
+      },
+      "factor_shards": {
+        "2015": {
+          "path": "data/runtime_text_2015_2025/factor_panel_2015.csv",
+          "sha256": "6463091e0a4f536717a148144c8566f35b73c62e05694e1c73226024b80326af"
+        },
+        "2016": {
+          "path": "data/runtime_text_2015_2025/factor_panel_2016.csv",
+          "sha256": "f1c0abd8dfd6dd40f91c0b8c93ba6f3c4cf685efd0b04832e0e80d74a6c99f51"
+        },
+        "2017": {
+          "path": "data/runtime_text_2015_2025/factor_panel_2017.csv",
+          "sha256": "395bf508ef6595474dd9f17282aa2d740bc93e342afa81401c9b05d3cf66e247"
+        },
+        "2018": {
+          "path": "data/runtime_text_2015_2025/factor_panel_2018.csv",
+          "sha256": "2fa36707c38e9e312fb87a13787bf4126e2b275b5881b89b884d852b7874abdb"
+        },
+        "2019": {
+          "path": "data/runtime_text_2015_2025/factor_panel_2019.csv",
+          "sha256": "c183709b84e08225346242690089d8dc90edc4b4114bb0e731691241d91029be"
+        },
+        "2020": {
+          "path": "data/runtime_text_2015_2025/factor_panel_2020.csv",
+          "sha256": "8b15f82b78b6026f5fa48207fd7a15f0a5b0e6a79f1d41501d6a5c6c79730923"
+        }
+      }
+    },
+    "consumer": {
+      "consumer_repository": "staryocean0/factorlab-multifactor-stock-lab",
+      "daily_carrier": "output/factor-rotation/reaka_current_k1_account_ledgers_v1_2011_2026/formal/account_snapshot/portfolio_daily.parquet",
+      "daily_carrier_sha256": "8f6be84836d7839642e3cf722639887be339fa3f660c274b16d7c0a2b56ae1a5",
+      "materialized_date_window": "2015-01-05..2020-12-31",
+      "materialized_replay_segment": "2011_2020",
+      "post2020_scientific_rows_materialized": false,
+      "source_commit": "af2e478aaff5c8ef7f753424b57fd2d19019f248"
+    }
+  },
+  "state_at_execution": {
+    "path": "docs/governance/downstream_c2_forward_cycle_portfolio_risk_adapter_v1_state.json",
+    "sha256": "330bf31b2c87789cca80ad0eecc6cdfae12744a3580d7eaee4df885101ce1e31"
+  },
+  "target": {
+    "decision_day_return_included": false,
+    "formula": "product(1 + daily_return for the five trading days strictly after decision date) - 1",
+    "future_window_length_trading_days": 5,
+    "id": "forward_5_account_return"
+  },
+  "target_length_search": false,
+  "threshold_search": false,
+  "validated_C2_query_id": "a1068de9321c04632aad"
+}
