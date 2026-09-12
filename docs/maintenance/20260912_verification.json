@@ -1,6 +1,41 @@
 {
-  "status": "PENDING_ACTUAL_QA",
-  "baseline_commit": "0e28a6285745552a665d5b1cba11c9da73fbacd7",
-  "maintenance_only": true,
-  "production_authority": false
+  "status": "FAIL",
+  "checked_source_commit": "a989a92a28d5611e2b4bdb9d78b9e9d98b2ded62",
+  "run_id": "34690989255",
+  "python": "3.11.16",
+  "consistency_step": "failure",
+  "regression_step": "failure",
+  "production_authority": false,
+  "new_scientific_query_created": false,
+  "market_or_account_rows_opened": false,
+  "versions": {
+    "numpy": "1.26.4",
+    "pandas": "2.2.3",
+    "scipy": "1.14.1",
+    "scikit-learn": "1.5.2",
+    "pyarrow": "18.1.0",
+    "pytest": "8.3.5",
+    "PyYAML": "6.0.2"
+  },
+  "consistency": {
+    "status": "FAIL",
+    "tracked_files": 625,
+    "classified_files": 625,
+    "python_sources_parsed": 100,
+    "validated_component_bindings": 6,
+    "ledger_query_count": 12,
+    "active_outcome_research": null,
+    "production_authority": false,
+    "market_rows_opened": false,
+    "errors": [
+      "ledger/receipt mismatch #1: research_identity"
+    ]
+  },
+  "test_cases": 76,
+  "failures": [
+    {
+      "test": "tests.test_repository_consistency::test_whole_repository_is_consistent",
+      "reason": "AssertionError: ['ledger/receipt mismatch #1: research_identity']\nassert 'FAIL' == 'PASS'\n  \n  - PASS\n  + FAIL"
+    }
+  ]
 }
