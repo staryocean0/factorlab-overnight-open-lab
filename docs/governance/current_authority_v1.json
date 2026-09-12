@@ -1,5 +1,5 @@
 {
-  "schema_id": "overnight_open_current_authority@1.30",
+  "schema_id": "overnight_open_current_authority@1.31",
   "session_date": "2026-09-12",
   "repository_role": "overnight_open_factor_product_laboratory_and_downstream_factor_adapter",
   "program": "docs/governance/overnight_factor_product_program_v1.md",
@@ -12,28 +12,7 @@
     "local_model_role": "data procurement or mechanical materialization only when cloud lacks required data",
     "production_authority": false
   },
-  "active_research": {
-    "identity": "overnight_b1_forward_cycle_portfolio_risk_abstention_validation_v1",
-    "parent_development_identity": "overnight_b1_forward_cycle_portfolio_risk_abstention_v1",
-    "product_family": "OFP-E3_portfolio_risk_adapter",
-    "status": "reusable_BLACKBOX_protocol_frozen_query_unopened_pending_cloud_execution",
-    "parent_development_decision": "E3V2_DEV_PROGRESS_RETROSPECTIVE_PORTFOLIO_RISK_ADAPTER_CANDIDATE",
-    "parent_development_receipt": "docs/research/cloud_downstream_b1_forward_cycle_portfolio_risk_adapter_v1_dev_diagnostic.json",
-    "parent_development_adjudication": "docs/research/downstream_b1_forward_cycle_portfolio_risk_adapter_v1_dev_cloud_adjudication_20260912.md",
-    "blackbox_protocol": "docs/governance/downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_blackbox_protocol.json",
-    "blackbox_state": "docs/governance/downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_state.json",
-    "blackbox_controller": "scripts/run_downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_blackbox.py",
-    "candidate": "whole portfolio exposure = 1 iff validated B1 global_risk_z >= 0 else 0",
-    "consumer": "REAKA_D5_H20_R5_CURRENT_GENERATION_V1 / N30_equal_backfill_unconstrained / 14:30+14:45 joint",
-    "target": "five trading-day compounded account return strictly after each consumer decision date",
-    "validation_window": "2021-01-01..2025-12-31",
-    "blackbox_query_opened": false,
-    "ledger_entry_created": false,
-    "expected_next_ledger_ordinal": 12,
-    "authority_if_PASS": "validated_E3_portfolio_risk_adapter_contract_only",
-    "account_execution_authority_if_PASS": false,
-    "production_authority": false
-  },
+  "active_research": null,
   "recent_downstream_research": {
     "E1v2": {
       "identity": "overnight_c1_c2_timing_agreement_adapter_v1",
@@ -47,18 +26,61 @@
     },
     "E3v2_parent": {
       "identity": "overnight_b1_forward_cycle_portfolio_risk_abstention_v1",
-      "status": "DEV_progression_waiting_separate_validation_identity",
+      "status": "DEV_progression_closed_by_reusable_BLACKBOX_FAIL",
       "decision": "E3V2_DEV_PROGRESS_RETROSPECTIVE_PORTFOLIO_RISK_ADAPTER_CANDIDATE"
+    },
+    "E3v2_validation": {
+      "identity": "overnight_b1_forward_cycle_portfolio_risk_abstention_validation_v1",
+      "status": "BLACKBOX_FAIL_closed_no_validated_E3v2_product",
+      "decision": "FAIL",
+      "blackbox_query_id": "ce859f9c94f281b0ec49",
+      "blackbox_ledger_ordinal": 12,
+      "validated_product_authority": false,
+      "account_execution_authority": false,
+      "production_authority": false
     }
   },
   "recent_completed_research": {
-    "A1_validated_driver_adapter": {"identity":"overnight_expected_open_validated_driver_coordinates_v1","status":"DEV_NO_PROGRESS_closed_no_successor"},
-    "C4": {"identity":"overnight_weekend_gap_conditioned_open_state_15m_blackbox_v1","status":"BLACKBOX_FAIL_closed_no_validated_C4_product","blackbox_ledger_ordinal":11},
-    "B3": {"identity":"overnight_fx_cny_open_gap_v1","status":"BLACKBOX_FAIL_closed_no_validated_B3_product","blackbox_ledger_ordinal":10},
-    "B2": {"identity":"overnight_china_offshore_open_gap_v1","status":"BLACKBOX_PASS_validated_continuous_B2_china_offshore_factor_product","blackbox_ledger_ordinal":9},
-    "B1": {"identity":"overnight_global_risk_open_gap_v1","status":"BLACKBOX_PASS_validated_continuous_B1_global_risk_factor_product","blackbox_ledger_ordinal":8},
-    "C2": {"identity":"overnight_volatility_conditioned_open_state_60m_v1","status":"BLACKBOX_PASS_validated_continuous_C2_60m_factor_product","blackbox_ledger_ordinal":7},
-    "E1_v1": {"identity":"overnight_c1_b4_timing_confidence_adapter_validation_v1","status":"BLACKBOX_FAIL_closed_no_validated_E1_product","blackbox_ledger_ordinal":6}
+    "A1_validated_driver_adapter": {
+      "identity": "overnight_expected_open_validated_driver_coordinates_v1",
+      "status": "DEV_NO_PROGRESS_closed_no_successor"
+    },
+    "C4": {
+      "identity": "overnight_weekend_gap_conditioned_open_state_15m_blackbox_v1",
+      "status": "BLACKBOX_FAIL_closed_no_validated_C4_product",
+      "blackbox_ledger_ordinal": 11
+    },
+    "B3": {
+      "identity": "overnight_fx_cny_open_gap_v1",
+      "status": "BLACKBOX_FAIL_closed_no_validated_B3_product",
+      "blackbox_ledger_ordinal": 10
+    },
+    "B2": {
+      "identity": "overnight_china_offshore_open_gap_v1",
+      "status": "BLACKBOX_PASS_validated_continuous_B2_china_offshore_factor_product",
+      "blackbox_ledger_ordinal": 9
+    },
+    "B1": {
+      "identity": "overnight_global_risk_open_gap_v1",
+      "status": "BLACKBOX_PASS_validated_continuous_B1_global_risk_factor_product",
+      "blackbox_ledger_ordinal": 8
+    },
+    "C2": {
+      "identity": "overnight_volatility_conditioned_open_state_60m_v1",
+      "status": "BLACKBOX_PASS_validated_continuous_C2_60m_factor_product",
+      "blackbox_ledger_ordinal": 7
+    },
+    "E1_v1": {
+      "identity": "overnight_c1_b4_timing_confidence_adapter_validation_v1",
+      "status": "BLACKBOX_FAIL_closed_no_validated_E1_product",
+      "blackbox_ledger_ordinal": 6
+    },
+    "E3_v2": {
+      "identity": "overnight_b1_forward_cycle_portfolio_risk_abstention_validation_v1",
+      "status": "BLACKBOX_FAIL_closed_no_validated_E3v2_product",
+      "blackbox_query_id": "ce859f9c94f281b0ec49",
+      "blackbox_ledger_ordinal": 12
+    }
   },
   "validated_products": {
     "V6A_global_spillover": "PASS",
@@ -81,21 +103,22 @@
     "E2_v2_C2_stock_selection_adapter": "DEV_INSUFFICIENT_closed_no_successor",
     "E3_v1_C1_intraday_portfolio_risk_adapter": "DEV_INSUFFICIENT_closed_no_successor",
     "A1_validated_driver_adapter": "DEV_NO_PROGRESS_closed_no_successor",
-    "Gap_Fill_V2_true_fresh": "wait_for_complete_2026_08_24_to_2026_12_31_and_protocol_date_gate"
+    "Gap_Fill_V2_true_fresh": "wait_for_complete_2026_08_24_to_2026_12_31_and_protocol_date_gate",
+    "E3_v2_B1_forward_cycle_portfolio_risk_adapter": "completed_FAIL_query_12_no_validated_product"
   },
-  "blackbox_ledger_query_count": 11,
+  "blackbox_ledger_query_count": 12,
   "hard_rules": [
     "Do not decompose completed reusable BLACKBOX queries or use hidden behavior to design successors.",
     "E1v2 is closed DEV_NO_PROGRESS; no threshold/weight/horizon rescue under that identity.",
     "E2v2 is closed DEV_INSUFFICIENT; incomplete-surface statistics do not authorize rescue.",
-    "E3v2 validation must use the exact frozen parent adapter, five-day target, both clocks jointly, and compact public PASS/FAIL/INSUFFICIENT only.",
     "Do not use 2026 account rows to complete 2025 validation targets.",
-    "A PASS for E3v2 grants only validated portfolio-risk adapter contract authority; it does not grant executable account strategy or production authority.",
     "B1, B2, C1, C2 and B4 remain shelf products only at validated continuous identities.",
     "Gap-Fill V2 true-fresh evaluation remains date-gated until the complete 2026-08-24..2026-12-31 block exists and its frozen protocol permits evaluation.",
     "Reuse of 2021-2025 is not independent OOS.",
-    "Production authority remains false."
+    "Production authority remains false.",
+    "E3v2 reusable query 12 is FAIL; no hidden-behavior diagnosis, threshold search, magnitude bucket search, clock selection, B1 reweighting, target change, consumer mutation, or automatic rescue is authorized.",
+    "E3v2 BLACKBOX FAIL is an adapter-contract result only and does not revoke validated upstream B1 authority."
   ],
-  "next_action": "cloud main agent executes the frozen E3v2 compact reusable validation. If a valid compact receipt is produced, register exactly one logical BLACKBOX query #12 and adjudicate E3v2 without exposing hidden metrics, calendar-year results, counts, bootstrap support or failure attribution.",
+  "next_action": "No additional outcome-bearing research is automatically authorized. Maintain the validated shelf and wait for a separately motivated result-free identity or the already-frozen Gap-Fill V2 true-fresh date gate. Cloud main remains research authority and should request the user only for a concrete missing-data dependency.",
   "production_authority": false
 }

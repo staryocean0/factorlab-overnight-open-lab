@@ -1,5 +1,5 @@
 {
-  "schema_id": "overnight_factor_product_registry@1.12",
+  "schema_id": "overnight_factor_product_registry@1.13",
   "session_date": "2026-09-12",
   "program": "docs/governance/overnight_factor_product_program_v1.md",
   "repository_role": "overnight_open_factor_product_laboratory_and_downstream_factor_adapter",
@@ -9,15 +9,27 @@
       "name": "expected_open_state",
       "status": "active_confirmed_components",
       "availability": "pre_open",
-      "authorities": ["docs/governance/cloud_session_20260906_research_architecture_acceptance_v1.json", "docs/governance/global_spillover_current_baseline_v1.json"],
-      "consumer_roles": ["timing", "stock_selection_overlay", "portfolio_risk", "future_instrument_mapping"]
+      "authorities": [
+        "docs/governance/cloud_session_20260906_research_architecture_acceptance_v1.json",
+        "docs/governance/global_spillover_current_baseline_v1.json"
+      ],
+      "consumer_roles": [
+        "timing",
+        "stock_selection_overlay",
+        "portfolio_risk",
+        "future_instrument_mapping"
+      ]
     },
     {
       "product_id": "OFP-A2",
       "name": "observed_open_geometry",
       "status": "active_foundational",
       "availability": "after_open_observation",
-      "consumer_roles": ["timing", "risk", "normalization"]
+      "consumer_roles": [
+        "timing",
+        "risk",
+        "normalization"
+      ]
     },
     {
       "product_id": "OFP-A3",
@@ -28,7 +40,9 @@
       "authority": "docs/research/opening_surprise_factor_cloud_adjudication_20260911.md",
       "blackbox_authorized": false,
       "rescue_search_authorized": false,
-      "consumer_roles": ["historical_negative_evidence"]
+      "consumer_roles": [
+        "historical_negative_evidence"
+      ]
     },
     {
       "product_id": "OFP-A4",
@@ -36,29 +50,57 @@
       "status": "frozen_repeat_confirmed_true_fresh_pending",
       "availability": "after_open_observation",
       "authority": "docs/governance/gap_fill_v2_true_fresh_state_v1.json",
-      "consumer_roles": ["timing_filter", "reversion_risk", "execution_timing"]
+      "consumer_roles": [
+        "timing_filter",
+        "reversion_risk",
+        "execution_timing"
+      ]
     },
     {
       "product_id": "OFP-B1",
       "name": "global_risk_driver",
-      "status": "planned_coordinate_product",
+      "status": "validated_BLACKBOX_PASS_continuous_factor_product",
       "availability": "pre_open",
-      "consumer_roles": ["driver_attribution", "timing", "risk"]
+      "consumer_roles": [
+        "driver_attribution",
+        "timing",
+        "risk"
+      ],
+      "research_identity": "overnight_global_risk_open_gap_v1",
+      "blackbox_query_id": "6b0b6899f94fd8353a34",
+      "blackbox_ledger_ordinal": 8,
+      "validated_product_authority": true
     },
     {
       "product_id": "OFP-B2",
       "name": "china_specific_offshore_driver",
-      "status": "planned_coordinate_product_with_confirmed_source_lineage",
+      "status": "validated_BLACKBOX_PASS_continuous_factor_product",
       "availability": "pre_open",
       "authority": "docs/governance/global_spillover_current_baseline_v1.json",
-      "consumer_roles": ["driver_attribution", "timing", "style_rotation"]
+      "consumer_roles": [
+        "driver_attribution",
+        "timing",
+        "style_rotation"
+      ],
+      "research_identity": "overnight_china_offshore_open_gap_v1",
+      "blackbox_query_id": "608e037b0d24724b097b",
+      "blackbox_ledger_ordinal": 9,
+      "validated_product_authority": true
     },
     {
       "product_id": "OFP-B3",
       "name": "fx_macro_overnight_driver",
-      "status": "planned_coordinate_product",
+      "status": "closed_after_BLACKBOX_FAIL_no_validated_B3_product",
       "availability": "pre_open",
-      "consumer_roles": ["driver_attribution", "risk"]
+      "consumer_roles": [
+        "driver_attribution",
+        "risk"
+      ],
+      "research_identity": "overnight_fx_cny_open_gap_v1",
+      "blackbox_query_id": "34699d9d9b3ca36d1a6d",
+      "blackbox_ledger_ordinal": 10,
+      "validated_product_authority": false,
+      "rescue_search_authorized": false
     },
     {
       "product_id": "OFP-B4",
@@ -77,7 +119,11 @@
       "validated_formula": "(global_risk_z + china_offshore_z + fx_cny_z) / (abs(global_risk_z) + abs(china_offshore_z) + abs(fx_cny_z))",
       "validated_target": "opening_gap_rvol",
       "driver_runtime_carrier": "data/driver_runtime_text_2015_2020/",
-      "consumer_roles": ["timing_filter", "risk", "confidence"],
+      "consumer_roles": [
+        "timing_filter",
+        "risk",
+        "confidence"
+      ],
       "categorical_agreement_disagreement_authority": false,
       "alternate_driver_weight_authority": false
     },
@@ -93,14 +139,18 @@
       "blackbox_query_id": "5a27b953276382e473c0",
       "validated_interaction": "trend20_rvol * observed_gap_rvol",
       "validated_target": "09:35_to_09:50_return",
-      "consumer_roles": ["timing", "regime_conditioning", "stock_selection_overlay"],
+      "consumer_roles": [
+        "timing",
+        "regime_conditioning",
+        "stock_selection_overlay"
+      ],
       "categorical_up_range_down_authority": false,
       "categorical_adapter_requires_separate_identity": true
     },
     {
       "product_id": "OFP-C2",
       "name": "prior_volatility_context",
-      "status": "60m_continuous_candidate_DEV_supported_BLACKBOX_frozen_unopened_deferred",
+      "status": "validated_BLACKBOX_PASS_60m_continuous_factor_product",
       "availability": "pre_open_coordinate_plus_post_open_adapter_view",
       "research_identity": "overnight_volatility_conditioned_open_state_60m_v1",
       "parent_development_identity": "overnight_volatility_conditioned_open_state_v1",
@@ -109,11 +159,21 @@
       "blackbox_protocol": "docs/governance/volatility_conditioned_open_state_60m_blackbox_protocol_v1.json",
       "frozen_interaction": "observed_gap_rvol * log(rvol20)",
       "frozen_target": "09:35_to_10:35_return",
-      "blackbox_query_opened": false,
+      "blackbox_query_opened": true,
       "validated_C1_baseline_control": "trend20_rvol * observed_gap_rvol",
-      "consumer_roles": ["risk", "timing", "normalization", "stock_selection_overlay"],
+      "consumer_roles": [
+        "risk",
+        "timing",
+        "normalization",
+        "stock_selection_overlay"
+      ],
       "categorical_high_low_vol_authority": false,
-      "categorical_adapter_requires_separate_identity": true
+      "categorical_adapter_requires_separate_identity": true,
+      "blackbox_query_id": "a1068de9321c04632aad",
+      "blackbox_ledger_ordinal": 7,
+      "validated_product_authority": true,
+      "validated_interaction": "observed_gap_rvol * log(rvol20)",
+      "validated_target": "09:35_to_10:35_return"
     },
     {
       "product_id": "OFP-C3",
@@ -128,7 +188,10 @@
       "development_authority": "docs/research/previous_china_session_shape_dev_cloud_adjudication_20260912.md",
       "development_decision": "C3_DEV_PROGRESS_30M_AND_60M_SHARED_CONTINUOUS_COORDINATE",
       "retained_interaction": "(prev_last_hour / rvol20) * (gap / rvol20)",
-      "retained_targets": ["09:35_to_10:05", "09:35_to_10:35"],
+      "retained_targets": [
+        "09:35_to_10:05",
+        "09:35_to_10:35"
+      ],
       "rejected_target": "09:35_to_09:50",
       "successor_identity": "overnight_previous_session_last_hour_conditioned_open_state_joint_30m_60m_v1",
       "successor_blackbox_protocol": "docs/governance/previous_session_last_hour_conditioned_open_state_joint_30m_60m_blackbox_protocol_v1.json",
@@ -143,16 +206,25 @@
       "15m_revival_authority": false,
       "validated_product_authority": false,
       "rescue_search_authorized": false,
-      "consumer_roles": ["historical_DEV_progression_evidence"],
+      "consumer_roles": [
+        "historical_DEV_progression_evidence"
+      ],
       "categorical_session_shape_authority": false,
       "production_authority": false
     },
     {
       "product_id": "OFP-C4",
       "name": "calendar_closure_context",
-      "status": "active_foundational",
+      "status": "closed_after_BLACKBOX_FAIL_no_validated_C4_product",
       "availability": "pre_open",
-      "consumer_roles": ["timing", "source_interpretation", "risk"]
+      "consumer_roles": [
+        "historical_negative_evidence"
+      ],
+      "research_identity": "overnight_weekend_gap_conditioned_open_state_15m_blackbox_v1",
+      "blackbox_query_id": "85335f9aaae24c263cf6",
+      "blackbox_ledger_ordinal": 11,
+      "validated_product_authority": false,
+      "rescue_search_authorized": false
     },
     {
       "product_id": "OFP-D1",
@@ -170,7 +242,11 @@
       "development_authority": "docs/research/relative_index_open_leadership_dev_cloud_adjudication_20260912.md",
       "development_decision": "D1_DEV_PROGRESS_15M_30M_60M_SHARED_CONTINUOUS_COORDINATE",
       "retained_coordinate": "gap_rvol_CSI1000 - gap_rvol_CSI300",
-      "retained_targets": ["relative_ret_0935_0950", "relative_ret_0935_1005", "relative_ret_0935_1035"],
+      "retained_targets": [
+        "relative_ret_0935_0950",
+        "relative_ret_0935_1005",
+        "relative_ret_0935_1035"
+      ],
       "successor_identity": "overnight_relative_size_open_leadership_joint_15m_30m_60m_v1",
       "successor_blackbox_protocol": "docs/governance/relative_index_open_leadership_joint_blackbox_protocol_v1.json",
       "successor_blackbox_state": "docs/governance/relative_index_open_leadership_joint_blackbox_state_v1.json",
@@ -178,27 +254,81 @@
       "successor_blackbox_authority": "docs/research/relative_index_open_leadership_joint_blackbox_cloud_adjudication_20260912.md",
       "successor_blackbox_query_id": "30a1a98fe0a4cf7f7aa7",
       "successor_blackbox_result": "FAIL",
-      "candidate_indices": ["CSI1000", "CSI300"],
+      "candidate_indices": [
+        "CSI1000",
+        "CSI300"
+      ],
       "CSI500_candidate_authority": false,
       "unique_horizon_winner_authority": false,
       "validated_product_authority": false,
       "rescue_search_authorized": false,
-      "consumer_roles": ["historical_DEV_progression_evidence"],
+      "consumer_roles": [
+        "historical_DEV_progression_evidence"
+      ],
       "must_not_rescue_closed_v21_identity": true,
       "P2_relative_gap_excess_authority": false,
       "production_authority": false
     },
-    {"product_id": "OFP-E1", "name": "timing_adapter", "status": "downstream_after_upstream_factor_freeze", "consumer_roles": ["timing"]},
-    {"product_id": "OFP-E2", "name": "stock_selection_adapter", "status": "downstream_after_upstream_factor_freeze", "consumer_roles": ["stock_selection"]},
-    {"product_id": "OFP-E3", "name": "portfolio_risk_adapter", "status": "downstream_after_upstream_factor_freeze", "consumer_roles": ["portfolio_risk"]}
+    {
+      "product_id": "OFP-E1",
+      "name": "timing_adapter",
+      "status": "latest_v2_DEV_NO_PROGRESS_closed_no_successor",
+      "consumer_roles": [
+        "timing"
+      ],
+      "latest_identity": "overnight_c1_c2_timing_agreement_adapter_v1",
+      "latest_decision": "E1V2_DEV_NO_PROGRESS",
+      "latest_state": "docs/governance/downstream_c1_c2_timing_agreement_adapter_v1_state.json",
+      "latest_adjudication": "docs/research/downstream_c1_c2_timing_agreement_adapter_v1_dev_cloud_adjudication_20260912.md",
+      "prior_identity": "overnight_c1_b4_timing_confidence_adapter_validation_v1",
+      "prior_status": "BLACKBOX_FAIL_closed_no_validated_E1_product",
+      "successor_authorized": false
+    },
+    {
+      "product_id": "OFP-E2",
+      "name": "stock_selection_adapter",
+      "status": "latest_v2_DEV_INSUFFICIENT_closed_no_successor",
+      "consumer_roles": [
+        "stock_selection"
+      ],
+      "latest_identity": "overnight_c2_stock_selection_risk_abstention_adapter_v1",
+      "latest_decision": "E2V2_DEV_INSUFFICIENT",
+      "latest_state": "docs/governance/downstream_c2_stock_selection_risk_adapter_v1_state.json",
+      "latest_adjudication": "docs/research/downstream_c2_stock_selection_risk_adapter_v1_dev_cloud_adjudication_20260912.md",
+      "consumer_repository": "staryocean0/factorlab-multifactor-stock-lab",
+      "consumer_strategy_id": "REAKA_D5_H20_R5_CURRENT_GENERATION_V1",
+      "prior_identity": "overnight_b4_stock_selection_abstention_adapter_v1",
+      "prior_status": "DEV_NO_PROGRESS_closed_no_successor",
+      "successor_authorized": false
+    },
+    {
+      "product_id": "OFP-E3",
+      "name": "portfolio_risk_adapter",
+      "status": "latest_v2_BLACKBOX_FAIL_closed_no_validated_E3v2_product",
+      "consumer_roles": [
+        "portfolio_risk"
+      ],
+      "latest_identity": "overnight_b1_forward_cycle_portfolio_risk_abstention_validation_v1",
+      "latest_parent_development_identity": "overnight_b1_forward_cycle_portfolio_risk_abstention_v1",
+      "latest_decision": "FAIL",
+      "latest_state": "docs/governance/downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_state.json",
+      "latest_adjudication": "docs/research/downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_blackbox_cloud_adjudication_20260912.md",
+      "blackbox_query_id": "ce859f9c94f281b0ec49",
+      "blackbox_ledger_ordinal": 12,
+      "validated_product_authority": false,
+      "successor_authorized": false,
+      "account_execution_authority": false,
+      "production_authority": false
+    }
   ],
   "active_research_identity": null,
   "active_research_status": null,
-  "deferred_frozen_identity": "overnight_volatility_conditioned_open_state_60m_v1",
+  "deferred_frozen_identity": null,
   "waiting_validation_identity": null,
-  "next_research_identity": "downstream_adapter_preregistration",
-  "next_research_note": "The factor-product roadmap now returns to separately preregistered downstream timing/stock-selection adapter work using only authority-bearing upstream products. Do not use hidden C3/D1 BLACKBOX behavior as design input and do not auto-reactivate deferred C2.",
+  "next_research_identity": null,
+  "next_research_note": "No outcome-bearing successor is automatically authorized after E3v2 query 12 FAIL. Maintain the validated shelf; wait for a separately motivated result-free identity or the frozen Gap-Fill V2 true-fresh date gate.",
   "cartesian_feature_factory_forbidden": true,
   "downstream_strategy_return_may_define_upstream_factor": false,
-  "production_authority": false
+  "production_authority": false,
+  "blackbox_ledger_query_count": 12
 }
