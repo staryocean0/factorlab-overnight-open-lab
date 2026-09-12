@@ -1,5 +1,5 @@
 {
-  "schema_id": "overnight_open_current_authority@1.28",
+  "schema_id": "overnight_open_current_authority@1.29",
   "session_date": "2026-09-12",
   "repository_role": "overnight_open_factor_product_laboratory_and_downstream_factor_adapter",
   "program": "docs/governance/overnight_factor_product_program_v1.md",
@@ -12,23 +12,18 @@
     "local_model_role": "data procurement or mechanical materialization only when cloud lacks required data",
     "production_authority": false
   },
-  "active_research": {
-    "identity": "overnight_expected_open_validated_driver_coordinates_v1",
-    "product_family": "OFP-A1_expected_open_state",
-    "status": "result_free_preregistered_pending_cloud_development_execution",
-    "preanalysis": "docs/research/expected_open_validated_driver_coordinates_v1_preanalysis_20260912.md",
-    "protocol": "docs/governance/expected_open_validated_driver_coordinates_v1_protocol.json",
-    "state": "docs/governance/expected_open_validated_driver_coordinates_v1_state.json",
-    "comparator": "V6A_model_refit_on_candidate_common_sample",
-    "candidate": "V6A_plus_validated_B1_B2_coordinates",
-    "target": "gap",
-    "training_window": "2015-01-05..2018-12-31",
-    "development_evaluation_window": "2019-01-01..2020-12-31",
-    "outcome_opened": false,
-    "future_2021_2025_blackbox_authorized": false,
-    "production_authority": false
-  },
+  "active_research": null,
   "recent_completed_research": {
+    "A1_validated_driver_adapter": {
+      "identity": "overnight_expected_open_validated_driver_coordinates_v1",
+      "status": "DEV_NO_PROGRESS_closed_no_successor",
+      "development_decision": "A1_VALIDATED_DRIVER_ADAPTER_DEV_NO_PROGRESS",
+      "development_receipt": "docs/research/cloud_expected_open_validated_driver_coordinates_v1_dev_diagnostic.json",
+      "development_authority": "docs/research/expected_open_validated_driver_coordinates_v1_dev_cloud_adjudication_20260912.md",
+      "successor_authorized": false,
+      "blackbox_query_created": false,
+      "production_authority": false
+    },
     "C4": {"identity":"overnight_weekend_gap_conditioned_open_state_15m_blackbox_v1","status":"BLACKBOX_FAIL_closed_no_validated_C4_product","blackbox_query_id":"85335f9aaae24c263cf6","blackbox_ledger_ordinal":11,"validated_product_authority":false},
     "B3": {"identity":"overnight_fx_cny_open_gap_v1","status":"BLACKBOX_FAIL_closed_no_validated_B3_product","blackbox_query_id":"34699d9d9b3ca36d1a6d","blackbox_ledger_ordinal":10,"validated_product_authority":false},
     "B2": {"identity":"overnight_china_offshore_open_gap_v1","status":"BLACKBOX_PASS_validated_continuous_B2_china_offshore_factor_product","blackbox_query_id":"608e037b0d24724b097b","blackbox_ledger_ordinal":9,"validated_product_authority":true},
@@ -47,16 +42,30 @@
     "B4_driver_coherence":"PASS_validated_continuous_factor_product",
     "Gap_Fill_V2":"frozen_repeat_confirmed_true_fresh_pending"
   },
+  "closed_or_waiting": {
+    "Opening_Surprise_A3": "closed_after_DEV_no_standalone_product_promotion_stability_failure",
+    "B3_fx_driver": "completed_FAIL_query_10_no_validated_product",
+    "C3_joint_successor": "completed_FAIL_query_5_no_validated_product",
+    "C4_weekend_gap": "completed_FAIL_query_11_no_validated_product",
+    "D1_relative_index": "completed_FAIL_query_4_no_validated_product",
+    "E1_timing_adapter": "completed_FAIL_query_6_no_validated_product",
+    "E2_stock_selection_adapter": "DEV_NO_PROGRESS_closed_no_successor",
+    "E3_portfolio_risk_adapter": "DEV_INSUFFICIENT_closed_no_successor",
+    "A1_validated_driver_adapter": "DEV_NO_PROGRESS_closed_no_successor",
+    "Gap_Fill_V2_true_fresh": "wait_for_complete_2026_08_24_to_2026_12_31_and_protocol_date_gate"
+  },
   "blackbox_ledger_query_count": 11,
   "hard_rules": [
     "Do not decompose completed reusable BLACKBOX queries or use hidden behavior to design successors.",
-    "C4 query 11 is FAIL; no weekday, holiday, closure-length, threshold, bucket or horizon rescue is authorized.",
-    "A1 v1 preserves the V6A estimator, target, causal source clocks and full baseline feature set; comparator and candidate use the same candidate-complete common sample.",
-    "A1 candidate adds exactly validated B1 global_risk_z and validated B2 china_offshore_z; B3 and B4 are excluded under this identity.",
-    "Do not change Ridge alpha, scaler, normalization, upstream add/drop, interactions, clocks or target after outcomes.",
-    "2019-2020 is retrospective Development material; 2021-2025 stays unopened until a separate compact successor identity is frozen.",
+    "A1 validated-driver adapter is closed with DEV_NO_PROGRESS; no single-coordinate add/drop, interaction, reweighting, Ridge-alpha or model-family rescue is authorized from that result.",
+    "B3 query 10 and C4 query 11 are FAIL; no hidden-behavior rescue is authorized.",
+    "E2 and E3 are closed at Development; do not reinterpret their outcomes as upstream-factor failures.",
+    "B1, B2, C1, C2 and B4 are shelf products only at their validated continuous identities; categorical views require separate result-free identities.",
+    "Gap-Fill V2 true-fresh evaluation remains date-gated until the complete 2026-08-24..2026-12-31 block exists and its frozen protocol permits evaluation.",
+    "Reuse of 2021-2025 is not independent OOS.",
+    "Do not open post-2026-08-21 outcomes except under a separately frozen protocol.",
     "Production authority remains false."
   ],
-  "next_action": "cloud main agent executes and adjudicates the frozen A1 2015-2018 train / 2019-2020 Development comparison of V6A versus V6A plus validated B1/B2 coordinates; only if progression passes may a separate compact reusable validation identity be frozen",
+  "next_action": "no additional outcome-bearing research is automatically authorized at this point. Maintain the validated shelf and wait for a separately motivated result-free identity or the already-frozen Gap-Fill V2 true-fresh date gate. Cloud main agent remains the research authority and should request the user only if a concrete missing-data dependency is required.",
   "production_authority": false
 }
