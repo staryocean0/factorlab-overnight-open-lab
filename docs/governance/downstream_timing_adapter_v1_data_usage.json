@@ -1,0 +1,51 @@
+{
+  "schema_id": "overnight_downstream_timing_adapter_data_usage@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_c1_b4_timing_confidence_adapter_v1",
+  "product_family": "OFP-E1_timing_adapter",
+  "phase": "result_free_preregistration_before_factor_utility_evidence",
+  "evidence_roles": [
+    {
+      "window": "2009-01-01..2014-10-16",
+      "role": "structurally_unavailable_for_this_identity",
+      "reason": "CSI1000 was not a contemporaneous live index before 2014-10-17; do not fabricate Strategy Slice Rebuild sessions or backfill a synthetic authority-bearing C1/A2 history."
+    },
+    {
+      "window": "2014-10-17..2014-12-31",
+      "role": "warmup_only_not_scientific_evidence",
+      "reason": "may support lagged causal calculations only; not an adapter-development session"
+    },
+    {
+      "window": "2015-01-05..2020-12-31",
+      "role": "development_material",
+      "annual_slices": [2015, 2016, 2017, 2018, 2019, 2020],
+      "fresh_status": "not_fresh",
+      "allowed_use": "fixed-formula factor-utility diagnostic only; no account/PnL optimization or upstream-factor tuning"
+    },
+    {
+      "window": "2021-01-01..2025-12-31",
+      "role": "aggregate_lockbox_only_if_separately_authorized_later",
+      "fresh_status": "reused_physical_period_not_independent_OOS",
+      "allowed_public_output": ["PASS", "FAIL", "INSUFFICIENT"],
+      "detailed_rows_or_years_authorized": false,
+      "design_use_authorized": false
+    },
+    {
+      "window": "2026-01-01..2026-08-21",
+      "role": "withheld_not_authorized_for_this_adapter_preregistration",
+      "reason": "do not opportunistically convert previously used/current-year evidence into adapter development material"
+    },
+    {
+      "window": "2026-08-24..2026-12-31",
+      "role": "reserved_for_existing_Gap_Fill_true_fresh_contract",
+      "adapter_use_authorized": false
+    }
+  ],
+  "strategy_slice_rebuild_boundary": {
+    "account_or_strategy_return_stage_authorized": false,
+    "reason": "the current strategy-slice contract expects the full 2009-2020 natural-year workflow, but the authority-bearing CSI1000-based inputs do not exist contemporaneously for 2009-2014; this preregistration therefore stops at factor-utility adapter research and does not weaken the strategy contract",
+    "future_account_stage_requirement": "a separate consumer-side identity, result-free strategy preregistration, strategy science acceptance, and post-training account audit under the then-current project Skill"
+  },
+  "blackbox_query_count_at_freeze": 5,
+  "production_authority": false
+}
