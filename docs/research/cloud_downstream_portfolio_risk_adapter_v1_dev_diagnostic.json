@@ -1,0 +1,329 @@
+{
+  "2021_2025_rows_opened": false,
+  "account_execution_opened": false,
+  "additional_upstream_search": false,
+  "alternate_horizon_search": false,
+  "candidate": "exposure_zero_if_C1_action_negative_else_one",
+  "candidate_attempt_count": 1,
+  "comparator": "always_exposed_one",
+  "consumer_clock_selection": false,
+  "decision": "E3_DEV_INSUFFICIENT",
+  "development_window": "2015-01-05..2020-12-31",
+  "diagnostics": {
+    "14:30": {
+      "by_year": {
+        "2015": {
+          "candidate_derisked_day_count": 0,
+          "candidate_exposed_day_count": 0,
+          "candidate_exposure_coverage": null,
+          "candidate_p05": null,
+          "comparator_p05": null,
+          "complete_account_day_count": 0,
+          "delta_mean_utility": null,
+          "mean_candidate_utility": null,
+          "mean_comparator_utility": null,
+          "p05_delta": null,
+          "sufficiency_complete_pass": false,
+          "sufficiency_derisked_pass": false,
+          "sufficiency_exposed_pass": false,
+          "sufficiency_pass": false
+        },
+        "2016": {
+          "candidate_derisked_day_count": 37,
+          "candidate_exposed_day_count": 25,
+          "candidate_exposure_coverage": 0.4032258064516129,
+          "candidate_p05": -0.005239580270113841,
+          "comparator_p05": -0.005828787354300655,
+          "complete_account_day_count": 62,
+          "delta_mean_utility": -0.00039843834177473556,
+          "mean_candidate_utility": -0.00012505358779979077,
+          "mean_comparator_utility": 0.0002733847539749448,
+          "p05_delta": 0.0005892070841868142,
+          "sufficiency_complete_pass": false,
+          "sufficiency_derisked_pass": false,
+          "sufficiency_exposed_pass": false,
+          "sufficiency_pass": false
+        },
+        "2017": {
+          "candidate_derisked_day_count": 31,
+          "candidate_exposed_day_count": 10,
+          "candidate_exposure_coverage": 0.24390243902439024,
+          "candidate_p05": 0.0,
+          "comparator_p05": -0.00436068808325199,
+          "complete_account_day_count": 41,
+          "delta_mean_utility": -0.00022338080879357516,
+          "mean_candidate_utility": 0.0003074235261756102,
+          "mean_comparator_utility": 0.0005308043349691854,
+          "p05_delta": 0.00436068808325199,
+          "sufficiency_complete_pass": false,
+          "sufficiency_derisked_pass": false,
+          "sufficiency_exposed_pass": false,
+          "sufficiency_pass": false
+        },
+        "2018": {
+          "candidate_derisked_day_count": 25,
+          "candidate_exposed_day_count": 22,
+          "candidate_exposure_coverage": 0.46808510638297873,
+          "candidate_p05": -0.0038937832010052208,
+          "comparator_p05": -0.0065352431555432,
+          "complete_account_day_count": 47,
+          "delta_mean_utility": -0.0012792219337302872,
+          "mean_candidate_utility": -0.0003948733598762769,
+          "mean_comparator_utility": 0.0008843485738540102,
+          "p05_delta": 0.0026414599545379796,
+          "sufficiency_complete_pass": false,
+          "sufficiency_derisked_pass": false,
+          "sufficiency_exposed_pass": false,
+          "sufficiency_pass": false
+        },
+        "2019": {
+          "candidate_derisked_day_count": 8,
+          "candidate_exposed_day_count": 11,
+          "candidate_exposure_coverage": 0.5789473684210527,
+          "candidate_p05": -0.002270728737618766,
+          "comparator_p05": -0.002270728737618766,
+          "complete_account_day_count": 19,
+          "delta_mean_utility": -0.0011960384163214044,
+          "mean_candidate_utility": 6.755904507451695e-05,
+          "mean_comparator_utility": 0.0012635974613959215,
+          "p05_delta": 0.0,
+          "sufficiency_complete_pass": false,
+          "sufficiency_derisked_pass": false,
+          "sufficiency_exposed_pass": false,
+          "sufficiency_pass": false
+        },
+        "2020": {
+          "candidate_derisked_day_count": 128,
+          "candidate_exposed_day_count": 108,
+          "candidate_exposure_coverage": 0.4576271186440678,
+          "candidate_p05": -0.004395759727741214,
+          "comparator_p05": -0.007426332861689256,
+          "complete_account_day_count": 236,
+          "delta_mean_utility": -0.00031943564347600693,
+          "mean_candidate_utility": 0.0006125261608981002,
+          "mean_comparator_utility": 0.0009319618043741072,
+          "p05_delta": 0.0030305731339480427,
+          "sufficiency_complete_pass": true,
+          "sufficiency_derisked_pass": true,
+          "sufficiency_exposed_pass": true,
+          "sufficiency_pass": true
+        }
+      },
+      "pooled": {
+        "candidate_derisked_day_count": 229,
+        "candidate_exposed_day_count": 176,
+        "candidate_exposure_coverage": 0.4345679012345679,
+        "candidate_p05": -0.004250458022595512,
+        "comparator_p05": -0.00679231993837911,
+        "complete_account_day_count": 405,
+        "delta_mean_utility": -0.00047431299507737776,
+        "mean_candidate_utility": 0.00032625133344147035,
+        "mean_comparator_utility": 0.0008005643285188481,
+        "p05_delta": 0.0025418619157835986,
+        "sufficiency_complete_pass": false,
+        "sufficiency_derisked_pass": false,
+        "sufficiency_exposed_pass": false,
+        "sufficiency_pass": false
+      }
+    },
+    "14:45": {
+      "by_year": {
+        "2015": {
+          "candidate_derisked_day_count": 0,
+          "candidate_exposed_day_count": 0,
+          "candidate_exposure_coverage": null,
+          "candidate_p05": null,
+          "comparator_p05": null,
+          "complete_account_day_count": 0,
+          "delta_mean_utility": null,
+          "mean_candidate_utility": null,
+          "mean_comparator_utility": null,
+          "p05_delta": null,
+          "sufficiency_complete_pass": false,
+          "sufficiency_derisked_pass": false,
+          "sufficiency_exposed_pass": false,
+          "sufficiency_pass": false
+        },
+        "2016": {
+          "candidate_derisked_day_count": 16,
+          "candidate_exposed_day_count": 17,
+          "candidate_exposure_coverage": 0.5151515151515151,
+          "candidate_p05": -0.006963683135399145,
+          "comparator_p05": -0.014696999785209539,
+          "complete_account_day_count": 33,
+          "delta_mean_utility": 0.0003149579796811606,
+          "mean_candidate_utility": -6.0516054861988834e-05,
+          "mean_comparator_utility": -0.00037547403454314947,
+          "p05_delta": 0.0077333166498103935,
+          "sufficiency_complete_pass": false,
+          "sufficiency_derisked_pass": false,
+          "sufficiency_exposed_pass": false,
+          "sufficiency_pass": false
+        },
+        "2017": {
+          "candidate_derisked_day_count": 23,
+          "candidate_exposed_day_count": 10,
+          "candidate_exposure_coverage": 0.30303030303030304,
+          "candidate_p05": -0.0010894685345844866,
+          "comparator_p05": -0.004627855586619543,
+          "complete_account_day_count": 33,
+          "delta_mean_utility": -0.0003670170596895528,
+          "mean_candidate_utility": 0.00026194978573929956,
+          "mean_comparator_utility": 0.0006289668454288524,
+          "p05_delta": 0.0035383870520350564,
+          "sufficiency_complete_pass": false,
+          "sufficiency_derisked_pass": false,
+          "sufficiency_exposed_pass": false,
+          "sufficiency_pass": false
+        },
+        "2018": {
+          "candidate_derisked_day_count": 17,
+          "candidate_exposed_day_count": 13,
+          "candidate_exposure_coverage": 0.43333333333333335,
+          "candidate_p05": -0.0035651813042505013,
+          "comparator_p05": -0.004488521889558115,
+          "complete_account_day_count": 30,
+          "delta_mean_utility": -0.0016772617296472439,
+          "mean_candidate_utility": -0.00033815073170384726,
+          "mean_comparator_utility": 0.0013391109979433967,
+          "p05_delta": 0.0009233405853076139,
+          "sufficiency_complete_pass": false,
+          "sufficiency_derisked_pass": false,
+          "sufficiency_exposed_pass": false,
+          "sufficiency_pass": false
+        },
+        "2019": {
+          "candidate_derisked_day_count": 8,
+          "candidate_exposed_day_count": 11,
+          "candidate_exposure_coverage": 0.5789473684210527,
+          "candidate_p05": -0.0029885533253564763,
+          "comparator_p05": -0.0029885533253564763,
+          "complete_account_day_count": 19,
+          "delta_mean_utility": -0.0010319970415079893,
+          "mean_candidate_utility": 0.0002681939747774779,
+          "mean_comparator_utility": 0.0013001910162854671,
+          "p05_delta": 0.0,
+          "sufficiency_complete_pass": false,
+          "sufficiency_derisked_pass": false,
+          "sufficiency_exposed_pass": false,
+          "sufficiency_pass": false
+        },
+        "2020": {
+          "candidate_derisked_day_count": 128,
+          "candidate_exposed_day_count": 108,
+          "candidate_exposure_coverage": 0.4576271186440678,
+          "candidate_p05": -0.003997325564984066,
+          "comparator_p05": -0.007142877991581857,
+          "complete_account_day_count": 236,
+          "delta_mean_utility": -0.0003356342066871633,
+          "mean_candidate_utility": 0.0006470045213125999,
+          "mean_comparator_utility": 0.0009826387279997632,
+          "p05_delta": 0.003145552426597791,
+          "sufficiency_complete_pass": true,
+          "sufficiency_derisked_pass": true,
+          "sufficiency_exposed_pass": true,
+          "sufficiency_pass": true
+        }
+      },
+      "pooled": {
+        "candidate_derisked_day_count": 192,
+        "candidate_exposed_day_count": 159,
+        "candidate_exposure_coverage": 0.452991452991453,
+        "candidate_p05": -0.004030415058790534,
+        "comparator_p05": -0.006775638780488638,
+        "complete_account_day_count": 351,
+        "delta_mean_utility": -0.00042978181793879375,
+        "mean_candidate_utility": 0.0004395770476307165,
+        "mean_comparator_utility": 0.0008693588655695103,
+        "p05_delta": 0.002745223721698104,
+        "sufficiency_complete_pass": false,
+        "sufficiency_derisked_pass": false,
+        "sufficiency_exposed_pass": false,
+        "sufficiency_pass": false
+      }
+    }
+  },
+  "joint_clock_progression_pass": false,
+  "magnitude_bucket_search": false,
+  "maximum_authority_if_pass": "retrospective_E3_intraday_portfolio_risk_utility_candidate_only",
+  "phase": "retrospective_intraday_portfolio_utility_diagnostic",
+  "product_family": "OFP-E3_portfolio_risk_adapter",
+  "production_authority": false,
+  "progression_gate_components": {
+    "14:30": {
+      "all_annual_sufficiency_pass": false,
+      "annual_candidate_p05_not_below_comparator_count": 5,
+      "clock_progression_pass": false,
+      "median_annual_mean_utility_delta": -0.00039843834177473556,
+      "median_annual_mean_utility_delta_nonnegative": false,
+      "minimum_annual_candidate_p05_not_below_comparator_count_pass": true,
+      "minimum_positive_annual_mean_utility_delta_count_pass": false,
+      "pooled_candidate_p05_not_below_comparator": true,
+      "pooled_mean_utility_delta_positive": false,
+      "positive_annual_mean_utility_delta_count": 0
+    },
+    "14:45": {
+      "all_annual_sufficiency_pass": false,
+      "annual_candidate_p05_not_below_comparator_count": 5,
+      "clock_progression_pass": false,
+      "median_annual_mean_utility_delta": -0.0003670170596895528,
+      "median_annual_mean_utility_delta_nonnegative": false,
+      "minimum_annual_candidate_p05_not_below_comparator_count_pass": true,
+      "minimum_positive_annual_mean_utility_delta_count_pass": false,
+      "pooled_candidate_p05_not_below_comparator": true,
+      "pooled_mean_utility_delta_positive": false,
+      "positive_annual_mean_utility_delta_count": 1
+    }
+  },
+  "reconstruction_diagnostics": {
+    "account_day_rows": 2924,
+    "complete_account_day_rows": 756,
+    "incomplete_account_day_rows": 2168,
+    "incomplete_reason_counts": {
+      "daily_or_C1_invalid": 42,
+      "exact_price_missing_or_invalid": 2126
+    }
+  },
+  "research_identity": "overnight_c1_intraday_portfolio_risk_abstention_v1",
+  "reusable_blackbox_query_created": false,
+  "schema_id": "overnight_downstream_portfolio_risk_adapter_dev_diagnostic@1.0",
+  "session_date": "2026-09-12",
+  "source_integrity": {
+    "blackbox_ledger_query_count": 6,
+    "consumer": {
+      "commit": "af2e478aaff5c8ef7f753424b57fd2d19019f248",
+      "holdings_sha256": "1a0d6e52849fef50a94e6a204a498ea8379af6f837a866216fdb86539723ac01",
+      "portfolio_daily_sha256": "8f6be84836d7839642e3cf722639887be339fa3f660c274b16d7c0a2b56ae1a5",
+      "repository": "staryocean0/factorlab-multifactor-stock-lab",
+      "snapshot_manifest_canonical_digest": "sha256:b652b4c3ddeeef9c4999a5ea7d61af6082a2fe7fa1910d32f3c73fa33b2729ca"
+    },
+    "current_authority": {
+      "path": "docs/governance/current_authority_v1.json",
+      "sha256": "6a4b357e6da273112b8c1bab0c14cac92cd4299caebe89ec5e854c1b14a2bf6a"
+    },
+    "factor_runtime_manifest": {
+      "path": "data/runtime_text_2015_2025/manifest.json",
+      "sha256": "10f7e5eada195541ae83fe14b7138e6a1ced939b7e278f811e7fb08c4147bb13"
+    },
+    "price_carrier": {
+      "inventory_rows": 48901,
+      "manifest_path": "data/e3_portfolio_intraday_qfq_2015_2020/manifest.json",
+      "manifest_sha256": "b87ec493f76b2784476a9863a1d276662f1857efa5216532766c776615ea513a",
+      "upload_receipt_path": "docs/research/e3_portfolio_intraday_qfq_upload_receipt_v1.json",
+      "upload_receipt_sha256": "0aa1d27f2aae93979e1e052a1dae79c9a6a7896be633fd7d75fad1a95d256b3e"
+    },
+    "protocol": {
+      "path": "docs/governance/downstream_portfolio_risk_adapter_v1_protocol.json",
+      "sha256": "d8f6ff9874650866a43cccb645759e69a8186542af2f41b1e7f1e91d4c7b926c"
+    },
+    "state_at_execution": {
+      "path": "docs/governance/downstream_portfolio_risk_adapter_v1_state.json",
+      "sha256": "ce781ef776df9fdd3f940ceea94495a6cfdb493626380b03a074b20b6c325e6e"
+    },
+    "validated_C1_query_id": "5a27b953276382e473c0"
+  },
+  "strategy_mutation_opened": false,
+  "target": "frozen_consumer_portfolio_QFQ_signal_return_09:35_to_09:50",
+  "threshold_search": false,
+  "transaction_cost_model_used": false
+}
