@@ -1,0 +1,39 @@
+{
+  "schema_id": "overnight_downstream_portfolio_risk_adapter_state@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_c1_intraday_portfolio_risk_abstention_v1",
+  "product_family": "OFP-E3_portfolio_risk_adapter",
+  "status": "result_free_preregistered_pending_minimal_intraday_price_carrier",
+  "preanalysis": "docs/research/downstream_portfolio_risk_adapter_v1_preanalysis_20260912.md",
+  "protocol": "docs/governance/downstream_portfolio_risk_adapter_v1_protocol.json",
+  "consumer_repository": "staryocean0/factorlab-multifactor-stock-lab",
+  "consumer_source_commit": "af2e478aaff5c8ef7f753424b57fd2d19019f248",
+  "consumer_strategy_id": "REAKA_D5_H20_R5_CURRENT_GENERATION_V1",
+  "consumer_account_snapshot_available_in_cloud": true,
+  "validated_C1_coordinate_available_in_cloud": true,
+  "missing_data": {
+    "description": "QFQ exact-clock signal prices for carried consumer holdings only",
+    "window": "2015-01-05..2020-12-31",
+    "required_fields": [
+      "trading_day",
+      "asset_id",
+      "prev_trading_day",
+      "prev_close_1500_qfq",
+      "close_0935_qfq",
+      "close_0950_qfq"
+    ],
+    "row_inventory": "one row for each next-day asset carried from the previous China trading day's frozen consumer holdings, unioned across 14:30 and 14:45 accounts; preserve missing exact prices as null",
+    "nearest_clock_substitution": false,
+    "forward_fill": false,
+    "backward_fill": false,
+    "resampling": false
+  },
+  "outcome_opened": false,
+  "development_receipt": null,
+  "account_execution_opened": false,
+  "strategy_mutation_opened": false,
+  "future_2021_2025_validation_authorized": false,
+  "blackbox_query_created": false,
+  "production_authority": false,
+  "next_action": "user/local model mechanically materializes the minimal held-symbol exact-clock QFQ carrier; cloud main agent then verifies source/parity and executes the frozen 2015-2020 E3 diagnostic without further research-choice consultation"
+}
