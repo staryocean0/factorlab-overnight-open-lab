@@ -1,7 +1,10 @@
 [project]
 name = "factorlab-overnight-open-lab"
 version = "0.1.0"
+description = "Frozen Overnight/Open research reference implementations; not a production signal service"
 requires-python = ">=3.11"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+norecursedirs = ["archive", ".git", ".maintenance"]
+addopts = "-ra"

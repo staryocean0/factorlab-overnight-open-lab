@@ -1,100 +1,36 @@
 # FactorLab Overnight Open Lab
 
-This repository is the **Overnight/Open factor-product laboratory and downstream factor-adapter lab** for FactorLab. It researches causal information around the next China open, freezes reusable factor coordinates, and tests narrowly defined downstream timing / stock-selection / portfolio-risk adapters.
+Overnight/Open 因子研究与冻结参考实现仓库。研究开盘信息、短周期条件信息与严格限定的下游适配；不把市场层面的信号当作个股排名 alpha。
 
-`production_authority=false`.
+当前权威：`overnight_open_current_authority@1.34`；BLACKBOX 查询数：**12**；`production_authority=false`。
 
-## Start here
+**当前不是 production-ready 信号 API 或自动交易工具。** 科学上验证通过的组件、未通过/证据不足的下游试验、软件维护测试是三个不同层次。
 
-Read in this order:
+## 从这里开始
 
-1. `docs/governance/current_authority_v1.json` — canonical execution pointer;
-2. `docs/governance/overnight_factor_product_program_v1.md` — stable program architecture;
-3. `docs/governance/overnight_factor_product_registry_v1.json` — product shelf and adapter registry;
-4. the state / protocol / adjudication for the identity being inspected;
-5. `docs/ops/README.md` for operational material.
+- [接续入口](CONTINUE_HERE.md)
+- [自动生成的当前状态](docs/CURRENT_STATUS.md)
+- [项目白皮书](docs/WHITEPAPER.md)
+- [代码与组件映射](scripts/README.md)
+- [测试范围](tests/README.md)
+- [本轮整理报告](docs/maintenance/20260912_RECONCILIATION.md)
 
-Historical runners, README text, archived protocols, or prior research plans do **not** reopen a closed identity.
+## 安全维护命令
 
-## Latest completed research — E3v3
+```bash
+python -m pip install -r requirements-ci.txt
+python scripts/check_repository_consistency.py
+python -m pytest
+```
 
-`overnight_c2_forward_cycle_portfolio_risk_abstention_v1` closed as **`E3V3_DEV_INSUFFICIENT`**. Both frozen clocks have only 6 C2-active decisions in 2017 versus the preregistered minimum of 8, so no reusable validation, query #13, rescue, or successor is authorized. Validated upstream C2 remains valid; reusable BLACKBOX ledger count remains **12**.
+这些命令只检查元数据、冻结源码与合成输入。默认测试有行情/账户数据和网络访问屏障；不会重算 DEV、BLACKBOX 或账户回测。
 
-## Current authority — 2026-09-12
+## 代码与证据如何保存
 
-There is currently **no active outcome-bearing research identity**.
+`scripts/` 保留组件所需的冻结实现和依赖闭包；其中历史研究 main() 不是当前授权入口。过期研究流程、阶段测试和 handoff 已登记退役/归档。
 
-A previously completed downstream line is:
+冻结协议、参数、科学 receipt、已封存证据与数据载体不为适配今天的文档而改写。历史路径通过 `docs/governance/repository_lifecycle_v1.json` 和 `docs/maintenance/20260912_reconciliation.json` 追踪。
 
-`overnight_b2_stock_selection_offshore_risk_abstention_adapter_v1`
+新研究必须独立预注册；不得从失败或证据不足的试验自动调阈值、改时点、改符号或复活旧实验。
 
-It used validated B2 `china_offshore_z` as a zero-boundary whole-decision abstention overlay on the frozen `REAKA_D5_H20_R5_CURRENT_GENERATION_V1` stock-selection consumer. Its six-year Development result is:
-
-`E2V3_DEV_NO_PROGRESS`
-
-Both 14:30 and 14:45 clocks had sufficient Development support, but neither passed the full frozen progression contract. No reusable 2021-2025 validation was authorized, no new BLACKBOX query was created, no account-PnL backtest was opened, and no successor/rescue is authorized from that result.
-
-Authority:
-
-- state: `docs/governance/downstream_b2_stock_selection_offshore_risk_adapter_v1_state.json`
-- adjudication: `docs/research/downstream_b2_stock_selection_offshore_risk_adapter_v1_dev_cloud_adjudication_20260912.md`
-- Development receipt: `docs/research/cloud_downstream_b2_stock_selection_offshore_risk_adapter_v1_dev_diagnostic.json`
-
-Immediately before E2v3, E3v2 `overnight_b1_forward_cycle_portfolio_risk_abstention_validation_v1` reached reusable validation and returned sealed BLACKBOX `FAIL` as query **#12** (`ce859f9c94f281b0ec49`). That result closes the exact E3 adapter contract only; it does not revoke validated upstream B1.
-
-## Validated reusable shelf
-
-Current authority-bearing reusable products include:
-
-- **V6A Global Spillover** — PASS;
-- **OFP-B1 Global Risk Driver** — BLACKBOX PASS, validated continuous factor product;
-- **OFP-B2 China-Specific Offshore Driver** — BLACKBOX PASS, validated continuous factor product;
-- **OFP-C1 Prior Trend Context** — BLACKBOX PASS, validated 15-minute continuous factor product;
-- **OFP-C2 Prior Volatility Context** — BLACKBOX PASS, validated 60-minute continuous factor product;
-- **OFP-B4 Driver Coherence** — BLACKBOX PASS, validated continuous factor product;
-- **OFP-A4 Gap-Fill V2** — frozen/repeat-confirmed; true-fresh evaluation remains separately date-gated.
-
-These are shelf products only at their validated identities. A categorical view, alternate threshold, bucket, horizon, sign, weighting, or downstream mapping requires a separately motivated result-free identity before outcome evidence is opened.
-
-## Important closed lines
-
-Closed negative / insufficient evidence remains part of the research record but is not an active candidate:
-
-- Opening Surprise A3 — Development closed, no standalone validated A3 product;
-- B3 FX driver — reusable BLACKBOX FAIL, no validated B3 product;
-- C3 previous-session-shape successor — reusable BLACKBOX FAIL;
-- C4 weekend-gap candidate — reusable BLACKBOX FAIL (#11);
-- D1 relative-index successor — reusable BLACKBOX FAIL;
-- E1 timing adapters — latest v2 closed `DEV_NO_PROGRESS`;
-- E2 stock-selection adapters — v1 `DEV_NO_PROGRESS`, v2 `DEV_INSUFFICIENT`, latest v3 `DEV_NO_PROGRESS`;
-- E3 portfolio-risk adapters — v1 `DEV_INSUFFICIENT`; latest v2 reusable BLACKBOX FAIL (#12);
-- A1 validated-driver adapter — `DEV_NO_PROGRESS`.
-
-Downstream adapter closures must not be reinterpreted as failures of their upstream validated factors.
-
-## Reusable BLACKBOX boundary
-
-The reusable BLACKBOX ledger contains **12** opened logical queries.
-
-Completed queries remain sealed at their permitted public decision surfaces. Hidden rows, years, quarters, bootstrap support, residuals, failure attribution, or other hidden behavior may not be used to design successors. Reusing 2021-2025 does not create a new independent OOS sample.
-
-Do not open post-2026-08-21 outcomes except under a separately frozen protocol.
-
-## What happens next
-
-No additional outcome-bearing research is automatically authorized at this breakpoint.
-
-The repository should remain on the validated shelf until either:
-
-1. a **separately motivated, result-free** identity is frozen under cloud-main research authority; or
-2. the already-frozen Gap-Fill V2 true-fresh protocol reaches its date gate after the complete `2026-08-24..2026-12-31` block exists.
-
-The cloud main agent owns research authority. The user should be interrupted only for a concrete missing-data dependency or an explicit status request.
-
-## Data and archive
-
-Repository data carriers have explicit evidence boundaries. Historical files are not automatically active. Read `data/README.md`, `docs/governance/package_scope.json`, and the identity-specific protocol before opening evidence.
-
-For model/factor/strategy changes also follow `.codex/skills/strategy-slice-rebuild/SKILL.md`.
-
-`production_authority=false`.
+本入口由一致性检查器生成；不要手工复制另一套状态。

@@ -1,0 +1,201 @@
+{
+  "schema_id": "overnight_component_bindings@1.0",
+  "baseline_commit": "0e28a6285745552a665d5b1cba11c9da73fbacd7",
+  "validated_components": [
+    {
+      "component_id": "V6A",
+      "research_identity": "V6A_plus_ordinary_A50_preauction_closure",
+      "ledger_ordinal": 1,
+      "query_id": "8d367381811d7907e2ac",
+      "scientific_status": "PASS",
+      "state": "docs/governance/global_spillover_v6a_blackbox_state_v1.json",
+      "protocol": "docs/governance/global_spillover_v6a_reusable_blackbox_protocol_v1.json",
+      "protocol_sha256": "d7637e0573b6e1bb7f3c3e4349f8c578ffbb4740142af8e5c102c260111572f2",
+      "receipt": "docs/research/local_v6a_reusable_blackbox_receipt_v1.json",
+      "implementation": "scripts/run_v6a_reusable_blackbox_local.py",
+      "definition": "Frozen V6A_plus_ordinary_A50_preauction_closure model identity; see its exact protocol",
+      "evidence_scope": "next-open model under the frozen V6A comparator/source contract",
+      "software_status": "frozen_reference_implementation_not_production_service",
+      "tests": [
+        "tests/test_repository_consistency.py"
+      ],
+      "production_authority": false
+    },
+    {
+      "component_id": "OFP-B1",
+      "research_identity": "overnight_global_risk_open_gap_v1",
+      "ledger_ordinal": 8,
+      "query_id": "6b0b6899f94fd8353a34",
+      "scientific_status": "PASS",
+      "state": "docs/governance/global_risk_open_gap_blackbox_state_v1.json",
+      "protocol": "docs/governance/global_risk_open_gap_blackbox_protocol_v1.json",
+      "protocol_sha256": "12ff2674fcb2db07bf6144e35c2115b47be9fc797af16b46e27daad9548b57d1",
+      "receipt": "docs/research/local_global_risk_open_gap_blackbox_receipt_v1.json",
+      "implementation": "scripts/run_global_risk_open_gap_blackbox.py",
+      "definition": "0.5 * (us_nasdaq / RMS60_prev(us_nasdaq) - us_vix_chg / RMS60_prev(us_vix_chg))",
+      "evidence_scope": "continuous global-risk coordinate for opening_gap_rvol",
+      "software_status": "frozen_reference_implementation_not_production_service",
+      "tests": [
+        "tests/test_repository_consistency.py",
+        "tests/test_frozen_coordinate_regression.py"
+      ],
+      "production_authority": false
+    },
+    {
+      "component_id": "OFP-B2",
+      "research_identity": "overnight_china_offshore_open_gap_v1",
+      "ledger_ordinal": 9,
+      "query_id": "608e037b0d24724b097b",
+      "scientific_status": "PASS",
+      "state": "docs/governance/china_offshore_open_gap_blackbox_state_v1.json",
+      "protocol": "docs/governance/china_offshore_open_gap_blackbox_protocol_v1.json",
+      "protocol_sha256": "ee7325b9a2902d2c4d68ea05382ac8b37b6a0c7918f56de1b5f067f7ab85ae23",
+      "receipt": "docs/research/local_china_offshore_open_gap_blackbox_receipt_v1.json",
+      "implementation": "scripts/run_single_external_driver_blackbox.py",
+      "definition": "a50_channel_return / RMS60_prev(a50_channel_return)",
+      "evidence_scope": "continuous same-contract China-offshore coordinate for opening_gap_rvol",
+      "software_status": "frozen_reference_implementation_not_production_service",
+      "tests": [
+        "tests/test_repository_consistency.py",
+        "tests/test_frozen_coordinate_regression.py"
+      ],
+      "production_authority": false
+    },
+    {
+      "component_id": "OFP-C1",
+      "research_identity": "overnight_trend_conditioned_open_state_15m_v1",
+      "ledger_ordinal": 2,
+      "query_id": "5a27b953276382e473c0",
+      "scientific_status": "PASS",
+      "state": "docs/governance/trend_conditioned_open_state_15m_state_v1.json",
+      "protocol": "docs/governance/trend_conditioned_open_state_15m_blackbox_protocol_v1.json",
+      "protocol_sha256": "2c8d54a15da228f1025558b7b6bbb287a2cedcbd480761174c441d520739db2c",
+      "receipt": "docs/research/local_trend_conditioned_open_state_15m_blackbox_receipt_v1.json",
+      "implementation": "scripts/diagnose_trend_conditioned_open_state_dev.py",
+      "definition": "(gap / rvol20) * (r20 / (sqrt(20) * rvol20))",
+      "evidence_scope": "continuous trend-gap interaction; 09:35 to 09:50 return, not a trading sign rule",
+      "software_status": "frozen_reference_implementation_not_production_service",
+      "tests": [
+        "tests/test_repository_consistency.py",
+        "tests/test_frozen_coordinate_regression.py"
+      ],
+      "production_authority": false
+    },
+    {
+      "component_id": "OFP-C2",
+      "research_identity": "overnight_volatility_conditioned_open_state_60m_v1",
+      "ledger_ordinal": 7,
+      "query_id": "a1068de9321c04632aad",
+      "scientific_status": "PASS",
+      "state": "docs/governance/volatility_conditioned_open_state_60m_state_v1.json",
+      "protocol": "docs/governance/volatility_conditioned_open_state_60m_blackbox_protocol_v1.json",
+      "protocol_sha256": "7333e41698c21044212154d9eb96ac66507606bf41aaac423189e090908626b9",
+      "receipt": "docs/research/local_volatility_conditioned_open_state_60m_blackbox_receipt_v1.json",
+      "implementation": "scripts/diagnose_volatility_conditioned_open_state_dev.py",
+      "definition": "(gap / rvol20) * log(rvol20)",
+      "evidence_scope": "continuous volatility-gap interaction; 09:35 to 10:35 return with C1 control",
+      "software_status": "frozen_reference_implementation_not_production_service",
+      "tests": [
+        "tests/test_repository_consistency.py",
+        "tests/test_frozen_coordinate_regression.py"
+      ],
+      "production_authority": false
+    },
+    {
+      "component_id": "OFP-B4",
+      "research_identity": "overnight_driver_coherence_open_gap_v1",
+      "ledger_ordinal": 3,
+      "query_id": "33ccb040dd0d1822f3b6",
+      "scientific_status": "PASS",
+      "state": "docs/governance/driver_coherence_open_gap_v1_state.json",
+      "protocol": "docs/governance/driver_coherence_open_gap_blackbox_protocol_v1.json",
+      "protocol_sha256": "445c9ffa9171200042902988996605e267f46376ebd49bceee0cf8eb2959a349",
+      "receipt": "docs/research/local_driver_coherence_open_gap_blackbox_receipt_v1.json",
+      "implementation": "scripts/diagnose_driver_agreement_disagreement_dev.py",
+      "definition": "(global_risk_z + china_offshore_z + fx_cny_z) / (abs(global_risk_z) + abs(china_offshore_z) + abs(fx_cny_z))",
+      "evidence_scope": "continuous coherence coordinate for opening_gap_rvol; zero denominator remains missing",
+      "software_status": "frozen_reference_implementation_not_production_service",
+      "tests": [
+        "tests/test_repository_consistency.py",
+        "tests/test_frozen_coordinate_regression.py"
+      ],
+      "production_authority": false
+    }
+  ],
+  "closed_downstream": [
+    {
+      "name": "E1v1",
+      "research_identity": "overnight_c1_b4_timing_confidence_adapter_validation_v1",
+      "state": "docs/governance/downstream_timing_adapter_validation_v1_state.json",
+      "status": "BLACKBOX_FAIL_closed_no_validated_E1_product",
+      "decision": "FAIL",
+      "execution_authorized": false,
+      "production_authority": false
+    },
+    {
+      "name": "E1v2",
+      "research_identity": "overnight_c1_c2_timing_agreement_adapter_v1",
+      "state": "docs/governance/downstream_c1_c2_timing_agreement_adapter_v1_state.json",
+      "status": "DEV_NO_PROGRESS_closed_no_successor",
+      "decision": "E1V2_DEV_NO_PROGRESS",
+      "execution_authorized": false,
+      "production_authority": false
+    },
+    {
+      "name": "E2v1",
+      "research_identity": "overnight_b4_stock_selection_abstention_adapter_v1",
+      "state": "docs/governance/downstream_stock_selection_adapter_v1_state.json",
+      "status": "DEV_NO_PROGRESS_closed_no_successor",
+      "decision": "E2_DEV_NO_PROGRESS",
+      "execution_authorized": false,
+      "production_authority": false
+    },
+    {
+      "name": "E2v2",
+      "research_identity": "overnight_c2_stock_selection_risk_abstention_adapter_v1",
+      "state": "docs/governance/downstream_c2_stock_selection_risk_adapter_v1_state.json",
+      "status": "DEV_INSUFFICIENT_closed_no_successor",
+      "decision": "E2V2_DEV_INSUFFICIENT",
+      "execution_authorized": false,
+      "production_authority": false
+    },
+    {
+      "name": "E2v3",
+      "research_identity": "overnight_b2_stock_selection_offshore_risk_abstention_adapter_v1",
+      "state": "docs/governance/downstream_b2_stock_selection_offshore_risk_adapter_v1_state.json",
+      "status": "DEV_NO_PROGRESS_closed_no_successor",
+      "decision": "E2V3_DEV_NO_PROGRESS",
+      "execution_authorized": false,
+      "production_authority": false
+    },
+    {
+      "name": "E3v1",
+      "research_identity": "overnight_c1_intraday_portfolio_risk_abstention_v1",
+      "state": "docs/governance/downstream_portfolio_risk_adapter_v1_state.json",
+      "status": "DEV_INSUFFICIENT_closed_no_successor",
+      "decision": "E3_DEV_INSUFFICIENT",
+      "execution_authorized": false,
+      "production_authority": false
+    },
+    {
+      "name": "E3v2",
+      "research_identity": "overnight_b1_forward_cycle_portfolio_risk_abstention_validation_v1",
+      "state": "docs/governance/downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_state.json",
+      "status": "BLACKBOX_FAIL_closed_no_validated_E3v2_product",
+      "decision": "FAIL",
+      "execution_authorized": false,
+      "production_authority": false
+    },
+    {
+      "name": "E3v3",
+      "research_identity": "overnight_c2_forward_cycle_portfolio_risk_abstention_v1",
+      "state": "docs/governance/downstream_c2_forward_cycle_portfolio_risk_adapter_v1_state.json",
+      "status": "DEV_INSUFFICIENT_closed_no_successor",
+      "decision": "E3V3_DEV_INSUFFICIENT",
+      "execution_authorized": false,
+      "production_authority": false
+    }
+  ],
+  "normalization_note": "RMS60_prev uses shift(1), rolling window 60, min_periods 20; input units and clocks remain frozen.",
+  "production_authority": false
+}

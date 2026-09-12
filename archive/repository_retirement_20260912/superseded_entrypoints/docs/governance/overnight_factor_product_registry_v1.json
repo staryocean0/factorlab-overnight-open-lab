@@ -1,5 +1,5 @@
 {
-  "schema_id": "overnight_factor_product_registry@1.16",
+  "schema_id": "overnight_factor_product_registry@1.15",
   "session_date": "2026-09-12",
   "program": "docs/governance/overnight_factor_product_program_v1.md",
   "repository_role": "overnight_open_factor_product_laboratory_and_downstream_factor_adapter",
@@ -318,9 +318,12 @@
         "portfolio_risk"
       ],
       "latest_identity": "overnight_c2_forward_cycle_portfolio_risk_abstention_v1",
+      "latest_parent_development_identity": "overnight_b1_forward_cycle_portfolio_risk_abstention_v1",
       "latest_decision": "E3V3_DEV_INSUFFICIENT",
       "latest_state": "docs/governance/downstream_c2_forward_cycle_portfolio_risk_adapter_v1_state.json",
       "latest_adjudication": "docs/research/downstream_c2_forward_cycle_portfolio_risk_adapter_v1_dev_cloud_adjudication_20260912.md",
+      "blackbox_query_id": "ce859f9c94f281b0ec49",
+      "blackbox_ledger_ordinal": 12,
       "validated_product_authority": false,
       "successor_authorized": false,
       "account_execution_authority": false,
@@ -333,12 +336,7 @@
       "previous_latest_status": "latest_v2_BLACKBOX_FAIL_closed_no_validated_E3v2_product",
       "sufficiency_failure": "2017_active_decisions_6_below_minimum_8_for_both_clocks",
       "future_2021_2025_validation_authorized": false,
-      "blackbox_query_created": false,
-      "historical_v2_validation_metadata": {
-        "blackbox_query_id": "ce859f9c94f281b0ec49",
-        "blackbox_ledger_ordinal": 12,
-        "latest_parent_development_identity": "overnight_b1_forward_cycle_portfolio_risk_abstention_v1"
-      }
+      "blackbox_query_created": false
     }
   ],
   "active_research_identity": null,
@@ -346,10 +344,9 @@
   "deferred_frozen_identity": null,
   "waiting_validation_identity": null,
   "next_research_identity": null,
-  "next_research_note": "No active outcome-bearing identity. Consult canonical authority and generated CURRENT_STATUS; historical state next_action fields do not reopen completed research.",
+  "next_research_note": "E3v3 C2 portfolio-risk adapter closed DEV_INSUFFICIENT. No automatic successor or rescue; maintain the validated shelf or wait for a separately motivated result-free identity / frozen Gap-Fill V2 true-fresh date gate.",
   "cartesian_feature_factory_forbidden": true,
   "downstream_strategy_return_may_define_upstream_factor": false,
   "production_authority": false,
-  "blackbox_ledger_query_count": 12,
-  "component_bindings": "docs/governance/component_bindings_v1.json"
+  "blackbox_ledger_query_count": 12
 }
