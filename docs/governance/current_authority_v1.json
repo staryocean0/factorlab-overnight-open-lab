@@ -1,5 +1,5 @@
 {
-  "schema_id": "overnight_open_current_authority@1.20",
+  "schema_id": "overnight_open_current_authority@1.21",
   "session_date": "2026-09-12",
   "repository_role": "overnight_open_factor_product_laboratory_and_downstream_factor_adapter",
   "program": "docs/governance/overnight_factor_product_program_v1.md",
@@ -8,69 +8,68 @@
     "cloud_main_agent_owns_research_authority": true,
     "cloud_main_agent_may_define_freeze_execute_and_adjudicate_research_identities": true,
     "user_role": "provide_missing_data_only_when_requested",
-    "communication_rule": "do_not_interrupt_user_for_research_choices_status_or_authority_questions; communicate only when a concrete missing-data handoff is required or when the user explicitly asks for status",
-    "local_model_role": "data_procurement_or_mechanical_materialization_only_when_cloud_lacks_required_data",
+    "communication_rule": "do_not_interrupt_user for research choices/status/authority; communicate only for a concrete missing-data handoff or explicit status request",
+    "local_model_role": "data procurement or mechanical materialization only when cloud lacks required data",
     "production_authority": false
   },
   "active_research": {
-    "identity": "overnight_volatility_conditioned_open_state_60m_v1",
-    "product_family": "OFP-C2_prior_volatility_context_x_OFP-A2_observed_open_geometry",
-    "status": "reusable_BLACKBOX_protocol_frozen_query_unopened_cloud_execution_authorized",
-    "protocol": "docs/governance/volatility_conditioned_open_state_60m_blackbox_protocol_v1.json",
-    "state": "docs/governance/volatility_conditioned_open_state_60m_state_v1.json",
-    "parent_development_receipt": "docs/research/cloud_volatility_conditioned_open_state_dev_diagnostic_v1.json",
-    "parent_adjudication": "docs/research/volatility_conditioned_open_state_dev_cloud_adjudication_20260911.md",
-    "candidate": "observed_gap_rvol * log(rvol20)",
-    "target": "09:35_to_10:35_return",
-    "validated_C1_baseline_control": "trend20_rvol * observed_gap_rvol",
-    "blackbox_window": "2021-01-01..2025-12-31",
-    "blackbox_query_opened": false,
-    "ledger_entry_created": false,
-    "expected_next_ledger_ordinal": 7,
-    "public_detail_release": false,
+    "identity": "overnight_global_risk_driver_v1",
+    "product_family": "OFP-B1_global_risk_driver",
+    "status": "result_free_preregistered_pending_cloud_development_execution",
+    "preanalysis": "docs/research/global_risk_driver_v1_preanalysis_20260912.md",
+    "protocol": "docs/governance/global_risk_driver_v1_protocol.json",
+    "state": "docs/governance/global_risk_driver_v1_state.json",
+    "candidate": "global_risk_z",
+    "target": "opening_gap_rvol",
+    "development_window": "2015-01-05..2020-12-31",
+    "outcome_opened": false,
+    "future_2021_2025_blackbox_authorized": false,
     "strategy_backtest_authorized": false,
     "production_authority": false
   },
   "recent_completed_research": {
+    "C2": {
+      "identity": "overnight_volatility_conditioned_open_state_60m_v1",
+      "status": "BLACKBOX_PASS_validated_continuous_C2_60m_factor_product",
+      "blackbox_result": "PASS",
+      "blackbox_query_id": "a1068de9321c04632aad",
+      "blackbox_ledger_ordinal": 7,
+      "blackbox_receipt": "docs/research/local_volatility_conditioned_open_state_60m_blackbox_receipt_v1.json",
+      "blackbox_authority": "docs/research/volatility_conditioned_open_state_60m_blackbox_cloud_adjudication_20260912.md",
+      "validated_product_authority": true,
+      "production_authority": false
+    },
     "E3": {
       "identity": "overnight_c1_intraday_portfolio_risk_abstention_v1",
       "status": "DEV_INSUFFICIENT_closed_no_successor",
       "development_decision": "E3_DEV_INSUFFICIENT",
-      "development_receipt": "docs/research/cloud_downstream_portfolio_risk_adapter_v1_dev_diagnostic.json",
-      "development_authority": "docs/research/downstream_portfolio_risk_adapter_v1_dev_cloud_adjudication_20260912.md",
       "successor_authorized": false,
-      "blackbox_query_created": false,
-      "production_authority": false
+      "blackbox_query_created": false
     },
     "E2": {
       "identity": "overnight_b4_stock_selection_abstention_adapter_v1",
       "status": "DEV_NO_PROGRESS_closed_no_successor",
       "development_decision": "E2_DEV_NO_PROGRESS",
-      "development_receipt": "docs/research/cloud_downstream_stock_selection_adapter_v1_dev_diagnostic.json",
-      "development_authority": "docs/research/downstream_stock_selection_adapter_v1_dev_cloud_adjudication_20260912.md",
       "successor_authorized": false,
-      "blackbox_query_created": false,
-      "production_authority": false
+      "blackbox_query_created": false
     },
     "E1": {
       "identity": "overnight_c1_b4_timing_confidence_adapter_validation_v1",
       "status": "BLACKBOX_FAIL_closed_no_validated_E1_product",
       "blackbox_query_id": "1d8e01c69f555a7d721c",
-      "blackbox_ledger_ordinal": 6,
-      "production_authority": false
+      "blackbox_ledger_ordinal": 6
     }
   },
   "validated_products": {
     "V6A_global_spillover": "PASS",
     "C1_15m_trend_conditioned_open_state": "PASS_validated_continuous_factor_product",
+    "C2_60m_volatility_conditioned_open_state": "PASS_validated_continuous_factor_product",
     "B4_driver_coherence": "PASS_validated_continuous_factor_product",
     "Gap_Fill_V2": "frozen_repeat_confirmed_true_fresh_pending"
   },
   "closed_or_waiting": {
     "Opening_Surprise_A3": "closed_after_DEV_no_standalone_product_promotion_stability_failure",
-    "C1_15m_BLACKBOX": "completed_PASS_query_2",
     "C3_joint_successor_BLACKBOX": "completed_FAIL_query_5_no_validated_product",
-    "B4_driver_coherence_BLACKBOX": "completed_PASS_query_3",
     "D1_joint_successor_BLACKBOX": "completed_FAIL_query_4_no_validated_product",
     "E1_timing_adapter_validation": "completed_FAIL_query_6_no_validated_product",
     "E2_stock_selection_adapter": "DEV_NO_PROGRESS_closed_no_successor",
@@ -78,19 +77,17 @@
     "V21_P2_successor": "closed_at_DEV_no_successor_evidence_insufficient",
     "Gap_Fill_V2_true_fresh": "wait_for_complete_2026_08_24_to_2026_12_31_and_protocol_date_gate"
   },
-  "blackbox_ledger_query_count": 6,
+  "blackbox_ledger_query_count": 7,
   "hard_rules": [
     "Do not decompose completed reusable BLACKBOX queries or use hidden behavior to design successors.",
-    "E1 v1 is closed after BLACKBOX FAIL; no threshold, weight, horizon or upstream-product rescue is authorized.",
-    "E2 v1 is closed with DEV_NO_PROGRESS; no rescue search is authorized.",
-    "E3 v1 is closed with DEV_INSUFFICIENT; do not repair exact-clock missingness, add stale-price fills, change exact clocks or relax complete-case rules under that identity.",
-    "C2 reactivation does not change the already-frozen protocol, candidate, target, controls or BLACKBOX gates.",
-    "Do not search volatility thresholds/buckets, alternate volatility windows or alternate horizons from C2 BLACKBOX behavior.",
-    "C2 BLACKBOX public output is compact PASS/FAIL/INSUFFICIENT only; do not persist or expose hidden metrics, counts, years, bootstrap statistics or failure attribution.",
+    "C2 is validated only as the continuous 60m coordinate; no high/low-vol bucket, threshold, alternate volatility window or alternate horizon authority exists.",
+    "B1 v1 uses only the frozen global_risk_z coordinate and domestic baseline; A50, FX and B4 coherence may not be added under this identity.",
+    "Do not change NASDAQ/VIX weights, RMS normalization, target, baseline, sign hypothesis or progression gates after outcomes.",
+    "Do not use strategy PnL or downstream E1/E2/E3 behavior to tune B1.",
     "Reuse of 2021-2025 is not independent OOS.",
     "Do not open post-2026-08-21 outcomes except under separately frozen protocol.",
     "Production authority remains false."
   ],
-  "next_action": "cloud main agent executes the already-frozen C2 60m compact reusable BLACKBOX using the parity-gated 2015-2025 reconstruction path, verifies provenance, registers exactly one logical query #7 only after a valid compact receipt is produced, and adjudicates without user consultation unless concrete missing data blocks execution",
+  "next_action": "cloud main agent executes and adjudicates the frozen 2015-2020 B1 global-risk mechanism diagnostic; if progression is supported, freeze a separate compact reusable validation identity before any 2021-2025 query",
   "production_authority": false
 }
