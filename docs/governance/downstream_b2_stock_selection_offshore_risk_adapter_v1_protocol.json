@@ -1,0 +1,91 @@
+{
+  "schema_id": "overnight_downstream_b2_stock_selection_offshore_risk_adapter_protocol@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_b2_stock_selection_offshore_risk_abstention_adapter_v1",
+  "product_family": "OFP-E2_stock_selection_adapter",
+  "phase": "retrospective_selection_quality_diagnostic",
+  "preanalysis": "docs/research/downstream_b2_stock_selection_offshore_risk_adapter_v1_preanalysis_20260912.md",
+  "consumer": {
+    "repository": "staryocean0/factorlab-multifactor-stock-lab",
+    "source_commit": "af2e478aaff5c8ef7f753424b57fd2d19019f248",
+    "strategy_id": "REAKA_D5_H20_R5_CURRENT_GENERATION_V1",
+    "model": "d8-h8-K1-r0_fit_prefix_successor_incumbent",
+    "selection_policy": "N30_equal_backfill_unconstrained",
+    "decision_clocks": ["14:30", "14:45"],
+    "selection_decision_carrier": "output/factor-rotation/reaka_current_k1_account_ledgers_v1_2011_2026/formal/selection_opportunity_decision_summary.csv",
+    "selection_decision_carrier_blob_sha": "8ad23f84d6664cb6e870e1667cbd4d06682a3626",
+    "ranking_mutation_authorized": false,
+    "topn_mutation_authorized": false,
+    "consumer_parameter_mutation_authorized": false
+  },
+  "upstream": {
+    "product_id": "OFP-B2",
+    "research_identity": "overnight_china_offshore_open_gap_v1",
+    "authority": "docs/research/china_offshore_open_gap_blackbox_cloud_adjudication_20260912.md",
+    "validated_query_id": "608e037b0d24724b097b",
+    "coordinate": "china_offshore_z",
+    "formula": "a50_channel_return / lagged_rms60_prev(a50_channel_return)",
+    "expected_direction": "positive",
+    "same_contract_semantics": true
+  },
+  "excluded_upstream_products": ["A1", "A4", "B1", "B3", "B4", "C1", "C2", "C3", "C4", "D1", "E1", "E3"],
+  "adapter": {
+    "semantic_boundary": 0.0,
+    "active_rule": "china_offshore_z >= 0",
+    "inactive_rule": "china_offshore_z < 0",
+    "free_parameters": 0,
+    "threshold_search": false,
+    "magnitude_bucket_search": false,
+    "ordinary_holiday_split_search": false,
+    "clock_selection": false,
+    "candidate_attempt_count": 1
+  },
+  "development_window": "2015-01-05..2020-12-31",
+  "annual_report_slices": [2015, 2016, 2017, 2018, 2019, 2020],
+  "consumer_variants": ["14:30", "14:45"],
+  "primary_utility": {
+    "field": "selected_mean_h20_return",
+    "comparator": "mean over all complete consumer decisions",
+    "candidate": "mean over B2-active complete consumer decisions",
+    "delta": "candidate - comparator"
+  },
+  "selection_quality_safeguard": {
+    "field": "selection_gap_mean_h20_return",
+    "definition": "selected_mean_h20_return - oracle_mean_h20_return",
+    "higher_is_better": true,
+    "maximum_allowed_pooled_worsening": 0.002,
+    "maximum_allowed_annual_worsening": 0.002
+  },
+  "sufficiency_gates": {
+    "minimum_complete_decisions_each_clock_year": 20,
+    "minimum_active_decisions_each_clock_year": 8
+  },
+  "progression_gates_each_clock": {
+    "pooled_selected_return_delta": ">0",
+    "minimum_positive_annual_selected_return_delta_count": 4,
+    "median_annual_selected_return_delta": ">=0",
+    "pooled_selection_gap_delta": ">=-0.002",
+    "minimum_annual_selection_gap_delta_not_worse_than_minus_0_002_count": 4
+  },
+  "joint_clock_rule": "both_14_30_and_14_45_must_pass_all_progression_gates",
+  "maximum_authority_if_pass": "retrospective_E2_selection_quality_adapter_candidate_only",
+  "account_PnL_backtest_authorized": false,
+  "strategy_execution_authorized": false,
+  "future_2021_2025_validation_authorized_now": false,
+  "future_validation_requires_separate_compact_protocol": true,
+  "same_2021_2025_reuse_is_independent_oos": false,
+  "forbidden_actions": [
+    "change consumer rankings or Top30 membership",
+    "search nonzero B2 thresholds",
+    "search B2 magnitude buckets or quantiles",
+    "split ordinary vs holiday after outcomes",
+    "change A50 causal cutoffs or same-contract semantics",
+    "change RMS lookback",
+    "choose one decision clock after outcomes",
+    "add upstream products after outcomes",
+    "optimize account PnL, costs, fills, TopN or weights",
+    "use hidden BLACKBOX behavior as design input",
+    "claim production authority"
+  ],
+  "production_authority": false
+}
