@@ -19,7 +19,7 @@ jobs:
         run: |
           set -euo pipefail
           test ! -e docs/research/cloud_china_offshore_driver_v1_dev_diagnostic.json
-          python scripts/run_single_external_driver_dev_cloud.py --protocol docs/governance/china_offshore_driver_v1_protocol.json
+          python scripts/run_single_external_driver_dev_cloud.py --protocol "$GITHUB_WORKSPACE/docs/governance/china_offshore_driver_v1_protocol.json"
       - name: Commit B2 development receipt only
         run: |
           set -euo pipefail
