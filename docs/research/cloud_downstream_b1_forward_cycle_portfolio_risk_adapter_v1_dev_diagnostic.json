@@ -1,0 +1,361 @@
+{
+  "2021_2025_scientific_rows_opened": false,
+  "account_execution_backtest_opened": false,
+  "adapter_rule": "candidate_exposure = 1 iff global_risk_z >= 0 else 0",
+  "blackbox_query_created": false,
+  "candidate_attempt_count": 1,
+  "clock_selection": false,
+  "consumer": {
+    "account_mutation_authorized": false,
+    "account_policy": "N30_equal_backfill_unconstrained",
+    "consumer_parameter_mutation_authorized": false,
+    "daily_carrier": "output/factor-rotation/reaka_current_k1_account_ledgers_v1_2011_2026/formal/account_snapshot/portfolio_daily.parquet",
+    "daily_carrier_sha256": "8f6be84836d7839642e3cf722639887be339fa3f660c274b16d7c0a2b56ae1a5",
+    "model": "d8-h8-K1-r0_fit_prefix_successor_incumbent",
+    "replay_segment": "2011_2020",
+    "repository": "staryocean0/factorlab-multifactor-stock-lab",
+    "snapshot_manifest": "output/factor-rotation/reaka_current_k1_account_ledgers_v1_2011_2026/formal/account_snapshot/snapshot_manifest.json",
+    "snapshot_manifest_blob_sha": "74a55807fac00b316cb0cdd2d93e0f9bbdbcc9a3",
+    "source_commit": "af2e478aaff5c8ef7f753424b57fd2d19019f248",
+    "strategy_id": "REAKA_D5_H20_R5_CURRENT_GENERATION_V1",
+    "variants": [
+      "14:30",
+      "14:45"
+    ]
+  },
+  "consumer_mutation": false,
+  "cost_or_fill_model_used": false,
+  "decision": "E3V2_DEV_PROGRESS_RETROSPECTIVE_PORTFOLIO_RISK_ADAPTER_CANDIDATE",
+  "development_window": "2015-01-05..2020-12-31",
+  "diagnostics": {
+    "14:30": {
+      "by_year": {
+        "2015": {
+          "active_coverage": 0.5777777777777777,
+          "active_decision_count": 26,
+          "candidate_downside_mean": -0.010379116844841777,
+          "candidate_mean_utility": 0.013890654982686554,
+          "candidate_positive_cycle_rate": 0.4,
+          "comparator_downside_mean": -0.027505955193397102,
+          "comparator_mean_utility": 0.009801763024100015,
+          "comparator_positive_cycle_rate": 0.5777777777777777,
+          "complete_decision_count": 45,
+          "delta_downside_mean": 0.017126838348555325,
+          "delta_mean_utility": 0.004088891958586539,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2016": {
+          "active_coverage": 0.5102040816326531,
+          "active_decision_count": 25,
+          "candidate_downside_mean": -0.009231653255144886,
+          "candidate_mean_utility": -0.0019014264684151228,
+          "candidate_positive_cycle_rate": 0.32653061224489793,
+          "comparator_downside_mean": -0.016719340523247247,
+          "comparator_mean_utility": -0.002408095920293044,
+          "comparator_positive_cycle_rate": 0.5714285714285714,
+          "complete_decision_count": 49,
+          "delta_downside_mean": 0.007487687268102361,
+          "delta_mean_utility": 0.0005066694518779211,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2017": {
+          "active_coverage": 0.4897959183673469,
+          "active_decision_count": 24,
+          "candidate_downside_mean": -0.004879963751080048,
+          "candidate_mean_utility": 0.0011625344226086417,
+          "candidate_positive_cycle_rate": 0.2857142857142857,
+          "comparator_downside_mean": -0.013886248282321767,
+          "comparator_mean_utility": -0.004813145287694283,
+          "comparator_positive_cycle_rate": 0.5102040816326531,
+          "complete_decision_count": 49,
+          "delta_downside_mean": 0.009006284531241719,
+          "delta_mean_utility": 0.005975679710302924,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2018": {
+          "active_coverage": 0.5833333333333334,
+          "active_decision_count": 28,
+          "candidate_downside_mean": -0.01083785042797303,
+          "candidate_mean_utility": -0.004038154002762008,
+          "candidate_positive_cycle_rate": 0.22916666666666666,
+          "comparator_downside_mean": -0.02186341126621603,
+          "comparator_mean_utility": -0.010899976366545968,
+          "comparator_positive_cycle_rate": 0.3333333333333333,
+          "complete_decision_count": 48,
+          "delta_downside_mean": 0.011025560838243001,
+          "delta_mean_utility": 0.00686182236378396,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2019": {
+          "active_coverage": 0.673469387755102,
+          "active_decision_count": 33,
+          "candidate_downside_mean": -0.008138687584850366,
+          "candidate_mean_utility": 0.008227288699416663,
+          "candidate_positive_cycle_rate": 0.40816326530612246,
+          "comparator_downside_mean": -0.013750157534780216,
+          "comparator_mean_utility": 0.008544878173533105,
+          "comparator_positive_cycle_rate": 0.5714285714285714,
+          "complete_decision_count": 49,
+          "delta_downside_mean": 0.005611469949929849,
+          "delta_mean_utility": -0.00031758947411644235,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2020": {
+          "active_coverage": 0.6041666666666666,
+          "active_decision_count": 29,
+          "candidate_downside_mean": -0.009020220363275435,
+          "candidate_mean_utility": 0.0035493847164747086,
+          "candidate_positive_cycle_rate": 0.3125,
+          "comparator_downside_mean": -0.014866577101304032,
+          "comparator_mean_utility": 0.002267984093068489,
+          "comparator_positive_cycle_rate": 0.4791666666666667,
+          "complete_decision_count": 48,
+          "delta_downside_mean": 0.005846356738028597,
+          "delta_mean_utility": 0.0012814006234062197,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        }
+      },
+      "gates": {
+        "all_annual_sufficiency_pass": true,
+        "median_annual_mean_utility_delta": 0.002685146290996379,
+        "median_annual_mean_utility_delta_nonnegative": true,
+        "minimum_nonnegative_annual_downside_mean_delta_count_pass": true,
+        "minimum_positive_annual_mean_utility_delta_count_pass": true,
+        "nonnegative_annual_downside_mean_delta_count": 6,
+        "pooled_downside_mean_delta_nonnegative": true,
+        "pooled_mean_utility_delta_positive": true,
+        "positive_annual_mean_utility_delta_count": 5
+      },
+      "pooled": {
+        "active_coverage": 0.5729166666666666,
+        "active_decision_count": 165,
+        "candidate_downside_mean": -0.0087170575727795,
+        "candidate_mean_utility": 0.0033630207795347345,
+        "candidate_positive_cycle_rate": 0.3263888888888889,
+        "comparator_downside_mean": -0.017966107625072725,
+        "comparator_mean_utility": 0.0003180622162129335,
+        "comparator_positive_cycle_rate": 0.5069444444444444,
+        "complete_decision_count": 288,
+        "delta_downside_mean": 0.009249050052293225,
+        "delta_mean_utility": 0.003044958563321801,
+        "sufficiency_active_pass": true,
+        "sufficiency_complete_pass": true,
+        "sufficiency_pass": true
+      },
+      "progression_pass": true
+    },
+    "14:45": {
+      "by_year": {
+        "2015": {
+          "active_coverage": 0.5777777777777777,
+          "active_decision_count": 26,
+          "candidate_downside_mean": -0.010172297657639039,
+          "candidate_mean_utility": 0.01377594117168797,
+          "candidate_positive_cycle_rate": 0.4,
+          "comparator_downside_mean": -0.026779591788540884,
+          "comparator_mean_utility": 0.00984384233185437,
+          "comparator_positive_cycle_rate": 0.6,
+          "complete_decision_count": 45,
+          "delta_downside_mean": 0.016607294130901847,
+          "delta_mean_utility": 0.003932098839833599,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2016": {
+          "active_coverage": 0.5102040816326531,
+          "active_decision_count": 25,
+          "candidate_downside_mean": -0.009339710600468612,
+          "candidate_mean_utility": -0.001995896828863051,
+          "candidate_positive_cycle_rate": 0.3469387755102041,
+          "comparator_downside_mean": -0.016796996472813963,
+          "comparator_mean_utility": -0.0026045514152640515,
+          "comparator_positive_cycle_rate": 0.5918367346938775,
+          "complete_decision_count": 49,
+          "delta_downside_mean": 0.0074572858723453515,
+          "delta_mean_utility": 0.0006086545864010004,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2017": {
+          "active_coverage": 0.4897959183673469,
+          "active_decision_count": 24,
+          "candidate_downside_mean": -0.0042141910967938186,
+          "candidate_mean_utility": 0.0016781657269876278,
+          "candidate_positive_cycle_rate": 0.2857142857142857,
+          "comparator_downside_mean": -0.013111024937255501,
+          "comparator_mean_utility": -0.004321833615032729,
+          "comparator_positive_cycle_rate": 0.5102040816326531,
+          "complete_decision_count": 49,
+          "delta_downside_mean": 0.008896833840461683,
+          "delta_mean_utility": 0.005999999342020357,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2018": {
+          "active_coverage": 0.5833333333333334,
+          "active_decision_count": 28,
+          "candidate_downside_mean": -0.011023559283196628,
+          "candidate_mean_utility": -0.0039494401432089085,
+          "candidate_positive_cycle_rate": 0.25,
+          "comparator_downside_mean": -0.02229971622098865,
+          "comparator_mean_utility": -0.0109477446483301,
+          "comparator_positive_cycle_rate": 0.3541666666666667,
+          "complete_decision_count": 48,
+          "delta_downside_mean": 0.011276156937792024,
+          "delta_mean_utility": 0.006998304505121192,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2019": {
+          "active_coverage": 0.673469387755102,
+          "active_decision_count": 33,
+          "candidate_downside_mean": -0.007886445151623032,
+          "candidate_mean_utility": 0.008152023977755479,
+          "candidate_positive_cycle_rate": 0.40816326530612246,
+          "comparator_downside_mean": -0.013546179979164494,
+          "comparator_mean_utility": 0.008353745117914224,
+          "comparator_positive_cycle_rate": 0.5714285714285714,
+          "complete_decision_count": 49,
+          "delta_downside_mean": 0.005659734827541462,
+          "delta_mean_utility": -0.0002017211401587459,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2020": {
+          "active_coverage": 0.6041666666666666,
+          "active_decision_count": 29,
+          "candidate_downside_mean": -0.009103406981419726,
+          "candidate_mean_utility": 0.0031187027994314617,
+          "candidate_positive_cycle_rate": 0.3541666666666667,
+          "comparator_downside_mean": -0.015149662888457137,
+          "comparator_mean_utility": 0.0021383007381643887,
+          "comparator_positive_cycle_rate": 0.5208333333333334,
+          "complete_decision_count": 48,
+          "delta_downside_mean": 0.006046255907037411,
+          "delta_mean_utility": 0.000980402061267073,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        }
+      },
+      "gates": {
+        "all_annual_sufficiency_pass": true,
+        "median_annual_mean_utility_delta": 0.002456250450550336,
+        "median_annual_mean_utility_delta_nonnegative": true,
+        "minimum_nonnegative_annual_downside_mean_delta_count_pass": true,
+        "minimum_positive_annual_mean_utility_delta_count_pass": true,
+        "nonnegative_annual_downside_mean_delta_count": 6,
+        "pooled_downside_mean_delta_nonnegative": true,
+        "pooled_mean_utility_delta_positive": true,
+        "positive_annual_mean_utility_delta_count": 5
+      },
+      "pooled": {
+        "active_coverage": 0.5729166666666666,
+        "active_decision_count": 165,
+        "candidate_downside_mean": -0.008591752676703923,
+        "candidate_mean_utility": 0.0033469524692457077,
+        "candidate_positive_cycle_rate": 0.3402777777777778,
+        "comparator_downside_mean": -0.01781912394378542,
+        "comparator_mean_utility": 0.0003127091720095391,
+        "comparator_positive_cycle_rate": 0.5243055555555556,
+        "complete_decision_count": 288,
+        "delta_downside_mean": 0.009227371267081497,
+        "delta_mean_utility": 0.0030342432972361687,
+        "sufficiency_active_pass": true,
+        "sufficiency_complete_pass": true,
+        "sufficiency_pass": true
+      },
+      "progression_pass": true
+    }
+  },
+  "joint_clock_progression_pass": true,
+  "ledger_query_count_at_execution": 11,
+  "magnitude_bucket_search": false,
+  "maximum_authority_if_progressed": "retrospective_E3_portfolio_risk_adapter_candidate_only",
+  "phase": "retrospective_account_overlay_utility_risk_diagnostic",
+  "product_family": "OFP-E3_portfolio_risk_adapter",
+  "production_authority": false,
+  "protocol": {
+    "path": "docs/governance/downstream_b1_forward_cycle_portfolio_risk_adapter_v1_protocol.json",
+    "sha256": "2563c94cd9957f18f09b08db5e983facfa66d4676560f30dc391ab48e38f4472"
+  },
+  "research_identity": "overnight_b1_forward_cycle_portfolio_risk_abstention_v1",
+  "schema_id": "overnight_downstream_b1_forward_cycle_portfolio_risk_adapter_dev_diagnostic@1.0",
+  "session_date": "2026-09-12",
+  "source_integrity": {
+    "B1": {
+      "factor_manifest": {
+        "path": "data/runtime_text_2015_2025/manifest.json",
+        "sha256": "10f7e5eada195541ae83fe14b7138e6a1ced939b7e278f811e7fb08c4147bb13"
+      },
+      "factor_shards": {
+        "2015": {
+          "path": "data/runtime_text_2015_2025/factor_panel_2015.csv",
+          "sha256": "6463091e0a4f536717a148144c8566f35b73c62e05694e1c73226024b80326af"
+        },
+        "2016": {
+          "path": "data/runtime_text_2015_2025/factor_panel_2016.csv",
+          "sha256": "f1c0abd8dfd6dd40f91c0b8c93ba6f3c4cf685efd0b04832e0e80d74a6c99f51"
+        },
+        "2017": {
+          "path": "data/runtime_text_2015_2025/factor_panel_2017.csv",
+          "sha256": "395bf508ef6595474dd9f17282aa2d740bc93e342afa81401c9b05d3cf66e247"
+        },
+        "2018": {
+          "path": "data/runtime_text_2015_2025/factor_panel_2018.csv",
+          "sha256": "2fa36707c38e9e312fb87a13787bf4126e2b275b5881b89b884d852b7874abdb"
+        },
+        "2019": {
+          "path": "data/runtime_text_2015_2025/factor_panel_2019.csv",
+          "sha256": "c183709b84e08225346242690089d8dc90edc4b4114bb0e731691241d91029be"
+        },
+        "2020": {
+          "path": "data/runtime_text_2015_2025/factor_panel_2020.csv",
+          "sha256": "8b15f82b78b6026f5fa48207fd7a15f0a5b0e6a79f1d41501d6a5c6c79730923"
+        }
+      }
+    },
+    "consumer": {
+      "consumer_repository": "staryocean0/factorlab-multifactor-stock-lab",
+      "daily_carrier": "output/factor-rotation/reaka_current_k1_account_ledgers_v1_2011_2026/formal/account_snapshot/portfolio_daily.parquet",
+      "daily_carrier_sha256": "8f6be84836d7839642e3cf722639887be339fa3f660c274b16d7c0a2b56ae1a5",
+      "materialized_date_window": "2015-01-05..2020-12-31",
+      "materialized_replay_segment": "2011_2020",
+      "post2020_scientific_rows_materialized": false,
+      "snapshot_manifest": "output/factor-rotation/reaka_current_k1_account_ledgers_v1_2011_2026/formal/account_snapshot/snapshot_manifest.json",
+      "snapshot_manifest_strategy_id": "REAKA_D5_H20_R5_CURRENT_GENERATION_V1",
+      "source_commit": "af2e478aaff5c8ef7f753424b57fd2d19019f248"
+    }
+  },
+  "state_at_execution": {
+    "path": "docs/governance/downstream_b1_forward_cycle_portfolio_risk_adapter_v1_state.json",
+    "sha256": "cbe8609878cd68520abce026d927395c87dcca999bff765d9d993f62117192ea"
+  },
+  "target": {
+    "decision_day_return_included": false,
+    "formula": "product(1 + daily_return for the five trading days strictly after decision date) - 1",
+    "future_window_length_trading_days": 5,
+    "id": "forward_5_account_return",
+    "reason": "D5 consumer decision cycle; avoids claiming same-day 14:30/14:45 liquidation execution"
+  },
+  "target_length_search": false,
+  "threshold_search": false,
+  "validated_B1_query_id": "6b0b6899f94fd8353a34"
+}
