@@ -1,0 +1,47 @@
+{
+  "schema_id": "overnight_expected_open_validated_driver_coordinates_protocol@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_expected_open_validated_driver_coordinates_v1",
+  "product_family": "OFP-A1_expected_open_state",
+  "phase": "retrospective_model_adapter_diagnostic",
+  "preanalysis": "docs/research/expected_open_validated_driver_coordinates_v1_preanalysis_20260912.md",
+  "estimator": "StandardScaler + Ridge(alpha=1.0)",
+  "target": "gap",
+  "training_window": "2015-01-05..2018-12-31",
+  "development_evaluation_window": "2019-01-01..2020-12-31",
+  "baseline_features": [
+    "r1","r20","abs_r1","prev_gap","overnight_trend_5","prev_daytime","prev_last_hour","prev_afternoon","rvol20","weekend","holiday_reopen","us_nasdaq","us_vix_chg",
+    "us_nasdaq_closure_extra","us_vix_closure_extra","hkma_usdcny_closure_return","a50_holiday_closure_return","a50_ordinary_preauction_closure_return"
+  ],
+  "candidate_additions": ["global_risk_z","china_offshore_z"],
+  "candidate_formulas": {
+    "global_risk_z": "0.5 * (us_nasdaq / RMS60_prev(us_nasdaq) + (-us_vix_chg / RMS60_prev(us_vix_chg)))",
+    "china_offshore_z": "a50_channel_return / RMS60_prev(a50_channel_return)"
+  },
+  "normalization": {"method":"lagged_trailing_RMS","window":60,"min_periods":20,"shift":1,"current_observation_excluded":true},
+  "common_sample_rule": "fit_and_evaluate_baseline_and_candidate_on_candidate_complete_common_sample",
+  "sufficiency_gates": {"training_common_complete_cases_min":800,"each_evaluation_year_common_complete_cases_min":200},
+  "progression_gates": {
+    "pooled_candidate_sse_below_comparator": true,
+    "pooled_candidate_r2_above_comparator": true,
+    "pooled_candidate_ic_not_below_comparator": true,
+    "pooled_candidate_sign_accuracy_not_below_comparator_minus": 0.01,
+    "evaluation_years_candidate_sse_below_comparator_min": 2,
+    "evaluation_years_candidate_ic_not_below_comparator_min": 1,
+    "each_evaluation_year_candidate_sign_accuracy_not_below_comparator_minus": 0.02
+  },
+  "validated_upstream_products": {
+    "B1": {"identity":"overnight_global_risk_open_gap_v1","query_id":"6b0b6899f94fd8353a34"},
+    "B2": {"identity":"overnight_china_offshore_open_gap_v1","query_id":"608e037b0d24724b097b"}
+  },
+  "excluded_upstream": {
+    "B3": "no_validated_product_authority",
+    "B4": "excluded_to_keep_v1_low_dimensional",
+    "C1_C2": "not_part_of_preopen_signed_gap_adapter_v1"
+  },
+  "source_manifest": "data/v6a_external_sources_2015_2025/manifest.json",
+  "forbidden_actions": ["change Ridge alpha","change scaler/model family","search upstream add/drop","add B4 coherence","add B3 after its FAIL","search interactions","change causal clocks","search thresholds/buckets","change target","use hidden BLACKBOX behavior","optimize strategy PnL"],
+  "future_2021_2025_blackbox_authorized_now": false,
+  "auto_promotion": false,
+  "production_authority": false
+}
