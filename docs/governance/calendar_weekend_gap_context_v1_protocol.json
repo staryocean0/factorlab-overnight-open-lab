@@ -1,0 +1,38 @@
+{
+  "schema_id": "overnight_calendar_weekend_gap_context_protocol@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_weekend_gap_conditioned_open_state_15m_v1",
+  "product_family": "OFP-C4_calendar_closure_context_x_OFP-A2_observed_open_geometry",
+  "phase": "mechanism_diagnostic",
+  "preanalysis": "docs/research/calendar_weekend_gap_context_v1_preanalysis_20260912.md",
+  "development_window": "2015-01-05..2020-12-31",
+  "annual_report_slices": [2015,2016,2017,2018,2019,2020],
+  "definitions": {
+    "observed_gap_rvol": "gap / rvol20",
+    "trend20_rvol": "r20 / (sqrt(20) * rvol20)",
+    "trend_gap_interaction": "observed_gap_rvol * trend20_rvol",
+    "log_rvol20": "log(rvol20)",
+    "candidate": "weekend_gap_interaction = weekend * observed_gap_rvol"
+  },
+  "baseline_controls": ["observed_gap_rvol","weekend","holiday_reopen","trend20_rvol","trend_gap_interaction","log_rvol20","r1","prev_daytime"],
+  "candidate_increment": ["weekend_gap_interaction"],
+  "target": "ret_0935_0950",
+  "target_formula": "close_0950 / close_0935 - 1",
+  "sufficiency_gates": {"each_calendar_year_complete_cases_min":150,"each_calendar_year_weekend_complete_cases_min":30},
+  "progression_gates": {
+    "pooled_partial_corr_and_standardized_coefficient_same_nonzero_sign": true,
+    "annual_standardized_coefficient_matching_pooled_sign_min": 4,
+    "calendar_year_count": 6,
+    "median_annual_standardized_coefficient_matches_pooled_sign": true,
+    "pooled_delta_r2": ">0",
+    "annual_positive_delta_r2_count_min": 4
+  },
+  "direction_frozen_before_DEV": false,
+  "successor_if_progresses_must_freeze_DEV_sign_before_validation": true,
+  "factor_runtime_root": "data/runtime_text_2015_2025",
+  "opening_clock_runtime_root": "data/runtime_text_2015_2025",
+  "forbidden_actions": ["search alternate weekdays","reconstruct closure length","merge weekend and holiday flags","search holiday-only replacement after outcomes","search thresholds/buckets","search alternate horizons","import C2 60m interaction into this 15m baseline","import B1/B2/B4 drivers","use downstream strategy PnL","use hidden BLACKBOX behavior"],
+  "future_2021_2025_blackbox_authorized_now": false,
+  "auto_promotion": false,
+  "production_authority": false
+}
