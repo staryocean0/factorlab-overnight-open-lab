@@ -1,0 +1,23 @@
+{
+  "schema_id": "overnight_downstream_timing_adapter_state@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_c1_b4_timing_confidence_adapter_v1",
+  "product_family": "OFP-E1_timing_adapter",
+  "status": "result_free_preregistered_pending_development_execution",
+  "data_usage": "docs/governance/downstream_timing_adapter_v1_data_usage.json",
+  "preanalysis": "docs/research/downstream_timing_adapter_v1_preanalysis_20260912.md",
+  "protocol": "docs/governance/downstream_timing_adapter_v1_protocol.json",
+  "candidate": "C1_direction_with_B4_zero_boundary_abstention",
+  "comparator": "C1_direction_without_B4_abstention",
+  "target": "ret_0935_0950",
+  "development_window": "2015-01-05..2020-12-31",
+  "outcome_opened": false,
+  "development_receipt": null,
+  "development_decision": null,
+  "future_2021_2025_blackbox_authorized": false,
+  "strategy_or_account_backtest_authorized": false,
+  "stock_selection_adapter_authorized_under_this_identity": false,
+  "validated_product_authority": false,
+  "production_authority": false,
+  "next_action": "cloud main agent verifies exact C1/B4 reconstruction from connector-readable 2015-2020 carriers, then runs the frozen six-year factor-utility diagnostic without changing the formula or opening any account/PnL evidence"
+}
