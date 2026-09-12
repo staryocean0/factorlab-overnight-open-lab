@@ -1,0 +1,22 @@
+{
+  "schema_id": "overnight_c3_blackbox_raw_1400_upload_receipt@1.0",
+  "research_identity": "overnight_previous_session_last_hour_conditioned_open_state_joint_30m_60m_v1",
+  "source_dataset_version": "bars_cn_index_1m_raw_canonical_market_index_baidu_3s_20000714_20260821_factorlab_unified_missing_day_repaired_v8_20260824",
+  "source_dataset_sha256": "25f4f9f8b67c799ffb1a7b7fdee94b0b21dbbfed1efc54d063264ccb046411f0",
+  "output_manifest": {
+    "path": "data/c3_blackbox_raw_1400_2020_2025/manifest.json",
+    "sha256": "252e105e75014650fba11465c1ca7057fbcfa20cde32c09889d3b89f0d6d2b69"
+  },
+  "read_start": "2020-11-01",
+  "read_end": "2025-12-31",
+  "symbol": "000852.SH",
+  "exact_clock": "14:00",
+  "scientific_diagnostic_performed": false,
+  "BLACKBOX_controller_run": false,
+  "BLACKBOX_decision_generated": false,
+  "query_5_created": false,
+  "2026_rows_loaded": false,
+  "feature_engineering_performed": false,
+  "target_engineering_performed": false,
+  "production_authority": false
+}

@@ -1,0 +1,38 @@
+{
+  "schema_id": "overnight_c3_blackbox_raw_1400_carrier@1.0",
+  "research_identity": "overnight_previous_session_last_hour_conditioned_open_state_joint_30m_60m_v1",
+  "purpose": "minimal_raw_1400_supplement_for_cloud_frozen_C3_joint_blackbox",
+  "source_dataset_version": "bars_cn_index_1m_raw_canonical_market_index_baidu_3s_20000714_20260821_factorlab_unified_missing_day_repaired_v8_20260824",
+  "source_dataset_sha256": "25f4f9f8b67c799ffb1a7b7fdee94b0b21dbbfed1efc54d063264ccb046411f0",
+  "read_window": {
+    "start": "2020-11-01",
+    "end": "2025-12-31"
+  },
+  "symbol": "000852.SH",
+  "index_name": "CSI1000",
+  "exact_clock": "14:00",
+  "columns": [
+    "trading_day",
+    "index_name",
+    "symbol",
+    "close_1400"
+  ],
+  "transform": {
+    "exact_clock_filter_only": true,
+    "feature_engineering": false,
+    "target_engineering": false,
+    "scientific_analysis": false,
+    "forward_fill": false,
+    "backward_fill": false,
+    "nearest_clock_substitution": false,
+    "resampling": false
+  },
+  "output": {
+    "path": "data/c3_blackbox_raw_1400_2020_2025/csi1000_close_1400_2020_2025.csv",
+    "sha256": "b15d5a2b36643ff363ceb496ad8c5b60058537d905097892fc6caa9783f6aa2b",
+    "bytes": 58595,
+    "rows": 1256,
+    "min_day": "2020-11-02",
+    "max_day": "2025-12-31"
+  }
+}
