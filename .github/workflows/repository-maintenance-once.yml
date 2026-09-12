@@ -1,0 +1,32 @@
+name: Repository maintenance inventory (one shot)
+on:
+  push:
+    branches: [maintenance/repository-consistency-20260912]
+    paths: ['.maintenance/**', '.github/workflows/repository-maintenance-once.yml']
+permissions:
+  contents: write
+concurrency:
+  group: repository-maintenance-20260912
+  cancel-in-progress: false
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - name: Scan metadata and source only
+        run: python .maintenance/scan.py
+      - name: Commit audit inventory to isolated maintenance branch
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/maintenance/20260912_*.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record baseline whole-tree inventory [skip ci]'
+            git push origin HEAD:maintenance/repository-consistency-20260912
+          fi
