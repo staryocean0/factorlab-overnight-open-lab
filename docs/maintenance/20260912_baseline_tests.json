@@ -1,0 +1,34 @@
+{
+  "baseline_commit": "0e28a6285745552a665d5b1cba11c9da73fbacd7",
+  "pytest_exit_code": 1,
+  "test_cases": 124,
+  "excluded_data_integration_tests": [
+    "tests/test_high_open_dev_pack_boundary.py",
+    "tests/test_no_future_and_baseline.py",
+    "tests/test_runtime_text_carrier.py"
+  ],
+  "exclusion_reason": "These tests parse real market carriers; cleanup does not need outcome rows. Preserve as historical integration tests, replace current boundary coverage with metadata and synthetic checks.",
+  "hard_data_and_network_io_barrier": true,
+  "failures": [
+    {
+      "test": "tests.test_gap_fill_v21_candidate_family::test_repo_state_authorizes_dev_only_via_separate_sa_review",
+      "kind": "failure",
+      "reason": "assert False is True"
+    },
+    {
+      "test": "tests.test_gap_fill_v21_evaluation_kernel::test_kernel_freeze_is_immutable_while_separate_state_authorizes_dev",
+      "kind": "failure",
+      "reason": "assert False is True"
+    },
+    {
+      "test": "tests.test_gap_fill_v21_regime_diagnostic_protocol::test_rd1_outputs_not_preexisting_before_execution",
+      "kind": "failure",
+      "reason": "AssertionError: assert not True\n +  where True = exists()\n +    where exists = (PosixPath('/home/runner/work/factorlab-overnight-open-lab/factorlab-overnight-open-lab') / 'docs/research/local_gap_fill_v21_regime_diagnostic_receipt_v1.json').exists"
+    },
+    {
+      "test": "tests.test_v21_session_complete_239_gate::test_contract_preserves_rd1_and_keeps_dev_sealed",
+      "kind": "failure",
+      "reason": "assert False is True"
+    }
+  ]
+}
