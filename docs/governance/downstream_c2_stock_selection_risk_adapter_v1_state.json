@@ -1,9 +1,9 @@
 {
-  "schema_id": "overnight_downstream_c2_stock_selection_risk_adapter_state@1.0",
+  "schema_id": "overnight_downstream_c2_stock_selection_risk_adapter_state@1.1",
   "session_date": "2026-09-12",
   "research_identity": "overnight_c2_stock_selection_risk_abstention_adapter_v1",
   "product_family": "OFP-E2_stock_selection_adapter",
-  "status": "result_free_preregistered_pending_development_execution",
+  "status": "DEV_INSUFFICIENT_closed_no_successor",
   "preanalysis": "docs/research/downstream_c2_stock_selection_risk_adapter_v1_preanalysis_20260912.md",
   "protocol": "docs/governance/downstream_c2_stock_selection_risk_adapter_v1_protocol.json",
   "consumer_repository": "staryocean0/factorlab-multifactor-stock-lab",
@@ -11,12 +11,15 @@
   "consumer_strategy_id": "REAKA_D5_H20_R5_CURRENT_GENERATION_V1",
   "candidate": "C2_zero_boundary_risk_abstention_on_frozen_REAKA_decisions",
   "development_window": "2015-01-05..2020-12-31",
-  "outcome_opened": false,
-  "development_receipt": null,
-  "development_decision": null,
+  "outcome_opened": true,
+  "development_receipt": "docs/research/cloud_downstream_c2_stock_selection_risk_adapter_v1_dev_diagnostic.json",
+  "development_adjudication": "docs/research/downstream_c2_stock_selection_risk_adapter_v1_dev_cloud_adjudication_20260912.md",
+  "development_decision": "E2V2_DEV_INSUFFICIENT",
   "future_2021_2025_validation_authorized": false,
+  "successor_authorized": false,
+  "rescue_search_authorized": false,
   "account_PnL_backtest_authorized": false,
   "validated_product_authority": false,
   "production_authority": false,
-  "next_action": "cloud main agent executes frozen six-year selection-quality diagnostic for both consumer clocks"
+  "next_action": "closed; insufficient active-decision support prevents progression adjudication under this identity"
 }
