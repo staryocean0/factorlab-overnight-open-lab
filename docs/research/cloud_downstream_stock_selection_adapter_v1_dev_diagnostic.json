@@ -1,0 +1,363 @@
+{
+  "2021_2025_scientific_rows_opened": false,
+  "account_PnL_backtest_opened": false,
+  "adapter_rule": "active iff driver_coherence >= 0",
+  "blackbox_query_created": false,
+  "candidate_attempt_count": 1,
+  "clock_selection": false,
+  "consumer": {
+    "consumer_contract": "docs/ops/reaka_current_k1_account_ledgers@1.5.json",
+    "consumer_parameter_mutation_authorized": false,
+    "decision_clocks": [
+      "14:30",
+      "14:45"
+    ],
+    "development_line_range_in_carrier": [
+      358,
+      943
+    ],
+    "model": "d8-h8-K1-r0_fit_prefix_successor_incumbent",
+    "ranking_mutation_authorized": false,
+    "repository": "staryocean0/factorlab-multifactor-stock-lab",
+    "selection_decision_carrier": "output/factor-rotation/reaka_current_k1_account_ledgers_v1_2011_2026/formal/selection_opportunity_decision_summary.csv",
+    "selection_decision_carrier_blob_sha": "8ad23f84d6664cb6e870e1667cbd4d06682a3626",
+    "selection_policy": "N30_equal_backfill_unconstrained",
+    "source_commit": "af2e478aaff5c8ef7f753424b57fd2d19019f248",
+    "strategy_id": "REAKA_D5_H20_R5_CURRENT_GENERATION_V1",
+    "topn_mutation_authorized": false
+  },
+  "decision": "E2_DEV_NO_PROGRESS",
+  "development_window": "2015-01-05..2020-12-31",
+  "diagnostics": {
+    "14:30": {
+      "by_year": {
+        "2015": {
+          "active_coverage": 0.5789473684210527,
+          "active_decision_count": 22,
+          "candidate_mean_selected_h20_return": -0.028142304711480694,
+          "candidate_mean_selection_gap": -0.4125159131091565,
+          "comparator_mean_selected_h20_return": 0.024466002809422075,
+          "comparator_mean_selection_gap": -0.4075610001079985,
+          "complete_decision_count": 38,
+          "delta_selected_h20_return": -0.05260830752090277,
+          "delta_selection_gap": -0.004954913001157968,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2016": {
+          "active_coverage": 0.5714285714285714,
+          "active_decision_count": 28,
+          "candidate_mean_selected_h20_return": 0.0012894099881770068,
+          "candidate_mean_selection_gap": -0.27550924556739587,
+          "comparator_mean_selected_h20_return": -0.0002691610051923673,
+          "comparator_mean_selection_gap": -0.27740345261382404,
+          "complete_decision_count": 49,
+          "delta_selected_h20_return": 0.0015585709933693742,
+          "delta_selection_gap": 0.0018942070464281757,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2017": {
+          "active_coverage": 0.5777777777777777,
+          "active_decision_count": 26,
+          "candidate_mean_selected_h20_return": -0.0041363941543726655,
+          "candidate_mean_selection_gap": -0.2843586263949831,
+          "comparator_mean_selected_h20_return": -0.007306045465297661,
+          "comparator_mean_selection_gap": -0.2904207530553045,
+          "complete_decision_count": 45,
+          "delta_selected_h20_return": 0.0031696513109249957,
+          "delta_selection_gap": 0.00606212666032141,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2018": {
+          "active_coverage": 0.5,
+          "active_decision_count": 24,
+          "candidate_mean_selected_h20_return": -0.04119635025357448,
+          "candidate_mean_selection_gap": -0.32729388893857453,
+          "comparator_mean_selected_h20_return": -0.03351544025869319,
+          "comparator_mean_selection_gap": -0.34038646728565086,
+          "complete_decision_count": 48,
+          "delta_selected_h20_return": -0.007680909994881288,
+          "delta_selection_gap": 0.013092578347076334,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2019": {
+          "active_coverage": 0.7391304347826086,
+          "active_decision_count": 34,
+          "candidate_mean_selected_h20_return": 0.015309153752784174,
+          "candidate_mean_selection_gap": -0.47375517919779275,
+          "comparator_mean_selected_h20_return": 0.018099424827889288,
+          "comparator_mean_selection_gap": -0.4742030517339343,
+          "complete_decision_count": 46,
+          "delta_selected_h20_return": -0.0027902710751051135,
+          "delta_selection_gap": 0.0004478725361415359,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2020": {
+          "active_coverage": 0.5652173913043478,
+          "active_decision_count": 26,
+          "candidate_mean_selected_h20_return": 0.019892284287949764,
+          "candidate_mean_selection_gap": -0.6669354452664243,
+          "comparator_mean_selected_h20_return": 0.010484749273672966,
+          "comparator_mean_selection_gap": -0.6499668711297454,
+          "complete_decision_count": 46,
+          "delta_selected_h20_return": 0.009407535014276798,
+          "delta_selection_gap": -0.01696857413667896,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        }
+      },
+      "gates": {
+        "all_annual_sufficiency_pass": true,
+        "annual_selection_gap_delta_not_worse_than_tolerance_count": 4,
+        "median_annual_selected_return_delta": -0.0006158500408678697,
+        "median_annual_selected_return_delta_nonnegative": false,
+        "minimum_annual_selection_gap_count_pass": true,
+        "minimum_positive_annual_selected_return_delta_count_pass": false,
+        "pooled_selected_return_delta_positive": false,
+        "pooled_selection_gap_delta_not_worse_than_tolerance": false,
+        "positive_annual_selected_return_delta_count": 3
+      },
+      "pooled": {
+        "active_coverage": 0.5882352941176471,
+        "active_decision_count": 160,
+        "candidate_mean_selected_h20_return": -0.004009845368760876,
+        "candidate_mean_selection_gap": -0.4092874015920992,
+        "comparator_mean_selected_h20_return": 0.0010804339993375313,
+        "comparator_mean_selection_gap": -0.40514480864378877,
+        "complete_decision_count": 272,
+        "delta_selected_h20_return": -0.005090279368098407,
+        "delta_selection_gap": -0.004142592948310431,
+        "sufficiency_active_pass": true,
+        "sufficiency_complete_pass": true,
+        "sufficiency_pass": true
+      },
+      "progression_pass": false
+    },
+    "14:45": {
+      "by_year": {
+        "2015": {
+          "active_coverage": 0.5789473684210527,
+          "active_decision_count": 22,
+          "candidate_mean_selected_h20_return": -0.024827023171682786,
+          "candidate_mean_selection_gap": -0.4078334290697321,
+          "comparator_mean_selected_h20_return": 0.026682811966031564,
+          "comparator_mean_selection_gap": -0.40422567805733367,
+          "complete_decision_count": 38,
+          "delta_selected_h20_return": -0.05150983513771435,
+          "delta_selection_gap": -0.003607751012398408,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2016": {
+          "active_coverage": 0.5714285714285714,
+          "active_decision_count": 28,
+          "candidate_mean_selected_h20_return": -0.0002600161215442036,
+          "candidate_mean_selection_gap": -0.27535869470236884,
+          "comparator_mean_selected_h20_return": -0.0012662476200499487,
+          "comparator_mean_selection_gap": -0.27771353154596445,
+          "complete_decision_count": 49,
+          "delta_selected_h20_return": 0.0010062314985057452,
+          "delta_selection_gap": 0.002354836843595609,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2017": {
+          "active_coverage": 0.5777777777777777,
+          "active_decision_count": 26,
+          "candidate_mean_selected_h20_return": -0.0043939683810958205,
+          "candidate_mean_selection_gap": -0.2836435399310481,
+          "comparator_mean_selected_h20_return": -0.006359399031144217,
+          "comparator_mean_selection_gap": -0.28836544494544847,
+          "complete_decision_count": 45,
+          "delta_selected_h20_return": 0.001965430650048397,
+          "delta_selection_gap": 0.0047219050144003405,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2018": {
+          "active_coverage": 0.5,
+          "active_decision_count": 24,
+          "candidate_mean_selected_h20_return": -0.0413614360960264,
+          "candidate_mean_selection_gap": -0.3260475685810682,
+          "comparator_mean_selected_h20_return": -0.03328705517543149,
+          "comparator_mean_selection_gap": -0.33987455460281657,
+          "complete_decision_count": 48,
+          "delta_selected_h20_return": -0.008074380920594905,
+          "delta_selection_gap": 0.013826986021748366,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2019": {
+          "active_coverage": 0.7391304347826086,
+          "active_decision_count": 34,
+          "candidate_mean_selected_h20_return": 0.015110100656383685,
+          "candidate_mean_selection_gap": -0.47365153271167226,
+          "comparator_mean_selected_h20_return": 0.016874190061679926,
+          "comparator_mean_selection_gap": -0.475290553020908,
+          "complete_decision_count": 46,
+          "delta_selected_h20_return": -0.001764089405296241,
+          "delta_selection_gap": 0.0016390203092357392,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        },
+        "2020": {
+          "active_coverage": 0.5652173913043478,
+          "active_decision_count": 26,
+          "candidate_mean_selected_h20_return": 0.020490782367265533,
+          "candidate_mean_selection_gap": -0.6629342112545219,
+          "comparator_mean_selected_h20_return": 0.011395700061020702,
+          "comparator_mean_selection_gap": -0.6442727891566529,
+          "complete_decision_count": 46,
+          "delta_selected_h20_return": 0.00909508230624483,
+          "delta_selection_gap": -0.01866142209786903,
+          "sufficiency_active_pass": true,
+          "sufficiency_complete_pass": true,
+          "sufficiency_pass": true
+        }
+      },
+      "gates": {
+        "all_annual_sufficiency_pass": true,
+        "annual_selection_gap_delta_not_worse_than_tolerance_count": 4,
+        "median_annual_selected_return_delta": -0.0003789289533952479,
+        "median_annual_selected_return_delta_nonnegative": false,
+        "minimum_annual_selection_gap_count_pass": true,
+        "minimum_positive_annual_selected_return_delta_count_pass": false,
+        "pooled_selected_return_delta_positive": false,
+        "pooled_selection_gap_delta_not_worse_than_tolerance": false,
+        "positive_annual_selected_return_delta_count": 3
+      },
+      "pooled": {
+        "active_coverage": 0.5882352941176471,
+        "active_decision_count": 160,
+        "candidate_mean_selected_h20_return": -0.003836805259546469,
+        "candidate_mean_selection_gap": -0.4076418386260484,
+        "comparator_mean_selected_h20_return": 0.0013542796402528662,
+        "comparator_mean_selection_gap": -0.4035252801308055,
+        "complete_decision_count": 272,
+        "delta_selected_h20_return": -0.005191084899799335,
+        "delta_selection_gap": -0.004116558495242895,
+        "sufficiency_active_pass": true,
+        "sufficiency_complete_pass": true,
+        "sufficiency_pass": true
+      },
+      "progression_pass": false
+    }
+  },
+  "joint_clock_progression_pass": false,
+  "magnitude_bucket_search": false,
+  "maximum_authority_if_progressed": "retrospective_E2_selection_quality_adapter_candidate_only",
+  "phase": "retrospective_selection_quality_diagnostic",
+  "product_family": "OFP-E2_stock_selection_adapter",
+  "production_authority": false,
+  "protocol": {
+    "path": "docs/governance/downstream_stock_selection_adapter_v1_protocol.json",
+    "sha256": "292bb3ac6f0ca8e8cbf4eec716f797e279984000795d246ecaae93f1328d6a65"
+  },
+  "ranking_mutation": false,
+  "research_identity": "overnight_b4_stock_selection_abstention_adapter_v1",
+  "schema_id": "overnight_downstream_stock_selection_adapter_dev_diagnostic@1.0",
+  "session_date": "2026-09-12",
+  "source_integrity": {
+    "B4": {
+      "B4_reconstruction_script_sha256": "5c40881a27d466437533002df3d46450c2e52d6bc94d773a4c71d8b57ccba80e",
+      "driver_carrier_receipt_sha256": "d320580ae7e4543ade17c5ef734cb9d31f0fc7986735829418925df5624c6d3c",
+      "driver_manifest_sha256": "b061f5e61259a1e3a624e76ad8950ac3c71635fa9653b9ac16113cd47df648bc",
+      "factor_driver_hashes": {
+        "2015": {
+          "driver_external": {
+            "path": "/home/runner/work/factorlab-overnight-open-lab/factorlab-overnight-open-lab/data/driver_runtime_text_2015_2020/driver_external_2015.csv",
+            "sha256": "e3f666b3d1c4c982ef8076bc2ec77dacc2a76caf5e0f96a9847a43166ab3cbce"
+          },
+          "factor_panel": {
+            "path": "/home/runner/work/factorlab-overnight-open-lab/factorlab-overnight-open-lab/data/runtime_text_2015_2025/factor_panel_2015.csv",
+            "sha256": "6463091e0a4f536717a148144c8566f35b73c62e05694e1c73226024b80326af"
+          }
+        },
+        "2016": {
+          "driver_external": {
+            "path": "/home/runner/work/factorlab-overnight-open-lab/factorlab-overnight-open-lab/data/driver_runtime_text_2015_2020/driver_external_2016.csv",
+            "sha256": "ab43aa6dc560f246f196fe3433840934ee2fee84b05d907ac3465c89f27b063e"
+          },
+          "factor_panel": {
+            "path": "/home/runner/work/factorlab-overnight-open-lab/factorlab-overnight-open-lab/data/runtime_text_2015_2025/factor_panel_2016.csv",
+            "sha256": "f1c0abd8dfd6dd40f91c0b8c93ba6f3c4cf685efd0b04832e0e80d74a6c99f51"
+          }
+        },
+        "2017": {
+          "driver_external": {
+            "path": "/home/runner/work/factorlab-overnight-open-lab/factorlab-overnight-open-lab/data/driver_runtime_text_2015_2020/driver_external_2017.csv",
+            "sha256": "f69b4641ef77471239213db9526f7eea9a36d67182ca40ec6d088919cf1b3d69"
+          },
+          "factor_panel": {
+            "path": "/home/runner/work/factorlab-overnight-open-lab/factorlab-overnight-open-lab/data/runtime_text_2015_2025/factor_panel_2017.csv",
+            "sha256": "395bf508ef6595474dd9f17282aa2d740bc93e342afa81401c9b05d3cf66e247"
+          }
+        },
+        "2018": {
+          "driver_external": {
+            "path": "/home/runner/work/factorlab-overnight-open-lab/factorlab-overnight-open-lab/data/driver_runtime_text_2015_2020/driver_external_2018.csv",
+            "sha256": "93443a8c802b0b763697656803fae701ee7fc9516fd8e8dea34c48c1c581eec6"
+          },
+          "factor_panel": {
+            "path": "/home/runner/work/factorlab-overnight-open-lab/factorlab-overnight-open-lab/data/runtime_text_2015_2025/factor_panel_2018.csv",
+            "sha256": "2fa36707c38e9e312fb87a13787bf4126e2b275b5881b89b884d852b7874abdb"
+          }
+        },
+        "2019": {
+          "driver_external": {
+            "path": "/home/runner/work/factorlab-overnight-open-lab/factorlab-overnight-open-lab/data/driver_runtime_text_2015_2020/driver_external_2019.csv",
+            "sha256": "d718032c211447b7f8c827e726170fa08d828d2234cf19f241e15dc516aab517"
+          },
+          "factor_panel": {
+            "path": "/home/runner/work/factorlab-overnight-open-lab/factorlab-overnight-open-lab/data/runtime_text_2015_2025/factor_panel_2019.csv",
+            "sha256": "c183709b84e08225346242690089d8dc90edc4b4114bb0e731691241d91029be"
+          }
+        },
+        "2020": {
+          "driver_external": {
+            "path": "/home/runner/work/factorlab-overnight-open-lab/factorlab-overnight-open-lab/data/driver_runtime_text_2015_2020/driver_external_2020.csv",
+            "sha256": "b72f704ae0513af5d960a7ab70e6e29464f72d9b84957b9db9598572d82842a1"
+          },
+          "factor_panel": {
+            "path": "/home/runner/work/factorlab-overnight-open-lab/factorlab-overnight-open-lab/data/runtime_text_2015_2025/factor_panel_2020.csv",
+            "sha256": "8b15f82b78b6026f5fa48207fd7a15f0a5b0e6a79f1d41501d6a5c6c79730923"
+          }
+        }
+      },
+      "factor_manifest_sha256": "10f7e5eada195541ae83fe14b7138e6a1ced939b7e278f811e7fb08c4147bb13"
+    },
+    "consumer": {
+      "blob_sha": "8ad23f84d6664cb6e870e1667cbd4d06682a3626",
+      "development_rows_materialized_only": true,
+      "first_post2020_row_used_only_as_stream_stop_sentinel": true,
+      "path": "output/factor-rotation/reaka_current_k1_account_ledgers_v1_2011_2026/formal/selection_opportunity_decision_summary.csv",
+      "post2020_values_parsed_for_science": false,
+      "repository": "staryocean0/factorlab-multifactor-stock-lab",
+      "source_commit": "af2e478aaff5c8ef7f753424b57fd2d19019f248"
+    }
+  },
+  "state_at_execution": {
+    "path": "docs/governance/downstream_stock_selection_adapter_v1_state.json",
+    "sha256": "73f2034c968985f0fe8a1016da57e10df5a7d54feeee5ceaddb7dd2c567c070f"
+  },
+  "strategy_execution_opened": false,
+  "threshold_search": false,
+  "topn_mutation": false,
+  "upstream_add_drop_search": false,
+  "validated_B4_query_id": "33ccb040dd0d1822f3b6"
+}
