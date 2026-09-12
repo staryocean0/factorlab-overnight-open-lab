@@ -1,3 +1,4 @@
+# technical retry: prior E2v3 computation completed with E2V3_DEV_NO_PROGRESS; receipt push lost a concurrent governance race; formula/gates unchanged
 name: One-shot E2v3 B2 stock-selection adapter development
 
 on:
