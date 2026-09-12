@@ -1,0 +1,23 @@
+{
+  "blackbox_consumed": false,
+  "blackbox_reusable_after_query": true,
+  "bootstrap_results_persisted": false,
+  "comparator": "same_frozen_15m_baseline_without_weekend_gap_interaction",
+  "counts_persisted": false,
+  "decision": "FAIL",
+  "failure_attribution_persisted": false,
+  "internal_metrics_persisted": false,
+  "parent_development_identity": "overnight_weekend_gap_conditioned_open_state_15m_v1",
+  "production_authority": false,
+  "protocol_sha256": "70859936411ab25c0b6262676df3300c745118eec27015828e9e4e391ea15770",
+  "public_detail_release": false,
+  "query_id": "85335f9aaae24c263cf6",
+  "reconstructed_panel_2015_2020_parity": "PASS",
+  "reconstruction_contract_sha256": "2c497f403959daa39819518b6352fa32ae0a0e4029e1d54dae1811762c770598",
+  "research_identity": "overnight_weekend_gap_conditioned_open_state_15m_blackbox_v1",
+  "reuse_is_independent_oos": false,
+  "schema_id": "overnight_calendar_weekend_gap_15m_blackbox_receipt@1.0",
+  "source_manifest_sha256": "7e17d6b9d8ea147b4320cd8b495e56989f973fef3c5e26ad1fe4cb9d01c4cdb5",
+  "target_clock_2019_2020_parity": "PASS",
+  "yearly_results_persisted": false
+}
