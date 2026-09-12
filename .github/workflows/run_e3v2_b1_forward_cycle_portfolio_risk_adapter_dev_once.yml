@@ -1,0 +1,48 @@
+name: One-shot E3v2 B1 forward-cycle portfolio-risk adapter development
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/run_e3v2_b1_forward_cycle_portfolio_risk_adapter_dev_once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  run-e3v2-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Checkout pinned consumer repository
+        uses: actions/checkout@v4
+        with:
+          repository: staryocean0/factorlab-multifactor-stock-lab
+          ref: af2e478aaff5c8ef7f753424b57fd2d19019f248
+          path: consumer
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install minimal dependencies
+        run: python -m pip install --disable-pip-version-check numpy pandas pyarrow
+      - name: Run frozen E3v2 development diagnostic
+        run: |
+          set -euo pipefail
+          test ! -e docs/research/cloud_downstream_b1_forward_cycle_portfolio_risk_adapter_v1_dev_diagnostic.json
+          python scripts/run_downstream_b1_forward_cycle_portfolio_risk_adapter_v1_dev_cloud.py --consumer-root consumer
+      - name: Commit E3v2 development receipt only
+        run: |
+          set -euo pipefail
+          rm -rf consumer
+          git status --short
+          test -f docs/research/cloud_downstream_b1_forward_cycle_portfolio_risk_adapter_v1_dev_diagnostic.json
+          EXTRA="$(git status --short | grep -v '^?? docs/research/cloud_downstream_b1_forward_cycle_portfolio_risk_adapter_v1_dev_diagnostic.json$' || true)"
+          test -z "$EXTRA"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/research/cloud_downstream_b1_forward_cycle_portfolio_risk_adapter_v1_dev_diagnostic.json
+          git commit -m "Record E3v2 B1 portfolio-risk adapter development diagnostic [skip ci]"
+          git push
