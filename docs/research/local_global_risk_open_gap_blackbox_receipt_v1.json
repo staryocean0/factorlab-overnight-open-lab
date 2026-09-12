@@ -1,0 +1,21 @@
+{
+  "blackbox_consumed": false,
+  "blackbox_reusable_after_query": true,
+  "bootstrap_results_persisted": false,
+  "comparator": "same_domestic_baseline_without_global_risk_z",
+  "counts_persisted": false,
+  "decision": "PASS",
+  "failure_attribution_persisted": false,
+  "internal_metrics_persisted": false,
+  "parent_development_identity": "overnight_global_risk_driver_v1",
+  "production_authority": false,
+  "protocol_sha256": "12ff2674fcb2db07bf6144e35c2115b47be9fc797af16b46e27daad9548b57d1",
+  "public_detail_release": false,
+  "query_id": "6b0b6899f94fd8353a34",
+  "reconstruction_contract_sha256": "2c497f403959daa39819518b6352fa32ae0a0e4029e1d54dae1811762c770598",
+  "research_identity": "overnight_global_risk_open_gap_v1",
+  "reuse_is_independent_oos": false,
+  "schema_id": "overnight_global_risk_open_gap_blackbox_receipt@1.0",
+  "source_manifest_sha256": "7e17d6b9d8ea147b4320cd8b495e56989f973fef3c5e26ad1fe4cb9d01c4cdb5",
+  "yearly_results_persisted": false
+}
