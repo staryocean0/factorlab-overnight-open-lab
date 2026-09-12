@@ -1,4 +1,4 @@
-name: One-shot sync authority after E3v2 closure
+name: One-shot finalize E2v3 B2 stock-selection DEV closure
 
 on:
   push:
@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 jobs:
-  sync-authority:
+  finalize-e2v3:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,17 +19,19 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Reconcile authority and registry
+      - name: Close E2v3 from frozen Development receipt
         run: |
           set -euo pipefail
           python - <<'PY'
           import json
           from pathlib import Path
 
-          LEDGER = Path('docs/governance/overnight_reusable_blackbox_query_ledger_v1.json')
-          STATE = Path('docs/governance/downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_state.json')
+          RECEIPT = Path('docs/research/cloud_downstream_b2_stock_selection_offshore_risk_adapter_v1_dev_diagnostic.json')
+          ADJ = Path('docs/research/downstream_b2_stock_selection_offshore_risk_adapter_v1_dev_cloud_adjudication_20260912.md')
+          STATE = Path('docs/governance/downstream_b2_stock_selection_offshore_risk_adapter_v1_state.json')
           AUTH = Path('docs/governance/current_authority_v1.json')
           REG = Path('docs/governance/overnight_factor_product_registry_v1.json')
+          LEDGER = Path('docs/governance/overnight_reusable_blackbox_query_ledger_v1.json')
 
           def load(p):
               return json.loads(p.read_text(encoding='utf-8'))
@@ -37,158 +39,167 @@ jobs:
           def dump(p, x):
               p.write_text(json.dumps(x, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
 
+          r = load(RECEIPT)
+          assert r['research_identity'] == 'overnight_b2_stock_selection_offshore_risk_abstention_adapter_v1'
+          assert r['decision'] == 'E2V3_DEV_NO_PROGRESS'
+          assert r['joint_clock_progression_pass'] is False
+          assert r['2021_2025_scientific_rows_opened'] is False
+          assert r['account_PnL_backtest_opened'] is False
+          assert r['blackbox_query_created'] is False
+          assert r['candidate_attempt_count'] == 1
+          for clock in ['14:30','14:45']:
+              assert r['diagnostics'][clock]['gates']['all_annual_sufficiency_pass'] is True
+              assert r['diagnostics'][clock]['progression_pass'] is False
+
           ledger = load(LEDGER)
+          assert ledger['query_count'] == 12
+
+          adj_lines = [
+              '# OFP-E2 v3 B2 stock-selection offshore-risk adapter — Development adjudication',
+              '',
+              'Date: 2026-09-12',
+              '',
+              'Research identity: `overnight_b2_stock_selection_offshore_risk_abstention_adapter_v1`',
+              '',
+              '## Frozen identity',
+              '',
+              '- consumer: pinned `REAKA_D5_H20_R5_CURRENT_GENERATION_V1` at commit `af2e478aaff5c8ef7f753424b57fd2d19019f248`;',
+              '- clocks: 14:30 and 14:45 jointly;',
+              '- upstream: validated B2 `china_offshore_z`, reusable query `608e037b0d24724b097b`;',
+              '- adapter: whole decision active iff `china_offshore_z >= 0`, otherwise abstain;',
+              '- development window: `2015-01-05..2020-12-31`;',
+              '- primary utility: `selected_mean_h20_return`;',
+              '- selection-quality safeguard: selected return minus oracle return;',
+              '- no ranking, Top30, weights, consumer parameter, threshold, bucket, holiday split, clock selection, account-PnL, or upstream-product mutation.',
+              '',
+              '## Development result',
+              '',
+              '**`E2V3_DEV_NO_PROGRESS`**',
+              '',
+              'Both clocks pass every preregistered annual sufficiency gate, so this is not an insufficient-data result.',
+              '',
+              'For 14:30, pooled selected-return delta is positive, but only 3 of 6 annual selected-return deltas are positive and the pooled selection-gap delta is worse than the frozen -0.002 tolerance; the annual selection-gap count gate also fails.',
+              '',
+              'For 14:45, pooled selected-return delta is positive, but only 3 of 6 annual selected-return deltas are positive and the pooled selection-gap delta is worse than the frozen -0.002 tolerance. The annual selection-gap count gate passes, but the full joint progression contract does not.',
+              '',
+              'Therefore neither clock passes the frozen progression contract, and the joint-clock rule fails.',
+              '',
+              '## Authority consequence',
+              '',
+              '- no reusable 2021-2025 validation successor;',
+              '- no new reusable BLACKBOX query; ledger remains 12;',
+              '- no account-PnL backtest;',
+              '- no validated E2v3 product;',
+              '- no threshold/bucket/clock rescue;',
+              '- validated upstream B2 remains valid;',
+              '- `production_authority=false`.',
+              '',
+              'The observed Development details are evidence for this exact frozen adapter only. They do not authorize changing the B2 zero boundary, selecting a clock, mutating the consumer, or constructing an outcome-tuned successor.'
+          ]
+          assert not ADJ.exists()
+          ADJ.write_text('\n'.join(adj_lines) + '\n', encoding='utf-8')
+
           state = load(STATE)
-          q12 = next((q for q in ledger.get('queries', []) if int(q.get('ordinal', -1)) == 12), None)
-          assert ledger.get('query_count') == 12
-          assert q12 is not None
-          assert q12.get('query_id') == 'ce859f9c94f281b0ec49'
-          assert q12.get('decision') == 'FAIL'
-          assert q12.get('research_identity') == 'overnight_b1_forward_cycle_portfolio_risk_abstention_validation_v1'
-          assert state.get('blackbox_query_id') == q12['query_id']
-          assert state.get('blackbox_result') == 'FAIL'
-          assert state.get('validated_product_authority') is False
-          assert state.get('production_authority') is False
+          assert state['schema_id'] == 'overnight_downstream_b2_stock_selection_offshore_risk_adapter_state@1.0'
+          assert state['status'] == 'result_free_preregistered_pending_development_execution'
+          state['schema_id'] = 'overnight_downstream_b2_stock_selection_offshore_risk_adapter_state@1.1'
+          state['status'] = 'DEV_NO_PROGRESS_closed_no_successor'
+          state['outcome_opened'] = True
+          state['development_receipt'] = str(RECEIPT)
+          state['development_adjudication'] = str(ADJ)
+          state['development_decision'] = r['decision']
+          state['joint_clock_progression_pass'] = False
+          state['future_2021_2025_validation_authorized'] = False
+          state['blackbox_query_created'] = False
+          state['blackbox_ledger_query_count_after'] = 12
+          state['account_PnL_backtest_authorized'] = False
+          state['validated_product_authority'] = False
+          state['successor_authorized'] = False
+          state['rescue_search_authorized'] = False
+          state['production_authority'] = False
+          state['next_action'] = 'closed; no automatic successor or rescue under this identity'
+          dump(STATE, state)
 
           auth = load(AUTH)
-          assert auth.get('schema_id') == 'overnight_open_current_authority@1.30'
-          assert auth.get('active_research', {}).get('identity') == q12['research_identity']
-          auth['schema_id'] = 'overnight_open_current_authority@1.31'
+          assert auth['schema_id'] == 'overnight_open_current_authority@1.31'
+          auth['schema_id'] = 'overnight_open_current_authority@1.32'
           auth['active_research'] = None
           rd = auth.setdefault('recent_downstream_research', {})
-          if 'E3v2_parent' in rd:
-              rd['E3v2_parent']['status'] = 'DEV_progression_closed_by_reusable_BLACKBOX_FAIL'
-          rd['E3v2_validation'] = {
-              'identity': q12['research_identity'],
-              'status': 'BLACKBOX_FAIL_closed_no_validated_E3v2_product',
-              'decision': 'FAIL',
-              'blackbox_query_id': q12['query_id'],
-              'blackbox_ledger_ordinal': 12,
-              'validated_product_authority': False,
-              'account_execution_authority': False,
+          rd['E2v3'] = {
+              'identity': r['research_identity'],
+              'status': 'DEV_NO_PROGRESS_closed_no_successor',
+              'decision': r['decision'],
+              'development_receipt': str(RECEIPT),
+              'development_adjudication': str(ADJ),
+              'future_2021_2025_validation_authorized': False,
+              'blackbox_query_created': False,
               'production_authority': False
           }
-          auth.setdefault('recent_completed_research', {})['E3_v2'] = {
-              'identity': q12['research_identity'],
-              'status': 'BLACKBOX_FAIL_closed_no_validated_E3v2_product',
-              'blackbox_query_id': q12['query_id'],
-              'blackbox_ledger_ordinal': 12
+          auth.setdefault('recent_completed_research', {})['E2_v3'] = {
+              'identity': r['research_identity'],
+              'status': 'DEV_NO_PROGRESS_closed_no_successor'
           }
-          auth.setdefault('closed_or_waiting', {})['E3_v2_B1_forward_cycle_portfolio_risk_adapter'] = 'completed_FAIL_query_12_no_validated_product'
+          auth.setdefault('closed_or_waiting', {})['E2_v3_B2_stock_selection_adapter'] = 'DEV_NO_PROGRESS_closed_no_successor'
           auth['blackbox_ledger_query_count'] = 12
-          hard = [x for x in auth.get('hard_rules', []) if not x.startswith('E3v2 validation must ') and not x.startswith('A PASS for E3v2 ')]
-          additions = [
-              'E3v2 reusable query 12 is FAIL; no hidden-behavior diagnosis, threshold search, magnitude bucket search, clock selection, B1 reweighting, target change, consumer mutation, or automatic rescue is authorized.',
-              'E3v2 BLACKBOX FAIL is an adapter-contract result only and does not revoke validated upstream B1 authority.'
-          ]
-          for x in additions:
+          hard = auth.setdefault('hard_rules', [])
+          for x in [
+              'E2v3 B2 stock-selection adapter is DEV_NO_PROGRESS; no nonzero B2 threshold, magnitude bucket, holiday split, clock selection, consumer mutation, or automatic rescue is authorized from that Development result.',
+              'E2v3 DEV_NO_PROGRESS is an adapter-contract result only and does not revoke validated upstream B2 authority.'
+          ]:
               if x not in hard:
                   hard.append(x)
-          auth['hard_rules'] = hard
-          auth['next_action'] = 'No additional outcome-bearing research is automatically authorized. Maintain the validated shelf and wait for a separately motivated result-free identity or the already-frozen Gap-Fill V2 true-fresh date gate. Cloud main remains research authority and should request the user only for a concrete missing-data dependency.'
+          auth['next_action'] = 'No additional outcome-bearing research is automatically authorized. Maintain the validated shelf and wait for a separately motivated result-free identity or the already-frozen Gap-Fill V2 true-fresh date gate. Cloud main remains research authority.'
           auth['production_authority'] = False
           dump(AUTH, auth)
 
           reg = load(REG)
-          assert reg.get('schema_id') == 'overnight_factor_product_registry@1.12'
-          reg['schema_id'] = 'overnight_factor_product_registry@1.13'
-          products = {p['product_id']: p for p in reg.get('products', [])}
-
-          products['OFP-B1'].update({
-              'status': 'validated_BLACKBOX_PASS_continuous_factor_product',
-              'research_identity': 'overnight_global_risk_open_gap_v1',
-              'blackbox_query_id': '6b0b6899f94fd8353a34',
-              'blackbox_ledger_ordinal': 8,
-              'validated_product_authority': True
-          })
-          products['OFP-B2'].update({
-              'status': 'validated_BLACKBOX_PASS_continuous_factor_product',
-              'research_identity': 'overnight_china_offshore_open_gap_v1',
-              'blackbox_query_id': '608e037b0d24724b097b',
-              'blackbox_ledger_ordinal': 9,
-              'validated_product_authority': True
-          })
-          products['OFP-B3'].update({
-              'status': 'closed_after_BLACKBOX_FAIL_no_validated_B3_product',
-              'research_identity': 'overnight_fx_cny_open_gap_v1',
-              'blackbox_query_id': '34699d9d9b3ca36d1a6d',
-              'blackbox_ledger_ordinal': 10,
-              'validated_product_authority': False,
-              'rescue_search_authorized': False
-          })
-          products['OFP-C2'].update({
-              'status': 'validated_BLACKBOX_PASS_60m_continuous_factor_product',
-              'blackbox_query_id': 'a1068de9321c04632aad',
-              'blackbox_ledger_ordinal': 7,
-              'blackbox_query_opened': True,
-              'validated_product_authority': True,
-              'validated_interaction': 'observed_gap_rvol * log(rvol20)',
-              'validated_target': '09:35_to_10:35_return'
-          })
-          products['OFP-C4'].update({
-              'status': 'closed_after_BLACKBOX_FAIL_no_validated_C4_product',
-              'research_identity': 'overnight_weekend_gap_conditioned_open_state_15m_blackbox_v1',
-              'blackbox_query_id': '85335f9aaae24c263cf6',
-              'blackbox_ledger_ordinal': 11,
-              'validated_product_authority': False,
-              'rescue_search_authorized': False,
-              'consumer_roles': ['historical_negative_evidence']
-          })
-          products['OFP-E1'].update({
-              'status': 'latest_v2_DEV_NO_PROGRESS_closed_no_successor',
-              'latest_identity': 'overnight_c1_c2_timing_agreement_adapter_v1',
-              'latest_decision': 'E1V2_DEV_NO_PROGRESS',
-              'latest_state': 'docs/governance/downstream_c1_c2_timing_agreement_adapter_v1_state.json',
-              'latest_adjudication': 'docs/research/downstream_c1_c2_timing_agreement_adapter_v1_dev_cloud_adjudication_20260912.md',
-              'prior_identity': 'overnight_c1_b4_timing_confidence_adapter_validation_v1',
-              'prior_status': 'BLACKBOX_FAIL_closed_no_validated_E1_product',
-              'successor_authorized': False
-          })
-          products['OFP-E2'].update({
-              'status': 'latest_v2_DEV_INSUFFICIENT_closed_no_successor',
-              'latest_identity': 'overnight_c2_stock_selection_risk_abstention_adapter_v1',
-              'latest_decision': 'E2V2_DEV_INSUFFICIENT',
-              'latest_state': 'docs/governance/downstream_c2_stock_selection_risk_adapter_v1_state.json',
-              'latest_adjudication': 'docs/research/downstream_c2_stock_selection_risk_adapter_v1_dev_cloud_adjudication_20260912.md',
-              'consumer_repository': 'staryocean0/factorlab-multifactor-stock-lab',
-              'consumer_strategy_id': 'REAKA_D5_H20_R5_CURRENT_GENERATION_V1',
-              'prior_identity': 'overnight_b4_stock_selection_abstention_adapter_v1',
-              'prior_status': 'DEV_NO_PROGRESS_closed_no_successor',
-              'successor_authorized': False
-          })
-          products['OFP-E3'].update({
-              'status': 'latest_v2_BLACKBOX_FAIL_closed_no_validated_E3v2_product',
-              'latest_identity': q12['research_identity'],
-              'latest_parent_development_identity': 'overnight_b1_forward_cycle_portfolio_risk_abstention_v1',
-              'latest_decision': 'FAIL',
+          assert reg['schema_id'] == 'overnight_factor_product_registry@1.13'
+          reg['schema_id'] = 'overnight_factor_product_registry@1.14'
+          e2 = next(p for p in reg['products'] if p['product_id'] == 'OFP-E2')
+          previous_latest_identity = e2.get('latest_identity')
+          previous_latest_status = e2.get('status')
+          e2.update({
+              'status': 'latest_v3_DEV_NO_PROGRESS_closed_no_successor',
+              'latest_identity': r['research_identity'],
+              'latest_decision': r['decision'],
               'latest_state': str(STATE),
-              'latest_adjudication': 'docs/research/downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_blackbox_cloud_adjudication_20260912.md',
-              'blackbox_query_id': q12['query_id'],
-              'blackbox_ledger_ordinal': 12,
-              'validated_product_authority': False,
+              'latest_adjudication': str(ADJ),
+              'latest_upstream_product': 'OFP-B2',
+              'latest_upstream_query_id': '608e037b0d24724b097b',
+              'latest_consumer_repository': 'staryocean0/factorlab-multifactor-stock-lab',
+              'latest_consumer_strategy_id': 'REAKA_D5_H20_R5_CURRENT_GENERATION_V1',
+              'previous_latest_identity': previous_latest_identity,
+              'previous_latest_status': previous_latest_status,
               'successor_authorized': False,
-              'account_execution_authority': False,
+              'future_2021_2025_validation_authorized': False,
+              'blackbox_query_created': False,
               'production_authority': False
           })
           reg['active_research_identity'] = None
           reg['active_research_status'] = None
-          reg['deferred_frozen_identity'] = None
           reg['waiting_validation_identity'] = None
           reg['next_research_identity'] = None
-          reg['next_research_note'] = 'No outcome-bearing successor is automatically authorized after E3v2 query 12 FAIL. Maintain the validated shelf; wait for a separately motivated result-free identity or the frozen Gap-Fill V2 true-fresh date gate.'
+          reg['next_research_note'] = 'E2v3 B2 adapter closed DEV_NO_PROGRESS. No outcome-bearing successor is automatically authorized; maintain the validated shelf or wait for a separately motivated result-free identity / frozen Gap-Fill V2 true-fresh date gate.'
           reg['blackbox_ledger_query_count'] = 12
           reg['production_authority'] = False
           dump(REG, reg)
 
-          print(json.dumps({'authority':'1.31','ledger':12,'e3v2':'FAIL','active_research':None,'production_authority':False}, sort_keys=True))
+          print(json.dumps({'E2v3':r['decision'],'ledger':12,'active_research':None,'production_authority':False}, sort_keys=True))
           PY
-      - name: Commit synchronized governance pointers
+      - name: Commit closure and remove one-shot workflows
         run: |
           set -euo pipefail
-          git status --short
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/governance/current_authority_v1.json docs/governance/overnight_factor_product_registry_v1.json
-          git diff --cached --quiet && { echo 'No governance changes staged'; exit 1; }
-          git commit -m "Synchronize authority after E3v2 query 12 closure [skip ci]"
+          rm -f .github/workflows/run_e2v3_b2_stock_selection_adapter_dev_once.yml
+          rm -f .github/workflows/finalize_e3v2_validation_once.yml
+          git add -A \
+            docs/research/downstream_b2_stock_selection_offshore_risk_adapter_v1_dev_cloud_adjudication_20260912.md \
+            docs/governance/downstream_b2_stock_selection_offshore_risk_adapter_v1_state.json \
+            docs/governance/current_authority_v1.json \
+            docs/governance/overnight_factor_product_registry_v1.json \
+            .github/workflows/run_e2v3_b2_stock_selection_adapter_dev_once.yml \
+            .github/workflows/finalize_e3v2_validation_once.yml
+          git commit -m "Close E2v3 B2 stock-selection adapter DEV_NO_PROGRESS [skip ci]"
+          git pull --rebase origin main
           git push
