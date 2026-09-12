@@ -1,0 +1,18 @@
+{
+  "schema_id": "overnight_calendar_weekend_gap_context_state@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_weekend_gap_conditioned_open_state_15m_v1",
+  "product_family": "OFP-C4_calendar_closure_context_x_OFP-A2_observed_open_geometry",
+  "status": "result_free_preregistered_pending_cloud_development_execution",
+  "preanalysis": "docs/research/calendar_weekend_gap_context_v1_preanalysis_20260912.md",
+  "protocol": "docs/governance/calendar_weekend_gap_context_v1_protocol.json",
+  "candidate": "weekend_gap_interaction",
+  "target": "ret_0935_0950",
+  "development_window": "2015-01-05..2020-12-31",
+  "outcome_opened": false,
+  "development_receipt": null,
+  "development_decision": null,
+  "future_2021_2025_blackbox_authorized": false,
+  "blackbox_query_created": false,
+  "production_authority": false
+}
