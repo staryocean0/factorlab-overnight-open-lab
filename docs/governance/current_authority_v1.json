@@ -1,41 +1,31 @@
 {
-  "schema_id": "overnight_open_current_authority@1.15",
+  "schema_id": "overnight_open_current_authority@1.16",
   "session_date": "2026-09-12",
   "repository_role": "overnight_open_factor_product_laboratory_and_downstream_factor_adapter",
   "program": "docs/governance/overnight_factor_product_program_v1.md",
   "registry": "docs/governance/overnight_factor_product_registry_v1.json",
-  "active_research": {
+  "active_research": null,
+  "recent_completed_research": {
     "identity": "overnight_c1_b4_timing_confidence_adapter_validation_v1",
     "parent_development_identity": "overnight_c1_b4_timing_confidence_adapter_v1",
     "product_family": "OFP-E1_timing_adapter",
-    "status": "reusable_BLACKBOX_protocol_frozen_query_unopened_pending_cloud_execution",
+    "status": "BLACKBOX_FAIL_closed_no_validated_E1_product",
+    "development_decision": "E1_DEV_PROGRESS_RETROSPECTIVE_FACTOR_UTILITY_ADAPTER_CANDIDATE",
     "development_receipt": "docs/research/cloud_downstream_timing_adapter_v1_dev_diagnostic.json",
     "development_authority": "docs/research/downstream_timing_adapter_v1_dev_cloud_adjudication_20260912.md",
     "blackbox_protocol": "docs/governance/downstream_timing_adapter_validation_v1_blackbox_protocol.json",
     "blackbox_state": "docs/governance/downstream_timing_adapter_validation_v1_state.json",
-    "blackbox_controller": "scripts/run_downstream_timing_adapter_validation_v1_blackbox.py",
-    "candidate": "c1_action if driver_coherence * sign(observed_gap_rvol) >= 0 else 0",
-    "comparator": "c1_action",
-    "target": "ret_0935_0950",
-    "validation_window": "2021-01-01..2025-12-31",
-    "blackbox_query_opened": false,
-    "ledger_entry_created": false,
-    "expected_next_ledger_ordinal": 6,
-    "authority_if_PASS": "validated_E1_factor_utility_adapter_contract_only",
-    "account_or_strategy_authority_if_PASS": false,
-    "public_detail_release": false,
-    "production_authority": false
-  },
-  "recent_completed_research": {
-    "identity": "overnight_c1_b4_timing_confidence_adapter_v1",
-    "product_family": "OFP-E1_timing_adapter",
-    "status": "DEV_progression_retrospective_factor_utility_candidate_waiting_separate_validation_identity",
-    "development_decision": "E1_DEV_PROGRESS_RETROSPECTIVE_FACTOR_UTILITY_ADAPTER_CANDIDATE",
-    "development_receipt": "docs/research/cloud_downstream_timing_adapter_v1_dev_diagnostic.json",
-    "development_authority": "docs/research/downstream_timing_adapter_v1_dev_cloud_adjudication_20260912.md",
-    "pooled_candidate_signed_utility_positive": false,
+    "blackbox_receipt": "docs/research/local_downstream_timing_adapter_validation_v1_blackbox_receipt.json",
+    "blackbox_authority": "docs/research/downstream_timing_adapter_validation_v1_blackbox_cloud_adjudication_20260912.md",
+    "blackbox_result": "FAIL",
+    "blackbox_query_id": "1d8e01c69f555a7d721c",
+    "blackbox_ledger_ordinal": 6,
+    "reconstructed_panel_2015_2020_parity": "PASS",
+    "target_clock_2019_2020_parity": "PASS",
+    "parent_DEV_progression_retained_as_historical_material": true,
     "validated_product_authority": false,
-    "strategy_or_account_authority": false,
+    "account_or_strategy_authority": false,
+    "rescue_search_authorized": false,
     "production_authority": false
   },
   "previous_completed_research": {
@@ -81,22 +71,11 @@
     "C3_joint_successor_BLACKBOX": "completed_FAIL_query_5_no_validated_product",
     "B4_driver_coherence_BLACKBOX": "completed_PASS_query_3",
     "D1_joint_successor_BLACKBOX": "completed_FAIL_query_4_no_validated_product",
+    "E1_timing_adapter_validation": "completed_FAIL_query_6_no_validated_product",
     "V21_P2_successor": "closed_at_DEV_no_successor_evidence_insufficient",
     "Gap_Fill_V2_true_fresh": "wait_for_complete_2026_08_24_to_2026_12_31_and_protocol_date_gate",
-    "E2_stock_selection_adapter": "deferred_requires_separate_result_free_identity_and_consumer_contract",
-    "E3_portfolio_risk_adapter": "deferred_requires_separate_result_free_identity_and_consumer_contract"
-  },
-  "runtime_text_packs": {
-    "factor_open_development": {
-      "path": "data/runtime_text_2015_2025/",
-      "published_window": "2015-01-05..2020-12-31",
-      "parity_receipt": "docs/research/runtime_text_carrier_parity_receipt_v1.json"
-    },
-    "driver_open_development": {
-      "path": "data/driver_runtime_text_2015_2020/",
-      "published_window": "2015-01-05..2020-12-31",
-      "carrier_receipt": "docs/research/driver_runtime_text_carrier_parity_receipt_v1.json"
-    }
+    "E2_stock_selection_adapter": "deferred_requires_separate_result_free_identity_and_explicit_frozen_consumer_strategy",
+    "E3_portfolio_risk_adapter": "deferred_requires_separate_result_free_identity_and_explicit_frozen_consumer_contract"
   },
   "downstream_adapter_boundary": "docs/governance/downstream_adapter_research_boundary_v1.json",
   "strategy_slice_rebuild_boundary": {
@@ -105,20 +84,21 @@
     "twelve_session_strategy_completion_claimed": false,
     "future_executable_consumer_requires_separate_identity_SSA_and_account_audit": true
   },
-  "blackbox_ledger_query_count": 5,
+  "blackbox_ledger_query_count": 6,
   "hard_rules": [
-    "Do not decompose completed reusable BLACKBOX queries or expose E1 validation hidden metrics/yearly/bootstrap details.",
-    "Do not use downstream strategy PnL to tune upstream factors or the E1 adapter.",
+    "Do not decompose E1 query 6 or inspect hidden annual metrics, counts, bootstrap support or failure attribution.",
+    "E1 query 6 is FAIL; do not rescue with nonzero B4 thresholds, magnitude buckets, fitted C1/B4 weights, alternate horizons, alternate sign conventions, or adding A1/A4/C2/C3/D1 under the failed identity.",
+    "E1 parent DEV progression remains retrospective historical material only and grants no validated adapter authority.",
+    "Do not use downstream strategy PnL to tune upstream factors or a successor adapter definition.",
     "Do not execute deferred C2 60m BLACKBOX unless explicitly reactivated.",
-    "E1 direction is frozen to validated C1; B4 may only abstain at the semantic zero alignment boundary.",
-    "Do not fit weights, search thresholds/buckets, search alternate horizons, or add/drop upstream products under E1 v1 after DEV outcomes were seen.",
-    "E1 reusable validation tests relative factor-utility improvement only; PASS does not imply positive absolute utility or profitable executable strategy.",
-    "Any E1 validation PASS grants only validated factor-utility adapter contract authority; executable strategy work still requires a separate consumer identity plus applicable Strategy Slice Rebuild, SSA and post-training account audit.",
+    "Any new downstream adapter must be a separately preregistered result-free identity motivated independently of hidden BLACKBOX behavior.",
+    "E2 stock-selection work requires an explicitly named frozen consumer strategy and may only scale/abstain it; this repository may not manufacture stock-specific alpha from market-level factors.",
+    "E3 portfolio-risk work requires an explicitly named frozen consumer/account contract.",
+    "Any executable consumer still requires applicable Strategy Slice Rebuild, Strategy Science Acceptance and post-training account audit; factor-utility evidence is not a substitute.",
     "Reuse of 2021-2025 is not independent OOS.",
-    "E2/E3 require separate result-free identities and consumer contracts.",
     "Do not open post-2026-08-21 outcomes except under separately frozen protocol.",
     "Production authority remains false."
   ],
-  "next_action": "cloud main agent executes the frozen compact E1 reusable validation controller after reconstruction and target-clock parity gates; if a valid compact receipt is produced, register exactly one logical BLACKBOX query #6 and adjudicate E1 factor-utility adapter authority without opening account/PnL evidence",
+  "next_action": "no automatic E1 rescue is authorized. The next downstream research step, if pursued, must start with a new result-free E2 stock-selection or E3 portfolio-risk identity bound to an explicitly named frozen consumer strategy/account contract; otherwise remain idle. Do not infer a consumer or strategy from E1 failure behavior.",
   "production_authority": false
 }
