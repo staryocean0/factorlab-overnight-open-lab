@@ -1,0 +1,131 @@
+{
+  "schema_id": "overnight_downstream_timing_adapter_protocol@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_c1_b4_timing_confidence_adapter_v1",
+  "product_family": "OFP-E1_timing_adapter",
+  "phase": "retrospective_factor_utility_diagnostic",
+  "data_usage": "docs/governance/downstream_timing_adapter_v1_data_usage.json",
+  "preanalysis": "docs/research/downstream_timing_adapter_v1_preanalysis_20260912.md",
+  "upstream_authorities": {
+    "A2_observed_open_geometry": {
+      "role": "foundational_observed_gap_coordinate",
+      "formula": "observed_gap_rvol = gap / rvol20"
+    },
+    "C1_validated_15m": {
+      "identity": "overnight_trend_conditioned_open_state_15m_v1",
+      "authority": "docs/research/trend_conditioned_open_state_15m_blackbox_cloud_adjudication_20260911.md",
+      "formula": "trend_gap_interaction = trend20_rvol * observed_gap_rvol",
+      "validated_target": "09:35_to_09:50_return",
+      "frozen_direction": "negative"
+    },
+    "B4_validated_driver_coherence": {
+      "identity": "overnight_driver_coherence_open_gap_v1",
+      "authority": "docs/research/driver_coherence_open_gap_blackbox_cloud_adjudication_20260912.md",
+      "protocol": "docs/governance/driver_coherence_open_gap_blackbox_protocol_v1.json",
+      "formula": "(global_risk_z + china_offshore_z + fx_cny_z) / (abs(global_risk_z) + abs(china_offshore_z) + abs(fx_cny_z))",
+      "normalization": "exact frozen lagged trailing RMS over 60 China trading days with current observation excluded"
+    }
+  },
+  "excluded_upstream_products": {
+    "A1_expected_open": "not_needed_for_v1_mechanism",
+    "A4_gap_fill": "excluded_from_v1; existing evidence label / true-fresh wait unchanged",
+    "C2_prior_volatility": "frozen_unopened_deferred_not_imported",
+    "C3_previous_session_shape": "BLACKBOX_FAIL_no_validated_product",
+    "D1_relative_index_open": "BLACKBOX_FAIL_no_validated_product",
+    "A3_opening_surprise": "closed_identity",
+    "V21_P2": "closed_identity"
+  },
+  "availability_clock": "09:35:00_China_time",
+  "definitions": {
+    "observed_gap_rvol": "gap / rvol20",
+    "trend20_rvol": "r20 / (sqrt(20) * rvol20)",
+    "trend_gap_interaction": "observed_gap_rvol * trend20_rvol",
+    "c1_direction_score": "-trend_gap_interaction",
+    "sign_convention": "sign(x)=+1 if x>0, -1 if x<0, 0 if x==0",
+    "c1_action": "sign(c1_direction_score)",
+    "gap_sign": "sign(observed_gap_rvol)",
+    "driver_alignment": "driver_coherence * gap_sign",
+    "comparator_action": "c1_action",
+    "candidate_action": "c1_action if driver_alignment >= 0 else 0"
+  },
+  "candidate_family": {
+    "attempt_count": 1,
+    "candidate": "B4_zero_boundary_abstention_overlay_on_C1_direction",
+    "free_parameters": 0,
+    "fitted_weights": false,
+    "threshold_search": false,
+    "only_boundary": 0,
+    "boundary_reason": "semantic sign agreement/disagreement boundary frozen before outcomes"
+  },
+  "target": {
+    "id": "ret_0935_0950",
+    "formula": "close_0950 / close_0935 - 1",
+    "reason": "C1 authority is 15m only"
+  },
+  "development_window": "2015-01-05..2020-12-31",
+  "annual_report_slices": [2015, 2016, 2017, 2018, 2019, 2020],
+  "complete_case": {
+    "all_frozen_inputs_finite": true,
+    "rvol20_positive": true,
+    "driver_coherence_denominator_nonzero": true,
+    "no_forward_fill": true,
+    "no_backward_fill": true
+  },
+  "diagnostics": [
+    "complete_case_count",
+    "candidate_active_day_count",
+    "candidate_coverage",
+    "comparator_active_day_count",
+    "candidate_active_hit_rate",
+    "comparator_hit_rate",
+    "mean_comparator_signed_utility",
+    "mean_candidate_signed_utility",
+    "delta_mean_signed_utility"
+  ],
+  "utility_definitions": {
+    "comparator_signed_utility": "comparator_action * ret_0935_0950",
+    "candidate_signed_utility": "candidate_action * ret_0935_0950",
+    "delta_mean_signed_utility": "mean(candidate_signed_utility) - mean(comparator_signed_utility)",
+    "cash_index_is_directly_tradable_claim": false,
+    "strategy_PnL_claim": false,
+    "cost_model_used": false
+  },
+  "sufficiency_gates": {
+    "minimum_complete_cases_each_year": 150,
+    "minimum_candidate_active_days_each_year": 30
+  },
+  "progression_gates": {
+    "pooled_delta_mean_signed_utility": ">0",
+    "minimum_positive_annual_delta_count": 4,
+    "annual_year_count": 6,
+    "median_annual_delta": ">=0"
+  },
+  "progression_authority_if_pass": "retrospective_factor_utility_adapter_candidate_only",
+  "account_or_strategy_authority_if_pass": false,
+  "strategy_slice_boundary": {
+    "current_strategy_slice_12_session_workflow_claimed_complete": false,
+    "reason": "authority-bearing CSI1000 inputs are structurally unavailable for 2009-2014",
+    "future_executable_consumer_requires_separate_identity": true,
+    "strategy_science_acceptance_required": true,
+    "post_training_account_audit_required": true,
+    "do_not_weaken_current_strategy_skill": true
+  },
+  "future_blackbox_2021_2025_authorized_now": false,
+  "future_blackbox_requires_separate_result_free_protocol": true,
+  "same_2021_2025_reuse_would_be_independent_OOS": false,
+  "forbidden_actions": [
+    "fit B4 or C1 weights",
+    "search nonzero driver-alignment thresholds",
+    "search B4 magnitude thresholds or quantiles",
+    "search alternate C1 sign conventions",
+    "search 30m or 60m horizons",
+    "import A1, A4, C2, C3 or D1 after seeing v1 outcomes",
+    "use hidden BLACKBOX behavior from queries 1-5",
+    "optimize strategy PnL or costs",
+    "map the cash index directly to executable positions",
+    "claim stock-specific alpha",
+    "grant production authority"
+  ],
+  "auto_promotion": false,
+  "production_authority": false
+}
