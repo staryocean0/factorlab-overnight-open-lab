@@ -1,6 +1,6 @@
 # FactorLab Overnight Open Lab
 
-This repository is the **Overnight/Open factor-product laboratory** for FactorLab. It researches causal information around the next China open and packages reusable coordinates for downstream timing, stock-selection, execution, and risk systems. It is not required to produce one standalone all-day Overnight strategy.
+This repository is the **Overnight/Open factor-product laboratory and downstream factor-adapter lab** for FactorLab. It researches causal information around the next China open, freezes reusable factor coordinates, and tests narrowly defined downstream timing / stock-selection / portfolio-risk adapters.
 
 `production_authority=false`.
 
@@ -8,114 +8,89 @@ This repository is the **Overnight/Open factor-product laboratory** for FactorLa
 
 Read in this order:
 
-1. `docs/governance/current_authority_v1.json`
-2. `docs/governance/overnight_factor_product_program_v1.md`
-3. `docs/governance/overnight_factor_product_registry_v1.json`
-4. the active identity state + protocol
-5. `docs/ops/README.md`
+1. `docs/governance/current_authority_v1.json` — canonical execution pointer;
+2. `docs/governance/overnight_factor_product_program_v1.md` — stable program architecture;
+3. `docs/governance/overnight_factor_product_registry_v1.json` — product shelf and adapter registry;
+4. the state / protocol / adjudication for the identity being inspected;
+5. `docs/ops/README.md` for operational material.
 
-For model/factor/strategy changes also follow `.codex/skills/strategy-slice-rebuild/SKILL.md`.
+Historical runners, README text, archived protocols, or prior research plans do **not** reopen a closed identity.
 
-## Current active research — C2 60m volatility-conditioned opening state
+## Current authority — 2026-09-12
 
-Active identity:
+There is currently **no active outcome-bearing research identity**.
 
-`overnight_volatility_conditioned_open_state_60m_v1`
+The latest completed downstream line is:
 
-Product family:
+`overnight_b2_stock_selection_offshore_risk_abstention_adapter_v1`
 
-`OFP-C2 prior_volatility_context × OFP-A2 observed_open_geometry`
+It used validated B2 `china_offshore_z` as a zero-boundary whole-decision abstention overlay on the frozen `REAKA_D5_H20_R5_CURRENT_GENERATION_V1` stock-selection consumer. Its six-year Development result is:
 
-Frozen continuous coordinates:
+`E2V3_DEV_NO_PROGRESS`
 
-```text
-observed_gap_rvol = observed_gap / rvol20
-trend20_rvol = r20 / (sqrt(20) * rvol20)
-trend_gap_interaction = observed_gap_rvol * trend20_rvol
-log_rvol20 = log(rvol20)
-vol_gap_interaction = observed_gap_rvol * log_rvol20
-```
-
-The validated C1 `trend_gap_interaction` stays in the C2 baseline so C2 must add information beyond trend-conditioned opening state.
-
-Frozen target:
-
-`09:35 -> 10:35`
-
-The 2019-2020 C2 development diagnostic was executed in the cloud from the bounded CSV development carrier. The adjudication was:
-
-`C2_DEV_PROGRESS_60M_CONTINUOUS_COORDINATE_ONLY`
-
-The 15-minute C2 interaction failed cross-year stability. The 30-minute interaction was directionally stable but too weak/uneven for progression. The 60-minute interaction was stable enough to justify a separately frozen reusable BLACKBOX identity.
-
-Development authority:
-
-`docs/research/volatility_conditioned_open_state_dev_cloud_adjudication_20260911.md`
-
-The current stage is a **reusable 2021-2025 aggregate BLACKBOX**. Public scientific output may be only:
-
-- `PASS`
-- `FAIL`
-- `INSUFFICIENT`
-
-Execute locally with:
-
-```bash
-git pull --ff-only
-bash scripts/run_volatility_conditioned_open_state_60m_blackbox.sh
-```
-
-Expected compact receipt:
-
-`docs/research/local_volatility_conditioned_open_state_60m_blackbox_receipt_v1.json`
+Both 14:30 and 14:45 clocks had sufficient Development support, but neither passed the full frozen progression contract. No reusable 2021-2025 validation was authorized, no new BLACKBOX query was created, no account-PnL backtest was opened, and no successor/rescue is authorized from that result.
 
 Authority:
 
-- state: `docs/governance/volatility_conditioned_open_state_60m_state_v1.json`
-- protocol: `docs/governance/volatility_conditioned_open_state_60m_blackbox_protocol_v1.json`
-- handoff: `docs/ops/volatility_conditioned_open_state_60m_blackbox_handoff_20260911.md`
-- reusable BLACKBOX policy: `docs/governance/overnight_reusable_blackbox_policy_v1.json`
+- state: `docs/governance/downstream_b2_stock_selection_offshore_risk_adapter_v1_state.json`
+- adjudication: `docs/research/downstream_b2_stock_selection_offshore_risk_adapter_v1_dev_cloud_adjudication_20260912.md`
+- Development receipt: `docs/research/cloud_downstream_b2_stock_selection_offshore_risk_adapter_v1_dev_diagnostic.json`
 
-Still forbidden:
+Immediately before E2v3, E3v2 `overnight_b1_forward_cycle_portfolio_risk_abstention_validation_v1` reached reusable validation and returned sealed BLACKBOX `FAIL` as query **#12** (`ce859f9c94f281b0ec49`). That result closes the exact E3 adapter contract only; it does not revoke validated upstream B1.
 
-- high-vol / low-vol threshold search;
-- volatility quantile buckets;
-- alternate volatility lookbacks;
-- alternate target horizons;
-- changing the validated C1 baseline control;
-- Opening Surprise rescue terms;
-- downstream strategy PnL optimization;
-- detailed 2021-2025 result release or public BLACKBOX CSV export.
+## Validated reusable shelf
 
-## Product shelf status
+Current authority-bearing reusable products include:
 
-- **OFP-A1 Expected Open State** — stable confirmed components.
-- **OFP-A2 Observed Open Geometry** — active foundational coordinate.
-- **OFP-A3 Opening Surprise** — closed after DEV stability failure; no BLACKBOX opened.
-- **OFP-A4 Gap-Fill Hazard** — frozen/repeat-confirmed; true-fresh 2026Q4 challenge remains separately gated.
-- **OFP-C1 Prior Trend Context** — validated BLACKBOX-PASS 15-minute continuous factor product.
-- **OFP-C2 Prior Volatility Context** — 60-minute continuous candidate at frozen reusable BLACKBOX stage.
-- **OFP-B4 Driver Agreement/Disagreement** — planned after active C2 adjudication.
-- **OFP-D1 Relative Index Open** — planned as a separate identity.
+- **V6A Global Spillover** — PASS;
+- **OFP-B1 Global Risk Driver** — BLACKBOX PASS, validated continuous factor product;
+- **OFP-B2 China-Specific Offshore Driver** — BLACKBOX PASS, validated continuous factor product;
+- **OFP-C1 Prior Trend Context** — BLACKBOX PASS, validated 15-minute continuous factor product;
+- **OFP-C2 Prior Volatility Context** — BLACKBOX PASS, validated 60-minute continuous factor product;
+- **OFP-B4 Driver Coherence** — BLACKBOX PASS, validated continuous factor product;
+- **OFP-A4 Gap-Fill V2** — frozen/repeat-confirmed; true-fresh evaluation remains separately date-gated.
 
-Do not multiply the shelf into a Cartesian regime factory. Continuous coordinates come before categorical adapter views.
+These are shelf products only at their validated identities. A categorical view, alternate threshold, bucket, horizon, sign, weighting, or downstream mapping requires a separately motivated result-free identity before outcome evidence is opened.
 
-## Stable prediction authority
+## Important closed lines
 
-Repository-wide next-open architecture remains:
+Closed negative / insufficient evidence remains part of the research record but is not an active candidate:
 
-`median_quantile_sign + abs_frozen_clock_signed_prediction`
+- Opening Surprise A3 — Development closed, no standalone validated A3 product;
+- B3 FX driver — reusable BLACKBOX FAIL, no validated B3 product;
+- C3 previous-session-shape successor — reusable BLACKBOX FAIL;
+- C4 weekend-gap candidate — reusable BLACKBOX FAIL (#11);
+- D1 relative-index successor — reusable BLACKBOX FAIL;
+- E1 timing adapters — latest v2 closed `DEV_NO_PROGRESS`;
+- E2 stock-selection adapters — v1 `DEV_NO_PROGRESS`, v2 `DEV_INSUFFICIENT`, latest v3 `DEV_NO_PROGRESS`;
+- E3 portfolio-risk adapters — v1 `DEV_INSUFFICIENT`; latest v2 reusable BLACKBOX FAIL (#12);
+- A1 validated-driver adapter — `DEV_NO_PROGRESS`.
 
-The global-spillover single-head baseline remains:
+Downstream adapter closures must not be reinterpreted as failures of their upstream validated factors.
 
-`V6A_plus_ordinary_A50_preauction_closure`
+## Reusable BLACKBOX boundary
 
-Its completed reusable 2021-2025 BLACKBOX decision is `PASS`; hidden details remain sealed.
+The reusable BLACKBOX ledger contains **12** opened logical queries.
+
+Completed queries remain sealed at their permitted public decision surfaces. Hidden rows, years, quarters, bootstrap support, residuals, failure attribution, or other hidden behavior may not be used to design successors. Reusing 2021-2025 does not create a new independent OOS sample.
+
+Do not open post-2026-08-21 outcomes except under a separately frozen protocol.
+
+## What happens next
+
+No additional outcome-bearing research is automatically authorized at this breakpoint.
+
+The repository should remain on the validated shelf until either:
+
+1. a **separately motivated, result-free** identity is frozen under cloud-main research authority; or
+2. the already-frozen Gap-Fill V2 true-fresh protocol reaches its date gate after the complete `2026-08-24..2026-12-31` block exists.
+
+The cloud main agent owns research authority. The user should be interrupted only for a concrete missing-data dependency or an explicit status request.
 
 ## Data and archive
 
-The connector-readable CSV carrier under `data/development/trend_open_state_dev_pack_2019_2020/` is limited to the already-opened 2019-2020 development interval. It does not expose the reusable 2021-2025 BLACKBOX.
+Repository data carriers have explicit evidence boundaries. Historical files are not automatically active. Read `data/README.md`, `docs/governance/package_scope.json`, and the identity-specific protocol before opening evidence.
 
-The yearly runtime text pack under `data/runtime_text_2015_2025/` is also connector-readable, but only 2015-2020 shards are present. It does not replace parquet provenance and does not open the reusable 2021-2025 BLACKBOX.
+For model/factor/strategy changes also follow `.codex/skills/strategy-slice-rebuild/SKILL.md`.
 
-Read `data/README.md` and `docs/governance/package_scope.json` for data boundaries. Historical files are not automatically active; `docs/governance/current_authority_v1.json` is the canonical execution pointer.
+`production_authority=false`.
