@@ -1,0 +1,91 @@
+{
+  "schema_id": "overnight_downstream_b1_forward_cycle_portfolio_risk_adapter_protocol@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_b1_forward_cycle_portfolio_risk_abstention_v1",
+  "product_family": "OFP-E3_portfolio_risk_adapter",
+  "phase": "retrospective_account_overlay_utility_risk_diagnostic",
+  "preanalysis": "docs/research/downstream_b1_forward_cycle_portfolio_risk_adapter_v1_preanalysis_20260912.md",
+  "consumer": {
+    "repository": "staryocean0/factorlab-multifactor-stock-lab",
+    "source_commit": "af2e478aaff5c8ef7f753424b57fd2d19019f248",
+    "strategy_id": "REAKA_D5_H20_R5_CURRENT_GENERATION_V1",
+    "model": "d8-h8-K1-r0_fit_prefix_successor_incumbent",
+    "account_policy": "N30_equal_backfill_unconstrained",
+    "variants": ["14:30", "14:45"],
+    "replay_segment": "2011_2020",
+    "daily_carrier": "output/factor-rotation/reaka_current_k1_account_ledgers_v1_2011_2026/formal/account_snapshot/portfolio_daily.parquet",
+    "daily_carrier_sha256": "8f6be84836d7839642e3cf722639887be339fa3f660c274b16d7c0a2b56ae1a5",
+    "snapshot_manifest": "output/factor-rotation/reaka_current_k1_account_ledgers_v1_2011_2026/formal/account_snapshot/snapshot_manifest.json",
+    "snapshot_manifest_blob_sha": "74a55807fac00b316cb0cdd2d93e0f9bbdbcc9a3",
+    "account_mutation_authorized": false,
+    "consumer_parameter_mutation_authorized": false
+  },
+  "upstream": {
+    "product_id": "OFP-B1",
+    "research_identity": "overnight_global_risk_open_gap_v1",
+    "authority": "docs/research/global_risk_open_gap_blackbox_cloud_adjudication_20260912.md",
+    "validated_query_id": "6b0b6899f94fd8353a34",
+    "coordinate": "global_risk_z",
+    "expected_direction": "positive",
+    "normalization": "lagged trailing RMS 60 China trading days with current observation excluded"
+  },
+  "excluded_upstream_products": ["A1", "A4", "B2", "B3", "B4", "C1", "C2", "C3", "C4", "D1", "E1", "E2"],
+  "adapter": {
+    "semantic_boundary": 0.0,
+    "comparator_exposure": 1.0,
+    "candidate_exposure_rule": "1 if global_risk_z >= 0 else 0",
+    "free_parameters": 0,
+    "threshold_search": false,
+    "magnitude_bucket_search": false,
+    "clock_selection": false,
+    "candidate_attempt_count": 1,
+    "executed_cash_trade_claim": false
+  },
+  "target": {
+    "id": "forward_5_account_return",
+    "formula": "product(1 + daily_return for the five trading days strictly after decision date) - 1",
+    "decision_day_return_included": false,
+    "future_window_length_trading_days": 5,
+    "reason": "D5 consumer decision cycle; avoids claiming same-day 14:30/14:45 liquidation execution"
+  },
+  "risk_metric": {
+    "id": "downside_mean",
+    "formula": "mean(min(utility, 0))",
+    "higher_is_better": true
+  },
+  "development_window": "2015-01-05..2020-12-31",
+  "annual_report_slices": [2015, 2016, 2017, 2018, 2019, 2020],
+  "consumer_variants": ["14:30", "14:45"],
+  "sufficiency_gates": {
+    "minimum_complete_decisions_each_clock_year": 20,
+    "minimum_active_decisions_each_clock_year": 8
+  },
+  "progression_gates_each_clock": {
+    "pooled_mean_utility_delta": ">0",
+    "minimum_positive_annual_mean_utility_delta_count": 4,
+    "median_annual_mean_utility_delta": ">=0",
+    "pooled_downside_mean_delta": ">=0",
+    "minimum_nonnegative_annual_downside_mean_delta_count": 4
+  },
+  "joint_clock_rule": "both_14_30_and_14_45_must_pass_all_progression_gates",
+  "maximum_authority_if_pass": "retrospective_E3_portfolio_risk_adapter_candidate_only",
+  "account_execution_backtest_authorized": false,
+  "cost_or_fill_model_authorized": false,
+  "future_2021_2025_validation_authorized_now": false,
+  "future_validation_requires_separate_compact_protocol": true,
+  "same_2021_2025_reuse_is_independent_oos": false,
+  "forbidden_actions": [
+    "search nonzero B1 thresholds",
+    "search B1 magnitude buckets or quantiles",
+    "change NASDAQ/VIX weights or RMS window",
+    "change forward target length after outcomes",
+    "include decision-day return after outcomes",
+    "choose one consumer clock after outcomes",
+    "mutate consumer account policy or model",
+    "add upstream factors after outcomes",
+    "optimize costs or fills under this identity",
+    "use hidden BLACKBOX behavior as design input",
+    "claim production authority"
+  ],
+  "production_authority": false
+}
