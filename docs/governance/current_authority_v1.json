@@ -1,5 +1,5 @@
 {
-  "schema_id": "overnight_open_current_authority@1.26",
+  "schema_id": "overnight_open_current_authority@1.27",
   "session_date": "2026-09-12",
   "repository_role": "overnight_open_factor_product_laboratory_and_downstream_factor_adapter",
   "program": "docs/governance/overnight_factor_product_program_v1.md",
@@ -13,20 +13,27 @@
     "production_authority": false
   },
   "active_research": {
-    "identity": "overnight_weekend_gap_conditioned_open_state_15m_v1",
+    "identity": "overnight_weekend_gap_conditioned_open_state_15m_blackbox_v1",
+    "parent_development_identity": "overnight_weekend_gap_conditioned_open_state_15m_v1",
     "product_family": "OFP-C4_calendar_closure_context_x_OFP-A2_observed_open_geometry",
-    "status": "result_free_preregistered_pending_cloud_development_execution",
-    "preanalysis": "docs/research/calendar_weekend_gap_context_v1_preanalysis_20260912.md",
-    "protocol": "docs/governance/calendar_weekend_gap_context_v1_protocol.json",
-    "state": "docs/governance/calendar_weekend_gap_context_v1_state.json",
+    "status": "reusable_BLACKBOX_protocol_frozen_query_unopened_pending_cloud_execution",
+    "development_receipt": "docs/research/cloud_calendar_weekend_gap_context_v1_dev_diagnostic.json",
+    "development_authority": "docs/research/calendar_weekend_gap_context_v1_dev_cloud_adjudication_20260912.md",
+    "blackbox_protocol": "docs/governance/calendar_weekend_gap_15m_blackbox_protocol_v1.json",
+    "blackbox_state": "docs/governance/calendar_weekend_gap_15m_blackbox_state_v1.json",
+    "blackbox_controller": "scripts/run_calendar_weekend_gap_15m_blackbox.py",
     "candidate": "weekend_gap_interaction",
     "target": "ret_0935_0950",
-    "development_window": "2015-01-05..2020-12-31",
-    "outcome_opened": false,
-    "future_2021_2025_blackbox_authorized": false,
+    "frozen_expected_sign": "positive",
+    "validation_window": "2021-01-01..2025-12-31",
+    "blackbox_query_opened": false,
+    "ledger_entry_created": false,
+    "expected_next_ledger_ordinal": 11,
+    "public_detail_release": false,
     "production_authority": false
   },
   "recent_completed_research": {
+    "C4_DEV": {"identity":"overnight_weekend_gap_conditioned_open_state_15m_v1","status":"DEV_progression_supported_waiting_separate_validation_identity","development_decision":"C4_DEV_PROGRESS_WEEKEND_GAP_15M_CONTINUOUS_INTERACTION","frozen_development_sign":"positive"},
     "B3": {"identity":"overnight_fx_cny_open_gap_v1","status":"BLACKBOX_FAIL_closed_no_validated_B3_product","blackbox_query_id":"34699d9d9b3ca36d1a6d","blackbox_ledger_ordinal":10,"validated_product_authority":false},
     "B2": {"identity":"overnight_china_offshore_open_gap_v1","status":"BLACKBOX_PASS_validated_continuous_B2_china_offshore_factor_product","blackbox_query_id":"608e037b0d24724b097b","blackbox_ledger_ordinal":9,"validated_product_authority":true},
     "B1": {"identity":"overnight_global_risk_open_gap_v1","status":"BLACKBOX_PASS_validated_continuous_B1_global_risk_factor_product","blackbox_query_id":"6b0b6899f94fd8353a34","blackbox_ledger_ordinal":8,"validated_product_authority":true},
@@ -47,13 +54,12 @@
   "blackbox_ledger_query_count": 10,
   "hard_rules": [
     "Do not decompose completed reusable BLACKBOX queries or use hidden behavior to design successors.",
-    "B3 query 10 is FAIL; no sign, interpolation, threshold, normalization or channel-combination rescue is authorized.",
-    "C4 v1 tests exactly one regular-weekend opening-gap interaction at the 15-minute target; do not search weekday encodings, holiday replacement, closure length, thresholds, buckets or alternate horizons.",
-    "C4 baseline includes validated C1 interaction but does not import the horizon-specific C2 60m interaction or B1/B2/B4 drivers.",
-    "If C4 progresses, any reusable validation successor must freeze the pooled Development sign before opening 2021-2025.",
+    "C4 validation preserves the exact weekend-gap interaction, 15m target, frozen baseline and positive Development sign.",
+    "Do not search weekdays, holiday replacements, closure lengths, thresholds, buckets, alternate horizons or additional upstream products under C4 validation.",
+    "C4 validation public output is compact PASS/FAIL/INSUFFICIENT only; do not persist or expose hidden metrics, counts, years, bootstrap statistics or failure attribution.",
     "Reuse of 2021-2025 is not independent OOS.",
     "Production authority remains false."
   ],
-  "next_action": "cloud main agent executes and adjudicates the frozen 2015-2020 C4 weekend-gap 15m mechanism diagnostic; only if progression is supported may a separate compact reusable validation identity be frozen",
+  "next_action": "cloud main agent executes exactly one compact C4 weekend-gap 15m reusable BLACKBOX query through the parity-gated reconstruction and exact-clock target path, verifies provenance, registers query #11 only after a valid compact receipt, and adjudicates without user consultation unless concrete missing data blocks execution",
   "production_authority": false
 }
