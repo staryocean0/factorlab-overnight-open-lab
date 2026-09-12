@@ -1,0 +1,20 @@
+{
+  "schema_id": "overnight_downstream_b1_forward_cycle_portfolio_risk_adapter_validation_state@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_b1_forward_cycle_portfolio_risk_abstention_validation_v1",
+  "parent_development_identity": "overnight_b1_forward_cycle_portfolio_risk_abstention_v1",
+  "product_family": "OFP-E3_portfolio_risk_adapter",
+  "status": "BLACKBOX_protocol_frozen_query_unopened_pending_cloud_execution",
+  "protocol": "docs/governance/downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_blackbox_protocol.json",
+  "parent_development_receipt": "docs/research/cloud_downstream_b1_forward_cycle_portfolio_risk_adapter_v1_dev_diagnostic.json",
+  "parent_development_adjudication": "docs/research/downstream_b1_forward_cycle_portfolio_risk_adapter_v1_dev_cloud_adjudication_20260912.md",
+  "candidate": "B1_zero_boundary_whole_portfolio_abstention_over_next_D5_cycle",
+  "validation_window": "2021-01-01..2025-12-31",
+  "blackbox_query_opened": false,
+  "ledger_entry_created": false,
+  "expected_next_ledger_ordinal": 12,
+  "public_detail_release": false,
+  "validated_product_authority": false,
+  "account_execution_authority": false,
+  "production_authority": false
+}
