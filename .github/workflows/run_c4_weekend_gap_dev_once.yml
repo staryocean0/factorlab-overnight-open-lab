@@ -1,3 +1,4 @@
+# technical retry 1: duplicate weekend-column selection fix; no prior C4 receipt persisted
 name: One-shot C4 weekend-gap development
 on:
   push:
