@@ -1,27 +1,44 @@
 {
-  "schema_id": "overnight_open_current_authority@1.13",
+  "schema_id": "overnight_open_current_authority@1.14",
   "session_date": "2026-09-12",
   "repository_role": "overnight_open_factor_product_laboratory_and_downstream_factor_adapter",
   "program": "docs/governance/overnight_factor_product_program_v1.md",
   "registry": "docs/governance/overnight_factor_product_registry_v1.json",
-  "active_research": null,
+  "active_research": {
+    "identity": "overnight_c1_b4_timing_confidence_adapter_v1",
+    "product_family": "OFP-E1_timing_adapter",
+    "status": "result_free_preregistered_pending_development_execution",
+    "data_usage": "docs/governance/downstream_timing_adapter_v1_data_usage.json",
+    "preanalysis": "docs/research/downstream_timing_adapter_v1_preanalysis_20260912.md",
+    "protocol": "docs/governance/downstream_timing_adapter_v1_protocol.json",
+    "state": "docs/governance/downstream_timing_adapter_v1_state.json",
+    "global_adapter_boundary": "docs/governance/downstream_adapter_research_boundary_v1.json",
+    "cloud_handoff": "docs/ops/downstream_timing_adapter_v1_handoff_20260912.md",
+    "availability_clock": "09:35:00_China_time",
+    "direction_source": "validated_C1_15m_only",
+    "confidence_veto_source": "validated_B4_driver_coherence_only",
+    "observed_open_source": "OFP-A2_observed_gap_rvol",
+    "candidate": "c1_action if driver_coherence * sign(observed_gap_rvol) >= 0 else 0",
+    "comparator": "c1_action",
+    "target": "ret_0935_0950",
+    "development_window": "2015-01-05..2020-12-31",
+    "annual_report_slices": [2015, 2016, 2017, 2018, 2019, 2020],
+    "outcome_opened": false,
+    "account_or_strategy_backtest_authorized": false,
+    "future_2021_2025_blackbox_authorized": false,
+    "maximum_authority_if_DEV_passes": "retrospective_factor_utility_adapter_candidate_only",
+    "production_authority": false
+  },
   "recent_completed_research": {
     "identity": "overnight_previous_session_last_hour_conditioned_open_state_joint_30m_60m_v1",
     "parent_development_identity": "overnight_previous_session_last_hour_conditioned_open_state_v1",
     "product_family": "OFP-C3_previous_china_session_shape_x_OFP-A2_observed_open_geometry",
     "status": "BLACKBOX_FAIL_closed_no_validated_C3_product",
-    "development_receipt": "docs/research/cloud_previous_session_shape_dev_diagnostic_v1.json",
-    "development_authority": "docs/research/previous_china_session_shape_dev_cloud_adjudication_20260912.md",
-    "blackbox_protocol": "docs/governance/previous_session_last_hour_conditioned_open_state_joint_30m_60m_blackbox_protocol_v1.json",
-    "blackbox_receipt": "docs/research/local_previous_session_last_hour_conditioned_open_state_joint_blackbox_receipt_v1.json",
-    "blackbox_authority": "docs/research/previous_session_last_hour_conditioned_open_state_joint_blackbox_cloud_adjudication_20260912.md",
     "blackbox_result": "FAIL",
     "blackbox_query_id": "6370829e0cb0b084badd",
     "blackbox_ledger_ordinal": 5,
-    "factor_reconstruction_2020_overlap_parity": "PASS",
     "validated_product_authority": false,
     "rescue_search_authorized": false,
-    "public_detail_release": false,
     "production_authority": false
   },
   "previous_completed_research": {
@@ -61,13 +78,13 @@
     "Opening_Surprise_A3": "closed_after_DEV_no_standalone_product_promotion_stability_failure",
     "C1_15m_BLACKBOX": "completed_PASS_query_2",
     "C2_60m_BLACKBOX": "frozen_unopened_deferred",
-    "C3_parent_DEV": "closed_after_DEV_progression_supported_30m_and_60m_shared_coordinate",
     "C3_joint_successor_BLACKBOX": "completed_FAIL_query_5_no_validated_product",
     "B4_driver_coherence_BLACKBOX": "completed_PASS_query_3",
-    "D1_parent_DEV": "closed_after_DEV_progression_supported_15m_30m_60m_shared_continuous_coordinate",
     "D1_joint_successor_BLACKBOX": "completed_FAIL_query_4_no_validated_product",
     "V21_P2_successor": "closed_at_DEV_no_successor_evidence_insufficient",
-    "Gap_Fill_V2_true_fresh": "wait_for_complete_2026_08_24_to_2026_12_31_and_protocol_date_gate"
+    "Gap_Fill_V2_true_fresh": "wait_for_complete_2026_08_24_to_2026_12_31_and_protocol_date_gate",
+    "E2_stock_selection_adapter": "deferred_requires_separate_result_free_identity_and_consumer_contract",
+    "E3_portfolio_risk_adapter": "deferred_requires_separate_result_free_identity_and_consumer_contract"
   },
   "runtime_text_packs": {
     "factor_open_development": {
@@ -94,33 +111,40 @@
     },
     "relative_index_blackbox_raw": {
       "path": "data/relative_index_blackbox_raw_text_2020_2025/",
-      "status": "accepted_and_consumed_by_frozen_D1_query_4_and reused_as_physical_raw_for_C3_query_5",
+      "status": "accepted_and_consumed_by_D1_query_4_and_reused_as_physical_raw_for_C3_query_5",
       "read_window": "2020-11-01..2025-12-31",
-      "raw_upload_receipt": "docs/research/relative_index_blackbox_raw_text_upload_receipt_v1.json",
-      "2020_overlap_parity": "PASS"
+      "raw_upload_receipt": "docs/research/relative_index_blackbox_raw_text_upload_receipt_v1.json"
     },
     "c3_blackbox_raw_1400": {
       "path": "data/c3_blackbox_raw_1400_2020_2025/",
-      "status": "accepted_and_consumed_by_frozen_C3_query_5",
+      "status": "accepted_and_consumed_by_C3_query_5",
       "read_window": "2020-11-01..2025-12-31",
-      "raw_upload_receipt": "docs/research/c3_blackbox_raw_1400_upload_receipt_v1.json",
-      "factor_reconstruction_2020_overlap_parity": "PASS"
+      "raw_upload_receipt": "docs/research/c3_blackbox_raw_1400_upload_receipt_v1.json"
     }
   },
+  "downstream_adapter_boundary": "docs/governance/downstream_adapter_research_boundary_v1.json",
+  "strategy_slice_rebuild_boundary": {
+    "E1_current_phase_is_account_strategy": false,
+    "2009_2014_CSI1000_authority_available": false,
+    "twelve_session_strategy_completion_claimed": false,
+    "future_executable_consumer_requires_separate_identity_SSA_and_account_audit": true
+  },
+  "blackbox_ledger_query_count": 5,
   "hard_rules": [
     "Do not revive archived executable entrypoints as active work.",
     "Do not decompose completed reusable BLACKBOX queries, including C3 query 5 and D1 query 4.",
     "Do not use downstream strategy PnL to tune upstream factor definitions.",
     "Do not execute the deferred C2 60m BLACKBOX unless authority is explicitly reactivated.",
-    "C3 query 5 is FAIL; do not inspect hidden annual results, metrics, counts, bootstrap support or failure attribution.",
-    "Do not revive C3 15m, select a post-hoc 30m/60m winner, or rescue C3 with prev_afternoon, alternate session windows, thresholds, buckets, alternate clocks, alternate volatility windows, or strategy PnL.",
-    "D1 query 4 is FAIL; do not rescue with CSI500, thresholds, alternate clocks or alternate horizons.",
-    "C3 and D1 parent DEV evidence remains retrospective progression material only and grants no validated product authority.",
+    "E1 v1 uses C1 as the only direction source; B4 may only abstain at the frozen semantic zero alignment boundary.",
+    "Do not fit C1/B4 weights, search a nonzero B4 threshold, add magnitude buckets, or search alternate horizons under E1 v1.",
+    "Do not import A1, A4, C2, C3, D1 or hidden BLACKBOX behavior into E1 v1 after outcomes are seen.",
+    "E1 development is factor-utility only; no costs, instrument mapping, cash-index tradability claim, account return, position sizing, or production authority.",
+    "A passing E1 factor-utility diagnostic does not satisfy Strategy Slice Rebuild, SSA, or post-training account audit and grants no executable-strategy authority.",
+    "E2 stock-selection adapter must be a separate result-free identity and may only scale or abstain an already-frozen consumer strategy; it may not become stock-specific alpha in this repository.",
     "Reuse of the same 2021-2025 physical period under separate frozen identities is not independent OOS.",
-    "Downstream adapter work may use only authority-bearing upstream products and must be separately preregistered before strategy-return evidence is opened.",
     "Do not open post-2026-08-21 outcomes except under their separately frozen protocol.",
     "Production authority remains false."
   ],
-  "next_action": "prepare a result-free downstream timing/stock-selection adapter preregistration using only authority-bearing upstream products (for example A1/A2, validated C1, validated B4, and A4 under its existing evidence label); do not use hidden C3/D1 BLACKBOX behavior as design input and do not auto-reactivate deferred C2",
+  "next_action": "cloud main agent reconstructs the exact validated C1 and B4 coordinates from the connector-readable 2015-2020 carriers, verifies protocol/carrier parity before reading adapter outcomes, then executes the single frozen E1 factor-utility diagnostic by natural year 2015-2020 plus pooled; do not open account/PnL evidence or 2021-2025 detailed rows",
   "production_authority": false
 }
