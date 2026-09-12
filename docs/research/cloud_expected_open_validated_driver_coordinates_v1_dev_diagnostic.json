@@ -1,0 +1,108 @@
+{
+  "2021_2025_research_rows_opened": false,
+  "bucket_search": false,
+  "candidate": "V6A_plus_validated_B1_B2_coordinates",
+  "candidate_attempt_count": 1,
+  "clock_search": false,
+  "comparator": "V6A_model_refit_on_candidate_common_sample",
+  "decision": "A1_VALIDATED_DRIVER_ADAPTER_DEV_NO_PROGRESS",
+  "development_evaluation_window": "2019-01-01..2020-12-31",
+  "diagnostics": {
+    "by_year": {
+      "2019": {
+        "candidate": {
+          "ic": 0.7729167306207048,
+          "r2": 0.568024976979747,
+          "sign_accuracy": 0.7521739130434782,
+          "sse": 0.003618950954822184
+        },
+        "comparator": {
+          "ic": 0.7708139634583396,
+          "r2": 0.5620451707818235,
+          "sign_accuracy": 0.7434782608695653,
+          "sse": 0.0036690478914420876
+        }
+      },
+      "2020": {
+        "candidate": {
+          "ic": 0.5989720540237751,
+          "r2": 0.28448515793475815,
+          "sign_accuracy": 0.7705627705627706,
+          "sse": 0.013092618658424723
+        },
+        "comparator": {
+          "ic": 0.5953074647655447,
+          "r2": 0.30055643926335884,
+          "sign_accuracy": 0.7748917748917749,
+          "sse": 0.012798543475888616
+        }
+      }
+    },
+    "evaluation_common_complete_cases": 461,
+    "evaluation_year_common_complete_cases": {
+      "2019": 230,
+      "2020": 231
+    },
+    "pooled": {
+      "candidate": {
+        "ic": 0.6550842416700421,
+        "r2": 0.3736472176880078,
+        "sign_accuracy": 0.7613882863340564,
+        "sse": 0.01671156961324691
+      },
+      "comparator": {
+        "ic": 0.6536443118541684,
+        "r2": 0.38279156837976336,
+        "sign_accuracy": 0.7592190889370932,
+        "sse": 0.016467591367330704
+      }
+    },
+    "training_common_complete_cases": 899
+  },
+  "interaction_search": false,
+  "product_family": "OFP-A1_expected_open_state",
+  "production_authority": false,
+  "progression_gate_components": {
+    "each_evaluation_year_candidate_sign_accuracy_within_tolerance_pass": true,
+    "evaluation_years_candidate_ic_not_below_comparator_count": 2,
+    "evaluation_years_candidate_ic_not_below_comparator_min_pass": true,
+    "evaluation_years_candidate_sign_accuracy_within_tolerance_count": 2,
+    "evaluation_years_candidate_sse_below_comparator_count": 1,
+    "evaluation_years_candidate_sse_below_comparator_min_pass": false,
+    "pooled_candidate_ic_not_below_comparator": true,
+    "pooled_candidate_r2_above_comparator": false,
+    "pooled_candidate_sign_accuracy_not_below_comparator_minus_tolerance": true,
+    "pooled_candidate_sse_below_comparator": false,
+    "sufficiency_pass": true
+  },
+  "protocol": {
+    "path": "docs/governance/expected_open_validated_driver_coordinates_v1_protocol.json",
+    "sha256": "6eeb205990a9e563ea5d114055d0155b4d903cff30597e5a4b601fbb98be8bca"
+  },
+  "research_identity": "overnight_expected_open_validated_driver_coordinates_v1",
+  "reusable_blackbox_query_created": false,
+  "ridge_alpha_search": false,
+  "schema_id": "overnight_expected_open_validated_driver_coordinates_dev_diagnostic@1.0",
+  "session_date": "2026-09-12",
+  "source_integrity": {
+    "V6A_implementation": {
+      "path": "scripts/run_v6a_reusable_blackbox_local.py",
+      "sha256": "ddc3073ebb20ee45f76aec914b19db48cd0342e19ac01e39d1b3797a934f0e09"
+    },
+    "external_manifest": {
+      "path": "data/v6a_external_sources_2015_2025/manifest.json",
+      "sha256": "dd245fda995d9452f9dd85abd763a351bcd6a432a4f5801a384511b50a84f00d"
+    },
+    "panel": {
+      "path": "data/development/csi1000_open_pit_panel.parquet",
+      "sha256": "d409fd5c2d75497b31e7e6e4f663298c3e22a7bacdacf4cb562671c6b1bc7631"
+    },
+    "post_2020_research_rows_materialized": false
+  },
+  "strategy_PnL_optimization": false,
+  "target": "gap",
+  "target_search": false,
+  "threshold_search": false,
+  "training_window": "2015-01-05..2018-12-31",
+  "upstream_add_drop_search": false
+}
