@@ -1,0 +1,864 @@
+{
+  "scripts/build_driver_runtime_text_carrier.py": [
+    "__future__",
+    "argparse",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib"
+  ],
+  "scripts/build_gap_fill_v2_target_ledger.py": [
+    "__future__",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib"
+  ],
+  "scripts/build_relative_index_runtime_text_carrier.py": [
+    "__future__",
+    "argparse",
+    "hashlib",
+    "json",
+    "numpy",
+    "os",
+    "pandas",
+    "pathlib"
+  ],
+  "scripts/build_runtime_text_carrier.py": [
+    "__future__",
+    "argparse",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib"
+  ],
+  "scripts/build_v6a_frozen_base_panel.py": [
+    "__future__",
+    "argparse",
+    "importlib.util",
+    "pandas",
+    "pathlib"
+  ],
+  "scripts/corroborate_clock_gate_dev.py": [
+    "__future__",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib",
+    "select_clock_candidates_dev",
+    "sklearn.linear_model",
+    "sklearn.pipeline",
+    "sklearn.preprocessing"
+  ],
+  "scripts/diagnose_clock_holdout_posthoc.py": [
+    "__future__",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib",
+    "select_clock_candidates_dev",
+    "sklearn.linear_model",
+    "sklearn.pipeline",
+    "sklearn.preprocessing"
+  ],
+  "scripts/diagnose_driver_agreement_disagreement_dev.py": [
+    "__future__",
+    "argparse",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib"
+  ],
+  "scripts/diagnose_gap_fill_v21_regime_consumed.py": [
+    "__future__",
+    "build_gap_fill_v2_target_ledger",
+    "evaluate_local_gap_fill_v2_2026_repeat",
+    "hashlib",
+    "json",
+    "numpy",
+    "os",
+    "pandas",
+    "pathlib",
+    "scipy.optimize",
+    "scipy.special",
+    "sys"
+  ],
+  "scripts/diagnose_gap_fill_v2_phase1_factors.py": [
+    "__future__",
+    "build_gap_fill_v2_target_ledger",
+    "diagnose_high_open_false_negatives_dev",
+    "diagnose_offshore_china_price_discovery_dev",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib",
+    "sklearn.linear_model",
+    "sklearn.pipeline",
+    "sklearn.preprocessing",
+    "sys"
+  ],
+  "scripts/diagnose_high_open_false_negatives_dev.py": [
+    "__future__",
+    "evaluate_local_2021_2025_two_head",
+    "hashlib",
+    "json",
+    "numpy",
+    "os",
+    "pandas",
+    "pathlib",
+    "select_clock_candidates_dev",
+    "sklearn.linear_model",
+    "sklearn.pipeline",
+    "sklearn.preprocessing",
+    "sys"
+  ],
+  "scripts/diagnose_last_hour_rebound_conditioning_dev.py": [
+    "__future__",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib",
+    "select_high_open_recall_phase2_dev",
+    "sys"
+  ],
+  "scripts/diagnose_offshore_china_price_discovery_dev.py": [
+    "__future__",
+    "diagnose_high_open_false_negatives_dev",
+    "hashlib",
+    "json",
+    "numpy",
+    "os",
+    "pandas",
+    "pathlib",
+    "select_high_open_recall_phase2_dev",
+    "sys"
+  ],
+  "scripts/diagnose_trend_conditioned_open_state_dev.py": [
+    "__future__",
+    "argparse",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib"
+  ],
+  "scripts/diagnose_volatility_conditioned_open_state_dev.py": [
+    "__future__",
+    "argparse",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib"
+  ],
+  "scripts/evaluate_frozen_holdout_v1.py": [
+    "__future__",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib",
+    "select_clock_candidates_dev",
+    "sklearn.linear_model",
+    "sklearn.metrics",
+    "sklearn.pipeline",
+    "sklearn.preprocessing"
+  ],
+  "scripts/evaluate_gap_fill_cross_index_audit_a.py": [
+    "__future__",
+    "build_gap_fill_v2_target_ledger",
+    "evaluate_local_gap_fill_v2_2026_repeat",
+    "hashlib",
+    "json",
+    "numpy",
+    "os",
+    "pandas",
+    "pathlib",
+    "sys"
+  ],
+  "scripts/evaluate_gap_fill_cross_index_audit_b.py": [
+    "__future__",
+    "build_gap_fill_v2_target_ledger",
+    "evaluate_local_gap_fill_v2_2026_repeat",
+    "hashlib",
+    "json",
+    "numpy",
+    "os",
+    "pandas",
+    "pathlib",
+    "sys"
+  ],
+  "scripts/evaluate_gap_fill_v2_true_fresh_2026q4.py": [
+    "__future__",
+    "datetime",
+    "evaluate_local_gap_fill_v2_2026_repeat",
+    "hashlib",
+    "json",
+    "numpy",
+    "os",
+    "pandas",
+    "pathlib",
+    "sys"
+  ],
+  "scripts/evaluate_local_2021_2025_two_head.py": [
+    "__future__",
+    "hashlib",
+    "json",
+    "numpy",
+    "os",
+    "pandas",
+    "pathlib",
+    "select_clock_candidates_dev",
+    "sklearn.linear_model",
+    "sklearn.pipeline",
+    "sklearn.preprocessing",
+    "sys"
+  ],
+  "scripts/evaluate_local_2026_direction_head.py": [
+    "__future__",
+    "evaluate_local_2021_2025_two_head",
+    "hashlib",
+    "json",
+    "math",
+    "numpy",
+    "os",
+    "pandas",
+    "pathlib",
+    "sklearn.linear_model",
+    "sklearn.pipeline",
+    "sklearn.preprocessing",
+    "sys"
+  ],
+  "scripts/evaluate_local_gap_fill_v2_2026_repeat.py": [
+    "__future__",
+    "build_gap_fill_v2_target_ledger",
+    "hashlib",
+    "json",
+    "math",
+    "numpy",
+    "os",
+    "pandas",
+    "pathlib",
+    "scipy.optimize",
+    "scipy.special",
+    "sklearn.metrics",
+    "sys"
+  ],
+  "scripts/fit_gap_fill_v2_selected_dev.py": [
+    "__future__",
+    "build_gap_fill_v2_target_ledger",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib",
+    "platform",
+    "pyarrow",
+    "scipy",
+    "sklearn",
+    "sklearn.linear_model",
+    "sklearn.pipeline",
+    "sklearn.preprocessing",
+    "sys"
+  ],
+  "scripts/inventory_development.py": [
+    "__future__",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib",
+    "pyarrow.parquet"
+  ],
+  "scripts/probe_offshore_china_source_quality.py": [
+    "__future__",
+    "hashlib",
+    "json",
+    "os",
+    "pandas",
+    "pathlib"
+  ],
+  "scripts/register_e3v2_validation_query12.py": [
+    "__future__",
+    "json",
+    "pathlib"
+  ],
+  "scripts/replay_baseline.py": [
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib",
+    "sklearn.linear_model",
+    "sklearn.pipeline",
+    "sklearn.preprocessing"
+  ],
+  "scripts/run_calendar_weekend_gap_15m_blackbox.py": [
+    "__future__",
+    "argparse",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib"
+  ],
+  "scripts/run_calendar_weekend_gap_context_v1_dev_cloud.py": [
+    "__future__",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib"
+  ],
+  "scripts/run_downstream_b1_forward_cycle_portfolio_risk_adapter_v1_dev_cloud.py": [
+    "__future__",
+    "argparse",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib"
+  ],
+  "scripts/run_downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_blackbox.py": [
+    "__future__",
+    "argparse",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib"
+  ],
+  "scripts/run_downstream_b2_stock_selection_offshore_risk_adapter_v1_dev_cloud.py": [
+    "__future__",
+    "csv",
+    "hashlib",
+    "io",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib",
+    "urllib.request"
+  ],
+  "scripts/run_downstream_c1_c2_timing_agreement_adapter_v1_dev_cloud.py": [
+    "__future__",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib"
+  ],
+  "scripts/run_downstream_c2_forward_cycle_portfolio_risk_adapter_v1_dev_cloud.py": [
+    "__future__",
+    "argparse",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib"
+  ],
+  "scripts/run_downstream_c2_stock_selection_risk_adapter_v1_dev_cloud.py": [
+    "__future__",
+    "csv",
+    "hashlib",
+    "io",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib",
+    "urllib.request"
+  ],
+  "scripts/run_downstream_portfolio_risk_adapter_v1_dev_cloud.py": [
+    "__future__",
+    "argparse",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib"
+  ],
+  "scripts/run_downstream_stock_selection_adapter_v1_dev_cloud.py": [
+    "__future__",
+    "csv",
+    "diagnose_driver_agreement_disagreement_dev",
+    "hashlib",
+    "io",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib",
+    "sys",
+    "urllib.request"
+  ],
+  "scripts/run_downstream_timing_adapter_v1_dev_cloud.py": [
+    "__future__",
+    "diagnose_driver_agreement_disagreement_dev",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib",
+    "sys"
+  ],
+  "scripts/run_downstream_timing_adapter_validation_v1_blackbox.py": [
+    "__future__",
+    "argparse",
+    "hashlib",
+    "importlib.util",
+    "json",
+    "math",
+    "numpy",
+    "pandas",
+    "pathlib"
+  ],
+  "scripts/run_driver_coherence_open_gap_blackbox.py": [
+    "__future__",
+    "argparse",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib"
+  ],
+  "scripts/run_expected_open_validated_driver_coordinates_v1_dev_cloud.py": [
+    "__future__",
+    "argparse",
+    "hashlib",
+    "importlib.util",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib",
+    "sklearn.linear_model",
+    "sklearn.pipeline",
+    "sklearn.preprocessing"
+  ],
+  "scripts/run_gap_fill_cross_index_transport_dev.py": [
+    "__future__",
+    "build_gap_fill_v2_target_ledger",
+    "evaluate_local_gap_fill_v2_2026_repeat",
+    "hashlib",
+    "json",
+    "numpy",
+    "os",
+    "pandas",
+    "pathlib",
+    "sklearn.linear_model",
+    "sklearn.pipeline",
+    "sklearn.preprocessing",
+    "sys"
+  ],
+  "scripts/run_gap_fill_v21_dev_selection.py": [
+    "__future__",
+    "argparse",
+    "build_gap_fill_v2_target_ledger",
+    "collections",
+    "evaluate_local_gap_fill_v2_2026_repeat",
+    "hashlib",
+    "json",
+    "numpy",
+    "os",
+    "pandas",
+    "pathlib",
+    "sklearn.linear_model",
+    "sklearn.pipeline",
+    "sklearn.preprocessing",
+    "subprocess",
+    "sys",
+    "typing",
+    "v21_evaluation_kernel",
+    "v21_p2_overlay",
+    "v21_session_complete_239_gate"
+  ],
+  "scripts/run_gap_fill_v21_dev_selection_authorized.py": [
+    "__future__",
+    "pandas",
+    "pathlib",
+    "run_gap_fill_v21_dev_selection",
+    "sys"
+  ],
+  "scripts/run_global_risk_driver_v1_dev_cloud.py": [
+    "__future__",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib"
+  ],
+  "scripts/run_global_risk_open_gap_blackbox.py": [
+    "__future__",
+    "argparse",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib"
+  ],
+  "scripts/run_previous_session_last_hour_conditioned_open_state_joint_blackbox_cloud_raw.py": [
+    "__future__",
+    "hashlib",
+    "json",
+    "math",
+    "numpy",
+    "pandas",
+    "pathlib"
+  ],
+  "scripts/run_relative_index_open_leadership_dev_cloud.py": [
+    "__future__",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib"
+  ],
+  "scripts/run_relative_index_open_leadership_joint_blackbox_cloud_raw.py": [
+    "__future__",
+    "hashlib",
+    "json",
+    "math",
+    "numpy",
+    "pandas",
+    "pathlib"
+  ],
+  "scripts/run_relative_index_open_leadership_joint_blackbox_local.py": [
+    "__future__",
+    "hashlib",
+    "json",
+    "math",
+    "numpy",
+    "os",
+    "pandas",
+    "pathlib"
+  ],
+  "scripts/run_single_external_driver_blackbox.py": [
+    "__future__",
+    "argparse",
+    "hashlib",
+    "importlib.util",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib"
+  ],
+  "scripts/run_single_external_driver_dev_cloud.py": [
+    "__future__",
+    "argparse",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib"
+  ],
+  "scripts/run_trend_conditioned_open_state_15m_blackbox_local.py": [
+    "__future__",
+    "argparse",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib"
+  ],
+  "scripts/run_v21_source_to_dev_metadata_controller.py": [
+    "__future__",
+    "argparse",
+    "collections",
+    "hashlib",
+    "json",
+    "pandas",
+    "pathlib",
+    "subprocess",
+    "sys",
+    "v21_session_complete_239_gate"
+  ],
+  "scripts/run_v6a_reusable_blackbox_local.py": [
+    "__future__",
+    "argparse",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib",
+    "sklearn.linear_model",
+    "sklearn.metrics",
+    "sklearn.pipeline",
+    "sklearn.preprocessing"
+  ],
+  "scripts/run_volatility_conditioned_open_state_60m_blackbox_local.py": [
+    "__future__",
+    "argparse",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib"
+  ],
+  "scripts/select_clock_candidates_dev.py": [
+    "__future__",
+    "hashlib",
+    "json",
+    "math",
+    "numpy",
+    "pandas",
+    "pathlib",
+    "sklearn.linear_model",
+    "sklearn.pipeline",
+    "sklearn.preprocessing"
+  ],
+  "scripts/select_direction_head_dev.py": [
+    "__future__",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib",
+    "sklearn.linear_model",
+    "sklearn.metrics",
+    "sklearn.pipeline",
+    "sklearn.preprocessing"
+  ],
+  "scripts/select_gap_fill_v2_phase2_hazard_family.py": [
+    "__future__",
+    "diagnose_gap_fill_v2_phase1_factors",
+    "diagnose_high_open_false_negatives_dev",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib",
+    "scipy.optimize",
+    "scipy.special",
+    "sklearn.linear_model",
+    "sklearn.metrics",
+    "sklearn.pipeline",
+    "sklearn.preprocessing",
+    "sys"
+  ],
+  "scripts/select_high_open_recall_phase2_dev.py": [
+    "__future__",
+    "evaluate_local_2021_2025_two_head",
+    "hashlib",
+    "json",
+    "numpy",
+    "os",
+    "pandas",
+    "pathlib",
+    "sklearn.linear_model",
+    "sklearn.pipeline",
+    "sklearn.preprocessing",
+    "sys"
+  ],
+  "scripts/select_offshore_china_ohr07_dev.py": [
+    "__future__",
+    "diagnose_high_open_false_negatives_dev",
+    "diagnose_offshore_china_price_discovery_dev",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib",
+    "select_high_open_recall_phase2_dev",
+    "sys"
+  ],
+  "scripts/select_offshore_china_ohr08_frozen_base_overlay_dev.py": [
+    "__future__",
+    "diagnose_high_open_false_negatives_dev",
+    "diagnose_offshore_china_price_discovery_dev",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib",
+    "select_high_open_recall_phase2_dev",
+    "sklearn.linear_model",
+    "sys"
+  ],
+  "scripts/select_two_head_dev.py": [
+    "__future__",
+    "hashlib",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib",
+    "select_clock_candidates_dev",
+    "sklearn.linear_model",
+    "sklearn.pipeline",
+    "sklearn.preprocessing"
+  ],
+  "scripts/v21_evaluation_kernel.py": [
+    "__future__",
+    "numpy",
+    "typing"
+  ],
+  "scripts/v21_p2_overlay.py": [
+    "__future__",
+    "dataclasses",
+    "numpy",
+    "scipy.optimize",
+    "typing"
+  ],
+  "scripts/v21_session_complete_239_gate.py": [
+    "__future__",
+    "argparse",
+    "collections",
+    "dataclasses",
+    "datetime",
+    "hashlib",
+    "json",
+    "pandas",
+    "pathlib",
+    "typing"
+  ],
+  "scripts/validate_theme_package.py": [
+    "__future__",
+    "hashlib",
+    "json",
+    "pandas",
+    "pathlib"
+  ],
+  "tests/test_gap_fill_cross_index_audit_a_protocol.py": [
+    "json",
+    "pathlib"
+  ],
+  "tests/test_gap_fill_cross_index_audit_b_protocol.py": [
+    "json",
+    "pathlib"
+  ],
+  "tests/test_gap_fill_cross_index_transport_protocol.py": [
+    "json",
+    "pathlib"
+  ],
+  "tests/test_gap_fill_prediction_v2_protocol.py": [
+    "json",
+    "pathlib"
+  ],
+  "tests/test_gap_fill_v21_candidate_family.py": [
+    "importlib.util",
+    "json",
+    "numpy",
+    "pathlib",
+    "sys"
+  ],
+  "tests/test_gap_fill_v21_dev_runner.py": [
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib",
+    "run_gap_fill_v21_dev_selection",
+    "sys"
+  ],
+  "tests/test_gap_fill_v21_evaluation_kernel.py": [
+    "json",
+    "numpy",
+    "pathlib",
+    "pytest",
+    "sys",
+    "v21_evaluation_kernel"
+  ],
+  "tests/test_gap_fill_v21_regime_diagnostic_protocol.py": [
+    "json",
+    "pathlib"
+  ],
+  "tests/test_gap_fill_v21_source_to_dev_metadata_controller.py": [
+    "json",
+    "pandas",
+    "pathlib",
+    "run_v21_source_to_dev_metadata_controller",
+    "sys",
+    "v21_session_complete_239_gate"
+  ],
+  "tests/test_gap_fill_v2_2026_repeat_protocol.py": [
+    "evaluate_local_gap_fill_v2_2026_repeat",
+    "json",
+    "numpy",
+    "pathlib",
+    "sys"
+  ],
+  "tests/test_gap_fill_v2_final_fit_protocol.py": [
+    "json",
+    "pathlib"
+  ],
+  "tests/test_gap_fill_v2_historical_extension_protocol.py": [
+    "json",
+    "pathlib"
+  ],
+  "tests/test_gap_fill_v2_phase1_factor_diagnostic.py": [
+    "json",
+    "pathlib"
+  ],
+  "tests/test_gap_fill_v2_phase2_hazard_family.py": [
+    "json",
+    "numpy",
+    "pathlib",
+    "select_gap_fill_v2_phase2_hazard_family",
+    "sys"
+  ],
+  "tests/test_gap_fill_v2_true_fresh_protocol.py": [
+    "evaluate_gap_fill_v2_true_fresh_2026q4",
+    "evaluate_local_gap_fill_v2_2026_repeat",
+    "json",
+    "numpy",
+    "pathlib",
+    "sys"
+  ],
+  "tests/test_high_open_dev_pack_boundary.py": [
+    "evaluate_local_2021_2025_two_head",
+    "json",
+    "pandas",
+    "pathlib",
+    "sys"
+  ],
+  "tests/test_high_open_recall_protocol.py": [
+    "json",
+    "pathlib"
+  ],
+  "tests/test_local_2026_direction_receipt.py": [
+    "hashlib",
+    "json",
+    "pathlib"
+  ],
+  "tests/test_local_two_head_receipt.py": [
+    "hashlib",
+    "json",
+    "pathlib"
+  ],
+  "tests/test_no_future_and_baseline.py": [
+    "json",
+    "pandas",
+    "pathlib"
+  ],
+  "tests/test_offshore_china_ohr06_protocol.py": [
+    "json",
+    "pathlib"
+  ],
+  "tests/test_offshore_china_ohr07_protocol.py": [
+    "json",
+    "pathlib"
+  ],
+  "tests/test_offshore_china_ohr08_protocol.py": [
+    "json",
+    "pathlib"
+  ],
+  "tests/test_offshore_china_source_protocol.py": [
+    "json",
+    "pathlib"
+  ],
+  "tests/test_runtime_text_carrier.py": [
+    "__future__",
+    "build_runtime_text_carrier",
+    "json",
+    "numpy",
+    "pandas",
+    "pathlib",
+    "pytest",
+    "sys"
+  ],
+  "tests/test_v21_session_complete_239_gate.py": [
+    "json",
+    "pathlib",
+    "sys",
+    "v21_session_complete_239_gate"
+  ]
+}

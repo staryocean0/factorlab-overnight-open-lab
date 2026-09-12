@@ -1,0 +1,348 @@
+[
+  {
+    "path": "docs/governance/baseline_receipt.json",
+    "schema_id": "overnight_open_baseline_receipt@2.0"
+  },
+  {
+    "path": "docs/governance/calendar_weekend_gap_15m_blackbox_state_v1.json",
+    "schema_id": "overnight_calendar_weekend_gap_15m_blackbox_state@1.1",
+    "status": "BLACKBOX_FAIL_closed_no_validated_C4_product",
+    "research_identity": "overnight_weekend_gap_conditioned_open_state_15m_blackbox_v1",
+    "blackbox_query_opened": true,
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/calendar_weekend_gap_context_v1_state.json",
+    "schema_id": "overnight_calendar_weekend_gap_context_state@1.1",
+    "status": "DEV_progression_supported_waiting_separate_validation_identity",
+    "research_identity": "overnight_weekend_gap_conditioned_open_state_15m_v1",
+    "outcome_opened": true,
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/china_offshore_driver_v1_state.json",
+    "schema_id": "overnight_china_offshore_driver_state@1.1",
+    "status": "DEV_progression_supported_waiting_separate_validation_identity",
+    "research_identity": "overnight_china_offshore_driver_v1",
+    "outcome_opened": true,
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/china_offshore_open_gap_blackbox_state_v1.json",
+    "schema_id": "overnight_china_offshore_open_gap_blackbox_state@1.1",
+    "status": "BLACKBOX_PASS_validated_continuous_B2_china_offshore_factor_product",
+    "research_identity": "overnight_china_offshore_open_gap_v1",
+    "blackbox_query_opened": true,
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/current_authority_v1.json",
+    "schema_id": "overnight_open_current_authority@1.33",
+    "next_action": "No additional outcome-bearing research is automatically authorized. Maintain the validated shelf and wait for a separately motivated result-free identity or the already-frozen Gap-Fill V2 true-fresh date gate. Cloud main remains research authority.",
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/downstream_b1_forward_cycle_portfolio_risk_adapter_v1_state.json",
+    "schema_id": "overnight_downstream_b1_forward_cycle_portfolio_risk_adapter_state@1.1",
+    "status": "DEV_progression_retrospective_portfolio_risk_candidate_waiting_separate_validation_identity",
+    "research_identity": "overnight_b1_forward_cycle_portfolio_risk_abstention_v1",
+    "next_action": "freeze a separate compact reusable validation identity before opening 2021-2025",
+    "outcome_opened": true,
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_state.json",
+    "schema_id": "overnight_downstream_b1_forward_cycle_portfolio_risk_adapter_validation_state@1.1",
+    "status": "BLACKBOX_FAIL_closed_no_validated_E3v2_product",
+    "research_identity": "overnight_b1_forward_cycle_portfolio_risk_abstention_validation_v1",
+    "blackbox_query_opened": true,
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/downstream_b2_stock_selection_offshore_risk_adapter_v1_state.json",
+    "schema_id": "overnight_downstream_b2_stock_selection_offshore_risk_adapter_state@1.1",
+    "status": "DEV_NO_PROGRESS_closed_no_successor",
+    "research_identity": "overnight_b2_stock_selection_offshore_risk_abstention_adapter_v1",
+    "next_action": "closed; no automatic successor or rescue under this identity",
+    "outcome_opened": true,
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/downstream_c1_c2_timing_agreement_adapter_v1_state.json",
+    "schema_id": "overnight_downstream_c1_c2_timing_agreement_adapter_state@1.1",
+    "status": "DEV_NO_PROGRESS_closed_no_successor",
+    "research_identity": "overnight_c1_c2_timing_agreement_adapter_v1",
+    "next_action": "closed; no threshold/weight/horizon rescue under this identity",
+    "outcome_opened": true,
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/downstream_c2_forward_cycle_portfolio_risk_adapter_v1_state.json",
+    "schema_id": "overnight_downstream_c2_forward_cycle_portfolio_risk_adapter_state@1.1",
+    "status": "DEV_INSUFFICIENT_closed_no_successor",
+    "research_identity": "overnight_c2_forward_cycle_portfolio_risk_abstention_v1",
+    "next_action": "closed; insufficient Development support forbids automatic validation, rescue, or successor under this identity",
+    "outcome_opened": true,
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/downstream_c2_stock_selection_risk_adapter_v1_state.json",
+    "schema_id": "overnight_downstream_c2_stock_selection_risk_adapter_state@1.1",
+    "status": "DEV_INSUFFICIENT_closed_no_successor",
+    "research_identity": "overnight_c2_stock_selection_risk_abstention_adapter_v1",
+    "next_action": "closed; insufficient active-decision support prevents progression adjudication under this identity",
+    "outcome_opened": true,
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/downstream_portfolio_risk_adapter_v1_state.json",
+    "schema_id": "overnight_downstream_portfolio_risk_adapter_state@1.1",
+    "status": "DEV_INSUFFICIENT_closed_no_successor",
+    "research_identity": "overnight_c1_intraday_portfolio_risk_abstention_v1",
+    "next_action": "closed; do not repair exact-clock missingness or alter complete-case rules under this identity",
+    "outcome_opened": true,
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/downstream_stock_selection_adapter_consumer_admission_state_v1.json",
+    "schema_id": "overnight_downstream_stock_selection_adapter_consumer_admission_state@1.0",
+    "status": "blocked_consumer_contract_gap_no_candidate_opened",
+    "outcome_opened": false,
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/downstream_stock_selection_adapter_v1_state.json",
+    "schema_id": "overnight_downstream_stock_selection_adapter_state@1.1",
+    "status": "DEV_NO_PROGRESS_closed_no_successor",
+    "research_identity": "overnight_b4_stock_selection_abstention_adapter_v1",
+    "outcome_opened": true,
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/downstream_timing_adapter_v1_state.json",
+    "schema_id": "overnight_downstream_timing_adapter_state@1.1",
+    "status": "DEV_progression_retrospective_factor_utility_candidate_waiting_separate_validation_identity",
+    "research_identity": "overnight_c1_b4_timing_confidence_adapter_v1",
+    "next_action": "cloud main agent may freeze a separate result-free reusable validation identity for this exact E1 zero-boundary adapter; do not search thresholds/weights/horizons or open account/PnL evidence under the development identity",
+    "outcome_opened": true,
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/downstream_timing_adapter_validation_v1_state.json",
+    "schema_id": "overnight_downstream_timing_adapter_validation_state@1.1",
+    "status": "BLACKBOX_FAIL_closed_no_validated_E1_product",
+    "research_identity": "overnight_c1_b4_timing_confidence_adapter_validation_v1",
+    "blackbox_query_opened": true,
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/driver_agreement_disagreement_v1_state.json",
+    "schema_id": "overnight_driver_agreement_disagreement_state@1.1",
+    "research_identity": "overnight_driver_coherence_v1",
+    "next_action": "freeze a separate result-free reusable BLACKBOX successor identity for the exact continuous driver_coherence coordinate; do not open 2021-2025 under this parent identity",
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/driver_coherence_open_gap_v1_state.json",
+    "schema_id": "overnight_driver_coherence_open_gap_state@1.1",
+    "research_identity": "overnight_driver_coherence_open_gap_v1",
+    "blackbox_query_opened": true,
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/expected_open_validated_driver_coordinates_v1_state.json",
+    "schema_id": "overnight_expected_open_validated_driver_coordinates_state@1.1",
+    "status": "DEV_NO_PROGRESS_closed_no_successor",
+    "research_identity": "overnight_expected_open_validated_driver_coordinates_v1",
+    "outcome_opened": true,
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/fx_cny_driver_v1_state.json",
+    "schema_id": "overnight_fx_cny_driver_state@1.1",
+    "status": "DEV_progression_supported_waiting_separate_validation_identity",
+    "research_identity": "overnight_fx_cny_driver_v1",
+    "outcome_opened": true,
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/fx_cny_open_gap_blackbox_state_v1.json",
+    "schema_id": "overnight_fx_cny_open_gap_blackbox_state@1.1",
+    "status": "BLACKBOX_FAIL_closed_no_validated_B3_product",
+    "research_identity": "overnight_fx_cny_open_gap_v1",
+    "blackbox_query_opened": true,
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/gap_fill_cross_index_audit_a_state_v1.json",
+    "schema_id": "overnight_open_gap_fill_cross_index_audit_a_state@1.0",
+    "research_identity": "gap_fill_cross_index_transport_v1",
+    "next_action": "preregister_and_execution_freeze_Audit_B_before_opening_any_2013_to_2014_10_16_outcome",
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/gap_fill_cross_index_audit_b_state_v1.json",
+    "schema_id": "overnight_open_gap_fill_cross_index_audit_b_state@1.0",
+    "research_identity": "gap_fill_cross_index_transport_v1",
+    "next_action": "do_not_retune_current_identity_on_consumed_Audit_B; if continuing, preregister a new successor identity for the CSI500-high material-gap short-medium-horizon failure mechanism",
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/gap_fill_cross_index_ct_dev_state_v1.json",
+    "schema_id": "overnight_open_gap_fill_cross_index_ct_dev_state@1.0",
+    "research_identity": "gap_fill_cross_index_transport_v1",
+    "next_action": "local_execute_frozen_CT_DEV_and_return_aggregate_outputs_for_cloud_review",
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/gap_fill_v21_regime_diagnostic_state_v1.json",
+    "schema_id": "overnight_open_gap_fill_v21_regime_diagnostic_state@1.0",
+    "research_identity": "gap_fill_v2_1_regime_conditioned_successor",
+    "next_action": "local_execute_frozen_RD1_then_cloud_adjudicates_supported_probes_and_freezes_successor_family_before_V21_DEV_open",
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/gap_fill_v21_state_v1.json",
+    "schema_id": "overnight_open_gap_fill_v21_state@1.1",
+    "research_identity": "gap_fill_v2_1_regime_conditioned_successor",
+    "next_action": "do_not_open_V21_Audit_A_or_rescue_the_closed_P2_family; preserve_sealed_future_blocks_and_continue_only_under_a_new_independently_preregistered_Overnight_identity_or_the_separate_frozen_V2_v1_true_fresh_protocol",
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/gap_fill_v2_true_fresh_state_v1.json",
+    "schema_id": "overnight_open_gap_fill_v2_true_fresh_state@1.0",
+    "research_identity": "gap_fill_prediction_v2",
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/global_risk_driver_v1_state.json",
+    "schema_id": "overnight_global_risk_driver_state@1.1",
+    "status": "DEV_progression_supported_waiting_separate_validation_identity",
+    "research_identity": "overnight_global_risk_driver_v1",
+    "next_action": "execute separately frozen successor overnight_global_risk_open_gap_v1 through compact reusable validation",
+    "outcome_opened": true,
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/global_risk_open_gap_blackbox_state_v1.json",
+    "schema_id": "overnight_global_risk_open_gap_blackbox_state@1.1",
+    "status": "BLACKBOX_PASS_validated_continuous_B1_global_risk_factor_product",
+    "research_identity": "overnight_global_risk_open_gap_v1",
+    "blackbox_query_opened": true,
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/global_spillover_current_baseline_v1.json",
+    "schema_id": "overnight_global_spillover_current_baseline@1.0",
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/global_spillover_v6a_baseline_replacement_review_20260910.json",
+    "schema_id": "overnight_global_spillover_v6a_baseline_replacement_review@1.0",
+    "research_identity": "V6A_plus_ordinary_A50_preauction_closure",
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/global_spillover_v6a_blackbox_state_v1.json",
+    "schema_id": "overnight_global_spillover_v6a_blackbox_state@1.6",
+    "research_identity": "V6A_plus_ordinary_A50_preauction_closure",
+    "next_action": "for any future global-spillover successor use V6A as the frozen comparator and preregister a materially new identity before any empirical query; repository-wide two-head architecture and production boundary remain unchanged",
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/opening_surprise_factor_v1_state.json",
+    "schema_id": "overnight_opening_surprise_factor_state@1.1",
+    "research_identity": "overnight_open_surprise_factor_v1",
+    "next_action": "do not rescue this identity; continue with the separately preregistered prior-trend-context x core-opening-state product experiment",
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/previous_china_session_shape_v1_state.json",
+    "schema_id": "overnight_previous_china_session_shape_state@1.1",
+    "research_identity": "overnight_previous_session_last_hour_conditioned_open_state_v1",
+    "next_action": "retain 30m+60m C3 as DEV progression material only; any reusable BLACKBOX requires a separate joint successor identity and result-free protocol, while B4 driver-agreement research remains scientifically next once its connector-readable causal carrier is ready",
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/previous_session_last_hour_conditioned_open_state_joint_30m_60m_blackbox_protocol_v1.json",
+    "schema_id": "overnight_previous_session_last_hour_conditioned_open_state_joint_blackbox_protocol@1.0",
+    "research_identity": "overnight_previous_session_last_hour_conditioned_open_state_joint_30m_60m_v1",
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/previous_session_last_hour_conditioned_open_state_joint_30m_60m_blackbox_state_v1.json",
+    "schema_id": "overnight_previous_session_last_hour_conditioned_open_state_joint_blackbox_state@1.1",
+    "status": "BLACKBOX_FAIL_closed_no_validated_C3_product",
+    "research_identity": "overnight_previous_session_last_hour_conditioned_open_state_joint_30m_60m_v1",
+    "blackbox_query_opened": true,
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/relative_index_open_leadership_joint_blackbox_state_v1.json",
+    "schema_id": "overnight_relative_index_open_leadership_joint_blackbox_state@1.1",
+    "status": "BLACKBOX_FAIL_closed_no_validated_D1_product",
+    "research_identity": "overnight_relative_size_open_leadership_joint_15m_30m_60m_v1",
+    "blackbox_query_opened": true,
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/relative_index_open_leadership_v1_state.json",
+    "schema_id": "overnight_relative_index_open_leadership_state@1.1",
+    "research_identity": "overnight_relative_size_open_leadership_v1",
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/trend_conditioned_open_state_15m_blackbox_protocol_v1.json",
+    "schema_id": "overnight_trend_conditioned_open_state_15m_blackbox_protocol@1.0",
+    "research_identity": "overnight_trend_conditioned_open_state_15m_v1",
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/trend_conditioned_open_state_15m_state_v1.json",
+    "schema_id": "overnight_trend_conditioned_open_state_15m_state@1.1",
+    "research_identity": "overnight_trend_conditioned_open_state_15m_v1",
+    "next_action": "treat C1 15m continuous interaction as a validated shelf product; any consumer-facing up/range/down x high/low categorical view requires a separate result-free threshold identity before evaluation; continue the factor shelf with the next independently preregistered context family rather than retuning this BLACKBOX identity",
+    "blackbox_query_opened": true,
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/trend_conditioned_open_state_v1_protocol.json",
+    "schema_id": "overnight_trend_conditioned_open_state_protocol@1.0",
+    "research_identity": "overnight_trend_conditioned_open_state_v1",
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/trend_conditioned_open_state_v1_state.json",
+    "schema_id": "overnight_trend_conditioned_open_state_state@1.1",
+    "research_identity": "overnight_trend_conditioned_open_state_v1",
+    "next_action": "parent DEV identity is closed; use only the separately frozen 15m successor for the next reusable-BLACKBOX query",
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/volatility_conditioned_open_state_60m_blackbox_protocol_v1.json",
+    "schema_id": "overnight_volatility_conditioned_open_state_60m_blackbox_protocol@1.0",
+    "research_identity": "overnight_volatility_conditioned_open_state_60m_v1",
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/volatility_conditioned_open_state_60m_state_v1.json",
+    "schema_id": "overnight_volatility_conditioned_open_state_60m_state@1.2",
+    "research_identity": "overnight_volatility_conditioned_open_state_60m_v1",
+    "next_action": "shelf the validated continuous C2 60m product; any categorical consumer view or downstream adapter requires a separate result-free identity",
+    "blackbox_query_opened": true,
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/volatility_conditioned_open_state_v1_protocol.json",
+    "schema_id": "overnight_volatility_conditioned_open_state_protocol@1.0",
+    "research_identity": "overnight_volatility_conditioned_open_state_v1",
+    "production_authority": false
+  },
+  {
+    "path": "docs/governance/volatility_conditioned_open_state_v1_state.json",
+    "schema_id": "overnight_volatility_conditioned_open_state_state@1.0",
+    "research_identity": "overnight_volatility_conditioned_open_state_v1",
+    "next_action": "validate the unchanged continuous C2 coordinate at the fixed 09:35-to-10:35 target only under a separately frozen reusable BLACKBOX identity; do not create volatility buckets or retune the parent identity",
+    "production_authority": false
+  }
+]

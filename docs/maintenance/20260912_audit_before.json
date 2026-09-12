@@ -1,0 +1,2253 @@
+{
+  "baseline_commit": "0e28a6285745552a665d5b1cba11c9da73fbacd7",
+  "file_count": 606,
+  "top_level_counts": {
+    ".codex": 3,
+    ".github": 42,
+    ".gitignore": 1,
+    "AGENTS.md": 1,
+    "README.md": 1,
+    "archive": 20,
+    "data": 77,
+    "docs": 361,
+    "pyproject.toml": 1,
+    "scripts": 73,
+    "tests": 26
+  },
+  "suffix_counts": {
+    ".md": 146,
+    ".yml": 47,
+    "": 1,
+    ".py": 96,
+    ".sh": 9,
+    ".json": 254,
+    ".csv": 41,
+    ".parquet": 11,
+    ".toml": 1
+  },
+  "market_or_account_rows_read": false,
+  "project_code_executed": false,
+  "root_files": [
+    ".gitignore",
+    "AGENTS.md",
+    "README.md",
+    "pyproject.toml"
+  ],
+  "whitepapers_and_indexes": [
+    "README.md",
+    "archive/README.md",
+    "archive/b4_driver_coherence_completed_20260912/README.md",
+    "archive/c3_previous_session_shape_dev_20260912/README.md",
+    "data/README.md",
+    "data/c3_blackbox_raw_1400_2020_2025/README.md",
+    "data/development/trend_open_state_dev_pack_2019_2020/README.md",
+    "data/driver_runtime_text_2015_2020/README.md",
+    "data/e3_portfolio_intraday_qfq_2015_2020/README.md",
+    "data/gap_fill_repeat_2026/README.md",
+    "data/high_open_dev_2015_2025/README.md",
+    "data/offshore_etf_dev_2015_2025/README.md",
+    "data/relative_index_blackbox_raw_text_2020_2025/README.md",
+    "data/relative_index_runtime_text_2015_2020/README.md",
+    "data/runtime_text_2015_2025/README.md",
+    "data/v6a_external_sources_2015_2025/README.md",
+    "docs/ops/README.md",
+    "docs/ops/timing_layer2_implied_intraday_reversal_whitepaper.md",
+    "docs/ops/timing_layer2_overnight_gap_ledger_whitepaper.md"
+  ],
+  "python_files": [
+    "scripts/build_driver_runtime_text_carrier.py",
+    "scripts/build_gap_fill_v2_target_ledger.py",
+    "scripts/build_relative_index_runtime_text_carrier.py",
+    "scripts/build_runtime_text_carrier.py",
+    "scripts/build_v6a_frozen_base_panel.py",
+    "scripts/corroborate_clock_gate_dev.py",
+    "scripts/diagnose_clock_holdout_posthoc.py",
+    "scripts/diagnose_driver_agreement_disagreement_dev.py",
+    "scripts/diagnose_gap_fill_v21_regime_consumed.py",
+    "scripts/diagnose_gap_fill_v2_phase1_factors.py",
+    "scripts/diagnose_high_open_false_negatives_dev.py",
+    "scripts/diagnose_last_hour_rebound_conditioning_dev.py",
+    "scripts/diagnose_offshore_china_price_discovery_dev.py",
+    "scripts/diagnose_trend_conditioned_open_state_dev.py",
+    "scripts/diagnose_volatility_conditioned_open_state_dev.py",
+    "scripts/evaluate_frozen_holdout_v1.py",
+    "scripts/evaluate_gap_fill_cross_index_audit_a.py",
+    "scripts/evaluate_gap_fill_cross_index_audit_b.py",
+    "scripts/evaluate_gap_fill_v2_true_fresh_2026q4.py",
+    "scripts/evaluate_local_2021_2025_two_head.py",
+    "scripts/evaluate_local_2026_direction_head.py",
+    "scripts/evaluate_local_gap_fill_v2_2026_repeat.py",
+    "scripts/fit_gap_fill_v2_selected_dev.py",
+    "scripts/inventory_development.py",
+    "scripts/probe_offshore_china_source_quality.py",
+    "scripts/register_e3v2_validation_query12.py",
+    "scripts/replay_baseline.py",
+    "scripts/run_calendar_weekend_gap_15m_blackbox.py",
+    "scripts/run_calendar_weekend_gap_context_v1_dev_cloud.py",
+    "scripts/run_downstream_b1_forward_cycle_portfolio_risk_adapter_v1_dev_cloud.py",
+    "scripts/run_downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_blackbox.py",
+    "scripts/run_downstream_b2_stock_selection_offshore_risk_adapter_v1_dev_cloud.py",
+    "scripts/run_downstream_c1_c2_timing_agreement_adapter_v1_dev_cloud.py",
+    "scripts/run_downstream_c2_forward_cycle_portfolio_risk_adapter_v1_dev_cloud.py",
+    "scripts/run_downstream_c2_stock_selection_risk_adapter_v1_dev_cloud.py",
+    "scripts/run_downstream_portfolio_risk_adapter_v1_dev_cloud.py",
+    "scripts/run_downstream_stock_selection_adapter_v1_dev_cloud.py",
+    "scripts/run_downstream_timing_adapter_v1_dev_cloud.py",
+    "scripts/run_downstream_timing_adapter_validation_v1_blackbox.py",
+    "scripts/run_driver_coherence_open_gap_blackbox.py",
+    "scripts/run_expected_open_validated_driver_coordinates_v1_dev_cloud.py",
+    "scripts/run_gap_fill_cross_index_transport_dev.py",
+    "scripts/run_gap_fill_v21_dev_selection.py",
+    "scripts/run_gap_fill_v21_dev_selection_authorized.py",
+    "scripts/run_global_risk_driver_v1_dev_cloud.py",
+    "scripts/run_global_risk_open_gap_blackbox.py",
+    "scripts/run_previous_session_last_hour_conditioned_open_state_joint_blackbox_cloud_raw.py",
+    "scripts/run_relative_index_open_leadership_dev_cloud.py",
+    "scripts/run_relative_index_open_leadership_joint_blackbox_cloud_raw.py",
+    "scripts/run_relative_index_open_leadership_joint_blackbox_local.py",
+    "scripts/run_single_external_driver_blackbox.py",
+    "scripts/run_single_external_driver_dev_cloud.py",
+    "scripts/run_trend_conditioned_open_state_15m_blackbox_local.py",
+    "scripts/run_v21_source_to_dev_metadata_controller.py",
+    "scripts/run_v6a_reusable_blackbox_local.py",
+    "scripts/run_volatility_conditioned_open_state_60m_blackbox_local.py",
+    "scripts/select_clock_candidates_dev.py",
+    "scripts/select_direction_head_dev.py",
+    "scripts/select_gap_fill_v2_phase2_hazard_family.py",
+    "scripts/select_high_open_recall_phase2_dev.py",
+    "scripts/select_offshore_china_ohr07_dev.py",
+    "scripts/select_offshore_china_ohr08_frozen_base_overlay_dev.py",
+    "scripts/select_two_head_dev.py",
+    "scripts/v21_evaluation_kernel.py",
+    "scripts/v21_p2_overlay.py",
+    "scripts/v21_session_complete_239_gate.py",
+    "scripts/validate_theme_package.py",
+    "tests/test_gap_fill_cross_index_audit_a_protocol.py",
+    "tests/test_gap_fill_cross_index_audit_b_protocol.py",
+    "tests/test_gap_fill_cross_index_transport_protocol.py",
+    "tests/test_gap_fill_prediction_v2_protocol.py",
+    "tests/test_gap_fill_v21_candidate_family.py",
+    "tests/test_gap_fill_v21_dev_runner.py",
+    "tests/test_gap_fill_v21_evaluation_kernel.py",
+    "tests/test_gap_fill_v21_regime_diagnostic_protocol.py",
+    "tests/test_gap_fill_v21_source_to_dev_metadata_controller.py",
+    "tests/test_gap_fill_v2_2026_repeat_protocol.py",
+    "tests/test_gap_fill_v2_final_fit_protocol.py",
+    "tests/test_gap_fill_v2_historical_extension_protocol.py",
+    "tests/test_gap_fill_v2_phase1_factor_diagnostic.py",
+    "tests/test_gap_fill_v2_phase2_hazard_family.py",
+    "tests/test_gap_fill_v2_true_fresh_protocol.py",
+    "tests/test_high_open_dev_pack_boundary.py",
+    "tests/test_high_open_recall_protocol.py",
+    "tests/test_local_2026_direction_receipt.py",
+    "tests/test_local_two_head_receipt.py",
+    "tests/test_no_future_and_baseline.py",
+    "tests/test_offshore_china_ohr06_protocol.py",
+    "tests/test_offshore_china_ohr07_protocol.py",
+    "tests/test_offshore_china_ohr08_protocol.py",
+    "tests/test_offshore_china_source_protocol.py",
+    "tests/test_runtime_text_carrier.py",
+    "tests/test_v21_session_complete_239_gate.py"
+  ],
+  "test_files": [
+    "tests/test_gap_fill_cross_index_audit_a_protocol.py",
+    "tests/test_gap_fill_cross_index_audit_b_protocol.py",
+    "tests/test_gap_fill_cross_index_transport_protocol.py",
+    "tests/test_gap_fill_prediction_v2_protocol.py",
+    "tests/test_gap_fill_v21_candidate_family.py",
+    "tests/test_gap_fill_v21_dev_runner.py",
+    "tests/test_gap_fill_v21_evaluation_kernel.py",
+    "tests/test_gap_fill_v21_regime_diagnostic_protocol.py",
+    "tests/test_gap_fill_v21_source_to_dev_metadata_controller.py",
+    "tests/test_gap_fill_v2_2026_repeat_protocol.py",
+    "tests/test_gap_fill_v2_final_fit_protocol.py",
+    "tests/test_gap_fill_v2_historical_extension_protocol.py",
+    "tests/test_gap_fill_v2_phase1_factor_diagnostic.py",
+    "tests/test_gap_fill_v2_phase2_hazard_family.py",
+    "tests/test_gap_fill_v2_true_fresh_protocol.py",
+    "tests/test_high_open_dev_pack_boundary.py",
+    "tests/test_high_open_recall_protocol.py",
+    "tests/test_local_2026_direction_receipt.py",
+    "tests/test_local_two_head_receipt.py",
+    "tests/test_no_future_and_baseline.py",
+    "tests/test_offshore_china_ohr06_protocol.py",
+    "tests/test_offshore_china_ohr07_protocol.py",
+    "tests/test_offshore_china_ohr08_protocol.py",
+    "tests/test_offshore_china_source_protocol.py",
+    "tests/test_runtime_text_carrier.py",
+    "tests/test_v21_session_complete_239_gate.py"
+  ],
+  "syntax_errors": [],
+  "json_errors": [],
+  "workflows": [
+    {
+      "path": ".github/workflows/gap-fill-cross-index-audit-a-prereg-check.yml",
+      "content": "name: gap-fill-cross-index-audit-a-prereg-check\n\non:\n  push:\n    paths:\n      - '.github/workflows/gap-fill-cross-index-audit-a-prereg-check.yml'\n\npermissions:\n  contents: read\n\njobs:\n  check:\n    runs-on: ubuntu-24.04\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 1\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install test dependencies\n        run: python -m pip install --upgrade pandas pyarrow numpy scipy scikit-learn pytest\n      - name: Verify Audit-A preregistered blobs\n        shell: bash\n        run: |\n          set -euo pipefail\n          test \"$(git hash-object docs/governance/cloud_session_20260907_gap_fill_cross_index_audit_a_protocol_v1.json)\" = \"5fa17d9c92863be37636699082d13547e47956fd\"\n          test \"$(git hash-object scripts/evaluate_gap_fill_cross_index_audit_a.py)\" = \"e55f7aeb73523a20105337bd7c7a80dd335e040e\"\n          test \"$(git hash-object tests/test_gap_fill_cross_index_audit_a_protocol.py)\" = \"fc672e99b0a7ea30d8cf472ba45ebe6eee8cbeac\"\n          test \"$(git hash-object docs/governance/local_gap_fill_cross_index_transport_dev_parameter_freeze_v1.json)\" = \"4cce91f54a0dbbf1380f12db24db4c1d2c0c3162\"\n          test \"$(git hash-object docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_freeze_v1.json)\" = \"eef7a9af6d42ee2faf53dbd16dce0b15ebfd10ed\"\n      - name: Compile Audit-A evaluator only\n        run: python3 -m py_compile scripts/evaluate_gap_fill_cross_index_audit_a.py\n      - name: Validate theme package\n        run: python3 scripts/validate_theme_package.py\n      - name: Run full regression tests\n        run: python3 -m pytest -q\n      - name: Assert Audit-A and later outcomes remain unopened\n        shell: bash\n        run: |\n          set -euo pipefail\n          test ! -e docs/research/local_gap_fill_cross_index_transport_audit_a_receipt_v1.json\n          test ! -e docs/governance/local_gap_fill_cross_index_transport_audit_a_data_usage_v1.json\n          test ! -e docs/research/local_gap_fill_cross_index_transport_audit_b_receipt_v1.json\n          echo 'Audit-A preregistration valid; 2011-2012 outcomes remain unopened.'\n"
+    },
+    {
+      "path": ".github/workflows/gap-fill-cross-index-audit-b-prereg-check.yml",
+      "content": "name: gap-fill-cross-index-audit-b-prereg-check\n\non:\n  push:\n    paths:\n      - 'docs/governance/cloud_session_20260907_gap_fill_cross_index_audit_b_protocol_v1.json'\n      - 'scripts/evaluate_gap_fill_cross_index_audit_b.py'\n      - 'tests/test_gap_fill_cross_index_audit_b_protocol.py'\n      - '.github/workflows/gap-fill-cross-index-audit-b-prereg-check.yml'\n  workflow_dispatch:\n\npermissions:\n  contents: read\n\njobs:\n  check:\n    runs-on: ubuntu-24.04\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 1\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install test dependencies\n        run: python -m pip install --upgrade pandas pyarrow numpy scipy scikit-learn pytest\n      - name: Verify Audit-B preregistered blobs\n        shell: bash\n        run: |\n          set -euo pipefail\n          test \"$(git hash-object docs/governance/cloud_session_20260907_gap_fill_cross_index_audit_b_protocol_v1.json)\" = \"9437e6e51038414c43fb477221104163a799d14b\"\n          test \"$(git hash-object scripts/evaluate_gap_fill_cross_index_audit_b.py)\" = \"ff3d6f1ec49789b02bc659373674af0a10110445\"\n          test \"$(git hash-object tests/test_gap_fill_cross_index_audit_b_protocol.py)\" = \"5153bab5514f7855c9b6d79e95cfe3e2258e57cb\"\n          test \"$(git hash-object docs/governance/local_gap_fill_cross_index_transport_dev_parameter_freeze_v1.json)\" = \"4cce91f54a0dbbf1380f12db24db4c1d2c0c3162\"\n          test \"$(git hash-object docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_freeze_v1.json)\" = \"eef7a9af6d42ee2faf53dbd16dce0b15ebfd10ed\"\n          test \"$(git hash-object docs/research/gap_fill_cross_index_audit_a_cloud_adjudication_20260907.md)\" = \"54f71c3ebd72e4e721dc72322287acead002a757\"\n      - name: Compile Audit-B evaluator only\n        run: python3 -m py_compile scripts/evaluate_gap_fill_cross_index_audit_b.py\n      - name: Validate theme package\n        run: python3 scripts/validate_theme_package.py\n      - name: Run full regression tests\n        run: python3 -m pytest -q\n      - name: Assert Audit-B and supporting-crosscheck outcomes remain unopened\n        shell: bash\n        run: |\n          set -euo pipefail\n          test ! -e docs/research/local_gap_fill_cross_index_transport_audit_b_receipt_v1.json\n          test ! -e docs/governance/local_gap_fill_cross_index_transport_audit_b_data_usage_v1.json\n          test ! -e docs/research/local_gap_fill_cross_index_transport_supporting_crosscheck_receipt_v1.json\n          echo 'Audit-B preregistration valid; 2013-01-01..2014-10-16 outcomes remain unopened.'\n"
+    },
+    {
+      "path": ".github/workflows/gap-fill-cross-index-ct-dev-prereg-check.yml",
+      "content": "name: gap-fill-cross-index-ct-dev-prereg-check\n\non:\n  push:\n    paths:\n      - '.github/workflows/gap-fill-cross-index-ct-dev-prereg-check.yml'\n\npermissions:\n  contents: read\n\njobs:\n  check:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 1\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install test dependencies\n        run: python -m pip install --upgrade pandas pyarrow numpy scipy scikit-learn pytest\n      - name: Verify CT-DEV preregistered blobs\n        shell: bash\n        run: |\n          set -euo pipefail\n          test \"$(git hash-object docs/governance/cloud_session_20260906_gap_fill_cross_index_transport_protocol_v1.json)\" = \"5a74436422939973267a1edc4e4deeb21bf5a05e\"\n          test \"$(git hash-object scripts/run_gap_fill_cross_index_transport_dev.py)\" = \"165f75e60c407f4952440dd50c3a38f8fc45c4df\"\n          test \"$(git hash-object tests/test_gap_fill_cross_index_transport_protocol.py)\" = \"2bc0784b6b6daa7f3f53cef5767bdd130438244c\"\n          test \"$(git hash-object docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_freeze_v1.json)\" = \"eef7a9af6d42ee2faf53dbd16dce0b15ebfd10ed\"\n      - name: Compile CT-DEV runner only\n        run: python3 -m py_compile scripts/run_gap_fill_cross_index_transport_dev.py\n      - name: Validate theme package\n        run: python3 scripts/validate_theme_package.py\n      - name: Run full regression tests\n        run: python3 -m pytest -q\n      - name: Assert cross-index outcomes remain unopened\n        shell: bash\n        run: |\n          set -euo pipefail\n          test ! -e docs/research/local_gap_fill_cross_index_transport_dev_receipt_v1.json\n          test ! -e docs/governance/local_gap_fill_cross_index_transport_dev_parameter_freeze_v1.json\n          test ! -e docs/governance/local_gap_fill_cross_index_transport_dev_data_usage_v1.json\n          test ! -e docs/research/local_gap_fill_cross_index_transport_audit_a_receipt_v1.json\n          test ! -e docs/research/local_gap_fill_cross_index_transport_audit_b_receipt_v1.json\n          echo 'CT-DEV preregistration valid; external-index outcomes remain unopened.'\n"
+    },
+    {
+      "path": ".github/workflows/gap-fill-v2-2026-repeat-cloud.yml",
+      "content": "name: gap-fill-v2-2026-repeat-cloud\n\non:\n  push:\n    paths:\n      - '.github/workflows/gap-fill-v2-2026-repeat-cloud.yml'\n\npermissions:\n  contents: write\n\njobs:\n  repeat:\n    runs-on: ubuntu-latest\n    env:\n      OVERNIGHT_ANNOTATED_PANEL: ${{ github.workspace }}/data/gap_fill_repeat_2026/annotated_panel_2025Q4_to_20260821.parquet\n      OVERNIGHT_DATAHUB_1M: ${{ github.workspace }}/data/gap_fill_repeat_2026/csi1000_1m_20260105_to_20260821.parquet\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 1\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install pinned-enough evaluation dependencies\n        run: python -m pip install --upgrade pandas pyarrow numpy scipy scikit-learn pytest\n      - name: Verify frozen scientific identities\n        shell: bash\n        run: |\n          set -euo pipefail\n          test \"$(git hash-object docs/governance/cloud_session_20260906_gap_fill_v2_2026_repeat_protocol_v1.json)\" = \"417121963302cd8cb5225ad74aee788f570e7d94\"\n          test \"$(git hash-object scripts/evaluate_local_gap_fill_v2_2026_repeat.py)\" = \"d61e00efa6e605864c8153a1e7e577257f813939\"\n          test \"$(git hash-object tests/test_gap_fill_v2_2026_repeat_protocol.py)\" = \"1247f71488f7f106ff9fe53413dac0221fd20234\"\n          test \"$(git hash-object docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_freeze_v1.json)\" = \"eef7a9af6d42ee2faf53dbd16dce0b15ebfd10ed\"\n          test \"$(git hash-object docs/research/gap_fill_v2_v1_development_closeout_20260906.md)\" = \"7cdcbab2883c4ca0d6911b30e6ee48e84ff956b4\"\n          test -f docs/governance/cloud_session_20260906_gap_fill_v2_2026_repeat_execution_incident_v1.json\n      - name: Verify exact cloud repeat input pack\n        shell: bash\n        run: |\n          set -euo pipefail\n          echo '4619b00670b9443d0c0de7dd8a3a7a2d664a3c8907f28b0f997c9ae737cae216  data/gap_fill_repeat_2026/annotated_panel_2025Q4_to_20260821.parquet' | sha256sum -c -\n          echo '307e48021ef4576c2b364a1309a8b0474d6ab783afee16be41edb975abaa6dcd  data/gap_fill_repeat_2026/csi1000_1m_20260105_to_20260821.parquet' | sha256sum -c -\n          python3 - <<'PY'\n          import json\n          from pathlib import Path\n          m=json.loads(Path('data/gap_fill_repeat_2026/manifest.json').read_text())\n          assert m['fresh_oos'] is False\n          assert m['post_2026-08-21_included'] is False\n          assert m['validation_window']=={'start':'2026-01-05','end':'2026-08-21','endpoint_is_frozen':True}\n          assert m['products'][0]['rows']==214 and m['products'][0]['validation_rows']==154\n          assert m['products'][1]['rows']==36960 and m['products'][1]['trading_days']==154 and m['products'][1]['rows_per_day']==240\n          PY\n      - name: Validate theme package\n        run: python3 scripts/validate_theme_package.py\n      - name: Run full regression tests\n        run: python3 -m pytest -q\n      - name: Mechanically re-evaluate frozen repeat window with unchanged evaluator\n        run: python3 scripts/evaluate_local_gap_fill_v2_2026_repeat.py\n      - name: Verify repeat receipt boundary and frozen schema\n        shell: bash\n        run: |\n          set -euo pipefail\n          python3 - <<'PY'\n          import json\n          from pathlib import Path\n          p=Path('docs/research/cloud_session_20260906_local_gap_fill_v2_2026_repeat_receipt_v1.json')\n          u=Path('docs/governance/local_session_20260906_gap_fill_v2_2026_repeat_data_usage_v1.json')\n          assert p.exists() and u.exists()\n          d=json.loads(p.read_text())\n          usage=json.loads(u.read_text())\n          assert d['scientific_role']=='repeat_only_not_fresh'\n          assert d['fresh_oos'] is False\n          assert d['parameter_bundle_sha256']=='07abe29e31ce09b69bd6250b1ce3ebc5af7688b69ed39909feb80e9db882aaa0'\n          assert d['validation_window']=={'start':'2026-01-05','end':'2026-08-21'}\n          assert d['model_refit_performed'] is False\n          assert d['scaler_refit_performed'] is False\n          assert d['feature_selection_performed'] is False\n          assert d['hyperparameter_search_performed'] is False\n          assert d['threshold_search_performed'] is False\n          assert d['probability_calibration_layer_fit_or_applied'] is False\n          assert d['trading_return_used'] is False\n          assert d['post_2026_08_21_rows_loaded'] is False\n          assert d['raw_2026_rows_written_to_repo'] is False\n          assert d['source_hashes']['local_annotated_panel']=='4619b00670b9443d0c0de7dd8a3a7a2d664a3c8907f28b0f997c9ae737cae216'\n          assert d['source_hashes']['local_datahub_1m']=='307e48021ef4576c2b364a1309a8b0474d6ab783afee16be41edb975abaa6dcd'\n          assert usage['role']=='repeat_only_not_fresh'\n          assert usage['post_2026_08_21']=='not_loaded_true_fresh_reserved'\n          assert usage['model_refit_performed'] is False\n          assert usage['parameter_search_performed'] is False\n          print(json.dumps({\n            'decision': d['decision'],\n            'validation_min_day': d['target_audit']['validation_min_day'],\n            'validation_max_day': d['target_audit']['validation_max_day'],\n            'n_repeat_rows': d['n_repeat_rows'],\n            'n_repeat_high': d['n_repeat_high'],\n            'n_repeat_low': d['n_repeat_low'],\n            'sign_results': {s: {'repeat_confirmed': d['results'][s]['repeat_confirmed']} for s in ['high','low']},\n            'fresh_oos': d['fresh_oos'],\n          }, indent=2, sort_keys=True))\n          PY\n      - name: Commit aggregate repeat receipts only\n        shell: bash\n        run: |\n          set -euo pipefail\n          git config user.name 'gap-fill-v2-repeat-cloud-runner'\n          git config user.email 'gap-fill-v2-repeat-cloud-runner@users.noreply.github.com'\n          git add \\\n            docs/research/cloud_session_20260906_local_gap_fill_v2_2026_repeat_receipt_v1.json \\\n            docs/governance/local_session_20260906_gap_fill_v2_2026_repeat_data_usage_v1.json\n          if git diff --cached --quiet; then\n            echo 'No repeat receipt changes.'\n          else\n            git commit -m 'Record cloud Gap-Fill V2 2026 repeat receipts [skip ci]'\n            git push origin HEAD:main\n          fi\n"
+    },
+    {
+      "path": ".github/workflows/gap-fill-v2-final-fit-freeze.yml",
+      "content": "name: gap-fill-v2-final-fit-freeze\n\non:\n  push:\n    paths:\n      - '.github/workflows/gap-fill-v2-final-fit-freeze.yml'\n\npermissions:\n  contents: write\n\njobs:\n  fit:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 1\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install pinned dependencies\n        run: |\n          python -m pip install --upgrade pip\n          python -m pip install \\\n            numpy==2.4.6 \\\n            pandas==3.0.5 \\\n            scipy==1.17.1 \\\n            scikit-learn==1.9.0 \\\n            pyarrow==25.0.1 \\\n            pytest==9.1.1\n      - name: Verify frozen code and governance identities\n        shell: bash\n        run: |\n          set -euo pipefail\n          test \"$(git hash-object docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_protocol_v1.json)\" = \"f3e6f9e15ca12492353aeef2b23717ae47ee497e\"\n          test \"$(git hash-object docs/governance/cloud_session_20260906_gap_fill_v2_phase2_selected_v1.json)\" = \"17599d3f77861febf373b2ea05cd16131ceac5e8\"\n          test \"$(git hash-object scripts/fit_gap_fill_v2_selected_dev.py)\" = \"9ad8b4dbd4202e0c81f45ae8724afc1a531a364d\"\n          test \"$(git hash-object tests/test_gap_fill_v2_final_fit_protocol.py)\" = \"c1cb4af7d61e2fb0b98de1de9805599a24206822\"\n          test \"$(git hash-object docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_execution_freeze_v1.json)\" = \"31f0c528ae0c6b9aa34c380283cd3ea98dfd520d\"\n      - name: Verify frozen data identities\n        shell: bash\n        run: |\n          set -euo pipefail\n          echo 'f2587a528a517052016b646b58c734569b64a87766ff096575f353587e46aed1  data/high_open_dev_2015_2025/annotated_panel.parquet' | sha256sum -c -\n          echo '11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce  data/high_open_dev_2015_2025/1m_official.parquet' | sha256sum -c -\n      - name: Validate package\n        run: python3 scripts/validate_theme_package.py\n      - name: Run regression tests\n        run: python3 -m pytest -q\n      - name: Run deterministic final development fit\n        run: python3 scripts/fit_gap_fill_v2_selected_dev.py\n      - name: Verify final parameter freeze\n        shell: bash\n        run: |\n          set -euo pipefail\n          python3 - <<'PY'\n          import json\n          from pathlib import Path\n          p = Path('docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_freeze_v1.json')\n          u = Path('docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_data_usage_v1.json')\n          assert p.exists() and u.exists()\n          d = json.loads(p.read_text())\n          assert d['selected_architecture_sha256'] == '07810dafbab629f196d04ea1204d90ee68177ce764bb765be560bc1b84261c00'\n          assert d['final_fit_status'] == 'completed_parameter_identity_frozen'\n          assert d['model_selection_performed'] is False\n          assert d['hyperparameter_search_performed'] is False\n          assert d['threshold_search_performed'] is False\n          assert d['probability_calibration_performed'] is False\n          assert d['2026_rows_loaded'] is False\n          assert d['2026_repeat_validation_opened'] is False\n          b = d['parameter_bundle']\n          assert b['features'] == ['abs_gap', 'abs_gap_over_rvol20']\n          assert b['library_versions'] == {\n              'python': b['library_versions']['python'],\n              'numpy': '2.4.6',\n              'pandas': '3.0.5',\n              'scipy': '1.17.1',\n              'scikit_learn': '1.9.0',\n              'pyarrow': '25.0.1',\n          }\n          assert b['library_versions']['python'].startswith('3.11.')\n          assert set(b['heads']) == {'high', 'low'}\n          for sign in ['high', 'low']:\n              h = b['heads'][sign]\n              assert h['features'] == ['abs_gap', 'abs_gap_over_rvol20']\n              assert set(h['stages']) == {'15m', '60m', 'eod'}\n              for stage in ['15m', '60m', 'eod']:\n                  s = h['stages'][stage]\n                  assert s['n_train_risk'] > 0\n                  assert 0 < s['event_count'] < s['n_train_risk']\n                  assert len(s['scaler']['mean']) == 2\n                  assert len(s['scaler']['scale']) == 2\n                  assert len(s['logistic']['coef']) == 2\n                  assert len(s['logistic']['classes']) == 2\n          print(json.dumps({\n              'parameter_bundle_sha256': d['parameter_bundle_sha256'],\n              'inventory': b['inventory'],\n              'head_counts': {\n                  sign: {\n                      'n_sign_rows': b['heads'][sign]['n_sign_rows'],\n                      'stages': {\n                          stage: {\n                              'n_train_risk': b['heads'][sign]['stages'][stage]['n_train_risk'],\n                              'event_count': b['heads'][sign]['stages'][stage]['event_count'],\n                          }\n                          for stage in ['15m', '60m', 'eod']\n                      },\n                  }\n                  for sign in ['high', 'low']\n              },\n              '2026_rows_loaded': d['2026_rows_loaded'],\n          }, indent=2, sort_keys=True))\n          PY\n      - name: Commit parameter freeze artifacts\n        shell: bash\n        run: |\n          set -euo pipefail\n          git config user.name 'gap-fill-v2-final-fit-cloud-runner'\n          git config user.email 'gap-fill-v2-final-fit-cloud-runner@users.noreply.github.com'\n          git add \\\n            docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_freeze_v1.json \\\n            docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_data_usage_v1.json\n          if git diff --cached --quiet; then\n            echo 'No final-fit artifact changes.'\n          else\n            git commit -m 'Record cloud gap-fill V2 final parameter freeze [skip ci]'\n            git push origin HEAD:main\n          fi\n"
+    },
+    {
+      "path": ".github/workflows/gap-fill-v2-historical-extension-prereg-check.yml",
+      "content": "name: gap-fill-v2-historical-extension-prereg-check\n\non:\n  push:\n    paths:\n      - '.github/workflows/gap-fill-v2-historical-extension-prereg-check.yml'\n\npermissions:\n  contents: read\n\njobs:\n  check:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 1\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install test dependencies\n        run: python -m pip install --upgrade pandas pyarrow numpy scipy scikit-learn pytest\n      - name: Verify HE-00 frozen identities\n        shell: bash\n        run: |\n          set -euo pipefail\n          test \"$(git hash-object docs/research/gap_fill_v2_historical_extension_preanalysis_20260906.md)\" = \"bb7af312f5d8e0256dc3600a5c18336b0386e673\"\n          test \"$(git hash-object docs/governance/cloud_session_20260906_gap_fill_v2_historical_extension_protocol_v1.json)\" = \"4eb444723ef7476bdb132745c8b0b523820d6af5\"\n          test \"$(git hash-object docs/ops/gap_fill_v2_historical_source_inventory_template_v1.json)\" = \"440b121334df3c736306e4478321b5b286760e60\"\n          test \"$(git hash-object docs/ops/gap_fill_v2_historical_source_inventory_handoff.md)\" = \"3b2b827566612b7546f3d0e4c5037e8c0c18536a\"\n          test \"$(git hash-object tests/test_gap_fill_v2_historical_extension_protocol.py)\" = \"9108d89eb6110bdf02c09930228c7d9573dda4fb\"\n          test \"$(git hash-object docs/governance/gap_fill_v2_generation_policy_v1.json)\" = \"773782ad966606762beeb81ab4f52c7c87cee7a7\"\n      - name: Validate theme package\n        run: python3 scripts/validate_theme_package.py\n      - name: Run full regression tests\n        run: python3 -m pytest -q\n      - name: Assert HE outcomes remain unopened\n        shell: bash\n        run: |\n          set -euo pipefail\n          test ! -e docs/research/local_gap_fill_v2_historical_source_inventory_v1.json\n          test ! -e docs/research/gap_fill_v2_historical_dev_receipt_v1.json\n          test ! -e docs/research/gap_fill_v2_historical_audit_a_receipt_v1.json\n          test ! -e docs/research/gap_fill_v2_historical_audit_b_receipt_v1.json\n          echo 'HE-00 preregistration valid; no historical outcomes opened.'\n"
+    },
+    {
+      "path": ".github/workflows/gap-fill-v2-phase1-factor-diagnostic.yml",
+      "content": "name: gap-fill-v2-phase1-factor-diagnostic\n\non:\n  push:\n    paths:\n      - '.github/workflows/gap-fill-v2-phase1-factor-diagnostic.yml'\n\npermissions:\n  contents: write\n\njobs:\n  diagnose:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 1\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install dependencies\n        run: python -m pip install --upgrade pip pandas pyarrow numpy scipy scikit-learn pytest\n      - name: Verify frozen code identities\n        shell: bash\n        run: |\n          set -euo pipefail\n          test \"$(git hash-object docs/governance/cloud_session_20260906_gap_fill_v2_phase1_factor_diagnostic_protocol_v1.json)\" = \"8a86089cf767ed0d30057ab75c8a74ac084ce38b\"\n          test \"$(git hash-object scripts/diagnose_gap_fill_v2_phase1_factors.py)\" = \"b8fd0fe00b7f6b753de7420cac3a6caf21862a1f\"\n          test \"$(git hash-object tests/test_gap_fill_v2_phase1_factor_diagnostic.py)\" = \"65b98b09d8c697fc2d8484acb63979bc456ae1b6\"\n      - name: Verify frozen data identities\n        shell: bash\n        run: |\n          set -euo pipefail\n          echo 'f2587a528a517052016b646b58c734569b64a87766ff096575f353587e46aed1  data/high_open_dev_2015_2025/annotated_panel.parquet' | sha256sum -c -\n          echo '11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce  data/high_open_dev_2015_2025/1m_official.parquet' | sha256sum -c -\n          echo '045cf728977ff72a9fabd236aaf06b7a9df3310ad1f6f487bd594d487cc05ffd  data/offshore_etf_dev_2015_2025/offshore_etf_daily.parquet' | sha256sum -c -\n      - name: Validate package\n        run: python3 scripts/validate_theme_package.py\n      - name: Run regression tests\n        run: python3 -m pytest -q\n      - name: Run frozen Phase-1 factor diagnostic\n        run: python3 scripts/diagnose_gap_fill_v2_phase1_factors.py\n      - name: Verify evidence boundary\n        shell: bash\n        run: |\n          set -euo pipefail\n          python3 - <<'PY'\n          import json\n          from pathlib import Path\n          p = Path('docs/research/cloud_session_20260906_gap_fill_v2_phase1_factor_diagnostic_receipt_v1.json')\n          u = Path('docs/governance/cloud_session_20260906_gap_fill_v2_phase1_factor_data_usage_v1.json')\n          assert p.exists() and u.exists()\n          d = json.loads(p.read_text())\n          assert d['v1_reference_fitting_performed'] is True\n          assert d['v1_reference_fits_used_gap_fill_outcomes'] is False\n          assert d['gap_fill_model_fitting_performed'] is False\n          assert d['candidate_selection_performed'] is False\n          assert d['feature_selection_performed'] is False\n          assert d['threshold_search_performed'] is False\n          assert d['2026_rows_loaded'] is False\n          assert d['probe_count'] == 10\n          print(json.dumps({\n              'n_common_complete_rows': d['n_common_complete_rows'],\n              'common_inventory_by_sign': d['common_inventory_by_sign'],\n              'mechanism_passer_count': d['mechanism_passer_count'],\n              'mechanism_passers': d['mechanism_passers'],\n              'factor_block_summary': d['factor_block_summary'],\n              '2026_rows_loaded': d['2026_rows_loaded'],\n          }, indent=2, sort_keys=True))\n          PY\n      - name: Commit aggregate Phase-1 receipts\n        shell: bash\n        run: |\n          set -euo pipefail\n          git config user.name 'gap-fill-v2-phase1-cloud-runner'\n          git config user.email 'gap-fill-v2-phase1-cloud-runner@users.noreply.github.com'\n          git add \\\n            docs/research/cloud_session_20260906_gap_fill_v2_phase1_factor_diagnostic_receipt_v1.json \\\n            docs/governance/cloud_session_20260906_gap_fill_v2_phase1_factor_data_usage_v1.json\n          if git diff --cached --quiet; then\n            echo 'No Phase-1 receipt changes.'\n          else\n            git commit -m 'Record cloud gap-fill V2 Phase-1 factor diagnostic [skip ci]'\n            git push origin HEAD:main\n          fi\n"
+    },
+    {
+      "path": ".github/workflows/gap-fill-v2-phase2-hazard-selection.yml",
+      "content": "name: gap-fill-v2-phase2-hazard-selection\n\non:\n  push:\n    paths:\n      - '.github/workflows/gap-fill-v2-phase2-hazard-selection.yml'\n\npermissions:\n  contents: write\n\njobs:\n  select:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 1\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install dependencies\n        run: python -m pip install --upgrade pip pandas pyarrow numpy scipy scikit-learn pytest\n      - name: Verify frozen code and governance identities\n        shell: bash\n        run: |\n          set -euo pipefail\n          test \"$(git hash-object docs/governance/cloud_session_20260906_gap_fill_v2_phase2_hazard_family_v1.json)\" = \"a3a077fc3f41058e366cb753918ff19143f5c460\"\n          test \"$(git hash-object scripts/select_gap_fill_v2_phase2_hazard_family.py)\" = \"df4afc944ac4d0f7c37864dba6787de1c887e778\"\n          test \"$(git hash-object tests/test_gap_fill_v2_phase2_hazard_family.py)\" = \"a863c9d30da674e0fb83b6e3ae1968670edfefb4\"\n          test \"$(git hash-object docs/governance/cloud_session_20260906_gap_fill_prediction_v2_protocol_v1.json)\" = \"b0f31e6479d1897a577eea90aaa12d78a7f78e7a\"\n          test \"$(git hash-object docs/research/gap_fill_v2_phase1_factor_adjudication_20260906.md)\" = \"3e04dcf7bc093a56eed489314c78d4705f2663f8\"\n          test \"$(git hash-object docs/governance/cloud_session_20260906_direction_head_selected_v1.json)\" = \"c52189502f84f8ae813615a322eecadd6927fc08\"\n          test \"$(git hash-object docs/governance/cloud_session_20260906_gap_fill_v2_phase2_execution_freeze_v1.json)\" = \"09c38be5fd3fb0b8c0712641ce823824f14536a6\"\n      - name: Verify frozen data identities\n        shell: bash\n        run: |\n          set -euo pipefail\n          echo 'f2587a528a517052016b646b58c734569b64a87766ff096575f353587e46aed1  data/high_open_dev_2015_2025/annotated_panel.parquet' | sha256sum -c -\n          echo '11f4a5e78381371680fbcf6e01891216f645a8de869646ced6a623970727bcce  data/high_open_dev_2015_2025/1m_official.parquet' | sha256sum -c -\n          echo '800f3b0d9bce8a243ee9932fe350878eb22f8dafa2885e2c0d5d7fd88e3748c9  data/high_open_dev_2015_2025/fred_nasdaq.csv' | sha256sum -c -\n          echo '4cd9341dca20cea785c9f4e2417e4227bd98ddc59469e2924e43f3610fc131ef  data/high_open_dev_2015_2025/fred_vix.csv' | sha256sum -c -\n      - name: Validate package\n        run: python3 scripts/validate_theme_package.py\n      - name: Run regression tests\n        run: python3 -m pytest -q\n      - name: Run frozen Phase-2 hazard selection\n        run: python3 scripts/select_gap_fill_v2_phase2_hazard_family.py\n      - name: Verify selection evidence boundary\n        shell: bash\n        run: |\n          set -euo pipefail\n          python3 - <<'PY'\n          import json\n          from pathlib import Path\n          p = Path('docs/research/cloud_session_20260906_gap_fill_v2_phase2_hazard_selection_receipt_v1.json')\n          u = Path('docs/governance/cloud_session_20260906_gap_fill_v2_phase2_hazard_data_usage_v1.json')\n          assert p.exists() and u.exists()\n          d = json.loads(p.read_text())\n          assert d['gap_fill_model_fitting_performed'] is True\n          assert d['candidate_selection_performed'] is True\n          assert d['hyperparameter_search_performed'] is False\n          assert d['threshold_search_performed'] is False\n          assert d['model_class_search_performed'] is False\n          assert d['probability_calibration_used_for_selection'] is False\n          assert d['2026_rows_loaded'] is False\n          assert d['2026_repeat_validation_opened'] is False\n          assert d['hazard_oof_years'] == list(range(2017, 2026))\n          for sign in ['high', 'low']:\n              s = d['sign_results'][sign]\n              assert s['common_oof_days_identical'] is True\n              for name in ['benchmark', 'geometry', 'full']:\n                  obj = s[name]\n                  if name == 'benchmark':\n                      eval_obj = obj['evaluation']\n                  else:\n                      eval_obj = obj['evaluation']\n                  for cohort in ['all', 'gt10bp', 'gt30bp']:\n                      assert eval_obj[cohort]['horizons']['fill_15m']['n'] > 0\n                  for model_name in ['geometry', 'full']:\n                      pass\n          print(json.dumps({\n              'selected_head_count': d['selected_head_count'],\n              'selected_heads': {k: None if v is None else v['selected_feature_set'] for k, v in d['selected_heads'].items()},\n              'selected_architecture_sha256': d['selected_architecture_sha256'],\n              'decision': d['decision'],\n              '2026_rows_loaded': d['2026_rows_loaded'],\n          }, indent=2, sort_keys=True))\n          PY\n      - name: Commit aggregate Phase-2 receipts\n        shell: bash\n        run: |\n          set -euo pipefail\n          git config user.name 'gap-fill-v2-phase2-cloud-runner'\n          git config user.email 'gap-fill-v2-phase2-cloud-runner@users.noreply.github.com'\n          git add \\\n            docs/research/cloud_session_20260906_gap_fill_v2_phase2_hazard_selection_receipt_v1.json \\\n            docs/governance/cloud_session_20260906_gap_fill_v2_phase2_hazard_data_usage_v1.json\n          if git diff --cached --quiet; then\n            echo 'No Phase-2 receipt changes.'\n          else\n            git commit -m 'Record cloud gap-fill V2 Phase-2 hazard selection [skip ci]'\n            git push origin HEAD:main\n          fi\n"
+    },
+    {
+      "path": ".github/workflows/gap-fill-v2-target-ledger.yml",
+      "content": "name: gap-fill-v2-target-ledger\n\non:\n  push:\n    paths:\n      - '.github/workflows/gap-fill-v2-target-ledger.yml'\n\npermissions:\n  contents: write\n\njobs:\n  ledger:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 1\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install dependencies\n        run: python -m pip install --upgrade pip pandas pyarrow numpy scikit-learn pytest\n      - name: Validate package\n        run: python3 scripts/validate_theme_package.py\n      - name: Run tests\n        run: python3 -m pytest -q\n      - name: Build frozen V2 target ledger\n        run: python3 scripts/build_gap_fill_v2_target_ledger.py\n      - name: Verify no-model and evidence boundary\n        run: |\n          python3 - <<'PY'\n          import json\n          from pathlib import Path\n          p = Path('docs/research/cloud_session_20260906_gap_fill_v2_target_ledger_v1.json')\n          u = Path('docs/governance/cloud_session_20260906_gap_fill_v2_target_data_usage_v1.json')\n          assert p.exists() and u.exists()\n          d = json.loads(p.read_text())\n          assert d['model_fitting_performed'] is False\n          assert d['feature_selection_performed'] is False\n          assert d['threshold_search_performed'] is False\n          assert d['2026_rows_loaded'] is False\n          assert d['nested_event_invariant']['passed'] is True\n          print(json.dumps({\n              'n_valid_target_days': d['n_valid_target_days'],\n              'n_invalid_target_days': d['n_invalid_target_days'],\n              'invalid_reason_counts': d['invalid_reason_counts'],\n              'all_valid': d['summary']['all_valid'],\n              'gt10bp': d['summary']['material']['gt10bp']['all'],\n              'gt30bp': d['summary']['material']['gt30bp']['all'],\n          }, indent=2, sort_keys=True))\n          PY\n      - name: Commit aggregate target ledger\n        run: |\n          git config user.name 'gap-fill-v2-cloud-runner'\n          git config user.email 'gap-fill-v2-cloud-runner@users.noreply.github.com'\n          git add \\\n            docs/research/cloud_session_20260906_gap_fill_v2_target_ledger_v1.json \\\n            docs/governance/cloud_session_20260906_gap_fill_v2_target_data_usage_v1.json\n          if git diff --cached --quiet; then\n            echo 'No target-ledger changes.'\n          else\n            git commit -m 'Record cloud gap-fill v2 target ledger [skip ci]'\n            git push origin HEAD:main\n          fi\n"
+    },
+    {
+      "path": ".github/workflows/gap-fill-v2-true-fresh-prereg-check.yml",
+      "content": "name: gap-fill-v2-true-fresh-prereg-check\n\non:\n  push:\n    paths:\n      - '.github/workflows/gap-fill-v2-true-fresh-prereg-check.yml'\n\npermissions:\n  contents: read\n\njobs:\n  check:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 1\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install test dependencies\n        run: python -m pip install --upgrade pandas pyarrow numpy scipy scikit-learn pytest\n      - name: Verify preregistered blobs\n        shell: bash\n        run: |\n          set -euo pipefail\n          test \"$(git hash-object docs/research/gap_fill_v2_true_fresh_preanalysis_20260906.md)\" = \"c1831c3849b6ff4826be7c335b683bc2ea9844b1\"\n          test \"$(git hash-object docs/governance/cloud_session_20260906_gap_fill_v2_true_fresh_protocol_v1.json)\" = \"d2bae1e0ac285748dbe7af1a584a08feb2aefdde\"\n          test \"$(git hash-object scripts/evaluate_gap_fill_v2_true_fresh_2026q4.py)\" = \"d418c8281d9f417798c574affdc0ed34b8e46920\"\n          test \"$(git hash-object tests/test_gap_fill_v2_true_fresh_protocol.py)\" = \"c7c7946d79526b9b40ed17ca210225e46c141d8e\"\n          test \"$(git hash-object scripts/evaluate_local_gap_fill_v2_2026_repeat.py)\" = \"d61e00efa6e605864c8153a1e7e577257f813939\"\n          test \"$(git hash-object docs/governance/cloud_session_20260906_gap_fill_v2_final_fit_freeze_v1.json)\" = \"eef7a9af6d42ee2faf53dbd16dce0b15ebfd10ed\"\n      - name: Validate theme package\n        run: python3 scripts/validate_theme_package.py\n      - name: Run full regression tests only\n        run: python3 -m pytest -q\n      - name: Assert fresh evaluator was not executed\n        shell: bash\n        run: |\n          set -euo pipefail\n          test ! -e docs/research/gap_fill_v2_true_fresh_2026q4_receipt_v1.json\n          test ! -e docs/governance/gap_fill_v2_true_fresh_2026q4_data_usage_v1.json\n          echo 'Fresh outcomes remain unopened.'\n"
+    },
+    {
+      "path": ".github/workflows/gap-fill-v21-candidate-family-static.yml",
+      "content": "name: gap-fill-v21-candidate-family-static\n\non:\n  push:\n    branches:\n      - codex/v21-p2-candidate-family-freeze\n  pull_request:\n    paths:\n      - 'docs/governance/cloud_session_20260907_gap_fill_v21_candidate_family_v1.json'\n      - 'docs/governance/cloud_session_20260907_gap_fill_v21_dev_selection_protocol_v1.json'\n      - 'docs/research/gap_fill_v21_candidate_family_preanalysis_20260907.md'\n      - 'scripts/v21_p2_overlay.py'\n      - 'tests/test_gap_fill_v21_candidate_family.py'\n\npermissions:\n  contents: read\n\njobs:\n  static-family-check:\n    runs-on: ubuntu-24.04\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install static test dependencies\n        run: python -m pip install pytest numpy scipy\n      - name: Parse frozen JSON protocols\n        run: |\n          python - <<'PY'\n          import json\n          from pathlib import Path\n          for p in [\n              Path('docs/governance/cloud_session_20260907_gap_fill_v21_candidate_family_v1.json'),\n              Path('docs/governance/cloud_session_20260907_gap_fill_v21_dev_selection_protocol_v1.json'),\n              Path('docs/governance/gap_fill_v21_state_v1.json'),\n          ]:\n              json.loads(p.read_text(encoding='utf-8'))\n              print('parsed', p)\n          PY\n      - name: Run V21 candidate-family tests only\n        run: python -m pytest -q tests/test_gap_fill_v21_candidate_family.py\n      - name: Confirm no future execution was authorized\n        run: |\n          python - <<'PY'\n          import json\n          from pathlib import Path\n          family = json.loads(Path('docs/governance/cloud_session_20260907_gap_fill_v21_candidate_family_v1.json').read_text())\n          dev = json.loads(Path('docs/governance/cloud_session_20260907_gap_fill_v21_dev_selection_protocol_v1.json').read_text())\n          state = json.loads(Path('docs/governance/gap_fill_v21_state_v1.json').read_text())\n          assert family['V21_DEV_outcomes_open_authorized'] is False\n          assert dev['DEV_outcomes_opened'] is False\n          assert dev['successor_fit_performed'] is False\n          assert dev['successor_selection_performed'] is False\n          assert state['sealed']['V21_DEV_outcomes'] is True\n          assert state['sealed']['V21_AUDIT_A_outcomes'] is True\n          assert state['sealed']['V21_AUDIT_B_outcomes'] is True\n          assert state['successor_model_fit_authorized'] is False\n          assert state['successor_model_selection_authorized'] is False\n          print('future outcome boundary remains sealed')\n          PY\n"
+    },
+    {
+      "path": ".github/workflows/gap-fill-v21-evaluation-kernel-static.yml",
+      "content": "name: gap-fill-v21-evaluation-kernel-static\n\non:\n  push:\n    branches:\n      - codex/v21-evaluation-kernel-freeze\n  pull_request:\n    paths:\n      - 'scripts/v21_evaluation_kernel.py'\n      - 'tests/test_gap_fill_v21_evaluation_kernel.py'\n      - 'docs/governance/cloud_session_20260907_gap_fill_v21_evaluation_kernel_contract_v1.json'\n      - 'docs/governance/gap_fill_v21_state_v1.json'\n\npermissions:\n  contents: read\n\njobs:\n  static-evaluation-check:\n    runs-on: ubuntu-24.04\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install static dependencies\n        run: python -m pip install pytest numpy\n      - name: Parse evaluation contract\n        run: |\n          python - <<'PY'\n          import json\n          from pathlib import Path\n          for p in [\n              Path('docs/governance/cloud_session_20260907_gap_fill_v21_evaluation_kernel_contract_v1.json'),\n              Path('docs/governance/cloud_session_20260907_gap_fill_v21_candidate_family_v1.json'),\n              Path('docs/governance/gap_fill_v21_state_v1.json'),\n          ]:\n              json.loads(p.read_text(encoding='utf-8'))\n              print('parsed', p)\n          PY\n      - name: Run frozen evaluation-kernel tests\n        run: python -m pytest -q tests/test_gap_fill_v21_evaluation_kernel.py\n      - name: Confirm evaluation kernel has no data/model authority\n        run: |\n          python - <<'PY'\n          from pathlib import Path\n          import json\n          source = Path('scripts/v21_evaluation_kernel.py').read_text(encoding='utf-8')\n          contract = json.loads(Path('docs/governance/cloud_session_20260907_gap_fill_v21_evaluation_kernel_contract_v1.json').read_text())\n          state = json.loads(Path('docs/governance/gap_fill_v21_state_v1.json').read_text())\n          assert 'read_parquet' not in source\n          assert 'open(' not in source\n          assert '.fit(' not in source\n          assert contract['V21_DEV_outcomes_open_authorized'] is False\n          assert contract['Audit_A_outcomes_open_authorized'] is False\n          assert contract['Audit_B_outcomes_open_authorized'] is False\n          assert state['sealed']['V21_DEV_outcomes'] is True\n          assert state['sealed']['V21_AUDIT_A_outcomes'] is True\n          assert state['sealed']['V21_AUDIT_B_outcomes'] is True\n          print('evaluation kernel is pure and future outcomes remain sealed')\n          PY\n"
+    },
+    {
+      "path": ".github/workflows/gap-fill-v21-regime-rd1-prereg-check.yml",
+      "content": "name: gap-fill-v21-regime-rd1-prereg-check\n\non:\n  push:\n    paths:\n      - 'docs/governance/cloud_session_20260907_gap_fill_v21_regime_diagnostic_protocol_v1.json'\n      - 'scripts/diagnose_gap_fill_v21_regime_consumed.py'\n      - 'tests/test_gap_fill_v21_regime_diagnostic_protocol.py'\n      - '.github/workflows/gap-fill-v21-regime-rd1-prereg-check.yml'\n  workflow_dispatch:\n\npermissions:\n  contents: read\n\njobs:\n  check:\n    runs-on: ubuntu-24.04\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 1\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install test dependencies\n        run: python -m pip install --upgrade pandas pyarrow numpy scipy scikit-learn pytest\n      - name: Verify V2.1 RD1 preregistered blobs\n        shell: bash\n        run: |\n          set -euo pipefail\n          test \"$(git hash-object docs/governance/cloud_session_20260907_gap_fill_v21_regime_diagnostic_protocol_v1.json)\" = \"81348fbdde35a8ccab634cd01ef783820243a1d1\"\n          test \"$(git hash-object scripts/diagnose_gap_fill_v21_regime_consumed.py)\" = \"d5512b9037631cb9e07cd1c680a35c11ec14ea44\"\n          test \"$(git hash-object tests/test_gap_fill_v21_regime_diagnostic_protocol.py)\" = \"194571b15f325caeb9a26761d96df220d17ecab3\"\n          test \"$(git hash-object docs/governance/local_gap_fill_cross_index_transport_dev_parameter_freeze_v1.json)\" = \"4cce91f54a0dbbf1380f12db24db4c1d2c0c3162\"\n          test \"$(git hash-object docs/research/gap_fill_cross_index_audit_b_cloud_adjudication_20260907.md)\" = \"8902756ac8a8b266969c07029908a852d4a146c7\"\n      - name: Compile V2.1 RD1 runner only\n        run: python3 -m py_compile scripts/diagnose_gap_fill_v21_regime_consumed.py\n      - name: Validate theme package\n        run: python3 scripts/validate_theme_package.py\n      - name: Run full regression tests\n        run: python3 -m pytest -q\n      - name: Assert RD1 and future outcomes remain unopened\n        shell: bash\n        run: |\n          set -euo pipefail\n          test ! -e docs/research/local_gap_fill_v21_regime_diagnostic_receipt_v1.json\n          test ! -e docs/governance/local_gap_fill_v21_regime_diagnostic_data_usage_v1.json\n          test ! -e docs/research/local_gap_fill_cross_index_transport_supporting_crosscheck_receipt_v1.json\n          test ! -e docs/research/local_gap_fill_v21_dev_receipt_v1.json\n          test ! -e docs/research/local_gap_fill_v21_audit_a_receipt_v1.json\n          test ! -e docs/research/local_gap_fill_v21_audit_b_receipt_v1.json\n          echo 'V2.1 RD1 preregistration valid; future external outcomes remain unopened.'\n"
+    },
+    {
+      "path": ".github/workflows/gap-fill-v21-session-complete-239-gate.yml",
+      "content": "name: gap-fill-v21-session-complete-239-gate\n\non:\n  push:\n    branches:\n      - codex/v21-session-complete-239-source-admission\n  workflow_dispatch:\n\npermissions:\n  contents: read\n\njobs:\n  static-gate-check:\n    runs-on: ubuntu-24.04\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install test dependency\n        run: python -m pip install pytest\n      - name: Run pure gate self-test\n        run: python scripts/v21_session_complete_239_gate.py --self-test\n      - name: Run V21 gate tests only\n        run: python -m pytest -q tests/test_v21_session_complete_239_gate.py\n      - name: Confirm frozen RD1 runner is still historical-only\n        run: |\n          python - <<'PY'\n          from pathlib import Path\n          text = Path('scripts/diagnose_gap_fill_v21_regime_consumed.py').read_text(encoding='utf-8')\n          assert 'CONSUMED_END = \"2014-10-16\"' in text\n          assert 'columns=[\"symbol\", \"trading_day\", \"timestamp\"]' in text\n          assert 'V21_DEV_outcomes_opened\": False' in text\n          print('RD1 runner remains frozen/historical-only')\n          PY\n      - name: Report external receipt visibility without opening outcomes\n        run: |\n          python - <<'PY'\n          from pathlib import Path\n          p = Path('docs/research/local_gap_fill_v21_future_audit_source_admission_receipt_v1.json')\n          print({'local_source_admission_receipt_visible_in_checkout': p.exists()})\n          PY\n"
+    },
+    {
+      "path": ".github/workflows/gap-fill-v21-source-to-dev-metadata-static.yml",
+      "content": "name: gap-fill-v21-source-to-dev-metadata-static\n\non:\n  push:\n    branches:\n      - codex/v21-source-to-dev-metadata-controller\n  pull_request:\n    paths:\n      - 'scripts/run_v21_source_to_dev_metadata_controller.py'\n      - 'tests/test_gap_fill_v21_source_to_dev_metadata_controller.py'\n      - 'docs/governance/cloud_session_20260907_gap_fill_v21_source_to_dev_metadata_controller_v1.json'\n      - '.github/workflows/gap-fill-v21-source-to-dev-metadata-static.yml'\n\npermissions:\n  contents: read\n\njobs:\n  static-metadata-controller-check:\n    runs-on: ubuntu-24.04\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install static dependencies\n        run: python -m pip install pytest pandas pyarrow\n      - name: Compile controller\n        run: python -m py_compile scripts/run_v21_source_to_dev_metadata_controller.py\n      - name: Run controller tests\n        run: python -m pytest -q tests/test_gap_fill_v21_source_to_dev_metadata_controller.py\n      - name: Confirm hard stop before DEV outcomes\n        run: |\n          python - <<'PY'\n          import json\n          from pathlib import Path\n          p = json.loads(Path('docs/governance/cloud_session_20260907_gap_fill_v21_source_to_dev_metadata_controller_v1.json').read_text())\n          text = Path('scripts/run_v21_source_to_dev_metadata_controller.py').read_text()\n          assert p['hard_stop_after_outputs'] is True\n          assert p['V21_DEV_outcomes_open_authorized'] is False\n          assert p['successor_model_fit_authorized'] is False\n          assert p['successor_model_selection_authorized'] is False\n          assert 'LogisticRegression' not in text\n          assert 'v21_p2_overlay' not in text\n          assert 'v21_evaluation_kernel' not in text\n          assert '.fit(' not in text\n          print('metadata controller remains pre-outcome only')\n          PY\n"
+    },
+    {
+      "path": ".github/workflows/ohr06-offshore-china-cloud-execution.yml",
+      "content": "name: ohr06-offshore-china-cloud-execution\n\non:\n  push:\n    paths:\n      - '.github/workflows/ohr06-offshore-china-cloud-execution.yml'\n\npermissions:\n  contents: write\n\n# Retriggered after user-authorized frozen OHR-05 source pack commit 0ff42399.\n\njobs:\n  ohr06:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          lfs: true\n          fetch-depth: 1\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install research dependencies\n        run: python -m pip install --upgrade pip pandas pyarrow numpy scikit-learn pytest\n      - name: Locate exact OHR-05 frozen Yahoo artifact\n        shell: bash\n        run: |\n          set -euo pipefail\n          EXPECTED='045cf728977ff72a9fabd236aaf06b7a9df3310ad1f6f487bd594d487cc05ffd'\n          mapfile -t MATCHES < <(find . -type f -name '*.parquet' -print0 | xargs -0 sha256sum | awk -v h=\"$EXPECTED\" '$1==h {print $2}')\n          if [ \"${#MATCHES[@]}\" -ne 1 ]; then\n            echo \"Expected exactly one parquet with SHA $EXPECTED, found ${#MATCHES[@]}\" >&2\n            printf '%s\\n' \"${MATCHES[@]:-}\" >&2\n            exit 41\n          fi\n          SOURCE=\"${MATCHES[0]}\"\n          echo \"Frozen source: $SOURCE\"\n          sha256sum \"$SOURCE\"\n          echo \"OVERNIGHT_OFFSHORE_ETF_DAILY=$SOURCE\" >> \"$GITHUB_ENV\"\n      - name: Validate theme package\n        run: python3 scripts/validate_theme_package.py\n      - name: Run full regression tests\n        run: python3 -m pytest -q\n      - name: Run frozen OHR-06 mechanism diagnostic\n        run: python3 scripts/diagnose_offshore_china_price_discovery_dev.py\n      - name: Verify OHR-06 outputs and blackbox boundary\n        shell: bash\n        run: |\n          set -euo pipefail\n          python3 - <<'PY'\n          import json\n          from pathlib import Path\n          r = Path('docs/research/cloud_session_20260906_local_offshore_china_ohr06_diagnostic_receipt_v1.json')\n          u = Path('docs/governance/local_session_20260906_offshore_china_ohr06_data_usage.json')\n          assert r.exists() and u.exists()\n          d = json.loads(r.read_text())\n          assert d.get('2026_rows_loaded') is False\n          assert d.get('2026_blackbox_opened') is False\n          assert d.get('candidate_selection_performed') is False\n          assert d.get('parameter_search_performed') is False\n          assert d.get('threshold_search_performed') is False\n          assert d.get('quantile_search_performed') is False\n          print(json.dumps({\n              'decision': d.get('decision'),\n              'china_specific_passers': d.get('china_specific_passers'),\n              'n_incumbent_oof': d.get('n_incumbent_oof'),\n              'n_common_offshore_oof': d.get('n_common_offshore_oof'),\n              'n_primary_slice': d.get('n_primary_slice'),\n              '2026_blackbox_opened': d.get('2026_blackbox_opened'),\n          }, indent=2, sort_keys=True))\n          PY\n      - name: Commit aggregate OHR-06 receipts\n        shell: bash\n        run: |\n          set -euo pipefail\n          git config user.name 'ohr06-cloud-runner'\n          git config user.email 'ohr06-cloud-runner@users.noreply.github.com'\n          git add \\\n            docs/research/cloud_session_20260906_local_offshore_china_ohr06_diagnostic_receipt_v1.json \\\n            docs/governance/local_session_20260906_offshore_china_ohr06_data_usage.json\n          if git diff --cached --quiet; then\n            echo 'No receipt changes to commit.'\n          else\n            git commit -m 'Record cloud OHR-06 offshore diagnostic receipts [skip ci]'\n            git push origin HEAD:main\n          fi\n"
+    },
+    {
+      "path": ".github/workflows/ohr07-offshore-china-dev-selection.yml",
+      "content": "name: ohr07-offshore-china-dev-selection\n\non:\n  push:\n    paths:\n      - '.github/workflows/ohr07-offshore-china-dev-selection.yml'\n\npermissions:\n  contents: write\n\njobs:\n  ohr07:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 1\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install research dependencies\n        run: python -m pip install --upgrade pip pandas pyarrow numpy scikit-learn pytest\n      - name: Verify frozen offshore source\n        run: |\n          echo '045cf728977ff72a9fabd236aaf06b7a9df3310ad1f6f487bd594d487cc05ffd  data/offshore_etf_dev_2015_2025/offshore_etf_daily.parquet' | sha256sum -c -\n      - name: Validate theme package\n        run: python3 scripts/validate_theme_package.py\n      - name: Run regression tests\n        run: python3 -m pytest -q\n      - name: Run frozen OHR-07 selector\n        run: python3 scripts/select_offshore_china_ohr07_dev.py\n      - name: Verify selection receipt boundary\n        run: |\n          python3 - <<'PY'\n          import json\n          from pathlib import Path\n          p = Path('docs/research/cloud_session_20260906_cloud_offshore_china_ohr07_dev_receipt_v1.json')\n          u = Path('docs/governance/cloud_session_20260906_offshore_china_ohr07_data_usage.json')\n          assert p.exists() and u.exists()\n          d = json.loads(p.read_text())\n          assert d['candidate_selection_performed'] is True\n          assert d['parameter_search_performed'] is False\n          assert d['threshold_search_performed'] is False\n          assert d['quantile_search_performed'] is False\n          assert d['2026_rows_loaded'] is False\n          assert d['2026_blackbox_opened'] is False\n          assert d['ohr_03_opened'] is False\n          assert len(d['attempts']) == 1\n          print(json.dumps({\n              'n_oof_common': d['n_oof_common'],\n              'eligible_candidate_count': d['eligible_candidate_count'],\n              'selected': d['selected'],\n              'decision': d['decision'],\n              '2026_blackbox_opened': d['2026_blackbox_opened'],\n          }, indent=2, sort_keys=True))\n          PY\n      - name: Commit aggregate OHR-07 receipts\n        run: |\n          git config user.name 'ohr07-cloud-runner'\n          git config user.email 'ohr07-cloud-runner@users.noreply.github.com'\n          git add \\\n            docs/research/cloud_session_20260906_cloud_offshore_china_ohr07_dev_receipt_v1.json \\\n            docs/governance/cloud_session_20260906_offshore_china_ohr07_data_usage.json\n          if git diff --cached --quiet; then\n            echo 'No receipt changes.'\n          else\n            git commit -m 'Record cloud OHR-07 offshore selection receipt [skip ci]'\n            git push origin HEAD:main\n          fi\n"
+    },
+    {
+      "path": ".github/workflows/ohr08-offshore-china-frozen-base-overlay.yml",
+      "content": "name: ohr08-offshore-china-frozen-base-overlay\n\non:\n  push:\n    paths:\n      - '.github/workflows/ohr08-offshore-china-frozen-base-overlay.yml'\n\npermissions:\n  contents: write\n\njobs:\n  ohr08:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 1\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install research dependencies\n        run: python -m pip install --upgrade pip pandas pyarrow numpy scikit-learn pytest\n      - name: Verify frozen OHR-05 source\n        run: |\n          echo '045cf728977ff72a9fabd236aaf06b7a9df3310ad1f6f487bd594d487cc05ffd  data/offshore_etf_dev_2015_2025/offshore_etf_daily.parquet' | sha256sum -c -\n      - name: Validate theme package\n        run: python3 scripts/validate_theme_package.py\n      - name: Run full regression tests\n        run: python3 -m pytest -q\n      - name: Run frozen OHR-08 selector\n        run: python3 scripts/select_offshore_china_ohr08_frozen_base_overlay_dev.py\n      - name: Verify frozen-base and evidence boundaries\n        run: |\n          python3 - <<'PY'\n          import json\n          from pathlib import Path\n          p = Path('docs/research/cloud_session_20260906_cloud_offshore_china_ohr08_dev_receipt_v1.json')\n          u = Path('docs/governance/cloud_session_20260906_offshore_china_ohr08_data_usage.json')\n          assert p.exists() and u.exists()\n          d = json.loads(p.read_text())\n          a = d['attempts'][0]\n          assert len(d['attempts']) == 1\n          assert d['candidate_selection_performed'] is True\n          assert d['parameter_search_performed'] is False\n          assert d['beta_grid_search_performed'] is False\n          assert d['threshold_search_performed'] is False\n          assert d['quantile_search_performed'] is False\n          assert d['2026_rows_loaded'] is False\n          assert d['2026_blackbox_opened'] is False\n          assert d['ohr_03_opened'] is False\n          assert a['stage1_reference_score_max_abs_difference'] <= 1e-12\n          assert a['non_tail_score_max_abs_difference'] <= 1e-12\n          assert a['non_tail_predictions_identical'] is True\n          print(json.dumps({\n              'n_oof_common': d['n_oof_common'],\n              'eligible_candidate_count': d['eligible_candidate_count'],\n              'decision': d['decision'],\n              'selected': d['selected'],\n              'stage1_reference_score_max_abs_difference': a['stage1_reference_score_max_abs_difference'],\n              'non_tail_score_max_abs_difference': a['non_tail_score_max_abs_difference'],\n              '2026_blackbox_opened': d['2026_blackbox_opened'],\n          }, indent=2, sort_keys=True))\n          PY\n      - name: Commit aggregate OHR-08 receipts\n        run: |\n          git config user.name 'ohr08-cloud-runner'\n          git config user.email 'ohr08-cloud-runner@users.noreply.github.com'\n          git add \\\n            docs/research/cloud_session_20260906_cloud_offshore_china_ohr08_dev_receipt_v1.json \\\n            docs/governance/cloud_session_20260906_offshore_china_ohr08_data_usage.json\n          if git diff --cached --quiet; then\n            echo 'No receipt changes.'\n          else\n            git commit -m 'Record cloud OHR-08 frozen-base overlay receipt [skip ci]'\n            git push origin HEAD:main\n          fi\n"
+    },
+    {
+      "path": ".github/workflows/overnight-2026-direction-runner-check.yml",
+      "content": "name: overnight-2026-direction-runner-check\n\non:\n  push:\n    paths:\n      - 'scripts/evaluate_local_2026_direction_head.py'\n      - 'scripts/validate_theme_package.py'\n      - 'tests/test_local_2026_direction_receipt.py'\n      - 'docs/governance/cloud_session_20260906_direction_2026_fresh_protocol_v1.json'\n      - 'docs/governance/cloud_session_20260906_direction_head_selected_v1.json'\n      - 'docs/governance/cloud_session_20260906_research_architecture_acceptance_v1.json'\n      - 'docs/governance/cloud_session_20260906_production_readiness_review_v1.json'\n      - 'docs/governance/local_session_20260906_2026_direction_data_usage.json'\n      - 'docs/research/cloud_session_20260906_local_2026_direction_receipt_v1.json'\n      - 'docs/research/cloud_session_20260906_local_2021_2025_two_head_receipt_v1.json'\n      - '.github/workflows/overnight-2026-direction-runner-check.yml'\n\njobs:\n  check:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install research dependencies\n        run: python -m pip install --upgrade pip pandas pyarrow numpy scikit-learn pytest\n      - name: Validate bounded package and accepted research boundary\n        run: python scripts/validate_theme_package.py\n      - name: Run regression tests\n        run: pytest -q\n      - name: Compile frozen local 2026 runner\n        run: python -m py_compile scripts/evaluate_local_2026_direction_head.py\n"
+    },
+    {
+      "path": ".github/workflows/overnight-clock-gate-corroboration.yml",
+      "content": "name: overnight-clock-gate-corroboration\n\non:\n  push:\n    paths:\n      - 'scripts/corroborate_clock_gate_dev.py'\n      - '.github/workflows/overnight-clock-gate-corroboration.yml'\n      - 'docs/governance/cloud_session_20260906_clock_gate_hypothesis_v1.json'\n\njobs:\n  corroborate:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install research dependencies\n        run: python -m pip install --upgrade pip pandas pyarrow numpy scikit-learn pytest\n      - name: Validate bounded package\n        run: python scripts/validate_theme_package.py\n      - name: Run regression tests\n        run: pytest -q\n      - name: Corroborate fixed clock-state gate on development OOF only\n        run: python scripts/corroborate_clock_gate_dev.py\n"
+    },
+    {
+      "path": ".github/workflows/overnight-data-source-probe.yml",
+      "content": "name: overnight-data-source-probe\n\non:\n  push:\n    paths:\n      - '.github/workflows/overnight-data-source-probe.yml'\n\njobs:\n  probe:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install probe dependencies\n        run: python -m pip install --upgrade pandas pyarrow\n      - name: Probe frozen DataHub 1m provenance only\n        run: |\n          python - <<'PY'\n          import pandas as pd\n          from pathlib import Path\n          p=Path('data/development/1m_official.parquet')\n          df=pd.read_parquet(p)\n          print('ROWS', len(df))\n          print('COLUMNS', list(df.columns))\n          print('DTYPES', {c:str(df[c].dtype) for c in df.columns})\n          for c in df.columns:\n              lc=c.lower()\n              if any(k in lc for k in ['source','provider','vendor','contract','origin','freq','symbol','adjust','calendar','timestamp']):\n                  vals=df[c].dropna().astype(str).unique()\n                  print('META', c, 'NUNIQUE', len(vals), 'VALUES', vals[:20].tolist())\n          clocks=df['timestamp'].astype(str).str.slice(11,16) if 'timestamp' in df.columns else pd.Series([],dtype=str)\n          if len(clocks):\n              print('CLOCK_SAMPLE', sorted(clocks.unique())[:20], sorted(clocks.unique())[-20:])\n          print('DAY_RANGE', str(df['trading_day'].min()), str(df['trading_day'].max()))\n          sample=df.loc[df['trading_day'].astype(str).isin(['2015-01-05','2020-12-31'])].copy()\n          if 'timestamp' in sample.columns:\n              sample=sample.loc[sample['timestamp'].astype(str).str.slice(11,16).isin(['09:31','13:01','14:00','15:00'])]\n          keep=[c for c in ['trading_day','timestamp','timestamp_source_serialized','symbol','open','high','low','close','source','provider','vendor'] if c in sample.columns]\n          print('SAMPLE_ROWS')\n          print(sample[keep].to_string(index=False))\n          PY\n"
+    },
+    {
+      "path": ".github/workflows/overnight-dev-inventory.yml",
+      "content": "name: overnight-dev-inventory\n\non:\n  push:\n    paths:\n      - 'scripts/inventory_development.py'\n      - '.github/workflows/overnight-dev-inventory.yml'\n      - 'docs/governance/cloud_session_20260906_data_usage.json'\n\njobs:\n  inventory:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install research dependencies\n        run: python -m pip install --upgrade pip pandas pyarrow numpy scikit-learn pytest\n      - name: Validate bounded package\n        run: python scripts/validate_theme_package.py\n      - name: Run regression tests\n        run: pytest -q\n      - name: Development-only inventory\n        run: python scripts/inventory_development.py\n"
+    },
+    {
+      "path": ".github/workflows/overnight-dev-select.yml",
+      "content": "name: overnight-dev-select\n\non:\n  push:\n    paths:\n      - 'scripts/select_clock_candidates_dev.py'\n      - '.github/workflows/overnight-dev-select.yml'\n      - 'docs/governance/cloud_session_20260906_candidate_family_v1.json'\n\njobs:\n  select:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install research dependencies\n        run: python -m pip install --upgrade pip pandas pyarrow numpy scikit-learn pytest\n      - name: Validate bounded package\n        run: python scripts/validate_theme_package.py\n      - name: Run regression tests\n        run: pytest -q\n      - name: Select development-only candidate\n        run: python scripts/select_clock_candidates_dev.py\n"
+    },
+    {
+      "path": ".github/workflows/overnight-direction-head-dev.yml",
+      "content": "name: overnight-direction-head-dev\n\non:\n  push:\n    paths:\n      - 'scripts/select_direction_head_dev.py'\n      - '.github/workflows/overnight-direction-head-dev.yml'\n      - 'docs/governance/cloud_session_20260906_direction_head_family_v1.json'\n\njobs:\n  select:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install research dependencies\n        run: python -m pip install --upgrade pip pandas pyarrow numpy scikit-learn pytest\n      - name: Validate bounded package\n        run: python scripts/validate_theme_package.py\n      - name: Run regression tests\n        run: pytest -q\n      - name: Select bounded direction-head candidate on 2015-2020 expanding OOF only\n        run: python scripts/select_direction_head_dev.py\n"
+    },
+    {
+      "path": ".github/workflows/overnight-eastmoney-compat-probe.yml",
+      "content": "name: overnight-eastmoney-compat-probe\n\non:\n  push:\n    paths:\n      - '.github/workflows/overnight-eastmoney-compat-probe.yml'\n\njobs:\n  probe:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install probe dependencies\n        run: python -m pip install --upgrade pandas pyarrow requests\n      - name: Compare public Eastmoney historical minutes with frozen DataHub only\n        run: |\n          python - <<'PY'\n          import json\n          import pandas as pd\n          import requests\n\n          frozen = pd.read_parquet('data/development/1m_official.parquet')\n          frozen['wall_clock'] = frozen['timestamp_source_serialized'].astype(str).str.slice(0,16)\n          days = ['2015-01-05','2020-12-31']\n          clocks = ['09:31','13:01','14:00','15:00']\n          sample = frozen.loc[\n              frozen['trading_day'].astype(str).isin(days)\n              & frozen['wall_clock'].str.slice(11,16).isin(clocks),\n              ['trading_day','wall_clock','open','high','low','close','source_kind','causal_flat_fill']\n          ].copy()\n          print('FROZEN_SAMPLE')\n          print(sample.to_string(index=False))\n\n          url='https://push2his.eastmoney.com/api/qt/stock/kline/get'\n          headers={'User-Agent':'Mozilla/5.0','Referer':'https://quote.eastmoney.com/'}\n          for secid in ['1.000852','0.000852']:\n              for day in days:\n                  params={\n                      'secid':secid,\n                      'fields1':'f1,f2,f3,f4,f5,f6',\n                      'fields2':'f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61',\n                      'klt':'1','fqt':'0','beg':day.replace('-',''),'end':day.replace('-',''),\n                      'lmt':'1000000','ut':'fa5fd1943c7b386f172d6893dbbd1d0c'\n                  }\n                  r=requests.get(url,params=params,headers=headers,timeout=30)\n                  print('HTTP',secid,day,r.status_code,'LEN',len(r.text))\n                  try:\n                      payload=r.json()\n                  except Exception:\n                      print('BODY_HEAD',r.text[:500]); continue\n                  data=payload.get('data') if isinstance(payload,dict) else None\n                  print('META',secid,day,None if data is None else {k:data.get(k) for k in ['code','name','decimal','dktotal']})\n                  kl=[] if data is None else (data.get('klines') or [])\n                  print('KLINE_COUNT',secid,day,len(kl))\n                  picked=[]\n                  for row in kl:\n                      parts=row.split(',')\n                      if len(parts)>=5 and parts[0][-5:] in clocks:\n                          picked.append(parts[:7])\n                  print('PICKED',secid,day,picked)\n          PY\n"
+    },
+    {
+      "path": ".github/workflows/overnight-holdout-v1.yml",
+      "content": "name: overnight-holdout-v1\n\non:\n  push:\n    paths:\n      - 'scripts/evaluate_frozen_holdout_v1.py'\n      - '.github/workflows/overnight-holdout-v1.yml'\n      - 'docs/governance/cloud_session_20260906_selected_spec_v1.json'\n\njobs:\n  holdout:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install research dependencies\n        run: python -m pip install --upgrade pip pandas pyarrow numpy scikit-learn pytest\n      - name: Validate bounded package\n        run: python scripts/validate_theme_package.py\n      - name: Run regression tests\n        run: pytest -q\n      - name: Evaluate frozen holdout exactly once\n        run: python scripts/evaluate_frozen_holdout_v1.py\n"
+    },
+    {
+      "path": ".github/workflows/overnight-index-series-probe.yml",
+      "content": "name: overnight-index-series-probe\n\non:\n  push:\n    paths:\n      - '.github/workflows/overnight-index-series-probe.yml'\n\njobs:\n  probe:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Sparse-clone consumed-through-2025 market index product\n        run: |\n          git clone --depth 1 --filter=blob:none --sparse https://github.com/staryocean0/factorlab-multifactor-stock-lab.git /tmp/multi\n          cd /tmp/multi\n          git sparse-checkout set data/development/cloudridge_index_series.json\n          test -f data/development/cloudridge_index_series.json\n          wc -c data/development/cloudridge_index_series.json\n      - name: Inspect CSI1000 presence and granularity without reading 2026\n        run: |\n          python - <<'PY'\n          import json\n          from pathlib import Path\n          p=Path('/tmp/multi/data/development/cloudridge_index_series.json')\n          txt=p.read_text(encoding='utf-8')\n          print('TEXT_000852_COUNT', txt.count('000852'))\n          obj=json.loads(txt)\n          print('TOP_TYPE', type(obj).__name__)\n          if isinstance(obj,dict): print('TOP_KEYS', list(obj)[:50])\n          if isinstance(obj,list): print('TOP_LEN', len(obj), 'FIRST_TYPE', type(obj[0]).__name__ if obj else None)\n          hits=[]\n          def walk(x,path='root'):\n              if len(hits)>=20: return\n              if isinstance(x,dict):\n                  joined=' '.join(str(v) for v in x.values() if isinstance(v,(str,int,float)))\n                  if '000852' in joined:\n                      hits.append((path,x))\n                  for k,v in x.items(): walk(v,f'{path}.{k}')\n              elif isinstance(x,list):\n                  for i,v in enumerate(x): walk(v,f'{path}[{i}]')\n          walk(obj)\n          print('HITS', len(hits))\n          for path,x in hits[:10]:\n              print('HIT_PATH', path)\n              print('HIT_KEYS', list(x)[:30])\n              print('HIT', {k:x[k] for k in list(x)[:30] if isinstance(x[k],(str,int,float,bool,type(None)))})\n          PY\n"
+    },
+    {
+      "path": ".github/workflows/overnight-posthoc-diagnostic.yml",
+      "content": "name: overnight-posthoc-diagnostic\n\non:\n  push:\n    paths:\n      - 'scripts/diagnose_clock_holdout_posthoc.py'\n      - '.github/workflows/overnight-posthoc-diagnostic.yml'\n      - 'docs/governance/cloud_session_20260906_posthoc_diagnostic_scope_v1.json'\n      - 'docs/governance/cloud_session_20260906_holdout_repeat_audit_receipt_v1.json'\n\njobs:\n  diagnose:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install research dependencies\n        run: python -m pip install --upgrade pip pandas pyarrow numpy scikit-learn pytest\n      - name: Validate bounded package\n        run: python scripts/validate_theme_package.py\n      - name: Run regression tests\n        run: pytest -q\n      - name: Run fixed-slice post-hoc diagnostic\n        run: python scripts/diagnose_clock_holdout_posthoc.py\n"
+    },
+    {
+      "path": ".github/workflows/overnight-two-head-dev.yml",
+      "content": "name: overnight-two-head-dev\n\non:\n  push:\n    paths:\n      - 'scripts/select_two_head_dev.py'\n      - '.github/workflows/overnight-two-head-dev.yml'\n      - 'docs/governance/cloud_session_20260906_two_head_family_v1.json'\n\njobs:\n  select:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install research dependencies\n        run: python -m pip install --upgrade pip pandas pyarrow numpy scikit-learn pytest\n      - name: Validate bounded package\n        run: python scripts/validate_theme_package.py\n      - name: Run regression tests\n        run: pytest -q\n      - name: Select bounded two-head candidate on development OOF only\n        run: python scripts/select_two_head_dev.py\n"
+    },
+    {
+      "path": ".github/workflows/register_b1_blackbox_query8_once.yml",
+      "content": "name: Register B1 reusable BLACKBOX query 8\n\non:\n  push:\n    branches: [main]\n    paths:\n      - '.github/workflows/register_b1_blackbox_query8_once.yml'\n\npermissions:\n  contents: write\n\njobs:\n  register:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 0\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Verify compact receipt and append ledger entry\n        run: |\n          set -euo pipefail\n          python - <<'PY'\n          import json, pathlib\n          root = pathlib.Path('.')\n          ledger_path = root/'docs/governance/overnight_reusable_blackbox_query_ledger_v1.json'\n          receipt_path = root/'docs/research/local_global_risk_open_gap_blackbox_receipt_v1.json'\n          ledger = json.loads(ledger_path.read_text())\n          receipt = json.loads(receipt_path.read_text())\n          assert ledger['query_count'] == 7\n          assert len(ledger['queries']) == 7\n          assert receipt['query_id'] == '6b0b6899f94fd8353a34'\n          assert receipt['research_identity'] == 'overnight_global_risk_open_gap_v1'\n          assert receipt['decision'] == 'PASS'\n          assert receipt['public_detail_release'] is False\n          assert receipt['internal_metrics_persisted'] is False\n          assert receipt['yearly_results_persisted'] is False\n          assert receipt['counts_persisted'] is False\n          assert receipt['bootstrap_results_persisted'] is False\n          assert receipt['failure_attribution_persisted'] is False\n          entry = {\n            'ordinal': 8,\n            'query_id': receipt['query_id'],\n            'research_identity': receipt['research_identity'],\n            'comparator': receipt['comparator'],\n            'decision': receipt['decision'],\n            'receipt': 'docs/research/local_global_risk_open_gap_blackbox_receipt_v1.json',\n            'receipt_commit': 'efabcbf3f9f3de4b597c0cad29c45ccdbe2ed754',\n            'protocol_sha256': receipt['protocol_sha256'],\n            'source_manifest_sha256': receipt['source_manifest_sha256'],\n            'reconstruction_contract_sha256': receipt['reconstruction_contract_sha256'],\n            'public_detail_release': False,\n            'internal_metrics_persisted': False,\n            'yearly_results_persisted': False,\n            'counts_persisted': False,\n            'bootstrap_results_persisted': False,\n            'failure_attribution_persisted': False,\n            'technical_retry_counted_as_separate_query': False,\n            'blackbox_reusable_after_query': True,\n            'blackbox_consumed_as_one_time_data': False,\n            'reuse_is_independent_oos': False,\n            'production_authority': False,\n          }\n          ledger['schema_id'] = 'overnight_reusable_blackbox_query_ledger@1.5'\n          ledger['query_count'] = 8\n          ledger['queries'].append(entry)\n          ledger_path.write_text(json.dumps(ledger, indent=2) + '\\n')\n          PY\n          git diff -- docs/governance/overnight_reusable_blackbox_query_ledger_v1.json\n      - name: Commit ledger only\n        run: |\n          set -euo pipefail\n          EXTRA=\"$(git status --short | grep -v '^ M docs/governance/overnight_reusable_blackbox_query_ledger_v1.json$' || true)\"\n          test -z \"$EXTRA\"\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add docs/governance/overnight_reusable_blackbox_query_ledger_v1.json\n          git commit -m \"Register B1 reusable BLACKBOX query 8 PASS [skip ci]\"\n          git push\n"
+    },
+    {
+      "path": ".github/workflows/register_b2_blackbox_query9_once.yml",
+      "content": "name: Register B2 reusable BLACKBOX query 9\non:\n  push:\n    branches: [main]\n    paths: ['.github/workflows/register_b2_blackbox_query9_once.yml']\npermissions:\n  contents: write\njobs:\n  register:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with: {fetch-depth: 0}\n      - uses: actions/setup-python@v5\n        with: {python-version: '3.11'}\n      - name: Append verified B2 ledger entry\n        run: |\n          set -euo pipefail\n          python - <<'PY'\n          import json, pathlib\n          lp=pathlib.Path('docs/governance/overnight_reusable_blackbox_query_ledger_v1.json')\n          rp=pathlib.Path('docs/research/local_china_offshore_open_gap_blackbox_receipt_v1.json')\n          l=json.loads(lp.read_text()); r=json.loads(rp.read_text())\n          assert l['query_count']==8 and len(l['queries'])==8\n          assert r['query_id']=='608e037b0d24724b097b' and r['decision']=='PASS'\n          assert all(r[k] is False for k in ['public_detail_release','internal_metrics_persisted','yearly_results_persisted','counts_persisted','bootstrap_results_persisted','failure_attribution_persisted'])\n          l['schema_id']='overnight_reusable_blackbox_query_ledger@1.6'; l['query_count']=9\n          l['queries'].append({\n            'ordinal':9,'query_id':r['query_id'],'research_identity':r['research_identity'],'comparator':r['comparator'],'decision':r['decision'],\n            'receipt':'docs/research/local_china_offshore_open_gap_blackbox_receipt_v1.json','receipt_commit':'90ebeefb9a8177f9df7ba9f4984211de93003a80',\n            'protocol_sha256':r['protocol_sha256'],'high_open_source_manifest_sha256':r['high_open_source_manifest_sha256'],'external_source_manifest_sha256':r['external_source_manifest_sha256'],'reconstruction_contract_sha256':r['reconstruction_contract_sha256'],\n            'public_detail_release':False,'internal_metrics_persisted':False,'yearly_results_persisted':False,'counts_persisted':False,'bootstrap_results_persisted':False,'failure_attribution_persisted':False,'technical_retry_counted_as_separate_query':False,'blackbox_reusable_after_query':True,'blackbox_consumed_as_one_time_data':False,'reuse_is_independent_oos':False,'production_authority':False})\n          lp.write_text(json.dumps(l,indent=2)+'\\n')\n          PY\n      - name: Commit ledger only\n        run: |\n          set -euo pipefail\n          EXTRA=\"$(git status --short | grep -v '^ M docs/governance/overnight_reusable_blackbox_query_ledger_v1.json$' || true)\"; test -z \"$EXTRA\"\n          git config user.name \"github-actions[bot]\"; git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add docs/governance/overnight_reusable_blackbox_query_ledger_v1.json\n          git commit -m \"Register B2 reusable BLACKBOX query 9 PASS [skip ci]\"\n          git push\n"
+    },
+    {
+      "path": ".github/workflows/register_b3_blackbox_query10_once.yml",
+      "content": "name: Register B3 reusable BLACKBOX query 10\non:\n  push:\n    branches: [main]\n    paths: ['.github/workflows/register_b3_blackbox_query10_once.yml']\npermissions:\n  contents: write\njobs:\n  register:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with: {fetch-depth: 0}\n      - uses: actions/setup-python@v5\n        with: {python-version: '3.11'}\n      - name: Append verified B3 ledger entry\n        run: |\n          set -euo pipefail\n          python - <<'PY'\n          import json, pathlib\n          lp=pathlib.Path('docs/governance/overnight_reusable_blackbox_query_ledger_v1.json')\n          rp=pathlib.Path('docs/research/local_fx_cny_open_gap_blackbox_receipt_v1.json')\n          l=json.loads(lp.read_text()); r=json.loads(rp.read_text())\n          assert l['query_count']==9 and len(l['queries'])==9\n          assert r['query_id']=='34699d9d9b3ca36d1a6d' and r['decision']=='FAIL'\n          assert all(r[k] is False for k in ['public_detail_release','internal_metrics_persisted','yearly_results_persisted','counts_persisted','bootstrap_results_persisted','failure_attribution_persisted'])\n          l['schema_id']='overnight_reusable_blackbox_query_ledger@1.7'; l['query_count']=10\n          l['queries'].append({\n            'ordinal':10,'query_id':r['query_id'],'research_identity':r['research_identity'],'comparator':r['comparator'],'decision':r['decision'],\n            'receipt':'docs/research/local_fx_cny_open_gap_blackbox_receipt_v1.json','receipt_commit':'08852250b254aa04cf0787667e44c3612fd356bd',\n            'protocol_sha256':r['protocol_sha256'],'high_open_source_manifest_sha256':r['high_open_source_manifest_sha256'],'external_source_manifest_sha256':r['external_source_manifest_sha256'],'reconstruction_contract_sha256':r['reconstruction_contract_sha256'],\n            'public_detail_release':False,'internal_metrics_persisted':False,'yearly_results_persisted':False,'counts_persisted':False,'bootstrap_results_persisted':False,'failure_attribution_persisted':False,'technical_retry_counted_as_separate_query':False,'blackbox_reusable_after_query':True,'blackbox_consumed_as_one_time_data':False,'reuse_is_independent_oos':False,'production_authority':False})\n          lp.write_text(json.dumps(l,indent=2)+'\\n')\n          PY\n      - name: Commit ledger only\n        run: |\n          set -euo pipefail\n          EXTRA=\"$(git status --short | grep -v '^ M docs/governance/overnight_reusable_blackbox_query_ledger_v1.json$' || true)\"; test -z \"$EXTRA\"\n          git config user.name \"github-actions[bot]\"; git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add docs/governance/overnight_reusable_blackbox_query_ledger_v1.json\n          git commit -m \"Register B3 reusable BLACKBOX query 10 FAIL [skip ci]\"\n          git push\n"
+    },
+    {
+      "path": ".github/workflows/register_c4_blackbox_query11_once.yml",
+      "content": "name: Register C4 reusable BLACKBOX query 11\non:\n  push:\n    branches: [main]\n    paths: ['.github/workflows/register_c4_blackbox_query11_once.yml']\npermissions:\n  contents: write\njobs:\n  register:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with: {fetch-depth: 0}\n      - uses: actions/setup-python@v5\n        with: {python-version: '3.11'}\n      - name: Append verified C4 ledger entry\n        run: |\n          set -euo pipefail\n          python - <<'PY'\n          import json, pathlib\n          lp=pathlib.Path('docs/governance/overnight_reusable_blackbox_query_ledger_v1.json')\n          rp=pathlib.Path('docs/research/local_calendar_weekend_gap_15m_blackbox_receipt_v1.json')\n          l=json.loads(lp.read_text()); r=json.loads(rp.read_text())\n          assert l['query_count']==10 and len(l['queries'])==10\n          assert r['query_id']=='85335f9aaae24c263cf6' and r['decision']=='FAIL'\n          assert all(r[k] is False for k in ['public_detail_release','internal_metrics_persisted','yearly_results_persisted','counts_persisted','bootstrap_results_persisted','failure_attribution_persisted'])\n          l['schema_id']='overnight_reusable_blackbox_query_ledger@1.8'; l['query_count']=11\n          l['queries'].append({\n            'ordinal':11,'query_id':r['query_id'],'research_identity':r['research_identity'],'comparator':r['comparator'],'decision':r['decision'],\n            'receipt':'docs/research/local_calendar_weekend_gap_15m_blackbox_receipt_v1.json','receipt_commit':'b9633c9dcc4eac3e6c43795b340b702c4da52b19',\n            'protocol_sha256':r['protocol_sha256'],'source_manifest_sha256':r['source_manifest_sha256'],'reconstruction_contract_sha256':r['reconstruction_contract_sha256'],'reconstructed_panel_2015_2020_parity':r['reconstructed_panel_2015_2020_parity'],'target_clock_2019_2020_parity':r['target_clock_2019_2020_parity'],\n            'public_detail_release':False,'internal_metrics_persisted':False,'yearly_results_persisted':False,'counts_persisted':False,'bootstrap_results_persisted':False,'failure_attribution_persisted':False,'technical_retry_counted_as_separate_query':False,'blackbox_reusable_after_query':True,'blackbox_consumed_as_one_time_data':False,'reuse_is_independent_oos':False,'production_authority':False})\n          lp.write_text(json.dumps(l,indent=2)+'\\n')\n          PY\n      - name: Commit ledger only\n        run: |\n          set -euo pipefail\n          EXTRA=\"$(git status --short | grep -v '^ M docs/governance/overnight_reusable_blackbox_query_ledger_v1.json$' || true)\"; test -z \"$EXTRA\"\n          git config user.name \"github-actions[bot]\"; git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add docs/governance/overnight_reusable_blackbox_query_ledger_v1.json\n          git commit -m \"Register C4 reusable BLACKBOX query 11 FAIL [skip ci]\"\n          git push\n"
+    },
+    {
+      "path": ".github/workflows/run_a1_validated_driver_dev_once.yml",
+      "content": "name: One-shot A1 validated-driver development\non:\n  push:\n    branches: [main]\n    paths: ['.github/workflows/run_a1_validated_driver_dev_once.yml']\npermissions:\n  contents: write\njobs:\n  run-a1-dev:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with: {fetch-depth: 0}\n      - uses: actions/setup-python@v5\n        with: {python-version: '3.11'}\n      - name: Install frozen dependencies\n        run: python -m pip install --disable-pip-version-check numpy pandas pyarrow scikit-learn\n      - name: Run frozen A1 Development diagnostic\n        run: |\n          set -euo pipefail\n          test ! -e docs/research/cloud_expected_open_validated_driver_coordinates_v1_dev_diagnostic.json\n          python scripts/run_expected_open_validated_driver_coordinates_v1_dev_cloud.py\n      - name: Commit A1 Development receipt only\n        run: |\n          set -euo pipefail\n          git status --short\n          test -f docs/research/cloud_expected_open_validated_driver_coordinates_v1_dev_diagnostic.json\n          EXTRA=\"$(git status --short | grep -v '^?? docs/research/cloud_expected_open_validated_driver_coordinates_v1_dev_diagnostic.json$' || true)\"; test -z \"$EXTRA\"\n          git config user.name \"github-actions[bot]\"; git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add docs/research/cloud_expected_open_validated_driver_coordinates_v1_dev_diagnostic.json\n          git commit -m \"Record A1 validated-driver development diagnostic [skip ci]\"\n          git push\n"
+    },
+    {
+      "path": ".github/workflows/run_b1_global_risk_blackbox_once.yml",
+      "content": "name: One-shot B1 global-risk reusable BLACKBOX\n\non:\n  push:\n    branches: [main]\n    paths:\n      - '.github/workflows/run_b1_global_risk_blackbox_once.yml'\n\npermissions:\n  contents: write\n\njobs:\n  run-b1-blackbox:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 0\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install frozen runtime dependencies\n        run: python -m pip install --disable-pip-version-check numpy pandas pyarrow scikit-learn\n      - name: Reconstruct frozen panel and run compact B1 BLACKBOX\n        run: |\n          set -euo pipefail\n          test ! -e docs/research/local_global_risk_open_gap_blackbox_receipt_v1.json\n          TMP=\"$(mktemp -d)\"\n          trap 'rm -rf \"$TMP\"' EXIT\n          python scripts/build_v6a_frozen_base_panel.py \\\n            --raw-panel data/high_open_dev_2015_2025/annotated_panel.parquet \\\n            --minute-bars data/high_open_dev_2015_2025/1m_official.parquet \\\n            --nasdaq data/high_open_dev_2015_2025/fred_nasdaq.csv \\\n            --vix data/high_open_dev_2015_2025/fred_vix.csv \\\n            --frozen-panel data/development/csi1000_open_pit_panel.parquet \\\n            --panel-out \"$TMP/panel_2015_2025.parquet\" \\\n            --nasdaq-normalized-out \"$TMP/fred_nasdaq.csv\" \\\n            --vix-normalized-out \"$TMP/fred_vix.csv\"\n          python scripts/run_global_risk_open_gap_blackbox.py \\\n            --panel \"$TMP/panel_2015_2025.parquet\" \\\n            --source-manifest data/high_open_dev_2015_2025/manifest.json \\\n            --reconstruction-contract docs/governance/v6a_base_panel_reconstruction_contract_20260910.json \\\n            --protocol docs/governance/global_risk_open_gap_blackbox_protocol_v1.json \\\n            --receipt-out docs/research/local_global_risk_open_gap_blackbox_receipt_v1.json\n      - name: Commit compact B1 receipt only\n        run: |\n          set -euo pipefail\n          git status --short\n          test -f docs/research/local_global_risk_open_gap_blackbox_receipt_v1.json\n          EXTRA=\"$(git status --short | grep -v '^?? docs/research/local_global_risk_open_gap_blackbox_receipt_v1.json$' || true)\"\n          test -z \"$EXTRA\"\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add docs/research/local_global_risk_open_gap_blackbox_receipt_v1.json\n          git commit -m \"Record B1 reusable BLACKBOX receipt [skip ci]\"\n          git push\n"
+    },
+    {
+      "path": ".github/workflows/run_b1_global_risk_dev_once.yml",
+      "content": "name: One-shot B1 global-risk development\n\non:\n  push:\n    branches: [main]\n    paths:\n      - '.github/workflows/run_b1_global_risk_dev_once.yml'\n\npermissions:\n  contents: write\n\njobs:\n  run-b1-dev:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          fetch-depth: 0\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Install minimal dependencies\n        run: python -m pip install --disable-pip-version-check numpy pandas\n      - name: Run frozen B1 diagnostic\n        run: |\n          set -euo pipefail\n          test ! -e docs/research/cloud_global_risk_driver_v1_dev_diagnostic.json\n          python scripts/run_global_risk_driver_v1_dev_cloud.py\n      - name: Commit B1 development receipt only\n        run: |\n          set -euo pipefail\n          git status --short\n          test -f docs/research/cloud_global_risk_driver_v1_dev_diagnostic.json\n          EXTRA=\"$(git status --short | grep -v '^?? docs/research/cloud_global_risk_driver_v1_dev_diagnostic.json$' || true)\"\n          test -z \"$EXTRA\"\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add docs/research/cloud_global_risk_driver_v1_dev_diagnostic.json\n          git commit -m \"Record B1 global-risk development diagnostic [skip ci]\"\n          git push\n"
+    },
+    {
+      "path": ".github/workflows/run_b2_china_offshore_blackbox_once.yml",
+      "content": "name: One-shot B2 China-offshore reusable BLACKBOX\non:\n  push:\n    branches: [main]\n    paths: ['.github/workflows/run_b2_china_offshore_blackbox_once.yml']\npermissions:\n  contents: write\njobs:\n  run-b2-blackbox:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with: {fetch-depth: 0}\n      - uses: actions/setup-python@v5\n        with: {python-version: '3.11'}\n      - name: Install frozen dependencies\n        run: python -m pip install --disable-pip-version-check numpy pandas pyarrow scikit-learn\n      - name: Reconstruct panel and run compact B2 BLACKBOX\n        run: |\n          set -euo pipefail\n          test ! -e docs/research/local_china_offshore_open_gap_blackbox_receipt_v1.json\n          TMP=\"$(mktemp -d)\"; trap 'rm -rf \"$TMP\"' EXIT\n          python scripts/build_v6a_frozen_base_panel.py \\\n            --raw-panel data/high_open_dev_2015_2025/annotated_panel.parquet \\\n            --minute-bars data/high_open_dev_2015_2025/1m_official.parquet \\\n            --nasdaq data/high_open_dev_2015_2025/fred_nasdaq.csv \\\n            --vix data/high_open_dev_2015_2025/fred_vix.csv \\\n            --frozen-panel data/development/csi1000_open_pit_panel.parquet \\\n            --panel-out \"$TMP/panel.parquet\" \\\n            --nasdaq-normalized-out \"$TMP/nasdaq.csv\" \\\n            --vix-normalized-out \"$TMP/vix.csv\"\n          python scripts/run_single_external_driver_blackbox.py \\\n            --panel \"$TMP/panel.parquet\" \\\n            --hkma data/v6a_external_sources_2015_2025/hkma_usdcny_cross.parquet \\\n            --holiday-a50 data/v6a_external_sources_2015_2025/sgx_a50_holiday_endpoints.parquet \\\n            --ordinary-a50 data/v6a_external_sources_2015_2025/sgx_a50_ordinary_preauction_endpoints.parquet \\\n            --high-open-source-manifest data/high_open_dev_2015_2025/manifest.json \\\n            --external-source-manifest data/v6a_external_sources_2015_2025/manifest.json \\\n            --reconstruction-contract docs/governance/v6a_base_panel_reconstruction_contract_20260910.json \\\n            --protocol docs/governance/china_offshore_open_gap_blackbox_protocol_v1.json \\\n            --receipt-out docs/research/local_china_offshore_open_gap_blackbox_receipt_v1.json\n      - name: Commit compact B2 receipt only\n        run: |\n          set -euo pipefail\n          git status --short\n          test -f docs/research/local_china_offshore_open_gap_blackbox_receipt_v1.json\n          EXTRA=\"$(git status --short | grep -v '^?? docs/research/local_china_offshore_open_gap_blackbox_receipt_v1.json$' || true)\"; test -z \"$EXTRA\"\n          git config user.name \"github-actions[bot]\"; git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add docs/research/local_china_offshore_open_gap_blackbox_receipt_v1.json\n          git commit -m \"Record B2 reusable BLACKBOX receipt [skip ci]\"\n          git push\n"
+    },
+    {
+      "path": ".github/workflows/run_b2_china_offshore_dev_once.yml",
+      "content": "name: One-shot B2 China-offshore development\non:\n  push:\n    branches: [main]\n    paths: ['.github/workflows/run_b2_china_offshore_dev_once.yml']\npermissions:\n  contents: write\njobs:\n  run-b2-dev:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with: {fetch-depth: 0}\n      - uses: actions/setup-python@v5\n        with: {python-version: '3.11'}\n      - name: Install minimal dependencies\n        run: python -m pip install --disable-pip-version-check numpy pandas\n      - name: Run frozen B2 diagnostic\n        run: |\n          set -euo pipefail\n          test ! -e docs/research/cloud_china_offshore_driver_v1_dev_diagnostic.json\n          python scripts/run_single_external_driver_dev_cloud.py --protocol \"$GITHUB_WORKSPACE/docs/governance/china_offshore_driver_v1_protocol.json\"\n      - name: Commit B2 development receipt only\n        run: |\n          set -euo pipefail\n          git status --short\n          test -f docs/research/cloud_china_offshore_driver_v1_dev_diagnostic.json\n          EXTRA=\"$(git status --short | grep -v '^?? docs/research/cloud_china_offshore_driver_v1_dev_diagnostic.json$' || true)\"\n          test -z \"$EXTRA\"\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add docs/research/cloud_china_offshore_driver_v1_dev_diagnostic.json\n          git commit -m \"Record B2 China-offshore development diagnostic [skip ci]\"\n          git push\n"
+    },
+    {
+      "path": ".github/workflows/run_b3_fx_cny_blackbox_once.yml",
+      "content": "name: One-shot B3 FX/CNY reusable BLACKBOX\non:\n  push:\n    branches: [main]\n    paths: ['.github/workflows/run_b3_fx_cny_blackbox_once.yml']\npermissions:\n  contents: write\njobs:\n  run-b3-blackbox:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with: {fetch-depth: 0}\n      - uses: actions/setup-python@v5\n        with: {python-version: '3.11'}\n      - name: Install frozen dependencies\n        run: python -m pip install --disable-pip-version-check numpy pandas pyarrow scikit-learn\n      - name: Reconstruct panel and run compact B3 BLACKBOX\n        run: |\n          set -euo pipefail\n          test ! -e docs/research/local_fx_cny_open_gap_blackbox_receipt_v1.json\n          TMP=\"$(mktemp -d)\"; trap 'rm -rf \"$TMP\"' EXIT\n          python scripts/build_v6a_frozen_base_panel.py \\\n            --raw-panel data/high_open_dev_2015_2025/annotated_panel.parquet \\\n            --minute-bars data/high_open_dev_2015_2025/1m_official.parquet \\\n            --nasdaq data/high_open_dev_2015_2025/fred_nasdaq.csv \\\n            --vix data/high_open_dev_2015_2025/fred_vix.csv \\\n            --frozen-panel data/development/csi1000_open_pit_panel.parquet \\\n            --panel-out \"$TMP/panel.parquet\" \\\n            --nasdaq-normalized-out \"$TMP/nasdaq.csv\" \\\n            --vix-normalized-out \"$TMP/vix.csv\"\n          python scripts/run_single_external_driver_blackbox.py \\\n            --panel \"$TMP/panel.parquet\" \\\n            --hkma data/v6a_external_sources_2015_2025/hkma_usdcny_cross.parquet \\\n            --holiday-a50 data/v6a_external_sources_2015_2025/sgx_a50_holiday_endpoints.parquet \\\n            --ordinary-a50 data/v6a_external_sources_2015_2025/sgx_a50_ordinary_preauction_endpoints.parquet \\\n            --high-open-source-manifest data/high_open_dev_2015_2025/manifest.json \\\n            --external-source-manifest data/v6a_external_sources_2015_2025/manifest.json \\\n            --reconstruction-contract docs/governance/v6a_base_panel_reconstruction_contract_20260910.json \\\n            --protocol docs/governance/fx_cny_open_gap_blackbox_protocol_v1.json \\\n            --receipt-out docs/research/local_fx_cny_open_gap_blackbox_receipt_v1.json\n      - name: Commit compact B3 receipt only\n        run: |\n          set -euo pipefail\n          git status --short\n          test -f docs/research/local_fx_cny_open_gap_blackbox_receipt_v1.json\n          EXTRA=\"$(git status --short | grep -v '^?? docs/research/local_fx_cny_open_gap_blackbox_receipt_v1.json$' || true)\"; test -z \"$EXTRA\"\n          git config user.name \"github-actions[bot]\"; git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add docs/research/local_fx_cny_open_gap_blackbox_receipt_v1.json\n          git commit -m \"Record B3 reusable BLACKBOX receipt [skip ci]\"\n          git push\n"
+    },
+    {
+      "path": ".github/workflows/run_b3_fx_cny_dev_once.yml",
+      "content": "name: One-shot B3 FX/CNY development\non:\n  push:\n    branches: [main]\n    paths: ['.github/workflows/run_b3_fx_cny_dev_once.yml']\npermissions:\n  contents: write\njobs:\n  run-b3-dev:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with: {fetch-depth: 0}\n      - uses: actions/setup-python@v5\n        with: {python-version: '3.11'}\n      - name: Install minimal dependencies\n        run: python -m pip install --disable-pip-version-check numpy pandas\n      - name: Run frozen B3 diagnostic\n        run: |\n          set -euo pipefail\n          test ! -e docs/research/cloud_fx_cny_driver_v1_dev_diagnostic.json\n          python scripts/run_single_external_driver_dev_cloud.py --protocol \"$GITHUB_WORKSPACE/docs/governance/fx_cny_driver_v1_protocol.json\"\n      - name: Commit B3 development receipt only\n        run: |\n          set -euo pipefail\n          git status --short\n          test -f docs/research/cloud_fx_cny_driver_v1_dev_diagnostic.json\n          EXTRA=\"$(git status --short | grep -v '^?? docs/research/cloud_fx_cny_driver_v1_dev_diagnostic.json$' || true)\"; test -z \"$EXTRA\"\n          git config user.name \"github-actions[bot]\"; git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add docs/research/cloud_fx_cny_driver_v1_dev_diagnostic.json\n          git commit -m \"Record B3 FX/CNY development diagnostic [skip ci]\"\n          git push\n"
+    },
+    {
+      "path": ".github/workflows/run_c4_weekend_gap_blackbox_once.yml",
+      "content": "name: One-shot C4 weekend-gap reusable BLACKBOX\non:\n  push:\n    branches: [main]\n    paths: ['.github/workflows/run_c4_weekend_gap_blackbox_once.yml']\npermissions:\n  contents: write\njobs:\n  run-c4-blackbox:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with: {fetch-depth: 0}\n      - uses: actions/setup-python@v5\n        with: {python-version: '3.11'}\n      - name: Install frozen dependencies\n        run: python -m pip install --disable-pip-version-check numpy pandas pyarrow scikit-learn\n      - name: Reconstruct panel and run compact C4 BLACKBOX\n        run: |\n          set -euo pipefail\n          test ! -e docs/research/local_calendar_weekend_gap_15m_blackbox_receipt_v1.json\n          TMP=\"$(mktemp -d)\"; trap 'rm -rf \"$TMP\"' EXIT\n          python scripts/build_v6a_frozen_base_panel.py \\\n            --raw-panel data/high_open_dev_2015_2025/annotated_panel.parquet \\\n            --minute-bars data/high_open_dev_2015_2025/1m_official.parquet \\\n            --nasdaq data/high_open_dev_2015_2025/fred_nasdaq.csv \\\n            --vix data/high_open_dev_2015_2025/fred_vix.csv \\\n            --frozen-panel data/development/csi1000_open_pit_panel.parquet \\\n            --panel-out \"$TMP/panel.parquet\" \\\n            --nasdaq-normalized-out \"$TMP/nasdaq.csv\" \\\n            --vix-normalized-out \"$TMP/vix.csv\"\n          python scripts/run_calendar_weekend_gap_15m_blackbox.py \\\n            --panel \"$TMP/panel.parquet\" \\\n            --minute-bars data/high_open_dev_2015_2025/1m_official.parquet \\\n            --source-manifest data/high_open_dev_2015_2025/manifest.json \\\n            --reconstruction-contract docs/governance/v6a_base_panel_reconstruction_contract_20260910.json \\\n            --runtime-text-root data/runtime_text_2015_2025 \\\n            --protocol docs/governance/calendar_weekend_gap_15m_blackbox_protocol_v1.json \\\n            --receipt-out docs/research/local_calendar_weekend_gap_15m_blackbox_receipt_v1.json\n      - name: Commit compact C4 receipt only\n        run: |\n          set -euo pipefail\n          git status --short\n          test -f docs/research/local_calendar_weekend_gap_15m_blackbox_receipt_v1.json\n          EXTRA=\"$(git status --short | grep -v '^?? docs/research/local_calendar_weekend_gap_15m_blackbox_receipt_v1.json$' || true)\"; test -z \"$EXTRA\"\n          git config user.name \"github-actions[bot]\"; git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add docs/research/local_calendar_weekend_gap_15m_blackbox_receipt_v1.json\n          git commit -m \"Record C4 weekend-gap reusable BLACKBOX receipt [skip ci]\"\n          git push\n"
+    },
+    {
+      "path": ".github/workflows/run_c4_weekend_gap_dev_once.yml",
+      "content": "# technical retry 1: duplicate weekend-column selection fix; no prior C4 receipt persisted\nname: One-shot C4 weekend-gap development\non:\n  push:\n    branches: [main]\n    paths: ['.github/workflows/run_c4_weekend_gap_dev_once.yml']\npermissions:\n  contents: write\njobs:\n  run-c4-dev:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with: {fetch-depth: 0}\n      - uses: actions/setup-python@v5\n        with: {python-version: '3.11'}\n      - name: Install minimal dependencies\n        run: python -m pip install --disable-pip-version-check numpy pandas\n      - name: Run frozen C4 diagnostic\n        run: |\n          set -euo pipefail\n          test ! -e docs/research/cloud_calendar_weekend_gap_context_v1_dev_diagnostic.json\n          python scripts/run_calendar_weekend_gap_context_v1_dev_cloud.py\n      - name: Commit C4 development receipt only\n        run: |\n          set -euo pipefail\n          git status --short\n          test -f docs/research/cloud_calendar_weekend_gap_context_v1_dev_diagnostic.json\n          EXTRA=\"$(git status --short | grep -v '^?? docs/research/cloud_calendar_weekend_gap_context_v1_dev_diagnostic.json$' || true)\"; test -z \"$EXTRA\"\n          git config user.name \"github-actions[bot]\"; git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git add docs/research/cloud_calendar_weekend_gap_context_v1_dev_diagnostic.json\n          git commit -m \"Record C4 weekend-gap development diagnostic [skip ci]\"\n          git push\n"
+    }
+  ],
+  "governance_states": [
+    {
+      "path": "docs/governance/baseline_receipt.json",
+      "schema_id": "overnight_open_baseline_receipt@2.0"
+    },
+    {
+      "path": "docs/governance/calendar_weekend_gap_15m_blackbox_state_v1.json",
+      "schema_id": "overnight_calendar_weekend_gap_15m_blackbox_state@1.1",
+      "status": "BLACKBOX_FAIL_closed_no_validated_C4_product",
+      "research_identity": "overnight_weekend_gap_conditioned_open_state_15m_blackbox_v1",
+      "blackbox_query_opened": true,
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/calendar_weekend_gap_context_v1_state.json",
+      "schema_id": "overnight_calendar_weekend_gap_context_state@1.1",
+      "status": "DEV_progression_supported_waiting_separate_validation_identity",
+      "research_identity": "overnight_weekend_gap_conditioned_open_state_15m_v1",
+      "outcome_opened": true,
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/china_offshore_driver_v1_state.json",
+      "schema_id": "overnight_china_offshore_driver_state@1.1",
+      "status": "DEV_progression_supported_waiting_separate_validation_identity",
+      "research_identity": "overnight_china_offshore_driver_v1",
+      "outcome_opened": true,
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/china_offshore_open_gap_blackbox_state_v1.json",
+      "schema_id": "overnight_china_offshore_open_gap_blackbox_state@1.1",
+      "status": "BLACKBOX_PASS_validated_continuous_B2_china_offshore_factor_product",
+      "research_identity": "overnight_china_offshore_open_gap_v1",
+      "blackbox_query_opened": true,
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/current_authority_v1.json",
+      "schema_id": "overnight_open_current_authority@1.33",
+      "next_action": "No additional outcome-bearing research is automatically authorized. Maintain the validated shelf and wait for a separately motivated result-free identity or the already-frozen Gap-Fill V2 true-fresh date gate. Cloud main remains research authority.",
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/downstream_b1_forward_cycle_portfolio_risk_adapter_v1_state.json",
+      "schema_id": "overnight_downstream_b1_forward_cycle_portfolio_risk_adapter_state@1.1",
+      "status": "DEV_progression_retrospective_portfolio_risk_candidate_waiting_separate_validation_identity",
+      "research_identity": "overnight_b1_forward_cycle_portfolio_risk_abstention_v1",
+      "next_action": "freeze a separate compact reusable validation identity before opening 2021-2025",
+      "outcome_opened": true,
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_state.json",
+      "schema_id": "overnight_downstream_b1_forward_cycle_portfolio_risk_adapter_validation_state@1.1",
+      "status": "BLACKBOX_FAIL_closed_no_validated_E3v2_product",
+      "research_identity": "overnight_b1_forward_cycle_portfolio_risk_abstention_validation_v1",
+      "blackbox_query_opened": true,
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/downstream_b2_stock_selection_offshore_risk_adapter_v1_state.json",
+      "schema_id": "overnight_downstream_b2_stock_selection_offshore_risk_adapter_state@1.1",
+      "status": "DEV_NO_PROGRESS_closed_no_successor",
+      "research_identity": "overnight_b2_stock_selection_offshore_risk_abstention_adapter_v1",
+      "next_action": "closed; no automatic successor or rescue under this identity",
+      "outcome_opened": true,
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/downstream_c1_c2_timing_agreement_adapter_v1_state.json",
+      "schema_id": "overnight_downstream_c1_c2_timing_agreement_adapter_state@1.1",
+      "status": "DEV_NO_PROGRESS_closed_no_successor",
+      "research_identity": "overnight_c1_c2_timing_agreement_adapter_v1",
+      "next_action": "closed; no threshold/weight/horizon rescue under this identity",
+      "outcome_opened": true,
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/downstream_c2_forward_cycle_portfolio_risk_adapter_v1_state.json",
+      "schema_id": "overnight_downstream_c2_forward_cycle_portfolio_risk_adapter_state@1.1",
+      "status": "DEV_INSUFFICIENT_closed_no_successor",
+      "research_identity": "overnight_c2_forward_cycle_portfolio_risk_abstention_v1",
+      "next_action": "closed; insufficient Development support forbids automatic validation, rescue, or successor under this identity",
+      "outcome_opened": true,
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/downstream_c2_stock_selection_risk_adapter_v1_state.json",
+      "schema_id": "overnight_downstream_c2_stock_selection_risk_adapter_state@1.1",
+      "status": "DEV_INSUFFICIENT_closed_no_successor",
+      "research_identity": "overnight_c2_stock_selection_risk_abstention_adapter_v1",
+      "next_action": "closed; insufficient active-decision support prevents progression adjudication under this identity",
+      "outcome_opened": true,
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/downstream_portfolio_risk_adapter_v1_state.json",
+      "schema_id": "overnight_downstream_portfolio_risk_adapter_state@1.1",
+      "status": "DEV_INSUFFICIENT_closed_no_successor",
+      "research_identity": "overnight_c1_intraday_portfolio_risk_abstention_v1",
+      "next_action": "closed; do not repair exact-clock missingness or alter complete-case rules under this identity",
+      "outcome_opened": true,
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/downstream_stock_selection_adapter_consumer_admission_state_v1.json",
+      "schema_id": "overnight_downstream_stock_selection_adapter_consumer_admission_state@1.0",
+      "status": "blocked_consumer_contract_gap_no_candidate_opened",
+      "outcome_opened": false,
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/downstream_stock_selection_adapter_v1_state.json",
+      "schema_id": "overnight_downstream_stock_selection_adapter_state@1.1",
+      "status": "DEV_NO_PROGRESS_closed_no_successor",
+      "research_identity": "overnight_b4_stock_selection_abstention_adapter_v1",
+      "outcome_opened": true,
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/downstream_timing_adapter_v1_state.json",
+      "schema_id": "overnight_downstream_timing_adapter_state@1.1",
+      "status": "DEV_progression_retrospective_factor_utility_candidate_waiting_separate_validation_identity",
+      "research_identity": "overnight_c1_b4_timing_confidence_adapter_v1",
+      "next_action": "cloud main agent may freeze a separate result-free reusable validation identity for this exact E1 zero-boundary adapter; do not search thresholds/weights/horizons or open account/PnL evidence under the development identity",
+      "outcome_opened": true,
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/downstream_timing_adapter_validation_v1_state.json",
+      "schema_id": "overnight_downstream_timing_adapter_validation_state@1.1",
+      "status": "BLACKBOX_FAIL_closed_no_validated_E1_product",
+      "research_identity": "overnight_c1_b4_timing_confidence_adapter_validation_v1",
+      "blackbox_query_opened": true,
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/driver_agreement_disagreement_v1_state.json",
+      "schema_id": "overnight_driver_agreement_disagreement_state@1.1",
+      "research_identity": "overnight_driver_coherence_v1",
+      "next_action": "freeze a separate result-free reusable BLACKBOX successor identity for the exact continuous driver_coherence coordinate; do not open 2021-2025 under this parent identity",
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/driver_coherence_open_gap_v1_state.json",
+      "schema_id": "overnight_driver_coherence_open_gap_state@1.1",
+      "research_identity": "overnight_driver_coherence_open_gap_v1",
+      "blackbox_query_opened": true,
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/expected_open_validated_driver_coordinates_v1_state.json",
+      "schema_id": "overnight_expected_open_validated_driver_coordinates_state@1.1",
+      "status": "DEV_NO_PROGRESS_closed_no_successor",
+      "research_identity": "overnight_expected_open_validated_driver_coordinates_v1",
+      "outcome_opened": true,
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/fx_cny_driver_v1_state.json",
+      "schema_id": "overnight_fx_cny_driver_state@1.1",
+      "status": "DEV_progression_supported_waiting_separate_validation_identity",
+      "research_identity": "overnight_fx_cny_driver_v1",
+      "outcome_opened": true,
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/fx_cny_open_gap_blackbox_state_v1.json",
+      "schema_id": "overnight_fx_cny_open_gap_blackbox_state@1.1",
+      "status": "BLACKBOX_FAIL_closed_no_validated_B3_product",
+      "research_identity": "overnight_fx_cny_open_gap_v1",
+      "blackbox_query_opened": true,
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/gap_fill_cross_index_audit_a_state_v1.json",
+      "schema_id": "overnight_open_gap_fill_cross_index_audit_a_state@1.0",
+      "research_identity": "gap_fill_cross_index_transport_v1",
+      "next_action": "preregister_and_execution_freeze_Audit_B_before_opening_any_2013_to_2014_10_16_outcome",
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/gap_fill_cross_index_audit_b_state_v1.json",
+      "schema_id": "overnight_open_gap_fill_cross_index_audit_b_state@1.0",
+      "research_identity": "gap_fill_cross_index_transport_v1",
+      "next_action": "do_not_retune_current_identity_on_consumed_Audit_B; if continuing, preregister a new successor identity for the CSI500-high material-gap short-medium-horizon failure mechanism",
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/gap_fill_cross_index_ct_dev_state_v1.json",
+      "schema_id": "overnight_open_gap_fill_cross_index_ct_dev_state@1.0",
+      "research_identity": "gap_fill_cross_index_transport_v1",
+      "next_action": "local_execute_frozen_CT_DEV_and_return_aggregate_outputs_for_cloud_review",
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/gap_fill_v21_regime_diagnostic_state_v1.json",
+      "schema_id": "overnight_open_gap_fill_v21_regime_diagnostic_state@1.0",
+      "research_identity": "gap_fill_v2_1_regime_conditioned_successor",
+      "next_action": "local_execute_frozen_RD1_then_cloud_adjudicates_supported_probes_and_freezes_successor_family_before_V21_DEV_open",
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/gap_fill_v21_state_v1.json",
+      "schema_id": "overnight_open_gap_fill_v21_state@1.1",
+      "research_identity": "gap_fill_v2_1_regime_conditioned_successor",
+      "next_action": "do_not_open_V21_Audit_A_or_rescue_the_closed_P2_family; preserve_sealed_future_blocks_and_continue_only_under_a_new_independently_preregistered_Overnight_identity_or_the_separate_frozen_V2_v1_true_fresh_protocol",
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/gap_fill_v2_true_fresh_state_v1.json",
+      "schema_id": "overnight_open_gap_fill_v2_true_fresh_state@1.0",
+      "research_identity": "gap_fill_prediction_v2",
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/global_risk_driver_v1_state.json",
+      "schema_id": "overnight_global_risk_driver_state@1.1",
+      "status": "DEV_progression_supported_waiting_separate_validation_identity",
+      "research_identity": "overnight_global_risk_driver_v1",
+      "next_action": "execute separately frozen successor overnight_global_risk_open_gap_v1 through compact reusable validation",
+      "outcome_opened": true,
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/global_risk_open_gap_blackbox_state_v1.json",
+      "schema_id": "overnight_global_risk_open_gap_blackbox_state@1.1",
+      "status": "BLACKBOX_PASS_validated_continuous_B1_global_risk_factor_product",
+      "research_identity": "overnight_global_risk_open_gap_v1",
+      "blackbox_query_opened": true,
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/global_spillover_current_baseline_v1.json",
+      "schema_id": "overnight_global_spillover_current_baseline@1.0",
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/global_spillover_v6a_baseline_replacement_review_20260910.json",
+      "schema_id": "overnight_global_spillover_v6a_baseline_replacement_review@1.0",
+      "research_identity": "V6A_plus_ordinary_A50_preauction_closure",
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/global_spillover_v6a_blackbox_state_v1.json",
+      "schema_id": "overnight_global_spillover_v6a_blackbox_state@1.6",
+      "research_identity": "V6A_plus_ordinary_A50_preauction_closure",
+      "next_action": "for any future global-spillover successor use V6A as the frozen comparator and preregister a materially new identity before any empirical query; repository-wide two-head architecture and production boundary remain unchanged",
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/opening_surprise_factor_v1_state.json",
+      "schema_id": "overnight_opening_surprise_factor_state@1.1",
+      "research_identity": "overnight_open_surprise_factor_v1",
+      "next_action": "do not rescue this identity; continue with the separately preregistered prior-trend-context x core-opening-state product experiment",
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/previous_china_session_shape_v1_state.json",
+      "schema_id": "overnight_previous_china_session_shape_state@1.1",
+      "research_identity": "overnight_previous_session_last_hour_conditioned_open_state_v1",
+      "next_action": "retain 30m+60m C3 as DEV progression material only; any reusable BLACKBOX requires a separate joint successor identity and result-free protocol, while B4 driver-agreement research remains scientifically next once its connector-readable causal carrier is ready",
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/previous_session_last_hour_conditioned_open_state_joint_30m_60m_blackbox_protocol_v1.json",
+      "schema_id": "overnight_previous_session_last_hour_conditioned_open_state_joint_blackbox_protocol@1.0",
+      "research_identity": "overnight_previous_session_last_hour_conditioned_open_state_joint_30m_60m_v1",
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/previous_session_last_hour_conditioned_open_state_joint_30m_60m_blackbox_state_v1.json",
+      "schema_id": "overnight_previous_session_last_hour_conditioned_open_state_joint_blackbox_state@1.1",
+      "status": "BLACKBOX_FAIL_closed_no_validated_C3_product",
+      "research_identity": "overnight_previous_session_last_hour_conditioned_open_state_joint_30m_60m_v1",
+      "blackbox_query_opened": true,
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/relative_index_open_leadership_joint_blackbox_state_v1.json",
+      "schema_id": "overnight_relative_index_open_leadership_joint_blackbox_state@1.1",
+      "status": "BLACKBOX_FAIL_closed_no_validated_D1_product",
+      "research_identity": "overnight_relative_size_open_leadership_joint_15m_30m_60m_v1",
+      "blackbox_query_opened": true,
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/relative_index_open_leadership_v1_state.json",
+      "schema_id": "overnight_relative_index_open_leadership_state@1.1",
+      "research_identity": "overnight_relative_size_open_leadership_v1",
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/trend_conditioned_open_state_15m_blackbox_protocol_v1.json",
+      "schema_id": "overnight_trend_conditioned_open_state_15m_blackbox_protocol@1.0",
+      "research_identity": "overnight_trend_conditioned_open_state_15m_v1",
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/trend_conditioned_open_state_15m_state_v1.json",
+      "schema_id": "overnight_trend_conditioned_open_state_15m_state@1.1",
+      "research_identity": "overnight_trend_conditioned_open_state_15m_v1",
+      "next_action": "treat C1 15m continuous interaction as a validated shelf product; any consumer-facing up/range/down x high/low categorical view requires a separate result-free threshold identity before evaluation; continue the factor shelf with the next independently preregistered context family rather than retuning this BLACKBOX identity",
+      "blackbox_query_opened": true,
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/trend_conditioned_open_state_v1_protocol.json",
+      "schema_id": "overnight_trend_conditioned_open_state_protocol@1.0",
+      "research_identity": "overnight_trend_conditioned_open_state_v1",
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/trend_conditioned_open_state_v1_state.json",
+      "schema_id": "overnight_trend_conditioned_open_state_state@1.1",
+      "research_identity": "overnight_trend_conditioned_open_state_v1",
+      "next_action": "parent DEV identity is closed; use only the separately frozen 15m successor for the next reusable-BLACKBOX query",
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/volatility_conditioned_open_state_60m_blackbox_protocol_v1.json",
+      "schema_id": "overnight_volatility_conditioned_open_state_60m_blackbox_protocol@1.0",
+      "research_identity": "overnight_volatility_conditioned_open_state_60m_v1",
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/volatility_conditioned_open_state_60m_state_v1.json",
+      "schema_id": "overnight_volatility_conditioned_open_state_60m_state@1.2",
+      "research_identity": "overnight_volatility_conditioned_open_state_60m_v1",
+      "next_action": "shelf the validated continuous C2 60m product; any categorical consumer view or downstream adapter requires a separate result-free identity",
+      "blackbox_query_opened": true,
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/volatility_conditioned_open_state_v1_protocol.json",
+      "schema_id": "overnight_volatility_conditioned_open_state_protocol@1.0",
+      "research_identity": "overnight_volatility_conditioned_open_state_v1",
+      "production_authority": false
+    },
+    {
+      "path": "docs/governance/volatility_conditioned_open_state_v1_state.json",
+      "schema_id": "overnight_volatility_conditioned_open_state_state@1.0",
+      "research_identity": "overnight_volatility_conditioned_open_state_v1",
+      "next_action": "validate the unchanged continuous C2 coordinate at the fixed 09:35-to-10:35 target only under a separately frozen reusable BLACKBOX identity; do not create volatility buckets or retune the parent identity",
+      "production_authority": false
+    }
+  ],
+  "test_io_review": [
+    {
+      "path": "tests/test_gap_fill_cross_index_audit_a_protocol.py",
+      "imports": [
+        "json",
+        "pathlib"
+      ],
+      "io_lines": [
+        {
+          "line": 10,
+          "text": "return json.loads(PROTOCOL.read_text(encoding=\"utf-8\"))"
+        },
+        {
+          "line": 46,
+          "text": "text = RUNNER.read_text(encoding=\"utf-8\")"
+        },
+        {
+          "line": 56,
+          "text": "text = RUNNER.read_text(encoding=\"utf-8\")"
+        },
+        {
+          "line": 68,
+          "text": "text = RUNNER.read_text(encoding=\"utf-8\")"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_gap_fill_cross_index_audit_b_protocol.py",
+      "imports": [
+        "json",
+        "pathlib"
+      ],
+      "io_lines": [
+        {
+          "line": 10,
+          "text": "return json.loads(PROTOCOL.read_text(encoding=\"utf-8\"))"
+        },
+        {
+          "line": 68,
+          "text": "text = RUNNER.read_text(encoding=\"utf-8\")"
+        },
+        {
+          "line": 80,
+          "text": "text = RUNNER.read_text(encoding=\"utf-8\")"
+        },
+        {
+          "line": 89,
+          "text": "text = RUNNER.read_text(encoding=\"utf-8\")"
+        },
+        {
+          "line": 102,
+          "text": "text = RUNNER.read_text(encoding=\"utf-8\")"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_gap_fill_cross_index_transport_protocol.py",
+      "imports": [
+        "json",
+        "pathlib"
+      ],
+      "io_lines": [
+        {
+          "line": 10,
+          "text": "return json.loads(PROTOCOL.read_text(encoding=\"utf-8\"))"
+        },
+        {
+          "line": 58,
+          "text": "text = RUNNER.read_text(encoding=\"utf-8\")"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_gap_fill_prediction_v2_protocol.py",
+      "imports": [
+        "json",
+        "pathlib"
+      ],
+      "io_lines": [
+        {
+          "line": 8,
+          "text": "p = json.loads((ROOT / 'docs/governance/cloud_session_20260906_gap_fill_prediction_v2_protocol_v1.json').read_text())"
+        },
+        {
+          "line": 25,
+          "text": "text = (ROOT / 'scripts/build_gap_fill_v2_target_ledger.py').read_text()"
+        },
+        {
+          "line": 39,
+          "text": "text = (ROOT / 'scripts/build_gap_fill_v2_target_ledger.py').read_text()"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_gap_fill_v21_candidate_family.py",
+      "imports": [
+        "importlib.util",
+        "json",
+        "numpy",
+        "pathlib",
+        "sys"
+      ],
+      "io_lines": [
+        {
+          "line": 22,
+          "text": "return json.loads(FAMILY.read_text(encoding=\"utf-8\"))"
+        },
+        {
+          "line": 114,
+          "text": "def test_dev_and_future_audit_gates_are_frozen_before_dev_open():"
+        },
+        {
+          "line": 126,
+          "text": "state = json.loads(STATE.read_text(encoding=\"utf-8\"))"
+        },
+        {
+          "line": 127,
+          "text": "auth = json.loads(AUTH.read_text(encoding=\"utf-8\"))"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_gap_fill_v21_dev_runner.py",
+      "imports": [
+        "json",
+        "numpy",
+        "pandas",
+        "pathlib",
+        "run_gap_fill_v21_dev_selection",
+        "sys"
+      ],
+      "io_lines": [
+        {
+          "line": 19,
+          "text": "auth = json.loads(AUTH.read_text(encoding=\"utf-8\"))"
+        },
+        {
+          "line": 20,
+          "text": "family = json.loads(FAMILY.read_text(encoding=\"utf-8\"))"
+        },
+        {
+          "line": 21,
+          "text": "state = json.loads(STATE.read_text(encoding=\"utf-8\"))"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_gap_fill_v21_evaluation_kernel.py",
+      "imports": [
+        "json",
+        "numpy",
+        "pathlib",
+        "pytest",
+        "sys",
+        "v21_evaluation_kernel"
+      ],
+      "io_lines": [
+        {
+          "line": 164,
+          "text": "c = json.loads(CONTRACT.read_text(encoding=\"utf-8\"))"
+        },
+        {
+          "line": 165,
+          "text": "f = json.loads(FAMILY.read_text(encoding=\"utf-8\"))"
+        },
+        {
+          "line": 166,
+          "text": "s = json.loads(STATE.read_text(encoding=\"utf-8\"))"
+        },
+        {
+          "line": 184,
+          "text": "source = (ROOT / \"scripts/v21_evaluation_kernel.py\").read_text(encoding=\"utf-8\")"
+        },
+        {
+          "line": 185,
+          "text": "assert \"read_parquet\" not in source"
+        },
+        {
+          "line": 186,
+          "text": "assert \"open(\" not in source"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_gap_fill_v21_regime_diagnostic_protocol.py",
+      "imports": [
+        "json",
+        "pathlib"
+      ],
+      "io_lines": [
+        {
+          "line": 10,
+          "text": "return json.loads(PROTOCOL.read_text(encoding=\"utf-8\"))"
+        },
+        {
+          "line": 74,
+          "text": "text = RUNNER.read_text(encoding=\"utf-8\")"
+        },
+        {
+          "line": 89,
+          "text": "text = RUNNER.read_text(encoding=\"utf-8\")"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_gap_fill_v21_source_to_dev_metadata_controller.py",
+      "imports": [
+        "json",
+        "pandas",
+        "pathlib",
+        "run_v21_source_to_dev_metadata_controller",
+        "sys",
+        "v21_session_complete_239_gate"
+      ],
+      "io_lines": [
+        {
+          "line": 32,
+          "text": "p = json.loads(PROTOCOL.read_text(encoding=\"utf-8\"))"
+        },
+        {
+          "line": 94,
+          "text": "text = (ROOT / \"scripts/run_v21_source_to_dev_metadata_controller.py\").read_text(encoding=\"utf-8\")"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_gap_fill_v2_2026_repeat_protocol.py",
+      "imports": [
+        "evaluate_local_gap_fill_v2_2026_repeat",
+        "json",
+        "numpy",
+        "pathlib",
+        "sys"
+      ],
+      "io_lines": [
+        {
+          "line": 13,
+          "text": "p = json.loads(PROTOCOL.read_text())"
+        },
+        {
+          "line": 14,
+          "text": "f = json.loads(PARAMETERS.read_text())"
+        },
+        {
+          "line": 24,
+          "text": "p = json.loads(PROTOCOL.read_text())"
+        },
+        {
+          "line": 37,
+          "text": "p = json.loads(PROTOCOL.read_text())"
+        },
+        {
+          "line": 52,
+          "text": "def test_repeat_gates_are_frozen_before_open() -> None:"
+        },
+        {
+          "line": 53,
+          "text": "p = json.loads(PROTOCOL.read_text())"
+        },
+        {
+          "line": 67,
+          "text": "text = RUNNER.read_text()"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_gap_fill_v2_final_fit_protocol.py",
+      "imports": [
+        "json",
+        "pathlib"
+      ],
+      "io_lines": [
+        {
+          "line": 11,
+          "text": "p = json.loads(PROTOCOL.read_text())"
+        },
+        {
+          "line": 12,
+          "text": "s = json.loads(SELECTED.read_text())"
+        },
+        {
+          "line": 23,
+          "text": "p = json.loads(PROTOCOL.read_text())"
+        },
+        {
+          "line": 36,
+          "text": "text = RUNNER.read_text()"
+        },
+        {
+          "line": 48,
+          "text": "text = RUNNER.read_text()"
+        },
+        {
+          "line": 60,
+          "text": "p = json.loads(PROTOCOL.read_text())"
+        },
+        {
+          "line": 72,
+          "text": "p = json.loads(PROTOCOL.read_text())"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_gap_fill_v2_historical_extension_protocol.py",
+      "imports": [
+        "json",
+        "pathlib"
+      ],
+      "io_lines": [
+        {
+          "line": 11,
+          "text": "return json.loads(PROTOCOL.read_text(encoding=\"utf-8\"))"
+        },
+        {
+          "line": 30,
+          "text": "template = json.loads(TEMPLATE.read_text(encoding=\"utf-8\"))"
+        },
+        {
+          "line": 67,
+          "text": "text = HANDOFF.read_text(encoding=\"utf-8\")"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_gap_fill_v2_phase1_factor_diagnostic.py",
+      "imports": [
+        "json",
+        "pathlib"
+      ],
+      "io_lines": [
+        {
+          "line": 10,
+          "text": "p = json.loads(PROTOCOL.read_text())"
+        },
+        {
+          "line": 30,
+          "text": "p = json.loads(PROTOCOL.read_text())"
+        },
+        {
+          "line": 40,
+          "text": "text = RUNNER.read_text()"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_gap_fill_v2_phase2_hazard_family.py",
+      "imports": [
+        "json",
+        "numpy",
+        "pathlib",
+        "select_gap_fill_v2_phase2_hazard_family",
+        "sys"
+      ],
+      "io_lines": [
+        {
+          "line": 12,
+          "text": "p = json.loads(FAMILY.read_text())"
+        },
+        {
+          "line": 36,
+          "text": "p = json.loads(FAMILY.read_text())"
+        },
+        {
+          "line": 49,
+          "text": "p = json.loads(FAMILY.read_text())"
+        },
+        {
+          "line": 62,
+          "text": "text = RUNNER.read_text()"
+        },
+        {
+          "line": 90,
+          "text": "p = json.loads(FAMILY.read_text())"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_gap_fill_v2_true_fresh_protocol.py",
+      "imports": [
+        "evaluate_gap_fill_v2_true_fresh_2026q4",
+        "evaluate_local_gap_fill_v2_2026_repeat",
+        "json",
+        "numpy",
+        "pathlib",
+        "sys"
+      ],
+      "io_lines": [
+        {
+          "line": 13,
+          "text": "p = json.loads(PROTOCOL.read_text())"
+        },
+        {
+          "line": 29,
+          "text": "p = json.loads(PROTOCOL.read_text())"
+        },
+        {
+          "line": 38,
+          "text": "p = json.loads(PROTOCOL.read_text())"
+        },
+        {
+          "line": 52,
+          "text": "p = json.loads(PROTOCOL.read_text())"
+        },
+        {
+          "line": 62,
+          "text": "text = RUNNER.read_text()"
+        },
+        {
+          "line": 80,
+          "text": "text = RUNNER.read_text()"
+        },
+        {
+          "line": 93,
+          "text": "p = json.loads(PROTOCOL.read_text())"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_high_open_dev_pack_boundary.py",
+      "imports": [
+        "evaluate_local_2021_2025_two_head",
+        "json",
+        "pandas",
+        "pathlib",
+        "sys"
+      ],
+      "io_lines": [
+        {
+          "line": 10,
+          "text": "manifest = json.loads((PACK / \"manifest.json\").read_text())"
+        },
+        {
+          "line": 18,
+          "text": "annotated = pd.read_parquet(PACK / \"annotated_panel.parquet\")"
+        },
+        {
+          "line": 19,
+          "text": "minutes = pd.read_parquet(PACK / \"1m_official.parquet\")"
+        },
+        {
+          "line": 20,
+          "text": "nasdaq = pd.read_csv(PACK / \"fred_nasdaq.csv\")"
+        },
+        {
+          "line": 21,
+          "text": "vix = pd.read_csv(PACK / \"fred_vix.csv\")"
+        },
+        {
+          "line": 38,
+          "text": "frozen = pd.read_parquet(ROOT / \"data/development/csi1000_open_pit_panel.parquet\")"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_high_open_recall_protocol.py",
+      "imports": [
+        "json",
+        "pathlib"
+      ],
+      "io_lines": [
+        {
+          "line": 9,
+          "text": "(ROOT / \"docs/governance/cloud_session_20260906_high_open_recall_research_protocol_v1.json\").read_text()"
+        },
+        {
+          "line": 23,
+          "text": "text = (ROOT / \"scripts/diagnose_high_open_false_negatives_dev.py\").read_text()"
+        },
+        {
+          "line": 35,
+          "text": "(ROOT / \"docs/governance/cloud_session_20260906_high_open_recall_phase2_family_v1.json\").read_text()"
+        },
+        {
+          "line": 60,
+          "text": "text = (ROOT / \"scripts/select_high_open_recall_phase2_dev.py\").read_text()"
+        },
+        {
+          "line": 73,
+          "text": "(ROOT / \"docs/governance/cloud_session_20260906_high_open_rebound_conditioning_protocol_v1.json\").read_text()"
+        },
+        {
+          "line": 89,
+          "text": "text = (ROOT / \"scripts/diagnose_last_hour_rebound_conditioning_dev.py\").read_text()"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_local_2026_direction_receipt.py",
+      "imports": [
+        "hashlib",
+        "json",
+        "pathlib"
+      ],
+      "io_lines": [
+        {
+          "line": 10,
+          "text": "selected = json.loads((ROOT / \"docs/governance/cloud_session_20260906_direction_head_selected_v1.json\").read_text())"
+        },
+        {
+          "line": 20,
+          "text": "(ROOT / \"docs/research/cloud_session_20260906_local_2026_direction_receipt_v1.json\").read_text()"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_local_two_head_receipt.py",
+      "imports": [
+        "hashlib",
+        "json",
+        "pathlib"
+      ],
+      "io_lines": [
+        {
+          "line": 9,
+          "text": "selected = json.loads((ROOT / \"docs/governance/cloud_session_20260906_two_head_selected_v1.json\").read_text())"
+        },
+        {
+          "line": 18,
+          "text": "(ROOT / \"docs/research/cloud_session_20260906_local_2021_2025_two_head_receipt_v1.json\").read_text()"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_no_future_and_baseline.py",
+      "imports": [
+        "json",
+        "pandas",
+        "pathlib"
+      ],
+      "io_lines": [
+        {
+          "line": 8,
+          "text": "panel = pd.read_parquet(ROOT / \"data/development/csi1000_open_pit_panel.parquet\")"
+        },
+        {
+          "line": 10,
+          "text": "us = pd.read_parquet(ROOT / \"data/development/us_nasdaq_vix.parquet\")"
+        },
+        {
+          "line": 14,
+          "text": "rec = json.loads((ROOT / \"docs/governance/baseline_receipt.json\").read_text())"
+        },
+        {
+          "line": 19,
+          "text": "panel = pd.read_parquet(ROOT / \"data/development/csi1000_open_pit_panel.parquet\")"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_offshore_china_ohr06_protocol.py",
+      "imports": [
+        "json",
+        "pathlib"
+      ],
+      "io_lines": [
+        {
+          "line": 8,
+          "text": "p = json.loads((ROOT / \"docs/governance/cloud_session_20260906_offshore_china_ohr06_diagnostic_protocol_v1.json\").read_text())"
+        },
+        {
+          "line": 19,
+          "text": "p = json.loads((ROOT / \"docs/governance/cloud_session_20260906_offshore_china_ohr06_diagnostic_protocol_v1.json\").read_text())"
+        },
+        {
+          "line": 30,
+          "text": "text = (ROOT / \"scripts/diagnose_offshore_china_price_discovery_dev.py\").read_text()"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_offshore_china_ohr07_protocol.py",
+      "imports": [
+        "json",
+        "pathlib"
+      ],
+      "io_lines": [
+        {
+          "line": 8,
+          "text": "p = json.loads((ROOT / \"docs/governance/cloud_session_20260906_offshore_china_ohr07_family_v1.json\").read_text())"
+        },
+        {
+          "line": 20,
+          "text": "p = json.loads((ROOT / \"docs/governance/cloud_session_20260906_offshore_china_ohr07_family_v1.json\").read_text())"
+        },
+        {
+          "line": 28,
+          "text": "text = (ROOT / \"scripts/select_offshore_china_ohr07_dev.py\").read_text()"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_offshore_china_ohr08_protocol.py",
+      "imports": [
+        "json",
+        "pathlib"
+      ],
+      "io_lines": [
+        {
+          "line": 8,
+          "text": "p = json.loads((ROOT / \"docs/governance/cloud_session_20260906_offshore_china_ohr08_frozen_base_overlay_v1.json\").read_text())"
+        },
+        {
+          "line": 21,
+          "text": "text = (ROOT / \"scripts/select_offshore_china_ohr08_frozen_base_overlay_dev.py\").read_text()"
+        },
+        {
+          "line": 31,
+          "text": "text = (ROOT / \"scripts/select_offshore_china_ohr08_frozen_base_overlay_dev.py\").read_text()"
+        },
+        {
+          "line": 44,
+          "text": "text = (ROOT / \"scripts/select_offshore_china_ohr08_frozen_base_overlay_dev.py\").read_text()"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_offshore_china_source_protocol.py",
+      "imports": [
+        "json",
+        "pathlib"
+      ],
+      "io_lines": [
+        {
+          "line": 9,
+          "text": "(ROOT / \"docs/governance/cloud_session_20260906_offshore_china_price_discovery_protocol_v1.json\").read_text()"
+        },
+        {
+          "line": 21,
+          "text": "(ROOT / \"docs/governance/cloud_session_20260906_offshore_china_price_discovery_protocol_v1.json\").read_text()"
+        },
+        {
+          "line": 36,
+          "text": "text = (ROOT / \"scripts/probe_offshore_china_source_quality.py\").read_text()"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_runtime_text_carrier.py",
+      "imports": [
+        "__future__",
+        "build_runtime_text_carrier",
+        "json",
+        "numpy",
+        "pandas",
+        "pathlib",
+        "pytest",
+        "sys"
+      ],
+      "io_lines": [
+        {
+          "line": 95,
+          "text": "payload = json.loads(receipt.read_text(encoding=\"utf-8\"))"
+        },
+        {
+          "line": 117,
+          "text": "manifest = json.loads((PACK / \"manifest.json\").read_text(encoding=\"utf-8\"))"
+        },
+        {
+          "line": 118,
+          "text": "receipt = json.loads(RECEIPT.read_text(encoding=\"utf-8\"))"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_v21_session_complete_239_gate.py",
+      "imports": [
+        "json",
+        "pathlib",
+        "sys",
+        "v21_session_complete_239_gate"
+      ],
+      "io_lines": [
+        {
+          "line": 59,
+          "text": "c = json.loads(CONTRACT.read_text(encoding=\"utf-8\"))"
+        },
+        {
+          "line": 81,
+          "text": "c = json.loads(CONTRACT.read_text(encoding=\"utf-8\"))"
+        },
+        {
+          "line": 91,
+          "text": "state = json.loads(STATE.read_text(encoding=\"utf-8\"))"
+        }
+      ]
+    }
+  ],
+  "source_imports": {
+    "scripts/build_driver_runtime_text_carrier.py": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib"
+    ],
+    "scripts/build_gap_fill_v2_target_ledger.py": [
+      "__future__",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib"
+    ],
+    "scripts/build_relative_index_runtime_text_carrier.py": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "json",
+      "numpy",
+      "os",
+      "pandas",
+      "pathlib"
+    ],
+    "scripts/build_runtime_text_carrier.py": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib"
+    ],
+    "scripts/build_v6a_frozen_base_panel.py": [
+      "__future__",
+      "argparse",
+      "importlib.util",
+      "pandas",
+      "pathlib"
+    ],
+    "scripts/corroborate_clock_gate_dev.py": [
+      "__future__",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib",
+      "select_clock_candidates_dev",
+      "sklearn.linear_model",
+      "sklearn.pipeline",
+      "sklearn.preprocessing"
+    ],
+    "scripts/diagnose_clock_holdout_posthoc.py": [
+      "__future__",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib",
+      "select_clock_candidates_dev",
+      "sklearn.linear_model",
+      "sklearn.pipeline",
+      "sklearn.preprocessing"
+    ],
+    "scripts/diagnose_driver_agreement_disagreement_dev.py": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib"
+    ],
+    "scripts/diagnose_gap_fill_v21_regime_consumed.py": [
+      "__future__",
+      "build_gap_fill_v2_target_ledger",
+      "evaluate_local_gap_fill_v2_2026_repeat",
+      "hashlib",
+      "json",
+      "numpy",
+      "os",
+      "pandas",
+      "pathlib",
+      "scipy.optimize",
+      "scipy.special",
+      "sys"
+    ],
+    "scripts/diagnose_gap_fill_v2_phase1_factors.py": [
+      "__future__",
+      "build_gap_fill_v2_target_ledger",
+      "diagnose_high_open_false_negatives_dev",
+      "diagnose_offshore_china_price_discovery_dev",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib",
+      "sklearn.linear_model",
+      "sklearn.pipeline",
+      "sklearn.preprocessing",
+      "sys"
+    ],
+    "scripts/diagnose_high_open_false_negatives_dev.py": [
+      "__future__",
+      "evaluate_local_2021_2025_two_head",
+      "hashlib",
+      "json",
+      "numpy",
+      "os",
+      "pandas",
+      "pathlib",
+      "select_clock_candidates_dev",
+      "sklearn.linear_model",
+      "sklearn.pipeline",
+      "sklearn.preprocessing",
+      "sys"
+    ],
+    "scripts/diagnose_last_hour_rebound_conditioning_dev.py": [
+      "__future__",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib",
+      "select_high_open_recall_phase2_dev",
+      "sys"
+    ],
+    "scripts/diagnose_offshore_china_price_discovery_dev.py": [
+      "__future__",
+      "diagnose_high_open_false_negatives_dev",
+      "hashlib",
+      "json",
+      "numpy",
+      "os",
+      "pandas",
+      "pathlib",
+      "select_high_open_recall_phase2_dev",
+      "sys"
+    ],
+    "scripts/diagnose_trend_conditioned_open_state_dev.py": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib"
+    ],
+    "scripts/diagnose_volatility_conditioned_open_state_dev.py": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib"
+    ],
+    "scripts/evaluate_frozen_holdout_v1.py": [
+      "__future__",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib",
+      "select_clock_candidates_dev",
+      "sklearn.linear_model",
+      "sklearn.metrics",
+      "sklearn.pipeline",
+      "sklearn.preprocessing"
+    ],
+    "scripts/evaluate_gap_fill_cross_index_audit_a.py": [
+      "__future__",
+      "build_gap_fill_v2_target_ledger",
+      "evaluate_local_gap_fill_v2_2026_repeat",
+      "hashlib",
+      "json",
+      "numpy",
+      "os",
+      "pandas",
+      "pathlib",
+      "sys"
+    ],
+    "scripts/evaluate_gap_fill_cross_index_audit_b.py": [
+      "__future__",
+      "build_gap_fill_v2_target_ledger",
+      "evaluate_local_gap_fill_v2_2026_repeat",
+      "hashlib",
+      "json",
+      "numpy",
+      "os",
+      "pandas",
+      "pathlib",
+      "sys"
+    ],
+    "scripts/evaluate_gap_fill_v2_true_fresh_2026q4.py": [
+      "__future__",
+      "datetime",
+      "evaluate_local_gap_fill_v2_2026_repeat",
+      "hashlib",
+      "json",
+      "numpy",
+      "os",
+      "pandas",
+      "pathlib",
+      "sys"
+    ],
+    "scripts/evaluate_local_2021_2025_two_head.py": [
+      "__future__",
+      "hashlib",
+      "json",
+      "numpy",
+      "os",
+      "pandas",
+      "pathlib",
+      "select_clock_candidates_dev",
+      "sklearn.linear_model",
+      "sklearn.pipeline",
+      "sklearn.preprocessing",
+      "sys"
+    ],
+    "scripts/evaluate_local_2026_direction_head.py": [
+      "__future__",
+      "evaluate_local_2021_2025_two_head",
+      "hashlib",
+      "json",
+      "math",
+      "numpy",
+      "os",
+      "pandas",
+      "pathlib",
+      "sklearn.linear_model",
+      "sklearn.pipeline",
+      "sklearn.preprocessing",
+      "sys"
+    ],
+    "scripts/evaluate_local_gap_fill_v2_2026_repeat.py": [
+      "__future__",
+      "build_gap_fill_v2_target_ledger",
+      "hashlib",
+      "json",
+      "math",
+      "numpy",
+      "os",
+      "pandas",
+      "pathlib",
+      "scipy.optimize",
+      "scipy.special",
+      "sklearn.metrics",
+      "sys"
+    ],
+    "scripts/fit_gap_fill_v2_selected_dev.py": [
+      "__future__",
+      "build_gap_fill_v2_target_ledger",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib",
+      "platform",
+      "pyarrow",
+      "scipy",
+      "sklearn",
+      "sklearn.linear_model",
+      "sklearn.pipeline",
+      "sklearn.preprocessing",
+      "sys"
+    ],
+    "scripts/inventory_development.py": [
+      "__future__",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib",
+      "pyarrow.parquet"
+    ],
+    "scripts/probe_offshore_china_source_quality.py": [
+      "__future__",
+      "hashlib",
+      "json",
+      "os",
+      "pandas",
+      "pathlib"
+    ],
+    "scripts/register_e3v2_validation_query12.py": [
+      "__future__",
+      "json",
+      "pathlib"
+    ],
+    "scripts/replay_baseline.py": [
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib",
+      "sklearn.linear_model",
+      "sklearn.pipeline",
+      "sklearn.preprocessing"
+    ],
+    "scripts/run_calendar_weekend_gap_15m_blackbox.py": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib"
+    ],
+    "scripts/run_calendar_weekend_gap_context_v1_dev_cloud.py": [
+      "__future__",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib"
+    ],
+    "scripts/run_downstream_b1_forward_cycle_portfolio_risk_adapter_v1_dev_cloud.py": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib"
+    ],
+    "scripts/run_downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_blackbox.py": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib"
+    ],
+    "scripts/run_downstream_b2_stock_selection_offshore_risk_adapter_v1_dev_cloud.py": [
+      "__future__",
+      "csv",
+      "hashlib",
+      "io",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib",
+      "urllib.request"
+    ],
+    "scripts/run_downstream_c1_c2_timing_agreement_adapter_v1_dev_cloud.py": [
+      "__future__",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib"
+    ],
+    "scripts/run_downstream_c2_forward_cycle_portfolio_risk_adapter_v1_dev_cloud.py": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib"
+    ],
+    "scripts/run_downstream_c2_stock_selection_risk_adapter_v1_dev_cloud.py": [
+      "__future__",
+      "csv",
+      "hashlib",
+      "io",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib",
+      "urllib.request"
+    ],
+    "scripts/run_downstream_portfolio_risk_adapter_v1_dev_cloud.py": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib"
+    ],
+    "scripts/run_downstream_stock_selection_adapter_v1_dev_cloud.py": [
+      "__future__",
+      "csv",
+      "diagnose_driver_agreement_disagreement_dev",
+      "hashlib",
+      "io",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib",
+      "sys",
+      "urllib.request"
+    ],
+    "scripts/run_downstream_timing_adapter_v1_dev_cloud.py": [
+      "__future__",
+      "diagnose_driver_agreement_disagreement_dev",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib",
+      "sys"
+    ],
+    "scripts/run_downstream_timing_adapter_validation_v1_blackbox.py": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "importlib.util",
+      "json",
+      "math",
+      "numpy",
+      "pandas",
+      "pathlib"
+    ],
+    "scripts/run_driver_coherence_open_gap_blackbox.py": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib"
+    ],
+    "scripts/run_expected_open_validated_driver_coordinates_v1_dev_cloud.py": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "importlib.util",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib",
+      "sklearn.linear_model",
+      "sklearn.pipeline",
+      "sklearn.preprocessing"
+    ],
+    "scripts/run_gap_fill_cross_index_transport_dev.py": [
+      "__future__",
+      "build_gap_fill_v2_target_ledger",
+      "evaluate_local_gap_fill_v2_2026_repeat",
+      "hashlib",
+      "json",
+      "numpy",
+      "os",
+      "pandas",
+      "pathlib",
+      "sklearn.linear_model",
+      "sklearn.pipeline",
+      "sklearn.preprocessing",
+      "sys"
+    ],
+    "scripts/run_gap_fill_v21_dev_selection.py": [
+      "__future__",
+      "argparse",
+      "build_gap_fill_v2_target_ledger",
+      "collections",
+      "evaluate_local_gap_fill_v2_2026_repeat",
+      "hashlib",
+      "json",
+      "numpy",
+      "os",
+      "pandas",
+      "pathlib",
+      "sklearn.linear_model",
+      "sklearn.pipeline",
+      "sklearn.preprocessing",
+      "subprocess",
+      "sys",
+      "typing",
+      "v21_evaluation_kernel",
+      "v21_p2_overlay",
+      "v21_session_complete_239_gate"
+    ],
+    "scripts/run_gap_fill_v21_dev_selection_authorized.py": [
+      "__future__",
+      "pandas",
+      "pathlib",
+      "run_gap_fill_v21_dev_selection",
+      "sys"
+    ],
+    "scripts/run_global_risk_driver_v1_dev_cloud.py": [
+      "__future__",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib"
+    ],
+    "scripts/run_global_risk_open_gap_blackbox.py": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib"
+    ],
+    "scripts/run_previous_session_last_hour_conditioned_open_state_joint_blackbox_cloud_raw.py": [
+      "__future__",
+      "hashlib",
+      "json",
+      "math",
+      "numpy",
+      "pandas",
+      "pathlib"
+    ],
+    "scripts/run_relative_index_open_leadership_dev_cloud.py": [
+      "__future__",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib"
+    ],
+    "scripts/run_relative_index_open_leadership_joint_blackbox_cloud_raw.py": [
+      "__future__",
+      "hashlib",
+      "json",
+      "math",
+      "numpy",
+      "pandas",
+      "pathlib"
+    ],
+    "scripts/run_relative_index_open_leadership_joint_blackbox_local.py": [
+      "__future__",
+      "hashlib",
+      "json",
+      "math",
+      "numpy",
+      "os",
+      "pandas",
+      "pathlib"
+    ],
+    "scripts/run_single_external_driver_blackbox.py": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "importlib.util",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib"
+    ],
+    "scripts/run_single_external_driver_dev_cloud.py": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib"
+    ],
+    "scripts/run_trend_conditioned_open_state_15m_blackbox_local.py": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib"
+    ],
+    "scripts/run_v21_source_to_dev_metadata_controller.py": [
+      "__future__",
+      "argparse",
+      "collections",
+      "hashlib",
+      "json",
+      "pandas",
+      "pathlib",
+      "subprocess",
+      "sys",
+      "v21_session_complete_239_gate"
+    ],
+    "scripts/run_v6a_reusable_blackbox_local.py": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib",
+      "sklearn.linear_model",
+      "sklearn.metrics",
+      "sklearn.pipeline",
+      "sklearn.preprocessing"
+    ],
+    "scripts/run_volatility_conditioned_open_state_60m_blackbox_local.py": [
+      "__future__",
+      "argparse",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib"
+    ],
+    "scripts/select_clock_candidates_dev.py": [
+      "__future__",
+      "hashlib",
+      "json",
+      "math",
+      "numpy",
+      "pandas",
+      "pathlib",
+      "sklearn.linear_model",
+      "sklearn.pipeline",
+      "sklearn.preprocessing"
+    ],
+    "scripts/select_direction_head_dev.py": [
+      "__future__",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib",
+      "sklearn.linear_model",
+      "sklearn.metrics",
+      "sklearn.pipeline",
+      "sklearn.preprocessing"
+    ],
+    "scripts/select_gap_fill_v2_phase2_hazard_family.py": [
+      "__future__",
+      "diagnose_gap_fill_v2_phase1_factors",
+      "diagnose_high_open_false_negatives_dev",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib",
+      "scipy.optimize",
+      "scipy.special",
+      "sklearn.linear_model",
+      "sklearn.metrics",
+      "sklearn.pipeline",
+      "sklearn.preprocessing",
+      "sys"
+    ],
+    "scripts/select_high_open_recall_phase2_dev.py": [
+      "__future__",
+      "evaluate_local_2021_2025_two_head",
+      "hashlib",
+      "json",
+      "numpy",
+      "os",
+      "pandas",
+      "pathlib",
+      "sklearn.linear_model",
+      "sklearn.pipeline",
+      "sklearn.preprocessing",
+      "sys"
+    ],
+    "scripts/select_offshore_china_ohr07_dev.py": [
+      "__future__",
+      "diagnose_high_open_false_negatives_dev",
+      "diagnose_offshore_china_price_discovery_dev",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib",
+      "select_high_open_recall_phase2_dev",
+      "sys"
+    ],
+    "scripts/select_offshore_china_ohr08_frozen_base_overlay_dev.py": [
+      "__future__",
+      "diagnose_high_open_false_negatives_dev",
+      "diagnose_offshore_china_price_discovery_dev",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib",
+      "select_high_open_recall_phase2_dev",
+      "sklearn.linear_model",
+      "sys"
+    ],
+    "scripts/select_two_head_dev.py": [
+      "__future__",
+      "hashlib",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib",
+      "select_clock_candidates_dev",
+      "sklearn.linear_model",
+      "sklearn.pipeline",
+      "sklearn.preprocessing"
+    ],
+    "scripts/v21_evaluation_kernel.py": [
+      "__future__",
+      "numpy",
+      "typing"
+    ],
+    "scripts/v21_p2_overlay.py": [
+      "__future__",
+      "dataclasses",
+      "numpy",
+      "scipy.optimize",
+      "typing"
+    ],
+    "scripts/v21_session_complete_239_gate.py": [
+      "__future__",
+      "argparse",
+      "collections",
+      "dataclasses",
+      "datetime",
+      "hashlib",
+      "json",
+      "pandas",
+      "pathlib",
+      "typing"
+    ],
+    "scripts/validate_theme_package.py": [
+      "__future__",
+      "hashlib",
+      "json",
+      "pandas",
+      "pathlib"
+    ],
+    "tests/test_gap_fill_cross_index_audit_a_protocol.py": [
+      "json",
+      "pathlib"
+    ],
+    "tests/test_gap_fill_cross_index_audit_b_protocol.py": [
+      "json",
+      "pathlib"
+    ],
+    "tests/test_gap_fill_cross_index_transport_protocol.py": [
+      "json",
+      "pathlib"
+    ],
+    "tests/test_gap_fill_prediction_v2_protocol.py": [
+      "json",
+      "pathlib"
+    ],
+    "tests/test_gap_fill_v21_candidate_family.py": [
+      "importlib.util",
+      "json",
+      "numpy",
+      "pathlib",
+      "sys"
+    ],
+    "tests/test_gap_fill_v21_dev_runner.py": [
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib",
+      "run_gap_fill_v21_dev_selection",
+      "sys"
+    ],
+    "tests/test_gap_fill_v21_evaluation_kernel.py": [
+      "json",
+      "numpy",
+      "pathlib",
+      "pytest",
+      "sys",
+      "v21_evaluation_kernel"
+    ],
+    "tests/test_gap_fill_v21_regime_diagnostic_protocol.py": [
+      "json",
+      "pathlib"
+    ],
+    "tests/test_gap_fill_v21_source_to_dev_metadata_controller.py": [
+      "json",
+      "pandas",
+      "pathlib",
+      "run_v21_source_to_dev_metadata_controller",
+      "sys",
+      "v21_session_complete_239_gate"
+    ],
+    "tests/test_gap_fill_v2_2026_repeat_protocol.py": [
+      "evaluate_local_gap_fill_v2_2026_repeat",
+      "json",
+      "numpy",
+      "pathlib",
+      "sys"
+    ],
+    "tests/test_gap_fill_v2_final_fit_protocol.py": [
+      "json",
+      "pathlib"
+    ],
+    "tests/test_gap_fill_v2_historical_extension_protocol.py": [
+      "json",
+      "pathlib"
+    ],
+    "tests/test_gap_fill_v2_phase1_factor_diagnostic.py": [
+      "json",
+      "pathlib"
+    ],
+    "tests/test_gap_fill_v2_phase2_hazard_family.py": [
+      "json",
+      "numpy",
+      "pathlib",
+      "select_gap_fill_v2_phase2_hazard_family",
+      "sys"
+    ],
+    "tests/test_gap_fill_v2_true_fresh_protocol.py": [
+      "evaluate_gap_fill_v2_true_fresh_2026q4",
+      "evaluate_local_gap_fill_v2_2026_repeat",
+      "json",
+      "numpy",
+      "pathlib",
+      "sys"
+    ],
+    "tests/test_high_open_dev_pack_boundary.py": [
+      "evaluate_local_2021_2025_two_head",
+      "json",
+      "pandas",
+      "pathlib",
+      "sys"
+    ],
+    "tests/test_high_open_recall_protocol.py": [
+      "json",
+      "pathlib"
+    ],
+    "tests/test_local_2026_direction_receipt.py": [
+      "hashlib",
+      "json",
+      "pathlib"
+    ],
+    "tests/test_local_two_head_receipt.py": [
+      "hashlib",
+      "json",
+      "pathlib"
+    ],
+    "tests/test_no_future_and_baseline.py": [
+      "json",
+      "pandas",
+      "pathlib"
+    ],
+    "tests/test_offshore_china_ohr06_protocol.py": [
+      "json",
+      "pathlib"
+    ],
+    "tests/test_offshore_china_ohr07_protocol.py": [
+      "json",
+      "pathlib"
+    ],
+    "tests/test_offshore_china_ohr08_protocol.py": [
+      "json",
+      "pathlib"
+    ],
+    "tests/test_offshore_china_source_protocol.py": [
+      "json",
+      "pathlib"
+    ],
+    "tests/test_runtime_text_carrier.py": [
+      "__future__",
+      "build_runtime_text_carrier",
+      "json",
+      "numpy",
+      "pandas",
+      "pathlib",
+      "pytest",
+      "sys"
+    ],
+    "tests/test_v21_session_complete_239_gate.py": [
+      "json",
+      "pathlib",
+      "sys",
+      "v21_session_complete_239_gate"
+    ]
+  },
+  "missing_literal_references": [],
+  "test_count": 26
+}
