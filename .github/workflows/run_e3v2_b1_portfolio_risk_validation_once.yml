@@ -1,0 +1,67 @@
+name: One-shot E3v2 B1 portfolio-risk reusable validation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/run_e3v2_b1_portfolio_risk_validation_once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  run-e3v2-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Checkout pinned consumer repository
+        uses: actions/checkout@v4
+        with:
+          repository: staryocean0/factorlab-multifactor-stock-lab
+          ref: af2e478aaff5c8ef7f753424b57fd2d19019f248
+          path: consumer
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install frozen runtime dependencies
+        run: python -m pip install --disable-pip-version-check numpy pandas pyarrow scikit-learn
+      - name: Reconstruct frozen panel and run compact E3v2 validation
+        run: |
+          set -euo pipefail
+          test ! -e docs/research/local_downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_blackbox_receipt.json
+          TMP="$(mktemp -d)"
+          trap 'rm -rf "$TMP"' EXIT
+          python scripts/build_v6a_frozen_base_panel.py \
+            --raw-panel data/high_open_dev_2015_2025/annotated_panel.parquet \
+            --minute-bars data/high_open_dev_2015_2025/1m_official.parquet \
+            --nasdaq data/high_open_dev_2015_2025/fred_nasdaq.csv \
+            --vix data/high_open_dev_2015_2025/fred_vix.csv \
+            --frozen-panel data/development/csi1000_open_pit_panel.parquet \
+            --panel-out "$TMP/panel_2015_2025.parquet" \
+            --nasdaq-normalized-out "$TMP/fred_nasdaq.csv" \
+            --vix-normalized-out "$TMP/fred_vix.csv"
+          python scripts/run_downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_blackbox.py \
+            --panel "$TMP/panel_2015_2025.parquet" \
+            --consumer-root consumer \
+            --protocol docs/governance/downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_blackbox_protocol.json \
+            --state docs/governance/downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_state.json \
+            --ledger docs/governance/overnight_reusable_blackbox_query_ledger_v1.json \
+            --high-open-source-manifest data/high_open_dev_2015_2025/manifest.json \
+            --reconstruction-contract docs/governance/v6a_base_panel_reconstruction_contract_20260910.json \
+            --receipt-out docs/research/local_downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_blackbox_receipt.json
+      - name: Commit compact E3v2 validation receipt only
+        run: |
+          set -euo pipefail
+          rm -rf consumer
+          git status --short
+          test -f docs/research/local_downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_blackbox_receipt.json
+          EXTRA="$(git status --short | grep -v '^?? docs/research/local_downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_blackbox_receipt.json$' || true)"
+          test -z "$EXTRA"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/research/local_downstream_b1_forward_cycle_portfolio_risk_adapter_validation_v1_blackbox_receipt.json
+          git commit -m "Record E3v2 reusable validation receipt [skip ci]"
+          git push
