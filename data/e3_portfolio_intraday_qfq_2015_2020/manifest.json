@@ -1,0 +1,99 @@
+{
+  "schema_id": "overnight_e3_portfolio_intraday_qfq_carrier@1.0",
+  "purpose": "minimal_price_carrier_for_frozen_E3_cloud_research",
+  "scientific_change": false,
+  "research_identity": "overnight_c1_intraday_portfolio_risk_abstention_v1",
+  "consumer_repository": "staryocean0/factorlab-multifactor-stock-lab",
+  "consumer_commit": "af2e478aaff5c8ef7f753424b57fd2d19019f248",
+  "consumer_holdings_sha256": "1a0d6e52849fef50a94e6a204a498ea8379af6f837a866216fdb86539723ac01",
+  "consumer_portfolio_daily_sha256": "8f6be84836d7839642e3cf722639887be339fa3f660c274b16d7c0a2b56ae1a5",
+  "read_window": {
+    "start": "2015-01-05",
+    "end": "2020-12-31"
+  },
+  "price_view": "canonical_qfq_signal",
+  "exact_clocks": [
+    "previous_day_15:00",
+    "current_day_09:35",
+    "current_day_09:50"
+  ],
+  "datahub_source_path": "/home/starryocean/桌面/量化/unified_datahub/.runtime/live/lake/bars/dataset_version=bars_cn_a_1m_raw_canonical_4ceca170a851/instrument_type=stock",
+  "datahub_dataset_version": "bars_cn_a_1m_raw_canonical_4ceca170a851",
+  "adjustment_source": "adjust_factors_cn_a_xdxr_v10_20260816",
+  "adjustment_source_sha256": "883a06b45e13923db8a987f73f60ae001ad5ce191ea11878cd93521650b47d3c",
+  "adjustment_formula": "close_qfq = close_raw * price_multiplier; ASOF carry-forward on trading_day; unmatched bars keep raw close per DataHub bars_deriver fail-safe",
+  "price_construction": "official_datahub_qfq_canonical_mechanical_conversion",
+  "unused_materialized_qfq_view": "bars_cn_a_1m_qfq_canonical_deep_value_domain_repair_20260628",
+  "unused_materialized_qfq_reason": "READY leftover Sina-adjusted 1m view; current CN-A stock authority is XDXR V10 on current 1m raw pin",
+  "transform": {
+    "inventory_from_frozen_holdings_only": true,
+    "exact_clock_filter_only": true,
+    "feature_engineering": false,
+    "target_engineering": false,
+    "scientific_analysis": false,
+    "nearest_clock_substitution": false,
+    "forward_fill": false,
+    "backward_fill": false,
+    "resampling": false
+  },
+  "inventory_rows": 48901,
+  "missing_exact_price_counts": {
+    "prev_close_1500_qfq": 2802,
+    "close_0935_qfq": 2801,
+    "close_0950_qfq": 2801
+  },
+  "factor_passthrough_bar_count": 15501,
+  "raw_exact_rows": 6119577,
+  "files": [
+    {
+      "path": "data/e3_portfolio_intraday_qfq_2015_2020/portfolio_intraday_qfq_2015.csv",
+      "sha256": "6088bcbebde1c12f33596ce0d9a0baf669923abbbc070eeea47bc09040fa38ba",
+      "bytes": 616697,
+      "rows": 8259,
+      "min_day": "2015-01-05",
+      "max_day": "2015-12-31"
+    },
+    {
+      "path": "data/e3_portfolio_intraday_qfq_2015_2020/portfolio_intraday_qfq_2016.csv",
+      "sha256": "cea25ae177b2500372985071bc52882225f52f07291df1fe3b491252fc7a87f6",
+      "bytes": 628682,
+      "rows": 8084,
+      "min_day": "2016-01-04",
+      "max_day": "2016-12-30"
+    },
+    {
+      "path": "data/e3_portfolio_intraday_qfq_2015_2020/portfolio_intraday_qfq_2017.csv",
+      "sha256": "2de2b2809f93bdedcbc0d34164309bd748f2ac191ea579f3ca40e00d99a490d4",
+      "bytes": 626646,
+      "rows": 8098,
+      "min_day": "2017-01-03",
+      "max_day": "2017-12-29"
+    },
+    {
+      "path": "data/e3_portfolio_intraday_qfq_2015_2020/portfolio_intraday_qfq_2018.csv",
+      "sha256": "c44dc728cf066725f8ed06a9d095f7a98724b778ce87803d366de18715d888f8",
+      "bytes": 632374,
+      "rows": 8172,
+      "min_day": "2018-01-02",
+      "max_day": "2018-12-28"
+    },
+    {
+      "path": "data/e3_portfolio_intraday_qfq_2015_2020/portfolio_intraday_qfq_2019.csv",
+      "sha256": "08cc7d6f77e5eb3465dce9e7a2d36f496774722818d133fd7c9a662bbe78943e",
+      "bytes": 628371,
+      "rows": 8145,
+      "min_day": "2019-01-02",
+      "max_day": "2019-12-31"
+    },
+    {
+      "path": "data/e3_portfolio_intraday_qfq_2015_2020/portfolio_intraday_qfq_2020.csv",
+      "sha256": "72d4f006d922cbffc6ea1f94d5b2d1735677a6dd2b754958c9cf6bf03ac6a1e1",
+      "bytes": 615385,
+      "rows": 8143,
+      "min_day": "2020-01-02",
+      "max_day": "2020-12-31"
+    }
+  ],
+  "generated_at_utc": "2026-09-12T02:31:25Z",
+  "post_2020_rows_loaded": false
+}

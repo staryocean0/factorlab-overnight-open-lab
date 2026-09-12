@@ -1,0 +1,67 @@
+{
+  "schema_id": "overnight_e3_portfolio_intraday_qfq_upload_receipt@1.0",
+  "consumer_source_identity": {
+    "repository": "staryocean0/factorlab-multifactor-stock-lab",
+    "commit": "af2e478aaff5c8ef7f753424b57fd2d19019f248",
+    "strategy": "REAKA_D5_H20_R5_CURRENT_GENERATION_V1",
+    "model": "d8-h8-K1-r0_fit_prefix_successor_incumbent",
+    "account": "N30_equal_backfill_unconstrained"
+  },
+  "consumer_file_sha": {
+    "holdings.parquet": "1a0d6e52849fef50a94e6a204a498ea8379af6f837a866216fdb86539723ac01",
+    "portfolio_daily.parquet": "8f6be84836d7839642e3cf722639887be339fa3f660c274b16d7c0a2b56ae1a5"
+  },
+  "datahub_source_identity": {
+    "source_path": "/home/starryocean/桌面/量化/unified_datahub/.runtime/live/lake/bars/dataset_version=bars_cn_a_1m_raw_canonical_4ceca170a851/instrument_type=stock",
+    "dataset_version": "bars_cn_a_1m_raw_canonical_4ceca170a851"
+  },
+  "price_source_identity": {
+    "price_view": "canonical_qfq_signal",
+    "construction": "official_datahub_qfq_canonical_mechanical_conversion",
+    "adjustment_source": "adjust_factors_cn_a_xdxr_v10_20260816",
+    "adjustment_source_sha256": "883a06b45e13923db8a987f73f60ae001ad5ce191ea11878cd93521650b47d3c"
+  },
+  "output_file_sha": {
+    "data/e3_portfolio_intraday_qfq_2015_2020/portfolio_intraday_qfq_2015.csv": "6088bcbebde1c12f33596ce0d9a0baf669923abbbc070eeea47bc09040fa38ba",
+    "data/e3_portfolio_intraday_qfq_2015_2020/portfolio_intraday_qfq_2016.csv": "cea25ae177b2500372985071bc52882225f52f07291df1fe3b491252fc7a87f6",
+    "data/e3_portfolio_intraday_qfq_2015_2020/portfolio_intraday_qfq_2017.csv": "2de2b2809f93bdedcbc0d34164309bd748f2ac191ea579f3ca40e00d99a490d4",
+    "data/e3_portfolio_intraday_qfq_2015_2020/portfolio_intraday_qfq_2018.csv": "c44dc728cf066725f8ed06a9d095f7a98724b778ce87803d366de18715d888f8",
+    "data/e3_portfolio_intraday_qfq_2015_2020/portfolio_intraday_qfq_2019.csv": "08cc7d6f77e5eb3465dce9e7a2d36f496774722818d133fd7c9a662bbe78943e",
+    "data/e3_portfolio_intraday_qfq_2015_2020/portfolio_intraday_qfq_2020.csv": "72d4f006d922cbffc6ea1f94d5b2d1735677a6dd2b754958c9cf6bf03ac6a1e1"
+  },
+  "output_manifest": {
+    "path": "data/e3_portfolio_intraday_qfq_2015_2020/manifest.json",
+    "sha256": "b87ec493f76b2784476a9863a1d276662f1857efa5216532766c776615ea513a"
+  },
+  "row_counts": {
+    "inventory_rows": 48901,
+    "files": {
+      "data/e3_portfolio_intraday_qfq_2015_2020/portfolio_intraday_qfq_2015.csv": 8259,
+      "data/e3_portfolio_intraday_qfq_2015_2020/portfolio_intraday_qfq_2016.csv": 8084,
+      "data/e3_portfolio_intraday_qfq_2015_2020/portfolio_intraday_qfq_2017.csv": 8098,
+      "data/e3_portfolio_intraday_qfq_2015_2020/portfolio_intraday_qfq_2018.csv": 8172,
+      "data/e3_portfolio_intraday_qfq_2015_2020/portfolio_intraday_qfq_2019.csv": 8145,
+      "data/e3_portfolio_intraday_qfq_2015_2020/portfolio_intraday_qfq_2020.csv": 8143
+    }
+  },
+  "date_boundaries": {
+    "read_start": "2015-01-05",
+    "read_end": "2020-12-31",
+    "inventory_min_trading_day": "2015-01-05",
+    "inventory_max_trading_day": "2020-12-31",
+    "inventory_min_prev_trading_day": "2014-12-31",
+    "inventory_max_prev_trading_day": "2020-12-30"
+  },
+  "missing_exact_price_counts": {
+    "prev_close_1500_qfq": 2802,
+    "close_0935_qfq": 2801,
+    "close_0950_qfq": 2801
+  },
+  "feature_engineering_performed": false,
+  "target_engineering_performed": false,
+  "scientific_diagnostic_performed": false,
+  "portfolio_return_calculated": false,
+  "C1_calculated": false,
+  "BLACKBOX_run": false,
+  "post_2020_rows_loaded": false
+}
