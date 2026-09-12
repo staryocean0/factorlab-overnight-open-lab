@@ -127,8 +127,10 @@ def build_frame() -> tuple[pd.DataFrame, dict]:
     frame = frame.merge(clocks, on="trading_day", how="inner", validate="one_to_one")
     frame = frame.sort_values("trading_day", kind="mergesort").reset_index(drop=True)
 
-    if frame["trading_day"].min() != pd.Timestamp("2015-01-05") or frame["trading_day"].max() != pd.Timestamp("2020-12-31"):
-        raise RuntimeError("E1 merged development boundary drift")
+    dev_start = pd.Timestamp("2015-01-05")
+    dev_end = pd.Timestamp("2020-12-31")
+    if frame.empty or frame["trading_day"].min() < dev_start or frame["trading_day"].max() > dev_end:
+        raise RuntimeError("E1 merged rows crossed the frozen development boundary")
     if frame["trading_day"].duplicated().any():
         raise RuntimeError("duplicate E1 trading day")
 
@@ -154,6 +156,8 @@ def build_frame() -> tuple[pd.DataFrame, dict]:
         "driver_manifest": {"path": str((DRIVER_ROOT / "manifest.json").relative_to(ROOT)), "sha256": sha256(DRIVER_ROOT / "manifest.json")},
         "driver_carrier_receipt": {"path": str(DRIVER_RECEIPT.relative_to(ROOT)), "sha256": sha256(DRIVER_RECEIPT)},
         "upstream_B4_implementation": {"path": "scripts/diagnose_driver_agreement_disagreement_dev.py", "sha256": sha256(ROOT / "scripts/diagnose_driver_agreement_disagreement_dev.py")},
+        "merged_min_day_after_upstream_warmup": str(frame["trading_day"].min().date()),
+        "merged_max_day": str(frame["trading_day"].max().date()),
     }
     return frame, integrity
 
@@ -250,6 +254,9 @@ def main() -> None:
             "B4": ledger["queries"][2]["query_id"],
         },
         "candidate_attempt_count": 1,
+        "technical_retry_count": 1,
+        "technical_retry_reason": "initial runner incorrectly required the post-upstream-warmup merged frame to begin exactly on the raw development start; no receipt or scientific outcome was produced",
+        "technical_retry_counted_as_scientific_attempt": False,
         "threshold_search": False,
         "weight_search": False,
         "alternate_horizon_search": False,
