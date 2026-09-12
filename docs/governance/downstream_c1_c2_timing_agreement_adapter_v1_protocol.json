@@ -1,0 +1,107 @@
+{
+  "schema_id": "overnight_downstream_c1_c2_timing_agreement_adapter_protocol@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_c1_c2_timing_agreement_adapter_v1",
+  "product_family": "OFP-E1_timing_adapter",
+  "phase": "retrospective_factor_utility_diagnostic",
+  "preanalysis": "docs/research/downstream_c1_c2_timing_agreement_adapter_v1_preanalysis_20260912.md",
+  "upstream_authorities": {
+    "C1": {
+      "identity": "overnight_trend_conditioned_open_state_15m_v1",
+      "query_id": "5a27b953276382e473c0",
+      "formula": "trend_gap_interaction = (gap / rvol20) * (r20 / (sqrt(20) * rvol20))",
+      "frozen_direction": "negative",
+      "consumer_horizon": "09:35_to_09:50"
+    },
+    "C2": {
+      "identity": "overnight_volatility_conditioned_open_state_60m_v1",
+      "query_id": "a1068de9321c04632aad",
+      "formula": "vol_gap_interaction = (gap / rvol20) * log(rvol20)",
+      "frozen_direction": "negative",
+      "validated_horizon": "09:35_to_10:35",
+      "adapter_role": "agreement_veto_only"
+    }
+  },
+  "excluded_upstream_products": ["A1", "A4", "B1", "B2", "B3", "B4", "C3", "C4", "D1", "E1_v1"],
+  "definitions": {
+    "observed_gap_rvol": "gap / rvol20",
+    "trend20_rvol": "r20 / (sqrt(20) * rvol20)",
+    "trend_gap_interaction": "observed_gap_rvol * trend20_rvol",
+    "vol_gap_interaction": "observed_gap_rvol * log(rvol20)",
+    "c1_direction_score": "-trend_gap_interaction",
+    "c2_direction_score": "-vol_gap_interaction",
+    "sign_convention": "sign(x)=+1 if x>0, -1 if x<0, 0 if x==0",
+    "c1_action": "sign(c1_direction_score)",
+    "c2_action": "sign(c2_direction_score)",
+    "comparator_action": "c1_action",
+    "candidate_action": "c1_action if c1_action * c2_action > 0 else 0"
+  },
+  "candidate_family": {
+    "attempt_count": 1,
+    "candidate": "C2_zero_boundary_agreement_abstention_overlay_on_C1_direction",
+    "free_parameters": 0,
+    "fitted_weights": false,
+    "threshold_search": false,
+    "magnitude_bucket_search": false,
+    "only_boundary": 0
+  },
+  "target": {
+    "id": "ret_0935_0950",
+    "formula": "close_0950 / close_0935 - 1",
+    "reason": "C1 is the only direction source and is validated at 15m"
+  },
+  "development_window": "2015-01-05..2020-12-31",
+  "annual_report_slices": [2015, 2016, 2017, 2018, 2019, 2020],
+  "complete_case": {
+    "all_frozen_inputs_finite": true,
+    "rvol20_positive": true,
+    "no_forward_fill": true,
+    "no_backward_fill": true
+  },
+  "diagnostics": [
+    "complete_case_count",
+    "candidate_active_day_count",
+    "candidate_coverage",
+    "comparator_active_day_count",
+    "candidate_active_hit_rate",
+    "comparator_hit_rate",
+    "mean_comparator_signed_utility",
+    "mean_candidate_signed_utility",
+    "delta_mean_signed_utility"
+  ],
+  "utility_definitions": {
+    "comparator_signed_utility": "comparator_action * ret_0935_0950",
+    "candidate_signed_utility": "candidate_action * ret_0935_0950",
+    "delta_mean_signed_utility": "mean(candidate_signed_utility) - mean(comparator_signed_utility)",
+    "strategy_PnL_claim": false,
+    "cost_model_used": false
+  },
+  "sufficiency_gates": {
+    "minimum_complete_cases_each_year": 150,
+    "minimum_candidate_active_days_each_year": 30
+  },
+  "progression_gates": {
+    "pooled_delta_mean_signed_utility": ">0",
+    "minimum_positive_annual_delta_count": 4,
+    "annual_year_count": 6,
+    "median_annual_delta": ">=0"
+  },
+  "progression_authority_if_pass": "retrospective_factor_utility_adapter_candidate_only",
+  "account_or_strategy_authority_if_pass": false,
+  "future_blackbox_2021_2025_authorized_now": false,
+  "future_blackbox_requires_separate_result_free_protocol": true,
+  "same_2021_2025_reuse_would_be_independent_OOS": false,
+  "forbidden_actions": [
+    "fit C1 or C2 weights",
+    "search nonzero C1/C2 agreement thresholds",
+    "search magnitude buckets or quantiles",
+    "search alternate C1/C2 sign conventions",
+    "search alternate horizons",
+    "add B4 or other upstream products after outcomes",
+    "use hidden BLACKBOX behavior from prior queries",
+    "optimize account PnL or costs",
+    "grant production authority"
+  ],
+  "auto_promotion": false,
+  "production_authority": false
+}
