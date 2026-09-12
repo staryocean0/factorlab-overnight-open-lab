@@ -1,0 +1,38 @@
+name: One-shot E1 timing adapter development
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/run_e1_timing_adapter_dev_once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  run-e1-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install minimal dependencies
+        run: python -m pip install --disable-pip-version-check numpy pandas
+      - name: Verify frozen contracts and run E1 factor utility diagnostic
+        run: |
+          test ! -e docs/research/cloud_downstream_timing_adapter_v1_dev_diagnostic.json
+          python scripts/run_downstream_timing_adapter_v1_dev_cloud.py
+      - name: Commit E1 development receipt only
+        run: |
+          git status --short
+          test -f docs/research/cloud_downstream_timing_adapter_v1_dev_diagnostic.json
+          EXTRA="$(git status --short | grep -v '^?? docs/research/cloud_downstream_timing_adapter_v1_dev_diagnostic.json$' || true)"
+          test -z "$EXTRA"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/research/cloud_downstream_timing_adapter_v1_dev_diagnostic.json
+          git commit -m "Record E1 factor utility development diagnostic [skip ci]"
+          git push
