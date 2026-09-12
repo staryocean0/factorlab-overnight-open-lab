@@ -1,0 +1,70 @@
+{
+  "schema_id": "overnight_global_risk_driver_protocol@1.0",
+  "session_date": "2026-09-12",
+  "research_identity": "overnight_global_risk_driver_v1",
+  "product_family": "OFP-B1_global_risk_driver",
+  "phase": "mechanism_diagnostic",
+  "preanalysis": "docs/research/global_risk_driver_v1_preanalysis_20260912.md",
+  "development_window": "2015-01-05..2020-12-31",
+  "annual_report_slices": [2015, 2016, 2017, 2018, 2019, 2020],
+  "target": "opening_gap_rvol",
+  "target_formula": "gap / rvol20",
+  "candidate_increment": ["global_risk_z"],
+  "candidate_formula": "0.5 * (us_nasdaq / RMS60_prev(us_nasdaq) + (-us_vix_chg / RMS60_prev(us_vix_chg)))",
+  "normalization": {
+    "method": "lagged_trailing_RMS",
+    "window": 60,
+    "min_periods": 20,
+    "shift": 1,
+    "current_observation_excluded": true
+  },
+  "baseline_controls": [
+    "r1",
+    "r20",
+    "abs_r1",
+    "prev_gap",
+    "overnight_trend_5",
+    "prev_daytime",
+    "prev_last_hour",
+    "prev_afternoon",
+    "log_rvol20",
+    "weekend",
+    "holiday_reopen"
+  ],
+  "complete_case": {
+    "rvol20_finite_positive": true,
+    "all_baseline_candidate_target_finite": true,
+    "epsilon_floor": false
+  },
+  "sufficiency_gates": {
+    "pooled_complete_cases_min": 900,
+    "each_calendar_year_complete_cases_min": 150
+  },
+  "progression_gates": {
+    "pooled_partial_correlation": ">0",
+    "pooled_standardized_candidate_coefficient": ">0",
+    "positive_calendar_year_coefficient_count_min": 4,
+    "calendar_year_count": 6,
+    "median_calendar_year_coefficient": ">0",
+    "pooled_delta_r2": ">0",
+    "positive_calendar_year_delta_r2_count_min": 4
+  },
+  "expected_direction": "positive",
+  "factor_runtime_root": "data/runtime_text_2015_2025",
+  "driver_runtime_root": "data/driver_runtime_text_2015_2020",
+  "driver_carrier_receipt": "docs/research/driver_runtime_text_carrier_parity_receipt_v1.json",
+  "forbidden_actions": [
+    "change NASDAQ/VIX weights",
+    "change RMS lookback/min_periods/shift",
+    "clip or winsorize the coordinate",
+    "search thresholds or buckets",
+    "add A50 or FX channels under B1 v1",
+    "add B4 coherence under B1 v1",
+    "search alternate targets",
+    "use strategy PnL to tune the factor",
+    "use hidden BLACKBOX behavior from prior queries"
+  ],
+  "future_2021_2025_blackbox_authorized_now": false,
+  "auto_promotion": false,
+  "production_authority": false
+}
