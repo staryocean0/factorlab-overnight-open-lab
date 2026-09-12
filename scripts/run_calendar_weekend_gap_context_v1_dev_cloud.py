@@ -37,7 +37,7 @@ def r2(y,p):
 
 def diag(frame:pd.DataFrame,min_n:int,min_weekend:int)->dict:
     cols=[*BASELINE,CANDIDATE,TARGET]
-    x=frame[["weekend",*cols]].copy()
+    x=frame[cols].copy()
     num=x[cols].apply(pd.to_numeric,errors='coerce'); mask=np.isfinite(num.to_numpy(float)).all(axis=1)
     x=x.loc[mask].copy(); n=len(x); weekend_n=int(pd.to_numeric(x['weekend'],errors='coerce').eq(1).sum())
     if n<min_n or weekend_n<min_weekend:return {'n':int(n),'weekend_n':weekend_n,'status':'insufficient'}
