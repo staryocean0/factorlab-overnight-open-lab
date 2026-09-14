@@ -12,10 +12,35 @@
     "local_model_role": "data procurement or mechanical materialization only when cloud lacks required data",
     "production_authority": false
   },
-  "active_research": null,
+  "active_research": {
+    "identity": "overnight_extreme_open_callable_state_reusable_validation_v1",
+    "status": "AUTHORIZED_NOT_YET_QUERIED",
+    "protocol": "docs/governance/extreme_open_callable_state_reusable_validation_v1_protocol.json",
+    "state": "docs/governance/extreme_open_callable_state_reusable_validation_v1_state.json",
+    "runner": "scripts/run_extreme_open_callable_state_reusable_validation.py",
+    "p4_protocol": "docs/governance/extreme_open_callable_state_packaging_v1_protocol.json",
+    "p4_reference_implementation": "scripts/extreme_open_callable_state.py",
+    "blackbox_window": "2021-01-01..2025-12-31",
+    "public_output": [
+      "PASS",
+      "FAIL",
+      "INSUFFICIENT"
+    ],
+    "frozen_bindings": {
+      "protocol_sha256": "c09fcc9d9c79cc987aee9ba1d6b2f1d4a8b59aef840d522a8e1d30714997b39b",
+      "runner_sha256": "a30df8d9821471ee8afa715e8104602e336f82c33b04c03c73b9d101a935ef38",
+      "p4_protocol_sha256": "8d211b41f39e2c0f67d892b7adbca65cd7235979cb9be8059cf90c7be2600bef",
+      "p4_reference_implementation_sha256": "f400ec6e5e0df0f64174c0ebe427e5f532e458b4f038f75f4e20f6c69136e90d"
+    },
+    "reusable_blackbox_2021_2025_open_authorized": true,
+    "P6_authorized": false,
+    "consumer_integration_authority": false,
+    "account_execution_authority": false,
+    "production_authority": false
+  },
   "planned_research": {
     "program_id": "overnight_extreme_open_conditional_transition_program_v1",
-    "status": "P5_REUSABLE_VALIDATION_FROZEN_QUERY_NOT_YET_AUTHORIZED",
+    "status": "P5_REUSABLE_VALIDATION_AUTHORIZED_NOT_YET_QUERIED",
     "purpose": "replace broad weak-information overnight buckets with sparse callable conditional states that have materially separated outcome distributions and otherwise abstain",
     "independent_motivation": "consumer_interface_selectivity_not_rescue_of_closed_blackbox_identity",
     "primary_event_threshold_bp": 30,
@@ -31,8 +56,8 @@
     "feature_boundary_fit_window": "2015-01-05_to_2017-12-31",
     "feature_boundary_fit_outcomes_inspected": false,
     "conditional_outcome_evaluation_window": "2018-01-01_to_2020-12-31",
-    "reusable_blackbox_2021_2025_open_authorized": false,
-    "active_execution_authority": false,
+    "reusable_blackbox_2021_2025_open_authorized": true,
+    "active_execution_authority": true,
     "first_generation_preopen_coordinates": [
       "V6A_expected_open_state",
       "B1_global_risk",
@@ -88,7 +113,7 @@
       "P5_separately_frozen_reusable_validation",
       "P6_independent_consumer_integration"
     ],
-    "next_gate": "after this freeze is merged, separately authorize exactly one reusable BLACKBOX query for the frozen P5 identity; no protocol mutation after authorization",
+    "next_gate": "execute exactly one reusable BLACKBOX query for the frozen P5 identity; only PASS/FAIL/INSUFFICIENT may be persisted or printed",
     "production_authority": false,
     "P0_carrier": "data/extreme_open_vnext_dev_sufficient_statistics_v1.json",
     "P0_carrier_sha256": "d38483d9ef37e65506f858f6155482de32766a619c44ce799442d303c74cc321",
@@ -171,14 +196,20 @@
     "P4_combined_probability_authority": false,
     "P4_three_way_state_authority": false,
     "P5_reusable_validation_freeze_permitted": true,
-    "P5_reusable_validation_open_authorized": false,
+    "P5_reusable_validation_open_authorized": true,
     "P5_identity": "overnight_extreme_open_callable_state_reusable_validation_v1",
     "P5_protocol": "docs/governance/extreme_open_callable_state_reusable_validation_v1_protocol.json",
     "P5_state": "docs/governance/extreme_open_callable_state_reusable_validation_v1_state.json",
     "P5_runner": "scripts/run_extreme_open_callable_state_reusable_validation.py",
     "P5_exact_state_count": 6,
     "P5_blackbox_window": "2021-01-01_to_2025-12-31",
-    "P5_public_output": "PASS_FAIL_INSUFFICIENT_only"
+    "P5_public_output": "PASS_FAIL_INSUFFICIENT_only",
+    "P5_frozen_bindings": {
+      "protocol_sha256": "c09fcc9d9c79cc987aee9ba1d6b2f1d4a8b59aef840d522a8e1d30714997b39b",
+      "runner_sha256": "a30df8d9821471ee8afa715e8104602e336f82c33b04c03c73b9d101a935ef38",
+      "p4_protocol_sha256": "8d211b41f39e2c0f67d892b7adbca65cd7235979cb9be8059cf90c7be2600bef",
+      "p4_reference_implementation_sha256": "f400ec6e5e0df0f64174c0ebe427e5f532e458b4f038f75f4e20f6c69136e90d"
+    }
   },
   "recent_downstream_research": {
     "E1v2": {
@@ -360,9 +391,10 @@
     "P4 may package the exact six P3 states plus supporting P1 lineage with default ABSTAIN and no post-open instruction; P5 reusable validation, consumer integration, account execution and production remain unauthorized until separately frozen.",
     "P4 freezes the exact six-state set-valued interface. No winner selection, combined probability, three-way state, mixed-target tie-break, post-open transition instruction, position/instrument/order mapping, or consumer integration is authorized.",
     "P5 may validate only the exact frozen P4 interface on the reusable 2021-2025 window under a separately preregistered low-bandwidth contract; any P4 mutation requires a new identity.",
-    "P5 protocol is frozen but the reusable 2021-2025 query is not yet authorized. No BLACKBOX row or outcome may be opened until a separate authority transition binds the exact frozen protocol/runner/P4 implementation."
+    "P5 protocol is frozen but the reusable 2021-2025 query is not yet authorized. No BLACKBOX row or outcome may be opened until a separate authority transition binds the exact frozen protocol/runner/P4 implementation.",
+    "P5 is authorized for exactly one low-bandwidth reusable 2021-2025 query of the frozen six-state package. No protocol/runner/P4 mutation, row-level output, state-level metric/decision, failure attribution, rescue search, P6 consumer integration, account execution or production action is authorized."
   ],
-  "next_action": "After P5 freeze QA/merge, separately authorize one exact low-bandwidth reusable query for overnight_extreme_open_callable_state_reusable_validation_v1; do not mutate gates or P4 state definitions.",
+  "next_action": "Execute exactly one frozen P5 reusable BLACKBOX query and persist only the overall PASS/FAIL/INSUFFICIENT receipt; do not inspect or publish state-level behavior.",
   "production_authority": false,
   "maintenance_contract": "docs/governance/repository_lifecycle_v1.json",
   "component_bindings": "docs/governance/component_bindings_v1.json",

@@ -227,7 +227,11 @@ def check(root: Path = ROOT) -> dict:
             errors.append('extreme-open result-free bucket split drift')
         if planned.get('feature_boundary_fit_outcomes_inspected') is not False:
             errors.append('extreme-open feature-boundary stage may not inspect target outcomes')
-        if planned.get('reusable_blackbox_2021_2025_open_authorized') is not False:
+        p5_query_authorized = planned.get('status') == 'P5_REUSABLE_VALIDATION_AUTHORIZED_NOT_YET_QUERIED'
+        if p5_query_authorized:
+            if planned.get('reusable_blackbox_2021_2025_open_authorized') is not True:
+                errors.append('extreme-open P5 reusable query authority missing')
+        elif planned.get('reusable_blackbox_2021_2025_open_authorized') is not False:
             errors.append('extreme-open plan improperly opens reusable BLACKBOX detail')
         plan_status = planned.get('status')
         if plan_status == 'route_frozen_docs_first_p0_infrastructure_required_before_outcome_execution':
@@ -295,6 +299,26 @@ def check(root: Path = ROOT) -> dict:
                 errors.append('extreme-open P5 freeze improperly opens reusable BLACKBOX')
             if planned.get('P4_combined_probability_authority') is not False or planned.get('P4_three_way_state_authority') is not False:
                 errors.append('extreme-open P5 freeze mutates P4 overlap boundary')
+        elif plan_status == 'P5_REUSABLE_VALIDATION_AUTHORIZED_NOT_YET_QUERIED':
+            active=a.get('active_research') or {}
+            if planned.get('active_execution_authority') is not True or active.get('identity') != 'overnight_extreme_open_callable_state_reusable_validation_v1':
+                errors.append('extreme-open P5 query authority identity drift')
+            if planned.get('P5_reusable_validation_open_authorized') is not True or planned.get('reusable_blackbox_2021_2025_open_authorized') is not True:
+                errors.append('extreme-open P5 exact query authority missing')
+            if active.get('protocol') != 'docs/governance/extreme_open_callable_state_reusable_validation_v1_protocol.json' or active.get('runner') != 'scripts/run_extreme_open_callable_state_reusable_validation.py':
+                errors.append('extreme-open P5 protocol/runner binding drift')
+            if active.get('blackbox_window') != '2021-01-01..2025-12-31' or active.get('public_output') != ['PASS','FAIL','INSUFFICIENT']:
+                errors.append('extreme-open P5 window/public-output drift')
+            if active.get('frozen_bindings') != planned.get('P5_frozen_bindings'):
+                errors.append('extreme-open P5 frozen-binding mismatch')
+            for path,key in [('docs/governance/extreme_open_callable_state_reusable_validation_v1_protocol.json','protocol_sha256'),('scripts/run_extreme_open_callable_state_reusable_validation.py','runner_sha256'),('docs/governance/extreme_open_callable_state_packaging_v1_protocol.json','p4_protocol_sha256'),('scripts/extreme_open_callable_state.py','p4_reference_implementation_sha256')]:
+                if hashlib.sha256((root/path).read_bytes()).hexdigest() != active.get('frozen_bindings',{}).get(key):
+                    errors.append('extreme-open P5 frozen byte binding drift: '+path)
+            st=load(root,'docs/governance/extreme_open_callable_state_reusable_validation_v1_state.json')
+            if st.get('status') != 'AUTHORIZED_NOT_YET_QUERIED' or st.get('blackbox_open_authorized') is not True or st.get('blackbox_opened') is not False:
+                errors.append('extreme-open P5 state authorization drift')
+            if active.get('P6_authorized') is not False or active.get('consumer_integration_authority') is not False or active.get('account_execution_authority') is not False or active.get('production_authority') is not False:
+                errors.append('extreme-open P5 authority exceeds reusable validation boundary')
         else:
             errors.append('unexpected extreme-open planned research status')
         if planned.get('phase_order') != expected_phases:
