@@ -9,6 +9,7 @@
   "parent_identity": "overnight_extreme_open_univariate_dev_v1",
   "parent_P1_survivor_count": 6,
   "candidate_count": 6,
+  "authority_activation_pr": 19,
   "intersection_outcomes_opened": false,
   "mechanical_carrier_materialized": false,
   "P3_execution_completed": false,
