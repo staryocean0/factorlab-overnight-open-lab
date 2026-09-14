@@ -977,6 +977,16 @@
       "frozen_blob": "244d14a219415979fd9c381426d617eade185af7"
     },
     {
+      "path": "data/extreme_open_vnext_dev_sufficient_statistics_v1.json",
+      "lifecycle": "data_provenance_only",
+      "frozen_blob": "7dbe301b777565a3f2fafdcf44c63552f872c191"
+    },
+    {
+      "path": "data/extreme_open_vnext_dev_sufficient_statistics_v1.json.sha256",
+      "lifecycle": "data_provenance_only",
+      "frozen_blob": "d1ee844e40602caf2a857f39ea2cd193631ed527"
+    },
+    {
       "path": "data/gap_fill_repeat_2026/README.md",
       "lifecycle": "data_provenance_only",
       "frozen_blob": "563e77f65e12a467066bbf50fc84c99bc7a2f89d"
@@ -3005,9 +3015,17 @@
       "frozen_blob": "d61e00efa6e605864c8153a1e7e577257f813939"
     },
     {
+      "path": "scripts/extreme_open_vnext_core.py",
+      "lifecycle": "maintained"
+    },
+    {
       "path": "scripts/fit_gap_fill_v2_selected_dev.py",
       "lifecycle": "frozen_implementation",
       "frozen_blob": "9ad8b4dbd4202e0c81f45ae8724afc1a531a364d"
+    },
+    {
+      "path": "scripts/materialize_extreme_open_dev_carrier.py",
+      "lifecycle": "maintained"
     },
     {
       "path": "scripts/run_driver_coherence_open_gap_blackbox.py",
@@ -3060,6 +3078,10 @@
     },
     {
       "path": "tests/conftest.py",
+      "lifecycle": "maintained"
+    },
+    {
+      "path": "tests/test_extreme_open_vnext_materializer.py",
       "lifecycle": "maintained"
     },
     {
