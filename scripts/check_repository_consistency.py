@@ -227,7 +227,11 @@ def check(root: Path = ROOT) -> dict:
             errors.append('extreme-open result-free bucket split drift')
         if planned.get('feature_boundary_fit_outcomes_inspected') is not False:
             errors.append('extreme-open feature-boundary stage may not inspect target outcomes')
-        if planned.get('reusable_blackbox_2021_2025_open_authorized') is not False:
+        p5_query_authorized = planned.get('status') == 'P5_REUSABLE_VALIDATION_AUTHORIZED_NOT_YET_QUERIED'
+        if p5_query_authorized:
+            if planned.get('reusable_blackbox_2021_2025_open_authorized') is not True:
+                errors.append('extreme-open P5 reusable query authority missing')
+        elif planned.get('reusable_blackbox_2021_2025_open_authorized') is not False:
             errors.append('extreme-open plan improperly opens reusable BLACKBOX detail')
         plan_status = planned.get('status')
         if plan_status == 'route_frozen_docs_first_p0_infrastructure_required_before_outcome_execution':
