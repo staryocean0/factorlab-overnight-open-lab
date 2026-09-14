@@ -341,12 +341,12 @@
       }
     }
   ],
-  "active_research_identity": null,
-  "active_research_status": null,
+  "active_research_identity": "overnight_extreme_open_preopen_survivor_intersections_dev_v1",
+  "active_research_status": "AUTHORIZED_P3_PREOPEN_SIX_INTERSECTIONS_NOT_YET_EXECUTED",
   "deferred_frozen_identity": null,
   "waiting_validation_identity": null,
-  "next_research_identity": "overnight_extreme_open_preopen_survivor_intersections_dev_v1",
-  "next_research_note": "Result-free P3 freeze only: exactly six same-target two-way intersections from the six P1 survivors; no P2 rescue and no reusable BLACKBOX opening.",
+  "next_research_identity": null,
+  "next_research_note": "Execute only the frozen six-candidate P3 pre-open intersection protocol; P2 rescue/P4/reusable BLACKBOX remain unauthorized.",
   "cartesian_feature_factory_forbidden": true,
   "downstream_strategy_return_may_define_upstream_factor": false,
   "production_authority": false,
