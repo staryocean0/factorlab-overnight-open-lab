@@ -1,0 +1,813 @@
+{
+  "P1_parity_all_match": true,
+  "carrier": "data/extreme_open_p3_intersection_sufficient_statistics_v1.json",
+  "carrier_sha256": "0c97062e9b4d96570098ba97d1465de384387f6d6dab7a052e89483ad4a30c77",
+  "execution_boundary": {
+    "P2_postopen_intersections_opened": false,
+    "P3_preopen_only": true,
+    "P4_authorized": false,
+    "candidate_search": false,
+    "edge_refit": false,
+    "production_authority": false,
+    "reusable_blackbox_2021_2025_opened": false
+  },
+  "hypotheses": [
+    {
+      "annual": {
+        "2018": {
+          "intersection_n": 46,
+          "left_exclusive_n": 33,
+          "left_incremental_difference": 0.21343873517786563,
+          "primary_difference": 0.25,
+          "right_exclusive_n": 32,
+          "right_incremental_difference": 0.14809782608695654
+        },
+        "2019": {
+          "intersection_n": 45,
+          "left_exclusive_n": 43,
+          "left_incremental_difference": 0.32609819121447026,
+          "primary_difference": 0.38618618618618616,
+          "right_exclusive_n": 28,
+          "right_incremental_difference": 0.2746031746031746
+        },
+        "2020": {
+          "intersection_n": 43,
+          "left_exclusive_n": 49,
+          "left_incremental_difference": 0.31324157570004746,
+          "primary_difference": 0.39324591786244434,
+          "right_exclusive_n": 31,
+          "right_incremental_difference": 0.2355588897224306
+        }
+      },
+      "candidate_id": "UP_B1_HIGH_X_B2_HIGH",
+      "gates_pre_bh": {
+        "higher_than_both_full_constituents": true,
+        "incremental_material_over_stronger_constituent": true,
+        "intersection_annual_n": true,
+        "intersection_pooled_n": true,
+        "left_exclusive_annual_n": true,
+        "left_exclusive_pooled_n": true,
+        "left_increment_annual_positive": true,
+        "left_increment_newcombe_lower_gt_zero": true,
+        "parent_material_effect": true,
+        "positive_parent_enrichment": true,
+        "primary_annual_positive": true,
+        "primary_newcombe_lower_gt_zero": true,
+        "right_exclusive_annual_n": true,
+        "right_exclusive_pooled_n": true,
+        "right_increment_annual_positive": true,
+        "right_increment_newcombe_lower_gt_zero": true
+      },
+      "incremental_over_stronger_constituent": {
+        "incremental_lift_pp": 8.776119402985078,
+        "incremental_risk_ratio": 1.2437810945273633,
+        "pass": true,
+        "stronger_constituent_probability": 0.36
+      },
+      "left_bucket": "HIGH",
+      "left_coordinate": "B1_global_risk",
+      "left_full_probability": 0.3166023166023166,
+      "left_increment_bh_pass": true,
+      "left_increment_bh_q": 5.0115004444048535e-06,
+      "left_increment_fisher_p": 2.5057502222024268e-06,
+      "left_incremental_comparison": {
+        "ci95": {
+          "lower": 0.1601893226895993,
+          "upper": 0.3735629804177088
+        },
+        "difference": 0.27176119402985077,
+        "fisher_p": 2.5057502222024268e-06,
+        "left_n": 134,
+        "left_target": 60,
+        "p_left": 0.44776119402985076,
+        "p_right": 0.176,
+        "right_n": 125,
+        "right_target": 22
+      },
+      "parent_effect": {
+        "lift_pp": 27.409983368252806,
+        "p_bucket": 0.44776119402985076,
+        "p_parent": 0.1736613603473227,
+        "risk_ratio": 2.578358208955224
+      },
+      "pass_all_gates": true,
+      "primary_bh_pass": true,
+      "primary_bh_q": 4.6052097828909745e-17,
+      "primary_comparison": {
+        "ci95": {
+          "lower": 0.2536408290044535,
+          "upper": 0.4276269133870961
+        },
+        "difference": 0.3400412658431362,
+        "fisher_p": 1.5350699276303248e-17,
+        "left_n": 134,
+        "left_target": 60,
+        "p_left": 0.44776119402985076,
+        "p_right": 0.10771992818671454,
+        "right_n": 557,
+        "right_target": 60
+      },
+      "primary_fisher_p": 1.5350699276303248e-17,
+      "right_bucket": "HIGH",
+      "right_coordinate": "B2_china_offshore",
+      "right_full_probability": 0.36,
+      "right_increment_bh_pass": true,
+      "right_increment_bh_q": 0.0012555415557182143,
+      "right_increment_fisher_p": 0.0010810947710955107,
+      "right_incremental_comparison": {
+        "ci95": {
+          "lower": 0.09071413542100096,
+          "upper": 0.32968807407472217
+        },
+        "difference": 0.21699196326061998,
+        "fisher_p": 0.0010810947710955107,
+        "left_n": 134,
+        "left_target": 60,
+        "p_left": 0.44776119402985076,
+        "p_right": 0.23076923076923078,
+        "right_n": 91,
+        "right_target": 21
+      },
+      "target": "EXTREME_UP"
+    },
+    {
+      "annual": {
+        "2018": {
+          "intersection_n": 11,
+          "left_exclusive_n": 75,
+          "left_incremental_difference": 0.2812121212121212,
+          "primary_difference": 0.3683385579937304,
+          "right_exclusive_n": 22,
+          "right_incremental_difference": 0.40909090909090906
+        },
+        "2019": {
+          "intersection_n": 18,
+          "left_exclusive_n": 75,
+          "left_incremental_difference": 0.08222222222222225,
+          "primary_difference": 0.2326388888888889,
+          "right_exclusive_n": 22,
+          "right_incremental_difference": 0.16161616161616163
+        },
+        "2020": {
+          "intersection_n": 31,
+          "left_exclusive_n": 66,
+          "left_incremental_difference": 0.29472140762463345,
+          "primary_difference": 0.41950699939135727,
+          "right_exclusive_n": 39,
+          "right_incremental_difference": 0.45905707196029777
+        }
+      },
+      "candidate_id": "UP_B1_HIGH_X_VOL_HIGH",
+      "gates_pre_bh": {
+        "higher_than_both_full_constituents": true,
+        "incremental_material_over_stronger_constituent": true,
+        "intersection_annual_n": true,
+        "intersection_pooled_n": true,
+        "left_exclusive_annual_n": true,
+        "left_exclusive_pooled_n": true,
+        "left_increment_annual_positive": true,
+        "left_increment_newcombe_lower_gt_zero": true,
+        "parent_material_effect": true,
+        "positive_parent_enrichment": true,
+        "primary_annual_positive": true,
+        "primary_newcombe_lower_gt_zero": true,
+        "right_exclusive_annual_n": true,
+        "right_exclusive_pooled_n": true,
+        "right_increment_annual_positive": true,
+        "right_increment_newcombe_lower_gt_zero": true
+      },
+      "incremental_over_stronger_constituent": {
+        "incremental_lift_pp": 19.782608695652183,
+        "incremental_risk_ratio": 1.6204545454545458,
+        "pass": true,
+        "stronger_constituent_probability": 0.3188405797101449
+      },
+      "left_bucket": "HIGH",
+      "left_coordinate": "B1_global_risk",
+      "left_full_probability": 0.3188405797101449,
+      "left_increment_bh_pass": true,
+      "left_increment_bh_q": 0.00045897886834565295,
+      "left_increment_fisher_p": 0.0003059859122304353,
+      "left_incremental_comparison": {
+        "ci95": {
+          "lower": 0.1142699227062865,
+          "upper": 0.3859272978011393
+        },
+        "difference": 0.2527777777777778,
+        "fisher_p": 0.0003059859122304353,
+        "left_n": 60,
+        "left_target": 31,
+        "p_left": 0.5166666666666667,
+        "p_right": 0.2638888888888889,
+        "right_n": 216,
+        "right_target": 57
+      },
+      "parent_effect": {
+        "lift_pp": 34.22161172161173,
+        "p_bucket": 0.5166666666666667,
+        "p_parent": 0.17445054945054944,
+        "risk_ratio": 2.9616797900262473
+      },
+      "pass_all_gates": true,
+      "primary_bh_pass": true,
+      "primary_bh_q": 1.8153655558510927e-10,
+      "primary_comparison": {
+        "ci95": {
+          "lower": 0.24609015759742384,
+          "upper": 0.4969940886401174
+        },
+        "difference": 0.3729540918163673,
+        "fisher_p": 1.8153655558510927e-10,
+        "left_n": 60,
+        "left_target": 31,
+        "p_left": 0.5166666666666667,
+        "p_right": 0.1437125748502994,
+        "right_n": 668,
+        "right_target": 96
+      },
+      "primary_fisher_p": 1.8153655558510927e-10,
+      "right_bucket": "HIGH",
+      "right_coordinate": "causal_prior_volatility_parent",
+      "right_full_probability": 0.3006993006993007,
+      "right_increment_bh_pass": true,
+      "right_increment_bh_q": 5.0115004444048535e-06,
+      "right_increment_fisher_p": 2.4613684289159836e-06,
+      "right_incremental_comparison": {
+        "ci95": {
+          "lower": 0.21840987627085143,
+          "upper": 0.5076237218811988
+        },
+        "difference": 0.37208835341365465,
+        "fisher_p": 2.4613684289159836e-06,
+        "left_n": 60,
+        "left_target": 31,
+        "p_left": 0.5166666666666667,
+        "p_right": 0.14457831325301204,
+        "right_n": 83,
+        "right_target": 12
+      },
+      "target": "EXTREME_UP"
+    },
+    {
+      "annual": {
+        "2018": {
+          "intersection_n": 15,
+          "left_exclusive_n": 63,
+          "left_incremental_difference": 0.1111111111111111,
+          "primary_difference": 0.2449612403100775,
+          "right_exclusive_n": 17,
+          "right_incremental_difference": 0.2745098039215686
+        },
+        "2019": {
+          "intersection_n": 15,
+          "left_exclusive_n": 58,
+          "left_incremental_difference": 0.3563218390804597,
+          "primary_difference": 0.5238095238095237,
+          "right_exclusive_n": 23,
+          "right_incremental_difference": 0.5797101449275361
+        },
+        "2020": {
+          "intersection_n": 25,
+          "left_exclusive_n": 49,
+          "left_incremental_difference": 0.21224489795918366,
+          "primary_difference": 0.40582524271844655,
+          "right_exclusive_n": 42,
+          "right_incremental_difference": 0.3857142857142857
+        }
+      },
+      "candidate_id": "UP_B2_HIGH_X_VOL_HIGH",
+      "gates_pre_bh": {
+        "higher_than_both_full_constituents": true,
+        "incremental_material_over_stronger_constituent": true,
+        "intersection_annual_n": true,
+        "intersection_pooled_n": true,
+        "left_exclusive_annual_n": true,
+        "left_exclusive_pooled_n": true,
+        "left_increment_annual_positive": true,
+        "left_increment_newcombe_lower_gt_zero": true,
+        "parent_material_effect": true,
+        "positive_parent_enrichment": true,
+        "primary_annual_positive": true,
+        "primary_newcombe_lower_gt_zero": true,
+        "right_exclusive_annual_n": true,
+        "right_exclusive_pooled_n": true,
+        "right_increment_annual_positive": true,
+        "right_increment_newcombe_lower_gt_zero": true
+      },
+      "incremental_over_stronger_constituent": {
+        "incremental_lift_pp": 18.545454545454543,
+        "incremental_risk_ratio": 1.5151515151515151,
+        "pass": true,
+        "stronger_constituent_probability": 0.36
+      },
+      "left_bucket": "HIGH",
+      "left_coordinate": "B2_china_offshore",
+      "left_full_probability": 0.36,
+      "left_increment_bh_pass": true,
+      "left_increment_bh_q": 0.0012555415557182143,
+      "left_increment_fisher_p": 0.0012555415557182143,
+      "left_incremental_comparison": {
+        "ci95": {
+          "lower": 0.09631648358147904,
+          "upper": 0.38518575837036867
+        },
+        "difference": 0.24545454545454543,
+        "fisher_p": 0.0012555415557182143,
+        "left_n": 55,
+        "left_target": 30,
+        "p_left": 0.5454545454545454,
+        "p_right": 0.3,
+        "right_n": 170,
+        "right_target": 51
+      },
+      "parent_effect": {
+        "lift_pp": 37.229437229437224,
+        "p_bucket": 0.5454545454545454,
+        "p_parent": 0.17316017316017315,
+        "risk_ratio": 3.15
+      },
+      "pass_all_gates": true,
+      "primary_bh_pass": true,
+      "primary_bh_q": 6.585551284527207e-11,
+      "primary_comparison": {
+        "ci95": {
+          "lower": 0.2709356332063898,
+          "upper": 0.5311444307895983
+        },
+        "difference": 0.4043887147335423,
+        "fisher_p": 4.390367523018138e-11,
+        "left_n": 55,
+        "left_target": 30,
+        "p_left": 0.5454545454545454,
+        "p_right": 0.14106583072100312,
+        "right_n": 638,
+        "right_target": 90
+      },
+      "primary_fisher_p": 4.390367523018138e-11,
+      "right_bucket": "HIGH",
+      "right_coordinate": "causal_prior_volatility_parent",
+      "right_full_probability": 0.30656934306569344,
+      "right_increment_bh_pass": true,
+      "right_increment_bh_q": 5.0115004444048535e-06,
+      "right_increment_fisher_p": 1.2226132043749518e-06,
+      "right_incremental_comparison": {
+        "ci95": {
+          "lower": 0.23952046431658555,
+          "upper": 0.5373918009902939
+        },
+        "difference": 0.39911308203991125,
+        "fisher_p": 1.2226132043749518e-06,
+        "left_n": 55,
+        "left_target": 30,
+        "p_left": 0.5454545454545454,
+        "p_right": 0.14634146341463414,
+        "right_n": 82,
+        "right_target": 12
+      },
+      "target": "EXTREME_UP"
+    },
+    {
+      "annual": {
+        "2018": {
+          "intersection_n": 50,
+          "left_exclusive_n": 34,
+          "left_incremental_difference": 0.44588235294117645,
+          "primary_difference": 0.6011111111111112,
+          "right_exclusive_n": 27,
+          "right_incremental_difference": 0.4437037037037037
+        },
+        "2019": {
+          "intersection_n": 37,
+          "left_exclusive_n": 26,
+          "left_incremental_difference": 0.3908523908523908,
+          "primary_difference": 0.5335387200672175,
+          "right_exclusive_n": 38,
+          "right_incremental_difference": 0.4374110953058321
+        },
+        "2020": {
+          "intersection_n": 42,
+          "left_exclusive_n": 24,
+          "left_incremental_difference": 0.3392857142857143,
+          "primary_difference": 0.44179894179894186,
+          "right_exclusive_n": 35,
+          "right_incremental_difference": 0.29047619047619055
+        }
+      },
+      "candidate_id": "DOWN_B1_LOW_X_B2_LOW",
+      "gates_pre_bh": {
+        "higher_than_both_full_constituents": true,
+        "incremental_material_over_stronger_constituent": true,
+        "intersection_annual_n": true,
+        "intersection_pooled_n": true,
+        "left_exclusive_annual_n": true,
+        "left_exclusive_pooled_n": true,
+        "left_increment_annual_positive": true,
+        "left_increment_newcombe_lower_gt_zero": true,
+        "parent_material_effect": true,
+        "positive_parent_enrichment": true,
+        "primary_annual_positive": true,
+        "primary_newcombe_lower_gt_zero": true,
+        "right_exclusive_annual_n": true,
+        "right_exclusive_pooled_n": true,
+        "right_increment_annual_positive": true,
+        "right_increment_newcombe_lower_gt_zero": true
+      },
+      "incremental_over_stronger_constituent": {
+        "incremental_lift_pp": 15.514794191505626,
+        "incremental_risk_ratio": 1.3177549194991056,
+        "pass": true,
+        "stronger_constituent_probability": 0.48826291079812206
+      },
+      "left_bucket": "LOW",
+      "left_coordinate": "B1_global_risk",
+      "left_full_probability": 0.48826291079812206,
+      "left_increment_bh_pass": true,
+      "left_increment_bh_q": 4.8592089885448136e-08,
+      "left_increment_fisher_p": 1.6197363295149378e-08,
+      "left_incremental_comparison": {
+        "ci95": {
+          "lower": 0.2600741836359537,
+          "upper": 0.5049320262806172
+        },
+        "difference": 0.3934108527131783,
+        "fisher_p": 1.6197363295149378e-08,
+        "left_n": 129,
+        "left_target": 83,
+        "p_left": 0.6434108527131783,
+        "p_right": 0.25,
+        "right_n": 84,
+        "right_target": 21
+      },
+      "parent_effect": {
+        "lift_pp": 43.35700422934967,
+        "p_bucket": 0.6434108527131783,
+        "p_parent": 0.2098408104196816,
+        "risk_ratio": 3.0661855118952155
+      },
+      "pass_all_gates": true,
+      "primary_bh_pass": true,
+      "primary_bh_q": 1.2988892419345824e-34,
+      "primary_comparison": {
+        "ci95": {
+          "lower": 0.44274040044751545,
+          "upper": 0.613933816377246
+        },
+        "difference": 0.5330905680156695,
+        "fisher_p": 1.2988892419345824e-34,
+        "left_n": 129,
+        "left_target": 83,
+        "p_left": 0.6434108527131783,
+        "p_right": 0.1103202846975089,
+        "right_n": 562,
+        "right_target": 62
+      },
+      "primary_fisher_p": 1.2988892419345824e-34,
+      "right_bucket": "LOW",
+      "right_coordinate": "B2_china_offshore",
+      "right_full_probability": 0.4672489082969432,
+      "right_increment_bh_pass": true,
+      "right_increment_bh_q": 6.935175550555553e-09,
+      "right_increment_fisher_p": 1.1558625917592588e-09,
+      "right_incremental_comparison": {
+        "ci95": {
+          "lower": 0.27743810754717724,
+          "upper": 0.5098733739863505
+        },
+        "difference": 0.40341085271317834,
+        "fisher_p": 1.1558625917592588e-09,
+        "left_n": 129,
+        "left_target": 83,
+        "p_left": 0.6434108527131783,
+        "p_right": 0.24,
+        "right_n": 100,
+        "right_target": 24
+      },
+      "target": "EXTREME_DOWN"
+    },
+    {
+      "annual": {
+        "2018": {
+          "intersection_n": 66,
+          "left_exclusive_n": 18,
+          "left_incremental_difference": 0.4292929292929293,
+          "primary_difference": 0.5356614929785661,
+          "right_exclusive_n": 21,
+          "right_incremental_difference": 0.3181818181818182
+        },
+        "2019": {
+          "intersection_n": 50,
+          "left_exclusive_n": 13,
+          "left_incremental_difference": 0.3861538461538462,
+          "primary_difference": 0.46777777777777785,
+          "right_exclusive_n": 25,
+          "right_incremental_difference": 0.42000000000000004
+        },
+        "2020": {
+          "intersection_n": 52,
+          "left_exclusive_n": 14,
+          "left_incremental_difference": 0.4478021978021979,
+          "primary_difference": 0.42984529437043406,
+          "right_exclusive_n": 25,
+          "right_incremental_difference": 0.19923076923076927
+        }
+      },
+      "candidate_id": "DOWN_B1_LOW_X_B4_LOW",
+      "gates_pre_bh": {
+        "higher_than_both_full_constituents": true,
+        "incremental_material_over_stronger_constituent": true,
+        "intersection_annual_n": true,
+        "intersection_pooled_n": true,
+        "left_exclusive_annual_n": true,
+        "left_exclusive_pooled_n": true,
+        "left_increment_annual_positive": true,
+        "left_increment_newcombe_lower_gt_zero": true,
+        "parent_material_effect": true,
+        "positive_parent_enrichment": true,
+        "primary_annual_positive": true,
+        "primary_newcombe_lower_gt_zero": true,
+        "right_exclusive_annual_n": true,
+        "right_exclusive_pooled_n": true,
+        "right_increment_annual_positive": true,
+        "right_increment_newcombe_lower_gt_zero": true
+      },
+      "incremental_over_stronger_constituent": {
+        "incremental_lift_pp": 8.911804158283026,
+        "incremental_risk_ratio": 1.1825206043956042,
+        "pass": true,
+        "stronger_constituent_probability": 0.48826291079812206
+      },
+      "left_bucket": "LOW",
+      "left_coordinate": "B1_global_risk",
+      "left_full_probability": 0.48826291079812206,
+      "left_increment_bh_pass": true,
+      "left_increment_bh_q": 5.460516342657237e-07,
+      "left_increment_fisher_p": 2.7302581713286185e-07,
+      "left_incremental_comparison": {
+        "ci95": {
+          "lower": 0.2694596600236413,
+          "upper": 0.5281504830448763
+        },
+        "difference": 0.42182539682539677,
+        "fisher_p": 2.7302581713286185e-07,
+        "left_n": 168,
+        "left_target": 97,
+        "p_left": 0.5773809523809523,
+        "p_right": 0.15555555555555556,
+        "right_n": 45,
+        "right_target": 7
+      },
+      "parent_effect": {
+        "lift_pp": 36.75401419612707,
+        "p_bucket": 0.5773809523809523,
+        "p_parent": 0.2098408104196816,
+        "risk_ratio": 2.751518883415435
+      },
+      "pass_all_gates": true,
+      "primary_bh_pass": true,
+      "primary_bh_q": 4.8135386745320176e-36,
+      "primary_comparison": {
+        "ci95": {
+          "lower": 0.40504398359837135,
+          "upper": 0.5609876314356665
+        },
+        "difference": 0.48560274970408807,
+        "fisher_p": 1.6045128915106724e-36,
+        "left_n": 168,
+        "left_target": 97,
+        "p_left": 0.5773809523809523,
+        "p_right": 0.09177820267686425,
+        "right_n": 523,
+        "right_target": 48
+      },
+      "primary_fisher_p": 1.6045128915106724e-36,
+      "right_bucket": "LOW",
+      "right_coordinate": "B4_driver_coherence",
+      "right_full_probability": 0.4811715481171548,
+      "right_increment_bh_pass": true,
+      "right_increment_bh_q": 5.672132697249102e-06,
+      "right_increment_fisher_p": 4.7267772477075854e-06,
+      "right_incremental_comparison": {
+        "ci95": {
+          "lower": 0.18871381077046748,
+          "upper": 0.43666410554982077
+        },
+        "difference": 0.32385982562038895,
+        "fisher_p": 4.7267772477075854e-06,
+        "left_n": 168,
+        "left_target": 97,
+        "p_left": 0.5773809523809523,
+        "p_right": 0.2535211267605634,
+        "right_n": 71,
+        "right_target": 18
+      },
+      "target": "EXTREME_DOWN"
+    },
+    {
+      "annual": {
+        "2018": {
+          "intersection_n": 66,
+          "left_exclusive_n": 11,
+          "left_incremental_difference": 0.46969696969696967,
+          "primary_difference": 0.5356614929785661,
+          "right_exclusive_n": 21,
+          "right_incremental_difference": 0.3181818181818182
+        },
+        "2019": {
+          "intersection_n": 56,
+          "left_exclusive_n": 19,
+          "left_incremental_difference": 0.25375939849624063,
+          "primary_difference": 0.38382594417077176,
+          "right_exclusive_n": 19,
+          "right_incremental_difference": 0.25375939849624063
+        },
+        "2020": {
+          "intersection_n": 61,
+          "left_exclusive_n": 16,
+          "left_incremental_difference": 0.4456967213114754,
+          "primary_difference": 0.4376084860173578,
+          "right_exclusive_n": 16,
+          "right_incremental_difference": 0.2581967213114754
+        }
+      },
+      "candidate_id": "DOWN_B2_LOW_X_B4_LOW",
+      "gates_pre_bh": {
+        "higher_than_both_full_constituents": true,
+        "incremental_material_over_stronger_constituent": true,
+        "intersection_annual_n": true,
+        "intersection_pooled_n": true,
+        "left_exclusive_annual_n": true,
+        "left_exclusive_pooled_n": true,
+        "left_increment_annual_positive": true,
+        "left_increment_newcombe_lower_gt_zero": true,
+        "parent_material_effect": true,
+        "positive_parent_enrichment": true,
+        "primary_annual_positive": true,
+        "primary_newcombe_lower_gt_zero": true,
+        "right_exclusive_annual_n": true,
+        "right_exclusive_pooled_n": true,
+        "right_increment_annual_positive": true,
+        "right_increment_newcombe_lower_gt_zero": true
+      },
+      "incremental_over_stronger_constituent": {
+        "incremental_lift_pp": 6.527653931453925,
+        "incremental_risk_ratio": 1.1356616773580424,
+        "pass": true,
+        "stronger_constituent_probability": 0.4811715481171548
+      },
+      "left_bucket": "LOW",
+      "left_coordinate": "B2_china_offshore",
+      "left_full_probability": 0.4672489082969432,
+      "left_increment_bh_pass": true,
+      "left_increment_bh_q": 1.4154679369480198e-06,
+      "left_increment_fisher_p": 9.436452912986798e-07,
+      "left_incremental_comparison": {
+        "ci95": {
+          "lower": 0.24544082319534624,
+          "upper": 0.49822552482228244
+        },
+        "difference": 0.39427417438821577,
+        "fisher_p": 9.436452912986798e-07,
+        "left_n": 183,
+        "left_target": 100,
+        "p_left": 0.546448087431694,
+        "p_right": 0.15217391304347827,
+        "right_n": 46,
+        "right_target": 7
+      },
+      "parent_effect": {
+        "lift_pp": 33.660727701201246,
+        "p_bucket": 0.546448087431694,
+        "p_parent": 0.2098408104196816,
+        "risk_ratio": 2.604107782174487
+      },
+      "pass_all_gates": true,
+      "primary_bh_pass": true,
+      "primary_bh_q": 6.280928913585257e-35,
+      "primary_comparison": {
+        "ci95": {
+          "lower": 0.3803281458413078,
+          "upper": 0.5315737012929707
+        },
+        "difference": 0.4578654102663397,
+        "fisher_p": 4.1872859423901716e-35,
+        "left_n": 183,
+        "left_target": 100,
+        "p_left": 0.546448087431694,
+        "p_right": 0.08858267716535433,
+        "right_n": 508,
+        "right_target": 45
+      },
+      "primary_fisher_p": 4.1872859423901716e-35,
+      "right_bucket": "LOW",
+      "right_coordinate": "B4_driver_coherence",
+      "right_full_probability": 0.4811715481171548,
+      "right_increment_bh_pass": true,
+      "right_increment_bh_q": 0.00038075004265259913,
+      "right_increment_fisher_p": 0.00038075004265259913,
+      "right_incremental_comparison": {
+        "ci95": {
+          "lower": 0.13148398058563737,
+          "upper": 0.3995077592197995
+        },
+        "difference": 0.2785909445745512,
+        "fisher_p": 0.00038075004265259913,
+        "left_n": 183,
+        "left_target": 100,
+        "p_left": 0.546448087431694,
+        "p_right": 0.26785714285714285,
+        "right_n": 56,
+        "right_target": 15
+      },
+      "target": "EXTREME_DOWN"
+    }
+  ],
+  "production_authority": false,
+  "protocol": "docs/governance/extreme_open_preopen_intersections_dev_v1_protocol.json",
+  "research_identity": "overnight_extreme_open_preopen_survivor_intersections_dev_v1",
+  "schema_id": "overnight_extreme_open_p3_intersections_dev_receipt@1.0",
+  "session_date": "2026-09-14",
+  "summary": {
+    "candidate_count": 6,
+    "survivor_count": 6
+  },
+  "survivors": [
+    {
+      "candidate_id": "UP_B1_HIGH_X_B2_HIGH",
+      "incremental_lift_pp_over_stronger_constituent": 8.776119402985078,
+      "incremental_risk_ratio_over_stronger_constituent": 1.2437810945273633,
+      "left_increment_bh_q": 5.0115004444048535e-06,
+      "p_intersection": 0.44776119402985076,
+      "p_parent": 0.1736613603473227,
+      "parent_lift_pp": 27.409983368252806,
+      "parent_risk_ratio": 2.578358208955224,
+      "primary_bh_q": 4.6052097828909745e-17,
+      "right_increment_bh_q": 0.0012555415557182143,
+      "target": "EXTREME_UP"
+    },
+    {
+      "candidate_id": "UP_B1_HIGH_X_VOL_HIGH",
+      "incremental_lift_pp_over_stronger_constituent": 19.782608695652183,
+      "incremental_risk_ratio_over_stronger_constituent": 1.6204545454545458,
+      "left_increment_bh_q": 0.00045897886834565295,
+      "p_intersection": 0.5166666666666667,
+      "p_parent": 0.17445054945054944,
+      "parent_lift_pp": 34.22161172161173,
+      "parent_risk_ratio": 2.9616797900262473,
+      "primary_bh_q": 1.8153655558510927e-10,
+      "right_increment_bh_q": 5.0115004444048535e-06,
+      "target": "EXTREME_UP"
+    },
+    {
+      "candidate_id": "UP_B2_HIGH_X_VOL_HIGH",
+      "incremental_lift_pp_over_stronger_constituent": 18.545454545454543,
+      "incremental_risk_ratio_over_stronger_constituent": 1.5151515151515151,
+      "left_increment_bh_q": 0.0012555415557182143,
+      "p_intersection": 0.5454545454545454,
+      "p_parent": 0.17316017316017315,
+      "parent_lift_pp": 37.229437229437224,
+      "parent_risk_ratio": 3.15,
+      "primary_bh_q": 6.585551284527207e-11,
+      "right_increment_bh_q": 5.0115004444048535e-06,
+      "target": "EXTREME_UP"
+    },
+    {
+      "candidate_id": "DOWN_B1_LOW_X_B2_LOW",
+      "incremental_lift_pp_over_stronger_constituent": 15.514794191505626,
+      "incremental_risk_ratio_over_stronger_constituent": 1.3177549194991056,
+      "left_increment_bh_q": 4.8592089885448136e-08,
+      "p_intersection": 0.6434108527131783,
+      "p_parent": 0.2098408104196816,
+      "parent_lift_pp": 43.35700422934967,
+      "parent_risk_ratio": 3.0661855118952155,
+      "primary_bh_q": 1.2988892419345824e-34,
+      "right_increment_bh_q": 6.935175550555553e-09,
+      "target": "EXTREME_DOWN"
+    },
+    {
+      "candidate_id": "DOWN_B1_LOW_X_B4_LOW",
+      "incremental_lift_pp_over_stronger_constituent": 8.911804158283026,
+      "incremental_risk_ratio_over_stronger_constituent": 1.1825206043956042,
+      "left_increment_bh_q": 5.460516342657237e-07,
+      "p_intersection": 0.5773809523809523,
+      "p_parent": 0.2098408104196816,
+      "parent_lift_pp": 36.75401419612707,
+      "parent_risk_ratio": 2.751518883415435,
+      "primary_bh_q": 4.8135386745320176e-36,
+      "right_increment_bh_q": 5.672132697249102e-06,
+      "target": "EXTREME_DOWN"
+    },
+    {
+      "candidate_id": "DOWN_B2_LOW_X_B4_LOW",
+      "incremental_lift_pp_over_stronger_constituent": 6.527653931453925,
+      "incremental_risk_ratio_over_stronger_constituent": 1.1356616773580424,
+      "left_increment_bh_q": 1.4154679369480198e-06,
+      "p_intersection": 0.546448087431694,
+      "p_parent": 0.2098408104196816,
+      "parent_lift_pp": 33.660727701201246,
+      "parent_risk_ratio": 2.604107782174487,
+      "primary_bh_q": 6.280928913585257e-35,
+      "right_increment_bh_q": 0.00038075004265259913,
+      "target": "EXTREME_DOWN"
+    }
+  ]
+}
