@@ -11,6 +11,7 @@
   "carrier_sha256": "d38483d9ef37e65506f858f6155482de32766a619c44ce799442d303c74cc321",
   "authority_activation_pr": 17,
   "execution_run_id": 34807096811,
+  "closeout_pr": 18,
   "P0_complete": true,
   "P1_authorized": false,
   "P2_authorized": false,
