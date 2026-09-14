@@ -1812,6 +1812,14 @@
       "frozen_blob": "d4f3cfa9490c850face50883560a872052920dbe"
     },
     {
+      "path": "docs/governance/extreme_open_callable_state_packaging_v1_protocol.json",
+      "lifecycle": "maintained"
+    },
+    {
+      "path": "docs/governance/extreme_open_callable_state_packaging_v1_state.json",
+      "lifecycle": "maintained"
+    },
+    {
       "path": "docs/governance/extreme_open_preopen_intersections_dev_v1_protocol.json",
       "lifecycle": "maintained"
     },
@@ -3071,6 +3079,11 @@
       "frozen_blob": "d61e00efa6e605864c8153a1e7e577257f813939"
     },
     {
+      "path": "scripts/extreme_open_callable_state.py",
+      "lifecycle": "frozen_implementation",
+      "frozen_blob": "c62b45352e7f23cc7407937632545afc774ffd47"
+    },
+    {
       "path": "scripts/extreme_open_univariate_stats.py",
       "lifecycle": "frozen_implementation",
       "frozen_blob": "6999fb26b9f058ab037712e292d74eb8c670d07b"
@@ -3145,6 +3158,11 @@
     {
       "path": "tests/conftest.py",
       "lifecycle": "maintained"
+    },
+    {
+      "path": "tests/test_extreme_open_callable_state.py",
+      "lifecycle": "current_contract_regression",
+      "frozen_blob": "852923cdfe987805b46cd2e071ea1957e4ba8895"
     },
     {
       "path": "tests/test_extreme_open_p3_contract.py",

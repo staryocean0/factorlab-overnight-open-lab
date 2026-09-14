@@ -1,0 +1,75 @@
+{
+  "schema_id": "overnight_extreme_open_callable_state_packaging_protocol@1.0",
+  "session_date": "2026-09-14",
+  "research_identity": "overnight_extreme_open_callable_state_packaging_v1",
+  "program_id": "overnight_extreme_open_conditional_transition_program_v1",
+  "phase": "P4_rule_list_and_abstain_packaging",
+  "scientific_parent": "overnight_extreme_open_preopen_survivor_intersections_dev_v1",
+  "scientific_parent_decision": "P3_DEV_PROGRESS_ALL_6_INCREMENTAL_PREOPEN_INTERSECTION_STATES",
+  "purpose": "freeze a deterministic set-valued consumer interface without additional outcome selection",
+  "runtime_inputs": [
+    "B1_global_risk",
+    "B2_china_offshore",
+    "B4_driver_coherence",
+    "causal_prior_volatility_parent"
+  ],
+  "runtime_input_contract": {
+    "B1_global_risk": "validated B1 continuous coordinate under its frozen causal contract",
+    "B2_china_offshore": "validated B2 continuous coordinate under its frozen causal contract",
+    "B4_driver_coherence": "validated B4 continuous coordinate under its frozen causal contract",
+    "causal_prior_volatility_parent": "log(rvol20), where rvol20 uses prior China daily returns only"
+  },
+  "missing_input_policy": "do_not_impute; a state whose required coordinate is missing cannot fire; other fully observed states may still be evaluated",
+  "frozen_edges": {
+    "authority": "data/extreme_open_vnext_dev_sufficient_statistics_v1.json",
+    "authority_canonical_payload_sha256": "6a347f6365dbb0f36b6a03b7195caed62c5cf37a99203fc9cdadb12b4d2a6767",
+    "assignment": "LOW if x<=q1; MID if q1<x<=q2; HIGH if x>q2",
+    "B1_global_risk": {"q1": -0.20658745938920686, "q2": 0.3617976846900284},
+    "B2_china_offshore": {"q1": -0.13148580359538747, "q2": 0.47579244128414716},
+    "B4_driver_coherence": {"q1": -0.42760610092652673, "q2": 1.0},
+    "causal_prior_volatility_parent": {"q1": -4.4724644437027035, "q2": -3.9107816033032954}
+  },
+  "supporting_P1_states": [
+    {"state_id":"P1_UP_B1_HIGH","target":"EXTREME_UP","condition":"B1_global_risk > 0.3617976846900284"},
+    {"state_id":"P1_UP_B2_HIGH","target":"EXTREME_UP","condition":"B2_china_offshore > 0.47579244128414716"},
+    {"state_id":"P1_UP_VOL_HIGH","target":"EXTREME_UP","condition":"causal_prior_volatility_parent > -3.9107816033032954"},
+    {"state_id":"P1_DOWN_B1_LOW","target":"EXTREME_DOWN","condition":"B1_global_risk <= -0.20658745938920686"},
+    {"state_id":"P1_DOWN_B2_LOW","target":"EXTREME_DOWN","condition":"B2_china_offshore <= -0.13148580359538747"},
+    {"state_id":"P1_DOWN_B4_LOW","target":"EXTREME_DOWN","condition":"B4_driver_coherence <= -0.42760610092652673"}
+  ],
+  "callable_P3_states": [
+    {"state_id":"UP_B1_HIGH_X_B2_HIGH","target":"EXTREME_UP","requires":["P1_UP_B1_HIGH","P1_UP_B2_HIGH"],"dev_event_probability":0.44776119402985076,"dev_parent_probability":0.1736613603473227,"dev_incremental_lift_pp_over_stronger_constituent":8.776119402985078},
+    {"state_id":"UP_B1_HIGH_X_VOL_HIGH","target":"EXTREME_UP","requires":["P1_UP_B1_HIGH","P1_UP_VOL_HIGH"],"dev_event_probability":0.5166666666666667,"dev_parent_probability":0.17445054945054944,"dev_incremental_lift_pp_over_stronger_constituent":19.782608695652183},
+    {"state_id":"UP_B2_HIGH_X_VOL_HIGH","target":"EXTREME_UP","requires":["P1_UP_B2_HIGH","P1_UP_VOL_HIGH"],"dev_event_probability":0.5454545454545454,"dev_parent_probability":0.17316017316017315,"dev_incremental_lift_pp_over_stronger_constituent":18.545454545454543},
+    {"state_id":"DOWN_B1_LOW_X_B2_LOW","target":"EXTREME_DOWN","requires":["P1_DOWN_B1_LOW","P1_DOWN_B2_LOW"],"dev_event_probability":0.6434108527131783,"dev_parent_probability":0.2098408104196816,"dev_incremental_lift_pp_over_stronger_constituent":15.514794191505626},
+    {"state_id":"DOWN_B1_LOW_X_B4_LOW","target":"EXTREME_DOWN","requires":["P1_DOWN_B1_LOW","P1_DOWN_B4_LOW"],"dev_event_probability":0.5773809523809523,"dev_parent_probability":0.2098408104196816,"dev_incremental_lift_pp_over_stronger_constituent":8.911804158283026},
+    {"state_id":"DOWN_B2_LOW_X_B4_LOW","target":"EXTREME_DOWN","requires":["P1_DOWN_B2_LOW","P1_DOWN_B4_LOW"],"dev_event_probability":0.546448087431694,"dev_parent_probability":0.2098408104196816,"dev_incremental_lift_pp_over_stronger_constituent":6.527653931453925}
+  ],
+  "output_semantics": {
+    "no_callable_P3_state": "ABSTAIN_NO_P3_STATE",
+    "one_or_more_states_one_target": "STATE_SET",
+    "states_from_both_targets": "ABSTAIN_TARGET_CONFLICT",
+    "fired_states": "return every exact P3 state that fires in frozen state order",
+    "supporting_univariate_states": "return every exact P1 constituent state that fires for lineage/explanation",
+    "target_consensus": "EXTREME_UP or EXTREME_DOWN only when all fired P3 states share one target; otherwise null",
+    "postopen_transition_action": "ABSTAIN_NO_VALIDATED_P2_STATE"
+  },
+  "overlap_policy": {
+    "winner_selection": false,
+    "three_way_state_inference": false,
+    "combined_probability": false,
+    "probability_average": false,
+    "probability_multiplication": false,
+    "fired_state_count_calibration": false,
+    "mixed_target_tie_break": false
+  },
+  "evidence_label": "DEV_PROGRESSION_ONLY_NOT_REUSABLE_VALIDATED",
+  "dev_probability_runtime_calibration_claim": false,
+  "event_definition_metadata": {"EXTREME_UP":"next China open gap >= +30bp","EXTREME_DOWN":"next China open gap <= -30bp"},
+  "position_authority": false,
+  "instrument_mapping_authority": false,
+  "order_execution_authority": false,
+  "postopen_transition_authority": false,
+  "P5_reusable_validation_open_authorized": false,
+  "production_authority": false
+}
