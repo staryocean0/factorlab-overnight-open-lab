@@ -111,3 +111,23 @@ Gap-Fill V2 已冻结并通过重复检验；其 true-fresh 窗口是 2026-08-24
 档案内的相对路径按冻结时仓库根解释。需要完整历史环境时，应在独立目录检出清单 baseline commit，不能直接将档案里的脚本当作今天的运行入口。
 
 新组件或新研究须先完成独立预注册与输入/目标/消费者边界冻结，再同步 registry、component bindings、状态页、测试和 workflow。生产权限持续为 false。
+
+## 7. vNext：极端开盘条件状态转移
+
+计划身份：`overnight_extreme_open_conditional_transition_program_v1`；状态：`route_frozen_docs_first_p0_infrastructure_required_before_outcome_execution`。当前 `active_research` 仍为空，结果型执行权限为 `False`。
+
+这一代不再把 Overnight 当作一个覆盖每天的宽泛方向桶，而把产品改造成稀疏的可调用条件组件：只有某个冻结状态对条件分布产生足够大、足够稳定的分离时才输出状态；其他日期统一 `ABSTAIN`。这不是对已关闭 A3/C3/D1/E1/E2/E3 身份的救援，也不得利用已完成 BLACKBOX 的隐藏行为反推阈值。
+
+首代物质事件门槛固定为 **±30 bp**：09:31 gap >= +30bp 为 `EXTREME_UP`，<= -30bp 为 `EXTREME_DOWN`。开盘后固定同时观察 **09:35→09:50** 与 **09:35→10:35**，两者均报告、不得事后选赢家。高开后正收益为 continuation、负收益为 fade；低开后负收益为 continuation、正收益为 rebound。
+
+研究严格拆成两个因果时钟：pre-open 只回答“大幅高开/低开在什么条件下更可能发生”，不得使用目标日当前 gap；post-open 只有在 09:31 gap 已观察后，才回答“大幅高开/低开之后更可能延续还是反转”，且不得使用未来路径。
+
+首代 pre-open 坐标只允许：V6A_expected_open_state、B1_global_risk、B2_china_offshore、B4_driver_coherence、causal_prior_trend_parent、causal_prior_volatility_parent。首代 post-open 坐标只允许：observed_gap_geometry、C1_15m_trend_gap_interaction、C2_60m_volatility_gap_interaction、B4_driver_coherence。连续 shelf product 本身不等于桶授权；本计划只是冻结新身份的候选输入边界。
+
+开发细节窗口固定为 `2015-01-05_to_2020-12-31`；特征分桶边界仅用 `2015-01-05_to_2017-12-31` 的特征分布冻结，条件结果只在 `2018-01-01_to_2020-12-31` 评估。2021-2025 reusable BLACKBOX 逐行细节仍不得打开。
+
+Phase 1 只做单变量状态；Phase 2 只允许在 Phase-1 survivor 中预注册少量两两交叉，禁止笛卡尔积工厂。可调用桶必须同时通过样本/跨期覆盖、至少 12.5pct 的绝对概率 lift、可定义时至少 1.5x risk ratio、95% 概率差区间排除 0、至少 4/6 可观测自然年同方向、2015-2017 与 2018-2020 双阶段代表性、每个候选族 BH q<=0.10，以及开盘后概率与平均收益方向一致性。只在 pooled 上显著不能升级。
+
+冻结顺序：P0_infrastructure_parity → P1_preopen_univariate_extreme_event_states → P2_postopen_univariate_extreme_transition_states → P3_sparse_survivor_intersections → P4_rule_list_and_abstain_packaging → P5_separately_frozen_reusable_validation → P6_independent_consumer_integration。在 P0 元数据、时钟、来源 lineage、result-free bucket builder 与 synthetic/parity gate 落地前，不允许 P1/P2 读取 outcome；DEV 通过后也必须另冻身份才能进入 reusable validation。
+
+未来调用对象应返回 phase/as_of/event_class/transition_class/bucket_id/expected_probability/probability_lift/mean_return/coverage/sample_n/confidence/version/risk_flags，而不是把整组连续因子暴露给消费者。该接口不包含仓位、账户执行、品种映射或生产权限。
