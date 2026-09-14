@@ -7,6 +7,7 @@
   "phase": "P5_reusable_BLACKBOX_validation",
   "protocol": "docs/governance/extreme_open_callable_state_reusable_validation_v1_protocol.json",
   "parent_packaging_identity": "overnight_extreme_open_callable_state_packaging_v1",
+  "freeze_pr": 22,
   "exact_state_count": 6,
   "blackbox_window": "2021-01-01..2025-12-31",
   "blackbox_open_authorized": false,
