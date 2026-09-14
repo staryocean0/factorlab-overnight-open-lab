@@ -8,6 +8,7 @@
   "protocol": "docs/governance/extreme_open_callable_state_packaging_v1_protocol.json",
   "reference_implementation": "scripts/extreme_open_callable_state.py",
   "scientific_parent": "overnight_extreme_open_preopen_survivor_intersections_dev_v1",
+  "packaging_pr": 21,
   "callable_P3_state_count": 6,
   "supporting_P1_state_count": 6,
   "set_valued_interface": true,
