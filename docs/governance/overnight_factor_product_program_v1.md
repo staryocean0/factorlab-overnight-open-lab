@@ -46,18 +46,18 @@ First-generation pre-open candidate coordinates are restricted to already-author
 
 The detailed row-level development boundary is `2015-01-05 .. 2020-12-31`. No 2021-2025 row-level BLACKBOX detail is authorized by this program.
 
-To prevent threshold mining, first-generation categorical cuts are feature-distribution cuts rather than outcome-optimized cuts. Frozen feature quantile boundaries are learned only from the 2015-2017 development feature distribution; conditional-outcome evaluation is performed on 2018-2020. Outcome-ranked threshold search, arbitrary sign flips, alternate material-gap thresholds, alternate clocks and Cartesian feature factories are forbidden.
+To prevent threshold mining, first-generation categorical cuts are feature-distribution cuts rather than outcome-optimized cuts. Frozen feature quantile boundaries are learned only from the 2015-2017 development **feature distribution without inspecting the target outcomes used by this program**. Conditional-outcome evaluation and all promotion decisions are then made only on 2018-2020. Outcome-ranked threshold search, arbitrary sign flips, alternate material-gap thresholds, alternate clocks and Cartesian feature factories are forbidden.
 
 Phase 1 tests only one-dimensional states. Phase 2 may test a small preregistered set of two-way intersections **only among Phase-1 survivors**. It may not enumerate all pairwise combinations.
 
 ### Callable-bucket progression gates
 
-A bucket can progress only when all applicable gates pass on its frozen evaluation surface:
+A bucket can progress only when all applicable gates pass on its frozen 2018-2020 evaluation surface:
 
-- sufficient event count and representation across time rather than a single-period concentration;
-- material conditional-probability separation versus the correct parent cohort, with a minimum absolute lift of `12.5 percentage points` and a risk ratio of at least `1.5` when both probabilities are well-defined;
+- at least `30` evaluation observations in the bucket overall and at least `5` observations in each of 2018, 2019 and 2020;
+- material conditional-probability separation versus the correct parent cohort: **either** absolute probability lift of at least `12.5 percentage points` **or** a risk ratio of at least `1.5` when the ratio is well-defined;
 - a 95% interval for the probability difference that excludes zero;
-- same-direction effect in at least `4 of 6` natural development years where the bucket is observable, with both 2015-2017 and 2018-2020 represented;
+- the conditional effect has the same direction in **all three** evaluation years 2018, 2019 and 2020;
 - Benjamini-Hochberg family false-discovery control at `q <= 0.10` for each preregistered candidate family;
 - for post-open transition buckets, the sign of mean forward-return separation must agree with the probability interpretation;
 - no progression from pooled significance alone when temporal stability fails.
