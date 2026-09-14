@@ -12,10 +12,24 @@
     "local_model_role": "data procurement or mechanical materialization only when cloud lacks required data",
     "production_authority": false
   },
-  "active_research": null,
+  "active_research": {
+    "identity": "overnight_extreme_open_preopen_survivor_intersections_dev_v1",
+    "status": "AUTHORIZED_P3_PREOPEN_SIX_INTERSECTIONS_NOT_YET_EXECUTED",
+    "protocol": "docs/governance/extreme_open_preopen_intersections_dev_v1_protocol.json",
+    "state": "docs/governance/extreme_open_preopen_intersections_dev_v1_state.json",
+    "allowed_phases": [
+      "P3_mechanical_intersection_carrier",
+      "P3_incremental_concentration_DEV_adjudication"
+    ],
+    "candidate_count": 6,
+    "P2_postopen_intersections_authorized": false,
+    "reusable_blackbox_2021_2025_open_authorized": false,
+    "P4_authorized": false,
+    "production_authority": false
+  },
   "planned_research": {
     "program_id": "overnight_extreme_open_conditional_transition_program_v1",
-    "status": "P1_COMPLETE_6_SURVIVORS_P2_COMPLETE_NO_SURVIVOR_P3_FREEZE_REQUIRED",
+    "status": "P3_PREOPEN_INTERSECTIONS_AUTHORIZED_NOT_YET_EXECUTED",
     "purpose": "replace broad weak-information overnight buckets with sparse callable conditional states that have materially separated outcome distributions and otherwise abstain",
     "independent_motivation": "consumer_interface_selectivity_not_rescue_of_closed_blackbox_identity",
     "primary_event_threshold_bp": 30,
@@ -32,7 +46,7 @@
     "feature_boundary_fit_outcomes_inspected": false,
     "conditional_outcome_evaluation_window": "2018-01-01_to_2020-12-31",
     "reusable_blackbox_2021_2025_open_authorized": false,
-    "active_execution_authority": false,
+    "active_execution_authority": true,
     "first_generation_preopen_coordinates": [
       "V6A_expected_open_state",
       "B1_global_risk",
@@ -88,7 +102,7 @@
       "P5_separately_frozen_reusable_validation",
       "P6_independent_consumer_integration"
     ],
-    "next_gate": "freeze a separate P3 pre-open survivor-intersection identity before reading any intersection outcome; P2 rescue and 2021-2025 reusable BLACKBOX remain forbidden",
+    "next_gate": "materialize and adjudicate exactly the six frozen pre-open intersections; no P2 rescue, no P4, no reusable BLACKBOX",
     "production_authority": false,
     "P0_carrier": "data/extreme_open_vnext_dev_sufficient_statistics_v1.json",
     "P0_carrier_sha256": "d38483d9ef37e65506f858f6155482de32766a619c44ce799442d303c74cc321",
@@ -134,7 +148,12 @@
     "P3_preopen_successor_freeze_permitted": true,
     "P3_candidate_construction_rule": "all two-way intersections among same-target P1 survivors only; exactly 3 EXTREME_UP plus 3 EXTREME_DOWN candidates",
     "P1_P2_receipt": "docs/research/extreme_open_univariate_dev_v1_receipt.json",
-    "P1_P2_cloud_adjudication": "docs/research/extreme_open_univariate_dev_cloud_adjudication_20260914.md"
+    "P1_P2_cloud_adjudication": "docs/research/extreme_open_univariate_dev_cloud_adjudication_20260914.md",
+    "P3_identity": "overnight_extreme_open_preopen_survivor_intersections_dev_v1",
+    "P3_protocol": "docs/governance/extreme_open_preopen_intersections_dev_v1_protocol.json",
+    "P3_state": "docs/governance/extreme_open_preopen_intersections_dev_v1_state.json",
+    "P3_candidate_count": 6,
+    "P3_outcomes_opened": false
   },
   "recent_downstream_research": {
     "E1v2": {
@@ -288,9 +307,10 @@
     "E3v3 C2 portfolio-risk adapter is DEV_INSUFFICIENT because 2017 has only six active decisions per frozen clock; incomplete-surface utility/downside statistics do not authorize candidate rejection, threshold/sign changes, clock selection, rescue, or successor design.",
     "E3v3 DEV_INSUFFICIENT is an adapter-contract result only and does not revoke validated upstream C2 authority.",
     "Extreme-open P1/P2 v1 is closed: six P1 pre-open DEV survivor states are retained, P2 has zero transition survivors, and no P2 threshold/clock/bucket rescue or P2-derived P3 intersection is authorized.",
-    "Any P3 continuation must be a separately frozen pre-open identity using only the mechanical six-candidate same-target two-way intersection family; 2021-2025 reusable BLACKBOX remains sealed."
+    "Any P3 continuation must be a separately frozen pre-open identity using only the mechanical six-candidate same-target two-way intersection family; 2021-2025 reusable BLACKBOX remains sealed.",
+    "Only the frozen six-candidate pre-open P3 intersection identity is active. P2 post-open intersections, three-way/mixed-target candidates, edge refits, threshold/clock search, P4, reusable BLACKBOX, account execution and production remain unauthorized."
   ],
-  "next_action": "Freeze the separate pre-open P3 survivor-intersection identity and its incremental-concentration gate before materializing or reading any intersection outcomes.",
+  "next_action": "Materialize and adjudicate exactly six pre-open P3 survivor intersections under the frozen incremental-concentration protocol; retain all candidates and stop before P4.",
   "production_authority": false,
   "maintenance_contract": "docs/governance/repository_lifecycle_v1.json",
   "component_bindings": "docs/governance/component_bindings_v1.json",

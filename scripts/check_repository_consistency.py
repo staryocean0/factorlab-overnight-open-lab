@@ -252,6 +252,16 @@ def check(root: Path = ROOT) -> dict:
                 errors.append('extreme-open P3 closeout boundary drift')
             if planned.get('P3_candidate_construction_rule') != 'all two-way intersections among same-target P1 survivors only; exactly 3 EXTREME_UP plus 3 EXTREME_DOWN candidates':
                 errors.append('extreme-open P3 candidate-construction drift')
+        elif plan_status == 'P3_PREOPEN_INTERSECTIONS_AUTHORIZED_NOT_YET_EXECUTED':
+            active=a.get('active_research') or {}
+            if planned.get('active_execution_authority') is not True or active.get('identity') != 'overnight_extreme_open_preopen_survivor_intersections_dev_v1':
+                errors.append('extreme-open P3 authority identity drift')
+            if active.get('protocol') != 'docs/governance/extreme_open_preopen_intersections_dev_v1_protocol.json' or active.get('state') != 'docs/governance/extreme_open_preopen_intersections_dev_v1_state.json':
+                errors.append('extreme-open P3 protocol/state binding drift')
+            if active.get('candidate_count') != 6 or planned.get('P3_candidate_count') != 6:
+                errors.append('extreme-open P3 candidate-count drift')
+            if active.get('P2_postopen_intersections_authorized') is not False or active.get('P4_authorized') is not False or active.get('reusable_blackbox_2021_2025_open_authorized') is not False or active.get('production_authority') is not False:
+                errors.append('extreme-open P3 authority exceeds frozen boundary')
         else:
             errors.append('unexpected extreme-open planned research status')
         if planned.get('phase_order') != expected_phases:

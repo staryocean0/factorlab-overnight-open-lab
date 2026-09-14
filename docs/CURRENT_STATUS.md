@@ -4,7 +4,7 @@ Authority：`overnight_open_current_authority@1.34`；Registry：`overnight_fact
 
 BLACKBOX 逻辑查询数：**12**。
 
-`active_research`：null（没有获准执行的 outcome-bearing identity）。
+`active_research`：{"P2_postopen_intersections_authorized": false, "P4_authorized": false, "allowed_phases": ["P3_mechanical_intersection_carrier", "P3_incremental_concentration_DEV_adjudication"], "candidate_count": 6, "identity": "overnight_extreme_open_preopen_survivor_intersections_dev_v1", "production_authority": false, "protocol": "docs/governance/extreme_open_preopen_intersections_dev_v1_protocol.json", "reusable_blackbox_2021_2025_open_authorized": false, "state": "docs/governance/extreme_open_preopen_intersections_dev_v1_state.json", "status": "AUTHORIZED_P3_PREOPEN_SIX_INTERSECTIONS_NOT_YET_EXECUTED"}。
 
 **交付边界：已验证因子的冻结参考实现与可复现证据，不是生产信号服务，也不是已通过验证的交易适配器。**
 

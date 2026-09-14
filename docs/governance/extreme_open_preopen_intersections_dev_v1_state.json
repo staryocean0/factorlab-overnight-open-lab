@@ -1,0 +1,21 @@
+{
+  "schema_id": "overnight_extreme_open_preopen_intersections_dev_state@1.0",
+  "session_date": "2026-09-14",
+  "research_identity": "overnight_extreme_open_preopen_survivor_intersections_dev_v1",
+  "program_id": "overnight_extreme_open_conditional_transition_program_v1",
+  "status": "AUTHORIZED_NOT_YET_MATERIALIZED_OR_EXECUTED",
+  "phase": "P3_sparse_preopen_survivor_intersections_DEV",
+  "protocol": "docs/governance/extreme_open_preopen_intersections_dev_v1_protocol.json",
+  "parent_identity": "overnight_extreme_open_univariate_dev_v1",
+  "parent_P1_survivor_count": 6,
+  "candidate_count": 6,
+  "authority_activation_pr": 19,
+  "intersection_outcomes_opened": false,
+  "mechanical_carrier_materialized": false,
+  "P3_execution_completed": false,
+  "P4_authorized": false,
+  "reusable_blackbox_2021_2025_open_authorized": false,
+  "result_receipt": null,
+  "survivor_list": null,
+  "production_authority": false
+}

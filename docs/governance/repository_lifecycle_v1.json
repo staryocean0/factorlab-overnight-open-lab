@@ -1802,6 +1802,14 @@
       "frozen_blob": "d4f3cfa9490c850face50883560a872052920dbe"
     },
     {
+      "path": "docs/governance/extreme_open_preopen_intersections_dev_v1_protocol.json",
+      "lifecycle": "maintained"
+    },
+    {
+      "path": "docs/governance/extreme_open_preopen_intersections_dev_v1_state.json",
+      "lifecycle": "maintained"
+    },
+    {
       "path": "docs/governance/extreme_open_univariate_dev_v1_protocol.json",
       "lifecycle": "maintained"
     },
