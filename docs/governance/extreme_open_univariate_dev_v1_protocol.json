@@ -1,0 +1,107 @@
+{
+  "schema_id": "overnight_extreme_open_univariate_dev_protocol@1.0",
+  "session_date": "2026-09-14",
+  "research_identity": "overnight_extreme_open_univariate_dev_v1",
+  "program_id": "overnight_extreme_open_conditional_transition_program_v1",
+  "phase": "P1_P2_univariate_DEV_adjudication",
+  "independent_motivation": "consumer_interface_selectivity_not_rescue_of_closed_blackbox_identity",
+  "p0_carrier": {
+    "path": "data/extreme_open_vnext_dev_sufficient_statistics_v1.json",
+    "sha256": "d38483d9ef37e65506f858f6155482de32766a619c44ce799442d303c74cc321",
+    "canonical_payload_sha256": "6a347f6365dbb0f36b6a03b7195caed62c5cf37a99203fc9cdadb12b4d2a6767"
+  },
+  "event_gate": {
+    "EXTREME_UP": "gap >= +0.003",
+    "EXTREME_DOWN": "gap <= -0.003",
+    "threshold_search": false
+  },
+  "feature_boundary_fit_window": "2015-01-05..2017-12-31",
+  "feature_boundary_fit_outcomes_inspected": false,
+  "evaluation_window": "2018-01-01..2020-12-31",
+  "fixed_horizons": ["09:35_to_09:50", "09:35_to_10:35"],
+  "clock_search": false,
+  "p1_coordinates": [
+    "B1_global_risk",
+    "B2_china_offshore",
+    "B4_driver_coherence",
+    "causal_prior_trend_parent",
+    "causal_prior_volatility_parent"
+  ],
+  "p1_unavailable_coordinates": {
+    "V6A_expected_open_state": "frozen V6A fits through 2018-12-31; no separately frozen leakage-free V6A prediction carrier exists for 2018-2020"
+  },
+  "p2_coordinates": [
+    "gap_rvol",
+    "abs_gap_rvol",
+    "C1_15m_trend_gap_interaction",
+    "C2_60m_volatility_gap_interaction",
+    "B4_driver_coherence"
+  ],
+  "buckets": {
+    "method": "2015-2017 feature-only empirical terciles",
+    "quantile_interpolation": "linear",
+    "labels": ["LOW", "MID", "HIGH"],
+    "assignment": "LOW if x<=q1; MID if q1<x<=q2; HIGH if x>q2",
+    "outcome_optimized_cut_search": false
+  },
+  "comparison_geometry": {
+    "inference_comparator": "REST = candidate-specific eligible PARENT cohort minus the tested bucket",
+    "consumer_effect_baseline": "candidate-specific eligible PARENT cohort",
+    "lift_pp": "100 * (p_bucket - p_parent)",
+    "risk_ratio": "p_bucket / p_parent when p_parent > 0",
+    "positive_enrichment_required": true
+  },
+  "inference": {
+    "raw_p_value": "two_sided_Fisher_exact_bucket_vs_REST",
+    "probability_difference_interval": "Newcombe_hybrid_score_from_two_Wilson_95pct_intervals_bucket_minus_REST",
+    "wald_interval_forbidden": true,
+    "interval_gate": "strictly_above_zero",
+    "multiple_testing": "Benjamini_Hochberg_q<=0.10"
+  },
+  "bh_families": {
+    "P1": "one complete coordinate_x_bucket family separately for EXTREME_UP and EXTREME_DOWN",
+    "P2": "one complete coordinate_x_bucket family for each event_sign x fixed_horizon x transition_target",
+    "p2_transition_targets": ["CONTINUATION", "REVERSAL"],
+    "posthoc_family_split": false
+  },
+  "progression_gates": {
+    "pooled_minimum_bucket_n": 30,
+    "minimum_bucket_n_each_year": 5,
+    "evaluation_years": [2018, 2019, 2020],
+    "target_probability_gt_parent": true,
+    "effect_size_operator": "OR",
+    "minimum_absolute_probability_lift_pp": 12.5,
+    "minimum_risk_ratio_when_defined": 1.5,
+    "newcombe_95pct_lower_bound_gt_zero": true,
+    "bh_q_max": 0.10,
+    "bucket_minus_REST_target_probability_positive_each_year": true,
+    "pooled_significance_alone_insufficient": true
+  },
+  "p2_return_direction_gate": {
+    "EXTREME_UP_CONTINUATION": "pooled_mean_forward_return > 0",
+    "EXTREME_UP_REVERSAL": "pooled_mean_forward_return < 0",
+    "EXTREME_DOWN_CONTINUATION": "pooled_mean_forward_return < 0",
+    "EXTREME_DOWN_REVERSAL": "pooled_mean_forward_return > 0",
+    "neutral_is_non_target": true,
+    "missing_returns_excluded_from_probability_denominator": true
+  },
+  "horizon_policy": "both fixed horizons remain visible and non-selectable; horizon is part of callable-state identity",
+  "output_contract": {
+    "retain_all_hypotheses": true,
+    "record_gate_vector_for_every_hypothesis": true,
+    "survivors_are_DEV_progression_material_only": true,
+    "automatic_P3_authority": false
+  },
+  "forbidden": [
+    "2021_2025_reusable_BLACKBOX_row_detail",
+    "threshold_search",
+    "clock_search",
+    "candidate_add_drop_after_outcomes",
+    "two_way_intersections_in_this_identity",
+    "strategy_PnL_selection",
+    "account_execution",
+    "production_promotion"
+  ],
+  "preregistered_contract_reference": "GitHub Issue #15 filed before P1/P2 carrier outcome inspection",
+  "production_authority": false
+}
