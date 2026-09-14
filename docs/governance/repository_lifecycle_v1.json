@@ -2562,6 +2562,16 @@
       "frozen_blob": "715a2f079c3bfd199b4cd2e245e68ab32187c104"
     },
     {
+      "path": "docs/research/extreme_open_univariate_dev_cloud_adjudication_20260914.md",
+      "lifecycle": "historical_immutable",
+      "frozen_blob": "8a625d2fbe82400e15d730c8090d35f422b68cff"
+    },
+    {
+      "path": "docs/research/extreme_open_univariate_dev_v1_receipt.json",
+      "lifecycle": "historical_immutable",
+      "frozen_blob": "b298167a20e07de999faf2f2ae357071304270f0"
+    },
+    {
       "path": "docs/research/fx_cny_driver_v1_dev_cloud_adjudication_20260912.md",
       "lifecycle": "historical_immutable",
       "frozen_blob": "d3d17a453958e911c9a6926216ae3675a6ddf597"
@@ -2954,6 +2964,11 @@
       "lifecycle": "maintained"
     },
     {
+      "path": "scripts/adjudicate_extreme_open_univariate_dev.py",
+      "lifecycle": "frozen_implementation",
+      "frozen_blob": "1370d2d6aeeab4514ae4e2fb46f815b512e81f8a"
+    },
+    {
       "path": "scripts/build_driver_runtime_text_carrier.py",
       "lifecycle": "frozen_implementation",
       "frozen_blob": "ccf98b6c9f67e70bd407a9501bae86643e8d0dc6"
@@ -3023,6 +3038,11 @@
       "frozen_blob": "d61e00efa6e605864c8153a1e7e577257f813939"
     },
     {
+      "path": "scripts/extreme_open_univariate_stats.py",
+      "lifecycle": "frozen_implementation",
+      "frozen_blob": "6999fb26b9f058ab037712e292d74eb8c670d07b"
+    },
+    {
       "path": "scripts/extreme_open_vnext_core.py",
       "lifecycle": "maintained"
     },
@@ -3087,6 +3107,11 @@
     {
       "path": "tests/conftest.py",
       "lifecycle": "maintained"
+    },
+    {
+      "path": "tests/test_extreme_open_univariate_stats.py",
+      "lifecycle": "current_contract_regression",
+      "frozen_blob": "ece33504d552b49d2b0e8ffaf203ec526f0790ec"
     },
     {
       "path": "tests/test_extreme_open_vnext_materializer.py",
