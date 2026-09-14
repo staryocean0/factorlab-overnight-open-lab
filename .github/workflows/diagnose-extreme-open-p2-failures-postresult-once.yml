@@ -1,0 +1,46 @@
+name: Extreme-open P2 post-result failure diagnostic one-shot
+on:
+  push:
+    branches: ['research/overnight-extreme-p1p2-results']
+    paths: ['.github/workflows/diagnose-extreme-open-p2-failures-postresult-once.yml']
+permissions:
+  contents: write
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+      - name: Print aggregate P2 failure structure only
+        run: |
+          python - <<'PY'
+          import json,collections
+          from pathlib import Path
+          r=json.loads(Path('docs/research/extreme_open_univariate_dev_v1_receipt.json').read_text())
+          rows=r['P2_hypotheses']
+          names=['pooled_n','annual_n','positive_parent_enrichment','material_effect','newcombe_lower_gt_zero','annual_bucket_minus_rest_positive']
+          fails=collections.Counter()
+          signatures=collections.Counter()
+          by_family=collections.defaultdict(lambda: {'n':0,'pass':0,'bh':0,'return':0})
+          for x in rows:
+              bad=[]
+              for k in names:
+                  if not x['gates_pre_bh'][k]: fails[k]+=1; bad.append(k)
+              if not x['bh_q_le_0_10']: fails['bh_q_le_0_10']+=1; bad.append('bh_q_le_0_10')
+              if not x['return_direction_gate']: fails['return_direction_gate']+=1; bad.append('return_direction_gate')
+              signatures['|'.join(bad) if bad else 'NONE']+=1
+              key=f"{x['event']}|{x['horizon']}|{x['target']}"
+              z=by_family[key]; z['n']+=1; z['pass']+=int(x['pass_all_gates']); z['bh']+=int(x['bh_q_le_0_10']); z['return']+=int(x['return_direction_gate'])
+          zero=sum(int(x['pooled']['bucket_valid_n']==0) for x in rows)
+          under30=sum(int(x['pooled']['bucket_valid_n']<30) for x in rows)
+          exactly_one=sum(int(len([k for k in names if not x['gates_pre_bh'][k]]) + int(not x['bh_q_le_0_10']) + int(not x['return_direction_gate']) == 1) for x in rows)
+          print(json.dumps({'P2_n':len(rows),'P2_survivors':len(r['P2_survivors']),'failure_gate_counts':dict(fails),'pooled_zero_n':zero,'pooled_under30_n':under30,'exactly_one_failed_gate_n':exactly_one,'family_counts':dict(by_family),'failure_signature_counts':dict(signatures)},indent=2,sort_keys=True))
+          PY
+      - name: Remove temporary diagnostic workflow
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git rm .github/workflows/diagnose-extreme-open-p2-failures-postresult-once.yml
+          git commit -m 'chore: remove post-result P2 diagnostic one-shot [skip ci]'
+          git push origin HEAD:${GITHUB_REF_NAME}
