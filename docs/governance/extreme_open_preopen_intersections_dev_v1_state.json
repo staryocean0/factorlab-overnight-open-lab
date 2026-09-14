@@ -12,6 +12,7 @@
   "candidate_count": 6,
   "authority_activation_pr": 19,
   "execution_run_id": 34807745692,
+  "closeout_pr": 20,
   "intersection_outcomes_opened": true,
   "mechanical_carrier_materialized": true,
   "carrier": "data/extreme_open_p3_intersection_sufficient_statistics_v1.json",
