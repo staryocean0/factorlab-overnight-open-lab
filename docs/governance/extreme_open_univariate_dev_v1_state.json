@@ -8,6 +8,7 @@
   "protocol": "docs/governance/extreme_open_univariate_dev_v1_protocol.json",
   "carrier": "data/extreme_open_vnext_dev_sufficient_statistics_v1.json",
   "carrier_sha256": "d38483d9ef37e65506f858f6155482de32766a619c44ce799442d303c74cc321",
+  "authority_activation_pr": 17,
   "P0_complete": true,
   "P1_authorized": true,
   "P2_authorized": true,
