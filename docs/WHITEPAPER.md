@@ -124,9 +124,9 @@ Gap-Fill V2 已冻结并通过重复检验；其 true-fresh 窗口是 2026-08-24
 
 首代 pre-open 坐标只允许：V6A_expected_open_state、B1_global_risk、B2_china_offshore、B4_driver_coherence、causal_prior_trend_parent、causal_prior_volatility_parent。首代 post-open 坐标只允许：observed_gap_geometry、C1_15m_trend_gap_interaction、C2_60m_volatility_gap_interaction、B4_driver_coherence。连续 shelf product 本身不等于桶授权；本计划只是冻结新身份的候选输入边界。
 
-开发细节窗口固定为 `2015-01-05_to_2020-12-31`；特征分桶边界仅用 `2015-01-05_to_2017-12-31` 的特征分布冻结，条件结果只在 `2018-01-01_to_2020-12-31` 评估。2021-2025 reusable BLACKBOX 逐行细节仍不得打开。
+开发细节窗口固定为 `2015-01-05_to_2020-12-31`；特征分桶边界仅用 `2015-01-05_to_2017-12-31` 的特征分布冻结，并明确不查看本计划 target outcome；条件结果与所有 promotion 决策只在 `2018-01-01_to_2020-12-31` 评估。2021-2025 reusable BLACKBOX 逐行细节仍不得打开。
 
-Phase 1 只做单变量状态；Phase 2 只允许在 Phase-1 survivor 中预注册少量两两交叉，禁止笛卡尔积工厂。可调用桶必须同时通过样本/跨期覆盖、至少 12.5pct 的绝对概率 lift、可定义时至少 1.5x risk ratio、95% 概率差区间排除 0、至少 4/6 可观测自然年同方向、2015-2017 与 2018-2020 双阶段代表性、每个候选族 BH q<=0.10，以及开盘后概率与平均收益方向一致性。只在 pooled 上显著不能升级。
+Phase 1 只做单变量状态；Phase 2 只允许在 Phase-1 survivor 中预注册少量两两交叉，禁止笛卡尔积工厂。可调用桶必须在 2018-2020 评估面至少有 30 个观测、且每个自然年至少 5 个观测；效果量要求 **12.5pct 绝对概率 lift 或 1.5x risk ratio（可定义时）至少满足一个**，同时 95% 概率差区间排除 0、2018/2019/2020 三年全部同方向、每个候选族 BH q<=0.10，并且开盘后概率解释与平均收益差方向一致。只在 pooled 上显著不能升级。
 
 冻结顺序：P0_infrastructure_parity → P1_preopen_univariate_extreme_event_states → P2_postopen_univariate_extreme_transition_states → P3_sparse_survivor_intersections → P4_rule_list_and_abstain_packaging → P5_separately_frozen_reusable_validation → P6_independent_consumer_integration。在 P0 元数据、时钟、来源 lineage、result-free bucket builder 与 synthetic/parity gate 落地前，不允许 P1/P2 读取 outcome；DEV 通过后也必须另冻身份才能进入 reusable validation。
 
