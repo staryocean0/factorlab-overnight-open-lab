@@ -148,8 +148,8 @@ def render_views(root: Path) -> dict[str, str]:
             f"首代物质事件门槛固定为 **±{planned.get('primary_event_threshold_bp')} bp**：09:31 gap >= +30bp 为 `EXTREME_UP`，<= -30bp 为 `EXTREME_DOWN`。开盘后固定同时观察 **09:35→09:50** 与 **09:35→10:35**，两者均报告、不得事后选赢家。高开后正收益为 continuation、负收益为 fade；低开后负收益为 continuation、正收益为 rebound。", '',
             '研究严格拆成两个因果时钟：pre-open 只回答“大幅高开/低开在什么条件下更可能发生”，不得使用目标日当前 gap；post-open 只有在 09:31 gap 已观察后，才回答“大幅高开/低开之后更可能延续还是反转”，且不得使用未来路径。', '',
             f"首代 pre-open 坐标只允许：{preopen}。首代 post-open 坐标只允许：{postopen}。连续 shelf product 本身不等于桶授权；本计划只是冻结新身份的候选输入边界。", '',
-            f"开发细节窗口固定为 `{planned.get('development_detail_window')}`；特征分桶边界仅用 `{planned.get('feature_boundary_fit_window')}` 的特征分布冻结，条件结果只在 `{planned.get('conditional_outcome_evaluation_window')}` 评估。2021-2025 reusable BLACKBOX 逐行细节仍不得打开。", '',
-            'Phase 1 只做单变量状态；Phase 2 只允许在 Phase-1 survivor 中预注册少量两两交叉，禁止笛卡尔积工厂。可调用桶必须同时通过样本/跨期覆盖、至少 12.5pct 的绝对概率 lift、可定义时至少 1.5x risk ratio、95% 概率差区间排除 0、至少 4/6 可观测自然年同方向、2015-2017 与 2018-2020 双阶段代表性、每个候选族 BH q<=0.10，以及开盘后概率与平均收益方向一致性。只在 pooled 上显著不能升级。', '',
+            f"开发细节窗口固定为 `{planned.get('development_detail_window')}`；特征分桶边界仅用 `{planned.get('feature_boundary_fit_window')}` 的特征分布冻结，并明确不查看本计划 target outcome；条件结果与所有 promotion 决策只在 `{planned.get('conditional_outcome_evaluation_window')}` 评估。2021-2025 reusable BLACKBOX 逐行细节仍不得打开。", '',
+            'Phase 1 只做单变量状态；Phase 2 只允许在 Phase-1 survivor 中预注册少量两两交叉，禁止笛卡尔积工厂。可调用桶必须在 2018-2020 评估面至少有 30 个观测、且每个自然年至少 5 个观测；效果量要求 **12.5pct 绝对概率 lift 或 1.5x risk ratio（可定义时）至少满足一个**，同时 95% 概率差区间排除 0、2018/2019/2020 三年全部同方向、每个候选族 BH q<=0.10，并且开盘后概率解释与平均收益差方向一致。只在 pooled 上显著不能升级。', '',
             f"冻结顺序：{phase_order}。在 P0 元数据、时钟、来源 lineage、result-free bucket builder 与 synthetic/parity gate 落地前，不允许 P1/P2 读取 outcome；DEV 通过后也必须另冻身份才能进入 reusable validation。", '',
             '未来调用对象应返回 phase/as_of/event_class/transition_class/bucket_id/expected_probability/probability_lift/mean_return/coverage/sample_n/confidence/version/risk_flags，而不是把整组连续因子暴露给消费者。该接口不包含仓位、账户执行、品种映射或生产权限。', ''
         ]
@@ -225,6 +225,8 @@ def check(root: Path = ROOT) -> dict:
             errors.append('extreme-open DEV detail window drift')
         if planned.get('feature_boundary_fit_window') != '2015-01-05_to_2017-12-31' or planned.get('conditional_outcome_evaluation_window') != '2018-01-01_to_2020-12-31':
             errors.append('extreme-open result-free bucket split drift')
+        if planned.get('feature_boundary_fit_outcomes_inspected') is not False:
+            errors.append('extreme-open feature-boundary stage may not inspect target outcomes')
         if planned.get('reusable_blackbox_2021_2025_open_authorized') is not False:
             errors.append('extreme-open plan improperly opens reusable BLACKBOX detail')
         if planned.get('active_execution_authority') is not False or a.get('active_research') is not None:
@@ -237,8 +239,14 @@ def check(root: Path = ROOT) -> dict:
         if policy.get('default_action_outside_certified_bucket') != 'ABSTAIN':
             errors.append('extreme-open default abstention drift')
         gates = planned.get('progression_gates', {})
-        if gates.get('minimum_absolute_probability_lift_pp') != 12.5 or gates.get('minimum_risk_ratio_when_defined') != 1.5 or gates.get('family_fdr') != 'BH_q<=0.10':
-            errors.append('extreme-open progression gate drift')
+        if gates.get('minimum_bucket_evaluation_observations') != 30 or gates.get('minimum_evaluation_observations_each_year') != 5 or gates.get('evaluation_years') != [2018, 2019, 2020]:
+            errors.append('extreme-open sample/time progression gate drift')
+        if gates.get('effect_size_gate_operator') != 'OR' or gates.get('minimum_absolute_probability_lift_pp') != 12.5 or gates.get('minimum_risk_ratio_when_defined') != 1.5:
+            errors.append('extreme-open effect-size progression gate drift')
+        if gates.get('probability_difference_interval') != '95pct_excludes_zero' or gates.get('all_evaluation_years_same_direction') is not True or gates.get('family_fdr') != 'BH_q<=0.10':
+            errors.append('extreme-open statistical progression gate drift')
+        if gates.get('postopen_return_direction_must_agree') is not True or gates.get('pooled_significance_alone_is_insufficient') is not True:
+            errors.append('extreme-open interpretation/stability gate drift')
     registry_products = {p['product_id']: p for p in registry['products']}
     for component in catalog['validated_components']:
         cid = component['component_id']
