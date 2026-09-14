@@ -977,6 +977,16 @@
       "frozen_blob": "244d14a219415979fd9c381426d617eade185af7"
     },
     {
+      "path": "data/extreme_open_p3_intersection_sufficient_statistics_v1.json",
+      "lifecycle": "data_provenance_only",
+      "frozen_blob": "e1509bd51955a4989903bafb004ba032bf77975e"
+    },
+    {
+      "path": "data/extreme_open_p3_intersection_sufficient_statistics_v1.json.sha256",
+      "lifecycle": "data_provenance_only",
+      "frozen_blob": "a74e85b2e06c69713112c2038cb990a3bc485a88"
+    },
+    {
       "path": "data/extreme_open_vnext_dev_sufficient_statistics_v1.json",
       "lifecycle": "data_provenance_only",
       "frozen_blob": "7dbe301b777565a3f2fafdcf44c63552f872c191"
@@ -2570,6 +2580,11 @@
       "frozen_blob": "715a2f079c3bfd199b4cd2e245e68ab32187c104"
     },
     {
+      "path": "docs/research/extreme_open_p3_intersections_dev_v1_receipt.json",
+      "lifecycle": "historical_immutable",
+      "frozen_blob": "58d3bd2efb448c57fa6d5bb4408efbd4ff2bbca5"
+    },
+    {
       "path": "docs/research/extreme_open_univariate_dev_cloud_adjudication_20260914.md",
       "lifecycle": "historical_immutable",
       "frozen_blob": "8a625d2fbe82400e15d730c8090d35f422b68cff"
@@ -2972,6 +2987,11 @@
       "lifecycle": "maintained"
     },
     {
+      "path": "scripts/adjudicate_extreme_open_p3_intersections.py",
+      "lifecycle": "frozen_implementation",
+      "frozen_blob": "012313ac4da235ae1300d286e8990c5dbc11ad84"
+    },
+    {
       "path": "scripts/adjudicate_extreme_open_univariate_dev.py",
       "lifecycle": "frozen_implementation",
       "frozen_blob": "1370d2d6aeeab4514ae4e2fb46f815b512e81f8a"
@@ -3064,6 +3084,11 @@
       "lifecycle": "maintained"
     },
     {
+      "path": "scripts/materialize_extreme_open_p3_intersections.py",
+      "lifecycle": "frozen_implementation",
+      "frozen_blob": "1663f4d4e5c00b50043d75578d5218804db59b34"
+    },
+    {
       "path": "scripts/run_driver_coherence_open_gap_blackbox.py",
       "lifecycle": "frozen_implementation",
       "frozen_blob": "053deee74cec29a33bd5be099b7130991f2855f3"
@@ -3115,6 +3140,11 @@
     {
       "path": "tests/conftest.py",
       "lifecycle": "maintained"
+    },
+    {
+      "path": "tests/test_extreme_open_p3_contract.py",
+      "lifecycle": "current_contract_regression",
+      "frozen_blob": "b5aad0b4235e9ea9d726ab8b353ef2719a9cc164"
     },
     {
       "path": "tests/test_extreme_open_univariate_stats.py",
