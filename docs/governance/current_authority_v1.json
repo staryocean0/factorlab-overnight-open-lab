@@ -29,6 +29,7 @@
     ],
     "development_detail_window": "2015-01-05_to_2020-12-31",
     "feature_boundary_fit_window": "2015-01-05_to_2017-12-31",
+    "feature_boundary_fit_outcomes_inspected": false,
     "conditional_outcome_evaluation_window": "2018-01-01_to_2020-12-31",
     "reusable_blackbox_2021_2025_open_authorized": false,
     "active_execution_authority": false,
@@ -62,11 +63,18 @@
       "default_action_outside_certified_bucket": "ABSTAIN"
     },
     "progression_gates": {
+      "minimum_bucket_evaluation_observations": 30,
+      "minimum_evaluation_observations_each_year": 5,
+      "evaluation_years": [
+        2018,
+        2019,
+        2020
+      ],
+      "effect_size_gate_operator": "OR",
       "minimum_absolute_probability_lift_pp": 12.5,
       "minimum_risk_ratio_when_defined": 1.5,
       "probability_difference_interval": "95pct_excludes_zero",
-      "minimum_same_direction_natural_years": "4_of_6_when_observable",
-      "require_both_2015_2017_and_2018_2020_representation": true,
+      "all_evaluation_years_same_direction": true,
       "family_fdr": "BH_q<=0.10",
       "postopen_return_direction_must_agree": true,
       "pooled_significance_alone_is_insufficient": true
