@@ -12,10 +12,24 @@
     "local_model_role": "data procurement or mechanical materialization only when cloud lacks required data",
     "production_authority": false
   },
-  "active_research": null,
+  "active_research": {
+    "identity": "overnight_extreme_open_univariate_dev_v1",
+    "status": "AUTHORIZED_P1_P2_DEV_ADJUDICATION_NOT_YET_EXECUTED",
+    "protocol": "docs/governance/extreme_open_univariate_dev_v1_protocol.json",
+    "state": "docs/governance/extreme_open_univariate_dev_v1_state.json",
+    "carrier": "data/extreme_open_vnext_dev_sufficient_statistics_v1.json",
+    "carrier_sha256": "d38483d9ef37e65506f858f6155482de32766a619c44ce799442d303c74cc321",
+    "allowed_phases": [
+      "P1_preopen_univariate",
+      "P2_postopen_univariate"
+    ],
+    "reusable_blackbox_2021_2025_open_authorized": false,
+    "P3_authorized": false,
+    "production_authority": false
+  },
   "planned_research": {
     "program_id": "overnight_extreme_open_conditional_transition_program_v1",
-    "status": "route_frozen_docs_first_p0_infrastructure_required_before_outcome_execution",
+    "status": "P0_COMPLETE_P1_P2_DEV_ADJUDICATION_AUTHORIZED",
     "purpose": "replace broad weak-information overnight buckets with sparse callable conditional states that have materially separated outcome distributions and otherwise abstain",
     "independent_motivation": "consumer_interface_selectivity_not_rescue_of_closed_blackbox_identity",
     "primary_event_threshold_bp": 30,
@@ -32,7 +46,7 @@
     "feature_boundary_fit_outcomes_inspected": false,
     "conditional_outcome_evaluation_window": "2018-01-01_to_2020-12-31",
     "reusable_blackbox_2021_2025_open_authorized": false,
-    "active_execution_authority": false,
+    "active_execution_authority": true,
     "first_generation_preopen_coordinates": [
       "V6A_expected_open_state",
       "B1_global_risk",
@@ -88,8 +102,12 @@
       "P5_separately_frozen_reusable_validation",
       "P6_independent_consumer_integration"
     ],
-    "next_gate": "complete P0 metadata/parity/synthetic infrastructure before any P1/P2 outcome computation",
-    "production_authority": false
+    "next_gate": "execute the exact frozen P1/P2 univariate DEV adjudication; do not open P3 or 2021-2025 reusable BLACKBOX",
+    "production_authority": false,
+    "P0_carrier": "data/extreme_open_vnext_dev_sufficient_statistics_v1.json",
+    "P0_carrier_sha256": "d38483d9ef37e65506f858f6155482de32766a619c44ce799442d303c74cc321",
+    "P0_complete": true,
+    "adjudication_contract": "docs/governance/extreme_open_univariate_dev_v1_protocol.json"
   },
   "recent_downstream_research": {
     "E1v2": {
@@ -231,9 +249,9 @@
     "E2v3 DEV_NO_PROGRESS is an adapter-contract result only and does not revoke validated upstream B2 authority.",
     "E3v3 C2 portfolio-risk adapter is DEV_INSUFFICIENT because 2017 has only six active decisions per frozen clock; incomplete-surface utility/downside statistics do not authorize candidate rejection, threshold/sign changes, clock selection, rescue, or successor design.",
     "E3v3 DEV_INSUFFICIENT is an adapter-contract result only and does not revoke validated upstream C2 authority.",
-    "The vNext extreme-open program is documentation-frozen only: P1/P2 outcome execution is forbidden until P0 infrastructure/parity is completed and authority is separately advanced."
+    "P0 is complete. Only overnight_extreme_open_univariate_dev_v1 P1/P2 DEV adjudication is active; no threshold/clock/candidate-family mutation, P3 intersection search, 2021-2025 reusable BLACKBOX opening, or production promotion is authorized."
   ],
-  "next_action": "Complete P0 infrastructure/parity for overnight_extreme_open_conditional_transition_program_v1 while active_research remains null. Do not execute P1/P2 outcomes, open 2021-2025 row-level BLACKBOX detail, or mutate closed identities until the P0 gate is explicitly satisfied.",
+  "next_action": "Execute the frozen P1/P2 DEV adjudication against the immutable P0 sufficient-statistics carrier under extreme_open_univariate_dev_v1_protocol.json; retain all hypotheses and stop before P3 until cloud adjudication is recorded.",
   "production_authority": false,
   "maintenance_contract": "docs/governance/repository_lifecycle_v1.json",
   "component_bindings": "docs/governance/component_bindings_v1.json",

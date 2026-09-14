@@ -229,8 +229,22 @@ def check(root: Path = ROOT) -> dict:
             errors.append('extreme-open feature-boundary stage may not inspect target outcomes')
         if planned.get('reusable_blackbox_2021_2025_open_authorized') is not False:
             errors.append('extreme-open plan improperly opens reusable BLACKBOX detail')
-        if planned.get('active_execution_authority') is not False or a.get('active_research') is not None:
-            errors.append('extreme-open docs-first plan improperly grants outcome execution')
+        plan_status = planned.get('status')
+        if plan_status == 'route_frozen_docs_first_p0_infrastructure_required_before_outcome_execution':
+            if planned.get('active_execution_authority') is not False or a.get('active_research') is not None:
+                errors.append('extreme-open docs-first plan improperly grants outcome execution')
+        elif plan_status == 'P0_COMPLETE_P1_P2_DEV_ADJUDICATION_AUTHORIZED':
+            active = a.get('active_research') or {}
+            if planned.get('active_execution_authority') is not True or active.get('identity') != 'overnight_extreme_open_univariate_dev_v1':
+                errors.append('extreme-open P1/P2 authority identity drift')
+            if active.get('protocol') != 'docs/governance/extreme_open_univariate_dev_v1_protocol.json' or active.get('state') != 'docs/governance/extreme_open_univariate_dev_v1_state.json':
+                errors.append('extreme-open P1/P2 protocol/state binding drift')
+            if active.get('carrier_sha256') != 'd38483d9ef37e65506f858f6155482de32766a619c44ce799442d303c74cc321':
+                errors.append('extreme-open P0 carrier binding drift')
+            if active.get('P3_authorized') is not False or active.get('reusable_blackbox_2021_2025_open_authorized') is not False or active.get('production_authority') is not False:
+                errors.append('extreme-open P1/P2 authority exceeds frozen DEV boundary')
+        else:
+            errors.append('unexpected extreme-open planned research status')
         if planned.get('phase_order') != expected_phases:
             errors.append('extreme-open phase order drift')
         policy = planned.get('bucket_policy', {})
