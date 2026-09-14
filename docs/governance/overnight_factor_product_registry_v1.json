@@ -341,12 +341,12 @@
       }
     }
   ],
-  "active_research_identity": null,
-  "active_research_status": null,
+  "active_research_identity": "overnight_extreme_open_univariate_dev_v1",
+  "active_research_status": "AUTHORIZED_P1_P2_DEV_ADJUDICATION_NOT_YET_EXECUTED",
   "deferred_frozen_identity": null,
   "waiting_validation_identity": null,
   "next_research_identity": null,
-  "next_research_note": "No active outcome-bearing identity. Consult canonical authority and generated CURRENT_STATUS; historical state next_action fields do not reopen completed research.",
+  "next_research_note": "Execute only the frozen P1/P2 univariate DEV protocol; P3 and reusable BLACKBOX remain unauthorized.",
   "cartesian_feature_factory_forbidden": true,
   "downstream_strategy_return_may_define_upstream_factor": false,
   "production_authority": false,
