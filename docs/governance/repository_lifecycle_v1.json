@@ -2562,6 +2562,11 @@
       "frozen_blob": "715a2f079c3bfd199b4cd2e245e68ab32187c104"
     },
     {
+      "path": "docs/research/extreme_open_univariate_dev_cloud_adjudication_20260914.md",
+      "lifecycle": "historical_immutable",
+      "frozen_blob": "8a625d2fbe82400e15d730c8090d35f422b68cff"
+    },
+    {
       "path": "docs/research/extreme_open_univariate_dev_v1_receipt.json",
       "lifecycle": "historical_immutable",
       "frozen_blob": "b298167a20e07de999faf2f2ae357071304270f0"

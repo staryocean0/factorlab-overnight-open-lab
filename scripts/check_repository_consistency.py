@@ -143,7 +143,7 @@ def render_views(root: Path) -> dict[str, str]:
         phase_order = ' → '.join(planned.get('phase_order', []))
         planned_section = [
             '## 7. vNext：极端开盘条件状态转移', '',
-            f"计划身份：`{planned.get('program_id')}`；状态：`{planned.get('status')}`。当前 `active_research` 仍为空，结果型执行权限为 `{planned.get('active_execution_authority')}`。", '',
+            f"计划身份：`{planned.get('program_id')}`；状态：`{planned.get('status')}`。当前 `active_research`：{active_text}；结果型执行权限为 `{planned.get('active_execution_authority')}`。", '',
             '这一代不再把 Overnight 当作一个覆盖每天的宽泛方向桶，而把产品改造成稀疏的可调用条件组件：只有某个冻结状态对条件分布产生足够大、足够稳定的分离时才输出状态；其他日期统一 `ABSTAIN`。这不是对已关闭 A3/C3/D1/E1/E2/E3 身份的救援，也不得利用已完成 BLACKBOX 的隐藏行为反推阈值。', '',
             f"首代物质事件门槛固定为 **±{planned.get('primary_event_threshold_bp')} bp**：09:31 gap >= +30bp 为 `EXTREME_UP`，<= -30bp 为 `EXTREME_DOWN`。开盘后固定同时观察 **09:35→09:50** 与 **09:35→10:35**，两者均报告、不得事后选赢家。高开后正收益为 continuation、负收益为 fade；低开后负收益为 continuation、正收益为 rebound。", '',
             '研究严格拆成两个因果时钟：pre-open 只回答“大幅高开/低开在什么条件下更可能发生”，不得使用目标日当前 gap；post-open 只有在 09:31 gap 已观察后，才回答“大幅高开/低开之后更可能延续还是反转”，且不得使用未来路径。', '',
@@ -243,6 +243,15 @@ def check(root: Path = ROOT) -> dict:
                 errors.append('extreme-open P0 carrier binding drift')
             if active.get('P3_authorized') is not False or active.get('reusable_blackbox_2021_2025_open_authorized') is not False or active.get('production_authority') is not False:
                 errors.append('extreme-open P1/P2 authority exceeds frozen DEV boundary')
+        elif plan_status == 'P1_COMPLETE_6_SURVIVORS_P2_COMPLETE_NO_SURVIVOR_P3_FREEZE_REQUIRED':
+            if planned.get('active_execution_authority') is not False or a.get('active_research') is not None:
+                errors.append('extreme-open closed P1/P2 identity improperly remains active')
+            if planned.get('P1_survivor_count') != 6 or planned.get('P2_survivor_count') != 0:
+                errors.append('extreme-open P1/P2 closeout count drift')
+            if planned.get('P2_postopen_intersection_authorized') is not False or planned.get('P3_preopen_successor_freeze_permitted') is not True:
+                errors.append('extreme-open P3 closeout boundary drift')
+            if planned.get('P3_candidate_construction_rule') != 'all two-way intersections among same-target P1 survivors only; exactly 3 EXTREME_UP plus 3 EXTREME_DOWN candidates':
+                errors.append('extreme-open P3 candidate-construction drift')
         else:
             errors.append('unexpected extreme-open planned research status')
         if planned.get('phase_order') != expected_phases:
