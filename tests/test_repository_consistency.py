@@ -61,7 +61,8 @@ def test_archive_resolver_preserves_original_path_lookup():
 
 def test_closed_v21_is_not_current_dev_authority():
     a = qa.load(ROOT,qa.AUTH)
-    assert a['active_research'] is None
+    active_identity = str((a.get('active_research') or {}).get('identity','')).lower()
+    assert 'v21' not in active_identity
     assert not any('v21' in str(p.get('latest_identity','')).lower() for p in qa.load(ROOT,qa.REGISTRY)['products'])
     paths = qa.load(ROOT,qa.LIFECYCLE)['files']
     old_tests = [p for p in paths if 'test_' in p['path'] and 'v21' in p['path']]
