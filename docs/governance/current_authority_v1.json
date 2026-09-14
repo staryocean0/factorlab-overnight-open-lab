@@ -15,7 +15,7 @@
   "active_research": null,
   "planned_research": {
     "program_id": "overnight_extreme_open_conditional_transition_program_v1",
-    "status": "P4_CALLABLE_STATE_PACKAGING_FROZEN_P5_FREEZE_REQUIRED",
+    "status": "P5_REUSABLE_VALIDATION_FROZEN_QUERY_NOT_YET_AUTHORIZED",
     "purpose": "replace broad weak-information overnight buckets with sparse callable conditional states that have materially separated outcome distributions and otherwise abstain",
     "independent_motivation": "consumer_interface_selectivity_not_rescue_of_closed_blackbox_identity",
     "primary_event_threshold_bp": 30,
@@ -88,7 +88,7 @@
       "P5_separately_frozen_reusable_validation",
       "P6_independent_consumer_integration"
     ],
-    "next_gate": "freeze a low-bandwidth reusable 2021-2025 P5 validation for the exact six-state P4 interface before opening any reusable-window result",
+    "next_gate": "after this freeze is merged, separately authorize exactly one reusable BLACKBOX query for the frozen P5 identity; no protocol mutation after authorization",
     "production_authority": false,
     "P0_carrier": "data/extreme_open_vnext_dev_sufficient_statistics_v1.json",
     "P0_carrier_sha256": "d38483d9ef37e65506f858f6155482de32766a619c44ce799442d303c74cc321",
@@ -171,7 +171,14 @@
     "P4_combined_probability_authority": false,
     "P4_three_way_state_authority": false,
     "P5_reusable_validation_freeze_permitted": true,
-    "P5_reusable_validation_open_authorized": false
+    "P5_reusable_validation_open_authorized": false,
+    "P5_identity": "overnight_extreme_open_callable_state_reusable_validation_v1",
+    "P5_protocol": "docs/governance/extreme_open_callable_state_reusable_validation_v1_protocol.json",
+    "P5_state": "docs/governance/extreme_open_callable_state_reusable_validation_v1_state.json",
+    "P5_runner": "scripts/run_extreme_open_callable_state_reusable_validation.py",
+    "P5_exact_state_count": 6,
+    "P5_blackbox_window": "2021-01-01_to_2025-12-31",
+    "P5_public_output": "PASS_FAIL_INSUFFICIENT_only"
   },
   "recent_downstream_research": {
     "E1v2": {
@@ -352,9 +359,10 @@
     "Extreme-open P3 is closed with six DEV progression states. They are set-valued and non-mutually-exclusive; no winner selection, three-way probability synthesis, pair-probability averaging/multiplication, or fired-state-count calibration is authorized.",
     "P4 may package the exact six P3 states plus supporting P1 lineage with default ABSTAIN and no post-open instruction; P5 reusable validation, consumer integration, account execution and production remain unauthorized until separately frozen.",
     "P4 freezes the exact six-state set-valued interface. No winner selection, combined probability, three-way state, mixed-target tie-break, post-open transition instruction, position/instrument/order mapping, or consumer integration is authorized.",
-    "P5 may validate only the exact frozen P4 interface on the reusable 2021-2025 window under a separately preregistered low-bandwidth contract; any P4 mutation requires a new identity."
+    "P5 may validate only the exact frozen P4 interface on the reusable 2021-2025 window under a separately preregistered low-bandwidth contract; any P4 mutation requires a new identity.",
+    "P5 protocol is frozen but the reusable 2021-2025 query is not yet authorized. No BLACKBOX row or outcome may be opened until a separate authority transition binds the exact frozen protocol/runner/P4 implementation."
   ],
-  "next_action": "Freeze the exact P5 reusable validation protocol for the six P4 state IDs and abstention/conflict semantics before opening any 2021-2025 validation output.",
+  "next_action": "After P5 freeze QA/merge, separately authorize one exact low-bandwidth reusable query for overnight_extreme_open_callable_state_reusable_validation_v1; do not mutate gates or P4 state definitions.",
   "production_authority": false,
   "maintenance_contract": "docs/governance/repository_lifecycle_v1.json",
   "component_bindings": "docs/governance/component_bindings_v1.json",

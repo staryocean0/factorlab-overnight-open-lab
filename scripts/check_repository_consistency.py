@@ -284,6 +284,17 @@ def check(root: Path = ROOT) -> dict:
                 errors.append('extreme-open P4 improperly synthesizes overlap evidence')
             if planned.get('P5_reusable_validation_freeze_permitted') is not True or planned.get('P5_reusable_validation_open_authorized') is not False:
                 errors.append('extreme-open P5 pre-freeze boundary drift')
+        elif plan_status == 'P5_REUSABLE_VALIDATION_FROZEN_QUERY_NOT_YET_AUTHORIZED':
+            if planned.get('active_execution_authority') is not False or a.get('active_research') is not None:
+                errors.append('extreme-open frozen P5 improperly grants query execution')
+            if planned.get('P5_identity') != 'overnight_extreme_open_callable_state_reusable_validation_v1' or planned.get('P5_exact_state_count') != 6:
+                errors.append('extreme-open P5 identity/state-count drift')
+            if planned.get('P5_public_output') != 'PASS_FAIL_INSUFFICIENT_only' or planned.get('P5_blackbox_window') != '2021-01-01_to_2025-12-31':
+                errors.append('extreme-open P5 output/window drift')
+            if planned.get('P5_reusable_validation_open_authorized') is not False or planned.get('reusable_blackbox_2021_2025_open_authorized') is not False:
+                errors.append('extreme-open P5 freeze improperly opens reusable BLACKBOX')
+            if planned.get('P4_combined_probability_authority') is not False or planned.get('P4_three_way_state_authority') is not False:
+                errors.append('extreme-open P5 freeze mutates P4 overlap boundary')
         else:
             errors.append('unexpected extreme-open planned research status')
         if planned.get('phase_order') != expected_phases:

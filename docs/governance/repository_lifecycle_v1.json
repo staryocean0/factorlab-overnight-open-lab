@@ -1820,6 +1820,14 @@
       "lifecycle": "maintained"
     },
     {
+      "path": "docs/governance/extreme_open_callable_state_reusable_validation_v1_protocol.json",
+      "lifecycle": "maintained"
+    },
+    {
+      "path": "docs/governance/extreme_open_callable_state_reusable_validation_v1_state.json",
+      "lifecycle": "maintained"
+    },
+    {
       "path": "docs/governance/extreme_open_preopen_intersections_dev_v1_protocol.json",
       "lifecycle": "maintained"
     },
@@ -3112,6 +3120,11 @@
       "frozen_blob": "053deee74cec29a33bd5be099b7130991f2855f3"
     },
     {
+      "path": "scripts/run_extreme_open_callable_state_reusable_validation.py",
+      "lifecycle": "frozen_implementation",
+      "frozen_blob": "8ac7afc3281690be0e12a98b84a9f73764f644df"
+    },
+    {
       "path": "scripts/run_global_risk_open_gap_blackbox.py",
       "lifecycle": "frozen_implementation",
       "frozen_blob": "395efda7e51880d62c1639117529f27c6507518a"
@@ -3163,6 +3176,11 @@
       "path": "tests/test_extreme_open_callable_state.py",
       "lifecycle": "current_contract_regression",
       "frozen_blob": "852923cdfe987805b46cd2e071ea1957e4ba8895"
+    },
+    {
+      "path": "tests/test_extreme_open_callable_state_reusable_validation.py",
+      "lifecycle": "current_contract_regression",
+      "frozen_blob": "90d6c362c79ae79443e44b2732cf1d586789fb49"
     },
     {
       "path": "tests/test_extreme_open_p3_contract.py",
