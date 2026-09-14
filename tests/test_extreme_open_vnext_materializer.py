@@ -1,3 +1,4 @@
+# P0 synthetic contract regression: no market/account rows are opened by this test module.
 import numpy as np
 import pandas as pd
 from extreme_open_vnext_core import event_class,forward_return,transition_label,tercile_edges,bucket,safe_div
