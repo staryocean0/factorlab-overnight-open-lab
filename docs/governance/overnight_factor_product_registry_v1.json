@@ -59,7 +59,7 @@
     {
       "product_id": "OFP-A5",
       "name": "extreme_open_callable_state",
-      "status": "DEV_packaged_waiting_reusable_validation",
+      "status": "P5_reusable_validation_frozen_not_queried",
       "availability": "pre_open_coordinate_interface",
       "research_identity": "overnight_extreme_open_callable_state_packaging_v1",
       "protocol": "docs/governance/extreme_open_callable_state_packaging_v1_protocol.json",
@@ -78,7 +78,11 @@
       "postopen_transition_authority": false,
       "validated_product_authority": false,
       "reusable_validation_authorized": false,
-      "production_authority": false
+      "production_authority": false,
+      "reusable_validation_identity": "overnight_extreme_open_callable_state_reusable_validation_v1",
+      "reusable_validation_protocol": "docs/governance/extreme_open_callable_state_reusable_validation_v1_protocol.json",
+      "reusable_validation_state": "docs/governance/extreme_open_callable_state_reusable_validation_v1_state.json",
+      "reusable_validation_runner": "scripts/run_extreme_open_callable_state_reusable_validation.py"
     },
     {
       "product_id": "OFP-B1",
@@ -370,7 +374,7 @@
   "deferred_frozen_identity": null,
   "waiting_validation_identity": null,
   "next_research_identity": "overnight_extreme_open_callable_state_reusable_validation_v1",
-  "next_research_note": "Freeze P5 validation before opening reusable 2021-2025 results; exact P4 six-state interface only.",
+  "next_research_note": "P5 protocol frozen; query not authorized until separate authority transition after freeze merge.",
   "cartesian_feature_factory_forbidden": true,
   "downstream_strategy_return_may_define_upstream_factor": false,
   "production_authority": false,
