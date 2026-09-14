@@ -1,0 +1,119 @@
+{
+  "schema_id": "overnight_extreme_open_callable_state_reusable_validation_protocol@1.0",
+  "session_date": "2026-09-14",
+  "research_identity": "overnight_extreme_open_callable_state_reusable_validation_v1",
+  "program_id": "overnight_extreme_open_conditional_transition_program_v1",
+  "parent_packaging_identity": "overnight_extreme_open_callable_state_packaging_v1",
+  "parent_protocol": "docs/governance/extreme_open_callable_state_packaging_v1_protocol.json",
+  "parent_reference_implementation": "scripts/extreme_open_callable_state.py",
+  "validation_role": "reusable_BLACKBOX_stability_validation_not_independent_OOS",
+  "blackbox_window": "2021-01-01..2025-12-31",
+  "public_output_enum": ["PASS", "FAIL", "INSUFFICIENT"],
+  "public_output_contract": "exactly one overall package decision; no state-level decision, metric, count, year, date, subgroup, failure attribution or rescue clue may be persisted or printed",
+  "source_contract": {
+    "base_panel_builder": "scripts/build_v6a_frozen_base_panel.py",
+    "base_panel_reconstruction_contract": "docs/governance/v6a_base_panel_reconstruction_contract_20260910.json",
+    "raw_panel": "data/high_open_dev_2015_2025/annotated_panel.parquet",
+    "minute_bars": "data/high_open_dev_2015_2025/1m_official.parquet",
+    "fred_nasdaq": "data/high_open_dev_2015_2025/fred_nasdaq.csv",
+    "fred_vix": "data/high_open_dev_2015_2025/fred_vix.csv",
+    "development_parity_panel": "data/development/csi1000_open_pit_panel.parquet",
+    "hkma": "data/v6a_external_sources_2015_2025/hkma_usdcny_cross.parquet",
+    "holiday_a50": "data/v6a_external_sources_2015_2025/sgx_a50_holiday_endpoints.parquet",
+    "ordinary_a50": "data/v6a_external_sources_2015_2025/sgx_a50_ordinary_preauction_endpoints.parquet",
+    "high_open_source_manifest": "data/high_open_dev_2015_2025/manifest.json",
+    "external_source_manifest": "data/v6a_external_sources_2015_2025/manifest.json",
+    "external_source_assertions": "data/v6a_external_sources_2015_2025/source_assertions.json"
+  },
+  "reconstruction_gates": {
+    "2015_2020_base_panel_parity": "exact_zero_tolerance_before_blackbox_rows_are_materialized",
+    "B1_formula": "exact frozen B1 lagged RMS60 coordinate",
+    "B2_formula": "exact frozen same-contract A50 channel lagged RMS60 coordinate",
+    "B4_formula": "exact frozen B1+B2+FX coherence coordinate with zero denominator missing",
+    "prior_volatility_formula": "log(rvol20)",
+    "P4_edges": "exact embedded frozen P4 edges; no refit",
+    "A50_clock_integrity_required": true,
+    "no_forward_fill_or_interpolation": true
+  },
+  "exact_state_set": [
+    "UP_B1_HIGH_X_B2_HIGH",
+    "UP_B1_HIGH_X_VOL_HIGH",
+    "UP_B2_HIGH_X_VOL_HIGH",
+    "DOWN_B1_LOW_X_B2_LOW",
+    "DOWN_B1_LOW_X_B4_LOW",
+    "DOWN_B2_LOW_X_B4_LOW"
+  ],
+  "state_count": 6,
+  "event_targets": {
+    "EXTREME_UP": "gap >= +0.003",
+    "EXTREME_DOWN": "gap <= -0.003"
+  },
+  "sample_sufficiency_gates_per_state": {
+    "intersection_pooled_minimum_n": 50,
+    "intersection_minimum_n_each_calendar_year": 5,
+    "left_exclusive_pooled_minimum_n": 50,
+    "left_exclusive_minimum_n_each_calendar_year": 5,
+    "right_exclusive_pooled_minimum_n": 50,
+    "right_exclusive_minimum_n_each_calendar_year": 5,
+    "rationale": "P3 used pooled 30 across three years and >=5/year; reusable validation preserves the annual minimum and scales the pooled minimum linearly to five years"
+  },
+  "scientific_gates_per_state": {
+    "target_probability_gt_parent": true,
+    "parent_materiality_operator": "OR",
+    "minimum_parent_probability_lift_pp": 12.5,
+    "minimum_parent_risk_ratio": 1.5,
+    "primary_comparison": "intersection versus disjoint REST",
+    "primary_newcombe_95pct_lower_bound_gt_zero": true,
+    "primary_two_sided_Fisher_BH_q_max": 0.10,
+    "target_probability_gt_each_full_constituent": true,
+    "incremental_over_stronger_full_constituent_operator": "OR",
+    "minimum_incremental_probability_lift_pp_over_stronger_constituent": 5.0,
+    "minimum_incremental_risk_ratio_over_stronger_constituent": 1.15,
+    "left_incremental_comparison": "intersection versus left constituent-exclusive",
+    "right_incremental_comparison": "intersection versus right constituent-exclusive",
+    "both_incremental_newcombe_95pct_lower_bounds_gt_zero": true,
+    "both_incremental_two_sided_Fisher_BH_q_max": 0.10,
+    "primary_probability_difference_positive_each_calendar_year": true,
+    "left_incremental_probability_difference_positive_each_calendar_year": true,
+    "right_incremental_probability_difference_positive_each_calendar_year": true
+  },
+  "BH_families": {
+    "primary": "separately for EXTREME_UP and EXTREME_DOWN, all three exact same-target states",
+    "incremental": "separately for EXTREME_UP and EXTREME_DOWN, all six exact state_x_constituent-exclusive comparisons"
+  },
+  "overall_decision_rule": {
+    "PASS": "all six states are sufficient and all six pass every frozen scientific gate",
+    "FAIL": "at least one state is sample-sufficient and fails at least one frozen scientific gate",
+    "INSUFFICIENT": "no sample-sufficient state fails a scientific gate, but at least one of the six states fails a frozen sample-sufficiency gate",
+    "state_level_decisions_public": false
+  },
+  "P4_semantics_validation": {
+    "exact_state_ids_unchanged": true,
+    "set_valued_overlap_semantics_unchanged": true,
+    "ABSTAIN_NO_P3_STATE_unchanged": true,
+    "ABSTAIN_TARGET_CONFLICT_unchanged": true,
+    "ABSTAIN_NO_VALIDATED_P2_STATE_unchanged": true,
+    "combined_probability_authority": false,
+    "three_way_state_authority": false
+  },
+  "PASS_authority_consequence": "exact P4 six-state interface may be promoted to reusable validated factor-component authority only; no consumer strategy, account execution or production authority",
+  "FAIL_authority_consequence": "no reusable validated OFP-A5 product; exact P4 DEV package remains historical DEV progression material only; no BLACKBOX-guided rescue",
+  "INSUFFICIENT_authority_consequence": "no reusable validated OFP-A5 product; no BLACKBOX-guided rescue",
+  "forbidden": [
+    "state_drop_or_reorder_after_query",
+    "edge_refit",
+    "threshold_search",
+    "new_state_or_three_way_search",
+    "state_count_calibration",
+    "winner_selection",
+    "postopen_P2_rescue",
+    "public_state_level_metrics_or_decisions",
+    "BLACKBOX_failure_attribution",
+    "consumer_strategy_PnL_selection",
+    "account_execution",
+    "production_promotion"
+  ],
+  "reusable_blackbox_after_query": true,
+  "reuse_is_independent_oos": false,
+  "production_authority": false
+}
