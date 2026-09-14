@@ -262,6 +262,17 @@ def check(root: Path = ROOT) -> dict:
                 errors.append('extreme-open P3 candidate-count drift')
             if active.get('P2_postopen_intersections_authorized') is not False or active.get('P4_authorized') is not False or active.get('reusable_blackbox_2021_2025_open_authorized') is not False or active.get('production_authority') is not False:
                 errors.append('extreme-open P3 authority exceeds frozen boundary')
+        elif plan_status == 'P3_COMPLETE_6_OF_6_INCREMENTAL_PREOPEN_STATES_P4_FREEZE_REQUIRED':
+            if planned.get('active_execution_authority') is not False or a.get('active_research') is not None:
+                errors.append('extreme-open closed P3 identity improperly remains active')
+            if planned.get('P3_complete') is not True or planned.get('P3_survivor_count') != 6:
+                errors.append('extreme-open P3 closeout count drift')
+            if planned.get('P3_carrier_sha256') != '0c97062e9b4d96570098ba97d1465de384387f6d6dab7a052e89483ad4a30c77':
+                errors.append('extreme-open P3 carrier closeout drift')
+            if planned.get('P3_set_valued_overlap_semantics_required') is not True or planned.get('P3_three_way_probability_authority') is not False:
+                errors.append('extreme-open P3 overlap interpretation drift')
+            if planned.get('P4_packaging_freeze_permitted') is not True or planned.get('P4_authorized') is not False:
+                errors.append('extreme-open P4 pre-freeze boundary drift')
         else:
             errors.append('unexpected extreme-open planned research status')
         if planned.get('phase_order') != expected_phases:
