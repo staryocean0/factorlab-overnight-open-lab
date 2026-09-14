@@ -4,7 +4,7 @@ Authority：`overnight_open_current_authority@1.34`；Registry：`overnight_fact
 
 BLACKBOX 逻辑查询数：**12**。
 
-`active_research`：null（没有获准执行的 outcome-bearing identity）。
+`active_research`：{"P6_authorized": false, "account_execution_authority": false, "blackbox_window": "2021-01-01..2025-12-31", "consumer_integration_authority": false, "frozen_bindings": {"p4_protocol_sha256": "8d211b41f39e2c0f67d892b7adbca65cd7235979cb9be8059cf90c7be2600bef", "p4_reference_implementation_sha256": "f400ec6e5e0df0f64174c0ebe427e5f532e458b4f038f75f4e20f6c69136e90d", "protocol_sha256": "c09fcc9d9c79cc987aee9ba1d6b2f1d4a8b59aef840d522a8e1d30714997b39b", "runner_sha256": "a30df8d9821471ee8afa715e8104602e336f82c33b04c03c73b9d101a935ef38"}, "identity": "overnight_extreme_open_callable_state_reusable_validation_v1", "p4_protocol": "docs/governance/extreme_open_callable_state_packaging_v1_protocol.json", "p4_reference_implementation": "scripts/extreme_open_callable_state.py", "production_authority": false, "protocol": "docs/governance/extreme_open_callable_state_reusable_validation_v1_protocol.json", "public_output": ["PASS", "FAIL", "INSUFFICIENT"], "reusable_blackbox_2021_2025_open_authorized": true, "runner": "scripts/run_extreme_open_callable_state_reusable_validation.py", "state": "docs/governance/extreme_open_callable_state_reusable_validation_v1_state.json", "status": "AUTHORIZED_NOT_YET_QUERIED"}。
 
 **交付边界：已验证因子的冻结参考实现与可复现证据，不是生产信号服务，也不是已通过验证的交易适配器。**
 
