@@ -114,7 +114,7 @@ Gap-Fill V2 已冻结并通过重复检验；其 true-fresh 窗口是 2026-08-24
 
 ## 7. vNext：极端开盘条件状态转移
 
-计划身份：`overnight_extreme_open_conditional_transition_program_v1`；状态：`P3_COMPLETE_6_OF_6_INCREMENTAL_PREOPEN_STATES_P4_FREEZE_REQUIRED`。当前 `active_research`：null（没有获准执行的 outcome-bearing identity）；结果型执行权限为 `False`。
+计划身份：`overnight_extreme_open_conditional_transition_program_v1`；状态：`P4_CALLABLE_STATE_PACKAGING_FROZEN_P5_FREEZE_REQUIRED`。当前 `active_research`：null（没有获准执行的 outcome-bearing identity）；结果型执行权限为 `False`。
 
 这一代不再把 Overnight 当作一个覆盖每天的宽泛方向桶，而把产品改造成稀疏的可调用条件组件：只有某个冻结状态对条件分布产生足够大、足够稳定的分离时才输出状态；其他日期统一 `ABSTAIN`。这不是对已关闭 A3/C3/D1/E1/E2/E3 身份的救援，也不得利用已完成 BLACKBOX 的隐藏行为反推阈值。
 

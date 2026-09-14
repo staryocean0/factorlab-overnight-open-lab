@@ -57,6 +57,30 @@
       ]
     },
     {
+      "product_id": "OFP-A5",
+      "name": "extreme_open_callable_state",
+      "status": "DEV_packaged_waiting_reusable_validation",
+      "availability": "pre_open_coordinate_interface",
+      "research_identity": "overnight_extreme_open_callable_state_packaging_v1",
+      "protocol": "docs/governance/extreme_open_callable_state_packaging_v1_protocol.json",
+      "state": "docs/governance/extreme_open_callable_state_packaging_v1_state.json",
+      "reference_implementation": "scripts/extreme_open_callable_state.py",
+      "scientific_parent": "overnight_extreme_open_preopen_survivor_intersections_dev_v1",
+      "callable_state_count": 6,
+      "consumer_roles": [
+        "timing_filter",
+        "risk",
+        "confidence",
+        "future_consumer_adapter"
+      ],
+      "set_valued_interface": true,
+      "default_abstain": true,
+      "postopen_transition_authority": false,
+      "validated_product_authority": false,
+      "reusable_validation_authorized": false,
+      "production_authority": false
+    },
+    {
       "product_id": "OFP-B1",
       "name": "global_risk_driver",
       "status": "validated_BLACKBOX_PASS_continuous_factor_product",
@@ -345,8 +369,8 @@
   "active_research_status": null,
   "deferred_frozen_identity": null,
   "waiting_validation_identity": null,
-  "next_research_identity": "overnight_extreme_open_callable_state_packaging_v1",
-  "next_research_note": "Result-free P4 packaging only: preserve all six P3 states as a set-valued interface; no winner/overlap calibration/P5 validation yet.",
+  "next_research_identity": "overnight_extreme_open_callable_state_reusable_validation_v1",
+  "next_research_note": "Freeze P5 validation before opening reusable 2021-2025 results; exact P4 six-state interface only.",
   "cartesian_feature_factory_forbidden": true,
   "downstream_strategy_return_may_define_upstream_factor": false,
   "production_authority": false,

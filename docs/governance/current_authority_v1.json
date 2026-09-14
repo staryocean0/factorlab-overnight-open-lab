@@ -15,7 +15,7 @@
   "active_research": null,
   "planned_research": {
     "program_id": "overnight_extreme_open_conditional_transition_program_v1",
-    "status": "P3_COMPLETE_6_OF_6_INCREMENTAL_PREOPEN_STATES_P4_FREEZE_REQUIRED",
+    "status": "P4_CALLABLE_STATE_PACKAGING_FROZEN_P5_FREEZE_REQUIRED",
     "purpose": "replace broad weak-information overnight buckets with sparse callable conditional states that have materially separated outcome distributions and otherwise abstain",
     "independent_motivation": "consumer_interface_selectivity_not_rescue_of_closed_blackbox_identity",
     "primary_event_threshold_bp": 30,
@@ -88,7 +88,7 @@
       "P5_separately_frozen_reusable_validation",
       "P6_independent_consumer_integration"
     ],
-    "next_gate": "freeze a result-free P4 set-valued callable-state packaging contract; do not choose a best P3 state, calibrate overlaps, open P5 reusable validation, or integrate consumers yet",
+    "next_gate": "freeze a low-bandwidth reusable 2021-2025 P5 validation for the exact six-state P4 interface before opening any reusable-window result",
     "production_authority": false,
     "P0_carrier": "data/extreme_open_vnext_dev_sufficient_statistics_v1.json",
     "P0_carrier_sha256": "d38483d9ef37e65506f858f6155482de32766a619c44ce799442d303c74cc321",
@@ -157,7 +157,21 @@
     "P3_set_valued_overlap_semantics_required": true,
     "P3_three_way_probability_authority": false,
     "P4_packaging_freeze_permitted": true,
-    "P4_authorized": false
+    "P4_authorized": false,
+    "P4_complete": true,
+    "P4_identity": "overnight_extreme_open_callable_state_packaging_v1",
+    "P4_protocol": "docs/governance/extreme_open_callable_state_packaging_v1_protocol.json",
+    "P4_state": "docs/governance/extreme_open_callable_state_packaging_v1_state.json",
+    "P4_reference_implementation": "scripts/extreme_open_callable_state.py",
+    "P4_callable_state_count": 6,
+    "P4_set_valued_interface": true,
+    "P4_target_conflict_action": "ABSTAIN_TARGET_CONFLICT",
+    "P4_no_state_action": "ABSTAIN_NO_P3_STATE",
+    "P4_postopen_transition_action": "ABSTAIN_NO_VALIDATED_P2_STATE",
+    "P4_combined_probability_authority": false,
+    "P4_three_way_state_authority": false,
+    "P5_reusable_validation_freeze_permitted": true,
+    "P5_reusable_validation_open_authorized": false
   },
   "recent_downstream_research": {
     "E1v2": {
@@ -276,6 +290,16 @@
       "carrier_sha256": "0c97062e9b4d96570098ba97d1465de384387f6d6dab7a052e89483ad4a30c77",
       "survivor_count": 6,
       "production_authority": false
+    },
+    "extreme_open_callable_packaging_v1": {
+      "identity": "overnight_extreme_open_callable_state_packaging_v1",
+      "status": "DEV_packaged_waiting_reusable_validation",
+      "protocol": "docs/governance/extreme_open_callable_state_packaging_v1_protocol.json",
+      "state": "docs/governance/extreme_open_callable_state_packaging_v1_state.json",
+      "reference_implementation": "scripts/extreme_open_callable_state.py",
+      "callable_state_count": 6,
+      "validated_reusable_product_authority": false,
+      "production_authority": false
     }
   },
   "validated_products": {
@@ -304,7 +328,8 @@
     "E2_v3_B2_stock_selection_adapter": "DEV_NO_PROGRESS_closed_no_successor",
     "E3_v3_C2_forward_cycle_portfolio_risk_adapter": "DEV_INSUFFICIENT_closed_no_successor",
     "Extreme_Open_P1_P2_v1": "P1_progression_6_preopen_states__P2_closed_no_univariate_transition_survivor__P3_requires_separate_freeze",
-    "Extreme_Open_P3_v1": "completed_DEV_6_of_6_incremental_preopen_intersection_states__P4_packaging_freeze_required"
+    "Extreme_Open_P3_v1": "completed_DEV_6_of_6_incremental_preopen_intersection_states__P4_packaging_freeze_required",
+    "Extreme_Open_P4_v1": "packaging_frozen_exact_six_state_set_waiting_separately_frozen_P5_reusable_validation"
   },
   "blackbox_ledger_query_count": 12,
   "hard_rules": [
@@ -325,9 +350,11 @@
     "Extreme-open P1/P2 v1 is closed: six P1 pre-open DEV survivor states are retained, P2 has zero transition survivors, and no P2 threshold/clock/bucket rescue or P2-derived P3 intersection is authorized.",
     "Any P3 continuation must be a separately frozen pre-open identity using only the mechanical six-candidate same-target two-way intersection family; 2021-2025 reusable BLACKBOX remains sealed.",
     "Extreme-open P3 is closed with six DEV progression states. They are set-valued and non-mutually-exclusive; no winner selection, three-way probability synthesis, pair-probability averaging/multiplication, or fired-state-count calibration is authorized.",
-    "P4 may package the exact six P3 states plus supporting P1 lineage with default ABSTAIN and no post-open instruction; P5 reusable validation, consumer integration, account execution and production remain unauthorized until separately frozen."
+    "P4 may package the exact six P3 states plus supporting P1 lineage with default ABSTAIN and no post-open instruction; P5 reusable validation, consumer integration, account execution and production remain unauthorized until separately frozen.",
+    "P4 freezes the exact six-state set-valued interface. No winner selection, combined probability, three-way state, mixed-target tie-break, post-open transition instruction, position/instrument/order mapping, or consumer integration is authorized.",
+    "P5 may validate only the exact frozen P4 interface on the reusable 2021-2025 window under a separately preregistered low-bandwidth contract; any P4 mutation requires a new identity."
   ],
-  "next_action": "Freeze the P4 callable-state interface: exact six P3 state IDs, runtime inputs, set-valued overlap semantics, supporting P1 lineage, ABSTAIN behavior and explicit absence of P2 post-open authority.",
+  "next_action": "Freeze the exact P5 reusable validation protocol for the six P4 state IDs and abstention/conflict semantics before opening any 2021-2025 validation output.",
   "production_authority": false,
   "maintenance_contract": "docs/governance/repository_lifecycle_v1.json",
   "component_bindings": "docs/governance/component_bindings_v1.json",

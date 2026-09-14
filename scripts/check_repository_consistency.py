@@ -273,6 +273,17 @@ def check(root: Path = ROOT) -> dict:
                 errors.append('extreme-open P3 overlap interpretation drift')
             if planned.get('P4_packaging_freeze_permitted') is not True or planned.get('P4_authorized') is not False:
                 errors.append('extreme-open P4 pre-freeze boundary drift')
+        elif plan_status == 'P4_CALLABLE_STATE_PACKAGING_FROZEN_P5_FREEZE_REQUIRED':
+            if planned.get('active_execution_authority') is not False or a.get('active_research') is not None:
+                errors.append('extreme-open P4 packaging improperly grants outcome execution')
+            if planned.get('P4_complete') is not True or planned.get('P4_callable_state_count') != 6 or planned.get('P4_set_valued_interface') is not True:
+                errors.append('extreme-open P4 packaging identity drift')
+            if planned.get('P4_target_conflict_action') != 'ABSTAIN_TARGET_CONFLICT' or planned.get('P4_no_state_action') != 'ABSTAIN_NO_P3_STATE' or planned.get('P4_postopen_transition_action') != 'ABSTAIN_NO_VALIDATED_P2_STATE':
+                errors.append('extreme-open P4 abstention/conflict semantics drift')
+            if planned.get('P4_combined_probability_authority') is not False or planned.get('P4_three_way_state_authority') is not False:
+                errors.append('extreme-open P4 improperly synthesizes overlap evidence')
+            if planned.get('P5_reusable_validation_freeze_permitted') is not True or planned.get('P5_reusable_validation_open_authorized') is not False:
+                errors.append('extreme-open P5 pre-freeze boundary drift')
         else:
             errors.append('unexpected extreme-open planned research status')
         if planned.get('phase_order') != expected_phases:
