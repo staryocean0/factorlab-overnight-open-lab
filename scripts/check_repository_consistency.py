@@ -34,6 +34,7 @@ def receipt_identity(receipt: dict) -> str | None:
         return receipt.get('candidate')
     return receipt.get('research_identity')
 
+
 def ledger_errors(ledger: dict, authority: dict, registry: dict) -> list[str]:
     errors: list[str] = []
     queries = ledger.get('queries', [])
@@ -78,6 +79,7 @@ def render_views(root: Path) -> dict[str, str]:
     count = ledger['query_count']
     active = a.get('active_research')
     active_text = json.dumps(active, ensure_ascii=False, sort_keys=True) if active else 'null（没有获准执行的 outcome-bearing identity）'
+    planned = a.get('planned_research') or {}
     rows = []
     for c in catalog['validated_components']:
         rows.append(f"| {c['component_id']} | `{c['research_identity']}` | PASS / #{c['ledger_ordinal']} | {c['evidence_scope']} |")
@@ -134,6 +136,23 @@ def render_views(root: Path) -> dict[str, str]:
     matrix = []
     for c in catalog['validated_components']:
         matrix.extend([f"### {c['component_id']}", '', f"冻结身份：`{c['research_identity']}`。", '', f"范围：{c['evidence_scope']}。", '', f"数学定义：`{c['definition']}`。", '', f"实现：`{c['implementation']}`。", f"证据：`{c['receipt']}`；协议：`{c['protocol']}`。", f"状态：`{c['state']}`。", ''])
+    planned_section = []
+    if planned:
+        preopen = '、'.join(planned.get('first_generation_preopen_coordinates', []))
+        postopen = '、'.join(planned.get('first_generation_postopen_coordinates', []))
+        phase_order = ' → '.join(planned.get('phase_order', []))
+        planned_section = [
+            '## 7. vNext：极端开盘条件状态转移', '',
+            f"计划身份：`{planned.get('program_id')}`；状态：`{planned.get('status')}`。当前 `active_research` 仍为空，结果型执行权限为 `{planned.get('active_execution_authority')}`。", '',
+            '这一代不再把 Overnight 当作一个覆盖每天的宽泛方向桶，而把产品改造成稀疏的可调用条件组件：只有某个冻结状态对条件分布产生足够大、足够稳定的分离时才输出状态；其他日期统一 `ABSTAIN`。这不是对已关闭 A3/C3/D1/E1/E2/E3 身份的救援，也不得利用已完成 BLACKBOX 的隐藏行为反推阈值。', '',
+            f"首代物质事件门槛固定为 **±{planned.get('primary_event_threshold_bp')} bp**：09:31 gap >= +30bp 为 `EXTREME_UP`，<= -30bp 为 `EXTREME_DOWN`。开盘后固定同时观察 **09:35→09:50** 与 **09:35→10:35**，两者均报告、不得事后选赢家。高开后正收益为 continuation、负收益为 fade；低开后负收益为 continuation、正收益为 rebound。", '',
+            '研究严格拆成两个因果时钟：pre-open 只回答“大幅高开/低开在什么条件下更可能发生”，不得使用目标日当前 gap；post-open 只有在 09:31 gap 已观察后，才回答“大幅高开/低开之后更可能延续还是反转”，且不得使用未来路径。', '',
+            f"首代 pre-open 坐标只允许：{preopen}。首代 post-open 坐标只允许：{postopen}。连续 shelf product 本身不等于桶授权；本计划只是冻结新身份的候选输入边界。", '',
+            f"开发细节窗口固定为 `{planned.get('development_detail_window')}`；特征分桶边界仅用 `{planned.get('feature_boundary_fit_window')}` 的特征分布冻结，并明确不查看本计划 target outcome；条件结果与所有 promotion 决策只在 `{planned.get('conditional_outcome_evaluation_window')}` 评估。2021-2025 reusable BLACKBOX 逐行细节仍不得打开。", '',
+            'Phase 1 只做单变量状态；Phase 2 只允许在 Phase-1 survivor 中预注册少量两两交叉，禁止笛卡尔积工厂。可调用桶必须在 2018-2020 评估面至少有 30 个观测、且每个自然年至少 5 个观测；效果量要求 **12.5pct 绝对概率 lift 或 1.5x risk ratio（可定义时）至少满足一个**，同时 95% 概率差区间排除 0、2018/2019/2020 三年全部同方向、每个候选族 BH q<=0.10，并且开盘后概率解释与平均收益差方向一致。只在 pooled 上显著不能升级。', '',
+            f"冻结顺序：{phase_order}。在 P0 元数据、时钟、来源 lineage、result-free bucket builder 与 synthetic/parity gate 落地前，不允许 P1/P2 读取 outcome；DEV 通过后也必须另冻身份才能进入 reusable validation。", '',
+            '未来调用对象应返回 phase/as_of/event_class/transition_class/bucket_id/expected_probability/probability_lift/mean_return/coverage/sample_n/confidence/version/risk_flags，而不是把整组连续因子暴露给消费者。该接口不包含仓位、账户执行、品种映射或生产权限。', ''
+        ]
     whitepaper = '\n'.join([
         '# Overnight/Open 项目白皮书', '',
         '## 1. 定位与本次封版边界', '',
@@ -155,7 +174,8 @@ def render_views(root: Path) -> dict[str, str]:
         '## 6. 历史保存与后续变更', '',
         '过期 one-shot workflow 从当前执行面删除；其他旧流程、已关闭实验的独立 runner 和阶段测试按清单归档。仍被当前组件依赖的历史实现保留原路径与字节，但不因此重新取得执行权。', '',
         '档案内的相对路径按冻结时仓库根解释。需要完整历史环境时，应在独立目录检出清单 baseline commit，不能直接将档案里的脚本当作今天的运行入口。', '',
-        '新组件或新研究须先完成独立预注册与输入/目标/消费者边界冻结，再同步 registry、component bindings、状态页、测试和 workflow。生产权限持续为 false。', ''
+        '新组件或新研究须先完成独立预注册与输入/目标/消费者边界冻结，再同步 registry、component bindings、状态页、测试和 workflow。生产权限持续为 false。', '',
+        *planned_section
     ])
     return {'README.md': readme, 'CONTINUE_HERE.md': cont, 'docs/CURRENT_STATUS.md': status, 'docs/WHITEPAPER.md': whitepaper}
 
@@ -184,6 +204,49 @@ def check(root: Path = ROOT) -> dict:
     by_id = {q['query_id']: q for q in ledger['queries']}
     if (a.get('active_research') or {}).get('identity') != registry.get('active_research_identity'):
         errors.append('authority/registry active identity mismatch')
+    planned = a.get('planned_research') or {}
+    if planned:
+        expected_phases = [
+            'P0_infrastructure_parity',
+            'P1_preopen_univariate_extreme_event_states',
+            'P2_postopen_univariate_extreme_transition_states',
+            'P3_sparse_survivor_intersections',
+            'P4_rule_list_and_abstain_packaging',
+            'P5_separately_frozen_reusable_validation',
+            'P6_independent_consumer_integration',
+        ]
+        if planned.get('program_id') != 'overnight_extreme_open_conditional_transition_program_v1':
+            errors.append('unexpected planned research identity')
+        if planned.get('primary_event_threshold_bp') != 30:
+            errors.append('extreme-open material event threshold drift')
+        if planned.get('frozen_transition_horizons') != ['09:35_to_09:50', '09:35_to_10:35']:
+            errors.append('extreme-open frozen transition horizon drift')
+        if planned.get('development_detail_window') != '2015-01-05_to_2020-12-31':
+            errors.append('extreme-open DEV detail window drift')
+        if planned.get('feature_boundary_fit_window') != '2015-01-05_to_2017-12-31' or planned.get('conditional_outcome_evaluation_window') != '2018-01-01_to_2020-12-31':
+            errors.append('extreme-open result-free bucket split drift')
+        if planned.get('feature_boundary_fit_outcomes_inspected') is not False:
+            errors.append('extreme-open feature-boundary stage may not inspect target outcomes')
+        if planned.get('reusable_blackbox_2021_2025_open_authorized') is not False:
+            errors.append('extreme-open plan improperly opens reusable BLACKBOX detail')
+        if planned.get('active_execution_authority') is not False or a.get('active_research') is not None:
+            errors.append('extreme-open docs-first plan improperly grants outcome execution')
+        if planned.get('phase_order') != expected_phases:
+            errors.append('extreme-open phase order drift')
+        policy = planned.get('bucket_policy', {})
+        if any(policy.get(k) is not False for k in ['outcome_optimized_threshold_search', 'material_gap_threshold_search', 'clock_search', 'cartesian_feature_factory']):
+            errors.append('extreme-open result-free bucket policy drift')
+        if policy.get('default_action_outside_certified_bucket') != 'ABSTAIN':
+            errors.append('extreme-open default abstention drift')
+        gates = planned.get('progression_gates', {})
+        if gates.get('minimum_bucket_evaluation_observations') != 30 or gates.get('minimum_evaluation_observations_each_year') != 5 or gates.get('evaluation_years') != [2018, 2019, 2020]:
+            errors.append('extreme-open sample/time progression gate drift')
+        if gates.get('effect_size_gate_operator') != 'OR' or gates.get('minimum_absolute_probability_lift_pp') != 12.5 or gates.get('minimum_risk_ratio_when_defined') != 1.5:
+            errors.append('extreme-open effect-size progression gate drift')
+        if gates.get('probability_difference_interval') != '95pct_excludes_zero' or gates.get('all_evaluation_years_same_direction') is not True or gates.get('family_fdr') != 'BH_q<=0.10':
+            errors.append('extreme-open statistical progression gate drift')
+        if gates.get('postopen_return_direction_must_agree') is not True or gates.get('pooled_significance_alone_is_insufficient') is not True:
+            errors.append('extreme-open interpretation/stability gate drift')
     registry_products = {p['product_id']: p for p in registry['products']}
     for component in catalog['validated_components']:
         cid = component['component_id']
