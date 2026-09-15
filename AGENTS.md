@@ -1,3 +1,13 @@
+# RETIRED — DO NOT CONTINUE RESEARCH HERE
+
+**Effective 2026-09-15, this repository is retired as an active research/control-plane repository.**
+
+Do not start, resume, extend, rerun, retune, or hand off new research in this repository. Retained code, data, protocols, results, branches, issues, and workflows are historical evidence only unless one of the current paired repositories explicitly imports them by immutable identity.
+
+Current project work must be placed in the applicable paired control plane rather than a `factorlab-*` legacy lab. Historical scientific verdicts remain preserved, but this repository grants no current research, BLACKBOX, trading, or production authority.
+
+---
+
 # Overnight/Open — agent instructions
 
 Read `CONTINUE_HERE.md`, `docs/governance/current_authority_v1.json`, `docs/CURRENT_STATUS.md`, and `docs/governance/component_bindings_v1.json` before substantial work.
